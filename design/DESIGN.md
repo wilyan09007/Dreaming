@@ -4,8 +4,10 @@
 
 | | |
 |---|---|
-| **Status** | Draft v0.1 |
+| **Status** | Draft v0.2 (reconciled with the unified runtime brief) |
 | **Scope** | Architecture, planning, and the stage demo |
+| **Source brief** | [`../research/00-unified-runtime-brief.md`](../research/00-unified-runtime-brief.md) |
+| **Related** | [`PLAN.md`](PLAN.md) (24h build plan), [`CONTRACTS.md`](CONTRACTS.md) (interfaces), [`../demo/README.md`](../demo/README.md), [`../UI/README.md`](../UI/README.md), [`../research/`](../research/README.md) |
 | **Last updated** | 2026-10-17 |
 
 ---
@@ -52,9 +54,22 @@ Each call type declares an **effect class**:
 |---|---|---|---|
 | `pure` | LLM classification, extraction, CoT planning that outputs a decision, scoring | **Yes** | n/a |
 | `read` | GET order status, search, policy lookup | **Yes, with a TTL / staleness bound** (it is a learned cache) | **Yes** |
-| `write` | Issue refund, send email, create ticket | **Never** | **Yes** (choose endpoint, pre-check, retry policy) |
+| `write` | Post journal entry, issue refund, send email | **Never** | **Yes** (choose endpoint, pre-check, retry policy) |
 
 This is a hard safety invariant. A predictor can never stand in for a side effect.
+
+### 2.2 What gets modeled, in priority order
+
+The runtime is one lifecycle (observe, shadow, promote, audit, demote) applied to several kinds of call. Priority is also build order and fallback order (brief section 4).
+
+| Priority | Thing modeled | Replaces | Learned from | Verified by |
+|---|---|---|---|---|
+| 1 | Narrow policy steps (classify, extract, decide) | Frontier model calls | Step inputs and teacher outputs | Agreement on held-out rows with the exact-match cache disabled |
+| 2 | Tool outcomes: failure, latency, cost | Blind tool calls and retry loops | Tool request/response logs including failures | Predicted vs actual failure rate on live flaky endpoints |
+| 3 | Thinking budget | Chain-of-thought on easy steps | Which steps changed answer when reasoning was added | Accuracy with and without the router |
+| 4 | Full environment rollouts (imagine a plan before executing) | Trial and error | All of the above | Success rate vs baseline agent. **Only if 1 to 3 land** |
+
+Priority 2 is what makes the "environment model" honest: a small typed predictor of tool reliability and latency feeds the planner directly (pre-plan the fallback before calling a likely-to-fail tool). If only priority 1 ships, the system is still the distill-as-you-go idea; if only priority 4 ships, it is the idea reviewers rejected (see [`../research/02-fusion-rationale-and-critique.md`](../research/02-fusion-rationale-and-critique.md)).
 
 ---
 
@@ -63,7 +78,7 @@ This is a hard safety invariant. A predictor can never stand in for a side effec
 ### Goals
 - **G1.** Drop-in SDK: wrapping an existing agent takes under 30 lines of changes.
 - **G2.** Per-call-type predictors that are typed. The output is a valid instance of the call's output schema.
-- **G3.** Promotion is safe by construction. A promoted call type stays within a configured error budget (e.g. ≤1% disagreement on audited calls, measured relative to the frontier model's own self-agreement).
+- **G3.** Promotion is safe by construction. A promoted call type stays within a configured error budget (prod: ≤1% disagreement on audited calls; demo: ≤5%), measured relative to the frontier model's own self-agreement.
 - **G4.** Automatic demotion on drift (input distribution shift, audit disagreement spike, upstream model/API version change).
 - **G5.** Tool reliability model + router that measurably cuts end-to-end failure rate when alternatives exist.
 - **G6.** A stage demo that shows both curves falling over a few hundred runs, plus the live tool-kill moment.
@@ -210,26 +225,26 @@ from dreaming import dream, Effect
 from pydantic import BaseModel
 from typing import Literal
 
-class Ticket(BaseModel):
-    subject: str
-    body: str
-    customer_tier: Literal["free", "pro", "enterprise"]
+class Transaction(BaseModel):
+    vendor: str
+    amount: float
+    memo: str
+    account: str
 
-class Triage(BaseModel):
-    intent: Literal["where_is_order", "refund", "damaged", "cancel", "other"]
-    urgency: Literal["low", "med", "high"]
-    order_id: str | None
+class Category(BaseModel):
+    category: Literal["office", "travel", "payroll", "software", "cogs", "other"]
+    needs_review: bool
 
-@dream.call("triage_ticket", effect=Effect.PURE, cost_model="llm")
-def triage(t: Ticket) -> Triage:
-    return llm.structured(prompt=TRIAGE_PROMPT, input=t, output=Triage)
+@dream.call("categorize_transaction", effect=Effect.PURE, cost_model="llm")
+def categorize(t: Transaction) -> Category:
+    return llm.structured(prompt=CATEGORIZE_PROMPT, input=t, output=Category)
 
-@dream.tool("shipping_status", effect=Effect.READ, ttl="10m",
-            alternates=["shipping_status_backup"])
-def shipping_status(tracking: str) -> ShipStatus: ...
+@dream.tool("vendor_lookup", effect=Effect.READ, ttl="10m",
+            alternates=["vendor_directory_cache"])
+def vendor_lookup(name: str) -> VendorRecord: ...
 
-@dream.tool("issue_refund", effect=Effect.WRITE)
-def issue_refund(order_id: str, amount: float) -> RefundResult: ...
+@dream.tool("post_journal_entry", effect=Effect.WRITE)
+def post_journal_entry(txn_id: str, category: str) -> PostResult: ...
 ```
 
 Auto-wrapping (zero-annotation mode): `dream.instrument(anthropic_client)` and `dream.instrument_mcp(session)` create call types from `(call site, prompt template hash, tool name)`. Outputs without a schema are traced but stay `OBSERVING` forever, and the dashboard flags them as "add a schema to unlock savings".
@@ -313,14 +328,14 @@ This is selective prediction: the predictor answers only above a confidence thre
 
 1. Hold out a calibration set of recent shadow pairs.
 2. Fit isotonic/temperature calibration on confidence → agreement.
-3. Pick `τ_serve` as the lowest threshold where the **upper confidence bound on disagreement** for the covered set stays ≤ the error budget `δ` (e.g. δ = 1%). This is a split-conformal / Clopper–Pearson style guarantee.
+3. Pick `τ_serve` as the lowest threshold where the **upper confidence bound on disagreement** for the covered set stays ≤ the error budget `δ` (prod: δ = 1%; demo: δ = 5%). This is a split-conformal / Clopper–Pearson style bound; select `τ_serve` on a different split from the one used to report the bound.
 4. Coverage at `τ_serve` is the call type's savings potential, and it shows on the dashboard.
 
 ### 7.5 Promotion test
 
 Promote a call type `SHADOW → PROMOTED` when **all** of the following hold:
 
-- `n_shadow ≥ N_min` (default 50 for demo, 500 for prod).
+- `n_shadow ≥ N_min`, consistent with the error budget `δ`: with zero disagreements, certifying `δ` at 95% confidence needs about 59 samples for δ = 5%, 149 for 2%, and 299 for 1% (see [`../research/03-statistics-of-promotion.md`](../research/03-statistics-of-promotion.md)). **Demo defaults: δ = 5%, N_min = 60. Production defaults: δ = 1%, N_min = 300 to 500.**
 - Wilson lower bound of agreement on the covered set at `τ_serve` ≥ `max(τ_promote, s − ε)`.
 - Coverage ≥ `c_min` (default 20%). Promoting a predictor that never answers is pointless.
 - No slice is failing: agreement holds per major slice (e.g. per customer tier, per intent class) with a minimum per-slice n.
@@ -335,6 +350,21 @@ Promote a call type `SHADOW → PROMOTED` when **all** of the following hold:
   - Upstream change: model id, prompt template hash, tool schema, or API version changes.
   - Manual kill switch per call type, or globally.
 - Demotion is instant and local (Gateway reads state on every call). Retraining happens in the background.
+
+### 7.7 Thinking-budget router (priority 3)
+
+Chain-of-thought is a call-time decision: spend reasoning tokens or not. Treat it as a call type of kind `reasoning`.
+
+- **Labels.** On a sampled fraction of steps, run with and without reasoning. The label is whether the final typed answer changed (or whether it is correct only with reasoning, where ground truth exists).
+- **Predictor.** `P(answer changes with reasoning | input)`, trained and calibrated like any other call type.
+- **Policy.** Below a bound (chosen as in 7.4), run the step without reasoning; otherwise with. A sampled fraction still runs with reasoning for monitoring, and disagreement demotes the router.
+- **Verified by.** Accuracy with vs without the router, and reasoning tokens saved.
+
+Build only after priorities 1 and 2 are stable.
+
+### 7.8 Evaluation hook: disable the lookup tiers
+
+To show the predictors generalize rather than memorize, the eval harness must be able to **turn off tiers 0 and 1** (exact memo, near-duplicate kNN) and measure agreement on held-out rows. See [`../research/04-evaluation-methodology.md`](../research/04-evaluation-methodology.md).
 
 ---
 
@@ -399,6 +429,7 @@ Per call type, triggered when `new_traces ≥ K` (demo: K = 10) or every T secon
 
 - **Featurization** is shared across call types: one embedding model (small, local, e.g. a ~30M-parameter sentence embedder) plus schema-driven structured features (enums one-hot, numbers scaled, string-length/regex features).
 - **Speed budget (demo):** tiers 0–2 retrain in under 2 s per call type on ≤ 5k traces. Retraining fast enough is what makes the curve visibly fall during a live run.
+- **Pluggable trainers:** local tier 0 to 2 trainers and remote jobs (veri.studio SFT for tier 3 and the tool-outcome model) implement the same trainer interface and produce the same registry artifact and metadata.
 - **Warm start:** when a call type version changes, the previous version's traces are used only after re-validation in shadow (they may be stale).
 
 ---
@@ -415,68 +446,28 @@ Per call type, triggered when `new_traces ≥ K` (demo: K = 10) or every T secon
 |---|---|---|---|---|
 | Cold | 0–30 | 100% (baseline) | ~15% | Everything real. Flaky endpoint fails often. |
 | Shadow | 30–80 | ~100% | falling | Predictors training. Tool model starts routing. |
-| Promotions | 80–200 | stepping down to ~30% | ~3% | Triage, extraction, policy, and recovery promoted one by one (visible steps in the curve). |
+| Promotions | 80–200 | stepping down to ~30% | ~3% | `categorize`, `flag_anomaly`, and recovery promoted one by one (visible steps in the curve). |
 | Steady | 200+ | ~10–20% | ~1% | Floor = audits + long-tail low-confidence calls + non-distillable reply step. |
 
 ---
 
 ## 11. Demo plan
 
-### 11.1 Workflow: support ticket resolver
+Full spec in [`../demo/README.md`](../demo/README.md); dashboard in [`../UI/README.md`](../UI/README.md); video in [`../video/README.md`](../video/README.md). Summary:
 
-A realistic, mostly distillable agent. Per run, one synthetic ticket flows through:
+- **Pitch moment:** run the same agent workflow a few hundred times; two falling lines (cost per run, failure rate); then kill a tool mid-run and the agent reroutes with no frontier call because its predictor already expected the failure.
+- **Workflow:** Intuit's synthetic QuickBooks data. Steps: fetch bank feed (flaky tool), look up vendor (flaky tool), **categorize transaction** (distill), match to invoice, **flag anomaly** (distill), draft note (free text; sets the cost floor). Plus `recover_from_tool_failure` as the distilled hero for the kill moment.
+- **Results reported:** latency, cost, and accuracy on held-out rows vs the frontier-only baseline, with the exact-match tiers disabled.
+- **Demo error budget:** δ = 5% so promotion lands inside a few hundred runs (see 7.5). Stated on stage.
+- **Worked example outside the demo:** an e-commerce refund agent (classify intent, look up order, decide eligibility, draft reply). Three of four frontier calls per ticket become one; the order-lookup tool model learns a nightly failure window and schedules a cached-order fallback; eligibility runs without chain-of-thought. Numbers in the brief for this example are **illustrative, not measured**.
 
-| Step | Call type | Kind | Effect | Distillable? |
-|---|---|---|---|---|
-| 1 | `triage_ticket` | frontier LLM, structured | pure | ✅ enum + id extraction |
-| 2 | `lookup_order` | API (primary + replica) | read | ✅ learned cache / routing |
-| 3 | `shipping_status` | API (**provider A flaky**, provider B backup) | read | routing via tool model |
-| 4 | `plan_resolution` | frontier CoT → typed plan | pure | ✅ plan is `list[Action]` |
-| 5 | `check_refund_policy` | frontier LLM, structured | pure | ✅ bool + reason code |
-| 6 | `issue_refund` / `create_return` | API | write | ❌ never replaced (routed only) |
-| 7 | `draft_reply` | cheaper LLM, free text | pure | ❌ in v1 (stays real; sets the cost floor) |
-| — | `recover_from_tool_failure` | frontier LLM, structured | pure | ✅ the kill-moment hero |
+### 11.1 Kill-moment variants
 
-**Ticket generator.** It samples from a realistic, long-tailed distribution: ~70% from ~15 common archetypes with paraphrase variation, ~30% long-tail. This makes the curve fall convincingly *and* leaves a visible floor. A pure-repetition dataset would look fake.
+See section 8.4. Rehearse both: mid-run kill (recovery is distilled) and between-run kill with health probes (fully pre-emptive).
 
-**Flakiness model for provider A.** Structured, not random, so the tool model can learn something real:
-- times out on international tracking numbers (prefix pattern) ~60% of the time
-- 5xx bursts during simulated "peak" windows
-- ~3% background noise
+### 11.2 Demo engineering requirements
 
-### 11.2 Stage layout
-
-```
-┌──────────────────────────────────────────────┬──────────────────────────┐
-│  Cost per run ($)            ── falling      │  Call types              │
-│  Failure rate (%)            ── falling      │  triage_ticket  PROMOTED │
-│  (rolling mean, x = run #, promotion events  │  plan_resolution SHADOW  │
-│   marked as vertical ticks on the chart)     │  refund_policy  PROMOTED │
-│                                              │  recover_…      PROMOTED │
-├──────────────────────────────────────────────┤  shipping A  ⚠ p(fail).41│
-│  Live run feed: step → real / predicted /    │  shipping B  ✓ p(fail).02│
-│  audit / routed, with $ per step             │  [ KILL provider B ]     │
-└──────────────────────────────────────────────┴──────────────────────────┘
-```
-
-(Kill the endpoint the agent is currently *relying on*, i.e. whichever is healthier at that moment, so the reroute is meaningful.)
-
-### 11.3 Run-of-show (~6 minutes)
-
-1. **0:00** Explain the agent. Show one run with every step real. Show the cost.
-2. **0:45** Start the loop: 300 runs at concurrency ~8. Both lines start high.
-3. **1:30–3:30** Narrate promotions as they land: "triage just got promoted, so that step costs zero now unless it's unsure"; "the agent learned provider A fails on international numbers and stopped sending them there."
-4. **3:30** **Kill the tool** from the dashboard button. Live feed shows: failure → `recover_from_tool_failure` served by predictor (0 frontier calls) → backup used → run succeeds. Subsequent runs route around it.
-5. **4:30** Show the audit trail: "it still double-checks 3% of its guesses against the real model, and here's the agreement rate."
-6. **5:30** Close on the two curves.
-
-### 11.4 Demo engineering requirements
-
-- **Throughput:** 300 runs in ~3 minutes means ~1.7 runs/s. Frontier calls happen mostly early, so use concurrency 8–16 and request-rate headroom with the provider.
-- **Determinism / risk:** seedable ticket generator and flakiness. A **replay mode** re-runs a recorded session with real timings, as a fallback if the network fails on stage. The live tool kill must work in both modes. In replay mode, the kill injects a real failure into the local mock tool.
-- **Mock tools:** the shipping/order APIs are local FastAPI services we control. That gives deterministic flakiness and a real kill (process stop / port close).
-- **Accelerated retraining:** Dreamer K = 10 traces and a < 2 s train budget, so promotions happen in the window.
-- **Pre-flight:** a rehearsal script asserts that promotions land between runs 60–200 and that the final cost is ≤ 25% of baseline.
+Throughput, fast retraining (K ≈ 10 traces, under 2 s), replay mode, local killable mocks, and pre-flight assertions are specified in [`../demo/README.md`](../demo/README.md) section 6.
 
 ---
 
@@ -493,7 +484,10 @@ A realistic, mostly distillable agent. Per run, one synthetic ticket flows throu
 | Registry | SQLite + artifacts dir | Simple, atomic swaps |
 | Mock tools | FastAPI | Controllable flakiness, killable |
 | Dashboard | FastAPI WebSocket + React + a charting lib | Live charts |
-| Telemetry | OpenTelemetry span ids in traces | Interop later |
+| Telemetry | OpenTelemetry span ids in traces; Sentry tracing as emitter/mirror | Interop, and the brief's trace source |
+| Heavy training | veri.studio jobs: distillation SFT (tier 3) and the tool-outcome predictor; optional GRPO | Brief's Model Learning track fit; additive to the local tiers |
+| Time-series store | Tiger Data as an alternate trace/metrics backend behind the store interface | Brief's sponsor stack; demo must not depend on it being reachable |
+| Agent surface | Agentverse registration and ASI:One for triggering the workflow | Brief's Fetch.ai fit; thin adapter over the Gateway |
 
 ---
 
@@ -509,13 +503,13 @@ dreaming/
   tools/          tool model, health posterior, router, recovery call type
   registry/       call-type + predictor version registry
 demo/
-  agent/          support-ticket resolver workflow
+  agent/          QuickBooks-style transaction workflow (refund agent as alt example)
   mocks/          order + shipping services (flaky A, backup B), kill endpoint
-  generator/      ticket distribution
+  generator/      transaction distribution (common patterns + long tail)
   replay/         record / replay harness
 UI/               live dashboard
 design/           this doc
-research/         notes: selective prediction, distillation, conformal bounds
+research/         brief, prior art, critique, statistics, evaluation, sponsor fit
 video/            demo recordings
 ```
 
@@ -523,11 +517,11 @@ video/            demo recordings
 
 ## 14. Plan and milestones
 
-The demo-critical path is marked ★.
+The demo-critical path is marked ★. For the 24-hour event, the stage gates, four-person workstream split, and hour-by-hour timeline are in [`PLAN.md`](PLAN.md); interfaces between workstreams are in [`CONTRACTS.md`](CONTRACTS.md).
 
 | # | Milestone | Deliverables | Exit criteria |
 |---|---|---|---|
-| M0 ★ | **Baseline agent + mocks** | Support workflow on real frontier calls. Mock order/shipping services with configurable flakiness and kill. Ticket generator. | 300 runs complete. Baseline cost/run and failure rate recorded. |
+| M0 ★ | **Baseline agent + mocks** | QuickBooks-style workflow on real frontier calls. Mock bank-feed and vendor-lookup services with configurable flakiness and kill. Transaction generator. | 300 runs complete. Baseline cost/run and failure rate recorded. |
 | M1 ★ | **Tracing** | SDK decorators, trace schema, DuckDB store, cost accounting. | Every call in a run is traced with cost. Run-level rollups correct. |
 | M2 ★ | **Shadow predictors** | Ladder tiers 0–2, typed heads for enum/bool/id fields, comparator, Dreamer loop. | Shadow agreement visible per call type. Retrain < 2 s. |
 | M3 ★ | **Promotion + audit** | Calibration, `τ_serve` selection, promotion test, audit sampler, demotion on disagreement. | Cost/run falls ≥ 60% over 300 runs with end-to-end task success within 1 pt of baseline. |
@@ -549,12 +543,12 @@ Suggested sequencing: M0 → M1 → (M2 ‖ M4 tool-model prior) → M3 → M4 r
 | **Free-text outputs** dominate cost in some agents | Smaller savings | Push typed decisions upstream of text generation. v2: template + slot predictors. Be upfront that the floor exists. |
 | **Long-context inputs** (big documents, long histories) are hard to featurize | Low coverage | Featurize on salient extracted fields + embeddings of a summary. Mark as low-coverage candidates. |
 | **Stale `read` predictions** (cached order status changed) | Wrong facts | TTL per tool. Never predict reads that feed a `write` without a fresh real read (configurable invariant). |
-| **Drift** (new product, new ticket types) | Degraded predictions | OOD gating per call (OOD inputs → real call), audit-rate bump, auto-demotion. |
+| **Drift** (new vendors, new transaction types) | Degraded predictions | OOD gating per call (OOD inputs → real call), audit-rate bump, auto-demotion. |
 | **Feedback loops** (training on predictions) | Model collapse | Labels only from real calls (§6.2 invariant, enforced in the Dreamer query). |
 | **Audit selection bias** (audits only where confident) | Overestimated agreement | Low-confidence fall-throughs also produce labels. Random audits include a small slice below `τ_serve`. |
 | **Privacy:** traces contain user data | Compliance | PII redaction hooks at emit time. Per-field `sensitive` flag. Local-only storage by default. |
 | **Demo:** network or rate limits on stage | Failed demo | Replay mode. Local mock tools. Pre-warmed connection pool. Rehearsal assertions. |
-| **Demo looks rigged** (too-perfect curves) | Credibility | Long-tail tickets, visible audit disagreements, honest floor. Show the trace table live. |
+| **Demo looks rigged** (too-perfect curves) | Credibility | Long-tail rows, visible audit disagreements, honest floor. Show the trace table live. |
 
 ---
 
