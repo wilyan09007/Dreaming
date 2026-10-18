@@ -1,5 +1,3 @@
-# pyright: basic
-# (the trainer package is not installed in the dev venv, so pyright cannot resolve `dreaming_trainer` and sees it as Unknown; basic mode keeps the rest checked)
 """Offline checks for the campaign (campaign.py) and the monitor (monitor.py): the split, the matrix, one rung end to end, the pruning rules.
 
 No Modal, no Postgres: `run_rung` takes the encoder and the rows directly, so the head candidate runs on a bag-of-trigrams fake in a second.
@@ -7,10 +5,8 @@ No Modal, no Postgres: `run_rung` takes the encoder and the rows directly, so th
 
 from __future__ import annotations
 
-import sys
 import zlib
 from datetime import UTC, datetime, timedelta
-from pathlib import Path
 from typing import Any
 
 import numpy as np
@@ -18,9 +14,7 @@ import pytest
 from dreaming.contracts import CallSite, Hashes, Kind, Prediction
 from dreaming.predictors.candidates import CANDIDATES, Candidate, Fitted
 from dreaming.predictors.student import Vec
-
-sys.path.insert(0, str(Path(__file__).parents[1] / "src"))  # the trainer package is installed only on its Modal image (`uv sync --package dreaming-trainer`)
-from dreaming_trainer import campaign, monitor  # pyright: ignore[reportMissingImports]
+from dreaming_trainer import campaign, monitor  # installed by `uv sync --all-packages`
 
 LABELS = ["Software", "Meals", "Travel"]
 MERCHANTS = {"ADOBE": "Software", "NOTION": "Software", "FIGMA": "Software", "BLUE BOTTLE": "Meals", "DOORDASH": "Meals", "SWEETGREEN": "Meals",
@@ -83,6 +77,9 @@ def test_eval_sets_are_frozen_by_content() -> None:
     assert [s.split for s in sets] == ["calib", "test", "forward"]
     assert sets == campaign.eval_sets("w.cat", rows, sp) and len({s.sha for s in sets}) == 3
     assert sets[1].row_ids == [str(i) for i in sp["test"]] and sets[1].labels == [rows[i]["label"] for i in sp["test"]]
+    relabelled = [{**r, "label": "Other"} for r in rows]  # a re-prepared site: same line numbers, new labels -> new eval sets
+    assert {s.sha for s in campaign.eval_sets("w.cat", relabelled, sp)}.isdisjoint(s.sha for s in sets)
+    assert campaign.eval_sets("w.other", rows, sp)[0].sha != sets[0].sha  # line numbers repeat across sites; the sha must not
 
 
 @pytest.mark.parametrize("finetune", [True, False])
@@ -92,7 +89,7 @@ def test_cells_matrix(monkeypatch: pytest.MonkeyPatch, finetune: bool) -> None:
     assert len(got) == (34 if finetune else 30)
     assert len({c["id"] for c in got}) == len(got)
     first = campaign.cells("night", ["categorize"])[:3]
-    assert [c["id"] for c in first] == [f"night:bookkeeper.categorize:head:seed+real:s{k}" for k in range(3)]
+    assert [c["id"] for c in first] == [f"night:bookkeeper.categorize:head:real:s{k}" for k in range(3)]
     assert {c["candidate"] for c in got if c["call_site"] in campaign.TOOL_SITES} == {"exact"}
     gpu = [c for c in got if c["where"] == "modal:T4"]
     assert len(gpu) == (4 if finetune else 0) and all(c["candidate"] == "finetune" and c["seed"] == 0 for c in gpu)
@@ -170,7 +167,7 @@ def test_volume_encoder_looks_vectors_up() -> None:
 # ---------------------------------------------------------------- the monitor
 
 
-def row(run_id: str, cand: str, seed: int, rung: int | None, *, site_: str = "s", variant: str = "seed+real", status: str = "done", stable: bool = True,
+def row(run_id: str, cand: str, seed: int, rung: int | None, *, site_: str = "s", variant: str = "real", status: str = "done", stable: bool = True,
         cov: float | None = 0.5, err: float = 0.0, where: str = "modal:cpu", fc: str | None = None) -> dict[str, Any]:
     return {"run_id": run_id, "call_site": site_, "candidate": cand, "variant": variant, "seed": seed, "where": where, "status": status, "note": None,
             "seconds": 1.0, "fc_id": fc, "rung": rung, "bytes": 10, "stable": stable if rung else None, "coverage_05": cov if rung else None,

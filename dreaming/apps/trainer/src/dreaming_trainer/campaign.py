@@ -9,7 +9,8 @@
     train_cell(run: dict) -> dict              one TrainRun on CPU: rungs 60/200/500/2000 of a seeded row order; at each rung fit, score the three
                                                frozen EvalSets twice (stability), write Checkpoint + weights + scores .npz; running -> done | failed
     train_cell_gpu(run: dict) -> dict          the same body on a T4 for candidates with needs_gpu (finetune); the 10-GPU cap queues the rest
-    launch_cells(campaign, sites, limit)       cells() -> queued train_runs rows -> spawn each by name; the API and `launch` call it
+    launch_cells(campaign, sites, limit)       cells() -> prepare_site for sites not on the Volume yet -> queued train_runs rows -> spawn each
+                                               by name (a site that fails to prepare gets its cells as failed rows, the error in `note`)
     progress(campaign) -> dict                 monitor.table as plain rows, for the API
     monitor() [cron */10]                      monitor.prune + monitor.table for every campaign started in the last 24 h; one campaign.progress event
     cells(campaign, sites) -> [TrainRun dict]  the matrix; split(rows) -> {train, calib, test, forward}  the frozen eval sets
@@ -64,22 +65,18 @@ from dreaming.store import PostgresStore
 from numpy.typing import NDArray
 from psycopg.types.json import Jsonb
 
-try:  # package mode: tests, `modal deploy -m dreaming_trainer.campaign`
-    from . import monitor as mon
-    from .modal_app import db, volume
-    from .modal_app import image as base_image
-except ImportError:  # script mode (`modal deploy path/to/campaign.py`): this file is a top-level module and its siblings sit beside it
-    import monitor as mon
-    from modal_app import db, volume
-    from modal_app import image as base_image
+# Absolute imports in both modes: `modal deploy path/to/campaign.py` runs this file as a top-level module, and the package (installed in the
+# dev venv, copied into the image below) is where its siblings live.
+from dreaming_trainer import monitor as mon
+from dreaming_trainer.modal_app import db, volume
+from dreaming_trainer.modal_app import image as base_image
 
-HERE = Path(__file__).resolve().parent
-# modal_app.image already holds torch, the encoder and `dreaming` (copied); the two workflows come after, then the sibling files script mode imports.
+# modal_app.image already holds torch, the encoder and `dreaming` (copied); the two workflows and this package come after.
 image = (
     base_image.uv_pip_install("huggingface_hub==1.33.0", "pyyaml==6.0.2")  # the hub version sentence-transformers 6.1.0 resolves to; quickbooks.data reads the dataset with it
-    .add_local_python_source("bookkeeper", "quickbooks", copy=True)
-    .add_local_file(HERE / "monitor.py", "/root/monitor.py")
-    .add_local_file(HERE / "modal_app.py", "/root/modal_app.py")
+    # same weights_sha on any Modal CPU: one BLAS thread and one kernel family (numpy's OpenBLAS picks per CPU otherwise; measured: 4 of 9 shas matched)
+    .env({"OPENBLAS_NUM_THREADS": "1", "OPENBLAS_CORETYPE": "Haswell"})
+    .add_local_python_source("bookkeeper", "quickbooks", "dreaming_trainer", copy=True)
 )
 app = modal.App("dreaming-campaign", image=image)  # its own app: the trainer's `train` has max_containers=2
 
@@ -96,9 +93,9 @@ ROOT = Path("/weights/campaign")
 URI = "modal://dreaming-weights/campaign"
 MAX_BYTES = 8 * 1024 * 1024  # weights above this go to the Volume, not a bytea
 MAX_DENSE = 64  # a label set wider than this (document ids) stores no per-label score matrix
-# Modal list prices (docs/devtools.md, modal.com/pricing 2026-10-17): $0.047 per physical core-hour, T4 $0.59/h. Approximate: wall clock x one core
-# (+ the T4), no memory charge; good for the table and the order of magnitude, not for billing.
-CPU_CORE_S, T4_S = 0.047 / 3600, 0.59 / 3600
+# Modal list prices (docs/devtools.md, modal.com/pricing 2026-10-17): $0.047 per physical core-hour, $0.008 per GiB-hour, T4 $0.59/h. Approximate:
+# wall clock x the request (one core, its memory, the T4); good for the table and the order of magnitude, not for billing.
+CPU_CORE_S, GIB_S, T4_S = 0.047 / 3600, 0.008 / 3600, 0.59 / 3600
 
 Rows = Sequence[Mapping[str, Any]]
 
@@ -124,8 +121,8 @@ def cells(campaign: str, sites: Sequence[str] = ()) -> list[dict[str, Any]]:
     """The matrix as TrainRun dicts, candidate-major then seed, so `limit=3` on one site is three seeds of its first candidate.
 
     Model sites: head and memory x seeds 0,1,2 on CPU, plus finetune x seed 0 on a T4 when it is registered. Tool sites: exact x seeds 0,1,2.
-    shortcut: variant "seed" (day zero on LLM-written rows) is not launched tonight because nothing writes seed.jsonl, so the docs' 58 cells
-    become 34 (30 without finetune); add the variant when seed rows exist (one more checkpoint per cell, rung 0).
+    shortcut: nothing writes LLM seed rows yet, so every cell is variant "real" (the label says what it trained on) and the docs' "seed+real"
+    and "seed" variants (58 cells) become 34 (30 without finetune); add both when a seed.jsonl per site exists.
     """
     out: list[dict[str, Any]] = []
     for s in [site_id(n) for n in sites] or SITES:
@@ -133,7 +130,7 @@ def cells(campaign: str, sites: Sequence[str] = ()) -> list[dict[str, Any]]:
         if s not in TOOL_SITES and _finetune_ported():
             plan.append(("finetune", 0, "modal:T4"))
         for cand, seed, where in plan:
-            run = TrainRun(id=f"{campaign}:{s}:{cand}:seed+real:s{seed}", campaign=campaign, call_site=s, candidate=cand, variant="seed+real",
+            run = TrainRun(id=f"{campaign}:{s}:{cand}:real:s{seed}", campaign=campaign, call_site=s, candidate=cand, variant="real",
                            seed=seed, where=where, config={"rungs": list(RUNGS)})
             out.append(run.model_dump(mode="json"))
     return out
@@ -153,9 +150,13 @@ def split(rows: Rows) -> dict[str, list[int]]:
 
 
 def eval_sets(site: str, rows: Rows, sp: Mapping[str, Sequence[int]]) -> list[EvalSet]:
-    ids = {s: [str(i) for i in sp[s]] for s in SPLITS}
-    return [EvalSet(sha=sha([site, s, ids[s]]), call_site=site, split=s, row_ids=ids[s], labels=[rows[i]["label"] for i in sp[s]],
-                    groups=[rows[i]["group"] for i in sp[s]]) for s in SPLITS]
+    """The sha covers the rows' content, not only their line numbers: a re-prepared site (new labels) gets new eval sets, not the old ones."""
+    out: list[EvalSet] = []
+    for s in SPLITS:
+        ids, labels, groups = [str(i) for i in sp[s]], [rows[i]["label"] for i in sp[s]], [rows[i]["group"] for i in sp[s]]
+        out.append(EvalSet(sha=sha([site, s, ids, [rows[i]["rendered"] for i in sp[s]], labels, groups]), call_site=site, split=s,
+                           row_ids=ids, labels=labels, groups=groups))
+    return out
 
 
 def rungs_for(n_pool: int, gpu: bool = False) -> list[int]:
@@ -368,11 +369,14 @@ def _candidate(name: str) -> Candidate:
 def _cell(run_dict: dict[str, Any], gpu: bool) -> dict[str, Any]:
     run = TrainRun.model_validate(run_dict)
     t0 = perf_counter()
-    with _pg() as conn:
-        conn.execute('insert into train_runs (id, campaign, call_site, candidate, variant, seed, config, "where", status, started_at) '
-                     "values (%s, %s, %s, %s, %s, %s, %s, %s, 'running', now()) "
-                     "on conflict (id) do update set status = 'running', started_at = now(), finished_at = null, note = null",
-                     (run.id, run.campaign, run.call_site, run.candidate, run.variant, run.seed, Jsonb(run.config), run.where))
+    with _pg() as conn:  # a cell the monitor pruned before it started never starts (rule 2: pruned for the next rung)
+        started = conn.execute('insert into train_runs (id, campaign, call_site, candidate, variant, seed, config, "where", status, started_at) '
+                               "values (%s, %s, %s, %s, %s, %s, %s, %s, 'running', now()) "
+                               "on conflict (id) do update set status = 'running', started_at = now(), finished_at = null, note = null "
+                               "where train_runs.status <> 'pruned' returning id",
+                               (run.id, run.campaign, run.call_site, run.candidate, run.variant, run.seed, Jsonb(run.config), run.where)).fetchone()
+    if started is None:
+        return {"id": run.id, "seconds": 0.0, "skipped": "pruned"}
     try:
         volume.reload()
         d = ROOT / run.call_site
@@ -398,13 +402,17 @@ def _cell(run_dict: dict[str, Any], gpu: bool) -> dict[str, Any]:
         out = ROOT / run.id
         out.mkdir(parents=True, exist_ok=True)
         for n in rungs_for(len(pool), gpu):
+            t1 = perf_counter()
             r = run_rung(site, cand, trace[:n], rows, sp, meta["labels"], encoder)
             cast(Any, np.savez)(out / f"{n}.npz", **r.arrays)
+            t2 = perf_counter()
             volume.commit()
+            t3 = perf_counter()
             ck = Checkpoint(run_id=run.id, rung=n, weights_sha=r.fitted.weights_sha, eval_sha=eval_sha, scores_uri=f"{URI}/{run.id}/{n}.npz",
                             seconds=r.fitted.seconds, embed_ms=r.embed_ms, head_ms=r.head_ms, bytes=len(r.fitted.data), stable=r.stable,
                             summary=r.summary, ts=datetime.now(UTC))
             _write_rung(run, n, r, ck, sets)
+            print(f"{run.id} rung {n}: fit+score {t2 - t1:.2f}s, volume commit {t3 - t2:.2f}s, postgres {perf_counter() - t3:.2f}s", flush=True)
     except Exception as e:
         with contextlib.suppress(Exception), _pg() as conn:  # the original error is the one to raise, even if the database is why we failed
             conn.execute("update train_runs set status = 'failed', note = %s, finished_at = now(), seconds = %s where id = %s",
@@ -413,7 +421,7 @@ def _cell(run_dict: dict[str, Any], gpu: bool) -> dict[str, Any]:
     seconds = perf_counter() - t0
     with _pg() as conn:  # a cell the monitor pruned while it ran stays pruned: the finish only records time and money
         conn.execute("update train_runs set status = case when status = 'pruned' then status else 'done' end, finished_at = now(), seconds = %s, cost_usd = %s where id = %s",
-                     (seconds, seconds * (CPU_CORE_S + (T4_S if gpu else 0.0)), run.id))
+                     (seconds, seconds * (CPU_CORE_S + GIB_S * (4 if gpu else 2) + (T4_S if gpu else 0.0)), run.id))
     return {"id": run.id, "seconds": seconds}
 
 
@@ -430,17 +438,26 @@ def train_cell_gpu(run: dict[str, Any]) -> dict[str, Any]:
 # ---------------------------------------------------------------- launch, progress, monitor
 
 
-@app.function(memory=1024, secrets=[db], timeout=5 * 60)
+@app.function(memory=1024, secrets=[db], timeout=45 * 60, volumes={"/weights": volume})
 def launch_cells(campaign: str, sites: list[str], limit: int) -> list[dict[str, Any]]:
-    """Queue the cells in train_runs, then spawn each by name on the deployed app (they outlive this call). The fc id lands in config["fc_id"]."""
+    """Prepare the sites the Volume lacks (once; re-prepare with `modal run campaign.py::prepare_site --site ...`), queue the cells in
+    train_runs, then spawn each by name on the deployed app (they outlive this call). The fc id lands in config["fc_id"]."""
     todo = cells(campaign, sites)[: limit or None]
+    missing = sorted({c["call_site"] for c in todo if not (ROOT / c["call_site"] / "meta.json").is_file()})
+    done: list[Any] = list(cast(Any, prepare_site).map(missing, return_exceptions=True)) if missing else []  # in parallel, one container per site
+    broken = {s: f"prepare_site: {type(r).__name__}: {r}" for s, r in zip(missing, done, strict=True) if isinstance(r, BaseException)}
     by_name: Any = cast(Any, modal.Function).from_name  # Modal's Function is untyped; spawning by name keeps the calls alive after the caller exits
     fn_cpu, fn_gpu = by_name("dreaming-campaign", "train_cell"), by_name("dreaming-campaign", "train_cell_gpu")
     with _pg() as conn:
         with conn.cursor() as cur:
-            cur.executemany('insert into train_runs (id, campaign, call_site, candidate, variant, seed, config, "where") values (%s, %s, %s, %s, %s, %s, %s, %s) '
-                            "on conflict (id) do nothing", [(c["id"], c["campaign"], c["call_site"], c["candidate"], c["variant"], c["seed"], Jsonb(c["config"]), c["where"]) for c in todo])
+            cur.executemany('insert into train_runs (id, campaign, call_site, candidate, variant, seed, config, "where", status, note) '
+                            "values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s) on conflict (id) do nothing",
+                            [(c["id"], c["campaign"], c["call_site"], c["candidate"], c["variant"], c["seed"], Jsonb(c["config"]), c["where"],
+                              "failed" if c["call_site"] in broken else "queued", broken.get(c["call_site"])) for c in todo])
         for c in todo:
+            if c["call_site"] in broken:  # no spawn: the monitor's table shows the cells as failed with the prepare error
+                c["status"], c["note"], c["config"]["fc_id"] = "failed", broken[c["call_site"]], ""
+                continue
             fc = (fn_gpu if c["where"] == "modal:T4" else fn_cpu).spawn(c)
             c["config"]["fc_id"] = fc.object_id
             conn.execute("update train_runs set config = config || %s where id = %s", (Jsonb({"fc_id": fc.object_id}), c["id"]))

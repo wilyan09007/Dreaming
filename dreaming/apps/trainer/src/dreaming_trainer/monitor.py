@@ -9,7 +9,6 @@ Called by campaign.monitor (a Modal cron every 10 minutes, so it runs whether or
     prune(campaign) -> list[dict]              decide() on every checkpoint, then status -> pruned with the reason in `note`; a pruned
                                                GPU cell is cancelled (FunctionCall.from_id(config.fc_id).cancel())
     decide(rows) -> list[(run_id, note)]       the four rules of §4 as a pure function over flat (run x checkpoint) rows
-    recompute(run_id, rung, budget, delta)     any metric from the stored scores .npz, after the fact: the point of storing them
 
 Rules (§4): 1 at any rung: not byte-stable, realized error over 5% on the test slice, or the cell raised. 2 at rungs 500 and 2000: within
 a site and variant, a candidate whose best seed's coverage at 5% is below the median of the candidates by more than 0.10 (needs two
@@ -135,7 +134,3 @@ def prune(campaign: str) -> list[dict[str, Any]]:
             modal.FunctionCall.from_id(r["fc_id"]).cancel()
         out.append({"run_id": run_id, "note": note, "cancelled": cancelled})
     return out
-
-
-def recompute(run_id: str, rung: int, budget: float, delta: float) -> dict[str, float]:
-    raise NotImplementedError("shortcut: np.load the checkpoint's scores_uri from the Volume and call gate.certify / gate.realized; wire it when a table needs a budget the summary lacks")
