@@ -12,6 +12,7 @@ import os
 
 from dreaming import effect, step, tool
 from dreaming.contracts import Json, TeacherSpec, Thresholds
+from dreaming.speculate import result
 
 from . import tools
 
@@ -85,10 +86,11 @@ def wake_a_human(txn: dict[str, Json], reason: str) -> str:
 
 
 def run_transaction(txn: Json) -> str:
-    """One run. Called inside a run boundary by the API (fast-forward) and by the uAgent (live chat)."""
+    """One run. Called inside a run boundary by the API (fast-forward) and by the uAgent (live chat).
+    Plain Python takes `result(x)`, the verified value: under Runtime(speculate=True) calls return Pendings; otherwise a no-op."""
     assert isinstance(txn, dict)
     category = categorize(txn)
-    vendor = vendor_lookup(str(txn["descriptor"]).split(" *")[0])
-    invoice = match_invoice(txn, vendor, category, tools.open_invoices(vendor))
-    odd = anything_odd(txn, vendor, category, invoice, tools.history(vendor))
-    return wake_a_human(txn, f"{category}/{invoice}") if odd == "yes" else post_to_books(txn, category, vendor)
+    vendor = vendor_lookup(str(txn["descriptor"]).split(" *")[0])  # runs alongside categorize under Runtime(speculate=True)
+    invoice = match_invoice(txn, vendor, category, tools.open_invoices(result(vendor)))
+    odd = anything_odd(txn, vendor, category, invoice, tools.history(result(vendor)))
+    return wake_a_human(txn, f"{result(category)}/{result(invoice)}") if result(odd) == "yes" else post_to_books(txn, category, vendor)

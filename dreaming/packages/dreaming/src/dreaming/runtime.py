@@ -3,6 +3,8 @@
 One Runtime per process. It binds the registry, keeps one Policy per site (the Learner is the only thing that changes
 one; the runtime writes the changed ones to the store on every flush), buffers trace rows and runs and writes them in
 batches. Fail open everywhere: a storage failure is one component.error event and never blocks a call.
+With speculate=True every step and tool call returns a Pending and runs in a thread pool (speculate.py); the default
+returns plain values, exactly as before.
 """
 
 from __future__ import annotations
@@ -39,6 +41,7 @@ from .learning import Learner
 from .predictors import Loader, Predictor
 from .predictors.train import Trainer
 from .router import Answer, Call, Stuck, route
+from .speculate import Speculator, hooks, result
 from .store import Store
 from .teachers import Teacher
 from .telemetry import boundary, emit
@@ -46,7 +49,7 @@ from .telemetry import boundary, emit
 
 class Runtime:
     def __init__(self, store: Store, teacher: Teacher, trainer: Trainer, loader: Loader, *,
-                 component: Component = Component.agent, budget: float = 0.05, flush_every: int = 200) -> None:
+                 component: Component = Component.agent, budget: float = 0.05, flush_every: int = 200, speculate: bool = False) -> None:
         self.store, self.teacher, self.trainer, self.loader = store, teacher, trainer, loader
         self.component, self.budget, self.flush_every = component, budget, flush_every
         self.policies: dict[str, Policy] = {}
@@ -68,6 +71,7 @@ class Runtime:
         self._reported: set[str] = set()  # predictor failures already turned into an event
         self._resume = threading.Event()  # cleared by pause(), set by resume(); fast_forward waits on it between runs
         self._resume.set()
+        self.spec = Speculator(self._call, lambda row: self._record(row, self.policies[row.call_site])) if speculate else None
 
     # ------------------------------------------------------------------ binding
     def bind(self) -> None:
@@ -111,6 +115,14 @@ class Runtime:
 
     # ------------------------------------------------------------------ one call
     def _dispatch(self, reg: registry.Registered, args: tuple[Any, ...], kwargs: dict[str, Any]) -> Any:
+        if self.spec is not None:
+            if reg.site.kind != Kind.effect:
+                return self.spec.submit(reg, args, kwargs)
+            args, kwargs = tuple(map(result, args)), {k: result(v) for k, v in kwargs.items()}  # effects wait for verified inputs
+        return self._call(reg, args, kwargs)
+
+    def _call(self, reg: registry.Registered, args: tuple[Any, ...], kwargs: dict[str, Any]) -> Any:
+        """One call, synchronously: the whole path when speculate=False, one worker's job when it is on."""
         site = reg.site
         if site.kind == Kind.effect:
             return self._route(reg, Call(reg, to_jsonable_python({"args": args, "kwargs": kwargs}, fallback=str), "",
@@ -132,8 +144,8 @@ class Runtime:
 
     def _route(self, reg: registry.Registered, call: Call) -> Any:
         policy = self.policies[reg.site.id]
-        return route(call, policy, self.predictors.get(reg.site.id), current(), lambda row: self._record(row, policy),
-                     lambda e: self._predictor_failed(reg.site, e), self.spares.get(reg.site.id))
+        predictor, record = hooks(self.predictors.get(reg.site.id), lambda row: self._record(row, policy))  # speculated: tapped, rows held
+        return route(call, policy, predictor, current(), record, lambda e: self._predictor_failed(reg.site, e), self.spares.get(reg.site.id))
 
     def _predictor_failed(self, site: CallSite, e: Exception) -> None:
         """A predictor that raises is a miss (the real call answers) but never a silent one: one event per weights."""
@@ -159,7 +171,7 @@ class Runtime:
             self._baseline[row.call_site] = (s + row.teacher.cost_usd, n + 1)
             if self.batch.running and not row.teacher.recorded and row.kind in (Kind.model, Kind.router):
                 self.batch.live_calls += 1  # a frontier answer that was not pre-recorded; tool calls are real by nature
-        if row.decision == Decision.predicted:
+        if row.decision == Decision.predicted and row.kept is not False:  # a discarded speculative answer saved nothing
             self.saved_usd += self.baseline_cost(row.call_site) - row.cost_usd
         ctx = current()
         if ctx is not None:
@@ -204,20 +216,26 @@ class Runtime:
                       down=[s for s, p in self.policies.items() if p.outage])
             try:
                 yield run
+                if self.spec is not None and (err := self.spec.drain(ctx)) is not None:
+                    raise err  # a call nobody waited for failed: the run failed, as it would have at the call
             except Stuck as e:
                 run.failed, run.stuck_at = True, str(e).split(" ", 1)[0]
             except Exception as e:  # noqa: BLE001 - a failed run is a row, not a crash of the loop
                 run.failed = True
                 emit(self.store, self.component, EventKind.component_error, f"run {ctx.id} failed", error=f"{type(e).__name__}: {e}")
             finally:
+                if self.spec is not None:
+                    self.spec.drain(ctx)  # a run that raised still waits for its calls in flight
                 self._close(run, ctx)
 
     def _close(self, run: Run, ctx: RunCtx) -> None:
         rows = ctx.rows
         run.finished_at = datetime.now(UTC)
         run.calls, run.cost_usd, run.latency_ms = len(rows), sum(r.cost_usd for r in rows), ctx.elapsed_ms()
-        run.decisions = sum(1 for r in rows if r.kind != Kind.effect)
-        run.replayable = sum(1 for r in rows if r.decision == Decision.predicted and self.sites[r.call_site].replayable)
+        run.critical_ms = run.latency_ms  # the virtual clock is the critical path: the sum when calls run one at a time
+        used = [r for r in rows if r.kept is not False]  # a discarded speculative row decided nothing
+        run.decisions = sum(1 for r in used if r.kind != Kind.effect)
+        run.replayable = sum(1 for r in used if r.decision == Decision.predicted and self.sites[r.call_site].replayable)
         with self._lock:
             self._runs.append(run)
             self._recent.append(run)
