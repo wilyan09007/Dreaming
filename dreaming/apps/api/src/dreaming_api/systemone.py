@@ -2,15 +2,18 @@
 
     systemone_router(rt)   the APIRouter create_app includes; one route:
     POST /v1/systemone     {"model", "state", "questions": {id: {"type": "choice", "instructions", "criteria": {option: description}}}}
-                           -> {"model", "answers": {id: {"type": "choice", "choice", "probabilities", "confidence"}}, "usage"}
+                           -> {"model", "answers": {id: {"type": "choice", "choice", "probabilities", "confidence", "certified", "certificate"}}, "usage"}
 
 A question id is a call site's name or id; `criteria` must list exactly the site's labels (a student has a fixed label set).
 `state` is the site's rendered input: the string itself, else its canonical JSON. 422: unknown id, label mismatch, or a
 question type other than "choice" (score and noul are not served). 409: the site has no trained predictor yet.
 
-This serves the student's answer whether or not a certificate covers it: it is the campaign's benchmark path, where the
-accuracy of the raw student is the measurement. The certified path (answer only above the cutoff, else ask the teacher) is
-the normal step dispatch in the runtime.
+This serves the student's answer whether or not a certificate covers it (the benchmark path measures the raw student), and says
+which: `certified` is true when the site's policy holds a certificate and the answer's confidence clears its cutoff, `certificate`
+is that certificate's id. The SDK's answer models ignore unknown fields, so typesafe-sdk clients parse the reply unchanged
+(tests/test_routes.py drives the route through `typesafe_sdk.TypeSafeClient`). `model` names what answered,
+"dreaming/<site>@<weights sha[:12]>" per question, not the model the client asked for. Bodies must be uncompressed JSON: the SDK
+sends zstd only when backports-zstd is installed, so a client with it passes `compression=False`.
 """
 
 from __future__ import annotations
@@ -42,6 +45,8 @@ class Answer(BaseModel):
     choice: str
     probabilities: dict[str, float]
     confidence: float
+    certified: bool = False
+    certificate: str | None = None
 
 
 class Usage(BaseModel):
@@ -62,6 +67,7 @@ def systemone_router(rt: Runtime) -> APIRouter:
     def systemone(body: SystemOneIn) -> SystemOneOut:
         rendered = body.state if isinstance(body.state, str) else canonical(body.state).decode()
         answers: dict[str, Answer] = {}
+        models: list[str] = []
         for qid, q in body.questions.items():
             if q.type != "choice":
                 raise HTTPException(422, f"question {qid}: only \"choice\" questions are served, not {q.type!r}")
@@ -75,11 +81,15 @@ def systemone_router(rt: Runtime) -> APIRouter:
             if predictor is None:
                 raise HTTPException(409, f"nothing trained for {site.id} yet")
             pred = predictor.predict(rendered)
+            policy = rt.policies.get(site.id)
+            cut = policy.cutoff if policy and policy.cert_id else None
+            models.append(f"dreaming/{site.id}@{predictor.weights_sha[:12]}")
             probs = {lab: pred.scores.get(lab, 0.0) for lab in labels} if pred.scores else {lab: float(lab == pred.label) for lab in labels}
             top = sorted(probs.values(), reverse=True)
-            answers[qid] = Answer(choice=pred.label, probabilities=probs, confidence=round(top[0] - (top[1] if len(top) > 1 else 0.0), CONF_DECIMALS))
+            answers[qid] = Answer(choice=pred.label, probabilities=probs, confidence=round(top[0] - (top[1] if len(top) > 1 else 0.0), CONF_DECIMALS),
+                                  certified=cut is not None and pred.confidence >= cut, certificate=policy.cert_id if policy else None)
         # shortcut: whitespace token counts, indicative only; the encoder's tokenizer count is the upgrade if a client bills on usage
-        return SystemOneOut(model=body.model, answers=answers, usage=Usage(
+        return SystemOneOut(model=",".join(models), answers=answers, usage=Usage(
             input_tokens=len(rendered.split()) * len(answers), output_tokens=sum(len(a.choice.split()) for a in answers.values())))
 
     return router
