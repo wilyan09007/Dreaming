@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import importlib
 import io
+import threading
 import time
 from collections import defaultdict
 from collections.abc import Callable, Mapping, Sequence
@@ -74,7 +75,7 @@ class Row(BaseModel):
     stable: bool  # every second forward pass was byte-equal
     source: Literal["scores", "summary", "baseline"]
     cells: list[Cell]  # one per budget
-    seed_cert_s: float | None  # fit seconds to the first 5% certificate, seed-only variant
+    seed_cert_s: float | None  # fit seconds to the first 5% certificate of this candidate's seed-only cells (variant "seed"), on every row of the candidate
     without_dreaming: Money | None
     with_dreaming: Money | None
 
@@ -92,11 +93,10 @@ def volume_scores(uri: str) -> Scores:
     volume, _, path = uri.removeprefix("modal://").partition("/")
     try:
         vol: Any = modal.Volume.from_name(volume)  # pyright: ignore[reportUnknownMemberType]
-        data = b"".join(vol.read_file(path))
-    except Exception as e:  # Modal's errors (auth, not found) are not OSErrors; the report handles one kind of failure
+        with np.load(io.BytesIO(b"".join(vol.read_file(path)))) as z:
+            return {k: z[k] for k in z.files}
+    except Exception as e:  # Modal's errors (auth, not found) and a truncated file are not OSErrors; the report handles one kind of failure
         raise OSError(f"{uri}: {type(e).__name__}: {e}") from e
-    with np.load(io.BytesIO(data)) as z:
-        return {k: z[k] for k in z.files}
 
 
 def quickbooks_baselines(site: str) -> list[dict[str, Any]]:
@@ -122,6 +122,8 @@ def _scored_cells(z: Scores, sets: Sequence[EvalSet], labels: Sequence[str] | No
     conf, code = np.asarray(z["conf"], np.float64), np.asarray(z["split"])
     if "ok" in z:
         ok = np.asarray(z["ok"], bool)
+        if not len(ok) == len(conf) == len(code):
+            raise ValueError(f"conf, split and ok differ in length ({len(conf)}, {len(code)}, {len(ok)})")
     elif labels is None:
         raise KeyError("no `ok` array in the scores and no label list to read `pred` against")
     else:  # the npz rows are calib, test, forward in the order of the EvalSets; zip(strict) is the check that these are the sets the cell scored
@@ -182,7 +184,10 @@ class _Scorer:
             z = self.loaded[ck.scores_uri]
             if isinstance(z, Exception):
                 raise z
-            return _scored_cells(z, self.triples[site][ck.eval_sha], self.sites[site].labels if site in self.sites else None), True
+            sets = self.triples[site].get(ck.eval_sha)
+            if sets is None:
+                raise KeyError(f"no calib, test and forward EvalSets of {site} hash to eval_sha {ck.eval_sha[:12]}")
+            return _scored_cells(z, sets, self.sites[site].labels if site in self.sites else None), True
         except (OSError, KeyError, ValueError) as e:
             self.notes.append(f"{ck.run_id} rung {ck.rung}: scores not usable ({type(e).__name__}: {e}); its own summary is used")
             return _summary_cells(ck), False
@@ -197,7 +202,7 @@ def _latest(runs: Sequence[TrainRun]) -> str | None:
 
 
 def table(store: Store, scores: ScoresLoader, baselines: Baselines | None = quickbooks_baselines, campaign: str | None = None) -> Benchmark:
-    """`campaign` None: the one that started last. `baselines(site)` -> [{"name", "coverage", "error"}]; ImportError or AttributeError skips them, with a note."""
+    """`campaign` None: the one that started last. `baselines(site)` -> [{"name", "coverage", "error"}]; if it raises, its rows are skipped with a note."""
     runs = store.train_runs()
     campaign = campaign or _latest(runs)
     by_run: dict[str, list[Checkpoint]] = defaultdict(list)
@@ -214,6 +219,14 @@ def table(store: Store, scores: ScoresLoader, baselines: Baselines | None = quic
     calls: dict[str, list[TeacherAnswer]] = {}  # the site's real teacher calls, from the live trace rows
     embed_est: set[str] = set()
     rows: list[Row] = []
+    seed_s: dict[tuple[str, str], list[float]] = defaultdict(list)  # (site, candidate) -> the seed-only cells' fit seconds to the first rung that certifies 5%
+    for (site, cand, variant), rs in groups.items():
+        for r in rs if variant == "seed" else []:
+            for ck in by_run[r.id]:
+                first = scorer.cells(site, ck)[0][HEAD]
+                if (first.coverage if first.coverage is not None else first.test_coverage or 0.0) > 0:
+                    seed_s[site, cand].append(ck.seconds)
+                    break
 
     def teacher(site: str) -> tuple[str, float | None]:
         t = sites[site].teacher if site in sites else None
@@ -226,13 +239,6 @@ def table(store: Store, scores: ScoresLoader, baselines: Baselines | None = quic
         per_seed = [cells for cells, _ in scored]
         merged = [Cell(budget=b, coverage=_mean([c[i].coverage for c in per_seed]), test_coverage=_mean([c[i].test_coverage for c in per_seed]),
                        test_error=_mean([c[i].test_error for c in per_seed])) for i, b in enumerate(BUDGETS)]
-        seed_s: list[float] = []
-        for r in rs if variant == "seed" else []:  # seed rows only: the fit seconds of the first rung that certifies the 5% budget
-            for ck in by_run[r.id]:
-                first = scorer.cells(site, ck)[0][HEAD]
-                if (first.coverage if first.coverage is not None else first.test_coverage or 0.0) > 0:
-                    seed_s.append(ck.seconds)
-                    break
         alone = dreamed = None
         if site not in calls:
             calls[site] = [r.teacher for r in store.rows(site, limit=TRACE_ROWS) if r.teacher]
@@ -247,10 +253,12 @@ def table(store: Store, scores: ScoresLoader, baselines: Baselines | None = quic
             alone, dreamed = _money(calls[site], cov5, audit, pred_ms)
         rows.append(Row(call_site=site, provider=provider, floor=floor, candidate=cand, variant=variant, seeds=len(picked), rung=top[site, cand, variant],
                         stable=all(ck.stable for ck in picked), source="scores" if all(ok for _, ok in scored) else "summary", cells=merged,
-                        seed_cert_s=_mean(seed_s), without_dreaming=alone, with_dreaming=dreamed))
+                        seed_cert_s=_mean(seed_s[site, cand]), without_dreaming=alone, with_dreaming=dreamed))
     if embed_est:
         notes.append(f"latency with Dreaming adds est. {EMBED_MS} ms to embed (S7, a free core; Fly's shared CPU measured ~300 ms) for {', '.join(sorted(embed_est))}: "
                      "those cells read precomputed vectors")
+    notes += [f"{r.call_site} {r.candidate} {r.variant}: a second forward pass over the same rows differed on some seed (stable is false); treat these numbers as unverified"
+              for r in rows if not r.stable]
     if groups and not any(k[2] == "seed" for k in groups):
         notes.append('seconds to the first certificate: no seed-only (variant "seed") runs in this campaign')
 
@@ -259,8 +267,10 @@ def table(store: Store, scores: ScoresLoader, baselines: Baselines | None = quic
         extra: list[dict[str, Any]] = []
         try:
             extra = baselines(site) if baselines else []
-        except (ImportError, AttributeError) as e:
+        except Exception as e:  # noqa: BLE001  an optional table must not take the report down; the note says why it is missing
             notes.append(f"{site}: rule and exact rows skipped ({type(e).__name__}: {e})")
+        if site.startswith("quickbooks.") and not {"llm alone", "jev"} & {str(x["name"]) for x in extra}:
+            notes.append(f"{site}: LLM-alone and Jev baselines pending (each needs its own labelling pass, docs/tracks.md section 4)")
         if floor:  # a teacher at its floor answers every call and disagrees with itself that often; the books (floor 0) are the truth, not a baseline
             extra.append({"name": "teacher alone", "coverage": 1.0, "error": floor})
         rows += [Row(call_site=site, provider=provider, floor=floor, candidate=str(x["name"]), variant="-", seeds=0, rung=0, stable=True, source="baseline",
@@ -294,24 +304,32 @@ def markdown(b: Benchmark) -> str:
              "err = realized error on those rows.")
     lines = [title, "", "| " + " | ".join(head) + " |", "|" + "---|" * len(head)]
     for r in b.rows:
-        cells = [r.call_site, r.provider, _pct(r.floor), r.candidate + (" †" if r.source == "summary" else ""), str(r.seeds or "-"), str(r.rung or "-"),
-                 *(_pct(c.test_coverage) for c in r.cells), _pct(r.cells[HEAD].test_error), "-" if r.seed_cert_s is None else f"{r.seed_cert_s:.1f}",
+        variant = "" if r.variant in ("seed+real", "-") else f" ({r.variant})"
+        under = [r.source != "baseline" and c.budget < (r.floor or 0.0) for c in r.cells]  # a budget under the floor is not measurable
+        cells = [r.call_site, r.provider, _pct(r.floor), r.candidate + variant + (" †" if r.source == "summary" else ""), str(r.seeds or "-"), str(r.rung or "-"),
+                 *(_pct(c.test_coverage) + ("*" if u else "") for c, u in zip(r.cells, under, strict=True)), _pct(r.cells[HEAD].test_error), "-" if r.seed_cert_s is None else f"{r.seed_cert_s:.1f}",
                  _both(r, "usd", "{:.2f}".format), _both(r, "p50_ms", _ms), _both(r, "p95_ms", _ms)]
         lines.append("| " + " | ".join(cells) + " |")
     if any(r.source == "summary" for r in b.rows):
         lines += ["", "† from the checkpoint's own summary: its scores could not be recomputed."]
+    if any(r.source != "baseline" and BUDGETS[0] < (r.floor or 0.0) for r in b.rows):
+        lines += ["", "* a budget below the provider's floor (its self-disagreement on identical inputs) is not measurable: the share is agreement with a noisy label."]
     return "\n".join([*lines, "", *(f"- {n}" for n in b.notes)]) + "\n"
 
 
 def benchmark_router(store: Store, scores: ScoresLoader, baselines: Baselines | None = quickbooks_baselines) -> APIRouter:
     router = APIRouter()
     cache: dict[str | None, tuple[float, Benchmark]] = {}  # the table reads dozens of Volume files: recompute at most once a minute
+    lock = threading.Lock()  # requests run on threads: one recompute, the rest wait and hit the cache
 
     def get(campaign: str | None) -> Benchmark:
-        hit = cache.get(campaign)
-        if hit is None or time.monotonic() - hit[0] > TTL_S:
-            cache[campaign] = hit = (time.monotonic(), table(store, scores, baselines, campaign))
-        return hit[1]
+        with lock:
+            hit = cache.get(campaign)
+            if hit is None or time.monotonic() - hit[0] > TTL_S:
+                hit = (time.monotonic(), table(store, scores, baselines, campaign))
+                if hit[1].rows:  # an unknown ?campaign= is cheap to recompute and must not grow the cache
+                    cache[campaign] = hit
+            return hit[1]
 
     @router.get("/benchmark")
     def benchmark(campaign: str | None = None) -> Benchmark:

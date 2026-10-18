@@ -12,6 +12,7 @@ from __future__ import annotations
 import io
 from collections.abc import Iterator
 from datetime import UTC, datetime
+from types import SimpleNamespace
 from typing import Any
 
 import modal
@@ -204,7 +205,9 @@ def test_seconds_to_the_first_certificate_with_seed_rows_only() -> None:
     w.cell("head", 0, {200: always_right()})
     b = table(w.store, w.load, no_baselines)
     assert rows_of(b, "head", "seed").seed_cert_s == 1.5 and rows_of(b, "head", "seed").rung == 30  # rung 10 certifies nothing, rung 30 does
-    assert rows_of(b, "head").seed_cert_s is None
+    assert rows_of(b, "head").seed_cert_s == 1.5  # the column belongs to the candidate: it sits on its seed+real row too
+    md = markdown(b)
+    assert any(ln.startswith("| q.invoice") and " head (seed) " in ln for ln in md.splitlines()) and not any(" head (seed+real) " in ln for ln in md.splitlines())
     assert not any("seed-only" in n for n in b.notes)
     w2 = World()
     w2.cell("head", 0, {200: always_right()})
@@ -241,6 +244,7 @@ def test_the_routes_serve_json_and_markdown_and_read_the_volume_once_a_minute(w:
     assert "| 75.0% |" in lines[1] and "campaign `night`" in md.text
     assert len(w.loads) == 3  # head s0, head s1, memory s0: one read each across both requests
     assert c.get("/benchmark", params={"campaign": "other"}).json()["rows"] == []
+    assert len(w.loads) == 3  # an unknown campaign reads nothing
 
 
 def test_the_volume_loader_reads_an_npz_through_modal_and_turns_its_failures_into_oserror(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -269,3 +273,81 @@ def test_the_volume_loader_reads_an_npz_through_modal_and_turns_its_failures_int
     with pytest.raises(OSError, match="no token"):
         volume_scores("modal://dreaming-weights/x.npz")
 
+
+
+def test_markdown_marks_budgets_below_the_floor_and_names_the_variant(w: World) -> None:
+    md = markdown(table(w.store, w.load, no_baselines))
+    head = next(ln for ln in md.splitlines() if " | head | " in ln)
+    cols = [c.strip() for c in head.strip("|").split("|")]
+    assert cols[6].endswith("*") and not cols[7].endswith("*")  # floor 3.5%: the 2% column is not measurable, the 5% one is
+    assert "* a budget below the provider's floor" in md
+    teacher = next(ln for ln in md.splitlines() if " | teacher alone | " in ln)
+    assert "*" not in teacher  # a baseline sits at its own error, not under a floor
+
+
+def test_an_unstable_checkpoint_is_called_out_not_hidden(w: World) -> None:
+    for ck in w.store.checkpoints("night"):
+        w.store.put_checkpoint(ck.model_copy(update={"stable": ck.run_id.endswith("head:seed+real:s1")}))
+    b = table(w.store, w.load, no_baselines)
+    assert not rows_of(b, "head").stable and rows_of(b, "memory").stable is False
+    assert any("q.invoice head seed+real" in n and "stable is false" in n for n in b.notes)
+
+
+def test_a_failing_baseline_source_costs_its_rows_not_the_report(w: World) -> None:
+    def broken(site: str) -> list[dict[str, Any]]:
+        raise FileNotFoundError("no QuickBooks data on this host")
+
+    b = table(w.store, w.load, broken)
+    assert {r.candidate for r in b.rows if r.source == "baseline"} == {"teacher alone"}
+    assert any("FileNotFoundError" in n and "no QuickBooks data" in n for n in b.notes)
+
+
+def test_intuit_sites_say_which_baselines_are_pending() -> None:
+    site = "quickbooks.invoice"
+    w = World(CallSite(id=site, workflow="quickbooks", name="invoice", kind=Kind.model, labels=["a", "b"], teacher=TeacherSpec(provider="tool")))
+    run = TrainRun(id="night:qb:head:real:s0", campaign="night", call_site=site, candidate="head", variant="real", seed=0, where="modal:cpu", status="done", started_at=T0)
+    w.store.put_train_run(run)
+    w.files["modal://v/p.npz"] = always_right()
+    w.store.put_checkpoint(Checkpoint(run_id=run.id, rung=60, weights_sha="w" * 64, eval_sha="x" * 64, scores_uri="modal://v/p.npz", seconds=1, embed_ms=0, head_ms=0.1, bytes=1,
+                                      stable=True, summary={}, ts=T0))
+    b = table(w.store, w.load, lambda s: [{"name": "rule", "coverage": 0.5, "error": 0.01}])
+    assert any("LLM-alone and Jev baselines pending" in n for n in b.notes)
+    assert any("no calib, test and forward EvalSets" in n for n in b.notes) and rows_of(b, "head", "real").source == "summary"  # eval sets never written: the reason is named
+    b = table(w.store, w.load, lambda s: [{"name": "llm alone", "coverage": 1.0, "error": 0.1}, {"name": "jev", "coverage": 1.0, "error": 0.08}])
+    assert not any("pending" in n for n in b.notes)
+
+
+def test_scores_whose_arrays_disagree_in_length_are_not_scored() -> None:
+    w = World()
+    bad = always_right() | {"ok": np.ones(5, bool)}
+    w.cell("head", 0, {200: bad})
+    b = table(w.store, w.load, no_baselines)
+    assert rows_of(b, "head").source == "summary" and any("differ in length" in n for n in b.notes)
+
+
+def test_a_truncated_npz_is_an_oserror(monkeypatch: pytest.MonkeyPatch) -> None:
+    class FakeVolume:
+        def read_file(self, path: str) -> Iterator[bytes]:
+            yield b"PK not really a zip"
+
+    def from_name(name: str) -> FakeVolume:
+        return FakeVolume()
+
+    monkeypatch.setattr(modal.Volume, "from_name", from_name)
+    with pytest.raises(OSError, match="r1/200.npz"):
+        volume_scores("modal://dreaming-weights/campaign/r1/200.npz")
+
+
+def test_the_cached_table_expires_after_the_ttl(w: World, monkeypatch: pytest.MonkeyPatch) -> None:
+    now = [1000.0]
+    monkeypatch.setattr("dreaming_api.benchmark.time", SimpleNamespace(monotonic=lambda: now[0]))
+    app = FastAPI()
+    app.include_router(benchmark_router(w.store, w.load, no_baselines))
+    c = TestClient(app)
+    c.get("/benchmark")
+    now[0] += 30
+    c.get("/benchmark.md")
+    assert len(w.loads) == 3  # inside the minute: served from the cache
+    now[0] += 31
+    c.get("/benchmark")
+    assert len(w.loads) == 6  # past it: recomputed from the Volume
