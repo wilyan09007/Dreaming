@@ -302,11 +302,15 @@ function onEvent(e, fresh) {
   return /^(batch\.|site\.phase|cert\.|tool\.|budget\.changed|candidate\.|train\.finished)/.test(e.kind);
 }
 // Polling when Realtime is not configured: the first read is history, then `after=<last id>`, faster while a batch runs.
+// /state is also re-read while the last read failed (API down at load, a 500 mid-batch), so the page never stays stale.
 let polled = false;
 async function poll() {
   const r = last ? await req('GET', `/events?after=${encodeURIComponent(last)}&limit=200`) : await req('GET', '/events?limit=200');
-  if (r.ok && /** @type {DEvent[]} */ (r.data).map((e) => onEvent(e, polled)).includes(true)) refresh();
-  polled = true;
+  if (r.ok) {
+    const changed = /** @type {DEvent[]} */ (r.data).map((e) => onEvent(e, polled)).includes(true);
+    polled = true; // only a read that arrived is history; a failed first read must not make later history look fresh
+    if (changed || !st || problems.state) refresh();
+  }
   setTimeout(poll, st?.batch.running ? 700 : 2000);
 }
 /** @param {Record<string, string>} config */
@@ -512,7 +516,7 @@ function renderJournal() {
     setAttr(row.b, 'aria-pressed', String(S.sel === cur.site.name));
     setHTML(row.icon, STATUS[rc ? 'testing' : down ? 'down' : ph.p](ph.p === 'dreaming' && !down && !rc ? 50 : 46));
     setText(row.status, statusLine(v, ph, rc, down));
-    setHTML(row.cand, candHTML(v));
+    if (!pend) setHTML(row.cand, candHTML(v)); // a row waiting to re-check keeps its old candidate lines: the new spare certificates are already in State
     // while a row re-checks, its old saving stays visible (dimmed) rather than looking like it vanished
     setHTML(row.cost, costHTML(v, phase(v)));
     row.cost.classList.toggle('dim', pend);
@@ -759,8 +763,12 @@ function frame(/** @type {number} */ t) {
 $('#run').addEventListener('click', async () => {
   const b = st?.batch, runs = () => int(st?.metrics.runs ?? 0); // read after the reply: the batch moves ~100 runs/s offline
   // during an outage the outage line stays up: it is what explains the runs that keep going (or don't)
-  if (b?.running && !b.paused) { await cmd('POST', '/batch/pause'); if (!S.unplugged) narrate(`paused at run ${runs()}`); return; }
-  if (b?.running) { if (!S.unplugged) narrate(`resuming at run ${runs()}`); await cmd('POST', '/batch/resume'); return; }
+  if (b?.running) {
+    const pause = !b.paused, at = runs(), r = pause ? await cmd('POST', '/batch/pause') : await cmd('POST', '/batch/resume');
+    if (!r.ok) narrate(`the run did not ${pause ? 'pause' : 'resume'}: ${esc(r.text)}`);
+    else if (!S.unplugged) narrate(pause ? `paused at run ${runs()}` : `resuming at run ${at}`);
+    return;
+  }
   if (!S.unplugged) narrate(st?.metrics.runs ? `fast-forwarding ${int(BATCH)} more transactions · ${teacherWords()}` : `fast-forwarding ${int(BATCH)} transactions · ${teacherWords()} · every call is logged`);
   const r = await cmd('POST', '/batch', { n: BATCH });
   if (!r.ok) narrate(`the run did not start: ${esc(r.text)}`);
