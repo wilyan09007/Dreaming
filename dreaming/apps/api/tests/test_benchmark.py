@@ -4,6 +4,10 @@
 wrong and right. With delta 0.05 over 40 grid levels a zero-error prefix needs 331 rows to clear a 2% budget (so nothing certifies at 2%) and
 200 rows clear 5%, while the next level up, 210 rows with 5 errors, does not: coverage 0.5 at 5%. The test split mirrors it (100 above the cutoff
 with one error, 100 below all wrong), so the cutoff keeps exactly half the test rows at 1% error. `memory` is right everywhere: coverage 1.0.
+The forward slice (400 rows in time order, repeat traffic) is certified on its own first 200 rows and measured on its last 200. By default it is
+right everywhere with the same confidences in both halves (coverage 1.0, so `memory`'s two columns differ only by being different slices); in
+`half_certifiable` the cutoff certified on the first half (200 clean rows, confidences 0.9 down to 0.6) keeps 75 of the last 200 rows, 3 of them
+wrong: forward coverage 0.375 at error 0.04, not the test slice's 0.5 at 0.01.
 The scores are in the npz's real layout (apps/trainer campaign.py): idx, split codes 0/1/2, scores, conf, pred, conf2, pred2.
 """
 
@@ -45,14 +49,16 @@ from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
 SITE = "q.invoice"
-N = (400, 200, 40)  # calib, test, forward rows
+N = (400, 200, 400)  # calib, test, forward rows
 T0 = datetime(2026, 10, 18, 4, 0, tzinfo=UTC)
 Arrays = dict[str, Any]
 
 
-def arrays(calib_ok: Any, calib_conf: Any, test_ok: Any, test_conf: Any, *, with_ok: bool = False) -> Arrays:
-    ok = np.concatenate([calib_ok, test_ok, np.ones(N[2], bool)]).astype(bool)
-    conf = np.concatenate([calib_conf, test_conf, np.full(N[2], 0.7)]).astype(np.float32)
+def arrays(calib_ok: Any, calib_conf: Any, test_ok: Any, test_conf: Any, *, forward_ok: Any = None, forward_conf: Any = None, with_ok: bool = False) -> Arrays:
+    fok = np.ones(N[2], bool) if forward_ok is None else forward_ok
+    fconf = np.tile(np.linspace(0.9, 0.6, N[2] // 2), 2) if forward_conf is None else forward_conf
+    ok = np.concatenate([calib_ok, test_ok, fok]).astype(bool)
+    conf = np.concatenate([calib_conf, test_conf, fconf]).astype(np.float32)
     pred = np.where(ok, 0, 1).astype(np.int32)  # the true label is always "a" = index 0
     out: Arrays = {"idx": np.arange(len(ok), dtype=np.int32), "split": np.repeat(np.array([0, 1, 2], np.int8), N), "scores": np.zeros((len(ok), 2), np.float16),
                    "conf": conf, "pred": pred, "conf2": conf, "pred2": pred}
@@ -64,8 +70,11 @@ def half_certifiable() -> Arrays:
     alternating = np.arange(200) % 2 == 1  # wrong, right, wrong, ...
     test_top = np.ones(100, bool)
     test_top[40] = False
+    late = np.zeros(200, bool)  # forward's second half: 75 rows clear the first half's cutoff (conf >= 0.6), 3 of them wrong; the rest are wrong
+    late[[i for i in range(75) if i not in (10, 40, 70)]] = True
     return arrays(np.concatenate([np.ones(200, bool), alternating]), np.concatenate([np.linspace(0.9, 0.5, 200), np.linspace(0.4, 0.0, 200)]),
-                  np.concatenate([test_top, np.zeros(100, bool)]), np.concatenate([np.linspace(0.9, 0.5, 100), np.linspace(0.4, 0.0, 100)]))
+                  np.concatenate([test_top, np.zeros(100, bool)]), np.concatenate([np.linspace(0.9, 0.5, 100), np.linspace(0.4, 0.0, 100)]),
+                  forward_ok=np.concatenate([np.ones(200, bool), late]), forward_conf=np.concatenate([np.linspace(0.9, 0.6, 200), np.linspace(0.9, 0.1, 200)]))
 
 
 def always_right() -> Arrays:
@@ -139,8 +148,12 @@ def test_coverage_is_recomputed_from_the_stored_scores(w: World) -> None:
     assert two.test_coverage == pytest.approx(0.5) and two.coverage == pytest.approx(0.5)  # 2%: seed 0 certifies nothing, seed 1 everything
     assert five.test_coverage == pytest.approx(0.75) and five.coverage == pytest.approx(0.75)  # 5%: (0.5 + 1.0) / 2
     assert five.test_error == pytest.approx(0.005)  # seed 0: 1 of the 100 test rows above the cutoff is wrong, seed 1: none
+    assert (two.forward_coverage, two.forward_error) == (0.0, None)  # 200 clean rows do not clear 2% on the forward slice either
+    assert five.forward_coverage == pytest.approx((0.375 + 1.0) / 2) and five.forward_error == pytest.approx(0.02)  # seed 0: 75 rows above its cutoff, 3 wrong (0.04); seed 1: all, none wrong
     mem = rows_of(b, "memory")
     assert [c.test_coverage for c in mem.cells] == [1.0] * 4 and [c.test_error for c in mem.cells] == [0.0] * 4 and mem.seeds == 1
+    assert [c.forward_coverage for c in mem.cells] == [0.0, 1.0, 1.0, 1.0] and [c.forward_error for c in mem.cells] == [None, 0.0, 0.0, 0.0]
+    assert not any("repeat-traffic" in n for n in b.notes)
     assert w.loads.count("modal://dreaming-weights/campaign/night:q.invoice:head:seed+real:s0/200.npz") == 1
     assert not [u for u in w.loads if u.endswith("/60.npz")]
 
@@ -152,6 +165,7 @@ def test_one_candidate_alone_has_the_coverage_worked_out_in_the_docstring() -> N
     two, five, ten, twenty = head.cells
     assert (two.coverage, two.test_coverage, two.test_error) == (0.0, 0.0, None)  # a 2% budget needs 331 clean rows and only 200 are
     assert (five.coverage, five.test_coverage, five.test_error) == (0.5, 0.5, 0.01)
+    assert (five.forward_coverage, five.forward_error) == (pytest.approx(0.375), pytest.approx(0.04))  # the forward cutoff is its own: certified on the first half, measured on the second
     assert 0.5 <= ten.coverage <= twenty.coverage and ten.test_error is not None and twenty.test_error is not None  # type: ignore[operator]  # a larger budget never covers less
 
 
@@ -183,7 +197,8 @@ def test_unreadable_scores_fall_back_to_the_checkpoint_summary(w: World) -> None
 
     b = table(w.store, gone, no_baselines)
     head = rows_of(b, "head")
-    assert head.source == "summary" and [c.coverage for c in head.cells] == [None] * 4
+    assert head.source == "summary" and [c.coverage for c in head.cells] == [None] * 4 and [c.forward_coverage for c in head.cells] == [None] * 4
+    assert any("head seed+real: no repeat-traffic" in n and "acc_forward" in n for n in b.notes)
     assert [c.test_coverage for c in head.cells] == [0.0, 0.4, 0.6, None] and [c.test_error for c in head.cells] == [None, 0.0, 0.02, None]
     assert any("volume unavailable" in n for n in b.notes) and "†" in markdown(b)
 
@@ -279,7 +294,9 @@ def test_markdown_marks_budgets_below_the_floor_and_names_the_variant(w: World) 
     md = markdown(table(w.store, w.load, no_baselines))
     head = next(ln for ln in md.splitlines() if " | head | " in ln)
     cols = [c.strip() for c in head.strip("|").split("|")]
-    assert cols[6].endswith("*") and not cols[7].endswith("*")  # floor 3.5%: the 2% column is not measurable, the 5% one is
+    assert cols[8].endswith("*") and not cols[9].endswith("*")  # floor 3.5%: the unseen 2% column is not measurable, the 5% one is
+    assert cols[6:8] == ["68.8%", "2.0%"] and cols[9] == "75.0%"  # repeat traffic first (forward: 0.6875, 0.02), then unseen merchants (test: 0.75)
+    assert "repeat cov 5%" in md and "unseen cov 20%" in md and "repeat = the forward slice" in md and "unseen = group-held-out" in md
     assert "* a budget below the provider's floor" in md
     teacher = next(ln for ln in md.splitlines() if " | teacher alone | " in ln)
     assert "*" not in teacher  # a baseline sits at its own error, not under a floor
@@ -336,6 +353,18 @@ def test_a_truncated_npz_is_an_oserror(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(modal.Volume, "from_name", from_name)
     with pytest.raises(OSError, match="r1/200.npz"):
         volume_scores("modal://dreaming-weights/campaign/r1/200.npz")
+
+
+def test_scores_without_forward_rows_leave_the_repeat_columns_empty_and_say_so() -> None:
+    w = World(CallSite(id=SITE, workflow="q", name="invoice", kind=Kind.tool, teacher=TeacherSpec(provider="tool")))
+    a = arrays(np.ones(N[0], bool), np.linspace(0.9, 0.1, N[0]), np.ones(N[1], bool), np.linspace(0.9, 0.1, N[1]), with_ok=True)
+    w.cell("exact", 0, {500: {k: v[a["split"] != 2] for k, v in a.items()}})  # a cell that kept no forward rows: conf, split and ok still agree in length
+    b = table(w.store, w.load, no_baselines)
+    exact = rows_of(b, "exact")
+    assert exact.source == "scores" and exact.cells[1].test_coverage == 1.0 and [c.forward_coverage for c in exact.cells] == [None] * 4
+    assert any("exact seed+real: no repeat-traffic" in n and "fewer than 2 forward rows" in n for n in b.notes)
+    row = next(ln for ln in markdown(b).splitlines() if " | exact | " in ln)
+    assert [c.strip() for c in row.strip("|").split("|")][6:8] == ["-", "-"]
 
 
 def test_the_cached_table_expires_after_the_ttl(w: World, monkeypatch: pytest.MonkeyPatch) -> None:

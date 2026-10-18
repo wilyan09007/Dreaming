@@ -1121,6 +1121,13 @@
      },
      "title": "Config",
      "type": "object"
+    },
+    "spare_certificates": {
+     "additionalProperties": {
+      "$ref": "#/$defs/Certificate"
+     },
+     "title": "Spare Certificates",
+     "type": "object"
     }
    },
    "required": [
