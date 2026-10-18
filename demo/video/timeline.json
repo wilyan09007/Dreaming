@@ -1,0 +1,2072 @@
+{
+ "total": 115.669,
+ "tempo": 1.17,
+ "phrases": [
+  {
+   "shot": "hook",
+   "start": 2.5,
+   "end": 9.816239316239315,
+   "text": "A lot of AI agents and orchestration platforms today do their job by asking a big, slow language model a question at every step.",
+   "words": [
+    [
+     "A",
+     2.5
+    ],
+    [
+     "lot",
+     2.705
+    ],
+    [
+     "of",
+     2.962
+    ],
+    [
+     "AI",
+     3.184
+    ],
+    [
+     "agents",
+     3.457
+    ],
+    [
+     "and",
+     3.85
+    ],
+    [
+     "orchestration",
+     4.073
+    ],
+    [
+     "platforms",
+     4.688
+    ],
+    [
+     "today",
+     5.184
+    ],
+    [
+     "do",
+     5.645
+    ],
+    [
+     "their",
+     5.816
+    ],
+    [
+     "job",
+     5.97
+    ],
+    [
+     "by",
+     6.261
+    ],
+    [
+     "asking",
+     6.449
+    ],
+    [
+     "a",
+     6.791
+    ],
+    [
+     "big,",
+     7.047
+    ],
+    [
+     "slow",
+     7.338
+    ],
+    [
+     "language",
+     7.662
+    ],
+    [
+     "model a",
+     8.004
+    ],
+    [
+     "question",
+     8.363
+    ],
+    [
+     "at",
+     8.876
+    ],
+    [
+     "every",
+     9.15
+    ],
+    [
+     "step.",
+     9.423
+    ]
+   ]
+  },
+  {
+   "shot": "race",
+   "start": 10.106837606837606,
+   "end": 19.559829059829063,
+   "text": "Dreaming learns to answer the repetitive questions in milliseconds for almost nothing, and this really matters for a lot of companies that are running expensive workflows almost thousands of times a day.",
+   "words": [
+    [
+     "Dreaming",
+     10.107
+    ],
+    [
+     "learns",
+     10.329
+    ],
+    [
+     "to",
+     10.551
+    ],
+    [
+     "answer",
+     10.842
+    ],
+    [
+     "the",
+     11.184
+    ],
+    [
+     "repetitive",
+     11.372
+    ],
+    [
+     "questions",
+     11.782
+    ],
+    [
+     "in",
+     12.261
+    ],
+    [
+     "milliseconds",
+     12.534
+    ],
+    [
+     "for",
+     12.962
+    ],
+    [
+     "almost",
+     13.338
+    ],
+    [
+     "nothing,",
+     13.645
+    ],
+    [
+     "and",
+     14.432
+    ],
+    [
+     "this",
+     14.603
+    ],
+    [
+     "really",
+     14.756
+    ],
+    [
+     "matters",
+     14.962
+    ],
+    [
+     "for",
+     15.303
+    ],
+    [
+     "a",
+     15.509
+    ],
+    [
+     "lot",
+     15.594
+    ],
+    [
+     "of",
+     15.731
+    ],
+    [
+     "companies",
+     15.85
+    ],
+    [
+     "that",
+     16.175
+    ],
+    [
+     "are",
+     16.415
+    ],
+    [
+     "running",
+     16.534
+    ],
+    [
+     "expensive",
+     16.791
+    ],
+    [
+     "workflows",
+     17.372
+    ],
+    [
+     "almost",
+     17.919
+    ],
+    [
+     "thousands",
+     18.278
+    ],
+    [
+     "of",
+     18.688
+    ],
+    [
+     "times",
+     18.979
+    ],
+    [
+     "a",
+     19.218
+    ],
+    [
+     "day.",
+     19.389
+    ]
+   ]
+  },
+  {
+   "shot": "bench",
+   "start": 19.73059829059829,
+   "end": 29.66222222222223,
+   "text": "We can slash those costs by up to 87% while lowering processing latency from 2.6 seconds to 5 milliseconds using our novel workflow language model, Psi.",
+   "words": [
+    [
+     "We",
+     19.731
+    ],
+    [
+     "can",
+     19.919
+    ],
+    [
+     "slash",
+     20.055
+    ],
+    [
+     "those",
+     20.278
+    ],
+    [
+     "costs",
+     20.534
+    ],
+    [
+     "by",
+     20.79
+    ],
+    [
+     "up",
+     21.064
+    ],
+    [
+     "to",
+     21.218
+    ],
+    [
+     "87%",
+     21.372
+    ],
+    [
+     "while",
+     22.226
+    ],
+    [
+     "lowering",
+     22.568
+    ],
+    [
+     "processing",
+     23.013
+    ],
+    [
+     "latency",
+     23.525
+    ],
+    [
+     "from",
+     23.97
+    ],
+    [
+     "2.6",
+     24.278
+    ],
+    [
+     "seconds",
+     24.961
+    ],
+    [
+     "to",
+     25.269
+    ],
+    [
+     "5",
+     25.696
+    ],
+    [
+     "milliseconds",
+     26.038
+    ],
+    [
+     "using",
+     26.534
+    ],
+    [
+     "our",
+     27.269
+    ],
+    [
+     "novel",
+     27.543
+    ],
+    [
+     "workflow",
+     27.919
+    ],
+    [
+     "language",
+     28.449
+    ],
+    [
+     "model,",
+     28.893
+    ],
+    [
+     "Psi.",
+     29.645
+    ]
+   ]
+  },
+  {
+   "shot": "run",
+   "start": 29.807521367521367,
+   "end": 32.18196581196582,
+   "text": "So let's start by running 2,000 workflow runs.",
+   "words": [
+    [
+     "So",
+     29.808
+    ],
+    [
+     "let's",
+     30.028
+    ],
+    [
+     "start",
+     30.267
+    ],
+    [
+     "by",
+     30.421
+    ],
+    [
+     "running",
+     30.592
+    ],
+    [
+     "2,000",
+     30.832
+    ],
+    [
+     "workflow",
+     31.43
+    ],
+    [
+     "runs.",
+     31.84
+    ]
+   ]
+  },
+  {
+   "shot": "psi",
+   "start": 32.4725641025641,
+   "end": 38.93410256410257,
+   "text": "What's amazing about Psi is that it can pick up on workflow results quickly and with little data with its structural memory capabilities.",
+   "words": [
+    [
+     "What's",
+     32.473
+    ],
+    [
+     "amazing",
+     32.712
+    ],
+    [
+     "about",
+     33.002
+    ],
+    [
+     "Psi",
+     33.276
+    ],
+    [
+     "is",
+     33.601
+    ],
+    [
+     "that",
+     33.789
+    ],
+    [
+     "it",
+     33.908
+    ],
+    [
+     "can",
+     33.994
+    ],
+    [
+     "pick",
+     34.096
+    ],
+    [
+     "up",
+     34.267
+    ],
+    [
+     "on",
+     34.455
+    ],
+    [
+     "workflow",
+     34.644
+    ],
+    [
+     "results",
+     34.968
+    ],
+    [
+     "quickly",
+     35.379
+    ],
+    [
+     "and",
+     35.703
+    ],
+    [
+     "with",
+     36.079
+    ],
+    [
+     "little",
+     36.199
+    ],
+    [
+     "data",
+     36.49
+    ],
+    [
+     "with",
+     36.763
+    ],
+    [
+     "its",
+     36.985
+    ],
+    [
+     "structural",
+     37.156
+    ],
+    [
+     "memory",
+     37.703
+    ],
+    [
+     "capabilities.",
+     38.216
+    ]
+   ]
+  },
+  {
+   "shot": "bound",
+   "start": 39.22470085470085,
+   "end": 50.62641025641026,
+   "text": "Of course, a lot of companies have different error rates depending on how strong they want their models to be. For ours, we compute a statistical bound on the error and we only allow our stand-ins to take over when that bound is under your budget.",
+   "words": [
+    [
+     "Of",
+     39.225
+    ],
+    [
+     "course,",
+     39.413
+    ],
+    [
+     "a",
+     39.772
+    ],
+    [
+     "lot",
+     39.891
+    ],
+    [
+     "of",
+     40.062
+    ],
+    [
+     "companies",
+     40.182
+    ],
+    [
+     "have",
+     40.49
+    ],
+    [
+     "different",
+     40.712
+    ],
+    [
+     "error",
+     41.002
+    ],
+    [
+     "rates",
+     41.242
+    ],
+    [
+     "depending",
+     41.498
+    ],
+    [
+     "on",
+     41.806
+    ],
+    [
+     "how",
+     41.994
+    ],
+    [
+     "strong",
+     42.182
+    ],
+    [
+     "they",
+     42.524
+    ],
+    [
+     "want",
+     42.695
+    ],
+    [
+     "their",
+     42.866
+    ],
+    [
+     "models",
+     43.02
+    ],
+    [
+     "to",
+     43.259
+    ],
+    [
+     "be.",
+     43.498
+    ],
+    [
+     "For",
+     43.994
+    ],
+    [
+     "ours,",
+     44.233
+    ],
+    [
+     "we",
+     44.644
+    ],
+    [
+     "compute",
+     44.849
+    ],
+    [
+     "a",
+     45.139
+    ],
+    [
+     "statistical",
+     45.361
+    ],
+    [
+     "bound",
+     45.84
+    ],
+    [
+     "on",
+     46.233
+    ],
+    [
+     "the",
+     46.404
+    ],
+    [
+     "error",
+     46.524
+    ],
+    [
+     "and",
+     46.746
+    ],
+    [
+     "we",
+     46.951
+    ],
+    [
+     "only",
+     47.071
+    ],
+    [
+     "allow",
+     47.361
+    ],
+    [
+     "our",
+     47.772
+    ],
+    [
+     "stand-ins",
+     48.028
+    ],
+    [
+     "to",
+     48.421
+    ],
+    [
+     "take",
+     48.575
+    ],
+    [
+     "over",
+     48.763
+    ],
+    [
+     "when",
+     49.037
+    ],
+    [
+     "that",
+     49.208
+    ],
+    [
+     "bound",
+     49.361
+    ],
+    [
+     "is",
+     49.584
+    ],
+    [
+     "under",
+     49.789
+    ],
+    [
+     "your",
+     50.114
+    ],
+    [
+     "budget.",
+     50.302
+    ]
+   ]
+  },
+  {
+   "shot": "budget",
+   "start": 50.90991452991452,
+   "end": 57.61076923076923,
+   "text": "You can adjust that by clicking on the Dreams tab here and adjusting the number of allowed mistakes and watching coverage shrink or grow accordingly.",
+   "words": [
+    [
+     "You",
+     50.91
+    ],
+    [
+     "can",
+     51.047
+    ],
+    [
+     "adjust",
+     51.166
+    ],
+    [
+     "that",
+     51.457
+    ],
+    [
+     "by",
+     51.696
+    ],
+    [
+     "clicking",
+     51.85
+    ],
+    [
+     "on",
+     52.089
+    ],
+    [
+     "the",
+     52.312
+    ],
+    [
+     "Dreams",
+     52.431
+    ],
+    [
+     "tab",
+     52.671
+    ],
+    [
+     "here",
+     52.927
+    ],
+    [
+     "and",
+     53.166
+    ],
+    [
+     "adjusting",
+     53.371
+    ],
+    [
+     "the",
+     53.833
+    ],
+    [
+     "number",
+     54.038
+    ],
+    [
+     "of",
+     54.175
+    ],
+    [
+     "allowed",
+     54.414
+    ],
+    [
+     "mistakes",
+     54.636
+    ],
+    [
+     "and",
+     55.047
+    ],
+    [
+     "watching",
+     55.542
+    ],
+    [
+     "coverage",
+     55.867
+    ],
+    [
+     "shrink",
+     56.295
+    ],
+    [
+     "or",
+     56.619
+    ],
+    [
+     "grow",
+     56.893
+    ],
+    [
+     "accordingly.",
+     57.149
+    ]
+   ]
+  },
+  {
+   "shot": "replaytab",
+   "start": 57.77905982905981,
+   "end": 62.958547008546994,
+   "text": "For those of you who deal with compliance, you've probably noticed a big issue with your LLM providers.",
+   "words": [
+    [
+     "For",
+     57.779
+    ],
+    [
+     "those",
+     57.984
+    ],
+    [
+     "of",
+     58.172
+    ],
+    [
+     "you",
+     58.343
+    ],
+    [
+     "who",
+     58.446
+    ],
+    [
+     "deal",
+     58.617
+    ],
+    [
+     "with",
+     58.788
+    ],
+    [
+     "compliance,",
+     58.976
+    ],
+    [
+     "you've",
+     59.574
+    ],
+    [
+     "probably",
+     59.694
+    ],
+    [
+     "noticed",
+     59.95
+    ],
+    [
+     "a",
+     60.326
+    ],
+    [
+     "big",
+     60.565
+    ],
+    [
+     "issue",
+     60.753
+    ],
+    [
+     "with",
+     61.181
+    ],
+    [
+     "your",
+     61.471
+    ],
+    [
+     "LLM",
+     61.779
+    ],
+    [
+     "providers.",
+     62.463
+    ]
+   ]
+  },
+  {
+   "shot": "replayrows",
+   "start": 63.15999999999999,
+   "end": 69.91213675213675,
+   "text": "That is, even when you set the temperature to zero, these providers will send back different answers just because of all the different machines they use for computation.",
+   "words": [
+    [
+     "That",
+     63.16
+    ],
+    [
+     "is,",
+     63.314
+    ],
+    [
+     "even",
+     63.587
+    ],
+    [
+     "when",
+     63.741
+    ],
+    [
+     "you",
+     63.946
+    ],
+    [
+     "set",
+     64.066
+    ],
+    [
+     "the",
+     64.237
+    ],
+    [
+     "temperature",
+     64.374
+    ],
+    [
+     "to",
+     64.664
+    ],
+    [
+     "zero,",
+     64.921
+    ],
+    [
+     "these",
+     65.28
+    ],
+    [
+     "providers",
+     65.382
+    ],
+    [
+     "will",
+     65.81
+    ],
+    [
+     "send",
+     66.066
+    ],
+    [
+     "back",
+     66.305
+    ],
+    [
+     "different",
+     66.545
+    ],
+    [
+     "answers",
+     66.904
+    ],
+    [
+     "just",
+     67.28
+    ],
+    [
+     "because",
+     67.536
+    ],
+    [
+     "of",
+     67.827
+    ],
+    [
+     "all",
+     67.963
+    ],
+    [
+     "the",
+     68.186
+    ],
+    [
+     "different",
+     68.339
+    ],
+    [
+     "machines",
+     68.562
+    ],
+    [
+     "they",
+     68.886
+    ],
+    [
+     "use",
+     69.057
+    ],
+    [
+     "for",
+     69.211
+    ],
+    [
+     "computation.",
+     69.434
+    ]
+   ]
+  },
+  {
+   "shot": "hash",
+   "start": 70.20273504273504,
+   "end": 75.26256410256411,
+   "text": "We hash every single machine that we use and we attach these hashes to every single response we give back.",
+   "words": [
+    [
+     "We",
+     70.203
+    ],
+    [
+     "hash",
+     70.493
+    ],
+    [
+     "every",
+     70.801
+    ],
+    [
+     "single",
+     71.228
+    ],
+    [
+     "machine",
+     71.519
+    ],
+    [
+     "that",
+     71.81
+    ],
+    [
+     "we",
+     71.998
+    ],
+    [
+     "use",
+     72.117
+    ],
+    [
+     "and",
+     72.339
+    ],
+    [
+     "we",
+     72.51
+    ],
+    [
+     "attach",
+     72.613
+    ],
+    [
+     "these",
+     72.869
+    ],
+    [
+     "hashes",
+     73.109
+    ],
+    [
+     "to",
+     73.416
+    ],
+    [
+     "every",
+     73.639
+    ],
+    [
+     "single",
+     73.861
+    ],
+    [
+     "response",
+     74.151
+    ],
+    [
+     "we",
+     74.51
+    ],
+    [
+     "give",
+     74.75
+    ],
+    [
+     "back.",
+     74.921
+    ]
+   ]
+  },
+  {
+   "shot": "replay",
+   "start": 75.53188034188035,
+   "end": 82.28401709401709,
+   "text": "That way, anyone can reproduce our model returns with a byte-identical return, which is made even easier using our replay functionality.",
+   "words": [
+    [
+     "That",
+     75.532
+    ],
+    [
+     "way,",
+     75.634
+    ],
+    [
+     "anyone",
+     75.822
+    ],
+    [
+     "can",
+     76.147
+    ],
+    [
+     "reproduce",
+     76.421
+    ],
+    [
+     "our",
+     76.865
+    ],
+    [
+     "model",
+     77.173
+    ],
+    [
+     "returns",
+     77.464
+    ],
+    [
+     "with",
+     77.874
+    ],
+    [
+     "a",
+     78.147
+    ],
+    [
+     "byte-identical",
+     78.267
+    ],
+    [
+     "return,",
+     79.053
+    ],
+    [
+     "which",
+     79.429
+    ],
+    [
+     "is",
+     79.891
+    ],
+    [
+     "made",
+     80.011
+    ],
+    [
+     "even",
+     80.164
+    ],
+    [
+     "easier",
+     80.472
+    ],
+    [
+     "using",
+     80.797
+    ],
+    [
+     "our",
+     81.173
+    ],
+    [
+     "replay",
+     81.446
+    ],
+    [
+     "functionality.",
+     81.788
+    ]
+   ]
+  },
+  {
+   "shot": "build",
+   "start": 82.54897435897436,
+   "end": 89.4805982905983,
+   "text": "For those of you who have incredibly long sequentially chained workflows, we can run those independent steps in parallel using speculative tool predictions.",
+   "words": [
+    [
+     "For",
+     82.549
+    ],
+    [
+     "those",
+     82.763
+    ],
+    [
+     "of",
+     82.951
+    ],
+    [
+     "you",
+     83.122
+    ],
+    [
+     "who",
+     83.224
+    ],
+    [
+     "have",
+     83.412
+    ],
+    [
+     "incredibly",
+     83.6
+    ],
+    [
+     "long",
+     84.062
+    ],
+    [
+     "sequentially",
+     84.472
+    ],
+    [
+     "chained",
+     84.951
+    ],
+    [
+     "workflows,",
+     85.293
+    ],
+    [
+     "we",
+     85.891
+    ],
+    [
+     "can",
+     85.993
+    ],
+    [
+     "run",
+     86.13
+    ],
+    [
+     "those",
+     86.284
+    ],
+    [
+     "independent",
+     86.472
+    ],
+    [
+     "steps",
+     86.865
+    ],
+    [
+     "in",
+     87.258
+    ],
+    [
+     "parallel",
+     87.464
+    ],
+    [
+     "using",
+     87.754
+    ],
+    [
+     "speculative",
+     88.13
+    ],
+    [
+     "tool",
+     88.626
+    ],
+    [
+     "predictions.",
+     89.002
+    ]
+   ]
+  },
+  {
+   "shot": "buildrace",
+   "start": 89.68460683760685,
+   "end": 93.15469230769233,
+   "text": "That's part of what allows us to lower latency by up to 500 times.",
+   "words": [
+    [
+     "That's",
+     89.685
+    ],
+    [
+     "part",
+     89.907
+    ],
+    [
+     "of",
+     90.044
+    ],
+    [
+     "what",
+     90.163
+    ],
+    [
+     "allows",
+     90.283
+    ],
+    [
+     "us",
+     90.556
+    ],
+    [
+     "to",
+     90.762
+    ],
+    [
+     "lower",
+     90.915
+    ],
+    [
+     "latency",
+     91.121
+    ],
+    [
+     "by",
+     91.565
+    ],
+    [
+     "up",
+     91.838
+    ],
+    [
+     "to",
+     91.992
+    ],
+    [
+     "500",
+     92.146
+    ],
+    [
+     "times.",
+     92.505
+    ]
+   ]
+  },
+  {
+   "shot": "journal",
+   "start": 93.35529059829061,
+   "end": 96.2612735042735,
+   "text": "Finally, you can always manage your own data and your own model training.",
+   "words": [
+    [
+     "Finally,",
+     93.355
+    ],
+    [
+     "you",
+     93.663
+    ],
+    [
+     "can",
+     93.885
+    ],
+    [
+     "always",
+     93.988
+    ],
+    [
+     "manage",
+     94.244
+    ],
+    [
+     "your",
+     94.552
+    ],
+    [
+     "own",
+     94.723
+    ],
+    [
+     "data",
+     94.894
+    ],
+    [
+     "and",
+     95.099
+    ],
+    [
+     "your",
+     95.321
+    ],
+    [
+     "own",
+     95.492
+    ],
+    [
+     "model",
+     95.68
+    ],
+    [
+     "training.",
+     95.919
+    ]
+   ]
+  },
+  {
+   "shot": "scores",
+   "start": 96.47913675213675,
+   "end": 106.2227264957265,
+   "text": "If we go to scores here, we can see exactly how different data points have been categorized, how they performed, what their costs were, and what their latency was. Then you can decide at each node whether to use our stand-ins or not.",
+   "words": [
+    [
+     "If",
+     96.479
+    ],
+    [
+     "we",
+     96.616
+    ],
+    [
+     "go",
+     96.736
+    ],
+    [
+     "to",
+     96.855
+    ],
+    [
+     "scores",
+     96.975
+    ],
+    [
+     "here,",
+     97.214
+    ],
+    [
+     "we",
+     97.505
+    ],
+    [
+     "can",
+     97.659
+    ],
+    [
+     "see",
+     97.778
+    ],
+    [
+     "exactly",
+     97.932
+    ],
+    [
+     "how",
+     98.308
+    ],
+    [
+     "different",
+     98.582
+    ],
+    [
+     "data",
+     98.838
+    ],
+    [
+     "points",
+     99.009
+    ],
+    [
+     "have",
+     99.283
+    ],
+    [
+     "been",
+     99.436
+    ],
+    [
+     "categorized,",
+     99.573
+    ],
+    [
+     "how",
+     100.377
+    ],
+    [
+     "they",
+     100.616
+    ],
+    [
+     "performed,",
+     100.77
+    ],
+    [
+     "what",
+     101.265
+    ],
+    [
+     "their",
+     101.402
+    ],
+    [
+     "costs",
+     101.539
+    ],
+    [
+     "were,",
+     101.795
+    ],
+    [
+     "and",
+     102.052
+    ],
+    [
+     "what",
+     102.154
+    ],
+    [
+     "their",
+     102.291
+    ],
+    [
+     "latency",
+     102.428
+    ],
+    [
+     "was.",
+     102.684
+    ],
+    [
+     "Then",
+     103.334
+    ],
+    [
+     "you",
+     103.539
+    ],
+    [
+     "can",
+     103.642
+    ],
+    [
+     "decide",
+     103.761
+    ],
+    [
+     "at",
+     104.069
+    ],
+    [
+     "each",
+     104.206
+    ],
+    [
+     "node",
+     104.394
+    ],
+    [
+     "whether",
+     104.65
+    ],
+    [
+     "to",
+     104.872
+    ],
+    [
+     "use",
+     105.095
+    ],
+    [
+     "our",
+     105.265
+    ],
+    [
+     "stand-ins",
+     105.453
+    ],
+    [
+     "or",
+     105.881
+    ],
+    [
+     "not.",
+     106.001
+    ]
+   ]
+  },
+  {
+   "shot": "close",
+   "start": 106.5133247863248,
+   "end": 111.60734188034188,
+   "text": "For those of you dealing with data handling policies, Dreaming is available in self-hosted and fully managed flavors.",
+   "words": [
+    [
+     "For",
+     106.513
+    ],
+    [
+     "those",
+     106.582
+    ],
+    [
+     "of",
+     106.787
+    ],
+    [
+     "you",
+     106.924
+    ],
+    [
+     "dealing",
+     107.06
+    ],
+    [
+     "with",
+     107.3
+    ],
+    [
+     "data",
+     107.488
+    ],
+    [
+     "handling",
+     107.778
+    ],
+    [
+     "policies,",
+     108.154
+    ],
+    [
+     "Dreaming",
+     108.872
+    ],
+    [
+     "is",
+     109.026
+    ],
+    [
+     "available",
+     109.3
+    ],
+    [
+     "in",
+     109.556
+    ],
+    [
+     "self-hosted",
+     109.847
+    ],
+    [
+     "and",
+     110.513
+    ],
+    [
+     "fully",
+     110.667
+    ],
+    [
+     "managed",
+     110.906
+    ],
+    [
+     "flavors.",
+     111.248
+    ]
+   ]
+  },
+  {
+   "shot": "outro",
+   "start": 111.89794017094017,
+   "end": 112.70135897435897,
+   "text": "Keep on dreaming.",
+   "words": [
+    [
+     "Keep",
+     111.898
+    ],
+    [
+     "on",
+     112.052
+    ],
+    [
+     "dreaming.",
+     112.377
+    ]
+   ]
+  }
+ ],
+ "cues": [
+  {
+   "text": "A lot of AI agents and orchestration platforms",
+   "start": 2.5,
+   "end": 5.184
+  },
+  {
+   "text": "today do their job by asking a big,",
+   "start": 5.184,
+   "end": 7.338
+  },
+  {
+   "text": "slow language model a question at every step.",
+   "start": 7.338,
+   "end": 10.107
+  },
+  {
+   "text": "Dreaming learns to answer the repetitive",
+   "start": 10.107,
+   "end": 11.782
+  },
+  {
+   "text": "questions in milliseconds for almost nothing,",
+   "start": 11.782,
+   "end": 14.432
+  },
+  {
+   "text": "and this really matters for a lot",
+   "start": 14.432,
+   "end": 15.731
+  },
+  {
+   "text": "of companies that are running expensive",
+   "start": 15.731,
+   "end": 17.372
+  },
+  {
+   "text": "workflows almost thousands of times a day.",
+   "start": 17.372,
+   "end": 19.731
+  },
+  {
+   "text": "We can slash those costs by up to 87%",
+   "start": 19.731,
+   "end": 22.226
+  },
+  {
+   "text": "while lowering processing latency from",
+   "start": 22.226,
+   "end": 24.278
+  },
+  {
+   "text": "2.6 seconds to 5 milliseconds using",
+   "start": 24.278,
+   "end": 27.269
+  },
+  {
+   "text": "our novel workflow language model, Psi.",
+   "start": 27.269,
+   "end": 29.808
+  },
+  {
+   "text": "So let's start by running",
+   "start": 29.808,
+   "end": 30.832
+  },
+  {
+   "text": "2,000 workflow runs.",
+   "start": 30.832,
+   "end": 32.473
+  },
+  {
+   "text": "What's amazing about Psi is that",
+   "start": 32.473,
+   "end": 33.908
+  },
+  {
+   "text": "it can pick up on workflow results",
+   "start": 33.908,
+   "end": 35.379
+  },
+  {
+   "text": "quickly and with little data with",
+   "start": 35.379,
+   "end": 36.985
+  },
+  {
+   "text": "its structural memory capabilities.",
+   "start": 36.985,
+   "end": 39.225
+  },
+  {
+   "text": "Of course, a lot of companies have different",
+   "start": 39.225,
+   "end": 41.002
+  },
+  {
+   "text": "error rates depending on how strong",
+   "start": 41.002,
+   "end": 42.524
+  },
+  {
+   "text": "they want their models to be. For ours,",
+   "start": 42.524,
+   "end": 44.644
+  },
+  {
+   "text": "we compute a statistical bound on the error",
+   "start": 44.644,
+   "end": 46.746
+  },
+  {
+   "text": "and we only allow our stand-ins to take",
+   "start": 46.746,
+   "end": 48.763
+  },
+  {
+   "text": "over when that bound is under your budget.",
+   "start": 48.763,
+   "end": 50.91
+  },
+  {
+   "text": "You can adjust that by clicking on the",
+   "start": 50.91,
+   "end": 52.431
+  },
+  {
+   "text": "Dreams tab here and adjusting the",
+   "start": 52.431,
+   "end": 54.038
+  },
+  {
+   "text": "number of allowed mistakes and watching",
+   "start": 54.038,
+   "end": 55.867
+  },
+  {
+   "text": "coverage shrink or grow accordingly.",
+   "start": 55.867,
+   "end": 57.779
+  },
+  {
+   "text": "For those of you who deal with compliance,",
+   "start": 57.779,
+   "end": 59.574
+  },
+  {
+   "text": "you've probably noticed a",
+   "start": 59.574,
+   "end": 60.565
+  },
+  {
+   "text": "big issue with your LLM providers.",
+   "start": 60.565,
+   "end": 63.16
+  },
+  {
+   "text": "That is, even when you set the temperature",
+   "start": 63.16,
+   "end": 64.664
+  },
+  {
+   "text": "to zero, these providers will send back",
+   "start": 64.664,
+   "end": 66.545
+  },
+  {
+   "text": "different answers just because of all the",
+   "start": 66.545,
+   "end": 68.339
+  },
+  {
+   "text": "different machines they use for computation.",
+   "start": 68.339,
+   "end": 70.203
+  },
+  {
+   "text": "We hash every single machine that",
+   "start": 70.203,
+   "end": 71.998
+  },
+  {
+   "text": "we use and we attach these hashes to",
+   "start": 71.998,
+   "end": 73.639
+  },
+  {
+   "text": "every single response we give back.",
+   "start": 73.639,
+   "end": 75.532
+  },
+  {
+   "text": "That way, anyone can reproduce our",
+   "start": 75.532,
+   "end": 77.173
+  },
+  {
+   "text": "model returns with a byte-identical",
+   "start": 77.173,
+   "end": 79.053
+  },
+  {
+   "text": "return, which is made even easier",
+   "start": 79.053,
+   "end": 80.797
+  },
+  {
+   "text": "using our replay functionality.",
+   "start": 80.797,
+   "end": 82.549
+  },
+  {
+   "text": "For those of you who have incredibly",
+   "start": 82.549,
+   "end": 84.062
+  },
+  {
+   "text": "long sequentially chained workflows,",
+   "start": 84.062,
+   "end": 85.891
+  },
+  {
+   "text": "we can run those independent steps in parallel",
+   "start": 85.891,
+   "end": 87.754
+  },
+  {
+   "text": "using speculative tool predictions.",
+   "start": 87.754,
+   "end": 89.685
+  },
+  {
+   "text": "That's part of what allows us to",
+   "start": 89.685,
+   "end": 90.915
+  },
+  {
+   "text": "lower latency by up to 500 times.",
+   "start": 90.915,
+   "end": 93.355
+  },
+  {
+   "text": "Finally, you can always manage your",
+   "start": 93.355,
+   "end": 94.723
+  },
+  {
+   "text": "own data and your own model training.",
+   "start": 94.723,
+   "end": 96.479
+  },
+  {
+   "text": "If we go to scores here, we can see",
+   "start": 96.479,
+   "end": 97.932
+  },
+  {
+   "text": "exactly how different data points have been",
+   "start": 97.932,
+   "end": 99.573
+  },
+  {
+   "text": "categorized, how they performed,",
+   "start": 99.573,
+   "end": 101.265
+  },
+  {
+   "text": "what their costs were, and what their latency was.",
+   "start": 101.265,
+   "end": 103.334
+  },
+  {
+   "text": "Then you can decide at each",
+   "start": 103.334,
+   "end": 104.394
+  },
+  {
+   "text": "node whether to use our stand-ins or not.",
+   "start": 104.394,
+   "end": 106.513
+  },
+  {
+   "text": "For those of you dealing with data",
+   "start": 106.513,
+   "end": 107.778
+  },
+  {
+   "text": "handling policies, Dreaming is available in",
+   "start": 107.778,
+   "end": 109.847
+  },
+  {
+   "text": "self-hosted and fully managed flavors.",
+   "start": 109.847,
+   "end": 111.898
+  },
+  {
+   "text": "Keep on dreaming.",
+   "start": 111.898,
+   "end": 113.101
+  }
+ ],
+ "shots": [
+  {
+   "name": "intro",
+   "start": 0.0,
+   "end": 2.3
+  },
+  {
+   "name": "hook",
+   "start": 2.3,
+   "end": 9.907
+  },
+  {
+   "name": "race",
+   "start": 9.907,
+   "end": 19.531
+  },
+  {
+   "name": "bench",
+   "start": 19.531,
+   "end": 29.608
+  },
+  {
+   "name": "run",
+   "start": 29.608,
+   "end": 32.273
+  },
+  {
+   "name": "psi",
+   "start": 32.273,
+   "end": 39.025
+  },
+  {
+   "name": "bound",
+   "start": 39.025,
+   "end": 50.71
+  },
+  {
+   "name": "budget",
+   "start": 50.71,
+   "end": 57.579
+  },
+  {
+   "name": "replaytab",
+   "start": 57.579,
+   "end": 62.96
+  },
+  {
+   "name": "replayrows",
+   "start": 62.96,
+   "end": 70.003
+  },
+  {
+   "name": "hash",
+   "start": 70.003,
+   "end": 75.332
+  },
+  {
+   "name": "replay",
+   "start": 75.332,
+   "end": 82.349
+  },
+  {
+   "name": "build",
+   "start": 82.349,
+   "end": 89.485
+  },
+  {
+   "name": "buildrace",
+   "start": 89.485,
+   "end": 93.155
+  },
+  {
+   "name": "journal",
+   "start": 93.155,
+   "end": 96.279
+  },
+  {
+   "name": "scores",
+   "start": 96.279,
+   "end": 106.313
+  },
+  {
+   "name": "close",
+   "start": 106.313,
+   "end": 111.698
+  },
+  {
+   "name": "outro",
+   "start": 111.698,
+   "end": 115.669
+  }
+ ]
+}
