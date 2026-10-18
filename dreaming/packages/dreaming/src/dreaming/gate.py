@@ -63,7 +63,9 @@ def certify(conf: NDArray[np.floating], correct: NDArray[np.bool_], budget: floa
         k = max(1, round(n * j / grid))
         while k < n and c[k] == c[k - 1]:  # close ties so the cutoff is a real threshold
             k += 1
-        if k not in levels:  # a constant-confidence predictor has one level, not forty: pay delta once
+        # A cutoff of 0 answers rows with no preference (a tie, or the tool memory's unseen input, label ""): never a level, so it
+        # costs no delta (vendor_lookup: 67% at 1% instead of a 1.1% bound). Chosen from `conf` alone, so the union bound holds.
+        if c[k - 1] > 0 and k not in levels:  # a constant-confidence predictor has one level, not forty: pay delta once
             levels.append(k)
     d = delta / len(levels) if levels else delta
     for k in levels:
