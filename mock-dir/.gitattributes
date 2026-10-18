@@ -1,0 +1,5 @@
+# LF everywhere: the served page bytes, the Docker build and the justfile must not depend on the checkout OS.
+* text=auto eol=lf
+*.npz binary
+*.png binary
+*.jpg binary
