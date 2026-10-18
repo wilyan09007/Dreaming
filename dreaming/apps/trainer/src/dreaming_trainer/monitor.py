@@ -31,13 +31,17 @@ BUDGET = 0.05  # rule 1's error ceiling: the 5% budget the table headlines
 MARGIN = 0.10  # rule 2: two s.e. in the smokes
 PRUNE_RUNGS = (500, 2000)
 LIVE = ("queued", "running", "done")  # statuses a rule may still change; pruned and failed are final
-COLUMNS = ("candidate", "variant", "seed", "where", "status", "rung", "coverage_05", "coverage_20", "err_05", "acc_test", "seconds", "bytes", "stable", "note")
+# test = held-out merchants (whole groups), the generalization number; fwd = the last 20% by time with the cutoff certified on calib, the
+# production-like headline (training-plan §3; on the bookkeeper ledger the two differ by 0.9: merchants repeat in time, not across groups)
+COLUMNS = ("candidate", "variant", "seed", "where", "status", "rung", "coverage_05", "err_05", "acc_test", "cov_fwd_05", "err_fwd_05", "acc_forward",
+           "seconds", "bytes", "stable", "eval_sha", "note")
 
 _FETCH = """
 select r.id as run_id, r.call_site, r.candidate, r.variant, r.seed, r."where", r.status, r.note, r.seconds, r.config ->> 'fc_id' as fc_id,
-       c.rung, c.bytes, c.stable,
+       c.rung, c.bytes, c.stable, left(c.eval_sha, 10) as eval_sha,
        (c.summary ->> 'coverage_05')::float8 as coverage_05, (c.summary ->> 'coverage_20')::float8 as coverage_20,
-       (c.summary ->> 'err_05')::float8 as err_05, (c.summary ->> 'acc_test')::float8 as acc_test
+       (c.summary ->> 'err_05')::float8 as err_05, (c.summary ->> 'acc_test')::float8 as acc_test, (c.summary ->> 'acc_forward')::float8 as acc_forward,
+       (c.summary ->> 'cov_fwd_05')::float8 as cov_fwd_05, (c.summary ->> 'err_fwd_05')::float8 as err_fwd_05
 from train_runs r left join checkpoints c on c.run_id = r.id
 where r.campaign = %s order by r.call_site, r.candidate, r.variant, r.seed, c.rung
 """

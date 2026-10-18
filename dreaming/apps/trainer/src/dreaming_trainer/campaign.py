@@ -23,7 +23,8 @@ Two files come from the laptop, not from Postgres, and go up by hand (re-upload 
 Volume layout, per site, written by prepare_site and only read by cells:
     /weights/campaign/<site>/rows.jsonl      {"rendered", "label", "group", "ts"} per line, sorted by (ts, rendered); a row's id is its line number
     /weights/campaign/<site>/seeds.jsonl     {"rendered", "label"} per line: the LLM-written seed rows for the site's current schema, when uploaded
-    /weights/campaign/<site>/meta.json       {"site_id", "labels", "encoder_sha", "env_sha", "n"}
+    /weights/campaign/<site>/meta.json       {"site_id", "labels", "encoder_sha", "env_sha", "n", "n_seeds", "prepared"}; launch_cells puts its sha in
+                                             every cell's config["meta_sha"] and the cell refuses any other (site_data): no re-prepare under a campaign
     /weights/campaign/<site>/embeddings.npy  float32 [n + seeds, 384], row i = embed(text i) at batch size 1, rows then seeds (model sites only)
     /weights/campaign/<run>/<rung>.npz       idx int32, split int8 (0 calib, 1 test, 2 forward), scores float16 [N, L], conf float32, pred int32,
                                              conf2 / pred2 (the second pass); Checkpoint.eval_sha = sha of the three EvalSet shas (calib, test, forward)
@@ -66,7 +67,7 @@ from dreaming.contracts import (
     TrainRun,
 )
 from dreaming.gate import certify, realized
-from dreaming.hashing import canonical, sha
+from dreaming.hashing import canonical, sha, sha_bytes
 from dreaming.predictors import Predictor
 from dreaming.predictors.candidates import CANDIDATES, Candidate, Fitted
 from dreaming.predictors.student import ENCODER_REV, SentenceEncoder, Vec
@@ -243,6 +244,7 @@ def summarize(conf: NDArray[np.float64], ok: NDArray[np.bool_], code: NDArray[np
         cov, err = realized(tc, to, g.cutoff) if g.certified else (0.0, 0.0)
         out[f"coverage_{round(b * 100):02d}"], out[f"err_{round(b * 100):02d}"] = cov, err
     g = certify(cc, co, 0.05, DELTA)
+    out["cov_fwd_05"], out["err_fwd_05"] = realized(fc, fo, g.cutoff) if g.certified else (0.0, 0.0)  # the same cutoff on the forward slice
     return out | {"bound_05": g.bound, "emp_error_05": g.emp_error, "ece": _ece(tc, to), "n_calib": float(len(cc)), "n_test": float(len(tc)),
                   "n_forward": float(len(fc)), "n_train": float(n_train)}
 
@@ -384,9 +386,27 @@ def prepare_site(site: str) -> dict[str, Any]:
     (d / "seeds.jsonl").unlink(missing_ok=True)  # a re-prepare without seeds leaves none behind
     if seeds:
         (d / "seeds.jsonl").write_text("".join(json.dumps(r) + "\n" for r in seeds))
-    (d / "meta.json").write_text(json.dumps({"site_id": site, "labels": labels, "encoder_sha": encoder_sha, "env_sha": env_sha, "n": len(rows)}))
+    meta = json.dumps({"site_id": site, "labels": labels, "encoder_sha": encoder_sha, "env_sha": env_sha, "n": len(rows), "n_seeds": len(seeds),
+                       "prepared": datetime.now(UTC).isoformat()})
+    (d / "meta.json").write_text(meta)
     volume.commit()
-    return {"site": site, "rows": len(rows), "seeds": len(seeds), "bytes": sum(f.stat().st_size for f in d.iterdir())}
+    return {"site": site, "rows": len(rows), "seeds": len(seeds), "bytes": sum(f.stat().st_size for f in d.iterdir()), "meta_sha": sha_bytes(meta.encode())}
+
+
+def site_data(d: Path, meta_sha: str | None) -> tuple[dict[str, Any], list[dict[str, Any]], list[dict[str, Any]]]:
+    """A site's meta, rows and seeds from its Volume directory, checked as one snapshot: the meta.json launch_cells saw (`meta_sha`, when the
+    run carries one) and row counts that agree with it and with embeddings.npy. A re-prepare under a running campaign (seen 2026-10-18:
+    another app overwrote categorize mid-launch; 4 cells raised IndexError, one trained on the other labels) fails loudly here instead."""
+    raw = (d / "meta.json").read_bytes()
+    meta = json.loads(raw)
+    if meta_sha is not None and sha_bytes(raw) != meta_sha:
+        raise RuntimeError(f"{d.name}: meta.json changed since launch (prepared {meta.get('prepared')}); the site was re-prepared under this campaign")
+    rows: list[dict[str, Any]] = [json.loads(line) for line in (d / "rows.jsonl").read_text().splitlines()]
+    seeds: list[dict[str, Any]] = [json.loads(line) for line in (d / "seeds.jsonl").read_text().splitlines()] if (d / "seeds.jsonl").is_file() else []
+    n_emb = len(np.load(d / "embeddings.npy", mmap_mode="r")) if (d / "embeddings.npy").is_file() else len(rows) + len(seeds)
+    if (len(rows), len(seeds), n_emb) != (meta["n"], meta.get("n_seeds", len(seeds)), len(rows) + len(seeds)):
+        raise RuntimeError(f"{d.name}: rows.jsonl ({len(rows)}), seeds.jsonl ({len(seeds)}), embeddings.npy ({n_emb}) and meta.json (n {meta['n']}) disagree")
+    return meta, rows, seeds
 
 
 # ---------------------------------------------------------------- the cell
@@ -446,9 +466,7 @@ def _cell(run_dict: dict[str, Any], gpu: bool) -> dict[str, Any]:
     try:
         volume.reload()
         d = ROOT / run.call_site
-        meta = json.loads((d / "meta.json").read_text())
-        rows: list[dict[str, Any]] = [json.loads(line) for line in (d / "rows.jsonl").read_text().splitlines()]
-        seeds: list[dict[str, Any]] = [json.loads(line) for line in (d / "seeds.jsonl").read_text().splitlines()] if (d / "seeds.jsonl").is_file() else []
+        meta, rows, seeds = site_data(d, cast(str | None, run.config.get("meta_sha")))
         if run.variant != "real" and not seeds:
             raise ValueError(f"{run.call_site}: variant {run.variant} needs seed rows and the Volume has none (upload them, then re-prepare with --force)")
         tool = run.call_site in TOOL_SITES
@@ -509,9 +527,11 @@ def train_cell_gpu(run: dict[str, Any]) -> dict[str, Any]:
 
 
 @app.function(memory=1024, secrets=[db], timeout=45 * 60, volumes={"/weights": volume})
-def launch_cells(campaign: str, sites: list[str], limit: int, force: bool = False) -> list[dict[str, Any]]:
+def launch_cells(campaign: str, sites: list[str], limit: int, force: bool = False, only: Sequence[str] = ()) -> list[dict[str, Any]]:
     """Prepare the sites the Volume lacks (every named site with `force`: new labels or seed rows were uploaded), queue the cells in
-    train_runs, then spawn each by name on the deployed app (they outlive this call). The fc id lands in config["fc_id"]."""
+    train_runs, then spawn each by name on the deployed app (they outlive this call). The fc id lands in config["fc_id"].
+    `only`: run ids to spawn and nothing else (a rerun of failed cells: the cell's own insert sets them running again and its checkpoints
+    overwrite the old ones, rung by rung)."""
     names = [site_id(n) for n in sites] or list(SITES)
     missing = names if force else [s for s in names if not (ROOT / s / "meta.json").is_file()]
     done: list[Any] = list(cast(Any, prepare_site).map(missing, return_exceptions=True)) if missing else []  # in parallel, one container per site
@@ -522,7 +542,15 @@ def launch_cells(campaign: str, sites: list[str], limit: int, force: bool = Fals
         if s not in seeded and s not in TOOL_SITES and s not in broken:
             print(f"{s}: no seed rows on the Volume ({SEEDS / s}.jsonl missing, or uploaded after the site was prepared: --force); "
                   "variants seed+real and seed skipped, real runs", flush=True)
-    todo = cells(campaign, names, seeded)[: limit or None]
+    # the meta.json every cell must find (site_data): the one prepare_site just wrote, else the one on the Volume now
+    meta_sha = {s: r["meta_sha"] for s, r in zip(missing, done, strict=True) if not isinstance(r, BaseException)}
+    meta_sha |= {s: sha_bytes((ROOT / s / "meta.json").read_bytes()) for s in names if s not in meta_sha and s not in broken}
+    todo = [c for c in cells(campaign, names, seeded) if not only or c["id"] in only][: limit or None]
+    if only and len(todo) != len(set(only)):
+        raise ValueError(f"--only names {sorted(set(only) - {c['id'] for c in todo})} that are not cells of this campaign and sites")
+    for c in todo:
+        if c["call_site"] in meta_sha:
+            c["config"]["meta_sha"] = meta_sha[c["call_site"]]
     by_name: Any = cast(Any, modal.Function).from_name  # Modal's Function is untyped; spawning by name keeps the calls alive after the caller exits
     fn_cpu, fn_gpu = by_name("dreaming-campaign", "train_cell"), by_name("dreaming-campaign", "train_cell_gpu")
     with _pg() as conn:
@@ -562,7 +590,8 @@ def monitor() -> None:
 
 
 @app.local_entrypoint()
-def launch(campaign: str = "night-1017", sites: str = "", limit: int = 0, force: bool = False) -> None:
-    """`sites` is comma-separated, full ids or bare names; empty means all six. `--force` re-prepares the named sites first."""
-    for c in launch_cells.remote(campaign, [s for s in sites.split(",") if s], limit, force):
+def launch(campaign: str = "night-1017", sites: str = "", limit: int = 0, force: bool = False, only: str = "") -> None:
+    """`sites` is comma-separated, full ids or bare names; empty means all six. `--force` re-prepares the named sites first; `--only` is a
+    comma-separated list of run ids to (re)spawn."""
+    for c in launch_cells.remote(campaign, [s for s in sites.split(",") if s], limit, force, [o for o in only.split(",") if o]):
         print(c["id"], c["config"]["fc_id"])

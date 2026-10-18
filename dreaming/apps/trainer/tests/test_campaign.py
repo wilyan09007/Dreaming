@@ -130,6 +130,23 @@ def test_seed_rows_reads_b1s_file_for_the_current_schema(tmp_path: Path) -> None
     assert campaign.seed_rows(site(Kind.tool), tmp_path) == [] and campaign.seed_rows(CallSite(id="w.none", workflow="w", name="none", kind=Kind.model, labels=["a"]), tmp_path) == []
 
 
+def test_site_data_refuses_a_site_re_prepared_under_the_campaign(tmp_path: Path) -> None:
+    rows, seeds = ledger(5), [{"rendered": "Transaction: CAFE, $4.00", "label": "Meals"}]
+    (tmp_path / "rows.jsonl").write_text("".join(json.dumps(r) + "\n" for r in rows))
+    (tmp_path / "seeds.jsonl").write_text("".join(json.dumps(r) + "\n" for r in seeds))
+    np.save(tmp_path / "embeddings.npy", np.zeros((6, 4), np.float32))
+    meta = json.dumps({"site_id": "w.cat", "labels": LABELS, "encoder_sha": "", "env_sha": "", "n": 5, "n_seeds": 1})
+    (tmp_path / "meta.json").write_text(meta)
+    want = campaign.sha_bytes(meta.encode())
+    got = campaign.site_data(tmp_path, want)
+    assert got[0]["n"] == 5 and got[1] == rows and got[2] == seeds and campaign.site_data(tmp_path, None)[1] == rows  # no expectation: counts alone
+    with pytest.raises(RuntimeError, match="changed since launch"):
+        campaign.site_data(tmp_path, "someone else's prepare")
+    np.save(tmp_path / "embeddings.npy", np.zeros((5, 4), np.float32))  # the mixed state of 2026-10-18: old vectors, new seeds
+    with pytest.raises(RuntimeError, match="disagree"):
+        campaign.site_data(tmp_path, want)
+
+
 def test_group_and_rungs() -> None:
     assert campaign.group_of("bookkeeper.categorize", "Transaction: ADOBE *1234, $5.00") == "Transaction: ADOBE"
     assert campaign.group_of("bookkeeper.match_invoice", "Vendor: Adobe\nCategory: Software") == "Vendor: Adobe"
@@ -150,6 +167,7 @@ def test_summarize_on_a_hand_made_eval() -> None:
     assert s["coverage_02"] == 0.0 and s["coverage_05"] == 0.0 and s["bound_05"] == 1.0  # 40 clean rows bound the error at 7.2% > 5%: nothing certifies
     assert s["coverage_10"] == 1.0 and s["err_10"] == pytest.approx(0.1)  # at 10% the one cutoff (0.9) certifies; the test slice shows its one miss
     assert s["coverage_20"] == 1.0 and s["ece"] == pytest.approx(0.0)  # test: confidence 0.9 and accuracy 0.9
+    assert (s["cov_fwd_05"], s["err_fwd_05"]) == (0.0, 0.0)  # nothing certified at 5%, so the forward slice gets no cutoff either
 
 
 def test_run_rung_head_end_to_end() -> None:
