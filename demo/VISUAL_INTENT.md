@@ -11,6 +11,7 @@ Pitch from `missions.md`: **every saving comes with a certified error bound, and
 | **flows** | "every saving" | one workflow run many times, four lines moving; kill a tool and watch the agent keep working |
 | **dreams** | "comes with a certified error bound" | change the error budget and watch every promise re-certify |
 | **replay** | "every decision can be replayed" | pick a past decision and watch it re-run byte for byte |
+| **scores** | the proof behind all three: how each candidate does on rows it never trained on | the scored benchmark table, read straight from `GET /benchmark` |
 
 The agent is the bookkeeping workflow from `missions.md` (categorize → vendor lookup → match invoice → anything odd? → post / wake a human). The numbers come from `smokes/FINDINGS.md`: coverage at a 5% budget (S1), the vendor tool skipping 70–76% of calls and 89% of runs finishing during an outage (S4), thinking off disagreeing too often to certify at 5% (S5), and batch-1 CPU replay (S7).
 
@@ -35,10 +36,10 @@ The design is **D · Lucid Doodle** from the "Dreaming UI Explorations" canvas. 
 
 ### Header (all tabs)
 - **Logo:** sleeping doodle cloud with purple "z z" (gently bobbing), the word "dreaming" in Gaegu, and a 5-colour crayon squiggle under it. Links to flows.
-- **Tabs:** three sticky notes, each with an icon and a label. *flows* yellow (−3°), *dreams* lavender (+2.5°), *replay* blue (−1.5°). The active tab is bigger (74px vs 62px), has a tape strip on top and a deeper shadow. Exactly one is active.
+- **Tabs:** four sticky notes, each with an icon and a label. *flows* yellow (−3°), *dreams* lavender (+2.5°), *replay* blue (−1.5°), *scores* mint (+2°, a hand-drawn bar chart). The active tab is bigger (74px vs 62px), has a tape strip on top and a deeper shadow. Exactly one is active.
 - **"saved so far" sticky:** pale yellow sticky note at +2° with a blue tape strip and a jar of stars. It counts up in dollars and cents while runs happen, starts at $0.00, and never goes negative. *Why:* the running total of what dreaming saved.
 - Layout is a three-column grid (logo left, tabs dead centre, sticky right), so the tabs never move when the dollar amount gets wider.
-- Check: all three header groups sit on one row at ≥1024px with no overlap. Tab labels are readable.
+- Check: all three header groups (logo, the four tabs, the sticky) sit on one row at ≥1024px with no overlap, tabs dead centre. Tab labels are readable.
 
 ## flows tab
 
@@ -120,8 +121,45 @@ White card with a blue tape strip: "run 1,250" (Gaegu 36px), descriptor and amou
 - Empty state (before any run): "nothing to replay yet" plus a mint "go to flows" pill. No empty list, and no "pick a past run" sentence.
 - Repeat merchants in later batches show different amounts. The same descriptor at a very different amount (Adobe $54.99 vs $5,499.00) is deliberate: that one is the anomaly.
 
+## scores tab
+
+*Why:* the hackathon goal is "scored benchmarks with our models showing how they outperform the competition", and the Intuit judges score a benchmark against classical and LLM baselines. Until now that table lived only in `GET /benchmark` (JSON) and `/benchmark.md`. This tab is that table, nothing more: an ops team reads which candidate to trust per call site, how much traffic it would take, how often it would be wrong, and what it would cost.
+
+### Page head
+Title **"scores"** in Gaegu 46px (as "replay") and one muted sentence: "how each dream did on rows it never trained on, at a 5% mistake budget. every number comes from the latest campaign's benchmark."
+- The data is fetched when the tab opens, and again on every later open (it takes a few hundred ms). No campaign selector: it always shows the latest campaign.
+
+### One notebook card per call site
+Lined notebook paper exactly as the dream journal (blue rules, red margin, punched holes, ink border, wobbly corners), in workflow order (categorize, vendor lookup, match invoice; other sites after). Each card has:
+- the **site name** in Gaegu 34px;
+- a one-line **verdict** in purple Gaegu, computed from the row the table highlights. When some candidate holds a promise at 5%: "the seeded Hopfield memory answers 83% of repeat traffic at 5%, wrong 2.1%" (plus "and 40% of merchants it never saw" when that is non-zero too). When nothing holds a promise but accuracies are in the JSON: "no promise at 5% yet: the seeded Hopfield memory is right on 83% of repeat traffic and 90% of merchants it never saw". When neither: "no promise at 5% yet from any of the 9 candidates" ("from its one candidate"). Accuracy is never called "answers": answering means holding a certificate.
+- a **table**, one row per candidate and variant (the server's order: best unseen coverage first), then the baseline rows. Rows are the paper's rules: a thin blue line under each.
+
+| column | shows | from |
+|---|---|---|
+| who | the candidate in plain words in Gaegu (Hopfield memory, linear head, fine-tuned encoder, HDC bundle, exact cache; baselines: vendor rule, LLM alone, Jev, teacher alone) and, small and muted, the variant ("seed + real rows", "real rows", "seed rows only", "baseline"), "from its summary" when the scores could not be recomputed, "unverified" when not byte-stable, and "first promise after N s" on the seed-only row | `candidate`, `variant`, `source`, `stable`, `seed_cert_s` |
+| repeat traffic | share answered at 5% in Gaegu, "wrong N%" small | `cells[5%].forward_coverage`, `forward_error` |
+| unseen | the same on whole merchants held out; the 2/10/20% coverages in its tooltip | `cells[5%].test_coverage`, `test_error` |
+| right on all calls | accuracy if it answered every call, "repeat / unseen" | `acc_forward`, `acc_test` |
+| $ per 1,000 calls | "~~$10.00~~ → $4.12", the after in green when it is cheaper (the dream journal's cost idiom) | `without_dreaming.usd`, `with_dreaming.usd` |
+| p50 latency | "800 → 5 ms" | `without_dreaming.p50_ms`, `with_dreaming.p50_ms` |
+
+- The **best row** (the highest repeat coverage at 5%, then unseen coverage; when no candidate covers anything, the highest accuracy) gets a yellow highlighter stroke under its name, the same stroke as the selected journal row. If no candidate is ahead on any number, nothing is highlighted.
+- A cell with coverage 0 (nothing certified at 5%) shows a faint "no promise yet" (a baseline: "no promise at 5%"), never "0%". A field that is missing or null in the JSON shows "–".
+- **Fine print** (muted, dashed rule above), one per card: "repeat = the last 20% of the stream by time, merchants recur: the production case. unseen = whole merchants held out. $ and ms are projected from this site's logged teacher calls at the unseen 5% coverage. labels: <provider> (a tool site: "the tool's own returns"). campaign <campaign>." Plus the provider's floor when the JSON has one ("the labeller disagrees with itself on N%: no promise below that is measurable").
+- Under the last card, a native `details` line "notes from the benchmark (N)" lists the JSON's `notes` verbatim (why a row fell back to its summary, estimated embed times). Closed by default.
+
+### Empty and failed states
+- No rows in `/benchmark`: one notebook card, "no campaign has run yet" (Gaegu) and a muted line "a campaign trains every candidate on a site's logged calls and scores it on rows it never saw. its table lands here."
+- Before the first reply: the same card reads "reading the scores…". A refused request: "the scores could not be read: <status and detail>". A later failed refetch keeps the last table on screen.
+
+### Nothing simulated
+Every number is a field of `GET /benchmark` (README (e)). The page formats percentages, dollars and milliseconds, and picks the best row; it computes no number of its own.
+
+- Check: the header holds four tabs with no overlap at ≥1024px; the table fits the card with no sideways page scroll at 1280×720 and 1440×900; small text ≥13px; the best row has the highlighter; "no promise yet" cells read clearly weaker than real numbers; no console errors.
+
 ## Recording sizes
-At 1920×1080 the flows graph scales itself up, and the dreams and replay tabs are zoomed 1.18× so all three tabs read at the same scale. Small explanatory text is at least 13px. On short screens (≤780px tall, e.g. 1280×720) the dreams column tightens its spacing, so the promise card fits without scrolling.
+At 1920×1080 the flows graph scales itself up, and the dreams, replay and scores tabs are zoomed 1.18× so all three tabs read at the same scale. Small explanatory text is at least 13px. On short screens (≤780px tall, e.g. 1280×720) the dreams column tightens its spacing, so the promise card fits without scrolling.
 
 ## Demo script (what will be recorded)
 1. flows, fresh: every step awake, $0.00, flat values.

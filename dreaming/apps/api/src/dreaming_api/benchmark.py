@@ -81,6 +81,8 @@ class Row(BaseModel):
     source: Literal["scores", "summary", "baseline"]
     cells: list[Cell]  # one per budget
     seed_cert_s: float | None  # fit seconds to the first 5% certificate of this candidate's seed-only cells (variant "seed"), on every row of the candidate
+    acc_test: float | None = None  # the picked checkpoints' own summary: right on every unseen (test) row, no cutoff; None for a baseline
+    acc_forward: float | None = None  # the same on the repeat (forward) rows
     without_dreaming: Money | None
     with_dreaming: Money | None
 
@@ -264,7 +266,8 @@ def table(store: Store, scores: ScoresLoader, baselines: Baselines | None = quic
             alone, dreamed = _money(calls[site], cov5, audit, pred_ms)
         rows.append(Row(call_site=site, provider=provider, floor=floor, candidate=cand, variant=variant, seeds=len(picked), rung=top[site, cand, variant],
                         stable=all(ck.stable for ck in picked), source="scores" if all(ok for _, ok in scored) else "summary", cells=merged,
-                        seed_cert_s=_mean(seed_s[site, cand]), without_dreaming=alone, with_dreaming=dreamed))
+                        seed_cert_s=_mean(seed_s[site, cand]), without_dreaming=alone, with_dreaming=dreamed,
+                        acc_test=_mean([ck.summary.get("acc_test") for ck in picked]), acc_forward=_mean([ck.summary.get("acc_forward") for ck in picked])))
     notes += [f"{r.call_site} {r.candidate} {r.variant}: no repeat-traffic (forward) numbers: "
               + ("the scores were not recomputed and a checkpoint summary keeps only acc_forward" if r.source == "summary" else "the scores hold fewer than 2 forward rows")
               for r in rows if r.cells[HEAD].forward_coverage is None]

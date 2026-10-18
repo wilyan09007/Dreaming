@@ -56,6 +56,7 @@ p{text-wrap:pretty}
 .t-flows{background:#FFE58F;transform:rotate(-3deg);--tape:rgba(179,157,255,.55)}
 .t-dreams{background:#E2D9FF;transform:rotate(2.5deg);--tape:rgba(255,209,102,.6)}
 .t-replay{background:#CFE8FF;transform:rotate(-1.5deg);--tape:rgba(255,138,128,.5)}
+.t-scores{background:#CDEFDD;transform:rotate(2deg);--tape:rgba(127,183,255,.5)}
 .saved{position:relative;display:flex;align-items:center;gap:12px;padding:10px 20px 10px 14px;background:#FFF3A8;box-shadow:3px 5px 0 rgba(43,43,51,.14);transform:rotate(2deg)}
 .saved::before{content:"";position:absolute;right:24px;top:-9px;width:44px;height:16px;background:rgba(127,183,255,.5);transform:rotate(-5deg)}
 .saved>span{display:flex;flex-direction:column;line-height:1}
@@ -223,9 +224,29 @@ button.node:hover{box-shadow:5px 7px 0 rgba(43,43,51,.2)}
 .tans small{display:block;font-size:13px;font-weight:400;color:var(--muted)}
 .tres .bad{color:var(--red);white-space:nowrap}
 
+/* scores: GET /benchmark, one notebook card per call site; every line of a card is 48px, so the table rows sit on the paper's rules */
+.scores h1{font-size:46px;line-height:1}
+.scores .rsub{max-width:none}
+.scards{display:flex;flex-direction:column;gap:24px;margin-top:18px}
+.scard{padding:0 26px 14px 78px}
+.scard h2{font-size:34px;line-height:48px}
+.scard>.fine{margin-top:0;padding-top:0;border-top:0;line-height:24px}
+.sverdict{font-family:var(--hand);font-weight:700;font-size:22px;line-height:48px;color:var(--purple)}
+.swrap{overflow-x:auto}
+.stbl{width:100%;border-spacing:0}
+.stbl th,.stbl td{height:48px;padding:0 14px 6px 0;text-align:left;vertical-align:bottom;white-space:nowrap}
+.stbl th{font-family:var(--hand);font-weight:700;font-size:18px;line-height:1;color:var(--muted)}
+.stbl small{display:block;font-family:var(--body);font-weight:400;font-size:13px;line-height:1.2;color:var(--muted)}
+.stbl td>b{font-size:22px;line-height:1}
+.stbl .best td:first-child b{background:linear-gradient(transparent 55%,#FFE58F 55% 90%,transparent 90%)}
+.stbl .jcost{font-size:20px}
+.nope{font-family:var(--hand);font-weight:700;font-size:17px;color:var(--faint)}
+.snotes summary{cursor:pointer}
+.snotes ul{margin:6px 0 0;padding-left:18px}
+
 @media (max-width:760px){.top{display:flex;flex-wrap:wrap;justify-content:space-between}.stage-wrap{overflow-x:auto;overflow-y:hidden}}
 /* recording at 1920x1080: the flows graph scales itself; scale the other two tabs to match */
-@media (min-width:1700px) and (min-height:1000px){#v-dreams,#v-replay{zoom:1.18}}
+@media (min-width:1700px) and (min-height:1000px){#v-dreams,#v-replay,#v-scores{zoom:1.18}}
 /* short screens (1280x720): tighten the dreams column so the promise card fits without scrolling */
 @media (max-height:780px){.side{gap:14px}.budget{padding:12px 20px}.bnote,.bnow{margin-top:6px}.bnow{padding-top:6px}.cert{padding:14px 20px 12px}.promise{margin-top:6px}.sheep{margin-top:8px}.cline{margin-top:6px}.split{margin-top:10px}.ccost{margin-top:8px}.fine{margin-top:6px;padding-top:6px}
 .receipts{gap:9px;margin-top:12px}.receipt{padding:6px 12px}}
@@ -264,6 +285,7 @@ button.node:hover{box-shadow:5px 7px 0 rgba(43,43,51,.2)}
     <a class="tab t-flows" data-v="flows" href="#flows"><svg viewBox="0 0 24 24" fill="none" stroke="#2B2B33" stroke-width="1.8" stroke-linecap="round" style="filter:url(#rough)" aria-hidden="true"><circle cx="5" cy="12" r="2.5"/><circle cx="19" cy="5.5" r="2.5"/><circle cx="19" cy="18.5" r="2.5"/><path d="M7.5 12c5 0 5.5-6.5 9-6.5M7.5 12c5 0 5.5 6.5 9 6.5"/></svg><span>flows</span></a>
     <a class="tab t-dreams" data-v="dreams" href="#dreams"><svg viewBox="0 0 24 24" fill="none" stroke="#2B2B33" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="filter:url(#rough)" aria-hidden="true"><path d="M15.5 3.5a8.5 8.5 0 1 0 5 13.6A7 7 0 0 1 15.5 3.5z"/><path d="M19 3v3.5M17.25 4.75h3.5"/></svg><span>dreams</span></a>
     <a class="tab t-replay" data-v="replay" href="#replay"><svg viewBox="0 0 24 24" fill="none" stroke="#2B2B33" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="filter:url(#rough)" aria-hidden="true"><path d="M4.6 13a7.5 7.5 0 1 0 2.1-6.2"/><path d="M4.5 3.5v4h4"/><path d="M10.5 9.6v5.2l4.2-2.6z" fill="#2B2B33"/></svg><span>replay</span></a>
+    <a class="tab t-scores" data-v="scores" href="#scores"><svg viewBox="0 0 24 24" fill="none" stroke="#2B2B33" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="filter:url(#rough)" aria-hidden="true"><path d="M3.5 20.5h17"/><path d="M5.5 20.5v-6h3.5v6M10.25 20.5V9.5h3.5v11M15 20.5v-8.5h3.5v8.5" fill="#fff"/><path d="M12 2.6l.9 1.8 2 .3-1.45 1.4.35 2-1.8-.95-1.8.95.35-2L9.1 4.7l2-.3z" fill="#FFB84D" stroke-width="1.2"/></svg><span>scores</span></a>
   </nav>
   <div class="saved" id="savedbox" role="status" aria-label="0 dollars saved so far">
     <svg width="40" height="44" viewBox="0 0 40 44" style="filter:url(#rough)" aria-hidden="true"><path d="M10 8h20M11 8V4h18v4M9 10c-3 2-4 5-4 9v15a6 6 0 0 0 6 6h18a6 6 0 0 0 6-6V19c0-4-1-7-4-9" fill="#fff" stroke="#2B2B33" stroke-width="2" stroke-linejoin="round"/><path d="M14 26l1.6 3.2 3.4.5-2.5 2.4.6 3.4-3.1-1.6-3.1 1.6.6-3.4-2.5-2.4 3.4-.5z" fill="#FFB84D"/><path d="M26 20l1.2 2.4 2.6.4-1.9 1.8.4 2.6-2.3-1.2-2.3 1.2.4-2.6-1.9-1.8 2.6-.4z" fill="#B39DFF"/><path d="M27 31l1 2 2.2.3-1.6 1.5.4 2.2-2-1-2 1 .4-2.2-1.6-1.5 2.2-.3z" fill="#7BD8B4"/></svg>
@@ -325,6 +347,12 @@ button.node:hover{box-shadow:5px 7px 0 rgba(43,43,51,.2)}
       <div id="tempty" class="empty"><h2>nothing to replay yet</h2><p>run the flow first. every call it makes lands here.</p><a class="pill" href="#flows">go to flows</a></div>
     </section>
   </div>
+</section>
+
+<section id="v-scores" class="scores" aria-label="Scores" hidden>
+  <h1>scores</h1>
+  <p class="rsub">how each dream did on rows it never trained on, at a 5% mistake budget. every number comes from the latest campaign's benchmark.</p>
+  <div id="scards" class="scards" aria-live="polite"></div>
 </section>
 </main>
 </div>

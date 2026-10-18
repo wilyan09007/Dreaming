@@ -138,6 +138,8 @@ const PATHS = {
   play: '<path d="M7 4.5v15l13-7.5z" fill="#2B2B33" stroke="none"/>',
   pause: '<path d="M6.5 5h4v14h-4zM13.5 5h4v14h-4z" fill="#2B2B33" stroke="none"/>',
 };
+// the wobbly purple "→" between an old cost and a new one (dream journal, scores)
+const WOB = `<svg width="30" height="16" viewBox="0 0 34 16" ${R} aria-hidden="true"><path d="M2 9 C10 3 20 13 30 7 M24 3 L31 7 L25 12" fill="none" stroke="#6A4FD8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 const ico = (/** @type {string} */ k, s = 24) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="#2B2B33" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" ${R} aria-hidden="true">${PATHS[k]}</svg>`;
 /** @type {Record<string, (s: number) => string>} */
 const STATUS = {
@@ -506,7 +508,7 @@ function candHTML(v) {
 function costHTML(v, ph) {
   if (!v.policy.rows || (!v.cost_awake_usd && !v.sec_awake)) return '<span>–</span>'; // no real call in the window (e.g. only the snapshot answered)
   if (ph.p !== 'dreaming' || !v.policy.predicted_rows) return `<span>${cents(v.cost_awake_usd)}</span>`;
-  return `<s>${cents(v.cost_awake_usd)}</s><svg width="30" height="16" viewBox="0 0 34 16" ${R} aria-hidden="true"><path d="M2 9 C10 3 20 13 30 7 M24 3 L31 7 L25 12" fill="none" stroke="#6A4FD8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><em>${cents(v.cost_dream_usd)}</em>`;
+  return `<s>${cents(v.cost_awake_usd)}</s>${WOB}<em>${cents(v.cost_dream_usd)}</em>`;
 }
 function renderJournal() {
   for (const cur of sites()) {
@@ -703,14 +705,110 @@ async function startReplay() {
   setTimeout(tick, 480);
 }
 
+// ---------- scores: GET /benchmark (apps/api benchmark.py), fetched every time the tab opens ----------
+// The page picks the best row and formats; every number is a field of the reply. A missing or null field reads "–".
+/** @typedef {{budget: number, coverage: number | null, test_coverage: number | null, test_error: number | null, forward_coverage?: number | null, forward_error?: number | null}} BCell */
+/** @typedef {{usd: number, p50_ms: number, p95_ms: number}} BMoney  per 1,000 calls */
+/** @typedef {{call_site: string, provider: string, floor: number | null, candidate: string, variant: string, seeds: number, rung: number, stable: boolean, source: string, cells: BCell[], seed_cert_s: number | null, without_dreaming: BMoney | null, with_dreaming: BMoney | null, acc_test?: number | null, acc_forward?: number | null}} BRow */
+/** @typedef {{campaign: string | null, rows: BRow[], notes: string[]}} Bench */
+/** @type {{data: Bench | null, err: string, busy: boolean}} */
+const SC = { data: null, err: '', busy: false };
+/** @type {Record<string, string>} training-plan.md §1, in plain words; the baselines as the benchmark names them */
+const PLAIN = { memory: 'Hopfield memory', head: 'linear head', finetune: 'fine-tuned encoder', hdc: 'HDC bundle', exact: 'exact cache', config: 'thinking off',
+  rule: 'vendor rule', 'llm alone': 'LLM alone', jev: 'Jev', 'teacher alone': 'teacher alone' };
+/** @type {Record<string, string[]>} variant -> [the rows it learned from, before the name, after the name] */
+const VARIANT = { 'seed+real': ['seed + real rows', 'seeded ', ''], seed: ['seed rows only', 'seed-only ', ''], real: ['real rows', '', ' on real rows'] };
+const at5 = (/** @type {BRow} */ r) => r.cells.find((c) => Math.abs(c.budget - 0.05) < 1e-9);
+const isBase = (/** @type {BRow} */ r) => r.source === 'baseline';
+const groupsOf = (/** @type {string} */ site) => (site.startsWith('quickbooks.') ? 'companies' : 'merchants'); // what the held-out split holds out
+/** @param {BRow} r */
+const phrase = (r) => { const v = VARIANT[r.variant] ?? ['', '', ` (${r.variant})`]; return `the ${v[1]}${PLAIN[r.candidate] ?? r.candidate}${v[2]}`; };
+/** The highlighted row: highest repeat coverage at 5%, then unseen; with no coverage anywhere, highest accuracy. Null when nobody has a number. @param {BRow[]} rows */
+function bestOf(rows) {
+  const cands = rows.filter((r) => !isBase(r)), c5 = (/** @type {BRow} */ r) => at5(r) ?? /** @type {Partial<BCell>} */ ({});
+  const cov = cands.some((r) => (c5(r).forward_coverage ?? 0) > 0 || (c5(r).test_coverage ?? 0) > 0);
+  const key = (/** @type {BRow} */ r) => (cov ? [c5(r).forward_coverage, c5(r).test_coverage] : [r.acc_forward, r.acc_test]).map((x) => x ?? -1);
+  let best = null, bk = [-1, -1];
+  for (const r of cands) { const k = key(r); if (k[0] > bk[0] || (k[0] === bk[0] && k[1] > bk[1])) { best = r; bk = k; } } // ties keep the server's order
+  return best;
+}
+/** @param {BRow[]} rows @param {BRow | null} best @param {string} site */
+function verdict(rows, best, site) {
+  const n = rows.filter((r) => !isBase(r)).length, g = groupsOf(site);
+  if (!best) return `no promise at 5% yet from ${n === 1 ? 'its one candidate' : `any of the ${n} candidates`}`;
+  const c = at5(best), fc = c?.forward_coverage ?? 0, tc = c?.test_coverage ?? 0, who = phrase(best), wrong = (/** @type {number | null | undefined} */ e) => (e == null ? '' : `, wrong ${pf(e)}`);
+  if (fc > 0) return `${who} answers ${pf(fc)} of repeat traffic at 5%${wrong(c?.forward_error)}${tc > 0 ? `, and ${pf(tc)} of ${g} it never saw` : ''}`;
+  if (tc > 0) return `${who} answers ${pf(tc)} of ${g} it never saw at 5%${wrong(c?.test_error)}`;
+  // accuracy is never "answers": answering means holding a certificate
+  const right = [best.acc_forward != null ? `${pf(best.acc_forward)} of repeat traffic` : '', best.acc_test != null ? `${pf(best.acc_test)} of ${g} it never saw` : ''].filter(Boolean);
+  return `no promise at 5% yet: ${who} is right on ${right.join(' and ')}`;
+}
+/** coverage at 5% and the error above the cutoff; 0 means nothing certified @param {number | null | undefined} cov @param {number | null | undefined} err @param {boolean} base */
+const share = (cov, err, base) => (cov == null ? '–' : !cov ? `<span class="nope">no promise ${base ? 'at 5%' : 'yet'}</span>` : `<b>${pf(cov)}</b>${err == null ? '' : `<small>wrong ${pf(err)}</small>`}`);
+/** without -> with Dreaming, the journal's cost idiom; the slash and the green only when it got cheaper or faster @param {number | undefined} a @param {number | undefined} b @param {(x: number) => string} f */
+function pair(a, b, f) {
+  if (a == null || b == null) return a == null && b == null ? '–' : `<span class="jcost">${f(a ?? /** @type {number} */ (b))}</span>`;
+  return b < a && f(b) !== f(a) ? `<span class="jcost"><s>${f(a)}</s>${WOB}<em>${f(b)}</em></span>` : `<span class="jcost">${f(a)} → ${f(b)}</span>`;
+}
+const usd = (/** @type {number} */ d) => '$' + d.toFixed(2);
+const ms = (/** @type {number} */ x) => (x < 10 ? x.toFixed(1) : String(Math.round(x)));
+const HOLES = '<span class="hole" style="top:30px"></span><span class="hole" style="bottom:30px"></span>';
+const blank = (/** @type {string} */ h, p = '') => `<section class="journal scard"><span class="hole" style="top:30px"></span><div class="empty"><h2>${h}</h2>${p ? `<p>${p}</p>` : ''}</div></section>`;
+/** @param {string} site @param {BRow[]} rows @param {string | null} campaign */
+function scoreCard(site, rows, campaign) {
+  const best = bestOf(rows), g = groupsOf(site), floor = rows[0].floor;
+  const head = '<tr><th>who<small>candidate, rows it learned from</small></th><th>repeat traffic<small>answers, wrong at 5%</small></th>' +
+    `<th>unseen ${g}<small>answers, wrong at 5%</small></th><th>right on all calls<small>repeat / unseen</small></th>` +
+    '<th>$ per 1,000 calls<small>without → with dreaming</small></th><th>p50 latency<small>ms, without → with</small></th></tr>';
+  const body = rows.map((r) => {
+    const base = isBase(r), c = at5(r), w = r.without_dreaming, d = r.with_dreaming;
+    const sub = [base ? 'baseline' : VARIANT[r.variant]?.[0] ?? r.variant, r.source === 'summary' ? 'from its summary' : '', r.stable ? '' : 'unverified',
+      r.variant === 'seed' && r.seed_cert_s != null ? `first promise after ${r.seed_cert_s.toFixed(1)} s` : ''].filter(Boolean).join(', ');
+    const tip = 'unseen coverage ' + r.cells.map((x) => `${pf(x.budget)}: ${x.test_coverage == null ? '–' : pf(x.test_coverage)}`).join(', ');
+    const acc = r.acc_forward == null && r.acc_test == null ? '–' : `<b>${r.acc_forward == null ? '–' : pf(r.acc_forward)} / ${r.acc_test == null ? '–' : pf(r.acc_test)}</b>`;
+    return `<tr${r === best ? ' class="best"' : ''}><td><b>${esc(PLAIN[r.candidate] ?? r.candidate)}</b><small>${esc(sub)}</small></td>` +
+      `<td>${share(c?.forward_coverage, c?.forward_error, base)}</td><td title="${esc(tip)}">${share(c?.test_coverage, c?.test_error, base)}</td><td>${acc}</td>` +
+      `<td>${pair(w?.usd, d?.usd, usd)}</td><td>${pair(w?.p50_ms, d?.p50_ms, ms)}</td></tr>`;
+  }).join('');
+  const fine = `repeat = the last 20% of the stream by time, ${g} recur: the production case. unseen = whole ${g} held out. ` +
+    `$ and ms are projected from this site's logged teacher calls at the unseen 5% coverage. labels: ${rows[0].provider === 'tool' ? "the tool's own returns" : esc(rows[0].provider)}. campaign ${esc(campaign ?? '–')}.` +
+    (floor ? ` the labeller disagrees with itself on ${pf(floor)} of identical inputs: no promise below that is measurable.` : '');
+  return `<section class="journal scard" aria-label="${esc(nameOf(site))} scores">${HOLES}<h2>${esc(nameOf(site))}</h2><p class="sverdict">${esc(verdict(rows, best, site))}</p>` +
+    `<div class="swrap"><table class="stbl"><thead>${head}</thead><tbody>${body}</tbody></table></div><p class="fine">${fine}</p></section>`;
+}
+function renderScores() {
+  const b = SC.data;
+  if (!b) { setHTML($('#scards'), SC.err ? blank('the scores could not be read', esc(SC.err)) : blank('reading the scores…')); return; }
+  if (!b.rows.length) { setHTML($('#scards'), blank('no campaign has run yet', "a campaign trains every candidate on a site's logged calls and scores it on rows it never saw. its table lands here.")); return; }
+  /** @type {Map<string, BRow[]>} */
+  const by = new Map();
+  for (const r of b.rows) by.set(r.call_site, [...(by.get(r.call_site) ?? []), r]);
+  const order = (/** @type {string} */ s) => { const i = DREAMERS.indexOf(short(s)); return i < 0 ? DREAMERS.length : i; }; // workflow order, other sites after
+  const cards = [...by].sort(([a], [z]) => order(a) - order(z) || a.localeCompare(z)).map(([site, rows]) => scoreCard(site, rows, b.campaign));
+  const notes = b.notes.length ? `<details class="fine snotes"><summary>notes from the benchmark (${b.notes.length})</summary><ul>${b.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul></details>` : '';
+  setHTML($('#scards'), cards.join('') + notes);
+}
+async function loadScores() {
+  renderScores();
+  if (SC.busy) return;
+  SC.busy = true;
+  const r = await req('GET', '/benchmark');
+  SC.busy = false;
+  if (r.ok) SC.data = r.data;
+  SC.err = r.ok ? '' : `GET /benchmark: ${r.text}`; // a failed refetch keeps the last table on screen
+  renderScores();
+}
+
 // ---------- routing, sizing, frame ----------
 function route() {
   const [v, arg] = (location.hash.slice(1) || 'flows').split('/');
-  S.view = ['flows', 'dreams', 'replay'].includes(v) ? v : 'flows';
+  const views = ['flows', 'dreams', 'replay', 'scores'];
+  S.view = views.includes(v) ? v : 'flows';
   if (S.view === 'dreams' && DREAMERS.includes(arg)) S.sel = arg;
-  for (const id of ['flows', 'dreams', 'replay']) $('#v-' + id).hidden = id !== S.view;
+  for (const id of views) $('#v-' + id).hidden = id !== S.view;
   document.querySelectorAll('.tab').forEach((t) => (/** @type {HTMLElement} */ (t).dataset.v === S.view ? t.setAttribute('aria-current', 'page') : t.removeAttribute('aria-current')));
   if (S.view === 'flows') fit();
+  if (S.view === 'scores') loadScores();
 }
 function fit() {
   const wrap = $('#stage-wrap'), w = wrap.clientWidth;
@@ -755,7 +853,7 @@ function frame(/** @type {number} */ t) {
   if (st) {
     if (S.view === 'flows') { renderStage(); renderCharts(); }
     else if (S.view === 'dreams') { renderJournal(); setHTML($('#cert'), certHTML(S.sel)); }
-    else renderReplay();
+    else if (S.view === 'replay') renderReplay();
   }
   requestAnimationFrame(frame);
 }
