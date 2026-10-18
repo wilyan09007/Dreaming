@@ -40,7 +40,7 @@ const stop = subscribe(supabaseUrl, publishableKey, '', (m) => apply(m)); // m.t
 | unplug the API | `POST /tools/bookkeeper.vendor_lookup/outage {"down": true}` | the updated `Policy`; 404 for an unknown site |
 | replay this run | `POST /replay/{run_id}` | `ReplayReport {steps[{i, call_site, decision, re_executed, same_bytes, output_sha}], re_executed, same, from_log}`; 404 unknown run, 409 when the run's weights or env are not loaded in the API |
 
-`GET /runs/{run_id}` -> `{run: Run, rows: TraceRow[]}` fills the replay tab's trace card (rows carry `request`, `response`, `decision`, `prediction`, `teacher`).
+`GET /runs/{run_id}` -> `{run: Run, rows: TraceRow[]}` fills the replay tab's trace card (rows carry `request`, `response`, `decision`, `prediction`, `teacher`; `evidence_texts` maps each memory voter's row id to its rendered input).
 
 ## (d) What replaces what in `demo/index.html`
 | Demo (simulated) | Contract (real) |
@@ -63,6 +63,7 @@ const stop = subscribe(supabaseUrl, publishableKey, '', (m) => apply(m)); // m.t
 | `S.runs`, `S.target`, `S.running` | no cumulative counter (`Metrics.runs` is the total number of runs so far (the x of every series point); the other fields average the last 100 finished runs. `POST /batch/pause` and `/batch/resume` drive the run button.
 | `sample(r)`, `S.samples` (receipts) | `State.runs`: `Run.input.descriptor` and `.amount`, `Run.replayable`, `Run.stuck_at`; the trace card reads `GET /runs/{id}` |
 | `steps[].by` | `TraceRow.decision` + `kind`: `predicted` = dream; `called` or `audited` (both ran) = the real call: big model (model, router) or vendor API (tool); `fallback` = snapshot; effects = ledger / bookkeeper |
+| "voted:" line under a dream's answer (no demo counterpart) | `TraceRow.prediction.evidence` (the memory candidate's top 3 rows: `row_id`, `label`, `weight` = share of the vote) with each row's text from `RunView.evidence_texts[row_id]` (first line, its `Field: ` prefix dropped); `seed:` ids read "seed example", an id with no text shows its label only; weights under 0.005 are left out, rows that read the same merge into "2× ..." with weights summed |
 | `steps[].ans`, `.hash`, "same bytes" | `TraceRow.response`; `ReplayStep.output_sha.slice(0, 6)`, `same_bytes`, `re_executed`. The 0.5 s row stepping animates a reply already in hand |
 | stuck run | `Run.stuck_at` (a site id); rows after it do not exist: "never ran" |
 | narration, `S.note`, `S.pop` | event `message`s: `site.phase` (`data.to`), `cert.issued` / `cert.revoked` (verdict, hold 2 s), `train.*`, `tool.outage`, `budget.changed`. Pacing stays in the page |

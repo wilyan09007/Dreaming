@@ -429,6 +429,30 @@
    "title": "EventKind",
    "type": "string"
   },
+  "Evidence": {
+   "description": "One stored row's share of a memory read's vote (predictors/memory.py). Derived at read time: not in the hashes or the certified output.",
+   "properties": {
+    "row_id": {
+     "title": "Row Id",
+     "type": "string"
+    },
+    "label": {
+     "title": "Label",
+     "type": "string"
+    },
+    "weight": {
+     "title": "Weight",
+     "type": "number"
+    }
+   },
+   "required": [
+    "row_id",
+    "label",
+    "weight"
+   ],
+   "title": "Evidence",
+   "type": "object"
+  },
   "Hashes": {
    "description": "What makes a prediction re-executable byte for byte (missions.md \u203a Hashing for replayability).",
    "properties": {
@@ -733,6 +757,21 @@
      "default": "",
      "title": "Candidate",
      "type": "string"
+    },
+    "evidence": {
+     "anyOf": [
+      {
+       "items": {
+        "$ref": "#/$defs/Evidence"
+       },
+       "type": "array"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Evidence"
     }
    },
    "required": [
@@ -975,6 +1014,13 @@
      },
      "title": "Rows",
      "type": "array"
+    },
+    "evidence_texts": {
+     "additionalProperties": {
+      "type": "string"
+     },
+     "title": "Evidence Texts",
+     "type": "object"
     }
    },
    "required": [

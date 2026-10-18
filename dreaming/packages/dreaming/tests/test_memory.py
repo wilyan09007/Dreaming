@@ -48,9 +48,14 @@ def test_memory_reads_back_its_rows_byte_stably_and_refuses_a_foreign_encoder():
 
     preds = [m.predict(str(r.request)) for r in rows]
     assert sum(p.label == r.teacher.label for p, r in zip(preds, rows, strict=True) if r.teacher) >= 54  # >= 90% of 60
-    assert preds == [m.predict(str(r.request)) for r in rows] == [m.predict(str(r.request), fresh=True) for r in rows]
+    assert preds == [m.predict(str(r.request)) for r in rows] == [m.predict(str(r.request), fresh=True) for r in rows]  # evidence included
     assert preds == [CANDIDATES["memory"].load(SITE, f.data, enc).predict(str(r.request)) for r in rows]  # a fresh load, same answers
     assert all(p.scores["Other"] == 0.0 and 0.0 <= p.confidence <= 1.0 and p.confidence == round(p.confidence, 4) for p in preds)
+    for p in preds:  # the 3 rows that voted most (training-plan §4.1), by weight then id; a label's rows never outvote its score
+        ev = p.evidence or []
+        assert len(ev) == 3 and sum(e.weight for e in ev) <= 1.0 and all(e.label != "Other" and e.weight == round(e.weight, 3) for e in ev)
+        assert [(-e.weight, e.row_id) for e in ev] == sorted((-e.weight, e.row_id) for e in ev) and {e.row_id for e in ev} <= set(m.ids)
+        assert all(sum(e.weight for e in ev if e.label == lab) <= p.scores[lab] + 0.002 for lab in LABELS)
 
     forgot = memory.load(SITE, memory.fit(SITE, rows[1:], enc).data, enc)  # delete = refit without the row
     assert forgot.weights_sha != m.weights_sha and "r1" not in forgot.ids and len(forgot.ids) == 59
@@ -82,6 +87,8 @@ def test_seed_rows_are_written_once_per_schema_and_seed_a_memory_with_no_real_ro
     day_zero = CANDIDATES["memory"].load(SITE, CANDIDATES["memory"].fit(SITE, rows, enc).data, enc)
     real = make_rows(60)
     assert sum(day_zero.predict(str(r.request)).label == r.teacher.label for r in real if r.teacher) >= 54
+    ev = day_zero.predict("Transaction: ADOBE *WEB, $60.00").evidence
+    assert ev and all(e.row_id.startswith("seed:Software:") for e in ev)  # seed rows vote like any other row
     both = CANDIDATES["memory"].fit(SITE, [*rows, *real], enc)
     assert both.n_train == 90 and memory.load(SITE, both.data, enc).ids[:2] == ["r1", "r10"]  # sorted ids: "r..." < "seed:..."
 

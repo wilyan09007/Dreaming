@@ -132,6 +132,14 @@ class Hashes(BaseModel):
     env: str | None = None  # sha256 of the execution profile: image digest, library versions, threads, batch size, SKU
 
 
+class Evidence(BaseModel):
+    """One stored row's share of a memory read's vote (predictors/memory.py). Derived at read time: not in the hashes or the certified output."""
+
+    row_id: str  # a trace row id, or "seed:<label>:<i>" for an LLM-written seed row
+    label: str
+    weight: float  # this row's share of the whole vote, rounded to 3 decimals; a label's rows sum to its score
+
+
 class Prediction(BaseModel):
     label: str
     confidence: float  # top-2 gap, rounded to 4 decimals before thresholding or hashing (S7)
@@ -141,6 +149,7 @@ class Prediction(BaseModel):
     cost_usd: float = 0.0  # what producing this prediction cost: ~0 for a student, a real call for a router's cheap config
     latency_ms: int = 0
     candidate: str = ""  # which family produced it (predictors.CANDIDATES key); "" on rows written before migration 0002
+    evidence: list[Evidence] | None = None  # the memory candidate's top 3 voting rows; None for every other family
 
 
 class TeacherAnswer(BaseModel):
@@ -330,6 +339,7 @@ class State(BaseModel):
 class RunView(BaseModel):
     run: Run
     rows: list[TraceRow]
+    evidence_texts: dict[str, str] = Field(default_factory=dict)  # GET /runs/{id}: rendered input of each evidence row found in trace_rows
 
 
 class TrainRequest(BaseModel):
