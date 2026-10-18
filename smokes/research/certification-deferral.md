@@ -132,7 +132,7 @@ Worked example, n=500, budget alpha=5%, delta=5%, rows sorted by confidence:
 4. Certificate statement: with probability >= 95% over the calibration draw, the true error rate among rows with score >= c is <= 5%.
 5. Per-call-site delta: if you certify S call sites simultaneously and want the whole system at 95%, use delta/S per site.
 
-Simulation (sim; scores s~Beta(A,1), error~Bernoulli(1-s), so perfectly calibrated; 5%/5%; grid step 0.001; script at C:\Users\<user>\AppData\Local\Temp\claude\C--Users-<user>-Desktop-personalprojects-Dreaming\4bf0a8c4-ab7a-4fd7-a483-c5f84a5e6e6e\scratchpad\sim3.py and sim4.py):
+Simulation (sim; scores s~Beta(A,1), error~Bernoulli(1-s), so perfectly calibrated; 5%/5%; grid step 0.001; local scripts sim3.py and sim4.py, not in the repo):
 | scenario | method | P(true risk>5%) | P(cutoff found) | mean answered coverage overall |
 |---|---|---|---|---|
 | A=10 (acc 91%), n=500, oracle cov 73% | naive | 0.464 | 0.999 | 0.69 |
@@ -217,7 +217,7 @@ Researched 2026-10-17. Status of the original claim ("teacher self-disagreement 
 
 ## Addendum: vCache (verified semantic caching), prior art for the certify loop and a free testbed
 
-Research date: 2026-10-17. "(sample)" = my 700-row sample pulled from the HF datasets-server rows API (7 pages x 100 at offsets 0, 6000, ..., 37700; script and JSON are in my scratchpad, not in the repo). "(calc)" = my arithmetic. PDF text was extracted with pdftotext, so Greek symbols are dropped and the Table 3 layout is garbled; I name the quantities in words.
+Research date: 2026-10-17. "(sample)" = my 700-row sample pulled from the HF datasets-server rows API (7 pages x 100 at offsets 0, 6000, ..., 37700; script and JSON are not in the repo). "(calc)" = my arithmetic. PDF text was extracted with pdftotext, so Greek symbols are dropped and the Table 3 layout is garbled; I name the quantities in words.
 
 ### Verdict on the original claims
 
@@ -299,7 +299,7 @@ Why (sources):
 - Theorem 1 guarantee is P(all selected lambda have risk <= alpha) >= 1 - delta, conditional on a FWER-controlling procedure over a fixed hypothesis family. `certify()` walks the sample's own score values and starts at the 59th-highest score, so both the hypothesis set and the start are data-chosen, which is outside that theorem. Same requirement in general fixed-sequence theory: order given in advance (https://arxiv.org/pdf/1611.03146). Data-driven ordering literature controls FDR, not FWER, so it does not rescue the claim. I found no source proving validity for a data-chosen grid or start.
 - The same LTT-style recipe is used with an explicit pre-specified sequence in recent work: retention sequence 0.80 down to 0.20 fixed in advance (https://arxiv.org/pdf/2609.27981); the proof logic is that an error needs the first true null in the sequence to be rejected, probability <= delta (https://arxiv.org/pdf/2607.13221). Both read only through search snippets.
 
-New evidence (own sim, `sim5.py` in the scratchpad; scores ~ Beta(10,1), error ~ Bernoulli(1-s), 5% budget, delta 0.05, 1000 trials, SE about 0.4-0.7 points, true risk of the returned cutoff computed in closed form):
+New evidence (own sim, `sim5.py`, not in the repo; scores ~ Beta(10,1), error ~ Bernoulli(1-s), 5% budget, delta 0.05, 1000 trials, SE about 0.4-0.7 points, true risk of the returned cutoff computed in closed form):
 | n | skip m_min=59: P(true risk > 5%) / P(found) | skip m_min=150 | pre-registered 10-cutoff grid 0.70-0.99, Bonferroni delta/10 |
 |---|---|---|---|
 | 500 | 1.7% / 0.71 | 2.2% / 0.54 | 0.1% / 0.19 |
@@ -332,7 +332,7 @@ Unresolved: whether the conditional-on-scores view (treat scores as fixed, only 
 
 ## Addendum: real reviewer-edit data for Mission 4 (MLQE-PE, LangMark, WMT APE)
 
-Research date: 2026-10-17. Verdict on the claim "mission 4 must use simulated reviewer edits": CORRECTED. Public, login-free datasets of model output paired with human post-edits exist and I downloaded two of them. They are translation, not bookkeeping, so the bookkeeping demo still needs a simulator, but the "predict whether a reviewer changes this output, then certify the cutoff" pipeline can be validated on real human edits. "(calc)" = computed by me locally from the downloaded files (scripts: C:\Users\<user>\AppData\Local\Temp\claude\C--Users-<user>-Desktop-personalprojects-Dreaming\4bf0a8c4-ab7a-4fd7-a483-c5f84a5e6e6e\scratchpad\mlqe_stats.py and lm_stats.py; data in sibling dirs mlqe_data and langmark_data, not in the repo).
+Research date: 2026-10-17. Verdict on the claim "mission 4 must use simulated reviewer edits": CORRECTED. Public, login-free datasets of model output paired with human post-edits exist and I downloaded two of them. They are translation, not bookkeeping, so the bookkeeping demo still needs a simulator, but the "predict whether a reviewer changes this output, then certify the cutoff" pipeline can be validated on real human edits. "(calc)" = computed by me locally from the downloaded files (scripts: mlqe_stats.py and lm_stats.py; data in the dirs mlqe_data and langmark_data, not in the repo).
 
 ### Candidates
 

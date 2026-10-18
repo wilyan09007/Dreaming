@@ -245,7 +245,7 @@ Tonight, in order (the clock is in `docs/training-plan.md` §7):
    `candidates.for_site(site)`, shadow predictions for every loaded candidate into `TraceRow.shadow`, each certified at δ/N, the
    best coverage promoted, the spare rule of §4 (with its arithmetic: the grid gate needs ≈130 error-free audited rows at a 5%
    budget, so a revocation at the 59-audit minimum usually hands over through re-certification in testing, one checkpoint later);
-   the two-candidate failover test. Still to port: `memory` as the second default candidate (a stash holds a first draft).
+   the two-candidate failover test. Still to port: `memory` as the second default candidate (its first draft is the unreviewed `predictors/memory.py`).
 2. **Campaign and monitor** bodies (`campaign.py`: `prepare_site`, `train_cell`, `train_cell_gpu`, `monitor`; `monitor.py`:
    `table`, `prune`): `just deploy-campaign`, `just campaign night-1017 categorize 3` as the smoke, then the tier-1 matrix.
 3. **QuickBooks**: `agents/quickbooks/data.py` (runs inside `prepare_site`), the three sites, the rule and exact-cache baselines;

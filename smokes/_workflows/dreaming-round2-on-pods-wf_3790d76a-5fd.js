@@ -4,7 +4,7 @@ export const meta = {
   phases: [{ title: 'Build' }, { title: 'Critique' }, { title: 'Fix' }],
 }
 const ROOT = 'C:\\Users\\<user>\\Desktop\\personalprojects\\Dreaming'
-const SCRIPTS = 'C:\\Users\\<user>\\.claude\\projects\\C--Users-<user>-Desktop-personalprojects-Dreaming\\4bf0a8c4-ab7a-4fd7-a483-c5f84a5e6e6e\\workflows\\scripts\\'
+const SCRIPTS = ROOT + '\\smokes\\_workflows\\'
 const COMMON = `
 ENVIRONMENT AND RULES (apply to every step):
 - Project root: ${ROOT}. THE USER'S LAPTOP MUST STAY IDLE: local python ("${ROOT}\\.venv\\Scripts\\python.exe") is only for writing code, syntax checks, and ONE --tiny pipeline check per script that finishes in under 60 seconds on a handful of rows (no dataset embedding, no training, no downloads over 20 MB locally). ALL real compute runs on a RunPod pod through ${ROOT}\\smokes\\pod.py. Read pod.py first. Usage from the project root:

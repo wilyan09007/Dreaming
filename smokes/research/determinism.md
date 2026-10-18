@@ -50,7 +50,7 @@ Source: https://thinkingmachines.ai/blog/defeating-nondeterminism-in-llm-inferen
 - PyTorch: https://docs.pytorch.org/docs/2.14/notes/randomness.html - "Completely reproducible results are not guaranteed across PyTorch releases, individual commits, or different platforms"; CPU vs GPU may differ. `torch.use_deterministic_algorithms(True)` errors on known nondeterministic ops; with `warn_only=True` fused SDPA backends (Flash/Efficient/cuDNN) keep default nondeterministic paths -> use `warn_only=False`. `cudnn.benchmark=False` (benchmark mode can pick different algos run to run). These flags make *run-to-run at fixed shape* deterministic; they do **not** give batch invariance (the CUBLAS_WORKSPACE_CONFIG text itself did not render in the PyTorch page I fetched; value comes from the NVIDIA doc).
 
 ### 6. CPU determinism
-- My local test (script in scratchpad `blas_threads.py`; Core Ultra 7 155U, 14 threads, numpy 2.2.5 + MKL 2023.1, fp32 64x4096 @ 4096x4096, sha256 of result):
+- My local test (script `blas_threads.py`, not in the repo; Core Ultra 7 155U, 14 threads, numpy 2.2.5 + MKL 2023.1, fp32 64x4096 @ 4096x4096, sha256 of result):
   - default: thread counts 1,2,4,8,14 -> 5 different hashes; repeats at 8 threads -> identical (run-to-run OK).
   - `MKL_CBWR=COMPATIBLE`: 1,2,4,8 same; 14 differs.
   - `MKL_CBWR=AVX2,STRICT`: threads 1,2,3,5,7,8,12,14 all **identical**.

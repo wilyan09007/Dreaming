@@ -1,7 +1,7 @@
 # Connectors research: OpenAI-compatible proxy + tool-call interception
 
 Date: 2026-10-17. Tested items were run locally (Windows, Python 3.13.2) against a fake upstream; versions listed under Numbers.
-Test files (not in repo): `C:\Users\<user>\AppData\Local\Temp\claude\C--Users-<user>-Desktop-personalprojects-Dreaming\4bf0a8c4-ab7a-4fd7-a483-c5f84a5e6e6e\scratchpad\proxy\` (`dproxy.py`, `fake_upstream.py`, `clients_test.py`, `mcp_dreaming.py`).
+Test files (not in repo): a local `proxy\` folder (`dproxy.py`, `fake_upstream.py`, `clients_test.py`, `mcp_dreaming.py`).
 
 ## Summary
 
@@ -59,7 +59,7 @@ Constants: `BASE="http://127.0.0.1:8788/v1"`, `H={"x-dreaming-site":"categorize_
 - LiteLLM MCP gateway: guardrail modes `pre_mcp_call`, `during_mcp_call`, `post_mcp_call`; per-server upstream auth via `x-mcp-{server_alias}-{header_name}`. Interception only, answering unverified. https://docs.litellm.ai/docs/mcp_guardrail
 - OpenAI Responses `type:"mcp"` tool: "the API will make a request to the remote MCP server"; servers must be public (or Secure MCP Tunnel); approval required by default; auth via `authorization` field, no headers parameter. https://developers.openai.com/api/docs/guides/tools-connectors-mcp
 
-### Code sketch 1: logging + answer-from-predictor proxy (tested; full file in scratchpad `dproxy.py`)
+### Code sketch 1: logging + answer-from-predictor proxy (tested; full file `dproxy.py`, not in repo)
 
 ```python
 # pip install fastapi uvicorn httpx ; uvicorn dproxy:app --port 8788
@@ -129,7 +129,7 @@ proxy.add_middleware(Dreaming()); proxy.run(transport="http", port=9001)
 
 | name | url | license | why |
 |---|---|---|---|
-| Own FastAPI proxy (sketch 1) | scratchpad `proxy\dproxy.py` | ours | Tested; call-site header, JSONL log, predictor answer, audit sampling, Responses passthrough |
+| Own FastAPI proxy (sketch 1) | `proxy\dproxy.py` (local test file, not in repo) | ours | Tested; call-site header, JSONL log, predictor answer, audit sampling, Responses passthrough |
 | FastMCP (proxy + middleware) | https://github.com/PrefectHQ/fastmcp | Apache-2.0 | `on_call_tool` intercept/short-circuit, built-in caching, header forwarding; 4.1.0 (2026-10-08) |
 | MCP Python SDK | https://github.com/modelcontextprotocol/python-sdk | MIT | Client/server types FastMCP builds on (mcp 2.3.0) |
 | sparfenyuk/mcp-proxy | https://github.com/sparfenyuk/mcp-proxy | MIT | Transport bridge only (stdio<->HTTP) so stdio MCP servers can sit behind a URL |

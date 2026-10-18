@@ -4,7 +4,7 @@ export const meta = {
   phases: [{ title: 'Build' }],
 }
 const ROOT = 'C:\\Users\\<user>\\Desktop\\personalprojects\\Dreaming'
-const SCRIPTS = 'C:\\Users\\<user>\\.claude\\projects\\C--Users-<user>-Desktop-personalprojects-Dreaming\\4bf0a8c4-ab7a-4fd7-a483-c5f84a5e6e6e\\workflows\\scripts\\'
+const SCRIPTS = ROOT + '\\smokes\\_workflows\\'
 const COMMON = `
 ENVIRONMENT AND RULES:
 - Project root: ${ROOT}. Laptop stays idle: local python ("${ROOT}\\.venv\\Scripts\\python.exe") only for writing code, syntax checks and ONE --tiny check under 60 s. All compute through ${ROOT}\\smokes\\pod.py (read it): python smokes/pod.py --tag <id> --bundle smokes/common.py smokes/<folder> [more] --cmd "python smokes/<folder>/run.py" [--pip "..."] --max-min <n> --gpu "<gpu>". pod.py tries COMMUNITY first and falls back to any cloud. The user authorised faster GPUs to finish sooner: use "NVIDIA H100 PCIe" or "NVIDIA A100 80GB PCIe" for anything that trains models, "NVIDIA GeForce RTX 4090" for mixed CPU/GPU work, "NVIDIA RTX A5000" for API-bound work. Pod boot is ~10 min regardless of GPU, so launch ONCE after the --tiny check; at most 2 launches. Assert torch.cuda.is_available() at start. Write results.json incrementally; most informative arms first.

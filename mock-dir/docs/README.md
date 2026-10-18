@@ -47,7 +47,7 @@ Waiting on a human click, each one unblocks the next automated step:
   @daniung redeemed for $20.00 at Settings → Billing. ASI:One Pro: a checkout with a card (optional now).
 - Devin: done. Account exists and a personal API key is in `.env` as `DEVINKEY` (verified: `GET /v1/sessions` and `/v1/secrets`
   return 200). A personal key attributes sessions to the account holder, which is what the evidence line wants; a service-user key is only
-  for unattended automation. Still to do in the UI: Settings → Connections → GitHub → the `dreaming` repo; the credits form
+  for unattended automation. Still to do in the UI: Settings → Connections → GitHub → this repo; the credits form
   (#cognition on Discord) needs a team name and two member emails. Revoke the key at Settings → API keys after Oct 24.
 - Browser Use: done. Email verified; key `dreaming-lahacks` in `.env` as `BROWSERUSEKEY`, created with the platform's own
   **7-day expiration (expires Oct 24, 2026)**, the only provider tonight that offers one. Tier 0 ($0 credits, 10 concurrent):
@@ -61,7 +61,7 @@ Waiting on a human click, each one unblocks the next automated step:
    fallback teacher need it).
 3. **veri.studio**: credit code from @daniung on the LA Hacks Discord, redeemed at Settings → Billing before the first job; `veri login`.
 4. **CREAO** account through the hackathon link + per-agent `capi_` key + Secrets (`DREAMING_API_URL`, `DREAMING_API_KEY`).
-   **Devin**: GitHub app on the `dreaming` repo + the #cognition credits form. **Sentry**: account + DSN (`SENTRY_DSN`).
+   **Devin**: GitHub app on this repo + the #cognition credits form. **Sentry**: account + DSN (`SENTRY_DSN`).
 5. **Gemini** key; **Paper** code `LAHACKS26`; **GoDaddy** domain at tech.study; **Snowflake** trial; **Browser Use** key;
    **Tiger** signup; a funded **Solana** devnet wallet (faucet, by hand).
 6. **Devpost** project with every teammate (the email they applied with) and the CREAO track selected; the **Fetch Submission

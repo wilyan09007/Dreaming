@@ -3,7 +3,7 @@
 Written 2026-10-17 (evening) for the night before the 10:00 AM 2026-10-18 cut-off. It fixes the interfaces (what a candidate is,
 what a training run writes, what the monitor reads) and the shape of the campaign; it does not fix hyperparameters. Numbers are
 measured unless marked est.; smoke ids (S1, S24, …) point at `../../smokes/sNN_*/RESULTS.md`; the per-candidate internals from
-the smokes are in the smokes branch's `training-plan.md` and summarized in §1.
+the smokes are in `../../training-plan.md` and summarized in §1.
 
 Decision it implements: **every candidate trains per call site in parallel, every candidate is certified, the certificate
 picks what is promoted, and everything that could be asked later is stored so it can be computed in retrospect.**
@@ -256,7 +256,7 @@ deployable app with raising bodies. Left, matching `../DESIGN.md` §12:
 1. `learning.py`: one `TrainRequest` per candidate in `for_site(site)`; shadow predictions for every loaded candidate into
    `TraceRow.shadow`; certify each at δ/N; promote the best; the spare rule on revoke. Test: the whole loop offline with `head`
    and a fake second candidate, a revocation that fails over. `memory` ported (S27 `hopfield_head`, β grid, sorted-row float64
-   accumulation; the S29 script is `git show origin/main:smokes/s29_memory_student/run.py`, written and unrun).
+   accumulation; the S29 script is `smokes/s29_memory_student/run.py`, written and unrun).
 2. `campaign.py` bodies and `monitor.py` (`table`, `prune`); `finetune` as a candidate (S8 v2 `ft_encoder`) for `train_cell_gpu`.
 3. `agents/quickbooks/data.py` + the three sites + the rule and exact-cache baselines; `/v1/systemone` and `/campaign/*` routes.
 4. Ports only if time: `hdc` (Devin, from `s25_exotic/arms.py`), `online` (S27 delta + ridge resync).

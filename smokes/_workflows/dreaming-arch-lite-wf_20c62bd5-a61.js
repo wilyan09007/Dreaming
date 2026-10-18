@@ -4,7 +4,7 @@ export const meta = {
   phases: [{ title: 'Build' }],
 }
 const ROOT = 'C:\\Users\\<user>\\Desktop\\personalprojects\\Dreaming'
-const SCRIPTS = 'C:\\Users\\<user>\\.claude\\projects\\C--Users-<user>-Desktop-personalprojects-Dreaming\\4bf0a8c4-ab7a-4fd7-a483-c5f84a5e6e6e\\workflows\\scripts\\'
+const SCRIPTS = ROOT + '\\smokes\\_workflows\\'
 const COMMON = `
 ENVIRONMENT AND RULES (trimmed round; the user wants realistic numbers fast, not exhaustive sweeps):
 - Project root: ${ROOT}. Laptop stays idle: local python ("${ROOT}\\.venv\\Scripts\\python.exe") only for writing code, syntax checks and ONE --tiny check under 60 s. All compute through ${ROOT}\\smokes\\pod.py (read it): python smokes/pod.py --tag <id> --bundle smokes/common.py smokes/<folder> [more] --cmd "python smokes/<folder>/run.py" [--pip "..."] --max-min 60 --gpu "NVIDIA GeForce RTX 4090". Pod boot is ~10 min, so launch ONCE after a local --tiny check. The pod log's first line is nvidia-smi; your script must assert torch.cuda.is_available() and exit non-zero otherwise (an earlier run got a pod without CUDA); if that happens, relaunch once with --gpu "NVIDIA RTX A5000". HARD LIMITS: at most 2 pod launches total for your smoke, --max-min 60, write results.json incrementally after every (arm, task, k) so a timeout still leaves data, and order arms so the most informative ones run first.

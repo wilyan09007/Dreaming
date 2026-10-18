@@ -74,14 +74,13 @@ clock in `mock-dir/docs/training-plan.md` §7. Hackathon deadline: **2026-10-18 
   database 22:45 PDT), the trainer app redeployed on Modal, and **the candidate loop in `learning.py`** (one job per
   candidate, spares shadow into `TraceRow.shadow`, each certified at δ/N, best coverage promoted, handover on revocation; test
   `packages/dreaming/tests/test_candidates.py`).
-- **Drafts, UNREVIEWED (committed as "WIP"):** five sonnet builders were stopped mid-way; their files are in the tree because ruff
+- **Drafts, UNREVIEWED:** five sonnet builders were stopped mid-way; their files are in the tree because ruff
   and pyright are clean and 140 of 141 tests pass. They are: `predictors/memory.py` and `predictors/finetune.py` (+ tests),
   `apps/trainer/.../campaign.py` and `monitor.py` bodies (+ `apps/trainer/tests/test_campaign.py`), the `agents/quickbooks` package
   (`data.py`, `workflow.py`, `baselines.py`, tests), `apps/api/.../systemone.py` and `campaign_routes.py`, the Sentry sink in
   `telemetry.py` and `wiring.py`, deps (`quickbooks` workspace member, `sentry-sdk`). **The critic pass never ran.** Review each
-  against the specs it was written to (quoted in the workflow script at
-  `~/.claude/projects/C--Users-<user>-Desktop-personalprojects-Dreaming/f4378d2c-0da9-4715-94fc-6bdec02fe3fd/workflows/scripts/dreaming-build-order-wf_7b399f44-9ed.js`
-  on the laptop; the gist is in `docs/training-plan.md` §3 "Interfaces pinned for the build").
+  against the specs it was written to (quoted in the workflow script
+  `dreaming-build-order-wf_7b399f44-9ed.js`, which is not in this repo; the gist is in `docs/training-plan.md` §3 "Interfaces pinned for the build").
 - **The one failing test:** `agents/bookkeeper/tests/test_agent.py::test_a_chat_line_is_acked_relayed_to_the_api_and_answered_in_words`
   (it expects only `predicted` decisions; with `memory` as a second default candidate the loop now logs `called` rows too). Decide
   whether the test or `DEFAULT[Kind.model]` is right; do not paper over it.

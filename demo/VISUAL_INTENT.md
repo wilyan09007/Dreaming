@@ -18,7 +18,7 @@ The agent is the bookkeeping workflow from `missions.md` (categorize → vendor 
 
 ## Style source of truth
 
-The design is **D · Lucid Doodle** from the "Dreaming UI Explorations" canvas. Reference renders are in `scratchpad/shots/ref/doodle-{Flow,Distill,Data}.png` and the sources in `scratchpad/artifact-files/.../project/Doodle-*.dc.html`. The demo should look like the same product.
+The design is **D · Lucid Doodle** from the "Dreaming UI Explorations" canvas. Reference renders (`doodle-{Flow,Distill,Data}.png`) and their sources (`Doodle-*.dc.html`) were kept outside this repo. The demo should look like the same product.
 
 - **Paper:** `#FFFEFB` ground with a 22px dot grid (`#DCD8E4`), plus 3–4 large blurred pastel blobs (pink, blue, mint, butter) fixed behind everything.
 - **Ink:** `#2B2B33` for text and outlines. Muted text `#5C5A66`. Accent purple `#6A4FD8` for handwritten notes and highlights. Green `#1E7A55` for "after" costs and success.
@@ -129,6 +129,6 @@ At 1920×1080 the flows graph scales itself up, and the dreams and replay tabs a
 
 ## Driving it (for the QA agent)
 - Demo: `http://127.0.0.1:8765/` (add `?speed=3` to fast-forward). Reference boards: `http://127.0.0.1:8766/Doodle-Flow.dc.html` (also Doodle-Distill, Doodle-Data). The references load without their design runtime, so a literal `{{rootClass}}` and a 404 for `support.js` are expected there.
-- Browser: `bash "$SP/b.sh" <command>` (b2.sh and b3.sh drive two more isolated browsers), where `SP` is the scratchpad. `b.sh` wraps gstack browse and talks to a persistent server. Useful commands: `viewport 1440x900`, `goto URL`, `click "<css>"`, `js "<expr>"`, `screenshot <path>`, `console --errors`.
+- Browser: `bash "$SP/b.sh" <command>` (b2.sh and b3.sh drive two more isolated browsers), where `SP` is the folder holding these browser scripts (not in this repo). `b.sh` wraps gstack browse and talks to a persistent server. Useful commands: `viewport 1440x900`, `goto URL`, `click "<css>"`, `js "<expr>"`, `screenshot <path>`, `console --errors`.
 - Slider: `js "const b=document.querySelector('#budget'); b.value=7; b.dispatchEvent(new Event('input')); b.dispatchEvent(new Event('change')); 1"`.
 - Reloading the page resets the demo.
