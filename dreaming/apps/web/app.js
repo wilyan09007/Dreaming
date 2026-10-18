@@ -723,7 +723,7 @@ async function startReplay() {
 // The page picks the best row and formats; every number is a field of the reply. A missing or null field reads "–".
 /** @typedef {{budget: number, coverage: number | null, test_coverage: number | null, test_error: number | null, forward_coverage?: number | null, forward_error?: number | null}} BCell */
 /** @typedef {{usd: number, p50_ms: number, p95_ms: number}} BMoney  per 1,000 calls */
-/** @typedef {{call_site: string, provider: string, floor: number | null, candidate: string, variant: string, seeds: number, rung: number, stable: boolean, source: string, cells: BCell[], seed_cert_s: number | null, without_dreaming: BMoney | null, with_dreaming: BMoney | null, acc_test?: number | null, acc_forward?: number | null}} BRow */
+/** @typedef {{call_site: string, provider: string, floor: number | null, candidate: string, variant: string, seeds: number, rung: number, stable: boolean, source: string, cells: BCell[], seed_cert_s: number | null, without_dreaming: BMoney | null, with_dreaming: BMoney | null, acc_test?: number | null, acc_forward?: number | null, campaign?: string}} BRow */
 /** @typedef {{campaign: string | null, rows: BRow[], notes: string[]}} Bench */
 /** @type {{data: Bench | null, err: string, busy: boolean}} */
 const SC = { data: null, err: '', busy: false };
@@ -768,8 +768,8 @@ const usd = (/** @type {number} */ d) => '$' + d.toFixed(2);
 const ms = (/** @type {number} */ x) => (x < 10 ? x.toFixed(1) : String(Math.round(x)));
 const HOLES = '<span class="hole" style="top:30px"></span><span class="hole" style="bottom:30px"></span>';
 const blank = (/** @type {string} */ h, p = '') => `<section class="journal scard"><span class="hole" style="top:30px"></span><div class="empty"><h2>${h}</h2>${p ? `<p>${p}</p>` : ''}</div></section>`;
-/** @param {string} site @param {BRow[]} rows @param {string | null} campaign */
-function scoreCard(site, rows, campaign) {
+/** @param {string} site @param {BRow[]} rows */
+function scoreCard(site, rows) {
   const best = bestOf(rows), g = groupsOf(site), floor = rows[0].floor;
   const head = '<tr><th>who<small>candidate, rows it learned from</small></th><th>repeat traffic<small>answers, wrong at 5%</small></th>' +
     `<th>unseen ${g}<small>answers, wrong at 5%</small></th><th>right on all calls<small>repeat / unseen</small></th>` +
@@ -785,7 +785,7 @@ function scoreCard(site, rows, campaign) {
       `<td>${pair(w?.usd, d?.usd, usd)}</td><td>${pair(w?.p50_ms, d?.p50_ms, ms)}</td></tr>`;
   }).join('');
   const fine = `repeat = the last 20% of the stream by time, ${g} recur: the production case. unseen = whole ${g} held out. ` +
-    `$ and ms are projected from this site's logged teacher calls at the unseen 5% coverage. labels: ${rows[0].provider === 'tool' ? "the tool's own returns" : esc(rows[0].provider)}. campaign ${esc(campaign ?? '–')}.` +
+    `$ and ms are projected from this site's logged teacher calls at the unseen 5% coverage. labels: ${rows[0].provider === 'tool' ? "the tool's own returns" : esc(rows[0].provider)}. campaign ${esc(rows[0].campaign ?? '–')}.` +
     (floor ? ` the labeller disagrees with itself on ${pf(floor)} of identical inputs: no promise below that is measurable.` : '');
   return `<section class="journal scard" aria-label="${esc(nameOf(site))} scores">${HOLES}<h2>${esc(nameOf(site))}</h2><p class="sverdict">${esc(verdict(rows, best, site))}</p>` +
     `<div class="swrap"><table class="stbl"><thead>${head}</thead><tbody>${body}</tbody></table></div><p class="fine">${fine}</p></section>`;
@@ -798,7 +798,7 @@ function renderScores() {
   const by = new Map();
   for (const r of b.rows) by.set(r.call_site, [...(by.get(r.call_site) ?? []), r]);
   const order = (/** @type {string} */ s) => { const i = DREAMERS.indexOf(short(s)); return i < 0 ? DREAMERS.length : i; }; // workflow order, other sites after
-  const cards = [...by].sort(([a], [z]) => order(a) - order(z) || a.localeCompare(z)).map(([site, rows]) => scoreCard(site, rows, b.campaign));
+  const cards = [...by].sort(([a], [z]) => order(a) - order(z) || a.localeCompare(z)).map(([site, rows]) => scoreCard(site, rows));
   const notes = b.notes.length ? `<details class="fine snotes"><summary>notes from the benchmark (${b.notes.length})</summary><ul>${b.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul></details>` : '';
   setHTML($('#scards'), cards.join('') + notes);
 }

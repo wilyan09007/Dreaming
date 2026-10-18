@@ -15,7 +15,7 @@ from __future__ import annotations
 
 import io
 from collections.abc import Iterator
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from types import SimpleNamespace
 from typing import Any
 
@@ -105,15 +105,16 @@ class World:
         for es in eval_sets():
             self.store.put_eval_set(es)
 
-    def cell(self, candidate: str, seed: int, files: dict[int, Arrays], *, variant: str = "seed+real", seconds: float = 1.0, embed_ms: float = 4.0) -> None:
-        run = TrainRun(id=f"night:{SITE}:{candidate}:{variant}:s{seed}", campaign="night", call_site=SITE, candidate=candidate, variant=variant,  # type: ignore[arg-type]
-                       seed=seed, where="modal:cpu", status="done", started_at=T0)
+    def cell(self, candidate: str, seed: int, files: dict[int, Arrays], *, variant: str = "seed+real", seconds: float = 1.0, embed_ms: float = 4.0,
+             site: str = SITE, campaign: str = "night", at: datetime = T0) -> None:
+        run = TrainRun(id=f"{campaign}:{site}:{candidate}:{variant}:s{seed}", campaign=campaign, call_site=site, candidate=candidate, variant=variant,  # type: ignore[arg-type]
+                       seed=seed, where="modal:cpu", status="done", started_at=at)
         self.store.put_train_run(run)
         for rung, a in files.items():
             uri = f"modal://dreaming-weights/campaign/{run.id}/{rung}.npz"
             self.files[uri] = a
-            self.store.put_checkpoint(Checkpoint(run_id=run.id, rung=rung, weights_sha="w" * 64, eval_sha=sha([e.sha for e in eval_sets()]), scores_uri=uri, seconds=seconds,
-                                                 embed_ms=embed_ms, head_ms=0.3, bytes=1, stable=True, summary={}, ts=T0))
+            self.store.put_checkpoint(Checkpoint(run_id=run.id, rung=rung, weights_sha="w" * 64, eval_sha=sha([e.sha for e in eval_sets(site)]), scores_uri=uri, seconds=seconds,
+                                                 embed_ms=embed_ms, head_ms=0.3, bytes=1, stable=True, summary={}, ts=at))
 
     def load(self, uri: str) -> dict[str, Any]:
         self.loads.append(uri)
@@ -253,12 +254,12 @@ def test_the_routes_serve_json_and_markdown_and_read_the_volume_once_a_minute(w:
     app.include_router(benchmark_router(w.store, w.load, no_baselines))
     c = TestClient(app)
     j = c.get("/benchmark").json()
-    assert [r["candidate"] for r in j["rows"]] == ["memory", "head", "teacher alone"] and j["campaign"] == "night"
+    assert [r["candidate"] for r in j["rows"]] == ["memory", "head", "teacher alone"] and j["campaign"] is None and {r["campaign"] for r in j["rows"]} == {"night"}
     md = c.get("/benchmark.md")
     assert md.headers["content-type"].startswith("text/markdown")
     lines = [ln for ln in md.text.splitlines() if ln.startswith("| q.invoice")]
-    assert [ln.split(" | ")[3] for ln in lines] == ["memory", "head", "teacher alone"]
-    assert "| 75.0% |" in lines[1] and "campaign `night`" in md.text
+    assert [ln.split(" | ")[4] for ln in lines] == ["memory", "head", "teacher alone"]
+    assert "| 75.0% |" in lines[1] and "latest campaign per site" in md.text and lines[1].split(" | ")[1] == "night"
     assert len(w.loads) == 3  # head s0, head s1, memory s0: one read each across both requests
     assert c.get("/benchmark", params={"campaign": "other"}).json()["rows"] == []
     assert len(w.loads) == 3  # an unknown campaign reads nothing
@@ -296,8 +297,8 @@ def test_markdown_marks_budgets_below_the_floor_and_names_the_variant(w: World) 
     md = markdown(table(w.store, w.load, no_baselines))
     head = next(ln for ln in md.splitlines() if " | head | " in ln)
     cols = [c.strip() for c in head.strip("|").split("|")]
-    assert cols[8].endswith("*") and not cols[9].endswith("*")  # floor 3.5%: the unseen 2% column is not measurable, the 5% one is
-    assert cols[6:8] == ["68.8%", "2.0%"] and cols[9] == "75.0%"  # repeat traffic first (forward: 0.6875, 0.02), then unseen merchants (test: 0.75)
+    assert cols[9].endswith("*") and not cols[10].endswith("*")  # floor 3.5%: the unseen 2% column is not measurable, the 5% one is
+    assert cols[7:9] == ["68.8%", "2.0%"] and cols[10] == "75.0%"  # repeat traffic first (forward: 0.6875, 0.02), then unseen merchants (test: 0.75)
     assert "repeat cov 5%" in md and "unseen cov 20%" in md and "repeat = the forward slice" in md and "unseen = group-held-out" in md
     assert "* a budget below the provider's floor" in md
     teacher = next(ln for ln in md.splitlines() if " | teacher alone | " in ln)
@@ -366,7 +367,30 @@ def test_scores_without_forward_rows_leave_the_repeat_columns_empty_and_say_so()
     assert exact.source == "scores" and exact.cells[1].test_coverage == 1.0 and [c.forward_coverage for c in exact.cells] == [None] * 4
     assert any("exact seed+real: no repeat-traffic" in n and "fewer than 2 forward rows" in n for n in b.notes)
     row = next(ln for ln in markdown(b).splitlines() if " | exact | " in ln)
-    assert [c.strip() for c in row.strip("|").split("|")][6:8] == ["-", "-"]
+    assert [c.strip() for c in row.strip("|").split("|")][7:9] == ["-", "-"]
+
+
+def test_each_site_reports_its_latest_campaign_and_a_name_pins_them_all() -> None:
+    qb = "quickbooks.invoice"
+    w = World()
+    w.store.upsert_sites([CallSite(id=qb, workflow="quickbooks", name="invoice", kind=Kind.model, labels=["a", "b"], teacher=TeacherSpec(provider="tool"))])
+    for es in eval_sets(qb):
+        w.store.put_eval_set(es)
+    later = T0 + timedelta(hours=1)
+    w.cell("head", 0, {200: never_right()}, campaign="tier1-old")  # q.invoice trained twice: the later campaign wins
+    w.cell("head", 0, {200: half_certifiable()}, campaign="tier1-final", at=later)
+    w.cell("head", 0, {200: always_right()}, site=qb, campaign="qb-b")  # started before tier1-final, but it is the only campaign of its site
+    w.store.put_train_run(TrainRun(id=f"queued:{SITE}:head:seed+real:s0", campaign="queued", call_site=SITE, candidate="head", variant="seed+real", seed=0,  # newest of all, no checkpoint yet
+                                   where="modal:cpu", status="running", started_at=later + timedelta(hours=1)))
+    b = table(w.store, w.load, no_baselines)
+    assert {(r.call_site, r.campaign) for r in b.rows if r.source == "scores"} == {(SITE, "tier1-final"), (qb, "qb-b")} and b.campaign is None
+    assert {r.campaign for r in b.rows if r.call_site == SITE} == {"tier1-final"}  # the teacher-alone row names it too
+    assert next(r for r in b.rows if r.call_site == qb).cells[1].test_coverage == 1.0 and next(r for r in b.rows if r.call_site == SITE).cells[1].test_coverage == 0.5
+    md = markdown(b)
+    assert "latest campaign per site" in md and any(ln.startswith("| quickbooks.invoice | qb-b |") for ln in md.splitlines())
+    pinned = table(w.store, w.load, no_baselines, campaign="tier1-old")
+    assert {(r.call_site, r.campaign) for r in pinned.rows} == {(SITE, "tier1-old")} and pinned.campaign == "tier1-old"
+    assert "campaign `tier1-old`" in markdown(pinned)
 
 
 def test_the_cached_table_expires_after_the_ttl(w: World, monkeypatch: pytest.MonkeyPatch) -> None:
