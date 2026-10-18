@@ -80,13 +80,19 @@ def prefetch(teacher: Teacher, txns: list[dict[str, Json]], width: int) -> int:
             print(f"prefetch: {txn.get('id')}: {type(e).__name__}: {e}", file=sys.stderr)
             return True
 
-    failed, t0 = 0, time.perf_counter()
-    with ThreadPoolExecutor(max_workers=width) as pool:
-        for i, bad in enumerate(pool.map(chain, txns), 1):
-            failed += bad
-            if i % 100 == 0 or i == len(txns):
-                print(f"prefetch: {i}/{len(txns)} transactions, {failed} failed, {(time.perf_counter() - t0) / 60:.1f} min", flush=True)
-    return failed
+    todo, t0 = txns, time.perf_counter()
+    for attempt in range(3):  # a failed transaction (429, timeout) is retried in a later pass; hits are served from the file
+        failed: list[dict[str, Json]] = []
+        with ThreadPoolExecutor(max_workers=width) as pool:
+            for i, (txn, bad) in enumerate(zip(todo, pool.map(chain, todo), strict=True), 1):
+                if bad:
+                    failed.append(txn)
+                if i % 100 == 0 or i == len(todo):
+                    print(f"prefetch pass {attempt + 1}: {i}/{len(todo)} transactions, {len(failed)} failed, {(time.perf_counter() - t0) / 60:.1f} min", flush=True)
+        if not failed:
+            return 0
+        todo = failed
+    return len(todo)
 
 
 def _encoder() -> object | None:
@@ -122,14 +128,15 @@ def main(argv: Sequence[str] | None = None, live: Teacher | None = None) -> int:
     loader = Loader(encoder=_encoder(), teacher=teacher)
     rt = Runtime(store, teacher, LocalTrainer(store, loader), loader, budget=float(os.environ.get("BUDGET", "0.05")))
     rt.bind()
+    if args.wide > 1:  # every seed's questions first (the teacher is the bottleneck), the learning passes after
+        for seed in seeds:
+            teacher.served = teacher.new = 0
+            teacher.cost = 0.0
+            left = prefetch(teacher, list(tools.ledger(args.n, seed)), args.wide)
+            print(f"prefetch seed {seed}: {teacher.new} new answers, {teacher.served} already recorded, {left} transactions still failing, ${teacher.cost:.4f}", flush=True)
     for seed in seeds:
         teacher.served = teacher.new = 0
         teacher.cost = 0.0
-        if args.wide > 1:
-            prefetch(teacher, list(tools.ledger(args.n, seed)), args.wide)
-            print(f"prefetch seed {seed}: {teacher.new} new answers, {teacher.served} already recorded, ${teacher.cost:.4f}", flush=True)
-            teacher.served = teacher.new = 0
-            teacher.cost = 0.0
         rt.fast_forward(workflow.W, tools.ledger(args.n, seed), workflow.run_transaction)
         print(f"seed {seed}: {args.n} transactions, {teacher.new} new answers, {teacher.served} already recorded, ${teacher.cost:.4f}", flush=True)
     errors = [e for e in store.events(limit=100_000) if e.kind == EventKind.component_error]

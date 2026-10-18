@@ -4,7 +4,7 @@ Status: IN_PROGRESS (started 03:00 PDT). Goal text: the `/goal` of the 03:10 ses
 
 ## Critical path
 - [x] `mock-dir/` → `dreaming/`; venv resynced; docs repointed
-- [ ] StepFun record pass, 5-wide, seeds 0 and 1 → `dreaming/data/recorded.jsonl` + `embeddings.npz` (started 03:03; ~2.5 h per seed)
+- [ ] StepFun record pass, 5-wide, seeds 0 and 1 → `dreaming/data/recorded.jsonl` + `embeddings.npz` (running since 03:03, restarted 03:22 with retry passes; ~46 answers/min ≈ 2.5 h per seed)
 - [ ] Review-and-fix workflow over the unreviewed drafts (campaign, memory, quickbooks, systemone/campaign routes, Sentry) + new work (web rewire, speculation, veri cell, benchmark report, S29)
 - [ ] Merge branches, `uv run ruff/pyright/pytest` green, commit
 - [ ] Deploy campaign app; smoke 3 cells; launch tier 1 (QuickBooks first, bookkeeper on rule labels; re-prepare on StepFun labels when seed 0 lands)
