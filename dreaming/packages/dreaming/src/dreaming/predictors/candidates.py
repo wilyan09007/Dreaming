@@ -8,8 +8,8 @@ the campaign runs the same `fit` per cell. Nothing here reads the environment or
     CANDIDATES["head"].load(site, data, encoder) -> Predictor  the same bytes back as a predictor
 
 Built: head (frozen encoder + linear head), exact (tool memory), config (a router site's cheap configuration),
-memory (Hopfield read over stored rows).
-To port from the smokes: online (delta-rule head), hdc (integer bundles),
+memory (Hopfield read over stored rows), hdc (integer bundles; opt-in per site, not in DEFAULT).
+To port from the smokes: online (delta-rule head),
 finetune (bge-small unfrozen, GPU; its weights also arrive from veri.studio in the same artifact layout).
 Each is one module registering itself here; the registry is the only list to edit.
 """
@@ -122,3 +122,4 @@ register(Candidate("exact", _fit_exact, _load_exact, needs_encoder=False))
 register(Candidate("config", _fit_config, _load_config, needs_encoder=False))  # `load` takes the teacher where others take the encoder
 
 import_module(".memory", __package__)  # registers "memory"; at the bottom because memory.py imports Candidate from here
+import_module(".hdc", __package__)  # registers "hdc"
