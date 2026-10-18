@@ -7,9 +7,11 @@ window.Launch = (() => {
   const W = 1600, H = 900;
   const stage = document.getElementById('stage');
   const dots = document.getElementById('dots');
-  const presenter = new URLSearchParams(location.search).has('presenter');
-  const bc = 'BroadcastChannel' in window ? new BroadcastChannel('dreaming-launch') : null;
-  let cur = -1, run = null;
+  const params = new URLSearchParams(location.search);
+  const presenter = params.has('presenter');
+  const only = params.get('only'); // a solo window (launch_demo.py): one module, no deck keys or sync, replays when brought to the front
+  const bc = !only && 'BroadcastChannel' in window ? new BroadcastChannel('dreaming-launch') : null;
+  let cur = -1, run = null, shownAt = 0;
 
   const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
   function scheduler() {
@@ -52,11 +54,12 @@ window.Launch = (() => {
     history.replaceState(null, '', location.search + '#' + s.id);
     [...dots.children].forEach((d, k) => d.setAttribute('aria-current', k === i ? 'step' : 'false'));
     run = scheduler();
+    shownAt = performance.now();
     s.enter && s.enter(s.el, run);
     if (presenter) renderPresenter();
     if (from === 'local' && bc) bc.postMessage({ go: i });
   }
-  function replay() { const s = screens[cur]; if (!s) return; run && run.stop(); s.leave && s.leave(s.el); run = scheduler(); s.enter && s.enter(s.el, run); if (bc) bc.postMessage({ replay: cur }); }
+  function replay() { const s = screens[cur]; if (!s) return; run && run.stop(); s.leave && s.leave(s.el); run = scheduler(); shownAt = performance.now(); s.enter && s.enter(s.el, run); if (bc) bc.postMessage({ replay: cur }); }
 
   function renderPresenter() {
     const s = screens[cur], n = screens[cur + 1];
@@ -70,6 +73,7 @@ window.Launch = (() => {
     const s = screens[cur];
     if (s && s.key && s.key(e, run)) { e.preventDefault(); return; }
     const k = e.key;
+    if (only && !/^[rRfF]$/.test(k)) return; // a solo window only replays and goes fullscreen
     if (k === 'ArrowRight' || k === 'PageDown' || k === ' ') go(cur + 1);
     else if (k === 'ArrowLeft' || k === 'PageUp') go(cur - 1);
     else if (k === 'Home') go(0);
@@ -103,9 +107,14 @@ window.Launch = (() => {
 
   function start() {
     document.body.classList.toggle('presenter', presenter);
+    document.body.classList.toggle('solo', !!only);
     fit();
-    const id = location.hash.slice(1);
+    const id = only || location.hash.slice(1);
     go(Math.max(0, screens.findIndex((s) => s.id === id)));
+    if (only) {
+      document.title = `${screens[cur].id} · dreaming`; // launch_demo.py finds and places the window by this title
+      addEventListener('focus', () => { if (performance.now() - shownAt > 1500) replay(); }); // fresh animation every time it is brought up
+    }
   }
   return { add, start, go, next: () => go(cur + 1), prev: () => go(cur - 1), W, H };
 })();
