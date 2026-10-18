@@ -119,7 +119,8 @@ class MemoryStore:
             self._runs[r.id] = r
 
     def runs(self, *, limit: int = 50) -> list[Run]:
-        return sorted(list(self._runs.values()), key=lambda r: (r.started_at, r.n))[-limit:]  # a copy: fast-forward writes concurrently
+        runs = list(self._runs.values())  # a copy: fast-forward writes concurrently
+        return sorted(runs, key=lambda r: (r.started_at, r.n))[-limit:]
 
     def run_count(self) -> int:
         return len(self._runs)

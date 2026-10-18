@@ -22,7 +22,7 @@ from pydantic_core import to_jsonable_python
 
 from . import registry
 from .context import RunCtx, current, run_boundary
-from .contracts import (, Phase
+from .contracts import (
     Batch,
     CallSite,
     Component,
@@ -31,6 +31,7 @@ from .contracts import (, Phase
     Json,
     Kind,
     Metrics,
+    Phase,
     Policy,
     Run,
     TeacherAnswer,
