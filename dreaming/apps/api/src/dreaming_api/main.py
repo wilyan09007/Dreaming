@@ -181,7 +181,8 @@ def create_app(runtime: Runtime | None = None, inputs: Iterable[Json] | None = N
     @app.get("/runs/{run_id}")
     def run(run_id: str) -> RunView:
         rows = rt.store.run_rows(run_id)
-        match = [r for r in rt.store.runs(limit=10_000) if r.id == run_id]
+        # the first run too: /state keeps it on the replay tab however many runs came after (runs() keeps the newest 10,000)
+        match = [r for r in (rt.store.first_run(), *rt.store.runs(limit=10_000)) if r and r.id == run_id]
         if not rows or not match:
             raise HTTPException(404, run_id)
         voters = sorted({e.row_id for r in rows if r.prediction for e in r.prediction.evidence or []})

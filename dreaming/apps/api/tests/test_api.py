@@ -487,6 +487,14 @@ def test_replay_without_the_weights_is_409_not_500(rt: Runtime, client: TestClie
     assert r.status_code == 409 and r.json()["detail"]
 
 
+def test_first_run_stays_readable_past_the_runs_window(rt: Runtime, client: TestClient, monkeypatch: pytest.MonkeyPatch) -> None:
+    first = batch(client, 40).first_run
+    assert first is not None
+    newest = rt.store.runs(limit=5)
+    monkeypatch.setattr(rt.store, "runs", lambda *, limit=50: newest[-limit:])  # as after 10,000+ runs: run 1 is out of the window
+    assert client.get(f"/runs/{first.id}").status_code == 200  # /state still lists it on the replay tab
+
+
 def test_unknown_run_is_404(client: TestClient) -> None:
     batch(client, 40)
     assert client.get("/runs/run_nope").status_code == 404

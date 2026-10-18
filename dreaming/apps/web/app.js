@@ -26,7 +26,7 @@ const now = () => performance.now();
 /** @type {PageState | null} */ let st = null;
 /** @type {Health | null} */ let health = null;
 const S = {
-  view: 'flows', sel: 'categorize', selRun: null, rp: null, trace: null, unplugged: false,
+  view: 'flows', sel: 'categorize', selRun: null, rp: null, trace: null, loading: null, unplugged: false,
   narr: '', narrIdle: true, narrRank: 0, narrUntil: 0, queued: null, verdicts: [], last: null, quietUntil: 0, budgetAt: -1e9,
   note: null, prev: {}, pop: {}, shown: {}, hold: {}, recheck: {}, lastCert: {}, saved: 0, runs: 0,
 };
@@ -603,10 +603,12 @@ async function onBudget(commit = false) {
 // ---------- replay ----------
 /** @type {Record<string, string>} */
 const BYICON = { dream: 'sheep', 'big model': 'moon', 'rule teacher': 'moon', 'thinking off': 'moon', 'vendor API': 'plug', snapshot: 'camera', ledger: 'book', bookkeeper: 'clock', stuck: 'unplug' };
-/** @returns {Run[]} newest first, the very first run kept last for contrast */
+/** @returns {Run[]} newest first, the very first run kept last for contrast; a run that was replayed stays on screen */
 function listedRuns() {
   if (!st) return [];
-  const newest = st.runs.slice(-6).reverse(), f = st.first_run;
+  const newest = st.runs.slice(-6).reverse(), f = st.first_run, k = S.rp?.run;
+  // during a batch the replayed run leaves the newest six within one /state read: it keeps the sixth place, so it stays selected
+  if (k && k.id !== f?.id && !newest.some((r) => r.id === k.id)) newest.splice(5, 1, k);
   if (f && !newest.some((r) => r.id === f.id)) newest.push(f);
   return newest;
 }
@@ -651,10 +653,13 @@ function stepsOf(rv) {
   out.push(eff ? stepOf(eff) : { name: 'post to books', ans: 'never ran', by: '' });
   return out;
 }
-async function loadTrace(/** @type {string} */ id) {
-  S.trace = { id, rv: null };
-  const r = await req('GET', `/runs/${encodeURIComponent(id)}`);
-  if (S.trace?.id === id) S.trace = { id, rv: r.ok ? r.data : null, err: r.ok ? '' : r.text };
+// The card shows the last trace that arrived until the selected one lands, so it keeps its rows and height (VISUAL_INTENT).
+// A reply for an earlier pick still lands while the card is not on the selected run: on a slow API during a batch it keeps up.
+async function loadTrace(/** @type {Run} */ run) {
+  S.loading = run.id;
+  const r = await req('GET', `/runs/${encodeURIComponent(run.id)}`);
+  if (S.loading === run.id) S.loading = null;
+  if (S.trace?.id !== currentRun()?.id) S.trace = { id: run.id, run, rv: r.ok ? r.data : null, err: r.ok ? '' : r.text };
 }
 function renderReplay() {
   const has = !!st && (st.runs.length > 0 || !!st.first_run);
@@ -662,20 +667,22 @@ function renderReplay() {
   if (!has) return;
   const run = currentRun();
   if (!run) return;
-  if (S.trace?.id !== run.id) loadTrace(run.id);
-  const inp = /** @type {any} */ (run.input) ?? {}, amt = money(+inp.amount || 0), rot = [-1, .8, -.5, 1.1, -.9, .6, -1.2];
+  if (S.trace?.id !== run.id && S.loading !== run.id) loadTrace(run);
+  const t = S.trace, rv = t?.rv ?? null, shown = /** @type {Run} */ (rv?.run ?? t?.run ?? run); // the card's run; the receipts show the pick at once
+  const inp = /** @type {any} */ (shown.input) ?? {}, amt = money(+inp.amount || 0), rot = [-1, .8, -.5, 1.1, -.9, .6, -1.2];
   setHTML($('#receipts'), listedRuns().map((x, i) => {
     const xi = /** @type {any} */ (x.input) ?? {};
     return `<li><button class="receipt" type="button" data-r="${esc(x.id)}" aria-pressed="${x.id === run.id}" style="--rot:${rot[i]}deg"><span class="m">${esc(xi.descriptor ?? '')}</span><span class="a">${money(+xi.amount || 0)}</span>` +
       `<span class="meta">run ${int(x.n)} · ${x.stuck_at ? `stuck at ${nameOf(x.stuck_at)}` : `${x.replayable} of ${x.decisions} replayable${x.down.length ? ' · API down' : ''}`}</span></button></li>`;
   }).join(''));
-  setText($('#ttitle'), `run ${int(run.n)}`);
+  setText($('#ttitle'), `run ${int(shown.n)}`);
   setText($('#tsub'), `${inp.descriptor ?? ''} · ${amt}`);
-  const rp = S.rp && S.rp.id === run.id ? S.rp : null, rv = S.trace?.rv && S.trace.id === run.id ? S.trace.rv : null;
+  const rp = S.rp && S.rp.id === shown.id ? S.rp : null;
   const rb = /** @type {HTMLButtonElement} */ ($('#rbtn'));
-  rb.disabled = !rv || !!(rp && !rp.done);
+  rb.disabled = !rv || (S.selRun != null && t?.id !== S.selRun) || !!(rp && !rp.done); // a picked receipt waits for its own trace
   setHTML(rb, `${ico('play', 18)}${rp ? (rp.done ? 'replay again' : 'replaying…') : 'replay this run'}`);
-  const steps = rv ? stepsOf(rv) : [];
+  // before the first trace lands: the five step names and nothing else, the same height as a full card
+  const steps = rv ? stepsOf(rv) : [...sites().map((v) => v.site.id), 'post_to_books'].map((id) => /** @type {Step} */ ({ name: nameOf(id), ans: '', by: '' }));
   /** @type {Record<number, import('./schema').ReplayStep>} */
   const res = Object.fromEntries((rp?.rep?.steps ?? []).map((/** @type {import('./schema').ReplayStep} */ x) => [x.i, x]));
   setHTML($('#trows'), steps.map((x, i) => {
@@ -689,29 +696,32 @@ function renderReplay() {
     return `<li class="trow${busy ? ' busy' : ''}"><b>${x.name}</b><span class="tans">${esc(x.ans)}${x.rec ? '<small>recorded answer</small>' : ''}</span><span class="tby">${ran ? ico(BYICON[x.by] ?? 'moon', 22) + x.by : ''}</span><span class="tres">${out}</span>${x.ev ? `<small class="tev">${esc(x.ev)}</small>` : ''}</li>`;
   }).join(''));
   // no "·" or "—" here: Gaegu lacks them and the fallback glyphs shift this line between states
-  const k0 = run.replayable, before = !!rv && rv.rows.every((/** @type {TraceRow} */ r) => r.phase === 'awake');
-  let sum = !rv ? (S.trace?.err ? `this run could not be read: ${S.trace.err}` : '')
-    : run.stuck_at ? `this run got stuck at ${nameOf(run.stuck_at)}`
-      : k0 ? `${k0} of ${run.decisions} decisions can re-run exactly, press replay`
+  const k0 = shown.replayable, n = shown.decisions, before = !!rv && rv.rows.every((/** @type {TraceRow} */ r) => r.phase === 'awake');
+  let sum = !rv ? (!t?.err ? '' : /^404 /.test(t.err) ? 'this run is no longer in the log' : `this run could not be read: ${t.err}`)
+    : shown.stuck_at ? `this run got stuck at ${nameOf(shown.stuck_at)}`
+      : k0 ? `${k0} of ${n} decisions can re-run exactly, press replay`
         : before ? 'none of these decisions can re-run: nothing had learned to dream yet' : 'none of these decisions can re-run: no dream answered in this run';
-  if (rp && !rp.done) sum = rp.err ? '' : k0 ? `re-running ${k0} of ${run.decisions} decisions…` : 'reading the log…';
+  if (rp && !rp.done) sum = rp.err ? '' : k0 ? `re-running ${k0} of ${n} decisions…` : 'reading the log…';
   $('#tsum').classList.toggle('pre', !(rp && rp.done));
   if (rp && rp.done) {
     const p = /** @type {ReplayReport | null} */ (rp.rep);
     if (!p) sum = `replay refused: ${rp.err}`;
-    else if (run.stuck_at) sum = p.same ? `${p.same} decision${p.same > 1 ? 's' : ''} re-ran with the same bytes, then the run got stuck at ${nameOf(run.stuck_at)}` : `stuck at ${nameOf(run.stuck_at)}: the API was down and nothing had learned it`;
+    else if (shown.stuck_at) sum = p.same ? `${p.same} decision${p.same > 1 ? 's' : ''} re-ran with the same bytes, then the run got stuck at ${nameOf(shown.stuck_at)}` : `stuck at ${nameOf(shown.stuck_at)}: the API was down and nothing had learned it`;
     else if (!p.re_executed) sum = before ? 'nothing re-ran: this run came before anything learned to dream' : 'nothing re-ran: no dream answered in this run';
-    else sum = `${p.same} decision${p.same > 1 ? 's' : ''} re-ran with the same bytes, ${p.from_log} came back from the log${p.re_executed > p.same ? `, ${p.re_executed - p.same} did not match` : ''}`;
+    // one unit with the line before it ("2 of 4 decisions can re-run"): ReplayReport.from_log also counts the ledger write, a fifth step
+    else sum = `${p.same} of ${n} decisions re-ran with the same bytes${p.re_executed > p.same ? `, ${p.re_executed - p.same} did not match` : ''}, the rest came back from the log`;
   }
   setText($('#tsum'), sum);
 }
 // The 0.5 s row stepping animates a ReplayReport already in hand (README (d)).
+// It replays the run the card shows (the newest one it has, when following the newest during a batch); that run stays selected
+// and on screen (listedRuns) while the batch moves on.
 async function startReplay() {
-  const run = currentRun(), rv = S.trace?.rv;
-  if (!run || !rv) return;
-  S.selRun = run.id;
-  const rp = S.rp = { id: run.id, i: 0, done: false, rep: null, err: '' };
-  const r = await req('POST', `/replay/${encodeURIComponent(run.id)}`);
+  const t = S.trace, rv = t?.rv;
+  if (!t || !rv || (S.selRun != null && t.id !== S.selRun)) return;
+  S.selRun = t.id;
+  const rp = S.rp = { id: t.id, run: rv.run, i: 0, done: false, rep: null, err: '' };
+  const r = await req('POST', `/replay/${encodeURIComponent(t.id)}`);
   if (S.rp !== rp) return;
   if (!r.ok) { Object.assign(rp, { done: true, err: r.text }); return; }
   rp.rep = r.data;
@@ -825,6 +835,7 @@ function route() {
   if (S.view === 'dreams' && DREAMERS.includes(arg)) S.sel = arg;
   for (const id of views) $('#v-' + id).hidden = id !== S.view;
   document.querySelectorAll('.tab').forEach((t) => (/** @type {HTMLElement} */ (t).dataset.v === S.view ? t.setAttribute('aria-current', 'page') : t.removeAttribute('aria-current')));
+  if (st) renderView(); // the tab is filled before it is first painted, not one frame later
   if (S.view === 'flows') fit();
   if (S.view === 'scores') loadScores();
 }
@@ -870,12 +881,13 @@ function frame(/** @type {number} */ t) {
   lastT = t;
   if (st) watchPhases();
   renderTop(dt);
-  if (st) {
-    if (S.view === 'flows') { renderStage(); renderCharts(); }
-    else if (S.view === 'dreams') { renderJournal(); setHTML($('#cert'), certHTML(S.sel)); }
-    else if (S.view === 'replay') renderReplay();
-  }
+  if (st) renderView();
   requestAnimationFrame(frame);
+}
+function renderView() {
+  if (S.view === 'flows') { renderStage(); renderCharts(); }
+  else if (S.view === 'dreams') { renderJournal(); setHTML($('#cert'), certHTML(S.sel)); }
+  else if (S.view === 'replay') renderReplay();
 }
 
 $('#run').addEventListener('click', async () => {
@@ -887,6 +899,7 @@ $('#run').addEventListener('click', async () => {
     else if (!S.unplugged) narrate(pause ? `paused at run ${runs()}` : `resuming at run ${at}`);
     return;
   }
+  S.rp = null; // a new batch: a replayed run gives up its place, and the selection falls back to the newest once it leaves the screen
   if (!S.unplugged) narrate(st?.metrics.runs ? `fast-forwarding ${int(BATCH)} more transactions · ${teacherWords()}` : `fast-forwarding ${int(BATCH)} transactions · ${teacherWords()} · every call is logged`);
   const r = await cmd('POST', '/batch', { n: BATCH });
   if (!r.ok) narrate(`the run did not start: ${esc(r.text)}`);
