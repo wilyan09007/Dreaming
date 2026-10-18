@@ -358,12 +358,13 @@ def test_budget_body_is_validated(client: TestClient) -> None:
 # ------------------------------------------------------------------ POST /tools/{site}/outage
 
 
-def test_unplugging_the_tool_is_noticed_from_the_failures_and_plugging_it_back_from_a_probe(client: TestClient, down: dict[str, bool]) -> None:
+def test_unplugging_the_tool_is_noticed_from_the_failures_and_plugging_it_back_clears_it(client: TestClient, down: dict[str, bool]) -> None:
     r = client.post(f"/tools/{VEN}/outage", json={"down": True})
     assert r.status_code == 200
     p = Policy.model_validate(r.json())
     assert p.call_site == VEN and down["vendor"] is True
     assert p.outage is False  # the switch is fault injection: the runtime has not seen a failure yet
+    assert state(client).unplugged == [VEN]  # the switch itself is in State: the pill survives a reload
 
     s = batch(client, 10)  # awake, snapshot fallback registered: the runs go on, three failures in a row make it an outage
     assert site(s, VEN).policy.outage is True and site(s, CAT).policy.outage is False
@@ -371,7 +372,19 @@ def test_unplugging_the_tool_is_noticed_from_the_failures_and_plugging_it_back_f
     outages = [e for e in events(client, limit=1000) if e.kind == EventKind.tool_outage]
     assert len(outages) == 1 and outages[0].call_site == VEN
 
-    assert client.post(f"/tools/{VEN}/outage", json={"down": False}).status_code == 200 and down["vendor"] is False
+    r = client.post(f"/tools/{VEN}/outage", json={"down": False})
+    assert r.status_code == 200 and down["vendor"] is False
+    # plugged back in: the detected outage clears at once, with no batch running to probe it
+    assert Policy.model_validate(r.json()).outage is False and EventKind.tool_recovered in kinds(client)
+    s = state(client)
+    assert s.unplugged == [] and site(s, VEN).policy.outage is False
+    assert not batch(client, 5).runs[-1].down  # the next runs call the real API again
+
+
+def test_a_probe_clears_an_outage_the_switch_did_not_cause(client: TestClient, down: dict[str, bool]) -> None:
+    client.post(f"/tools/{VEN}/outage", json={"down": True})
+    assert site(batch(client, 10), VEN).policy.outage is True
+    down["vendor"] = False  # the tool comes back by itself: nobody plugs the switch
     for _ in range(6):  # while out, 1 call in 20 probes the real call; a success clears the outage
         s = batch(client, 50)
         if not site(s, VEN).policy.outage:

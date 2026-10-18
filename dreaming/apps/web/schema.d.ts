@@ -128,6 +128,7 @@ export type Target = number;
 export type Done = number;
 export type Recorded = boolean;
 export type LiveCalls = number;
+export type Unplugged = string[];
 export type Id3 = string;
 export type RunId = string;
 export type I = number;
@@ -242,6 +243,7 @@ export interface State {
   batch: Batch;
   config?: Config;
   spare_certificates?: SpareCertificates;
+  unplugged?: Unplugged;
 }
 /**
  * One call site as the page shows it: the declaration, its state, its promise, and what a call costs awake vs dreaming.

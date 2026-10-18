@@ -12,7 +12,8 @@ Under each dream-journal row, small Gaegu lines name the promoted candidate with
 1. `GET /healthz` -> `Health {ok, checks{db, trainer, teacher, realtime}, version, env_sha}`. Show a strip only for a red check.
 2. `GET /state` -> `State` (defined in `apps/api/.../main.py`, not in `contracts.py`):
    `sites: SiteView[]` (`{site: CallSite, policy: Policy, certificate: Certificate | null}`), `budget` (fraction 0.01..0.10; slider = budget x 100),
-   `metrics: Metrics` (now), `series: Metrics[]` (`batch.progress` snapshots, oldest first), `runs: Run[]` (last 50, newest last), `recorded: boolean`.
+   `metrics: Metrics` (now), `series: Metrics[]` (`batch.progress` snapshots, oldest first), `runs: Run[]` (last 50, newest last), `recorded: boolean`,
+   `unplugged: string[]` (tool sites whose fault switch is off: the plug pill, after a reload and in every tab).
 3. `subscribe(...)` from `live.js`. Site ids: `bookkeeper.categorize | vendor_lookup | match_invoice | anything_odd` (kinds `model | tool | model | router`)
    and the effects `post_to_books`, `wake_a_human` (`kind: effect`: the two non-clickable nodes). "bank feed" is a static node.
 
@@ -37,7 +38,7 @@ const stop = subscribe(supabaseUrl, publishableKey, '', (m) => apply(m)); // m.t
 |---|---|---|
 | run 2,000 | `POST /batch {"n": 2000}` | `{"status": "started"}`; 409 while one runs, 503 if the API has no workflow inputs |
 | mistakes allowed (on release) | `POST /budget {"budget": 0.07}` | `{"budget": 0.07}`; per-site `cert.issued` / `cert.revoked` follow within ms |
-| unplug the API | `POST /tools/bookkeeper.vendor_lookup/outage {"down": true}` | the updated `Policy`; 404 for an unknown site |
+| unplug the API | `POST /tools/bookkeeper.vendor_lookup/outage {"down": true}` | the updated `Policy` (`{"down": false}` also clears a detected `outage`); 404 for an unknown site |
 | replay this run | `POST /replay/{run_id}` | `ReplayReport {steps[{i, call_site, decision, re_executed, same_bytes, output_sha}], re_executed, same, from_log}`; 404 unknown run, 409 when the run's weights or env are not loaded in the API |
 
 `GET /runs/{run_id}` -> `{run: Run, rows: TraceRow[]}` fills the replay tab's trace card (rows carry `request`, `response`, `decision`, `prediction`, `teacher`; `evidence_texts` maps each memory voter's row id to its rendered input).
@@ -56,7 +57,7 @@ const stop = subscribe(supabaseUrl, publishableKey, '', (m) => apply(m)); // m.t
 | `S.cert[id]` ("cert c-0412") | `Certificate.id` (`cert_` + 12 hex): print `id.slice(5, 11)`. Every re-certify issues a new id. Find the live promise by `Policy.cert_id`, never by `Certificate.status` |
 | `s.weights` ("weights 9f3a1c") | `Policy.weights_sha.slice(0, 6)` (= `Certificate.weights_sha`, = `Prediction.hashes.weights` on a row) |
 | `AUDIT` ("1 in 20"); `s.replay` | `1 / thresholds.audit_rate`; `site.replayable` (false for the router: "not replayable") |
-| `S.down`, the plug pill | `Policy.outage` on `bookkeeper.vendor_lookup`. "circuit breaker: 100%" is page copy, not a measurement |
+| `S.down`, the plug pill | the pill: `State.unplugged`; the rain cloud: `State.unplugged` or `Policy.outage` (detected) on `bookkeeper.vendor_lookup`. "circuit breaker: 100%" is page copy, not a measurement: every run calls vendor lookup, so a plain breaker fails them all |
 | `metrics()` `.cost .sec .fail .rep` | `State.metrics`: `cost_per_run` (USD, x 100 for cents), `sec_per_run`, `failed_pct`, `replayable_pct` |
 | `S.series`, `record()` | `State.series`, then `data.metrics` of each live `batch.progress`. x = point index x 20 runs (`Metrics` has no x) |
 | `S.saved` ("saved so far") | `Metrics.saved_usd` |
@@ -86,8 +87,8 @@ const stop = subscribe(supabaseUrl, publishableKey, '', (m) => apply(m)); // m.t
 `app.js` passes the non-strict check `apps/api/tests/test_web.py` runs (`tsc --checkJs` on `app.js` and `live.js`); `live.js` also passes the strict one above.
 
 ## (g) The five stickers
-`awake` sun, `watching` dashed eye, `testing` half-blue circle, `dreaming` sleeping cloud = `Policy.phase`, one to one. `down` (rain cloud) = `Policy.outage`
-on a tool site; it wins over the stored phase, and `Phase.down` is never stored. `testing` lasts milliseconds server-side (one `tick()` goes watching, testing, certify);
+`awake` sun, `watching` dashed eye, `testing` half-blue circle, `dreaming` sleeping cloud = `Policy.phase`, one to one. `down` (rain cloud) = the site in `State.unplugged`
+or `Policy.outage` on a tool site; it wins over the stored phase, and `Phase.down` is never stored. `testing` lasts milliseconds server-side (one `tick()` goes watching, testing, certify);
 the page holds each sticker for at least 0.9 s from the `site.phase` events, which spaces the display out and changes no value.
 
 ## (h) The scores tab
@@ -101,6 +102,5 @@ with no coverage anywhere, highest accuracy) and the verdict sentence built from
 ## Open gaps (what the page still cannot show from the API)
 
 1. The spares' certificates come from `spare_certificates`, a field `main.py`'s `PageState` adds to `State`; move it into `contracts.State` with the next `just schema`.
-2. "circuit breaker: 100%" is comparison copy, not a measurement; the page prints it as "circuit breaker: 100% (S4)" with the S4 smoke named in its tooltip.
-3. The fault switch's own state (unplugged or not) is not in `State`; after a reload the rain cloud comes from `Policy.outage`, which is the detected state and clears after a successful probe.
-4. The replay footer ("cpu · batch size 1 · 1 thread") comes from `Health.profile`, not from the row; rows carry only the env hash.
+2. "circuit breaker: 100%" is comparison copy, not a measurement; its tooltip says so (a plain breaker fails every run while the API is down).
+3. The replay footer ("cpu · batch size 1 · 1 thread") comes from `Health.profile`, not from the row; rows carry only the env hash.
