@@ -38,7 +38,7 @@ PROVIDERS: dict[str, Provider] = {
     "asi1": Provider(ASI1, "ASI1KEY"),
     # reasoning tokens count toward max_tokens on these two: at 256, step-5-preview returned finish_reason=length with empty content
     # on 1 of 10 label calls (measured 2026-10-17, reasoning_effort=low); 1024 leaves room and costs ~$0.0005 per call
-    "stepfun": Provider("https://api.stepfun.ai/v1", "STEPFUNKEY", max_tokens_label=1024),  # thinking cannot be off; docs/devtools.md
+    "stepfun": Provider("https://api.stepfun.ai/v1", "STEPFUNKEY", max_tokens_label=2048),  # thinking cannot be off; 20% of match_invoice answers overflowed 1024 (2026-10-18)
     "gemini": Provider("https://generativelanguage.googleapis.com/v1beta/openai/", "GEMINIKEY", max_tokens_label=1024),
 }
 
@@ -77,9 +77,9 @@ class OpenAICompatTeacher:
         )
         text: str = r.choices[0].message.content or ""
         if not text and site.labels is not None and r.choices[0].finish_reason == "length":
-            # a reasoning model spent the whole budget thinking (StepFun: 20% of match_invoice answers at 1024): one retry, 4x
+            # a reasoning model spent the whole budget thinking (StepFun: 20% of match_invoice answers at 1024): one retry, 2x
             r = client.chat.completions.create(
-                model=spec.model, messages=messages(site, rendered), max_tokens=4 * max_tokens, extra_body=body, extra_headers=headers
+                model=spec.model, messages=messages(site, rendered), max_tokens=2 * max_tokens, extra_body=body, extra_headers=headers
             )
             text = r.choices[0].message.content or ""
         usage: dict[str, Any] = r.usage.model_dump() if r.usage else {}
