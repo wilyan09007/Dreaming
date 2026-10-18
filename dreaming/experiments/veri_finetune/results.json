@@ -1,0 +1,35 @@
+{
+  "rows": {
+    "train": 259,
+    "calib": 73,
+    "test": 96
+  },
+  "budget": 0.05,
+  "majority_label_accuracy_held_out": 0.1953,
+  "frozen_bge_small_plus_fit_head": {
+    "accuracy_held_out": 0.2604,
+    "accuracy_calib": 0.2466,
+    "accuracy_test": 0.2708,
+    "certified": false,
+    "certified_coverage_calib": 0.0,
+    "bound": 1.0,
+    "cutoff": null,
+    "realized_coverage_test": 0.0,
+    "realized_error_test": 0.0,
+    "smallest_certifiable_budget": null
+  },
+  "finetuned_artifact": {
+    "accuracy_held_out": 0.3787,
+    "accuracy_calib": 0.274,
+    "accuracy_test": 0.4583,
+    "certified": false,
+    "certified_coverage_calib": 0.0,
+    "bound": 1.0,
+    "cutoff": null,
+    "realized_coverage_test": 0.0,
+    "realized_error_test": 0.0,
+    "smallest_certifiable_budget": null
+  },
+  "artifact_sha256": "a2c4acf629160448f1b659b60bbfa71ea51394f1a76358e2fcf34f1dcfd9aed4",
+  "encoder_sha256": "f1ff361bb8c891baa1c7ca9eb5dd3a027ffabaddd315158c0fc524a6054795fc"
+}
