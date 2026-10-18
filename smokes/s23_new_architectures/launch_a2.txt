@@ -1,0 +1,17 @@
+bundle 0.01 MB
+community launch failed, trying ALL: [{'message': 'There are no longer any instances available with the requested specifications. Please refresh and try again.', 'path': ['podFindAndDeployOnDemand'], 'extensions': {'code': 'SUPPLY_CONSTR
+pod {'id': '5wht3thduyxjgk', 'machineId': 't7490p6ajlqg', 'costPerHr': 0.27}
+[31s] bundle uploaded
+name, memory.total [MiB]
+NVIDIA RTX A5000, 24564 MiB
+waiting for bundle
+bundle extracted 6 files
+[62s status=RUNNING log=97B]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Generating train split:   0%|          | 0/15250 [00:00<?, ? examples/s]Generating train split: 100%|ââââââââââ| 15250/15250 [00:00<00:00, 518407.05 examples/s]
+Generating validation split:   0%|          | 0/3100 [00:00<?, ? examples/s]Generating validation split: 100%|ââââââââââ| 3100/3100 [00:00<00:00, 306608.40 examples/s]
+Generating test split:   0%|          | 0/5500 [00:00<?, ? examples/s]Generating test split: 100%|ââââââââââ| 5500/5500 [00:00<00:00, 456245.24 examples/s]
+[94s status=RUNNING log=786B]
+pod gone
+terminate failed (pod may have self-terminated): [{'message': 'pod not found to terminate', 'path': ['podTerminate'], 'extensions': {'code': 'POD_NOT_FOUND', 'userId': 'user_31zqpkFHJXKChEdBC7mMjcr2YHv', 'podId': '5wht3thduyxjgk'}}]
+wall 2.1 min, est cost $0.009 at $0.27/h, ok=False

@@ -1,0 +1,646 @@
+name, memory.total [MiB]
+NVIDIA RTX A5000, 24564 MiB
+waiting for bundle
+bundle extracted 27 files
+tau_bench/gpt-4o-airline.json  4114038 bytes  sha256 e9e6c0297660c537
+tau_bench/gpt-4o-retail.json  10813408 bytes  sha256 df01707894836168
+tau_bench/sonnet-35-new-airline.json  10888682 bytes  sha256 fe62fcd514b855b3
+tau_bench/sonnet-35-new-retail.json  26544890 bytes  sha256 0df526398e9d2720
+tau_bench/LICENSE  1063 bytes  sha256 243d23d45b80122b
+tracelab/syfi_coding_trace_v0.0.2.jsonl.gz  100939722 bytes  sha256 11ce51ec0a25e3d1
+toucan/OSS/train-00010-of-00047.parquet  146906951 bytes
+[load] 1980 episodes, 14285 tool calls
+
+######## A
+
+**retail / gpt-4o** (460 episodes, 3274 tool calls, 4 trials; chronological = trial-major, so trial 0 is cold start)
+| tool | kind | calls | (i) seen % | (i) equal % | (ii) seen % | (ii) equal % | (iii) seen % | (iii) equal % | seen only in other tasks % |
+|---|---|---|---|---|---|---|---|---|---|
+| calculate | pure | 56 | 35.7 | 100.0 | 35.7 | 100.0 | 35.7 | 100.0 | 5.4 |
+| think | pure | 50 | 0.0 | n/a | 0.0 | n/a | 0.0 | n/a | 0.0 |
+| get_order_details | read | 1029 | 85.1 | 99.5 | 79.9 | 100.0 | 85.0 | 100.0 | 16.0 |
+| get_user_details | read | 389 | 86.9 | 100.0 | 86.6 | 100.0 | 86.9 | 100.0 | 13.1 |
+| find_user_id_by_name_zip | read | 386 | 88.1 | 100.0 | 88.1 | 100.0 | 88.1 | 100.0 | 14.0 |
+| get_product_details | read | 359 | 89.4 | 100.0 | 78.6 | 100.0 | 89.4 | 100.0 | 21.2 |
+| find_user_id_by_email | read | 208 | 67.3 | 100.0 | 67.3 | 100.0 | 67.3 | 100.0 | 14.4 |
+| list_all_product_types | read | 106 | 99.1 | 100.0 | 80.2 | 100.0 | 99.1 | 100.0 | 48.1 |
+| return_delivered_order_items | write | 160 | 69.4 | 93.7 | 69.4 | 93.7 | 69.4 | 93.7 | 8.8 |
+| exchange_delivered_order_items | write | 151 | 53.0 | 96.2 | 53.0 | 96.2 | 53.0 | 96.2 | 6.6 |
+| modify_pending_order_items | write | 149 | 61.7 | 77.2 | 61.7 | 77.2 | 61.7 | 77.2 | 11.4 |
+| cancel_pending_order | write | 92 | 70.7 | 100.0 | 70.7 | 100.0 | 70.7 | 100.0 | 7.6 |
+| modify_pending_order_address | write | 71 | 69.0 | 71.4 | 69.0 | 71.4 | 69.0 | 71.4 | 9.9 |
+| modify_user_address | write | 38 | 65.8 | 100.0 | 65.8 | 100.0 | 65.8 | 100.0 | 7.9 |
+| transfer_to_human_agents | write | 25 | 0.0 | n/a | 0.0 | n/a | 0.0 | n/a | 0.0 |
+| modify_pending_order_payment | write | 5 | 60.0 | 100.0 | 60.0 | 100.0 | 60.0 | 100.0 | 0.0 |
+
+Read calls reusable (state-aware key) by trial index: t0: 44%, t1: 89%, t2: 94%, t3: 95%
+
+**retail / sonnet-3.5** (920 episodes, 7086 tool calls, 8 trials; chronological = trial-major, so trial 0 is cold start)
+| tool | kind | calls | (i) seen % | (i) equal % | (ii) seen % | (ii) equal % | (iii) seen % | (iii) equal % | seen only in other tasks % |
+|---|---|---|---|---|---|---|---|---|---|
+| think | pure | 146 | 0.0 | n/a | 0.0 | n/a | 0.0 | n/a | 0.0 |
+| calculate | pure | 47 | 40.4 | 100.0 | 40.4 | 100.0 | 40.4 | 100.0 | 2.1 |
+| get_order_details | read | 2426 | 93.1 | 98.9 | 90.8 | 100.0 | 92.8 | 100.0 | 7.6 |
+| get_product_details | read | 848 | 94.8 | 100.0 | 87.7 | 100.0 | 94.8 | 100.0 | 11.6 |
+| get_user_details | read | 844 | 93.5 | 98.7 | 92.8 | 100.0 | 93.4 | 99.1 | 6.8 |
+| find_user_id_by_name_zip | read | 773 | 92.0 | 100.0 | 92.0 | 100.0 | 92.0 | 100.0 | 8.2 |
+| find_user_id_by_email | read | 487 | 80.3 | 100.0 | 80.3 | 100.0 | 80.3 | 100.0 | 10.5 |
+| list_all_product_types | read | 84 | 98.8 | 100.0 | 89.3 | 100.0 | 98.8 | 100.0 | 26.2 |
+| return_delivered_order_items | write | 329 | 85.7 | 97.5 | 85.7 | 97.5 | 85.7 | 97.5 | 4.3 |
+| modify_pending_order_items | write | 309 | 77.3 | 84.5 | 77.3 | 84.5 | 77.3 | 84.5 | 4.5 |
+| exchange_delivered_order_items | write | 265 | 77.4 | 97.6 | 77.4 | 97.6 | 77.4 | 97.6 | 3.4 |
+| cancel_pending_order | write | 199 | 84.4 | 98.2 | 84.4 | 98.2 | 84.4 | 98.2 | 5.0 |
+| modify_pending_order_address | write | 156 | 85.3 | 82.7 | 85.3 | 82.7 | 85.3 | 82.7 | 3.2 |
+| modify_user_address | write | 81 | 81.5 | 100.0 | 81.5 | 100.0 | 81.5 | 100.0 | 3.7 |
+| transfer_to_human_agents | write | 79 | 0.0 | n/a | 0.0 | n/a | 0.0 | n/a | 0.0 |
+| modify_pending_order_payment | write | 13 | 69.2 | 100.0 | 69.2 | 100.0 | 69.2 | 100.0 | 0.0 |
+
+Read calls reusable (state-aware key) by trial index: t0: 48%, t1: 93%, t2: 94%, t3: 96%, t4: 97%, t5: 97%, t6: 96%, t7: 97%
+
+**retail / pooled** (1380 episodes, 10360 tool calls, 8 trials; chronological = trial-major, so trial 0 is cold start)
+| tool | kind | calls | (i) seen % | (i) equal % | (ii) seen % | (ii) equal % | (iii) seen % | (iii) equal % | seen only in other tasks % |
+|---|---|---|---|---|---|---|---|---|---|
+| think | pure | 196 | 0.0 | n/a | 0.0 | n/a | 0.0 | n/a | 0.0 |
+| calculate | pure | 103 | 44.7 | 100.0 | 44.7 | 100.0 | 44.7 | 100.0 | 4.9 |
+| get_order_details | read | 3455 | 95.1 | 99.1 | 92.3 | 100.0 | 94.8 | 100.0 | 5.8 |
+| get_user_details | read | 1233 | 95.7 | 99.2 | 95.1 | 100.0 | 95.6 | 99.4 | 4.9 |
+| get_product_details | read | 1207 | 96.4 | 100.0 | 89.5 | 100.0 | 96.4 | 100.0 | 8.2 |
+| find_user_id_by_name_zip | read | 1159 | 94.7 | 100.0 | 94.7 | 100.0 | 94.7 | 100.0 | 5.7 |
+| find_user_id_by_email | read | 695 | 80.3 | 100.0 | 80.3 | 100.0 | 80.3 | 100.0 | 9.6 |
+| list_all_product_types | read | 190 | 99.5 | 100.0 | 85.8 | 100.0 | 99.5 | 100.0 | 31.1 |
+| return_delivered_order_items | write | 489 | 88.5 | 95.6 | 88.5 | 95.6 | 88.5 | 95.6 | 3.9 |
+| modify_pending_order_items | write | 458 | 79.9 | 82.5 | 79.9 | 82.5 | 79.9 | 82.5 | 5.0 |
+| exchange_delivered_order_items | write | 416 | 76.2 | 95.0 | 76.2 | 95.0 | 76.2 | 95.0 | 3.8 |
+| cancel_pending_order | write | 291 | 87.3 | 98.8 | 87.3 | 98.8 | 87.3 | 98.8 | 4.1 |
+| modify_pending_order_address | write | 227 | 87.7 | 80.4 | 87.7 | 80.4 | 87.7 | 80.4 | 3.1 |
+| modify_user_address | write | 119 | 84.0 | 100.0 | 84.0 | 100.0 | 84.0 | 100.0 | 2.5 |
+| transfer_to_human_agents | write | 104 | 0.0 | n/a | 0.0 | n/a | 0.0 | n/a | 0.0 |
+| modify_pending_order_payment | write | 18 | 77.8 | 100.0 | 77.8 | 100.0 | 77.8 | 100.0 | 0.0 |
+
+Read calls reusable (state-aware key) by trial index: t0: 67%, t1: 94%, t2: 95%, t3: 97%, t4: 98%, t5: 98%, t6: 97%, t7: 97%
+
+**airline / gpt-4o** (200 episodes, 1164 tool calls, 4 trials; chronological = trial-major, so trial 0 is cold start)
+| tool | kind | calls | (i) seen % | (i) equal % | (ii) seen % | (ii) equal % | (iii) seen % | (iii) equal % | seen only in other tasks % |
+|---|---|---|---|---|---|---|---|---|---|
+| calculate | pure | 96 | 13.5 | 100.0 | 13.5 | 100.0 | 13.5 | 100.0 | 1.0 |
+| think | pure | 92 | 1.1 | 100.0 | 1.1 | 100.0 | 1.1 | 100.0 | 0.0 |
+| get_reservation_details | read | 377 | 74.0 | 100.0 | 69.8 | 100.0 | 74.0 | 100.0 | 8.0 |
+| search_direct_flight | read | 141 | 51.1 | 100.0 | 48.2 | 100.0 | 51.1 | 100.0 | 3.5 |
+| get_user_details | read | 120 | 72.5 | 100.0 | 70.0 | 100.0 | 72.5 | 100.0 | 9.2 |
+| search_onestop_flight | read | 38 | 57.9 | 100.0 | 55.3 | 100.0 | 57.9 | 100.0 | 5.3 |
+| list_all_airports | read | 2 | 50.0 | 100.0 | 50.0 | 100.0 | 50.0 | 100.0 | 50.0 |
+| update_reservation_flights | write | 104 | 39.4 | 100.0 | 39.4 | 100.0 | 39.4 | 100.0 | 1.0 |
+| cancel_reservation | write | 69 | 62.3 | 100.0 | 62.3 | 100.0 | 62.3 | 100.0 | 4.3 |
+| book_reservation | write | 53 | 15.1 | 75.0 | 15.1 | 75.0 | 15.1 | 75.0 | 0.0 |
+| transfer_to_human_agents | write | 48 | 0.0 | n/a | 0.0 | n/a | 0.0 | n/a | 0.0 |
+| update_reservation_baggages | write | 14 | 21.4 | 100.0 | 21.4 | 100.0 | 21.4 | 100.0 | 0.0 |
+| send_certificate | write | 8 | 50.0 | 100.0 | 50.0 | 100.0 | 50.0 | 100.0 | 12.5 |
+| update_reservation_passengers | write | 2 | 0.0 | n/a | 0.0 | n/a | 0.0 | n/a | 0.0 |
+
+Read calls reusable (state-aware key) by trial index: t0: 16%, t1: 75%, t2: 86%, t3: 81%
+
+**airline / sonnet-3.5** (400 episodes, 2761 tool calls, 8 trials; chronological = trial-major, so trial 0 is cold start)
+| tool | kind | calls | (i) seen % | (i) equal % | (ii) seen % | (ii) equal % | (iii) seen % | (iii) equal % | seen only in other tasks % |
+|---|---|---|---|---|---|---|---|---|---|
+| think | pure | 101 | 0.0 | n/a | 0.0 | n/a | 0.0 | n/a | 0.0 |
+| calculate | pure | 44 | 29.5 | 100.0 | 29.5 | 100.0 | 29.5 | 100.0 | 2.3 |
+| get_reservation_details | read | 1042 | 88.0 | 99.3 | 86.5 | 100.0 | 87.8 | 100.0 | 3.2 |
+| search_direct_flight | read | 397 | 72.3 | 100.0 | 63.2 | 100.0 | 71.0 | 100.0 | 1.8 |
+| get_user_details | read | 366 | 89.1 | 100.0 | 88.0 | 100.0 | 89.1 | 100.0 | 4.4 |
+| search_onestop_flight | read | 170 | 65.9 | 100.0 | 56.5 | 100.0 | 65.3 | 100.0 | 1.8 |
+| list_all_airports | read | 16 | 93.8 | 100.0 | 87.5 | 100.0 | 93.8 | 100.0 | 12.5 |
+| update_reservation_flights | write | 183 | 60.7 | 88.3 | 60.7 | 88.3 | 60.7 | 88.3 | 3.8 |
+| transfer_to_human_agents | write | 131 | 0.0 | n/a | 0.0 | n/a | 0.0 | n/a | 0.0 |
+| cancel_reservation | write | 119 | 75.6 | 97.8 | 75.6 | 97.8 | 75.6 | 97.8 | 4.2 |
+| book_reservation | write | 96 | 35.4 | 91.2 | 35.4 | 91.2 | 35.4 | 91.2 | 1.0 |
+| update_reservation_baggages | write | 52 | 71.2 | 81.1 | 71.2 | 81.1 | 71.2 | 81.1 | 5.8 |
+| send_certificate | write | 22 | 54.5 | 100.0 | 54.5 | 100.0 | 54.5 | 100.0 | 4.5 |
+| update_reservation_passengers | write | 22 | 90.9 | 50.0 | 90.9 | 50.0 | 90.9 | 50.0 | 4.5 |
+
+Read calls reusable (state-aware key) by trial index: t0: 18%, t1: 80%, t2: 84%, t3: 82%, t4: 91%, t5: 90%, t6: 93%, t7: 99%
+
+**airline / pooled** (600 episodes, 3925 tool calls, 8 trials; chronological = trial-major, so trial 0 is cold start)
+| tool | kind | calls | (i) seen % | (i) equal % | (ii) seen % | (ii) equal % | (iii) seen % | (iii) equal % | seen only in other tasks % |
+|---|---|---|---|---|---|---|---|---|---|
+| think | pure | 193 | 0.5 | 100.0 | 0.5 | 100.0 | 0.5 | 100.0 | 0.0 |
+| calculate | pure | 140 | 20.7 | 100.0 | 20.7 | 100.0 | 20.7 | 100.0 | 1.4 |
+| get_reservation_details | read | 1419 | 91.1 | 99.5 | 88.9 | 100.0 | 90.9 | 100.0 | 2.4 |
+| search_direct_flight | read | 538 | 74.5 | 100.0 | 67.5 | 100.0 | 73.6 | 100.0 | 2.0 |
+| get_user_details | read | 486 | 91.8 | 100.0 | 89.9 | 100.0 | 91.8 | 100.0 | 3.1 |
+| search_onestop_flight | read | 208 | 68.8 | 100.0 | 60.6 | 100.0 | 68.3 | 100.0 | 1.9 |
+| list_all_airports | read | 18 | 94.4 | 100.0 | 88.9 | 100.0 | 94.4 | 100.0 | 16.7 |
+| update_reservation_flights | write | 287 | 62.4 | 92.2 | 62.4 | 92.2 | 62.4 | 92.2 | 3.8 |
+| cancel_reservation | write | 188 | 80.9 | 98.7 | 80.9 | 98.7 | 80.9 | 98.7 | 4.3 |
+| transfer_to_human_agents | write | 179 | 0.0 | n/a | 0.0 | n/a | 0.0 | n/a | 0.0 |
+| book_reservation | write | 149 | 30.9 | 87.0 | 30.9 | 87.0 | 30.9 | 87.0 | 0.7 |
+| update_reservation_baggages | write | 66 | 68.2 | 71.1 | 68.2 | 71.1 | 68.2 | 71.1 | 4.5 |
+| send_certificate | write | 30 | 66.7 | 100.0 | 66.7 | 100.0 | 66.7 | 100.0 | 3.3 |
+| update_reservation_passengers | write | 24 | 91.7 | 54.5 | 91.7 | 54.5 | 91.7 | 54.5 | 4.2 |
+
+Read calls reusable (state-aware key) by trial index: t0: 42%, t1: 83%, t2: 87%, t3: 90%, t4: 91%, t5: 93%, t6: 95%, t7: 99%
+
+######## B
+
+### Regime W: later trials of held-out tasks, memory = earlier trials (workflow re-run many times)
+
+**retail / gpt-4o** (read calls only; 10 random task splits, pooled test counts)
+| key | budget | certified (seeds) | cal. coverage % | test: reads skipped % | test: realized error % of skipped | seeds with err > budget | oracle reusable % |
+|---|---|---|---|---|---|---|---|
+| input-keyed | 1% | 0/10 | - | 0.0 | - | 0 | 97.1 |
+| input-keyed | 2% | 10/10 | 97.3 | 97.4 | 0.3 | 0 | 97.1 |
+| input-keyed | 5% | 10/10 | 97.3 | 97.4 | 0.3 | 0 | 97.1 |
+| state-aware | 1% | 0/10 | - | 0.0 | - | 0 | 94.2 |
+| state-aware | 2% | 10/10 | 93.5 | 94.2 | 0.0 | 0 | 94.2 |
+| state-aware | 5% | 10/10 | 93.5 | 94.2 | 0.0 | 0 | 94.2 |
+| entity-scoped | 1% | 0/10 | - | 0.0 | - | 0 | 97.1 |
+| entity-scoped | 2% | 10/10 | 97.2 | 97.1 | 0.0 | 0 | 97.1 |
+| entity-scoped | 5% | 10/10 | 97.2 | 97.1 | 0.0 | 0 | 97.1 |
+  per tool (state-aware, 2%): get_order_details: skip 95% of 2600 err 0; get_user_details: skip 100% of 987 err 0; find_user_id_by_name_zip: skip 99% of 960 err 0; get_product_details: skip 91% of 845 err 0; find_user_id_by_email: skip 80% of 530 err 0; list_all_product_types: skip 88% of 262 err 0
+
+**retail / sonnet-3.5** (read calls only; 10 random task splits, pooled test counts)
+| key | budget | certified (seeds) | cal. coverage % | test: reads skipped % | test: realized error % of skipped | seeds with err > budget | oracle reusable % |
+|---|---|---|---|---|---|---|---|
+| input-keyed | 1% | 7/10 | 78.9 | 55.5 | 0.4 | 0 | 98.1 |
+| input-keyed | 2% | 10/10 | 98.6 | 98.5 | 0.4 | 0 | 98.1 |
+| input-keyed | 5% | 10/10 | 98.6 | 98.5 | 0.4 | 0 | 98.1 |
+| state-aware | 1% | 10/10 | 95.8 | 96.2 | 0.0 | 0 | 96.2 |
+| state-aware | 2% | 10/10 | 95.8 | 96.2 | 0.0 | 0 | 96.2 |
+| state-aware | 5% | 10/10 | 95.8 | 96.2 | 0.0 | 0 | 96.2 |
+| entity-scoped | 1% | 10/10 | 98.6 | 98.5 | 0.1 | 0 | 98.4 |
+| entity-scoped | 2% | 10/10 | 98.6 | 98.5 | 0.1 | 0 | 98.4 |
+| entity-scoped | 5% | 10/10 | 98.6 | 98.5 | 0.1 | 0 | 98.4 |
+  per tool (state-aware, 2%): get_order_details: skip 97% of 6159 err 0; get_user_details: skip 99% of 2120 err 0; get_product_details: skip 93% of 2111 err 0; find_user_id_by_name_zip: skip 99% of 1920 err 0; find_user_id_by_email: skip 87% of 1312 err 0; list_all_product_types: skip 91% of 216 err 0
+
+**retail / pooled** (read calls only; 10 random task splits, pooled test counts)
+| key | budget | certified (seeds) | cal. coverage % | test: reads skipped % | test: realized error % of skipped | seeds with err > budget | oracle reusable % |
+|---|---|---|---|---|---|---|---|
+| input-keyed | 1% | 9/10 | 79.1 | 72.0 | 0.4 | 0 | 98.1 |
+| input-keyed | 2% | 10/10 | 98.6 | 98.5 | 0.4 | 0 | 98.1 |
+| input-keyed | 5% | 10/10 | 98.6 | 98.5 | 0.4 | 0 | 98.1 |
+| state-aware | 1% | 10/10 | 97.2 | 97.1 | 0.0 | 0 | 97.1 |
+| state-aware | 2% | 10/10 | 97.2 | 97.1 | 0.0 | 0 | 97.1 |
+| state-aware | 5% | 10/10 | 97.2 | 97.1 | 0.0 | 0 | 97.1 |
+| entity-scoped | 1% | 10/10 | 98.6 | 98.5 | 0.1 | 0 | 98.4 |
+| entity-scoped | 2% | 10/10 | 98.6 | 98.5 | 0.1 | 0 | 98.4 |
+| entity-scoped | 5% | 10/10 | 98.6 | 98.5 | 0.1 | 0 | 98.4 |
+  per tool (state-aware, 2%): get_order_details: skip 99% of 6159 err 0; get_user_details: skip 99% of 2120 err 0; get_product_details: skip 95% of 2111 err 0; find_user_id_by_name_zip: skip 99% of 1920 err 0; find_user_id_by_email: skip 87% of 1312 err 0; list_all_product_types: skip 92% of 216 err 0
+
+**airline / gpt-4o** (read calls only; 10 random task splits, pooled test counts)
+| key | budget | certified (seeds) | cal. coverage % | test: reads skipped % | test: realized error % of skipped | seeds with err > budget | oracle reusable % |
+|---|---|---|---|---|---|---|---|
+| input-keyed | 1% | 0/10 | - | 0.0 | - | 0 | 88.4 |
+| input-keyed | 2% | 0/10 | - | 0.0 | - | 0 | 88.4 |
+| input-keyed | 5% | 9/10 | 88.7 | 78.1 | 0.0 | 0 | 88.4 |
+| state-aware | 1% | 0/10 | - | 0.0 | - | 0 | 82.2 |
+| state-aware | 2% | 0/10 | - | 0.0 | - | 0 | 82.2 |
+| state-aware | 5% | 6/10 | 82.2 | 46.4 | 0.0 | 0 | 82.2 |
+| entity-scoped | 1% | 0/10 | - | 0.0 | - | 0 | 88.4 |
+| entity-scoped | 2% | 0/10 | - | 0.0 | - | 0 | 88.4 |
+| entity-scoped | 5% | 9/10 | 88.7 | 78.1 | 0.0 | 0 | 88.4 |
+
+**airline / sonnet-3.5** (read calls only; 10 random task splits, pooled test counts)
+| key | budget | certified (seeds) | cal. coverage % | test: reads skipped % | test: realized error % of skipped | seeds with err > budget | oracle reusable % |
+|---|---|---|---|---|---|---|---|
+| input-keyed | 1% | 0/10 | - | 0.0 | - | 0 | 97.0 |
+| input-keyed | 2% | 10/10 | 94.0 | 96.9 | 0.0 | 0 | 97.0 |
+| input-keyed | 5% | 10/10 | 94.0 | 96.9 | 0.0 | 0 | 97.0 |
+| state-aware | 1% | 0/10 | - | 0.0 | - | 0 | 94.3 |
+| state-aware | 2% | 10/10 | 89.1 | 94.3 | 0.0 | 0 | 94.3 |
+| state-aware | 5% | 10/10 | 89.1 | 94.3 | 0.0 | 0 | 94.3 |
+| entity-scoped | 1% | 0/10 | - | 0.0 | - | 0 | 97.0 |
+| entity-scoped | 2% | 10/10 | 94.0 | 96.9 | 0.0 | 0 | 97.0 |
+| entity-scoped | 5% | 10/10 | 94.0 | 96.9 | 0.0 | 0 | 97.0 |
+  per tool (state-aware, 2%): get_reservation_details: skip 98% of 2663 err 0; search_direct_flight: skip 87% of 967 err 0; get_user_details: skip 98% of 946 err 0; search_onestop_flight: skip 80% of 378 err 0; list_all_airports: skip 100% of 47 err 0
+
+**airline / pooled** (read calls only; 10 random task splits, pooled test counts)
+| key | budget | certified (seeds) | cal. coverage % | test: reads skipped % | test: realized error % of skipped | seeds with err > budget | oracle reusable % |
+|---|---|---|---|---|---|---|---|
+| input-keyed | 1% | 0/10 | - | 0.0 | - | 0 | 97.4 |
+| input-keyed | 2% | 10/10 | 94.5 | 97.4 | 0.0 | 0 | 97.4 |
+| input-keyed | 5% | 10/10 | 94.5 | 97.4 | 0.0 | 0 | 97.4 |
+| state-aware | 1% | 0/10 | - | 0.0 | - | 0 | 95.7 |
+| state-aware | 2% | 10/10 | 90.5 | 95.7 | 0.0 | 0 | 95.7 |
+| state-aware | 5% | 10/10 | 90.5 | 95.7 | 0.0 | 0 | 95.7 |
+| entity-scoped | 1% | 0/10 | - | 0.0 | - | 0 | 97.4 |
+| entity-scoped | 2% | 10/10 | 94.5 | 97.4 | 0.0 | 0 | 97.4 |
+| entity-scoped | 5% | 10/10 | 94.5 | 97.4 | 0.0 | 0 | 97.4 |
+  per tool (state-aware, 2%): get_reservation_details: skip 99% of 2663 err 0; search_direct_flight: skip 89% of 967 err 0; get_user_details: skip 98% of 946 err 0; search_onestop_flight: skip 82% of 378 err 0; list_all_airports: skip 100% of 47 err 0
+
+### Regime X: all trials of held-out tasks, memory = other tasks only (no same-task history)
+
+**retail / gpt-4o** (read calls only; 10 random task splits, pooled test counts)
+| key | budget | certified (seeds) | cal. coverage % | test: reads skipped % | test: realized error % of skipped | seeds with err > budget | oracle reusable % |
+|---|---|---|---|---|---|---|---|
+| input-keyed | 1% | 0/10 | - | 0.0 | - | 0 | 56.4 |
+| input-keyed | 2% | 6/10 | 54.1 | 32.5 | 0.3 | 0 | 56.4 |
+| input-keyed | 5% | 10/10 | 53.8 | 56.5 | 0.2 | 0 | 56.4 |
+| state-aware | 1% | 0/10 | - | 0.0 | - | 0 | 50.1 |
+| state-aware | 2% | 6/10 | 52.9 | 29.5 | 0.0 | 0 | 50.1 |
+| state-aware | 5% | 10/10 | 48.7 | 50.0 | 0.0 | 0 | 50.1 |
+| entity-scoped | 1% | 0/10 | - | 0.0 | - | 0 | 56.4 |
+| entity-scoped | 2% | 9/10 | 54.8 | 52.0 | 0.0 | 0 | 56.4 |
+| entity-scoped | 5% | 10/10 | 53.7 | 56.4 | 0.0 | 0 | 56.4 |
+  per tool (state-aware, 2%): get_order_details: skip 27% of 3209 err 0; get_user_details: skip 29% of 1169 err 0; find_user_id_by_name_zip: skip 38% of 1157 err 0; get_product_details: skip 29% of 1002 err 0; find_user_id_by_email: skip 19% of 633 err 0; list_all_product_types: skip 43% of 313 err 0
+
+**retail / sonnet-3.5** (read calls only; 10 random task splits, pooled test counts)
+| key | budget | certified (seeds) | cal. coverage % | test: reads skipped % | test: realized error % of skipped | seeds with err > budget | oracle reusable % |
+|---|---|---|---|---|---|---|---|
+| input-keyed | 1% | 2/10 | 52.8 | 11.4 | 0.5 | 0 | 56.4 |
+| input-keyed | 2% | 9/10 | 53.2 | 51.6 | 0.4 | 0 | 56.4 |
+| input-keyed | 5% | 10/10 | 52.8 | 56.5 | 0.4 | 0 | 56.4 |
+| state-aware | 1% | 9/10 | 50.8 | 48.3 | 0.0 | 0 | 52.9 |
+| state-aware | 2% | 10/10 | 49.3 | 52.8 | 0.0 | 0 | 52.9 |
+| state-aware | 5% | 10/10 | 49.3 | 52.8 | 0.0 | 0 | 52.9 |
+| entity-scoped | 1% | 8/10 | 54.3 | 45.4 | 0.1 | 0 | 56.4 |
+| entity-scoped | 2% | 10/10 | 52.6 | 56.3 | 0.1 | 0 | 56.4 |
+| entity-scoped | 5% | 10/10 | 52.6 | 56.3 | 0.1 | 0 | 56.4 |
+  per tool (state-aware, 2%): get_order_details: skip 51% of 7408 err 0; get_user_details: skip 51% of 2540 err 0; get_product_details: skip 59% of 2517 err 0; find_user_id_by_name_zip: skip 57% of 2317 err 0; find_user_id_by_email: skip 42% of 1525 err 0; list_all_product_types: skip 91% of 269 err 0
+
+**retail / pooled** (read calls only; 10 random task splits, pooled test counts)
+| key | budget | certified (seeds) | cal. coverage % | test: reads skipped % | test: realized error % of skipped | seeds with err > budget | oracle reusable % |
+|---|---|---|---|---|---|---|---|
+| input-keyed | 1% | 6/10 | 50.8 | 32.3 | 0.3 | 0 | 58.3 |
+| input-keyed | 2% | 10/10 | 54.2 | 58.4 | 0.3 | 0 | 58.3 |
+| input-keyed | 5% | 10/10 | 54.2 | 58.4 | 0.3 | 0 | 58.3 |
+| state-aware | 1% | 10/10 | 50.7 | 54.6 | 0.0 | 0 | 54.7 |
+| state-aware | 2% | 10/10 | 50.7 | 54.6 | 0.0 | 0 | 54.7 |
+| state-aware | 5% | 10/10 | 50.7 | 54.6 | 0.0 | 0 | 54.7 |
+| entity-scoped | 1% | 10/10 | 54.0 | 58.2 | 0.0 | 0 | 58.3 |
+| entity-scoped | 2% | 10/10 | 54.0 | 58.2 | 0.0 | 0 | 58.3 |
+| entity-scoped | 5% | 10/10 | 54.0 | 58.2 | 0.0 | 0 | 58.3 |
+  per tool (state-aware, 2%): get_order_details: skip 53% of 10617 err 0; get_user_details: skip 54% of 3709 err 0; get_product_details: skip 61% of 3519 err 0; find_user_id_by_name_zip: skip 58% of 3474 err 0; find_user_id_by_email: skip 42% of 2158 err 0; list_all_product_types: skip 81% of 582 err 0
+
+**airline / gpt-4o** (read calls only; 10 random task splits, pooled test counts)
+| key | budget | certified (seeds) | cal. coverage % | test: reads skipped % | test: realized error % of skipped | seeds with err > budget | oracle reusable % |
+|---|---|---|---|---|---|---|---|
+| input-keyed | 1% | 0/10 | - | 0.0 | - | 0 | 16.4 |
+| input-keyed | 2% | 0/10 | - | 0.0 | - | 0 | 16.4 |
+| input-keyed | 5% | 0/10 | - | 0.0 | - | 0 | 16.4 |
+| state-aware | 1% | 0/10 | - | 0.0 | - | 0 | 15.1 |
+| state-aware | 2% | 0/10 | - | 0.0 | - | 0 | 15.1 |
+| state-aware | 5% | 0/10 | - | 0.0 | - | 0 | 15.1 |
+| entity-scoped | 1% | 0/10 | - | 0.0 | - | 0 | 16.4 |
+| entity-scoped | 2% | 0/10 | - | 0.0 | - | 0 | 16.4 |
+| entity-scoped | 5% | 0/10 | - | 0.0 | - | 0 | 16.4 |
+
+**airline / sonnet-3.5** (read calls only; 10 random task splits, pooled test counts)
+| key | budget | certified (seeds) | cal. coverage % | test: reads skipped % | test: realized error % of skipped | seeds with err > budget | oracle reusable % |
+|---|---|---|---|---|---|---|---|
+| input-keyed | 1% | 0/10 | - | 0.0 | - | 0 | 17.9 |
+| input-keyed | 2% | 0/10 | - | 0.0 | - | 0 | 17.9 |
+| input-keyed | 5% | 5/10 | 27.9 | 7.4 | 0.6 | 0 | 17.9 |
+| state-aware | 1% | 0/10 | - | 0.0 | - | 0 | 17.1 |
+| state-aware | 2% | 0/10 | - | 0.0 | - | 0 | 17.1 |
+| state-aware | 5% | 4/10 | 27.1 | 5.7 | 0.0 | 0 | 17.1 |
+| entity-scoped | 1% | 0/10 | - | 0.0 | - | 0 | 17.8 |
+| entity-scoped | 2% | 0/10 | - | 0.0 | - | 0 | 17.8 |
+| entity-scoped | 5% | 5/10 | 28.2 | 7.3 | 0.0 | 0 | 17.8 |
+
+**airline / pooled** (read calls only; 10 random task splits, pooled test counts)
+| key | budget | certified (seeds) | cal. coverage % | test: reads skipped % | test: realized error % of skipped | seeds with err > budget | oracle reusable % |
+|---|---|---|---|---|---|---|---|
+| input-keyed | 1% | 0/10 | - | 0.0 | - | 0 | 18.2 |
+| input-keyed | 2% | 0/10 | - | 0.0 | - | 0 | 18.2 |
+| input-keyed | 5% | 6/10 | 27.7 | 10.2 | 0.7 | 0 | 18.2 |
+| state-aware | 1% | 0/10 | - | 0.0 | - | 0 | 17.7 |
+| state-aware | 2% | 0/10 | - | 0.0 | - | 0 | 17.7 |
+| state-aware | 5% | 7/10 | 25.3 | 11.7 | 0.0 | 0 | 17.7 |
+| entity-scoped | 1% | 0/10 | - | 0.0 | - | 0 | 18.1 |
+| entity-scoped | 2% | 0/10 | - | 0.0 | - | 0 | 18.1 |
+| entity-scoped | 5% | 7/10 | 26.2 | 12.1 | 0.0 | 0 | 18.1 |
+
+######## C
+Regime W splits, 10 seeds; the outage hits one read tool for every test episode. Policies answer each call to the dead tool from the log. 'episodes served' = all calls to the dead tool answered; 'served and correct' = additionally every answer equal to the real return.
+
+**retail / gpt-4o**, outage tools = ['get_order_details', 'get_user_details', 'find_user_id_by_name_zip']
+| dead tool | policy | test calls | calls answered % | error % of answered | episodes calling it | episodes served % | served and all correct % |
+|---|---|---|---|---|---|---|---|
+| get_order_details | circuit breaker | 2600 | 0.0 | - | 1086 | 0.0 | 0.0 |
+| get_order_details | plain last-value cache (input key) | 2600 | 98.5 | 0.7 | 1086 | 97.2 | 95.6 |
+| get_order_details | state-aware cache, uncertified | 2600 | 94.8 | 0.0 | 1086 | 91.1 | 91.1 |
+| get_order_details | certified state-aware cache @1% | 2600 | 0.0 | - | 1086 | 0.0 | 0.0 |
+| get_order_details | certified input-keyed cache @1% | 2600 | 0.0 | - | 1086 | 0.0 | 0.0 |
+| get_order_details | certified state-aware cache @2% | 2600 | 94.8 | 0.0 | 1086 | 91.1 | 91.1 |
+| get_order_details | certified input-keyed cache @2% | 2600 | 98.5 | 0.7 | 1086 | 97.2 | 95.6 |
+| get_user_details | circuit breaker | 987 | 0.0 | - | 987 | 0.0 | 0.0 |
+| get_user_details | plain last-value cache (input key) | 987 | 100.0 | 0.0 | 987 | 100.0 | 100.0 |
+| get_user_details | state-aware cache, uncertified | 987 | 100.0 | 0.0 | 987 | 100.0 | 100.0 |
+| get_user_details | certified state-aware cache @1% | 987 | 0.0 | - | 987 | 0.0 | 0.0 |
+| get_user_details | certified input-keyed cache @1% | 987 | 0.0 | - | 987 | 0.0 | 0.0 |
+| get_user_details | certified state-aware cache @2% | 987 | 100.0 | 0.0 | 987 | 100.0 | 100.0 |
+| get_user_details | certified input-keyed cache @2% | 987 | 100.0 | 0.0 | 987 | 100.0 | 100.0 |
+| find_user_id_by_name_zip | circuit breaker | 960 | 0.0 | - | 928 | 0.0 | 0.0 |
+| find_user_id_by_name_zip | plain last-value cache (input key) | 960 | 99.0 | 0.0 | 928 | 98.9 | 98.9 |
+| find_user_id_by_name_zip | state-aware cache, uncertified | 960 | 99.0 | 0.0 | 928 | 98.9 | 98.9 |
+| find_user_id_by_name_zip | certified state-aware cache @1% | 960 | 0.0 | - | 928 | 0.0 | 0.0 |
+| find_user_id_by_name_zip | certified input-keyed cache @1% | 960 | 0.0 | - | 928 | 0.0 | 0.0 |
+| find_user_id_by_name_zip | certified state-aware cache @2% | 960 | 99.0 | 0.0 | 928 | 98.9 | 98.9 |
+| find_user_id_by_name_zip | certified input-keyed cache @2% | 960 | 99.0 | 0.0 | 928 | 98.9 | 98.9 |
+
+**retail / sonnet-3.5**, outage tools = ['get_order_details', 'get_product_details', 'get_user_details']
+| dead tool | policy | test calls | calls answered % | error % of answered | episodes calling it | episodes served % | served and all correct % |
+|---|---|---|---|---|---|---|---|
+| get_order_details | circuit breaker | 6159 | 0.0 | - | 2249 | 0.0 | 0.0 |
+| get_order_details | plain last-value cache (input key) | 6159 | 99.9 | 0.7 | 2249 | 99.7 | 98.0 |
+| get_order_details | state-aware cache, uncertified | 6159 | 97.4 | 0.0 | 2249 | 95.7 | 95.7 |
+| get_order_details | certified state-aware cache @1% | 6159 | 97.4 | 0.0 | 2249 | 95.7 | 95.7 |
+| get_order_details | certified input-keyed cache @1% | 6159 | 55.2 | 0.8 | 2249 | 51.0 | 49.9 |
+| get_order_details | certified state-aware cache @2% | 6159 | 97.4 | 0.0 | 2249 | 95.7 | 95.7 |
+| get_order_details | certified input-keyed cache @2% | 6159 | 99.9 | 0.7 | 2249 | 99.7 | 98.0 |
+| get_product_details | circuit breaker | 2111 | 0.0 | - | 1405 | 0.0 | 0.0 |
+| get_product_details | plain last-value cache (input key) | 2111 | 99.7 | 0.0 | 1405 | 99.6 | 99.6 |
+| get_product_details | state-aware cache, uncertified | 2111 | 93.2 | 0.0 | 1405 | 92.0 | 92.0 |
+| get_product_details | certified state-aware cache @1% | 2111 | 93.2 | 0.0 | 1405 | 92.0 | 92.0 |
+| get_product_details | certified input-keyed cache @1% | 2111 | 66.3 | 0.0 | 1405 | 62.8 | 62.8 |
+| get_product_details | certified state-aware cache @2% | 2111 | 93.2 | 0.0 | 1405 | 92.0 | 92.0 |
+| get_product_details | certified input-keyed cache @2% | 2111 | 99.7 | 0.0 | 1405 | 99.6 | 99.6 |
+| get_user_details | circuit breaker | 2120 | 0.0 | - | 2084 | 0.0 | 0.0 |
+| get_user_details | plain last-value cache (input key) | 2120 | 100.0 | 0.7 | 2084 | 100.0 | 99.6 |
+| get_user_details | state-aware cache, uncertified | 2120 | 99.5 | 0.0 | 2084 | 99.5 | 99.5 |
+| get_user_details | certified state-aware cache @1% | 2120 | 99.5 | 0.0 | 2084 | 99.5 | 99.5 |
+| get_user_details | certified input-keyed cache @1% | 2120 | 54.2 | 0.3 | 2084 | 54.3 | 54.2 |
+| get_user_details | certified state-aware cache @2% | 2120 | 99.5 | 0.0 | 2084 | 99.5 | 99.5 |
+| get_user_details | certified input-keyed cache @2% | 2120 | 100.0 | 0.7 | 2084 | 100.0 | 99.6 |
+
+**retail / pooled**, outage tools = ['get_order_details', 'get_user_details', 'get_product_details']
+| dead tool | policy | test calls | calls answered % | error % of answered | episodes calling it | episodes served % | served and all correct % |
+|---|---|---|---|---|---|---|---|
+| get_order_details | circuit breaker | 6159 | 0.0 | - | 2249 | 0.0 | 0.0 |
+| get_order_details | plain last-value cache (input key) | 6159 | 99.9 | 0.7 | 2249 | 99.7 | 98.0 |
+| get_order_details | state-aware cache, uncertified | 6159 | 98.7 | 0.0 | 2249 | 97.0 | 97.0 |
+| get_order_details | certified state-aware cache @1% | 6159 | 98.7 | 0.0 | 2249 | 97.0 | 97.0 |
+| get_order_details | certified input-keyed cache @1% | 6159 | 73.1 | 0.7 | 2249 | 67.0 | 65.7 |
+| get_order_details | certified state-aware cache @2% | 6159 | 98.7 | 0.0 | 2249 | 97.0 | 97.0 |
+| get_order_details | certified input-keyed cache @2% | 6159 | 99.9 | 0.7 | 2249 | 99.7 | 98.0 |
+| get_user_details | circuit breaker | 2120 | 0.0 | - | 2084 | 0.0 | 0.0 |
+| get_user_details | plain last-value cache (input key) | 2120 | 100.0 | 0.7 | 2084 | 100.0 | 99.6 |
+| get_user_details | state-aware cache, uncertified | 2120 | 99.5 | 0.0 | 2084 | 99.5 | 99.5 |
+| get_user_details | certified state-aware cache @1% | 2120 | 99.5 | 0.0 | 2084 | 99.5 | 99.5 |
+| get_user_details | certified input-keyed cache @1% | 2120 | 72.2 | 0.3 | 2084 | 72.3 | 72.2 |
+| get_user_details | certified state-aware cache @2% | 2120 | 99.5 | 0.0 | 2084 | 99.5 | 99.5 |
+| get_user_details | certified input-keyed cache @2% | 2120 | 100.0 | 0.7 | 2084 | 100.0 | 99.6 |
+| get_product_details | circuit breaker | 2111 | 0.0 | - | 1405 | 0.0 | 0.0 |
+| get_product_details | plain last-value cache (input key) | 2111 | 99.7 | 0.0 | 1405 | 99.6 | 99.6 |
+| get_product_details | state-aware cache, uncertified | 2111 | 95.0 | 0.0 | 1405 | 93.5 | 93.5 |
+| get_product_details | certified state-aware cache @1% | 2111 | 95.0 | 0.0 | 1405 | 93.5 | 93.5 |
+| get_product_details | certified input-keyed cache @1% | 2111 | 84.6 | 0.0 | 1405 | 81.7 | 81.7 |
+| get_product_details | certified state-aware cache @2% | 2111 | 95.0 | 0.0 | 1405 | 93.5 | 93.5 |
+| get_product_details | certified input-keyed cache @2% | 2111 | 99.7 | 0.0 | 1405 | 99.6 | 99.6 |
+
+**airline / gpt-4o**, outage tools = ['get_reservation_details', 'search_direct_flight', 'get_user_details']
+| dead tool | policy | test calls | calls answered % | error % of answered | episodes calling it | episodes served % | served and all correct % |
+|---|---|---|---|---|---|---|---|
+| get_reservation_details | circuit breaker | 947 | 0.0 | - | 384 | 0.0 | 0.0 |
+| get_reservation_details | plain last-value cache (input key) | 947 | 91.1 | 0.0 | 384 | 90.6 | 90.6 |
+| get_reservation_details | state-aware cache, uncertified | 947 | 84.8 | 0.0 | 384 | 86.5 | 86.5 |
+| get_reservation_details | certified state-aware cache @1% | 947 | 0.0 | - | 384 | 0.0 | 0.0 |
+| get_reservation_details | certified input-keyed cache @1% | 947 | 0.0 | - | 384 | 0.0 | 0.0 |
+| get_reservation_details | certified state-aware cache @2% | 947 | 0.0 | - | 384 | 0.0 | 0.0 |
+| get_reservation_details | certified input-keyed cache @2% | 947 | 0.0 | - | 384 | 0.0 | 0.0 |
+| search_direct_flight | circuit breaker | 362 | 0.0 | - | 169 | 0.0 | 0.0 |
+| search_direct_flight | plain last-value cache (input key) | 362 | 80.1 | 0.0 | 169 | 75.7 | 75.7 |
+| search_direct_flight | state-aware cache, uncertified | 362 | 71.5 | 0.0 | 169 | 63.3 | 63.3 |
+| search_direct_flight | certified state-aware cache @1% | 362 | 0.0 | - | 169 | 0.0 | 0.0 |
+| search_direct_flight | certified input-keyed cache @1% | 362 | 0.0 | - | 169 | 0.0 | 0.0 |
+| search_direct_flight | certified state-aware cache @2% | 362 | 0.0 | - | 169 | 0.0 | 0.0 |
+| search_direct_flight | certified input-keyed cache @2% | 362 | 0.0 | - | 169 | 0.0 | 0.0 |
+| get_user_details | circuit breaker | 306 | 0.0 | - | 306 | 0.0 | 0.0 |
+| get_user_details | plain last-value cache (input key) | 306 | 93.1 | 0.0 | 306 | 93.1 | 93.1 |
+| get_user_details | state-aware cache, uncertified | 306 | 90.5 | 0.0 | 306 | 90.5 | 90.5 |
+| get_user_details | certified state-aware cache @1% | 306 | 0.0 | - | 306 | 0.0 | 0.0 |
+| get_user_details | certified input-keyed cache @1% | 306 | 0.0 | - | 306 | 0.0 | 0.0 |
+| get_user_details | certified state-aware cache @2% | 306 | 0.0 | - | 306 | 0.0 | 0.0 |
+| get_user_details | certified input-keyed cache @2% | 306 | 0.0 | - | 306 | 0.0 | 0.0 |
+
+**airline / sonnet-3.5**, outage tools = ['get_reservation_details', 'search_direct_flight', 'get_user_details']
+| dead tool | policy | test calls | calls answered % | error % of answered | episodes calling it | episodes served % | served and all correct % |
+|---|---|---|---|---|---|---|---|
+| get_reservation_details | circuit breaker | 2663 | 0.0 | - | 930 | 0.0 | 0.0 |
+| get_reservation_details | plain last-value cache (input key) | 2663 | 98.3 | 0.0 | 930 | 97.6 | 97.6 |
+| get_reservation_details | state-aware cache, uncertified | 2663 | 97.5 | 0.0 | 930 | 96.7 | 96.7 |
+| get_reservation_details | certified state-aware cache @1% | 2663 | 0.0 | - | 930 | 0.0 | 0.0 |
+| get_reservation_details | certified input-keyed cache @1% | 2663 | 0.0 | - | 930 | 0.0 | 0.0 |
+| get_reservation_details | certified state-aware cache @2% | 2663 | 97.5 | 0.0 | 930 | 96.7 | 96.7 |
+| get_reservation_details | certified input-keyed cache @2% | 2663 | 98.3 | 0.0 | 930 | 97.6 | 97.6 |
+| search_direct_flight | circuit breaker | 967 | 0.0 | - | 403 | 0.0 | 0.0 |
+| search_direct_flight | plain last-value cache (input key) | 967 | 94.1 | 0.0 | 403 | 93.1 | 93.1 |
+| search_direct_flight | state-aware cache, uncertified | 967 | 87.4 | 0.0 | 403 | 88.3 | 88.3 |
+| search_direct_flight | certified state-aware cache @1% | 967 | 0.0 | - | 403 | 0.0 | 0.0 |
+| search_direct_flight | certified input-keyed cache @1% | 967 | 0.0 | - | 403 | 0.0 | 0.0 |
+| search_direct_flight | certified state-aware cache @2% | 967 | 87.4 | 0.0 | 403 | 88.3 | 88.3 |
+| search_direct_flight | certified input-keyed cache @2% | 967 | 94.1 | 0.0 | 403 | 93.1 | 93.1 |
+| get_user_details | circuit breaker | 946 | 0.0 | - | 889 | 0.0 | 0.0 |
+| get_user_details | plain last-value cache (input key) | 946 | 98.5 | 0.0 | 889 | 98.4 | 98.4 |
+| get_user_details | state-aware cache, uncertified | 946 | 97.7 | 0.0 | 889 | 97.5 | 97.5 |
+| get_user_details | certified state-aware cache @1% | 946 | 0.0 | - | 889 | 0.0 | 0.0 |
+| get_user_details | certified input-keyed cache @1% | 946 | 0.0 | - | 889 | 0.0 | 0.0 |
+| get_user_details | certified state-aware cache @2% | 946 | 97.7 | 0.0 | 889 | 97.5 | 97.5 |
+| get_user_details | certified input-keyed cache @2% | 946 | 98.5 | 0.0 | 889 | 98.4 | 98.4 |
+
+**airline / pooled**, outage tools = ['get_reservation_details', 'search_direct_flight', 'get_user_details']
+| dead tool | policy | test calls | calls answered % | error % of answered | episodes calling it | episodes served % | served and all correct % |
+|---|---|---|---|---|---|---|---|
+| get_reservation_details | circuit breaker | 2663 | 0.0 | - | 930 | 0.0 | 0.0 |
+| get_reservation_details | plain last-value cache (input key) | 2663 | 99.2 | 0.0 | 930 | 99.2 | 99.2 |
+| get_reservation_details | state-aware cache, uncertified | 2663 | 99.2 | 0.0 | 930 | 99.2 | 99.2 |
+| get_reservation_details | certified state-aware cache @1% | 2663 | 0.0 | - | 930 | 0.0 | 0.0 |
+| get_reservation_details | certified input-keyed cache @1% | 2663 | 0.0 | - | 930 | 0.0 | 0.0 |
+| get_reservation_details | certified state-aware cache @2% | 2663 | 99.2 | 0.0 | 930 | 99.2 | 99.2 |
+| get_reservation_details | certified input-keyed cache @2% | 2663 | 99.2 | 0.0 | 930 | 99.2 | 99.2 |
+| search_direct_flight | circuit breaker | 967 | 0.0 | - | 403 | 0.0 | 0.0 |
+| search_direct_flight | plain last-value cache (input key) | 967 | 94.1 | 0.0 | 403 | 93.1 | 93.1 |
+| search_direct_flight | state-aware cache, uncertified | 967 | 89.0 | 0.0 | 403 | 91.3 | 91.3 |
+| search_direct_flight | certified state-aware cache @1% | 967 | 0.0 | - | 403 | 0.0 | 0.0 |
+| search_direct_flight | certified input-keyed cache @1% | 967 | 0.0 | - | 403 | 0.0 | 0.0 |
+| search_direct_flight | certified state-aware cache @2% | 967 | 89.0 | 0.0 | 403 | 91.3 | 91.3 |
+| search_direct_flight | certified input-keyed cache @2% | 967 | 94.1 | 0.0 | 403 | 93.1 | 93.1 |
+| get_user_details | circuit breaker | 946 | 0.0 | - | 889 | 0.0 | 0.0 |
+| get_user_details | plain last-value cache (input key) | 946 | 98.5 | 0.0 | 889 | 98.4 | 98.4 |
+| get_user_details | state-aware cache, uncertified | 946 | 97.7 | 0.0 | 889 | 97.5 | 97.5 |
+| get_user_details | certified state-aware cache @1% | 946 | 0.0 | - | 889 | 0.0 | 0.0 |
+| get_user_details | certified input-keyed cache @1% | 946 | 0.0 | - | 889 | 0.0 | 0.0 |
+| get_user_details | certified state-aware cache @2% | 946 | 97.7 | 0.0 | 889 | 97.5 | 97.5 |
+| get_user_details | certified input-keyed cache @2% | 946 | 98.5 | 0.0 | 889 | 98.4 | 98.4 |
+
+######## D
+
+**retail**: 2018 write calls (transfer excluded), 209 error returns (base rate 10.4%); error rate per tool: cancel_pending_order 1% of 291; exchange_delivered_order_items 18% of 416; modify_pending_order_address 9% of 227; modify_pending_order_items 12% of 458; modify_pending_order_payment 28% of 18; modify_user_address 0% of 119; return_delivered_order_items 10% of 489
+  strongest LR features (std. coef): tool=exchange_delivered_order_items +0.65, item_ids__len +0.60, same_tool_prior -0.57, ret.status=pending +0.51, ret.status=delivered -0.51, tool=modify_pending_order_items -0.38, user_gap -0.35, tool=cancel_pending_order -0.35
+
+**airline**: 744 write calls (transfer excluded), 148 error returns (base rate 19.9%); error rate per tool: book_reservation 39% of 149; cancel_reservation 0% of 188; send_certificate 0% of 30; update_reservation_baggages 9% of 66; update_reservation_flights 29% of 287; update_reservation_passengers 0% of 24
+  strongest LR features (std. coef): flights__len +0.50, payment_id~certificate_# +0.49, payment_id~credit_card_# -0.41, cabin~business +0.39, ret.flight_type=one_way -0.36, tool=cancel_reservation -0.31, id_seen_frac -0.30, passengers__len +0.29
+| domain | model | AUC (grouped 5-fold by task) | AUC 95% CI (task bootstrap) | avg precision | base rate | precision @ top-20% | recall @ top-20% |
+|---|---|---|---|---|---|---|---|
+| retail | tool-only LR | 0.585 | [0.508, 0.675] | 0.133 | 10.4% | 17% | 33% |
+| retail | all-context LR | 0.740 | [0.644, 0.818] | 0.334 | 10.4% | 26% | 50% |
+| retail | all-context GBM | 0.795 | [0.724, 0.868] | 0.474 | 10.4% | 29% | 56% |
+| retail | per-tool base rate | 0.598 | [0.517, 0.688] | 0.142 | 10.4% | 18% | 34% |
+| airline | tool-only LR | 0.643 | [0.510, 0.752] | 0.252 | 19.9% | 15% | 16% |
+| airline | all-context LR | 0.850 | [0.780, 0.914] | 0.549 | 19.9% | 56% | 56% |
+| airline | all-context GBM | 0.789 | [0.712, 0.862] | 0.477 | 19.9% | 46% | 47% |
+| airline | per-tool base rate | 0.654 | [0.516, 0.764] | 0.260 | 19.9% | 14% | 14% |
+
+######## E
+Positions = every tool call that has a following tool call in the same episode (think calls dropped). Prediction is made when the call is issued, before its return.
+| regime | domain | agent | positions/seed | next is read % | unigram top-1 % | name n-gram top-1 % | name top-3 % | name+args (copy heuristic) top-1 % | name+args top-3 % | + trajectory cache top-1 % | + trajectory cache top-3 % | traj. cache matches % | traj. cache precision % | useful speculation (read-only AND exactly right) % of next calls | speculations launched % |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| W | retail | gpt-4o | 1380 | 72.8 | 36.7 | 66.8 | 86.5 | 29.3 | 34.2 | 67.1 | 71.2 | 93.6 | 71.5 | 55.1 | 75.6 |
+| W | retail | sonnet-3.5 | 3039 | 75.2 | 40.0 | 67.1 | 87.8 | 24.4 | 27.7 | 72.7 | 75.9 | 96.9 | 75.0 | 60.8 | 76.7 |
+| W | airline | gpt-4o | 455 | 56.0 | 34.1 | 55.2 | 79.8 | 9.2 | 14.7 | 49.0 | 51.4 | 74.9 | 64.8 | 40.7 | 59.6 |
+| W | airline | sonnet-3.5 | 1108 | 70.7 | 39.1 | 61.3 | 84.0 | 12.0 | 19.0 | 64.5 | 66.2 | 92.3 | 69.6 | 54.8 | 74.1 |
+| X | retail | gpt-4o | 825 | 73.1 | 37.4 | 60.3 | 78.2 | 28.1 | 32.6 | 40.5 | 46.0 | 51.0 | 52.4 | 38.1 | 81.2 |
+| X | retail | sonnet-3.5 | 1822 | 75.6 | 39.6 | 63.0 | 82.0 | 24.1 | 27.2 | 41.1 | 45.3 | 51.7 | 55.5 | 39.0 | 80.5 |
+| X | airline | gpt-4o | 261 | 58.8 | 38.6 | 51.6 | 71.6 | 10.0 | 12.8 | 15.6 | 18.4 | 15.2 | 53.5 | 14.2 | 74.9 |
+| X | airline | sonnet-3.5 | 730 | 70.9 | 42.7 | 55.5 | 71.2 | 11.0 | 15.9 | 16.7 | 20.9 | 16.7 | 47.3 | 15.9 | 80.1 |
+
+Breakdown (combined predictor, name+args top-1 / name top-1; seeds pooled):
+- W/retail/gpt-4o: after user turn: 58.8% (share 57%), immediate chain: 77.8% (share 43%), name top1, next is read: 80.1% (share 73%), name top1, next is write: 31.2% (share 27%), name+args top1, next is read: 75.6% (share 73%), name+args top1, next is write: 44.3% (share 27%), name:after user turn: 55.1% (share 57%), name:immediate chain: 82.0% (share 43%)
+- W/retail/sonnet-3.5: after user turn: 53.7% (share 39%), immediate chain: 84.9% (share 61%), name top1, next is read: 77.2% (share 75%), name top1, next is write: 36.5% (share 25%), name+args top1, next is read: 80.8% (share 75%), name+args top1, next is write: 48.2% (share 25%), name:after user turn: 45.4% (share 39%), name:immediate chain: 81.0% (share 61%)
+- W/airline/gpt-4o: after user turn: 29.8% (share 40%), immediate chain: 61.7% (share 60%), name top1, next is read: 70.2% (share 56%), name top1, next is write: 36.0% (share 44%), name+args top1, next is read: 72.5% (share 56%), name+args top1, next is write: 19.0% (share 44%), name:after user turn: 25.4% (share 40%), name:immediate chain: 74.8% (share 60%)
+- W/airline/sonnet-3.5: after user turn: 37.1% (share 33%), immediate chain: 78.0% (share 67%), name top1, next is read: 70.5% (share 71%), name top1, next is write: 39.1% (share 29%), name+args top1, next is read: 77.5% (share 71%), name+args top1, next is write: 33.2% (share 29%), name:after user turn: 29.1% (share 33%), name:immediate chain: 77.0% (share 67%)
+- X/retail/gpt-4o: after user turn: 35.1% (share 56%), immediate chain: 47.3% (share 44%), name top1, next is read: 76.0% (share 73%), name top1, next is write: 17.6% (share 27%), name+args top1, next is read: 52.1% (share 73%), name+args top1, next is write: 9.0% (share 27%), name:after user turn: 48.2% (share 56%), name:immediate chain: 75.3% (share 44%)
+- X/retail/sonnet-3.5: after user turn: 20.5% (share 38%), immediate chain: 54.0% (share 62%), name top1, next is read: 75.9% (share 76%), name top1, next is write: 23.3% (share 24%), name+args top1, next is read: 51.7% (share 76%), name+args top1, next is write: 8.6% (share 24%), name:after user turn: 37.5% (share 38%), name:immediate chain: 79.0% (share 62%)
+- X/airline/gpt-4o: after user turn: 12.7% (share 38%), immediate chain: 17.4% (share 62%), name top1, next is read: 74.7% (share 59%), name top1, next is write: 18.8% (share 41%), name+args top1, next is read: 24.1% (share 59%), name+args top1, next is write: 3.5% (share 41%), name:after user turn: 21.7% (share 38%), name:immediate chain: 70.4% (share 62%)
+- X/airline/sonnet-3.5: after user turn: 5.3% (share 31%), immediate chain: 21.9% (share 69%), name top1, next is read: 69.5% (share 71%), name top1, next is write: 21.3% (share 29%), name+args top1, next is read: 22.3% (share 71%), name+args top1, next is write: 3.0% (share 29%), name:after user turn: 20.7% (share 31%), name:immediate chain: 71.2% (share 69%)
+
+Speculation gate (launch only when the top-1 call is read-only and score >= tau; score = trajectory-cache agreement, else 0.5 x name probability): launched % of positions / precision %
+- W/retail/gpt-4o: tau 0.0: 75.6% / 73%; tau 0.3: 68.8% / 78%; tau 0.5: 62.0% / 83%; tau 0.7: 25.9% / 93%; tau 0.9: 1.4% / 100%
+- W/retail/sonnet-3.5: tau 0.0: 76.7% / 79%; tau 0.3: 74.7% / 81%; tau 0.5: 66.5% / 86%; tau 0.7: 44.3% / 95%; tau 0.9: 9.3% / 99%
+- W/airline/gpt-4o: tau 0.0: 59.6% / 68%; tau 0.3: 54.1% / 74%; tau 0.5: 47.0% / 80%; tau 0.7: 14.3% / 89%; tau 0.9: 0.0% / nan%
+- W/airline/sonnet-3.5: tau 0.0: 74.1% / 74%; tau 0.3: 71.2% / 76%; tau 0.5: 57.3% / 85%; tau 0.7: 36.7% / 93%; tau 0.9: 2.7% / 97%
+- X/retail/gpt-4o: tau 0.0: 81.2% / 47%; tau 0.3: 63.2% / 60%; tau 0.5: 36.3% / 73%; tau 0.7: 20.1% / 79%; tau 0.9: 0.7% / 100%
+- X/retail/sonnet-3.5: tau 0.0: 80.5% / 48%; tau 0.3: 69.9% / 55%; tau 0.5: 40.4% / 69%; tau 0.7: 26.6% / 75%; tau 0.9: 3.7% / 88%
+- X/airline/gpt-4o: tau 0.0: 74.9% / 19%; tau 0.3: 48.8% / 29%; tau 0.5: 14.3% / 48%; tau 0.7: 5.9% / 75%; tau 0.9: 0.0% / nan%
+- X/airline/sonnet-3.5: tau 0.0: 80.1% / 20%; tau 0.3: 48.8% / 24%; tau 0.5: 12.5% / 59%; tau 0.7: 7.8% / 75%; tau 0.9: 0.4% / 100%
+[F 13s] loaded 743819 tool records
+[F 15s] history features done
+[F 17s] baselines done
+[F 20s] GBM with history done
+[F 23s] GBM static done
+[F 35s] F done
+
+######## F
+TraceLab v0.0.2 (CC BY 4.0): 743819 tool records, 7244 sessions, 52 users, providers {'codex': 438814, 'claude': 305005}; records with wall latency 99.9%, with tool-reported internal latency 46.5%.
+Chronological split by session start: 5070 train sessions (546549 calls, up to 2026-07-01) / 2174 test sessions (196501 calls, from 2026-07-01). History features (previous latencies, session EWMA) only use calls that had already finished when the new call was emitted.
+All calls: median latency 218 ms, mean 15606 ms, p90 10052 ms; calls > 1 s = 33.8% of calls but 99.3% of summed tool time (summed over parallel calls, so not elapsed time); calls > 10 s = 11.21% of calls, 94.7% of time.
+| tool | calls | median ms | p90 ms | % calls > 1 s | % of tool time in calls > 1 s |
+|---|---|---|---|---|---|
+| exec_command | 251607 | 265 | 1600 | 26.8 | 93.1 |
+| Bash | 158471 | 329 | 20404 | 41.4 | 99.6 |
+| write_stdin | 75952 | 5006 | 44715 | 69.5 | 99.8 |
+| Read | 63703 | 27 | 245 | 2.8 | 92.1 |
+| exec | 46756 | 1457 | 10050 | 61.3 | 97.3 |
+| Edit | 36533 | 75 | 1997 | 17.5 | 98.9 |
+| apply_patch | 32330 | 45 | 1218 | 12.5 | 97.1 |
+| wait | 11404 | 11903 | 18392 | 79.9 | 99.8 |
+| TaskUpdate | 8824 | 50 | 327 | 6.8 | 92.1 |
+| Write | 8602 | 68 | 2105 | 19.8 | 99.4 |
+| shell_command | 7623 | 51 | 867 | 8.3 | 93.1 |
+| shell | 5416 | 0 | 1 | 0.0 | 0.0 |
+| TaskCreate | 4877 | 45 | 2660 | 13.8 | 94.1 |
+| WebFetch | 3636 | 6260 | 22628 | 92.8 | 99.9 |
+| update_plan | 3473 | 21 | 65 | 0.1 | 6.0 |
+| Grep | 3355 | 130 | 367 | 5.2 | 87.8 |
+
+Test-set error of point predictions (ms). MAE is dominated by the heavy tail (subagent, wait and long shell calls); the log error is the scale-free view.
+| predictor | MAE ms | median abs err ms | p90 abs err ms | mean |log1p ratio| | median |log1p ratio| |
+|---|---|---|---|---|---|
+| global median | 14382 | 190 | 11154 | 2.04 | 1.72 |
+| per-tool median | 14275 | 357 | 12091 | 1.48 | 1.20 |
+| per-(tool, executable) median | 14256 | 790 | 12678 | 1.45 | 1.13 |
+| per-tool EWMA over the stream (alpha 0.1) | 13448 | 445 | 8827 | 1.18 | 0.84 |
+| per-session same-tool EWMA (0.5) | 13520 | 252 | 8692 | 1.05 | 0.53 |
+| GBM, call-time features only (tool, executable, input size, hour) | 14006 | 423 | 10359 | 1.75 | 1.25 |
+| GBM + session history (previous latencies) | 12673 | 223 | 8515 | 0.99 | 0.57 |
+
+Same, excluding the long-wait tools ['Agent', 'AskUserQuestion', 'ExitPlanMode', 'ScheduleWakeup', 'Skill', 'Task', 'TaskOutput', 'wait', 'write_stdin'] (88% of test calls kept):
+| predictor | MAE ms | p90 abs err ms | mean |log1p ratio| |
+|---|---|---|---|
+| per-tool median | 7931 | 8405 | 1.30 |
+| per-tool EWMA | 7559 | 6868 | 1.13 |
+| per-session same-tool EWMA | 7617 | 6773 | 1.00 |
+| GBM, call-time features only | 8021 | 9921 | 1.61 |
+| GBM + session history | 7215 | 6057 | 0.94 |
+
+Will this call take > 1 s? Test base rate 38.1% of calls (99% of test tool time). AUC and precision when flagging as many calls as there are slow ones:
+| predictor | AUC | precision at top-k (k = #slow) |
+|---|---|---|
+| per-tool slow rate | 0.717 | 60% |
+| GBM call-time features | 0.769 | 61% |
+| GBM + session history | 0.884 | 75% |
+
+Shell tools only (Bash/exec_command, 84266 test calls): MAE per-tool median 11676 ms, per-(tool, executable) median 11633 ms, GBM call-time 11525 ms, GBM+history 10954 ms; p90 abs err 6581 / 7240 / 6969 / 6470 ms.
+
+Ablation of the call-time GBM on the later (test) sessions:
+| GBM features | MAE ms | mean |log1p ratio| |
+|---|---|---|
+| tool, executable, provider | 14306 | 1.73 |
+| + input size | 13926 | 1.78 |
+| all call-time features (+ n_exe, position in session, hour) | 14006 | 1.75 |
+| (reference) per-tool median | 14275 | 1.48 |
+
+Drift check, same period (hold out a random 20% of TRAIN-period sessions, 120902 calls): mean |log1p ratio| per-tool median 1.72, call-time GBM 1.49 (MAE 11349 vs 10604 ms). If the GBM wins here but not on later sessions, the gap is drift, not a bug.
+
+######## G
+Toucan-1.5M (Apache-2.0), one shard OSS/train-00010-of-00047 (147 MB; all rows are subset single-turn-original; the first shard I tried, train-00027, was all 'irrelevant' prompts with no tool calls): 9726 prompts, 29398 tool calls, 1083 distinct tool names, 399 distinct MCP servers (tool -> server via each prompt's server tool list; '?' when unresolved: 1.5% of calls), 20796 distinct (server, tool, args). Returns that look like errors / unavailable-tool messages (keyword heuristic on the first 300 chars): 18.5% of calls.
+Calls whose exact (server, tool, args) occurs in at least one other call: 10693 = 36.4% of calls (2091 keys). (Within the same prompt too, so see the cross-prompt number below.)
+Keys seen in >= 2 different prompts: 1846; all returns byte-identical (after JSON key-order normalization) for 65.7% of them; identical after masking numbers and timestamps for 77.5%.
+Among those cross-prompt keys, 16.5% are mostly error-looking returns; restricted to keys with no error-looking return: identical for 61.9% (n=1513).
+
+Tools (MCP server, tool name): 1297. 923 (71%) have fewer than 2 repeated argument keys in this shard, so their behaviour is unobservable here. Of the 374 with >= 2 repeated keys: 188 (50%) deterministic (>= 95% of repeated keys return identical text), 61 mixed, 125 (33%) time- or state-varying (< 50% of repeated keys identical). Weighted by calls: deterministic tools carry 51% of the calls of these 374 tools.
+Of the 188 deterministic tools, 24 return mostly error-looking text (constant failure messages, e.g. missing credentials or a Windows-only tool in a Linux sandbox), so 'deterministic' there means 'deterministically broken'.
+
+Most-called observable tools:
+| tool | calls | repeated arg keys | % repeated keys with identical return | % of those calls error-looking |
+|---|---|---|---|---|
+| get_area_code | 274 | 8 | 88% | 100% |
+| find-place | 258 | 33 | 100% | 100% |
+| drawing_fillRectangle | 216 | 2 | 100% | 0% |
+| pinterest_search | 216 | 5 | 100% | 0% |
+| search-news | 204 | 22 | 68% | 0% |
+| search_tour_info | 186 | 19 | 95% | 98% |
+| search | 172 | 3 | 100% | 0% |
+| resolve-library-id | 161 | 8 | 25% | 44% |
+| create_desktop_txt_file | 157 | 4 | 100% | 0% |
+| get_movies | 129 | 8 | 100% | 0% |
+| get_member_phone | 126 | 6 | 100% | 0% |
+| get-weibo-trending | 117 | 6 | 83% | 98% |
+| get_weather_forecast | 117 | 20 | 40% | 0% |
+| pokemon_query | 117 | 2 | 100% | 0% |
+
+Examples of tools whose identical calls returned different text (excluding error-looking returns):
+- `resolve-library-id` args `{"libraryName":"jsonwebtoken"}`: 4 calls, 4 distinct returns, e.g. `'Available Libraries (top matches):\n\nEach result includes:\n- Library ID: Context7-compatible identifier (format'` vs `'Available Libraries (top matches):\n\nEach result includes:\n- Library ID: Context7-compatible identifier (format'`
+- `get_weather_forecast` args `{"city":"Braga","days":5}`: 2 calls, 2 distinct returns, e.g. `'**PrevisÃ£o para Braga**\n\nCoordenadas: 41.5475, -8.4227\nÃltima atualizaÃ§Ã£o: 2025-08-14T14:31:02\n\n**2025-08-14**'` vs `'**PrevisÃ£o para Braga**\n\nCoordenadas: 41.5475, -8.4227\nÃltima atualizaÃ§Ã£o: 2025-08-14T21:31:02\n\n**2025-08-14**'`
+- `status` args `{"command":"--all"}`: 12 calls, 5 distinct returns, e.g. `'Status for All Platforms:\n\nAmplitude: Operational â\n\nAnthropic: Operational â\n\nAsana: Operational â\n\nAtlassian'` vs `'Status for All Platforms:\n\nAmplitude: Operational â\n\nAnthropic: Operational â\n\nAsana: Operational â\n\nAtlassian'`
+- `fetch_reddit_hot_threads` args `{"limit":10,"subreddit":"Christianity"}`: 2 calls, 2 distinct returns, e.g. `"Title: August's Banner -- World Humanitarian Day\nScore: 7\nComments: 10\nAuthor: McClanky\nType: text\nContent: Th"` vs `"Title: August's Banner -- World Humanitarian Day\nScore: 8\nComments: 10\nAuthor: McClanky\nType: text\nContent: Th"`
+- `get_weather` args `{"city":"London"}`: 8 calls, 3 distinct returns, e.g. `'ð¤ï¸ Weather in London, United Kingdom:\nð Location: London, United Kingdom\nð¡ï¸ Temperature: 26Â°C (79Â°F)\nð Conditi'` vs `'ð¤ï¸ Weather in London, United Kingdom:\nð Location: London, United Kingdom\nð¡ï¸ Temperature: 22Â°C (72Â°F)\nð Conditi'`
+- `get_current_weather` args `{"location":"25.7617,-80.1918"}`: 4 calls, 4 distinct returns, e.g. `'# Current Weather\n\n**Location:** 25.7617, -80.1918\n**Station:** KMIA\n**Observed:** 8/14/2025, 8:25 AM (local t'` vs `'# Current Weather\n\n**Location:** 25.7617, -80.1918\n**Station:** KMIA\n**Observed:** 8/17/2025, 1:45 PM (local t'`
+
+Examples of deterministic tools with a large repeated-key set:
+- `drawing_generateCanvas`: 109 calls, 18 repeated keys, e.g. args `{"height":600,"width":800}` -> `'Canvas generated with width: 800, height: 600'`
+- `get_component_examples`: 52 calls, 15 repeated keys, e.g. args `{"componentName":"data-table"}` -> `'{\'title\': \'Code Example 1\', \'code\': \'"use client"\\n\\nimport * as React from "react"\\nimport {\\n  ColumnDef,\\n  ColumnFil'`
+- `convert_volume`: 101 calls, 15 repeated keys, e.g. args `{"from_unit":"ml","to_unit":"cup","value":250}` -> `'{"from_unit":"ml","to_unit":"cup","value":1.0567}'`
+- `get_fruit_nutrition`: 72 calls, 14 repeated keys, e.g. args `{"fruit_name":"apple"}` -> `'{"family":"Rosaceae","genus":"Malus","id":6,"name":"Apple","nutritions":{"calories":52,"carbohydrates":11.4,"fat":0.4,"p'`
+
+Certified skipping on Toucan (episodes = prompts; memory 50% / calibration 25% / test 25% of prompts, 10 random splits; confidence = k/(n+1) as for tau-bench; every tool treated as read-only):
+| budget | certified (splits) | test calls skipped % | realized error % of skipped | oracle: seen in memory and majority correct % |
+|---|---|---|---|---|
+| 1% | 1/10 | 0.9 | 0.2 | 20.0 |
+| 2% | 5/10 | 4.6 | 0.7 | 20.0 |
+| 5% | 10/10 | 12.3 | 2.3 | 20.0 |
+
+######## T
+tau2-bench banking_knowledge (MIT): replayed the gold actions of 97 tasks with the deterministic tools, no LLM (retrieval variant no_knowledge): 955 calls, 457 change the database or user database, 196 are read-only get_* calls. One scripted trajectory per task, so this measures the tools, not an agent.
+
+Across tasks (chronological by task order), read calls seen in an earlier task: input-keyed 28/196 = 14.3%, of which the earlier return equals the new one 23/28; keyed on (tool, args, full database hash before the call) 6/196 = 3.1%, equal 6/6.
+| read tool | calls | seen in earlier task % | earlier return equal % |
+|---|---|---|---|
+| get_bank_account_transactions_9173 | 53 | 7.5 | 100.0 |
+| get_all_user_accounts_by_user_id_3847 | 40 | 15.0 | 100.0 |
+| get_debit_cards_by_account_id_7823 | 38 | 7.9 | 100.0 |
+| get_pending_replacement_orders_5765 | 18 | 16.7 | 100.0 |
+| get_user_dispute_history_7291 | 17 | 41.2 | 71.4 |
+| get_closure_reason_history_8293 | 10 | 0.0 | 0.0 |
+| get_credit_limit_increase_history_4829 | 5 | 40.0 | 50.0 |
+| get_payment_history_6183 | 5 | 40.0 | 50.0 |
+exit=0

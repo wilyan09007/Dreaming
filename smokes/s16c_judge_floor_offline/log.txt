@@ -1,0 +1,234 @@
+[cache] responses.jsonl entries 6274; notes re-derived for 180 prompts; missing note keys by rep: {}; re-derived A0-A2 == labels.json refs for all 140 labelled prompts
+
+=== 1. canonicalizer vs ground truth on 640 full-prompt notes (180 prompts; A0-A2 on 180 prompts incl. 260-299 where cached, A3 on 100)
+[field] vendor name (fuzzy vs tx string)   n= 640 stated  97.8% unclear   2.2% accuracy among stated 100.0% correct/all  97.8%
+[field] transaction amount                 n= 640 stated  99.7% unclear   0.3% accuracy among stated 100.0% correct/all  99.7%
+[field] transaction date (first date)      n= 640 stated 100.0% unclear   0.0% accuracy among stated 100.0% correct/all 100.0%
+[field] invoice outcome (id or NONE)       n= 640 stated 100.0% unclear   0.0% accuracy among stated 100.0% correct/all 100.0%
+[field] invoice amount (prompts with invoice) n= 439 stated 100.0% unclear   0.0% accuracy among stated 100.0% correct/all 100.0%
+[field] invoice issue date (prompts w/ invoice) n= 439 stated  69.5% unclear  30.5% accuracy among stated 100.0% correct/all  69.5%
+[field] bank amount, bank != tx (mismatch) n=  90 stated  73.3% unclear  26.7% accuracy among stated 100.0% correct/all  73.3%
+[field] bank amount, bank == tx (no mismatch) n= 550 stated  10.9% unclear  89.1% accuracy among stated 100.0% correct/all  10.9%
+[field] flag decision (flagged/not flagged) n= 640 stated 100.0% unclear   0.0% accuracy among stated 100.0% correct/all 100.0%
+[field] flag reason category (set)         n= 640 stated 100.0% unclear   0.0% accuracy among stated  99.8% correct/all  99.8%
+[field] flag reason, flagged prompts only  n= 429 stated 100.0% unclear   0.0% accuracy among stated  99.8% correct/all  99.8%
+[field] follow-up requested (no ground truth in prompts.json): yes in 0.0% of notes (0/640); history mention: yes in 31.1% (199/640)
+[field] bank-feed amount stated in notes for bank-mismatch prompts: 73.3% (66/90); whole-note exact-field match (flag, reason, invoice, tx amount all right): 99.5%
+
+=== 2. pairs: A0-A1: 140, A0-A2: 140, A1-A2: 140, A0-A3: 100, A1-A3: 100, A2-A3: 100
+[cache] strict judge verdicts present (non-identical pairs only counted as real calls) / missing, by pair type:
+   A0-A1: 140 pairs; identical strings 1; strict cached 3, missing 136; core-rubric cached 0; order-swapped cached 0; second judge cached 0
+   A0-A2: 140 pairs; identical strings 2; strict cached 4, missing 134; core-rubric cached 0; order-swapped cached 0; second judge cached 1
+   A1-A2: 140 pairs; identical strings 6; strict cached 0, missing 134; core-rubric cached 0; order-swapped cached 0; second judge cached 0
+   A0-A3: 100 pairs; identical strings 3; strict cached 97, missing 0; core-rubric cached 12; order-swapped cached 12; second judge cached 52
+   A1-A3: 100 pairs; identical strings 1; strict cached 17, missing 82; core-rubric cached 0; order-swapped cached 0; second judge cached 0
+   A2-A3: 100 pairs; identical strings 2; strict cached 6, missing 92; core-rubric cached 0; order-swapped cached 0; second judge cached 0
+[check] A0-A3 re-derived: strict raw DIFFERENT 16/100 (results.json floor.raw=0.16), confirmed 13/100 (floor.cons=0.13); FAIL counted as DIFFERENT
+
+=== 2. floor under several equivalence definitions (DIFFERENT rate, CP 95% upper bound, budget n rows could certify at the same rate)
+[floor] (a) strict judge, raw (as cached)              A0-A3                               16/100 =  16.0%  UB95  23.3%  UB@100/300/1000 23.3%/19.9%/18.0%  n for 5%: None  n for 10%: None
+[floor] (b) strict judge, confirmed (as cached)        A0-A3                               13/100 =  13.0%  UB95  19.9%  UB@100/300/1000 19.9%/16.6%/14.9%  n for 5%: None  n for 10%: None
+[floor] (a') strict judge, raw, FAIL (cut-off answer) not counted as DIFFERENT A0-A3                               13/100 =  13.0%  UB95  19.9%  UB@100/300/1000 19.9%/16.6%/14.9%  n for 5%: None  n for 10%: None
+[floor] (b') strict judge, confirmed, backed by >=1 real DIFFERENT vote A0-A3                               11/100 =  11.0%  UB95  17.6%  UB@100/300/1000 17.6%/14.4%/12.8%  n for 5%: None  n for 10%: None
+[floor] (c) canonical-facts conflict (all fields)      A0-A1                                0/140 =   0.0%  UB95   2.1%  UB@100/300/1000 3.0%/1.0%/0.3%  n for 5%: 59  n for 10%: 29
+[floor] (c) canonical-facts conflict (all fields)      A0-A2                                0/140 =   0.0%  UB95   2.1%  UB@100/300/1000 3.0%/1.0%/0.3%  n for 5%: 59  n for 10%: 29
+[floor] (c) canonical-facts conflict (all fields)      A1-A2                                0/140 =   0.0%  UB95   2.1%  UB@100/300/1000 3.0%/1.0%/0.3%  n for 5%: 59  n for 10%: 29
+[floor] (c) canonical-facts conflict (all fields)      A0-A3                                0/100 =   0.0%  UB95   3.0%  UB@100/300/1000 3.0%/1.0%/0.3%  n for 5%: 59  n for 10%: 29
+[floor] (c) canonical-facts conflict (all fields)      pooled A0-A1,A0-A2,A1-A2             0/420 =   0.0%  UB95   0.7% (cluster-bootstrap UB 0.0%)  UB@100/300/1000 3.0%/1.0%/0.3%  n for 5%: 59  n for 10%: 29
+[floor] (c) canonical-facts conflict (all fields)      pooled A0-A1,A0-A2,A1-A2,A0-A3       0/520 =   0.0%  UB95   0.6% (cluster-bootstrap UB 0.0%)  UB@100/300/1000 3.0%/1.0%/0.3%  n for 5%: 59  n for 10%: 29
+[floor] (c') as (c) without the follow-up flag         A0-A1                                0/140 =   0.0%  UB95   2.1%  UB@100/300/1000 3.0%/1.0%/0.3%  n for 5%: 59  n for 10%: 29
+[floor] (c') as (c) without the follow-up flag         A0-A2                                0/140 =   0.0%  UB95   2.1%  UB@100/300/1000 3.0%/1.0%/0.3%  n for 5%: 59  n for 10%: 29
+[floor] (c') as (c) without the follow-up flag         A1-A2                                0/140 =   0.0%  UB95   2.1%  UB@100/300/1000 3.0%/1.0%/0.3%  n for 5%: 59  n for 10%: 29
+[floor] (c') as (c) without the follow-up flag         A0-A3                                0/100 =   0.0%  UB95   3.0%  UB@100/300/1000 3.0%/1.0%/0.3%  n for 5%: 59  n for 10%: 29
+[floor] (c') as (c) without the follow-up flag         pooled A0-A1,A0-A2,A1-A2             0/420 =   0.0%  UB95   0.7% (cluster-bootstrap UB 0.0%)  UB@100/300/1000 3.0%/1.0%/0.3%  n for 5%: 59  n for 10%: 29
+[floor] (c') as (c) without the follow-up flag         pooled A0-A1,A0-A2,A1-A2,A0-A3       0/520 =   0.0%  UB95   0.6% (cluster-bootstrap UB 0.0%)  UB@100/300/1000 3.0%/1.0%/0.3%  n for 5%: 59  n for 10%: 29
+[floor] (c+) (c) plus history/earlier-charge evidence (count, range, top, dates) A0-A1                                6/140 =   4.3%  UB95   8.3%  UB@100/300/1000 8.9%/6.8%/5.5%  n for 5%: 2461  n for 10%: 76
+[floor] (c+) (c) plus history/earlier-charge evidence (count, range, top, dates) A0-A2                                3/140 =   2.1%  UB95   5.4%  UB@100/300/1000 6.2%/3.9%/3.0%  n for 5%: 153  n for 10%: 46
+[floor] (c+) (c) plus history/earlier-charge evidence (count, range, top, dates) A1-A2                                6/140 =   4.3%  UB95   8.3%  UB@100/300/1000 8.9%/6.8%/5.5%  n for 5%: 2461  n for 10%: 76
+[floor] (c+) (c) plus history/earlier-charge evidence (count, range, top, dates) A0-A3                                5/100 =   5.0%  UB95  10.2%  UB@100/300/1000 10.2%/7.6%/6.3%  n for 5%: None  n for 10%: 89
+[floor] (c+) (c) plus history/earlier-charge evidence (count, range, top, dates) pooled A0-A1,A0-A2,A1-A2            15/420 =   3.6%  UB95   5.4% (cluster-bootstrap UB 5.7%)  UB@100/300/1000 8.9%/6.0%/4.7%  n for 5%: 601  n for 10%: 61
+[floor] (c+) (c) plus history/earlier-charge evidence (count, range, top, dates) pooled A0-A1,A0-A2,A1-A2,A0-A3      20/520 =   3.8%  UB95   5.5% (cluster-bootstrap UB 6.0%)  UB@100/300/1000 8.9%/6.4%/5.0%  n for 5%: 945  n for 10%: 61
+[floor] (c+tol) as (c+), numbers within max(1, 5%) count as equal A0-A1                                3/140 =   2.1%  UB95   5.4%  UB@100/300/1000 6.2%/3.9%/3.0%  n for 5%: 153  n for 10%: 46
+[floor] (c+tol) as (c+), numbers within max(1, 5%) count as equal A0-A2                                1/140 =   0.7%  UB95   3.3%  UB@100/300/1000 4.7%/2.1%/1.3%  n for 5%: 59  n for 10%: 29
+[floor] (c+tol) as (c+), numbers within max(1, 5%) count as equal A1-A2                                2/140 =   1.4%  UB95   4.4%  UB@100/300/1000 4.7%/3.0%/2.2%  n for 5%: 93  n for 10%: 29
+[floor] (c+tol) as (c+), numbers within max(1, 5%) count as equal A0-A3                                2/100 =   2.0%  UB95   6.2%  UB@100/300/1000 6.2%/3.9%/2.9%  n for 5%: 124  n for 10%: 46
+[floor] (c+tol) as (c+), numbers within max(1, 5%) count as equal pooled A0-A1,A0-A2,A1-A2             6/420 =   1.4%  UB95   2.8% (cluster-bootstrap UB 2.9%)  UB@100/300/1000 4.7%/3.0%/2.2%  n for 5%: 93  n for 10%: 29
+[floor] (c+tol) as (c+), numbers within max(1, 5%) count as equal pooled A0-A1,A0-A2,A1-A2,A0-A3       8/520 =   1.5%  UB95   2.8% (cluster-bootstrap UB 2.9%)  UB@100/300/1000 6.2%/3.5%/2.3%  n for 5%: 93  n for 10%: 29
+[floor] (d) canonical conflict, core fields only       A0-A1                                0/140 =   0.0%  UB95   2.1%  UB@100/300/1000 3.0%/1.0%/0.3%  n for 5%: 59  n for 10%: 29
+[floor] (d) canonical conflict, core fields only       A0-A2                                0/140 =   0.0%  UB95   2.1%  UB@100/300/1000 3.0%/1.0%/0.3%  n for 5%: 59  n for 10%: 29
+[floor] (d) canonical conflict, core fields only       A1-A2                                0/140 =   0.0%  UB95   2.1%  UB@100/300/1000 3.0%/1.0%/0.3%  n for 5%: 59  n for 10%: 29
+[floor] (d) canonical conflict, core fields only       A0-A3                                0/100 =   0.0%  UB95   3.0%  UB@100/300/1000 3.0%/1.0%/0.3%  n for 5%: 59  n for 10%: 29
+[floor] (d) canonical conflict, core fields only       pooled A0-A1,A0-A2,A1-A2             0/420 =   0.0%  UB95   0.7% (cluster-bootstrap UB 0.0%)  UB@100/300/1000 3.0%/1.0%/0.3%  n for 5%: 59  n for 10%: 29
+[floor] (d) canonical conflict, core fields only       pooled A0-A1,A0-A2,A1-A2,A0-A3       0/520 =   0.0%  UB95   0.6% (cluster-bootstrap UB 0.0%)  UB@100/300/1000 3.0%/1.0%/0.3%  n for 5%: 59  n for 10%: 29
+[floor] (f) exact match after normalisation            A0-A1                              139/140 =  99.3%  UB95 100.0%  UB@100/300/1000 99.9%/99.9%/99.7%  n for 5%: None  n for 10%: None
+[floor] (f) exact match after normalisation            A0-A2                              138/140 =  98.6%  UB95  99.7%  UB@100/300/1000 99.9%/99.5%/99.2%  n for 5%: None  n for 10%: None
+[floor] (f) exact match after normalisation            A1-A2                              133/140 =  95.0%  UB95  97.6%  UB@100/300/1000 98.0%/96.9%/96.1%  n for 5%: None  n for 10%: None
+[floor] (f) exact match after normalisation            A0-A3                               95/100 =  95.0%  UB95  98.0%  UB@100/300/1000 98.0%/96.9%/96.1%  n for 5%: None  n for 10%: None
+[floor] (f) exact match after normalisation            pooled A0-A1,A0-A2,A1-A2           410/420 =  97.6%  UB95  98.7% (cluster-bootstrap UB 98.8%)  UB@100/300/1000 99.6%/98.9%/98.3%  n for 5%: None  n for 10%: None
+[floor] (f) exact match after normalisation            pooled A0-A1,A0-A2,A1-A2,A0-A3     505/520 =  97.1%  UB95  98.2% (cluster-bootstrap UB 98.2%)  UB@100/300/1000 99.2%/98.4%/97.9%  n for 5%: None  n for 10%: None
+
+[e] canonical + core-rubric judge: A0-A3 has 100 pairs; canonical conflict 0; identical-string pairs 3; core verdict cached for 12 non-identical pairs (+3 identical strings, SAME by definition); canonical-residual pairs (no conflict, facts not identical) 42 of which core verdict cached 6, unresolved 36
+[e] bounds on all 100 pairs: DIFFERENT rate between 0% (every unresolved residual pair SAME) and 36% (every unresolved residual pair DIFFERENT); on the 15 pairs with a core verdict: DIFFERENT 0/15; core rubric alone on those: 0/15
+[e] on the 12 non-identical A0-A3 pairs that have a core-rubric verdict: strict raw DIFFERENT 1, core-rubric DIFFERENT 0; order-swapped strict DIFFERENT 2
+[e] residual after (c+tol) (no conflict, facts not identical): 40 pairs; the strict judge calls 12 of them DIFFERENT; strict judge on pairs with identical facts: 3/58
+[e-rev] (c)-residual pairs (no (c) conflict, facts not identical): 42 (non-byte-identical 42); core-rubric verdict cached for 6 of them (prompts [201, 239, 243, 258, 265, 273]), DIFFERENT 0/6 -> UB95 39.3%; strict judge on the residual: DIFFERENT 11, FAIL (cut-off) 2; byte-identical pairs 3, identical-canonical-facts but different strings 55 (SAME by construction, not residual)
+[e-rev] so the '15 pairs, 0 DIFFERENT' of the first version = 15 pairs with a core verdict = 6 residual + 9 byte-identical or identical-facts (SAME by construction)
+[e-rev] core rubric vs strict on the 12 non-identical A0-A3 pairs where both are cached: core DIFFERENT 0, strict DIFFERENT 1 (strict FAIL 0)
+
+=== 3. judge verdict vs canonical facts
+[crosstab A0-A3, non-identical strings with a judge call] n=97: judge DIFFERENT / canonical conflict: 0, judge DIFFERENT / canonical residual: 13, judge DIFFERENT / canonical identical: 3, judge SAME / canonical conflict: 0, judge SAME / canonical residual: 29, judge SAME / canonical identical: 52
+[crosstab A0-A3, all 100 (identical strings counted SAME)] n=100: judge DIFFERENT / canonical conflict: 0, judge DIFFERENT / canonical residual: 13, judge DIFFERENT / canonical identical: 3, judge SAME / canonical conflict: 0, judge SAME / canonical residual: 29, judge SAME / canonical identical: 55
+[crosstab A0-A3 + A1-A3 + A2-A3 with a cached strict verdict (biased subset)] n=120: judge DIFFERENT / canonical conflict: 0, judge DIFFERENT / canonical residual: 25, judge DIFFERENT / canonical identical: 4, judge SAME / canonical conflict: 0, judge SAME / canonical residual: 35, judge SAME / canonical identical: 56
+[crosstab vs core-field conflict, A0-A3 all 100] judge DIFFERENT / no core conflict: 16, judge SAME / no core conflict: 84
+[crosstab] judge-DIFFERENT with NO (c) conflict: 29 pairs (4 with field-for-field identical canonical facts incl. evidence; 24 with no (c+) conflict); judge-SAME with a (c) conflict: 0; with only a history-evidence conflict: 4; with only a core-field one-sided/unstated item: 11
+[crosstab vs (c+), A0-A3 all 100] judge DIFFERENT / canonical conflict (c+): 3, judge DIFFERENT / canonical identical: 3, judge DIFFERENT / canonical residual: 10, judge SAME / canonical conflict (c+): 2, judge SAME / canonical identical: 55, judge SAME / canonical residual: 27
+
+[hand inspection] judge SAME but canonical conflict / unstated (up to 10, ordered (c), evidence, weak):
+--- #1 prompt 265 (spike), pair A0-A3, judge strict=SAME, confirmed=SAME; canonical conflict=none; one-sided/unstated=none; history mention A/B=True/True | why: history-evidence conflict ['hist_hi', 'hist_lo']
+    A: Transaction 2025-05-01 for $1,082.57 (PRIMETELEPHONE #3592, posted 2025-05-03) matches INV-001772 from vendor V0012 ($1,085.12, issued 2025-04-20) within the 2% tolerance. Flagged as an anomaly because the amount is unusually high for this vendor; prior transactions in the ledger range from about $99 to $249.
+    B: Transaction 2025-05-01 for $1,082.57 (PRIMETELEPHONE #3592, posted 2025-05-03) matches INV-001772 (vendor V0012, $1,085.12), within the 2% tolerance. Flagged as an anomaly because the amount is unusually high for this vendor; prior charges in the ledger range from about $100 to $250.
+    field hist_hi: A=249.0 B=250.0
+    field hist_lo: A=99.0 B=100.0
+--- #2 prompt 288 (spike), pair A0-A3, judge strict=SAME, confirmed=SAME; canonical conflict=none; one-sided/unstated=none; history mention A/B=True/True | why: history-evidence conflict ['hist_hi', 'hist_lo']
+    A: Transaction 2026-01-19 ($2,675.50, Granite Surety Nashville) matched INV-001937 (vendor V0156, $2,719.22, within the 2% tolerance). Flagged as an anomaly because the amount is unusually high for this vendor; recent history shows typical charges of roughly $150–$480.
+    B: Transaction 2026-01-19 ($2,675.50, Granite Surety Nashville) matched INV-001937 (vendor V0156, $2,719.22), within the 2% tolerance. It was flagged because the amount is unusually high for this vendor; the prior 20 transactions range from about $167 to $481.
+    field hist_hi: A=480.0 B=481.0
+    field hist_lo: A=150.0 B=167.0
+--- #3 prompt 252 (spike), pair A2-A3, judge strict=SAME; canonical conflict=none; one-sided/unstated=none; history mention A/B=True/True | why: history-evidence conflict ['hist_hi', 'hist_lo']
+    A: Transaction 2026-10-10 for $846.26 to Prime Power & Light (posted 2026-10-11) matches INV-001719 ($861.51, issued 2026-09-21) within the 2% tolerance. It was flagged because the amount is unusually high for this vendor, where recent charges have typically been around $100–$200.
+    B: Transaction 2026-10-10 for $846.26 to Prime Power & Light matched INV-001719 (vendor V0007, $861.51, issued 2026-09-21) within the 2% tolerance. It was flagged as an anomaly because the amount is unusually high for this vendor, whose prior payments ranged roughly $82 to $210.
+    field hist_hi: A=200.0 B=210.0
+    field hist_lo: A=100.0 B=82.0
+--- #4 prompt 294 (spike), pair A1-A3, judge strict=SAME; canonical conflict=none; one-sided/unstated=none; history mention A/B=True/True | why: history-evidence conflict ['hist_hi']
+    A: Transaction 2025-05-03 for $3,075.40 (Prime Prote, Boston MA, pending) matches INV-002007 from vendor V0158 at $3,069.59, within the 2% tolerance. It was flagged because the amount is unusually high for this vendor, whose prior ledger transactions range roughly $400 to $900.
+    B: Transaction 2025-05-03 for $3,075.40 (Prime Prote, Boston MA, pending) matches INV-002007 (vendor V0158, $3,069.59, within 2%). It was flagged because the amount is unusually high for this vendor, whose prior transactions range roughly $400 to $925.
+    field hist_hi: A=900.0 B=925.0
+--- #5 prompt 215 (noinv), pair A0-A3, judge strict=SAME, confirmed=SAME; canonical conflict=none; one-sided/unstated=['bank_amt']; history mention A/B=True/True | why: bank amount stated in one note only
+    A: Transaction 2025-02-10, Silver Suppl, $87.75 (bank posted 2025-02-11, card ****6538) has no matching invoice and was flagged for that reason. The ledger shows many prior Silver Suppl transactions, all without invoices, so the lack of a match appears consistent with this vendor's history.
+    B: Transaction 2025-02-10 with Silver Suppl for $87.75 has no matching invoice and was flagged for that reason. The bank feed shows it posted 2025-02-11 as -$87.75 on card ****6538. Recent ledger history shows numerous prior Silver Suppl transactions, all without invoices.
+    field bank_amt: A=None B=87.75
+--- #6 prompt 219 (normal), pair A0-A3, judge strict=SAME, confirmed=SAME; canonical conflict=none; one-sided/unstated=['bank_amt']; history mention A/B=False/False | why: bank amount stated in one note only
+    A: Transaction 2025-05-02 (WILLOW ANALYTICS #6273, $48.47) matched to INV-001406 (vendor V0150, $47.56, issued 2025-04-14), within the 2% tolerance. Not flagged: invoice matched and amount is in the usual range. Bank feed posted 2025-05-03.
+    B: Transaction 2025-05-02 (WILLOW ANALYTICS #6273, $48.47) matched to INV-001406 (vendor V0150, $47.56, issued 2025-04-14), within the 2% tolerance. Not flagged: invoice matched and amount in usual range. Bank feed posted 2025-05-03 for -$48.47 on card ****6449.
+    field bank_amt: A=None B=48.47
+--- #7 prompt 226 (spike), pair A0-A3, judge strict=SAME, confirmed=SAME; canonical conflict=none; one-sided/unstated=['bank_amt']; history mention A/B=True/True | why: bank amount stated in one note only
+    A: Transaction 2025-08-30 POS NOVAMOVERS DENVER CO, $230.89, posted 2025-09-01 to card ****5046, matched to INV-001489 (vendor V0164, $232.49, issued 2025-08-27) within the 2% tolerance. Flagged as an anomaly because the amount is unusually high for this vendor; prior ledger charges range from about $9 to $38.
+    B: Transaction 2025-08-30 POS NOVAMOVERS DENVER CO for $230.89 matches INV-001489 (vendor V0164, $232.49, issued 2025-08-27) within the 2% tolerance, and posted 2025-09-01 at -$230.89 on card ****5046. It was flagged as an anomaly because the amount is unusually high for this vendor; the ledger history shows prior charges ranging from about $9 to $38.
+    field bank_amt: A=None B=230.89
+--- #8 prompt 238 (normal), pair A0-A3, judge strict=SAME, confirmed=SAME; canonical conflict=none; one-sided/unstated=['bank_amt']; history mention A/B=False/False | why: bank amount stated in one note only
+    A: Transaction 2026-11-28 ORCHID LEGAL PHOENIX AZ $297.30 (posted 2026-11-30, card ****9247) matches INV-001524 (vendor V0230, $292.62, issued 2026-11-10) within the 2% tolerance. Not flagged: invoice matched and the amount is in the usual range.
+    B: 2026-11-28 ORCHID LEGAL PHOENIX AZ $297.30 matched to INV-001524 (vendor V0230, $292.62, issued 2026-11-10), within the 2% tolerance. Not flagged: invoice matched and amount in the usual range. Bank posted 2026-11-30 at -$297.30.
+    field bank_amt: A=None B=297.3
+--- #9 prompt 239 (noinv), pair A0-A3, judge strict=SAME, confirmed=SAME; canonical conflict=none; one-sided/unstated=['bank_amt']; history mention A/B=True/True | why: bank amount stated in one note only
+    A: Transaction 2025-04-11, SUMMIT SUITE #9401 ATL, $100.95 (bank posted 2025-04-12, card ****9610) has no matched invoice and was flagged for that reason. The recent ledger history shows many other SUMMIT SUITE transactions also lacking invoices, so this may be a recurring pattern rather than an isolated item.
+    B: Transaction 2025-04-11 (SUMMIT SUITE #9401 ATL, $100.95) has no matching invoice and was flagged for that reason; bank feed shows it posted 2025-04-12 for -$100.95 on card ****9610. The recent ledger history shows numerous other SUMMIT SUITE transactions from 2024-08 through 2025-03, none with invoices.
+    field bank_amt: A=None B=100.95
+--- #10 prompt 254 (noinv), pair A0-A3, judge strict=SAME, confirmed=SAME; canonical conflict=none; one-sided/unstated=['bank_amt']; history mention A/B=True/True | why: bank amount stated in one note only
+    A: Transaction 2025-05-09 at Willow Service Station #7366 (Tampa, FL) for $125.31 has no matched invoice and was flagged as an anomaly for that reason. The bank feed posted 2025-05-11 for -$125.31 on card ****2579. The ledger history shows many prior Willow Service Station charges, all without invoices, so the lack of a match is consistent with the account's history.
+    B: Transaction 2025-05-09 at Willow Service Station #7366 (Tampa, FL) for $125.31 has no matching invoice and was flagged for that reason; the bank feed shows it posted 2025-05-11 to card ****2579. The ledger shows 19 prior Willow Service Station transactions, all without invoices, so this charge follows the same pattern.
+    field bank_amt: A=125.31 B=None
+
+[judge-DIFFERENT A0-A3 pairs, raw 16: verdict chain, canonical status, history mention A/B]
+   prompt 201 (noinv ) chain ['DIFFERENT', 'DIFFERENT'] cons DIFFERENT; canonical residual, (c+) True, one-sided [], hist True/True, ev conflict ['hist_count'], ev one-sided ['other_dates']
+   prompt 205 (noinv ) chain ['DIFFERENT', 'DIFFERENT'] cons DIFFERENT; canonical residual, (c+) False, one-sided [], hist True/True, ev conflict [], ev one-sided ['other_dates']
+   prompt 206 (dup   ) chain ['DIFFERENT', 'DIFFERENT'] cons DIFFERENT; canonical residual, (c+) False, one-sided ['bank_amt'], hist True/False, ev conflict [], ev one-sided []
+   prompt 207 (noinv ) chain ['FAIL', 'SAME', 'SAME'] cons SAME; canonical identical, (c+) False, one-sided [], hist True/True, ev conflict [], ev one-sided []
+   prompt 222 (first ) chain ['DIFFERENT', 'DIFFERENT'] cons DIFFERENT; canonical residual, (c+) False, one-sided [], hist False/True, ev conflict [], ev one-sided []
+   prompt 227 (noinv ) chain ['DIFFERENT', 'SAME', 'SAME'] cons SAME; canonical identical, (c+) False, one-sided [], hist True/True, ev conflict [], ev one-sided []
+   prompt 240 (normal) chain ['DIFFERENT', 'DIFFERENT'] cons DIFFERENT; canonical identical, (c+) False, one-sided [], hist False/False, ev conflict [], ev one-sided []
+   prompt 242 (spike ) chain ['DIFFERENT', 'DIFFERENT'] cons DIFFERENT; canonical residual, (c+) False, one-sided [], hist True/False, ev conflict [], ev one-sided ['hist_hi', 'hist_lo', 'hist_top']
+   prompt 246 (spike ) chain ['DIFFERENT', 'DIFFERENT'] cons DIFFERENT; canonical residual, (c+) True, one-sided [], hist True/True, ev conflict ['hist_lo'], ev one-sided ['hist_top']
+   prompt 252 (spike ) chain ['DIFFERENT', 'SAME', 'SAME'] cons SAME; canonical residual, (c+) True, one-sided [], hist True/True, ev conflict ['hist_lo'], ev one-sided []
+   prompt 276 (spike ) chain ['DIFFERENT', 'DIFFERENT'] cons DIFFERENT; canonical residual, (c+) False, one-sided [], hist False/True, ev conflict [], ev one-sided ['hist_hi', 'hist_lo']
+   prompt 279 (spike ) chain ['DIFFERENT', 'DIFFERENT'] cons DIFFERENT; canonical residual, (c+) False, one-sided [], hist True/False, ev conflict [], ev one-sided ['hist_hi', 'hist_lo']
+   prompt 284 (first ) chain ['DIFFERENT', 'DIFFERENT'] cons DIFFERENT; canonical residual, (c+) False, one-sided ['bank_amt'], hist False/True, ev conflict [], ev one-sided []
+   prompt 294 (spike ) chain ['DIFFERENT', 'SAME', 'DIFFERENT'] cons DIFFERENT; canonical residual, (c+) False, one-sided [], hist False/True, ev conflict [], ev one-sided ['hist_hi', 'hist_lo']
+   prompt 295 (normal) chain ['FAIL', 'FAIL'] cons DIFFERENT; canonical residual, (c+) False, one-sided [], hist False/False, ev conflict [], ev one-sided ['other_dates']
+   prompt 296 (dup   ) chain ['FAIL', 'SAME', 'FAIL'] cons DIFFERENT; canonical residual, (c+) False, one-sided [], hist False/False, ev conflict [], ev one-sided ['other_dates']
+[hand inspection] classification (written after reading the pairs above, manual_classification.json):
+   #1 p265 A0-A3 (spike): benign rounding (extractor over-strict) - history range $99-$249 vs $100-$250; the record's range is $99.23-$249.09, both notes round it; judge SAME is right
+   #2 p288 A0-A3 (spike): judge miss on a real numeric error - note A says typical charges 'roughly $150-$480' but the record's lowest prior charge is $167.71 (B says $167 to $481, correct); the conclusion (unusually high) is unchanged, so a reviewer-level judge may rightly shrug, but a strict rubric asking for the evidence should not
+   #3 p252 A2-A3 (spike): loose characterisation (borderline) - 'typically around $100-$200' vs 'ranged roughly $82 to $210' (record: $82.42-$209.58); A summarises, B reports the range; same conclusion
+   #4 p294 A1-A3 (spike): benign rounding (extractor over-strict) - '$400 to $900' vs '$400 to $925' (record $401.52-$923.94); judge SAME is right
+   #5 p215 A0-A3 (noinv): optional detail omitted (judge right) - bank amount -$87.75 stated in B only; equals the transaction amount, no conflict
+   #6 p219 A0-A3 (normal): optional detail omitted (judge right) - bank amount stated in B only; equals the transaction amount
+   #7 p226 A0-A3 (spike): optional detail omitted (judge right) - bank amount stated in B only; equals the transaction amount
+   #8 p238 A0-A3 (normal): optional detail omitted (judge right) - bank amount stated in B only; equals the transaction amount
+   #9 p239 A0-A3 (noinv): optional detail omitted (judge right) - bank amount stated in B only; equals the transaction amount
+   #10 p254 A0-A3 (noinv): optional detail omitted (judge right) - bank amount stated in A only; equals the transaction amount
+   counts: {'benign rounding (extractor over-strict)': 2, 'judge miss on a real numeric error': 1, 'loose characterisation (borderline)': 1, 'optional detail omitted (judge right)': 6}
+
+=== 4. where do the differences come from
+[by scn] normal  pairs 169 conflict(c) 0.0% core 0.0% residual 17.2% | A0-A3 n=34 judge raw 2 conf 2
+[by scn] noinv   pairs 111 conflict(c) 0.0% core 0.0% residual 63.1% | A0-A3 n=21 judge raw 4 conf 2
+[by scn] dup     pairs  72 conflict(c) 0.0% core 0.0% residual 52.8% | A0-A3 n=12 judge raw 2 conf 2
+[by scn] first   pairs 100 conflict(c) 0.0% core 0.0% residual 26.0% | A0-A3 n=16 judge raw 2 conf 2
+[by scn] spike   pairs  68 conflict(c) 0.0% core 0.0% residual 63.2% | A0-A3 n=17 judge raw 6 conf 5
+[by history] neither  pairs 339 conflict 0.0% identical 76.4% | A0-A3 n=60 judge raw DIFF 3
+[by history] one      pairs  41 conflict 0.0% identical 0.0% | A0-A3 n=11 judge raw DIFF 7
+[by history] both     pairs 140 conflict 0.0% identical 39.3% | A0-A3 n=29 judge raw DIFF 6
+[history asymmetry x judge, A0-A3] one-note-only-mentions-history: judge DIFF 7/11; otherwise judge DIFF 9/89
+[by field] vendor    conflict   0 (0.0%)  one-sided/unstated   7 (1.3%)
+[by field] tx_amt    conflict   0 (0.0%)  one-sided/unstated   3 (0.6%)
+[by field] tx_date   conflict   0 (0.0%)  one-sided/unstated   0 (0.0%)
+[by field] inv       conflict   0 (0.0%)  one-sided/unstated   0 (0.0%)
+[by field] inv_amt   conflict   0 (0.0%)  one-sided/unstated   1 (0.2%)
+[by field] bank_amt  conflict   0 (0.0%)  one-sided/unstated  64 (12.3%)
+[by field] flag      conflict   0 (0.0%)  one-sided/unstated   0 (0.0%)
+[by field] reason    conflict   0 (0.0%)  one-sided/unstated   0 (0.0%)
+[by field] followup  conflict   0 (0.0%)  one-sided/unstated   0 (0.0%)
+[by field] history mentioned in exactly one note: 41 (7.9%)
+[by field] pairs on bank-mismatch prompts 72; real bank mismatch stated in exactly one of the two notes (a substantive one-sided omission, not a conflict): 12
+[by field] (c) conflicts after the follow-up fix: 0 pairs []
+[by field] conflicts per field among conflicting pairs: {}
+[cluster, note property] history mentioned            rate 30.0%: prompts where all 3 notes agree observed 89.3% vs independent-global 37.0% vs independent-per-scenario 73.4%
+[cluster, note property] bank amount stated           rate 20.2%: prompts where all 3 notes agree observed 81.4% vs independent-global 51.6% vs independent-per-scenario 52.8%
+[cluster, note property] history range stated         rate 4.3%: prompts where all 3 notes agree observed 95.0% vs independent-global 87.7% vs independent-per-scenario 91.7%
+[cluster, note property] history count stated         rate 8.1%: prompts where all 3 notes agree observed 88.6% vs independent-global 77.7% vs independent-per-scenario 84.4%
+[cluster, note property] earlier-charge date stated   rate 12.6%: prompts where all 3 notes agree observed 80.7% vs independent-global 66.9% vs independent-per-scenario 77.1%
+[cluster] prompts by number of their 3 pairs with a (c+) conflict (0/1/2/3): [131, 4, 4, 1]; prompts with any (c+) conflict by scenario: {'noinv': 5, 'spike': 3, 'dup': 1} (labelled prompts per scenario: {'normal': 45, 'dup': 20, 'noinv': 30, 'first': 28, 'spike': 17})
+[AUC target: any canonical conflict among the prompt's 3 pairs, 140 prompts] too few positives (0/140), skipped
+[AUC target: any (c+) conflict incl. history evidence, 140 prompts] n=140 positives 9: 5-fold (stratified, 20 repeats, by prompt; one row per prompt) logistic-regression AUC 0.742 (sd over CV repeats 0.021; bootstrap-over-prompts 95% CI 0.62-0.83); univariate AUC scn=noinv 0.68, scn=dup 0.48, scn=first 0.39, scn=spike 0.61, spike 0.61, has_inv 0.25, bank_mismatch 0.48, n_hist 0.46, flagged 0.67
+[AUC target: any core-field conflict, 140 prompts] too few positives (0/140), skipped
+[AUC target: any non-identical facts, 140 prompts] n=140 positives 73: 5-fold (stratified, 20 repeats, by prompt; one row per prompt) logistic-regression AUC 0.711 (sd over CV repeats 0.016; bootstrap-over-prompts 95% CI 0.61-0.80); univariate AUC scn=noinv 0.63, scn=dup 0.55, scn=first 0.42, scn=spike 0.56, spike 0.56, has_inv 0.37, bank_mismatch 0.54, n_hist 0.55, flagged 0.66
+[AUC target: strict judge raw DIFFERENT on A0-A3, 100 floor prompts] n=100 positives 16: 5-fold (stratified, 20 repeats, by prompt; one row per prompt) logistic-regression AUC 0.687 (sd over CV repeats 0.039; bootstrap-over-prompts 95% CI 0.57-0.82); univariate AUC scn=noinv 0.52, scn=dup 0.50, scn=first 0.48, scn=spike 0.62, spike 0.62, has_inv 0.44, bank_mismatch 0.61, n_hist 0.60, flagged 0.63
+[AUC target: strict judge confirmed DIFFERENT on A0-A3, 100 floor prompts] n=100 positives 13: 5-fold (stratified, 20 repeats, by prompt; one row per prompt) logistic-regression AUC 0.631 (sd over CV repeats 0.037; bootstrap-over-prompts 95% CI 0.51-0.79); univariate AUC scn=noinv 0.47, scn=dup 0.52, scn=first 0.50, scn=spike 0.62, spike 0.62, has_inv 0.47, bank_mismatch 0.61, n_hist 0.56, flagged 0.61
+[AUC reproducibility n_c -> strict raw (FAIL=DIFFERENT)] n=60 positives 10: AUC 0.500; mean score judge-DIFF 0.00 vs SAME 0.00
+[AUC reproducibility n_c -> strict raw (FAIL prompts dropped)] n=59 positives 9: AUC 0.500; mean score judge-DIFF 0.00 vs SAME 0.00
+[AUC reproducibility n_cplus -> strict raw (FAIL=DIFFERENT)] n=60 positives 10: AUC 0.700; mean score judge-DIFF 0.70 vs SAME 0.00
+[AUC reproducibility n_cplus -> strict raw (FAIL prompts dropped)] n=59 positives 9: AUC 0.722; mean score judge-DIFF 0.78 vs SAME 0.00
+[AUC reproducibility n_nonident -> strict raw (FAIL=DIFFERENT)] n=60 positives 10: AUC 0.878; mean score judge-DIFF 2.50 vs SAME 0.76
+[AUC reproducibility n_nonident -> strict raw (FAIL prompts dropped)] n=59 positives 9: AUC 0.940; mean score judge-DIFF 2.78 vs SAME 0.76
+[AUC target: strict judge raw DIFFERENT on A0-A3, FAIL prompts dropped] n=97 positives 13: 5-fold (stratified, 20 repeats, by prompt; one row per prompt) logistic-regression AUC 0.707 (sd over CV repeats 0.045; bootstrap-over-prompts 95% CI 0.54-0.88); univariate AUC scn=noinv 0.51, scn=dup 0.48, scn=first 0.49, scn=spike 0.67, spike 0.67, has_inv 0.46, bank_mismatch 0.57, n_hist 0.65, flagged 0.65
+
+=== 4b. S16 ablation labels re-derived with canonical facts (cached variant notes vs A0)
+[relabel] tx    n=140 strict-confirmed DIFFERENT  88 (62.9%); canonical core change 140 (100.0%); both 88, strict only 0, canonical only 52; evidence change 36
+[relabel] inv   n=140 strict-confirmed DIFFERENT 109 (77.9%); canonical core change  97 (69.3%); both 94, strict only 15, canonical only 3; evidence change 45
+[relabel] flag  n=140 strict-confirmed DIFFERENT 133 (95.0%); canonical core change  95 (67.9%); both 95, strict only 38, canonical only 0; evidence change 47
+[relabel] bank  n=140 strict-confirmed DIFFERENT  25 (17.9%); canonical core change   1 (0.7%); both 0, strict only 25, canonical only 1; evidence change 41
+[relabel] H0    n=140 strict-confirmed DIFFERENT  57 (40.7%); canonical core change   9 (6.4%); both 6, strict only 51, canonical only 3; evidence change 46
+[relabel] B0    n= 57 strict-confirmed DIFFERENT  31 (54.4%); canonical core change   1 (1.8%); both 1, strict only 30, canonical only 0; evidence change 38
+[relabel] B1    n= 57 strict-confirmed DIFFERENT  15 (26.3%); canonical core change   0 (0.0%); both 0, strict only 15, canonical only 0; evidence change 30
+[relabel] B2    n= 57 strict-confirmed DIFFERENT  19 (33.3%); canonical core change   0 (0.0%); both 0, strict only 19, canonical only 0; evidence change 37
+[relabel] dropping the whole history: strict labels it needed on 57/140 prompts, canonical core facts change on 9/140; by scenario (strict/canonical/prompts): {'normal': (3, 2, 45), 'noinv': (23, 2, 30), 'dup': (20, 0, 20), 'first': (3, 4, 28), 'spike': (8, 1, 17)}
+
+=== 5. floors reachable
+[floor route] (i) judge only: strict raw                                     A0-A3 (n=100) 16/100 = 16.0% UB95 23.3%  n5 None n10 None
+[floor route] (i) judge only: strict raw, cut-off (FAIL) answers not counted A0-A3 (n=100) 13/100 = 13.0% UB95 19.9%  n5 None n10 None
+[floor route] (i) judge only: strict confirmed, needs >=1 real DIFFERENT vote A0-A3 (n=100) 11/100 = 11.0% UB95 17.6%  n5 None n10 None
+[floor route] (i) judge only: strict confirmed                               A0-A3 (n=100) 13/100 = 13.0% UB95 19.9%  n5 None n10 None
+[floor route] (ii) canonical conflict (c), residual counted SAME (lower end) A0-A3 (n=100) 0/100 = 0.0% UB95 3.0%  n5 59 n10 29
+[floor route] (ii) canonical conflict incl. history evidence, numbers within 5% equal (c+tol) A0-A3 (n=100) 2/100 = 2.0% UB95 6.2%  n5 124 n10 46
+[floor route] (ii) canonical conflict incl. history evidence, exact numbers (c+) A0-A3 (n=100) 5/100 = 5.0% UB95 10.2%  n5 None n10 89
+[floor route] (ii) core-field conflict only                                  A0-A3 (n=100) 0/100 = 0.0% UB95 3.0%  n5 59 n10 29
+[floor route] (ii) canonical conflict, all fields                            3 pair types, 420 pairs (not independent) 0/420 = 0.0% UB95 0.7%  n5 59 n10 29
+[floor route] (iii) typed: conflict on flag, reason, invoice outcome, tx amount A0-A3 (n=100) 0/100 = 0.0% UB95 3.0%  n5 59 n10 29
+[floor route] (iii) typed: conflict on flag, reason, invoice outcome, tx amount A0-A1 (n=140) 0/140 = 0.0% UB95 2.1%  n5 59 n10 29
+[floor route] (iii) typed: conflict on flag, reason, invoice outcome, tx amount A0-A2 (n=140) 0/140 = 0.0% UB95 2.1%  n5 59 n10 29
+[floor route] (iii) typed: conflict on flag, reason, invoice outcome, tx amount A1-A2 (n=140) 0/140 = 0.0% UB95 2.1%  n5 59 n10 29
+[floor route] (iii) typed, counting unstated required fields as disagreement A0-A3 (n=100) 1/100 = 1.0% UB95 4.7%  n5 93 n10 29
+[floor route] (iii) typed, 3 pair types pooled                               420 pairs (not independent) 0/420 = 0.0% UB95 0.7%  n5 59 n10 29
+[typed vs ground truth] a note's typed fields (flag, reason, invoice outcome, tx amount) all equal the record's ground truth in 637/640 = 99.5% of notes
+[typed conflicts] 1 pairs: A1-A3 p270 ['reason']
+
+[cache] total cache hits 984; required keys missing: notes {}; strict A0-A3 judge calls 0 missing; optional probes missing (strict on A0-A1/A0-A2/A1-A2: 404, core on A0-A3: 85, swap on A0-A3: 85, mini on A0-A3: 45)

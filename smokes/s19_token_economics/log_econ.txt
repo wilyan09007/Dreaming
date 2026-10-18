@@ -1,0 +1,374 @@
+
+=== econ, THINK_DELTA=32 (low) ===
+  sonnet-5.5
+    0 baseline: no cache, flag thinking on, all real time                                  $    63.55/day
+    1 + prefix caching                                                                     $    63.55/day
+    2 + pruning 70% (no cache)                                                             $    41.32/day
+    2f pruning 70% on flag_anomaly only (typed step, S6b)                                  $    52.34/day
+    2n pruning 70% on draft_note only (free text, S16 pending)                             $    52.52/day
+    3 caching + pruning 70%  [= build the pruner first]                                    $    41.32/day
+    1c + cache-friendly layout (flag writes, note reads the shared record+history)         $    51.03/day
+    3c layout + pruning 70%                                                                $    41.32/day
+    4 thinking off on flag_anomaly (mission 1)                                             $    60.98/day
+    5 certified student 75% on typed steps (mission 2)                                     $    40.85/day
+    5a student 59% only (S1 at 770 rows, 5% budget: the one lever with a 5% certificate)   $    45.69/day
+    5b student 75% + pruning 50% (no thinking change)                                      $    31.09/day
+    5c student 75% + pruning 70% (no thinking change)                                      $    26.80/day
+    6 missions 1+2 (thinking off + student 75%)                                            $    40.15/day
+    7 missions 1+2 + caching                                                               $    40.15/day
+    7c missions 1+2 + layout                                                               $    37.02/day
+    8 missions 1+2+5 + caching (+ pruning 70% on what still goes to the teacher)           $    26.00/day
+    2s pruning 50% (S6b-anchored: certifies only at a 15% budget)                          $    48.08/day
+    8s missions 1+2+5 with the S6b-anchored 50% pruner + caching                           $    30.32/day
+    9 mission 5 on top of 1+2 without caching                                              $    26.00/day
+    8b prune only flag_anomaly (typed, S6b step) + 1+2 + caching                           $    37.03/day
+    0b baseline with the 77-label categorize (measured S13 prompt)                         $    74.64/day
+    1b caching with the 77-label categorize                                                $    60.90/day
+  haiku-5.5
+    0 baseline: no cache, flag thinking on, all real time                                  $     3.18/day
+    1 + prefix caching                                                                     $     3.18/day
+    2 + pruning 70% (no cache)                                                             $     2.07/day
+    2f pruning 70% on flag_anomaly only (typed step, S6b)                                  $     2.62/day
+    2n pruning 70% on draft_note only (free text, S16 pending)                             $     2.63/day
+    3 caching + pruning 70%  [= build the pruner first]                                    $     2.07/day
+    1c + cache-friendly layout (flag writes, note reads the shared record+history)         $     2.60/day
+    3c layout + pruning 70%                                                                $     2.07/day
+    4 thinking off on flag_anomaly (mission 1)                                             $     3.05/day
+    5 certified student 75% on typed steps (mission 2)                                     $     2.04/day
+    5a student 59% only (S1 at 770 rows, 5% budget: the one lever with a 5% certificate)   $     2.28/day
+    5b student 75% + pruning 50% (no thinking change)                                      $     1.55/day
+    5c student 75% + pruning 70% (no thinking change)                                      $     1.34/day
+    6 missions 1+2 (thinking off + student 75%)                                            $     2.01/day
+    7 missions 1+2 + caching                                                               $     2.01/day
+    7c missions 1+2 + layout                                                               $     1.86/day
+    8 missions 1+2+5 + caching (+ pruning 70% on what still goes to the teacher)           $     1.30/day
+    2s pruning 50% (S6b-anchored: certifies only at a 15% budget)                          $     2.40/day
+    8s missions 1+2+5 with the S6b-anchored 50% pruner + caching                           $     1.52/day
+    9 mission 5 on top of 1+2 without caching                                              $     1.30/day
+    8b prune only flag_anomaly (typed, S6b step) + 1+2 + caching                           $     1.85/day
+    0b baseline with the 77-label categorize (measured S13 prompt)                         $     3.73/day
+    1b caching with the 77-label categorize                                                $     3.08/day
+  gpt-5.4
+    0 baseline: no cache, flag thinking on, all real time                                  $    57.35/day
+    1 + prefix caching                                                                     $    57.35/day
+    2 + pruning 70% (no cache)                                                             $    38.63/day
+    2f pruning 70% on flag_anomaly only (typed step, S6b)                                  $    47.92/day
+    2n pruning 70% on draft_note only (free text, S16 pending)                             $    48.07/day
+    3 caching + pruning 70%  [= build the pruner first]                                    $    38.63/day
+    1c + cache-friendly layout (flag writes, note reads the shared record+history)         $    57.35/day
+    3c layout + pruning 70%                                                                $    38.63/day
+    4 thinking off on flag_anomaly (mission 1)                                             $    53.14/day
+    5 certified student 75% on typed steps (mission 2)                                     $    36.89/day
+    5a student 59% only (S1 at 770 rows, 5% budget: the one lever with a 5% certificate)   $    41.25/day
+    5b student 75% + pruning 50% (no thinking change)                                      $    28.68/day
+    5c student 75% + pruning 70% (no thinking change)                                      $    25.05/day
+    6 missions 1+2 (thinking off + student 75%)                                            $    35.74/day
+    7 missions 1+2 + caching                                                               $    35.74/day
+    7c missions 1+2 + layout                                                               $    35.74/day
+    8 missions 1+2+5 + caching (+ pruning 70% on what still goes to the teacher)           $    23.82/day
+    2s pruning 50% (S6b-anchored: certifies only at a 15% budget)                          $    44.36/day
+    8s missions 1+2+5 with the S6b-anchored 50% pruner + caching                           $    27.47/day
+    9 mission 5 on top of 1+2 without caching                                              $    23.82/day
+    8b prune only flag_anomaly (typed, S6b step) + 1+2 + caching                           $    33.10/day
+    0b baseline with the 77-label categorize (measured S13 prompt)                         $    64.92/day
+    1b caching with the 77-label categorize                                                $    64.92/day
+  gpt-5.4-mini
+    0 baseline: no cache, flag thinking on, all real time                                  $    17.21/day
+    1 + prefix caching                                                                     $    17.21/day
+    2 + pruning 70% (no cache)                                                             $    11.59/day
+    2f pruning 70% on flag_anomaly only (typed step, S6b)                                  $    14.37/day
+    2n pruning 70% on draft_note only (free text, S16 pending)                             $    14.42/day
+    3 caching + pruning 70%  [= build the pruner first]                                    $    11.59/day
+    1c + cache-friendly layout (flag writes, note reads the shared record+history)         $    17.21/day
+    3c layout + pruning 70%                                                                $    11.59/day
+    4 thinking off on flag_anomaly (mission 1)                                             $    15.94/day
+    5 certified student 75% on typed steps (mission 2)                                     $    11.07/day
+    5a student 59% only (S1 at 770 rows, 5% budget: the one lever with a 5% certificate)   $    12.38/day
+    5b student 75% + pruning 50% (no thinking change)                                      $     8.61/day
+    5c student 75% + pruning 70% (no thinking change)                                      $     7.52/day
+    6 missions 1+2 (thinking off + student 75%)                                            $    10.72/day
+    7 missions 1+2 + caching                                                               $    10.72/day
+    7c missions 1+2 + layout                                                               $    10.72/day
+    8 missions 1+2+5 + caching (+ pruning 70% on what still goes to the teacher)           $     7.14/day
+    2s pruning 50% (S6b-anchored: certifies only at a 15% budget)                          $    13.31/day
+    8s missions 1+2+5 with the S6b-anchored 50% pruner + caching                           $     8.24/day
+    9 mission 5 on top of 1+2 without caching                                              $     7.14/day
+    8b prune only flag_anomaly (typed, S6b step) + 1+2 + caching                           $     9.93/day
+    0b baseline with the 77-label categorize (measured S13 prompt)                         $    19.48/day
+    1b caching with the 77-label categorize                                                $    19.48/day
+  gemini-3.5-flash-lite
+    0 baseline: no cache, flag thinking on, all real time                                  $     7.66/day
+    1 + prefix caching                                                                     $     7.66/day
+    2 + pruning 70% (no cache)                                                             $     5.44/day
+    2f pruning 70% on flag_anomaly only (typed step, S6b)                                  $     6.54/day
+    2n pruning 70% on draft_note only (free text, S16 pending)                             $     6.56/day
+    3 caching + pruning 70%  [= build the pruner first]                                    $     5.44/day
+    1c + cache-friendly layout (flag writes, note reads the shared record+history)         $     7.66/day
+    3c layout + pruning 70%                                                                $     5.44/day
+    4 thinking off on flag_anomaly (mission 1)                                             $     6.94/day
+    5 certified student 75% on typed steps (mission 2)                                     $     5.02/day
+    5a student 59% only (S1 at 770 rows, 5% budget: the one lever with a 5% certificate)   $     5.59/day
+    5b student 75% + pruning 50% (no thinking change)                                      $     4.05/day
+    5c student 75% + pruning 70% (no thinking change)                                      $     3.62/day
+    6 missions 1+2 (thinking off + student 75%)                                            $     4.83/day
+    7 missions 1+2 + caching                                                               $     4.83/day
+    7c missions 1+2 + layout                                                               $     4.83/day
+    8 missions 1+2+5 + caching (+ pruning 70% on what still goes to the teacher)           $     3.41/day
+    2s pruning 50% (S6b-anchored: certifies only at a 15% budget)                          $     6.12/day
+    8s missions 1+2+5 with the S6b-anchored 50% pruner + caching                           $     3.85/day
+    9 mission 5 on top of 1+2 without caching                                              $     3.41/day
+    8b prune only flag_anomaly (typed, S6b step) + 1+2 + caching                           $     4.51/day
+    0b baseline with the 77-label categorize (measured S13 prompt)                         $     8.92/day
+    1b caching with the 77-label categorize                                                $     8.92/day
+  levers sonnet-5.5: baseline $63.55/day
+     Batch for ALL calls (only if every step tolerates up to 24 h)        saves $  31.775/day   50.0% of $63.55
+     certified student, 90% coverage on the two typed steps               saves $  27.239/day   42.9% of $63.55
+     pruning 80% of history (mission range)                               saves $  25.616/day   40.3% of $63.55
+     certified student, 75%                                               saves $  22.699/day   35.7% of $63.55
+     pruning 60% of history (mission range)                               saves $  18.851/day   29.7% of $63.55
+     certified student, 60%                                               saves $  18.159/day   28.6% of $63.55
+     pruning 50% (what S6b supports at a 15% budget)                      saves $  15.469/day   24.3% of $63.55
+     certified student, 50%                                               saves $  15.133/day   23.8% of $63.55
+     prefix caching, if categorize carried the 77-label list              saves $  13.740/day   18.4% of $74.64
+     cache-friendly layout (flag writes, note reads)                      saves $  12.524/day   19.7% of $63.55
+     thinking off on flag_anomaly (incl. 1-in-20 audit)                   saves $   2.569/day    4.0% of $63.55
+     Batch for the audit calls only (inside student 75%)                  saves $   0.582/day    0.9% of $63.55
+     pruning at a 5% or 10% budget (S6b: nothing certifies)               saves $   0.000/day    0.0% of $63.55
+     prefix caching as specified (demo prompts)                           saves $   0.000/day    0.0% of $63.55
+  levers haiku-5.5: baseline $3.18/day
+     Batch for ALL calls (only if every step tolerates up to 24 h)        saves $   1.589/day   50.0% of $3.18
+     certified student, 90% coverage on the two typed steps               saves $   1.362/day   42.9% of $3.18
+     pruning 80% of history (mission range)                               saves $   1.281/day   40.3% of $3.18
+     certified student, 75%                                               saves $   1.135/day   35.7% of $3.18
+     pruning 60% of history (mission range)                               saves $   0.943/day   29.7% of $3.18
+     certified student, 60%                                               saves $   0.908/day   28.6% of $3.18
+     pruning 50% (what S6b supports at a 15% budget)                      saves $   0.773/day   24.3% of $3.18
+     certified student, 50%                                               saves $   0.757/day   23.8% of $3.18
+     prefix caching, if categorize carried the 77-label list              saves $   0.649/day   17.4% of $3.73
+     cache-friendly layout (flag writes, note reads)                      saves $   0.580/day   18.2% of $3.18
+     thinking off on flag_anomaly (incl. 1-in-20 audit)                   saves $   0.128/day    4.0% of $3.18
+     Batch for the audit calls only (inside student 75%)                  saves $   0.029/day    0.9% of $3.18
+     pruning at a 5% or 10% budget (S6b: nothing certifies)               saves $   0.000/day    0.0% of $3.18
+     prefix caching as specified (demo prompts)                           saves $   0.000/day    0.0% of $3.18
+  levers gpt-5.4: baseline $57.35/day
+     Batch for ALL calls (only if every step tolerates up to 24 h)        saves $  28.676/day   50.0% of $57.35
+     certified student, 90% coverage on the two typed steps               saves $  24.560/day   42.8% of $57.35
+     pruning 80% of history (mission range)                               saves $  21.585/day   37.6% of $57.35
+     certified student, 75%                                               saves $  20.467/day   35.7% of $57.35
+     certified student, 60%                                               saves $  16.373/day   28.5% of $57.35
+     pruning 60% of history (mission range)                               saves $  15.859/day   27.7% of $57.35
+     certified student, 50%                                               saves $  13.644/day   23.8% of $57.35
+     pruning 50% (what S6b supports at a 15% budget)                      saves $  12.996/day   22.7% of $57.35
+     thinking off on flag_anomaly (incl. 1-in-20 audit)                   saves $   4.215/day    7.3% of $57.35
+     Batch for the audit calls only (inside student 75%)                  saves $   0.525/day    0.9% of $57.35
+     pruning at a 5% or 10% budget (S6b: nothing certifies)               saves $   0.000/day    0.0% of $57.35
+     cache-friendly layout (flag writes, note reads)                      saves $   0.000/day    0.0% of $57.35
+     prefix caching as specified (demo prompts)                           saves $   0.000/day    0.0% of $57.35
+     prefix caching, if categorize carried the 77-label list              saves $   0.000/day    0.0% of $64.92
+  levers gemini-3.5-flash-lite: baseline $7.66/day
+     Batch for ALL calls (only if every step tolerates up to 24 h)        saves $   3.832/day   50.0% of $7.66
+     certified student, 90% coverage on the two typed steps               saves $   3.169/day   41.4% of $7.66
+     certified student, 75%                                               saves $   2.641/day   34.5% of $7.66
+     pruning 80% of history (mission range)                               saves $   2.571/day   33.5% of $7.66
+     certified student, 60%                                               saves $   2.113/day   27.6% of $7.66
+     pruning 60% of history (mission range)                               saves $   1.884/day   24.6% of $7.66
+     certified student, 50%                                               saves $   1.761/day   23.0% of $7.66
+     pruning 50% (what S6b supports at a 15% budget)                      saves $   1.540/day   20.1% of $7.66
+     thinking off on flag_anomaly (incl. 1-in-20 audit)                   saves $   0.724/day    9.4% of $7.66
+     Batch for the audit calls only (inside student 75%)                  saves $   0.068/day    0.9% of $7.66
+     pruning at a 5% or 10% budget (S6b: nothing certifies)               saves $   0.000/day    0.0% of $7.66
+     cache-friendly layout (flag writes, note reads)                      saves $   0.000/day    0.0% of $7.66
+     prefix caching as specified (demo prompts)                           saves $   0.000/day    0.0% of $7.66
+     prefix caching, if categorize carried the 77-label list              saves $   0.000/day    0.0% of $8.92
+  crossover sonnet-5.5 {'minc': 512, 'cache_beats_prune70': 550, 'cache_beats_prune50': 550, 'cache_beats_student75': 750}
+  crossover haiku-5.5 {'minc': 512, 'cache_beats_prune70': 550, 'cache_beats_prune50': 550, 'cache_beats_student75': 850}
+  crossover gpt-5.4-mini (min 1,024: documented for GPT-5.6+, unverified for 5.4) {'minc': 1024, 'cache_beats_prune70': 1050, 'cache_beats_prune50': 1050, 'cache_beats_student75': 1050}
+  crossover gemini-3.5-flash-lite (min 2,048) {'minc': 2048, 'cache_beats_prune70': 2050, 'cache_beats_prune50': 2050, 'cache_beats_student75': 2050}
+  crossover gemini-3.5-flash-lite (min 4,096) {'minc': 4096, 'cache_beats_prune70': 4100, 'cache_beats_prune50': 4100, 'cache_beats_student75': 4100}
+
+=== econ, THINK_DELTA=157 (high) ===
+  sonnet-5.5
+    0 baseline: no cache, flag thinking on, all real time                                  $    76.05/day
+    1 + prefix caching                                                                     $    76.05/day
+    2 + pruning 70% (no cache)                                                             $    54.13/day
+    2f pruning 70% on flag_anomaly only (typed step, S6b)                                  $    65.15/day
+    2n pruning 70% on draft_note only (free text, S16 pending)                             $    65.02/day
+    3 caching + pruning 70%  [= build the pruner first]                                    $    54.13/day
+    1c + cache-friendly layout (flag writes, note reads the shared record+history)         $    63.53/day
+    3c layout + pruning 70%                                                                $    54.13/day
+    4 thinking off on flag_anomaly (mission 1)                                             $    61.29/day
+    5 certified student 75% on typed steps (mission 2)                                     $    44.21/day
+    5a student 59% only (S1 at 770 rows, 5% budget: the one lever with a 5% certificate)   $    51.00/day
+    5b student 75% + pruning 50% (no thinking change)                                      $    34.53/day
+    5c student 75% + pruning 70% (no thinking change)                                      $    30.24/day
+    6 missions 1+2 (thinking off + student 75%)                                            $    40.23/day
+    7 missions 1+2 + caching                                                               $    40.23/day
+    7c missions 1+2 + layout                                                               $    37.10/day
+    8 missions 1+2+5 + caching (+ pruning 70% on what still goes to the teacher)           $    26.08/day
+    2s pruning 50% (S6b-anchored: certifies only at a 15% budget)                          $    60.89/day
+    8s missions 1+2+5 with the S6b-anchored 50% pruner + caching                           $    30.39/day
+    9 mission 5 on top of 1+2 without caching                                              $    26.08/day
+    8b prune only flag_anomaly (typed, S6b step) + 1+2 + caching                           $    37.11/day
+    0b baseline with the 77-label categorize (measured S13 prompt)                         $    87.14/day
+    1b caching with the 77-label categorize                                                $    73.40/day
+  haiku-5.5
+    0 baseline: no cache, flag thinking on, all real time                                  $     3.80/day
+    1 + prefix caching                                                                     $     3.80/day
+    2 + pruning 70% (no cache)                                                             $     2.71/day
+    2f pruning 70% on flag_anomaly only (typed step, S6b)                                  $     3.26/day
+    2n pruning 70% on draft_note only (free text, S16 pending)                             $     3.25/day
+    3 caching + pruning 70%  [= build the pruner first]                                    $     2.71/day
+    1c + cache-friendly layout (flag writes, note reads the shared record+history)         $     3.22/day
+    3c layout + pruning 70%                                                                $     2.71/day
+    4 thinking off on flag_anomaly (mission 1)                                             $     3.06/day
+    5 certified student 75% on typed steps (mission 2)                                     $     2.21/day
+    5a student 59% only (S1 at 770 rows, 5% budget: the one lever with a 5% certificate)   $     2.55/day
+    5b student 75% + pruning 50% (no thinking change)                                      $     1.73/day
+    5c student 75% + pruning 70% (no thinking change)                                      $     1.51/day
+    6 missions 1+2 (thinking off + student 75%)                                            $     2.01/day
+    7 missions 1+2 + caching                                                               $     2.01/day
+    7c missions 1+2 + layout                                                               $     1.87/day
+    8 missions 1+2+5 + caching (+ pruning 70% on what still goes to the teacher)           $     1.30/day
+    2s pruning 50% (S6b-anchored: certifies only at a 15% budget)                          $     3.04/day
+    8s missions 1+2+5 with the S6b-anchored 50% pruner + caching                           $     1.52/day
+    9 mission 5 on top of 1+2 without caching                                              $     1.30/day
+    8b prune only flag_anomaly (typed, S6b step) + 1+2 + caching                           $     1.86/day
+    0b baseline with the 77-label categorize (measured S13 prompt)                         $     4.35/day
+    1b caching with the 77-label categorize                                                $     3.70/day
+  gpt-5.4
+    0 baseline: no cache, flag thinking on, all real time                                  $    76.10/day
+    1 + prefix caching                                                                     $    76.10/day
+    2 + pruning 70% (no cache)                                                             $    57.85/day
+    2f pruning 70% on flag_anomaly only (typed step, S6b)                                  $    67.14/day
+    2n pruning 70% on draft_note only (free text, S16 pending)                             $    66.82/day
+    3 caching + pruning 70%  [= build the pruner first]                                    $    57.85/day
+    1c + cache-friendly layout (flag writes, note reads the shared record+history)         $    76.10/day
+    3c layout + pruning 70%                                                                $    57.85/day
+    4 thinking off on flag_anomaly (mission 1)                                             $    53.61/day
+    5 certified student 75% on typed steps (mission 2)                                     $    41.92/day
+    5a student 59% only (S1 at 770 rows, 5% budget: the one lever with a 5% certificate)   $    49.22/day
+    5b student 75% + pruning 50% (no thinking change)                                      $    33.84/day
+    5c student 75% + pruning 70% (no thinking change)                                      $    30.21/day
+    6 missions 1+2 (thinking off + student 75%)                                            $    35.86/day
+    7 missions 1+2 + caching                                                               $    35.86/day
+    7c missions 1+2 + layout                                                               $    35.86/day
+    8 missions 1+2+5 + caching (+ pruning 70% on what still goes to the teacher)           $    23.93/day
+    2s pruning 50% (S6b-anchored: certifies only at a 15% budget)                          $    63.57/day
+    8s missions 1+2+5 with the S6b-anchored 50% pruner + caching                           $    27.58/day
+    9 mission 5 on top of 1+2 without caching                                              $    23.93/day
+    8b prune only flag_anomaly (typed, S6b step) + 1+2 + caching                           $    33.22/day
+    0b baseline with the 77-label categorize (measured S13 prompt)                         $    83.67/day
+    1b caching with the 77-label categorize                                                $    83.67/day
+  gpt-5.4-mini
+    0 baseline: no cache, flag thinking on, all real time                                  $    22.83/day
+    1 + prefix caching                                                                     $    22.83/day
+    2 + pruning 70% (no cache)                                                             $    17.35/day
+    2f pruning 70% on flag_anomaly only (typed step, S6b)                                  $    20.14/day
+    2n pruning 70% on draft_note only (free text, S16 pending)                             $    20.04/day
+    3 caching + pruning 70%  [= build the pruner first]                                    $    17.35/day
+    1c + cache-friendly layout (flag writes, note reads the shared record+history)         $    22.83/day
+    3c layout + pruning 70%                                                                $    17.35/day
+    4 thinking off on flag_anomaly (mission 1)                                             $    16.08/day
+    5 certified student 75% on typed steps (mission 2)                                     $    12.58/day
+    5a student 59% only (S1 at 770 rows, 5% budget: the one lever with a 5% certificate)   $    14.76/day
+    5b student 75% + pruning 50% (no thinking change)                                      $    10.15/day
+    5c student 75% + pruning 70% (no thinking change)                                      $     9.06/day
+    6 missions 1+2 (thinking off + student 75%)                                            $    10.76/day
+    7 missions 1+2 + caching                                                               $    10.76/day
+    7c missions 1+2 + layout                                                               $    10.76/day
+    8 missions 1+2+5 + caching (+ pruning 70% on what still goes to the teacher)           $     7.18/day
+    2s pruning 50% (S6b-anchored: certifies only at a 15% budget)                          $    19.07/day
+    8s missions 1+2+5 with the S6b-anchored 50% pruner + caching                           $     8.28/day
+    9 mission 5 on top of 1+2 without caching                                              $     7.18/day
+    8b prune only flag_anomaly (typed, S6b step) + 1+2 + caching                           $     9.97/day
+    0b baseline with the 77-label categorize (measured S13 prompt)                         $    25.10/day
+    1b caching with the 77-label categorize                                                $    25.10/day
+  gemini-3.5-flash-lite
+    0 baseline: no cache, flag thinking on, all real time                                  $    10.79/day
+    1 + prefix caching                                                                     $    10.79/day
+    2 + pruning 70% (no cache)                                                             $     8.64/day
+    2f pruning 70% on flag_anomaly only (typed step, S6b)                                  $     9.74/day
+    2n pruning 70% on draft_note only (free text, S16 pending)                             $     9.69/day
+    3 caching + pruning 70%  [= build the pruner first]                                    $     8.64/day
+    1c + cache-friendly layout (flag writes, note reads the shared record+history)         $    10.79/day
+    3c layout + pruning 70%                                                                $     8.64/day
+    4 thinking off on flag_anomaly (mission 1)                                             $     7.02/day
+    5 certified student 75% on typed steps (mission 2)                                     $     5.86/day
+    5a student 59% only (S1 at 770 rows, 5% budget: the one lever with a 5% certificate)   $     6.91/day
+    5b student 75% + pruning 50% (no thinking change)                                      $     4.91/day
+    5c student 75% + pruning 70% (no thinking change)                                      $     4.48/day
+    6 missions 1+2 (thinking off + student 75%)                                            $     4.85/day
+    7 missions 1+2 + caching                                                               $     4.85/day
+    7c missions 1+2 + layout                                                               $     4.85/day
+    8 missions 1+2+5 + caching (+ pruning 70% on what still goes to the teacher)           $     3.43/day
+    2s pruning 50% (S6b-anchored: certifies only at a 15% budget)                          $     9.33/day
+    8s missions 1+2+5 with the S6b-anchored 50% pruner + caching                           $     3.87/day
+    9 mission 5 on top of 1+2 without caching                                              $     3.43/day
+    8b prune only flag_anomaly (typed, S6b step) + 1+2 + caching                           $     4.53/day
+    0b baseline with the 77-label categorize (measured S13 prompt)                         $    12.04/day
+    1b caching with the 77-label categorize                                                $    12.04/day
+  levers sonnet-5.5: baseline $76.05/day
+     certified student, 90% coverage on the two typed steps               saves $  38.207/day   50.2% of $76.05
+     Batch for ALL calls (only if every step tolerates up to 24 h)        saves $  38.025/day   50.0% of $76.05
+     certified student, 75%                                               saves $  31.840/day   41.9% of $76.05
+     certified student, 60%                                               saves $  25.472/day   33.5% of $76.05
+     pruning 80% of history (mission range)                               saves $  25.304/day   33.3% of $76.05
+     certified student, 50%                                               saves $  21.226/day   27.9% of $76.05
+     pruning 60% of history (mission range)                               saves $  18.539/day   24.4% of $76.05
+     pruning 50% (what S6b supports at a 15% budget)                      saves $  15.156/day   19.9% of $76.05
+     thinking off on flag_anomaly (incl. 1-in-20 audit)                   saves $  14.756/day   19.4% of $76.05
+     prefix caching, if categorize carried the 77-label list              saves $  13.740/day   15.8% of $87.14
+     cache-friendly layout (flag writes, note reads)                      saves $  12.524/day   16.5% of $76.05
+     Batch for the audit calls only (inside student 75%)                  saves $   0.816/day    1.1% of $76.05
+     pruning at a 5% or 10% budget (S6b: nothing certifies)               saves $   0.000/day    0.0% of $76.05
+     prefix caching as specified (demo prompts)                           saves $   0.000/day    0.0% of $76.05
+  levers haiku-5.5: baseline $3.80/day
+     certified student, 90% coverage on the two typed steps               saves $   1.910/day   50.2% of $3.80
+     Batch for ALL calls (only if every step tolerates up to 24 h)        saves $   1.901/day   50.0% of $3.80
+     certified student, 75%                                               saves $   1.592/day   41.9% of $3.80
+     certified student, 60%                                               saves $   1.274/day   33.5% of $3.80
+     pruning 80% of history (mission range)                               saves $   1.265/day   33.3% of $3.80
+     certified student, 50%                                               saves $   1.061/day   27.9% of $3.80
+     pruning 60% of history (mission range)                               saves $   0.927/day   24.4% of $3.80
+     pruning 50% (what S6b supports at a 15% budget)                      saves $   0.758/day   19.9% of $3.80
+     thinking off on flag_anomaly (incl. 1-in-20 audit)                   saves $   0.738/day   19.4% of $3.80
+     prefix caching, if categorize carried the 77-label list              saves $   0.649/day   14.9% of $4.35
+     cache-friendly layout (flag writes, note reads)                      saves $   0.580/day   15.2% of $3.80
+     Batch for the audit calls only (inside student 75%)                  saves $   0.041/day    1.1% of $3.80
+     pruning at a 5% or 10% budget (S6b: nothing certifies)               saves $   0.000/day    0.0% of $3.80
+     prefix caching as specified (demo prompts)                           saves $   0.000/day    0.0% of $3.80
+  levers gpt-5.4: baseline $76.10/day
+     certified student, 90% coverage on the two typed steps               saves $  41.013/day   53.9% of $76.10
+     Batch for ALL calls (only if every step tolerates up to 24 h)        saves $  38.051/day   50.0% of $76.10
+     certified student, 75%                                               saves $  34.178/day   44.9% of $76.10
+     certified student, 60%                                               saves $  27.342/day   35.9% of $76.10
+     certified student, 50%                                               saves $  22.785/day   29.9% of $76.10
+     thinking off on flag_anomaly (incl. 1-in-20 audit)                   saves $  22.497/day   29.6% of $76.10
+     pruning 80% of history (mission range)                               saves $  21.116/day   27.7% of $76.10
+     pruning 60% of history (mission range)                               saves $  15.390/day   20.2% of $76.10
+     pruning 50% (what S6b supports at a 15% budget)                      saves $  12.527/day   16.5% of $76.10
+     Batch for the audit calls only (inside student 75%)                  saves $   0.876/day    1.2% of $76.10
+     pruning at a 5% or 10% budget (S6b: nothing certifies)               saves $   0.000/day    0.0% of $76.10
+     cache-friendly layout (flag writes, note reads)                      saves $   0.000/day    0.0% of $76.10
+     prefix caching as specified (demo prompts)                           saves $   0.000/day    0.0% of $76.10
+     prefix caching, if categorize carried the 77-label list              saves $   0.000/day    0.0% of $83.67
+  levers gemini-3.5-flash-lite: baseline $10.79/day
+     certified student, 90% coverage on the two typed steps               saves $   5.912/day   54.8% of $10.79
+     Batch for ALL calls (only if every step tolerates up to 24 h)        saves $   5.394/day   50.0% of $10.79
+     certified student, 75%                                               saves $   4.926/day   45.7% of $10.79
+     certified student, 60%                                               saves $   3.941/day   36.5% of $10.79
+     thinking off on flag_anomaly (incl. 1-in-20 audit)                   saves $   3.771/day   35.0% of $10.79
+     certified student, 50%                                               saves $   3.284/day   30.4% of $10.79
+     pruning 80% of history (mission range)                               saves $   2.493/day   23.1% of $10.79
+     pruning 60% of history (mission range)                               saves $   1.806/day   16.7% of $10.79
+     pruning 50% (what S6b supports at a 15% budget)                      saves $   1.462/day   13.6% of $10.79
+     Batch for the audit calls only (inside student 75%)                  saves $   0.126/day    1.2% of $10.79
+     pruning at a 5% or 10% budget (S6b: nothing certifies)               saves $   0.000/day    0.0% of $10.79
+     cache-friendly layout (flag writes, note reads)                      saves $   0.000/day    0.0% of $10.79
+     prefix caching as specified (demo prompts)                           saves $   0.000/day    0.0% of $10.79
+     prefix caching, if categorize carried the 77-label list              saves $   0.000/day    0.0% of $12.04
+  crossover sonnet-5.5 {'minc': 512, 'cache_beats_prune70': 550, 'cache_beats_prune50': 550, 'cache_beats_student75': 1150}
+  crossover haiku-5.5 {'minc': 512, 'cache_beats_prune70': 550, 'cache_beats_prune50': 550, 'cache_beats_student75': 1250}
+  crossover gpt-5.4-mini (min 1,024: documented for GPT-5.6+, unverified for 5.4) {'minc': 1024, 'cache_beats_prune70': 1050, 'cache_beats_prune50': 1050, 'cache_beats_student75': 1100}
+  crossover gemini-3.5-flash-lite (min 2,048) {'minc': 2048, 'cache_beats_prune70': 2050, 'cache_beats_prune50': 2050, 'cache_beats_student75': 2050}
+  crossover gemini-3.5-flash-lite (min 4,096) {'minc': 4096, 'cache_beats_prune70': 4100, 'cache_beats_prune50': 4100, 'cache_beats_student75': 4100}

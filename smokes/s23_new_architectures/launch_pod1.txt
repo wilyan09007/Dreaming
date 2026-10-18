@@ -1,0 +1,36 @@
+bundle 0.03 MB
+pod {'id': '2noeipdrnf9vw9', 'machineId': '4aveufxk279b', 'costPerHr': 0.34}
+[33s] bundle uploaded
+name, memory.total [MiB]
+NVIDIA GeForce RTX 4090, 24564 MiB
+waiting for bundle
+bundle extracted 11 files
+[65s status=RUNNING log=105B]
+[98s status=RUNNING log=105B]
+[132s status=RUNNING log=105B]
+[165s status=RUNNING log=105B]
+[198s status=RUNNING log=105B]
+[232s status=RUNNING log=105B]
+[265s status=RUNNING log=105B]
+[298s status=RUNNING log=105B]
+[330s status=RUNNING log=105B]
+[363s status=RUNNING log=105B]
+[396s status=RUNNING log=105B]
+[429s status=RUNNING log=105B]
+[462s status=RUNNING log=105B]
+[495s status=RUNNING log=105B]
+[528s status=RUNNING log=105B]
+[561s status=RUNNING log=105B]
+[594s status=RUNNING log=105B]
+[627s status=RUNNING log=105B]
+[660s status=RUNNING log=105B]
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:182: UserWarning: CUDA initialization: CUDA unknown error - this may be due to an incorrectly set up environment, e.g. changing env variable CUDA_VISIBLE_DEVICES after program start. Setting the available devices to be zero. (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:109.)
+  return torch._C._cuda_getDeviceCount() > 0
+[18:45:57] NO CUDA on this pod: aborting (relaunch on another GPU type)
+exit=2
+[692s status=RUNNING log=584B]
+C:\Users\<user>\Desktop\personalprojects\Dreaming\smokes\pod.py:99: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
+  with tarfile.open(fileobj=io.BytesIO(r.content), mode="r:gz") as tar: tar.extractall(ROOT)
+results extracted (0.04 MB) into ['smokes/s23_new_architectures']
+terminate: {'podTerminate': None}
+wall 11.6 min, est cost $0.066 at $0.34/h, ok=True

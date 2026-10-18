@@ -1,0 +1,11 @@
+[meta SETTR_3000] tasks=3000 labels=226 (pool, 3000 distinct tasks)
+   val desc-cos baseline {1: 0.836, 3: 0.838, 10: 0.833}
+/workspace/job/proj/smokes/s17_warm_start/run.py:305: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:835.)
+  v = val_acc(G); m = float(np.mean(list(v.values()))); hist.append((step + 1, m)); print(f"   step {step+1} loss {float(loss):.3f} val {({k: round(a, 3) for k, a in v.items()})} mean {m:.3f} [{time.time()-t0:.0f}s]", flush=True)
+   step 100 loss 0.554 val {1: 0.85, 3: 0.867, 10: 0.882} mean 0.866 [5s]
+   step 200 loss 0.558 val {1: 0.85, 3: 0.866, 10: 0.878} mean 0.865 [10s]
+   step 300 loss 0.475 val {1: 0.837, 3: 0.857, 10: 0.861} mean 0.852 [15s]
+   step 400 loss 0.507 val {1: 0.845, 3: 0.861, 10: 0.866} mean 0.857 [20s]
+   step 500 loss 0.363 val {1: 0.833, 3: 0.842, 10: 0.845} mean 0.840 [25s]
+[meta SETTR_3000] best val 0.866 in 25s

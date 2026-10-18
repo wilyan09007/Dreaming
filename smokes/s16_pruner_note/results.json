@@ -1,0 +1,2408 @@
+{
+ "label_stats": {
+  "train": {
+   "n": 80,
+   "H0_cons": 0.375,
+   "H0_raw": 0.4,
+   "dist": 0.075,
+   "tx": 0.625,
+   "inv": 0.775,
+   "flag": 0.9625,
+   "bank": 0.125,
+   "hist_pos_share": 0.2553685432385374,
+   "hist_lit_share": 0.17817759721416135,
+   "trunc": 0.0020408163265306124,
+   "calls_per_variant": 1.2244897959183674,
+   "variants_per_prompt": 6.125
+  },
+  "held-out subset": {
+   "n": 60,
+   "H0_cons": 0.45,
+   "H0_raw": 0.45,
+   "dist": 0.16666666666666666,
+   "tx": 0.6333333333333333,
+   "inv": 0.7833333333333333,
+   "flag": 0.9333333333333333,
+   "bank": 0.25,
+   "hist_pos_share": 0.3009427121102248,
+   "hist_lit_share": 0.13343002175489485,
+   "trunc": 0.0,
+   "calls_per_variant": 1.2283464566929134,
+   "variants_per_prompt": 6.35
+  },
+  "all labelled": {
+   "n": 140,
+   "H0_cons": 0.40714285714285714,
+   "H0_raw": 0.42142857142857143,
+   "dist": 0.11428571428571428,
+   "tx": 0.6285714285714286,
+   "inv": 0.7785714285714286,
+   "flag": 0.95,
+   "bank": 0.17857142857142858,
+   "hist_pos_share": 0.27562862669245647,
+   "hist_lit_share": 0.1582849774339136,
+   "trunc": 0.001148105625717566,
+   "calls_per_variant": 1.2261768082663604,
+   "variants_per_prompt": 6.2214285714285715
+  }
+ },
+ "floor": {
+  "raw": 0.16,
+  "cons": 0.13,
+  "n": 100,
+  "ub_raw": 0.2328158350065193,
+  "ub_cons": 0.19871979304248238
+ },
+ "auc": {
+  "learned_oof_train": {
+   "pooled": 0.6089261673634238,
+   "within": 0.6936283688420672,
+   "n_within": 20,
+   "pos": 0.2553685432385374
+  },
+  "learned_reason_oof_train": {
+   "pooled": 0.805721675051371,
+   "within": 0.7438390752722285,
+   "n_within": 20,
+   "pos": 0.2553685432385374
+  },
+  "learned_heldout": {
+   "pooled": 0.5533270009498575,
+   "within": 0.5851665059386078,
+   "n_within": 15,
+   "pos": 0.3009427121102248
+  },
+  "learned+reason_heldout": {
+   "pooled": 0.7534619807028946,
+   "within": 0.5628154650074154,
+   "n_within": 15,
+   "pos": 0.3009427121102248
+  },
+  "cross-encoder_heldout": {
+   "pooled": 0.5969429585562166,
+   "within": 0.5710766428703735,
+   "n_within": 15,
+   "pos": 0.3009427121102248
+  },
+  "recency_heldout": {
+   "pooled": 0.5316202569614558,
+   "within": 0.5689693313222725,
+   "n_within": 15,
+   "pos": 0.3009427121102248
+  },
+  "amount closeness_heldout": {
+   "pooled": 0.5019334599810028,
+   "within": 0.515498328779955,
+   "n_within": 15,
+   "pos": 0.3009427121102248
+  },
+  "random_heldout": {
+   "pooled": 0.47067939809028647,
+   "within": 0.4669748306405082,
+   "n_within": 15,
+   "pos": 0.3009427121102248
+  }
+ },
+ "theta": {
+  "base": 0.1,
+  "reason": 0.05,
+  "base97": 0.05,
+  "reason97": 0.02
+ },
+ "policies": {
+  "learned+reason A": {
+   "name": "learned+reason A",
+   "n": 100,
+   "raw_dis": 0.14,
+   "raw_ub": 0.2101739253131604,
+   "cons_dis": 0.12,
+   "cons_ub": 0.18716610977885625,
+   "tokens_removed": 0.2857586099906919,
+   "mean_hist_kept": 14.37,
+   "mean_hist": 22.84,
+   "fixed_dropped": 0.0,
+   "trunc": 0.0,
+   "frac_full": 0.5,
+   "by_scn": {
+    "dup": {
+     "n": 12,
+     "tok_removed": 0.0,
+     "cons_dis": 0.0,
+     "raw_dis": 0.0
+    },
+    "first": {
+     "n": 16,
+     "tok_removed": 0.5462474899598393,
+     "cons_dis": 0.0625,
+     "raw_dis": 0.0625
+    },
+    "noinv": {
+     "n": 21,
+     "tok_removed": 0.0,
+     "cons_dis": 0.23809523809523808,
+     "raw_dis": 0.23809523809523808
+    },
+    "normal": {
+     "n": 34,
+     "tok_removed": 0.5775853259758839,
+     "cons_dis": 0.029411764705882353,
+     "raw_dis": 0.058823529411764705
+    },
+    "spike": {
+     "n": 17,
+     "tok_removed": 0.0,
+     "cons_dis": 0.29411764705882354,
+     "raw_dis": 0.35294117647058826
+    }
+   },
+   "excess_raw": {
+    "policy_only_diff": 8,
+    "floor_only_diff": 10,
+    "p": 0.8145294189453125,
+    "floor_rate": 0.16
+   },
+   "excess_cons": {
+    "policy_only_diff": 6,
+    "floor_only_diff": 7,
+    "p": 1.0,
+    "floor_rate": 0.13
+   },
+   "chars_removed": 0.30205977407364737
+  },
+  "rule(tx,inv,flag)": {
+   "name": "rule(tx,inv,flag)",
+   "n": 100,
+   "raw_dis": 0.48,
+   "raw_ub": 0.5667681499805872,
+   "cons_dis": 0.45,
+   "cons_ub": 0.5371103986494755,
+   "tokens_removed": 0.8326915004289026,
+   "mean_hist_kept": 0.0,
+   "mean_hist": 22.84,
+   "fixed_dropped": 1.0,
+   "trunc": 0.0,
+   "frac_full": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 12,
+     "tok_removed": 0.8425864484258645,
+     "cons_dis": 1.0,
+     "raw_dis": 1.0
+    },
+    "first": {
+     "n": 16,
+     "tok_removed": 0.8168298192771084,
+     "cons_dis": 0.3125,
+     "raw_dis": 0.3125
+    },
+    "noinv": {
+     "n": 21,
+     "tok_removed": 0.8615831645681078,
+     "cons_dis": 0.8095238095238095,
+     "raw_dis": 0.9047619047619048
+    },
+    "normal": {
+     "n": 34,
+     "tok_removed": 0.827125485387288,
+     "cons_dis": 0.08823529411764706,
+     "raw_dis": 0.08823529411764706
+    },
+    "spike": {
+     "n": 17,
+     "tok_removed": 0.8151440329218107,
+     "cons_dis": 0.47058823529411764,
+     "raw_dis": 0.5294117647058824
+    }
+   },
+   "excess_raw": {
+    "policy_only_diff": 36,
+    "floor_only_diff": 4,
+    "p": 1.8570244719740003e-07,
+    "floor_rate": 0.16
+   },
+   "excess_cons": {
+    "policy_only_diff": 36,
+    "floor_only_diff": 4,
+    "p": 1.8570244719740003e-07,
+    "floor_rate": 0.13
+   },
+   "chars_removed": 0.8700165533801032
+  },
+  "cross-enc top-3": {
+   "name": "cross-enc top-3",
+   "n": 100,
+   "raw_dis": 0.37,
+   "raw_ub": 0.4565659065200735,
+   "cons_dis": 0.34,
+   "cons_ub": 0.4257876973470125,
+   "tokens_removed": 0.7192969648299903,
+   "mean_hist_kept": 3.0,
+   "mean_hist": 22.84,
+   "fixed_dropped": 1.0,
+   "trunc": 0.0,
+   "frac_full": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 12,
+     "tok_removed": 0.7280837572808376,
+     "cons_dis": 0.3333333333333333,
+     "raw_dis": 0.3333333333333333
+    },
+    "first": {
+     "n": 16,
+     "tok_removed": 0.6965988955823292,
+     "cons_dis": 0.375,
+     "raw_dis": 0.375
+    },
+    "noinv": {
+     "n": 21,
+     "tok_removed": 0.7488773443691116,
+     "cons_dis": 0.6190476190476191,
+     "raw_dis": 0.6666666666666666
+    },
+    "normal": {
+     "n": 34,
+     "tok_removed": 0.7179899856938483,
+     "cons_dis": 0.058823529411764705,
+     "raw_dis": 0.08823529411764706
+    },
+    "spike": {
+     "n": 17,
+     "tok_removed": 0.6985459533607682,
+     "cons_dis": 0.5294117647058824,
+     "raw_dis": 0.5882352941176471
+    }
+   },
+   "excess_raw": {
+    "policy_only_diff": 24,
+    "floor_only_diff": 3,
+    "p": 4.9233436584472656e-05,
+    "floor_rate": 0.16
+   },
+   "excess_cons": {
+    "policy_only_diff": 25,
+    "floor_only_diff": 4,
+    "p": 0.00010371580719947815,
+    "floor_rate": 0.13
+   },
+   "chars_removed": 0.762201296378266
+  },
+  "oracle (literal)": {
+   "name": "oracle (literal)",
+   "n": 60,
+   "raw_dis": 0.38333333333333336,
+   "raw_ub": 0.49756666786483755,
+   "cons_dis": 0.36666666666666664,
+   "cons_ub": 0.4806598384275654,
+   "tokens_removed": 0.731900811460175,
+   "mean_hist_kept": 3.066666666666667,
+   "mean_hist": 22.983333333333334,
+   "fixed_dropped": 1.4,
+   "trunc": 0.0,
+   "frac_full": 0.03333333333333333,
+   "by_scn": {
+    "dup": {
+     "n": 6,
+     "tok_removed": 0.45365235303438445,
+     "cons_dis": 0.0,
+     "raw_dis": 0.0
+    },
+    "first": {
+     "n": 12,
+     "tok_removed": 0.8146992546368521,
+     "cons_dis": 0.3333333333333333,
+     "raw_dis": 0.3333333333333333
+    },
+    "noinv": {
+     "n": 15,
+     "tok_removed": 0.6916625555007401,
+     "cons_dis": 0.8666666666666667,
+     "raw_dis": 0.8666666666666667
+    },
+    "normal": {
+     "n": 20,
+     "tok_removed": 0.8446662768356863,
+     "cons_dis": 0.15,
+     "raw_dis": 0.2
+    },
+    "spike": {
+     "n": 7,
+     "tok_removed": 0.5793145654834762,
+     "cons_dis": 0.2857142857142857,
+     "raw_dis": 0.2857142857142857
+    }
+   },
+   "excess_raw": {
+    "policy_only_diff": 18,
+    "floor_only_diff": 5,
+    "p": 0.010622024536132812,
+    "floor_rate": 0.16666666666666666
+   },
+   "excess_cons": {
+    "policy_only_diff": 18,
+    "floor_only_diff": 3,
+    "p": 0.0014896392822265625,
+    "floor_rate": 0.11666666666666667
+   },
+   "chars_removed": 0.7700693656705181
+  },
+  "learned A": {
+   "name": "learned A",
+   "chars_removed": 0.031936502931706696,
+   "evaluated": false
+  },
+  "learned+reason A [oracle subset]": {
+   "name": "learned+reason A [oracle subset]",
+   "n": 60,
+   "raw_dis": 0.15,
+   "raw_ub": 0.2471594674662178,
+   "cons_dis": 0.13333333333333333,
+   "cons_ub": 0.22773994566432493,
+   "tokens_removed": 0.3090348610544449,
+   "mean_hist_kept": 13.95,
+   "mean_hist": 22.983333333333334,
+   "fixed_dropped": 0.0,
+   "trunc": 0.0,
+   "frac_full": 0.4666666666666667,
+   "by_scn": {
+    "dup": {
+     "n": 6,
+     "tok_removed": 0.0,
+     "cons_dis": 0.0,
+     "raw_dis": 0.0
+    },
+    "first": {
+     "n": 12,
+     "tok_removed": 0.5128271797538568,
+     "cons_dis": 0.08333333333333333,
+     "raw_dis": 0.08333333333333333
+    },
+    "noinv": {
+     "n": 15,
+     "tok_removed": 0.0,
+     "cons_dis": 0.26666666666666666,
+     "raw_dis": 0.26666666666666666
+    },
+    "normal": {
+     "n": 20,
+     "tok_removed": 0.6070503717316849,
+     "cons_dis": 0.0,
+     "raw_dis": 0.05
+    },
+    "spike": {
+     "n": 7,
+     "tok_removed": 0.0,
+     "cons_dis": 0.42857142857142855,
+     "raw_dis": 0.42857142857142855
+    }
+   },
+   "excess_raw": {
+    "policy_only_diff": 6,
+    "floor_only_diff": 7,
+    "p": 1.0,
+    "floor_rate": 0.16666666666666666
+   },
+   "excess_cons": {
+    "policy_only_diff": 5,
+    "floor_only_diff": 4,
+    "p": 1.0,
+    "floor_rate": 0.11666666666666667
+   }
+  },
+  "rule(tx,inv,flag) [oracle subset]": {
+   "name": "rule(tx,inv,flag) [oracle subset]",
+   "n": 60,
+   "raw_dis": 0.4666666666666667,
+   "raw_ub": 0.5803043954758214,
+   "cons_dis": 0.4166666666666667,
+   "cons_ub": 0.5310149523142054,
+   "tokens_removed": 0.8351239856747813,
+   "mean_hist_kept": 0.0,
+   "mean_hist": 22.983333333333334,
+   "fixed_dropped": 1.0,
+   "trunc": 0.0,
+   "frac_full": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 6,
+     "tok_removed": 0.8325146569481857,
+     "cons_dis": 1.0,
+     "raw_dis": 1.0
+    },
+    "first": {
+     "n": 12,
+     "tok_removed": 0.8100190674293638,
+     "cons_dis": 0.25,
+     "raw_dis": 0.25
+    },
+    "noinv": {
+     "n": 15,
+     "tok_removed": 0.8623581647755303,
+     "cons_dis": 0.7333333333333333,
+     "raw_dis": 0.8666666666666667
+    },
+    "normal": {
+     "n": 20,
+     "tok_removed": 0.8324283685573469,
+     "cons_dis": 0.1,
+     "raw_dis": 0.1
+    },
+    "spike": {
+     "n": 7,
+     "tok_removed": 0.826438188494492,
+     "cons_dis": 0.42857142857142855,
+     "raw_dis": 0.5714285714285714
+    }
+   },
+   "excess_raw": {
+    "policy_only_diff": 20,
+    "floor_only_diff": 2,
+    "p": 0.00012111663818359375,
+    "floor_rate": 0.16666666666666666
+   },
+   "excess_cons": {
+    "policy_only_diff": 20,
+    "floor_only_diff": 2,
+    "p": 0.00012111663818359375,
+    "floor_rate": 0.11666666666666667
+   }
+  },
+  "cross-enc top-3 [oracle subset]": {
+   "name": "cross-enc top-3 [oracle subset]",
+   "n": 60,
+   "raw_dis": 0.38333333333333336,
+   "raw_ub": 0.49756666786483755,
+   "cons_dis": 0.35,
+   "cons_ub": 0.46362736575911223,
+   "tokens_removed": 0.722003112863986,
+   "mean_hist_kept": 3.0,
+   "mean_hist": 22.983333333333334,
+   "fixed_dropped": 1.0,
+   "trunc": 0.0,
+   "frac_full": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 6,
+     "tok_removed": 0.7157344319442244,
+     "cons_dis": 0.5,
+     "raw_dis": 0.5
+    },
+    "first": {
+     "n": 12,
+     "tok_removed": 0.6824406309585717,
+     "cons_dis": 0.25,
+     "raw_dis": 0.25
+    },
+    "noinv": {
+     "n": 15,
+     "tok_removed": 0.7512950172668968,
+     "cons_dis": 0.6,
+     "raw_dis": 0.6666666666666666
+    },
+    "normal": {
+     "n": 20,
+     "tok_removed": 0.7251273911953888,
+     "cons_dis": 0.05,
+     "raw_dis": 0.1
+    },
+    "spike": {
+     "n": 7,
+     "tok_removed": 0.715422276621787,
+     "cons_dis": 0.7142857142857143,
+     "raw_dis": 0.7142857142857143
+    }
+   },
+   "excess_raw": {
+    "policy_only_diff": 14,
+    "floor_only_diff": 1,
+    "p": 0.0009765625,
+    "floor_rate": 0.16666666666666666
+   },
+   "excess_cons": {
+    "policy_only_diff": 16,
+    "floor_only_diff": 2,
+    "p": 0.001312255859375,
+    "floor_rate": 0.11666666666666667
+   }
+  },
+  "oracle+ (spread->all)": {
+   "name": "oracle+ (spread->all)",
+   "n": 60,
+   "raw_dis": 0.31666666666666665,
+   "raw_ub": 0.42917040859845956,
+   "cons_dis": 0.31666666666666665,
+   "cons_ub": 0.42917040859845956,
+   "tokens_removed": 0.6006618613717757,
+   "mean_hist_kept": 6.916666666666667,
+   "mean_hist": 22.983333333333334,
+   "fixed_dropped": 1.4,
+   "trunc": 0.0,
+   "frac_full": 0.06666666666666667,
+   "by_scn": {
+    "dup": {
+     "n": 6,
+     "tok_removed": 0.45365235303438445,
+     "cons_dis": 0.0,
+     "raw_dis": 0.0
+    },
+    "first": {
+     "n": 12,
+     "tok_removed": 0.6971745536488126,
+     "cons_dis": 0.16666666666666666,
+     "raw_dis": 0.16666666666666666
+    },
+    "noinv": {
+     "n": 15,
+     "tok_removed": 0.39350024666995564,
+     "cons_dis": 0.8,
+     "raw_dis": 0.8
+    },
+    "normal": {
+     "n": 20,
+     "tok_removed": 0.7681897919973268,
+     "cons_dis": 0.2,
+     "raw_dis": 0.2
+    },
+    "spike": {
+     "n": 7,
+     "tok_removed": 0.4981640146878825,
+     "cons_dis": 0.14285714285714285,
+     "raw_dis": 0.14285714285714285
+    }
+   },
+   "excess_raw": {
+    "policy_only_diff": 14,
+    "floor_only_diff": 5,
+    "p": 0.063568115234375,
+    "floor_rate": 0.16666666666666666
+   },
+   "excess_cons": {
+    "policy_only_diff": 15,
+    "floor_only_diff": 3,
+    "p": 0.007537841796875,
+    "floor_rate": 0.11666666666666667
+   },
+   "chars_removed": 0.6322013310981057
+  },
+  "recent-3": {
+   "name": "recent-3",
+   "n": 100,
+   "raw_dis": 0.37,
+   "raw_ub": 0.4565659065200735,
+   "cons_dis": 0.34,
+   "cons_ub": 0.4257876973470125,
+   "tokens_removed": 0.7196711138690661,
+   "mean_hist_kept": 3.0,
+   "mean_hist": 22.84,
+   "fixed_dropped": 1.0,
+   "trunc": 0.0,
+   "frac_full": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 12,
+     "tok_removed": 0.7307380373073804,
+     "cons_dis": 0.08333333333333333,
+     "raw_dis": 0.16666666666666666
+    },
+    "first": {
+     "n": 16,
+     "tok_removed": 0.6914533132530121,
+     "cons_dis": 0.3125,
+     "raw_dis": 0.3125
+    },
+    "noinv": {
+     "n": 21,
+     "tok_removed": 0.7487892929470811,
+     "cons_dis": 0.5714285714285714,
+     "raw_dis": 0.6666666666666666
+    },
+    "normal": {
+     "n": 34,
+     "tok_removed": 0.720161455139996,
+     "cons_dis": 0.08823529411764706,
+     "raw_dis": 0.08823529411764706
+    },
+    "spike": {
+     "n": 17,
+     "tok_removed": 0.6987654320987654,
+     "cons_dis": 0.7647058823529411,
+     "raw_dis": 0.7647058823529411
+    }
+   },
+   "excess_raw": {
+    "policy_only_diff": 25,
+    "floor_only_diff": 4,
+    "p": 0.00010371580719947815,
+    "floor_rate": 0.16
+   },
+   "excess_cons": {
+    "policy_only_diff": 23,
+    "floor_only_diff": 2,
+    "p": 1.9431114196777344e-05,
+    "floor_rate": 0.13
+   },
+   "chars_removed": 0.7623165030529769
+  },
+  "learned+reason B": {
+   "name": "learned+reason B",
+   "n": 100,
+   "raw_dis": 0.14,
+   "raw_ub": 0.2101739253131604,
+   "cons_dis": 0.11,
+   "cons_ub": 0.1755028025794425,
+   "tokens_removed": 0.004115639429833395,
+   "mean_hist_kept": 22.71,
+   "mean_hist": 22.84,
+   "fixed_dropped": 0.0,
+   "trunc": 0.0,
+   "frac_full": 0.94,
+   "by_scn": {
+    "dup": {
+     "n": 12,
+     "tok_removed": 0.0,
+     "cons_dis": 0.0,
+     "raw_dis": 0.0
+    },
+    "first": {
+     "n": 16,
+     "tok_removed": 0.0,
+     "cons_dis": 0.0625,
+     "raw_dis": 0.0625
+    },
+    "noinv": {
+     "n": 21,
+     "tok_removed": 0.0,
+     "cons_dis": 0.23809523809523808,
+     "raw_dis": 0.23809523809523808
+    },
+    "normal": {
+     "n": 34,
+     "tok_removed": 0.011521561414265302,
+     "cons_dis": 0.0,
+     "raw_dis": 0.058823529411764705
+    },
+    "spike": {
+     "n": 17,
+     "tok_removed": 0.0,
+     "cons_dis": 0.29411764705882354,
+     "raw_dis": 0.35294117647058826
+    }
+   },
+   "excess_raw": {
+    "policy_only_diff": 8,
+    "floor_only_diff": 10,
+    "p": 0.8145294189453125,
+    "floor_rate": 0.16
+   },
+   "excess_cons": {
+    "policy_only_diff": 5,
+    "floor_only_diff": 7,
+    "p": 0.7744140625,
+    "floor_rate": 0.13
+   },
+   "chars_removed": 0.004317218547061926
+  }
+ },
+ "judge": {
+  "n": 150,
+  "sonnet_diff_rate": 0.3466666666666667,
+  "mini_diff_rate": 0.2866666666666667,
+  "kappa_sonnet_vs_mini": 0.677848230722029,
+  "agree_sonnet_vs_mini": 0.86,
+  "sonnet_self_agree": 0.9933333333333333,
+  "sonnet_self_kappa": 0.9852158486102898,
+  "sonnet_self_flips": {
+   "first_D_n": 52,
+   "D_stays_D": 0.9807692307692307,
+   "first_S_n": 98,
+   "S_becomes_D": 0.0
+  },
+  "mini_self_agree": 0.94,
+  "mini_self_kappa": 0.8522652659225214,
+  "kappa_sonnet_rep_vs_mini": 0.6911673872760964,
+  "n_small": 30,
+  "sonnet_diff_rate_small": 0.3333333333333333,
+  "sonnet_swap_agree": 0.8666666666666667,
+  "sonnet_swap_kappa": 0.7142857142857143,
+  "core_diff_rate_small": 0.1,
+  "agree_strict_vs_core_rubric": 0.7666666666666667,
+  "kappa_strict_vs_core_rubric": 0.36363636363636365,
+  "by_floor": {
+   "n": 50,
+   "sonnet_diff": 0.14,
+   "self_agree": 1.0,
+   "mini_agree": 0.88,
+   "mini_diff": 0.14
+  },
+  "by_abl": {
+   "n": 50,
+   "sonnet_diff": 0.54,
+   "self_agree": 1.0,
+   "mini_agree": 0.82,
+   "mini_diff": 0.36
+  },
+  "by_pol": {
+   "n": 50,
+   "sonnet_diff": 0.36,
+   "self_agree": 0.98,
+   "mini_agree": 0.88,
+   "mini_diff": 0.36
+  },
+  "confusion_sonnet_mini": {
+   "sonnet D / mini D": 37,
+   "sonnet D / mini S": 15,
+   "sonnet S / mini D": 6,
+   "sonnet S / mini S": 92
+  },
+  "unparsed": 11
+ },
+ "validation_sample": [
+  {
+   "src": "floor",
+   "a": "Transaction 2026-04-29 for $118.30 to Prime Power & Light (bank posted 2026-05-01) matches INV-001738 (vendor V0007, $119.13, issued 2026-04-24), within the 2% tolerance. It was flagged as a first purchase from this vendor.",
+   "b": "Transaction 2026-04-29 for $118.30 to Prime Power & Light (posted 2026-05-01) matched invoice INV-001738 (vendor V0007, $119.13, within the 2% tolerance). It was flagged as an anomaly because this is the first purchase from this vendor.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2026-11-10, SQ *PACIFIC PIZZA 8710, $14.48 (posted 2026-11-11, card ****5607), has no matched invoice and was flagged for that reason. The recent ledger shows many similar Pacific Pizza charges, all also without invoices.",
+   "b": "Transaction 2026-11-10, SQ *PACIFIC PIZZA 8710, $14.48 on card ****5607, posted 2026-11-11, with no matching invoice. Flagged because no matching invoice was found. Recent history shows many similar Pacific Pizza charges, all also without invoices.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-10-25 at POS QUARTZ MOTEL TAMPA for $1,298.08 matches invoice INV-001855 (vendor V0005, $1,279.58, within the 2% tolerance). It was flagged because the amount is unusually high for this vendor.",
+   "b": "Transaction 2025-10-25 at POS QUARTZ MOTEL TAMPA for $1,298.08 matches INV-001855 (vendor V0005, $1,279.58, within 2%). Flagged as anomaly because the amount is unusually high for this vendor.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-07-15, ORCHID GAS STATION #1473, $42.07, posted 2025-07-16 to card ****7898, has no matched invoice. Flagged as an anomaly because it is the first purchase from this vendor in the ledger history provided.",
+   "b": "Transaction 2025-07-15 at ORCHID GAS STATION #1473 for $42.07 has no matched invoice and was flagged as an anomaly because it is the first purchase from this vendor. The bank feed shows the same amount posted 2025-07-16 on card ****7898.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-10-06 (posted 2025-10-08), SQ *CEDARDINER MIAMI FL, $40.08 on card ****4370, has no matching invoice and was flagged for that reason. The recent ledger history shows about two dozen similar Cedar Diner charges, none with an invoice.",
+   "b": "Transaction 2025-10-06 (posted 2025-10-08), SQ *CEDARDINER MIAMI FL, $40.08 on card ****4370, has no matching invoice and was flagged for that reason. The recent ledger shows 25 prior CEDAR DINER / CEDARDINER transactions, all with no invoice match.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2026-06-27, TITAN TRAVEL PLAZA MIAMI FL, $17.70, posted 2026-06-28 to card ****4119. No matching invoice exists, so it was flagged for \"no matching invoice.\" The recent ledger shows 30 prior Titan Travel Plaza/PayPal transactions in various cities, none with an invoice.",
+   "b": "Transaction 2026-06-27, Titan Travel Plaza Miami, $17.70 (bank-posted 2026-06-28, card ****4119) has no matched invoice and was flagged for that reason. The ledger shows many prior Titan Travel Plaza charges, all also with no invoice, so this is a recurring pattern rather than a one-off.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-04-06 (POS STERLING BURGE CO #3845, $30.69, posted 2025-04-07 to card ****3073) matched to invoice INV-001736 (vendor V0008, $30.46, issued 2025-04-02), which falls within the 2% tolerance. Not flagged because the invoice matched and the amount is within the usual range.",
+   "b": "Transaction 2025-04-06 (POS STERLING BURGE CO #3845, $30.69, posted 2025-04-07 to card ****3073) matched invoice INV-001736 from vendor V0008 ($30.46, issued 2025-04-02), within the 2% tolerance. It was not flagged because the invoice matched and the amount fell within the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-03-15 (amazon.com*5epkj, $103.35, posted 2025-03-16) matched INV-001077 (vendor V0050, $101.98, within 2% tolerance). Flagged as an anomaly because it is the first purchase from this vendor.",
+   "b": "Transaction 2025-03-15 (AMAZON.COM*5EPKJ, $103.35, posted 2025-03-16) matched INV-001077 (vendor V0050, $101.98, issued 2025-02-28) within the 2% tolerance. It was flagged as an anomaly because it is the first purchase from this vendor.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-04-09 (WILD CELLULAR #3426, $89.66, posted 2025-04-11) matched INV-001856 (vendor V0159, $90.27), a difference within the 2% tolerance. Not flagged: invoice matched and amount is in the usual range.",
+   "b": "Transaction 2025-04-09 at WILD CELLULAR #3426 for $89.66 matched INV-001856 (vendor V0159, $90.27, issued 2025-04-02), within the 2% tolerance. Not flagged: invoice matched and amount is in the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-01-17 for WILLOW GAS & POWER (Boise, ID) at $110.75 matches invoice INV-001306 (vendor V0140, $110.85, issued 2025-01-03) within the 2% tolerance. Not flagged: the invoice matched and the amount is within the usual range.",
+   "b": "Transaction 2025-01-17 for $110.75 (Willow Gas & Power, Boise ID) matched to INV-001306 (vendor V0140, $110.85, issued 2025-01-03) within the 2% tolerance. Not flagged because the invoice matched and the amount is in the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2026-01-27 for AMZN Mktp US*URWVC ($94.96) matches INV-001775 ($95.24, issued 2026-01-22, within the 2% tolerance). It was flagged as a possible duplicate of a recent charge: a $94.96 AMZN Mktp charge on 2026-01-24 (INV-805121) with the same amount.",
+   "b": "Transaction 2026-01-27 for AMZN Mktp US*URWVC ($94.96) matches INV-001775 ($95.24, issued 2026-01-22; within 2% tolerance). Flagged as a possible duplicate of a recent charge, specifically the 2026-01-24 AMZN Mktp US*VFM83 charge of $94.96 (INV-805121).",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-06-03 at Orchid Gas Station #9670 for $89.33 (posted 2025-06-04, card ****9161) has no matching invoice and was flagged for that reason. The ledger shows no invoice on any of the 30 recent Orchid Gas Station or PayPal *ORCHIDGASS transactions listed.",
+   "b": "Transaction 2025-06-03, Orchid Gas Station #9670, $89.33 (posted 2025-06-04 to card ****9161) has no matched invoice and was flagged for that reason. Ledger history shows over 30 prior Orchid Gas Station transactions, all also without invoices.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-02-21 (POS PRIME TOURS, $377.87, posted 2025-02-23) matches INV-001829 from vendor V0266 ($380.96, within the 2% tolerance). It was flagged as an anomaly because this is the first purchase from this vendor.",
+   "b": "Transaction 2025-02-21 for POS PRIME TOURS #8741 ($377.87, posted 2025-02-23) matches INV-001829 (vendor V0266, $380.96) within the 2% tolerance. It was flagged as an anomaly because this is the first purchase from this vendor.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "On 2025-04-13, a $18.46 GOLDEN NOODLE HOUSE transaction (posted 2025-04-14 to card ****4030) has no matched invoice and was flagged for no matching invoice. The vendor has 24 prior ledger entries, each with an invoice number, most recently INV-304847 on 2025-03-29.",
+   "b": "Transaction 2025-04-13 at GOLDEN NOODLE HOUSE for $18.46 (posted 2025-04-14, card ****4030) has no matched invoice and was flagged for that reason. The vendor has 24 prior invoiced transactions in the ledger history, so this is the first unmatched payment in the records provided.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-11-29 for $130.25 (AMAZON PRIME*B1RVH, posted 2025-12-01) matches invoice INV-001221 (vendor V0050, $131.91, issued 2025-11-15), within the 2% tolerance. Not flagged because the invoice matched and the amount is in the usual range.",
+   "b": "Transaction 2025-11-29 for $130.25 (AMAZON PRIME*B1RVH, posted 2025-12-01) matched invoice INV-001221 from vendor V0050 at $131.91, issued 2025-11-15, within the 2% tolerance. Not flagged because the invoice matched and the amount is in the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-06-08, SQ *SUNRISE CARGO, $12.36 (posted 2025-06-10, card ****8463) has no matching invoice and was flagged for that reason. The vendor has 27 prior transactions in the ledger from 2024-07-05 through 2025-05-31, none with a matching invoice.",
+   "b": "Transaction 2025-06-08, SQ *SUNRISE CARGO, $12.36, posted 2025-06-10 to card ****8463. No matching invoice exists. Flagged because no invoice matched. The ledger shows about 26 prior Sunrise Cargo charges from July 2024 to May 2025, none with an invoice.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-08-30 POS NOVAMOVERS DENVER CO, $230.89, posted 2025-09-01 to card ****5046, matched to INV-001489 (vendor V0164, $232.49, issued 2025-08-27) within the 2% tolerance. Flagged as an anomaly because the amount is unusually high for this vendor; prior ledger charges range from about $9 to $38.",
+   "b": "Transaction 2025-08-30 POS NOVAMOVERS DENVER CO for $230.89 matches INV-001489 (vendor V0164, $232.49, issued 2025-08-27) within the 2% tolerance, and posted 2025-09-01 at -$230.89 on card ****5046. It was flagged as an anomaly because the amount is unusually high for this vendor; the ledger history shows prior charges ranging from about $9 to $38.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-04-05 ($2,470.55, PRIME PROTE RALEIGH NC) matches INV-001513 (vendor V0158, $2,454.03), within the 2% tolerance. Flagged as an anomaly because the amount is unusually high for this vendor.",
+   "b": "Transaction 2025-04-05 (PRIME PROTE, Raleigh NC, $2,470.55) matches INV-001513 (vendor V0158, $2,454.03, issued 2025-03-19) within the 2% tolerance. It was flagged because the amount is unusually high for this vendor, whose prior transactions range about $498 to $1,018.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-07-30 PAYPAL *REDWOODELE $51.46 matches INV-001521 (vendor V0082, $51.08, within 2%). Flagged because it is the first purchase from this vendor. Posted to card ****3979 on 2025-08-01.",
+   "b": "Transaction 2025-07-30 PAYPAL *REDWOODELE, $51.46, matched to INV-001521 (vendor V0082, $51.08, within the 2% tolerance). Flagged as an anomaly because it is the first purchase from this vendor.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2026-07-14, TST* ORCHID NOODL #7206 Chicago IL, $11.74 on card ****5658, posted 2026-07-16 as -$11.74. No matching invoice exists. Flagged for \"no matching invoice.\" The ledger shows 21 other Orchid Noodle transactions with no invoices, so this is consistent with the vendor's history.",
+   "b": "Transaction 2026-07-14, TST* Orchid Noodl #7206 Chicago IL, $11.74, card ****5658, posted 2026-07-16. No matching invoice exists. Flagged for \"no matching invoice.\" Ledger shows 21 prior Orchid Noodle transactions, all without invoices.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2026-04-22 ($94.40, POS Lakeside Fiber Madison WI) matched INV-001404 (vendor V0074, $95.76, issued 2026-04-17) within the 2% tolerance, so it was not flagged; amount falls in the usual range. Bank feed posted 2026-04-24 at -$97.23.",
+   "b": "Transaction 2026-04-22 ($94.40, POS Lakeside Fiber Madison WI) matched INV-001404 (vendor V0074, $95.76, issued 2026-04-17) within the 2% tolerance. Not flagged: invoice matched and amount is in the usual range. Bank feed posted 2026-04-24 at -$97.23.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-02-05 (AMZN Mktp US*VABCT, $760.35) matched INV-001894 (vendor V0050, $771.47), within the 2% tolerance. It was flagged because the amount is unusually high for this vendor. The bank feed shows the posted charge at -$783.16 on 2025-02-07.",
+   "b": "Transaction 2025-02-05 (AMZN Mktp US*VABCT, $760.35) matched INV-001894 (vendor V0050, $771.47), within the 2% tolerance. It was flagged because the amount is unusually high for this vendor. The bank feed shows the posted amount as $783.16 on 2025-02-07.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-07-11 at ORCHIDCOMMUNICATIONS for $242.12 matches INV-001859 (V0061, $244.74, within 2%). Flagged as anomaly because it is the first purchase from this vendor; bank feed posted 2025-07-13 at $249.38.",
+   "b": "Transaction 2025-07-11 at ORCHIDCOMMUNICATIONS for $242.12 matched invoice INV-001859 (vendor V0061, $244.74, within 2% tolerance). Flagged as anomaly because it is the first purchase from this vendor in the recent ledger history.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "floor",
+   "a": "2025-02-24 GOLDEN NOODLE HOUSE transaction for $8.01 (bank feed pending, card ****5363) has no matched invoice and was flagged for that reason. Recent ledger history shows several prior transactions with this vendor also lacking invoices.",
+   "b": "Transaction 2025-02-24, GOLDEN NOODLE HOUSE, $8.01 (bank feed pending, card ****5363) has no matched invoice and was flagged for that reason. Recent ledger history shows several prior GOLDEN NOODLE HOUSE transactions without invoices, including on 2024-10-03, 2024-07-20, and 2024-03-21.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-02-10, Silver Suppl, $87.75 (bank posted 2025-02-11, card ****6538) has no matching invoice and was flagged for that reason. The ledger shows many prior Silver Suppl transactions, all without invoices, so the lack of a match appears consistent with this vendor's history.",
+   "b": "Transaction 2025-02-10 with Silver Suppl for $87.75 has no matching invoice and was flagged for that reason. The bank feed shows it posted 2025-02-11 as -$87.75 on card ****6538. Recent ledger history shows numerous prior Silver Suppl transactions, all without invoices.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2026-02-01 at NORTHERN POSTAL SEATTL for $23.75 has no matching invoice and was flagged for that reason. The bank feed posted 2026-02-03 for -$24.46 on card ****4548, a $0.71 difference from the ledger amount.",
+   "b": "2026-02-01 NORTHERN POSTAL SEATTL transaction of $23.75 has no matching invoice and was flagged as an anomaly for that reason. The bank feed posted 2026-02-03 for -$24.46 on card ****4548, a difference from the ledger amount.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "2025-06-07 $26.43 card charge at Sunrise Cargo (Chicago, IL), posted 2025-06-09, has no matching invoice and was flagged for that reason. The ledger shows this vendor has recurring charges with no invoices going back to May 2024.",
+   "b": "2025-06-07 $26.43 card transaction at Sunrise Cargo (Chicago, IL), posted 2025-06-09, has no matched invoice and was flagged for that reason. Recent history shows many similar Sunrise Cargo charges, all with no invoice on record.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-04-03, PAYPAL *IRONTRAVEL #9964, $99.12, posted 2025-04-05 to card ****9693; no matching invoice. Flagged as a possible duplicate because an identical $99.12 charge from IRON TRAVEL PLAZA DENVER CO appears on 2025-03-30 with no invoice.",
+   "b": "Transaction 2025-04-03, PAYPAL *IRONTRAVEL #9964, $99.12 (posted 2025-04-05, card ****9693) has no matched invoice and was flagged as a possible duplicate. The same $99.12 amount appears on 2025-03-30 (iron travel plaza denver co), also with no invoice.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2026-10-05, Riverside Car Rental #2136 San Jose, $1,818.52, posted 2026-10-07, matched to INV-001554 (vendor V0265, $1,825.09, issued 2026-09-21) within the 2% tolerance. Flagged as an anomaly for unusually high amount for this vendor; the ledger shows prior charges mostly between $150 and $720, with one at $1,482.71.",
+   "b": "Transaction 2026-10-05 for $1,818.52 (Riverside Car Rental, San Jose CA; posted 2026-10-07) matches INV-001554 ($1,825.09, issued 2026-09-21) within the 2% tolerance. It was flagged as an anomaly because the amount is unusually high for this vendor.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-11-12 for $117.17 (PAYPAL *ATLASPANTR) matched to INV-001748 (vendor V0073, $118.81, issued 2025-11-06), within the 2% tolerance. Not flagged: the invoice matched and the amount is within the usual range.",
+   "b": "Transaction 2025-11-12 for $117.17 (PAYPAL *ATLASPANTR, posted 2025-11-14) matches INV-001748 (vendor V0073, $118.81, issued 2025-11-06), within the 2% tolerance. Not flagged because the invoice matched and the amount is in the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-06-06, Cedar Works #1736, $118.05 (posted 2025-06-08, card ****3414) has no matched invoice and was flagged for no matching invoice. Ledger history shows 15 prior Cedar Works transactions from 2024-11-28 to 2025-05-20, all also without invoices.",
+   "b": "Transaction 2025-06-06, Cedar Works #1736, $118.05 (posted 2025-06-08, card ****3414) has no matched invoice and was flagged for that reason. Ledger history shows many prior Cedar Works charges, all without invoices, none of which were resolved by matching.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2026-06-21, SQ *BLUE FRESH MARKET #455, $23.33, has no matched invoice and was flagged as a possible duplicate of a recent charge. The bank feed shows the same merchant and amount posted 2026-06-22, and the ledger shows an identical $23.33 charge at #455 on 2026-06-17.",
+   "b": "Transaction 2026-06-21, SQ *BLUE FRESH MARKET #455, $23.33, has no matched invoice and was flagged as a possible duplicate of a recent charge. The bank feed shows the same merchant and amount posted 2026-06-22 (-$23.33, card ****5388). The matching $23.33 charge at #455 on 2026-06-17 also has no invoice.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-01-20 PAYPAL *BLUECONNEC MIA, $33.73, matched to INV-001811 (V0166, $34.21, within 2% tolerance). Not flagged: invoice matched and amount is within the usual range.",
+   "b": "Transaction 2025-01-20 PAYPAL *BLUECONNEC MIA, $33.73, matches INV-001811 (V0166, $34.21, within the 2% tolerance). Not flagged: invoice matched and amount is within the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2026-02-14 for ORCHID LEGAL MIAMI FL, $213.96, matched to INV-001746 (vendor V0230, $210.57, issued 2026-01-27) within the 2% tolerance. Not flagged: the invoice matched and the amount is in the usual range.",
+   "b": "Transaction 2026-02-14 at ORCHID LEGAL MIAMI FL for $213.96 matched INV-001746 (vendor V0230, $210.57, issued 2026-01-27) within the 2% tolerance. Not flagged: invoice matched and amount is within the usual range. Bank feed posted 2026-02-16.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2026-08-17, Orchid Noodle House, $12.57, posted 2026-08-19 to card ****8454. No invoice matched. Flagged as a possible duplicate of a recent charge: a $12.57 PayPal charge to Orchidnood on 2026-08-13 with no invoice.",
+   "b": "Transaction 2026-08-17, Orchid Noodle House, $12.57, posted 2026-08-19 to card ****8454. No invoice matched. Flagged as a possible duplicate: a $12.57 PayPal charge from the same merchant posted 2026-08-13, with no invoice.",
+   "v1": "FAIL",
+   "v1b": "FAIL",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-04-11, SUMMIT SUITE #9401 ATL, $100.95 (bank posted 2025-04-12, card ****9610) has no matched invoice and was flagged for that reason. The recent ledger history shows many other SUMMIT SUITE transactions also lacking invoices, so this may be a recurring pattern rather than an isolated item.",
+   "b": "Transaction 2025-04-11 (SUMMIT SUITE #9401 ATL, $100.95) has no matching invoice and was flagged for that reason; bank feed shows it posted 2025-04-12 for -$100.95 on card ****9610. The recent ledger history shows numerous other SUMMIT SUITE transactions from 2024-08 through 2025-03, none with invoices.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "floor",
+   "a": "2025-08-24 METRO POWER CO #6554 Denver, $79.88 (pending, card ****9536) matched to INV-001860 (vendor V0066, $78.65, issued 2025-08-21), within the 2% tolerance. Not flagged: the invoice matched and the amount is within the usual range.",
+   "b": "Pending bank charge of -$79.88 on 2025-08-24 (METRO POWER CO #6554, card ****9536) matched to INV-001860 from vendor V0066 for $78.65, issued 2025-08-21, within the 2% tolerance. Not flagged: the invoice matched and the amount is within the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-06-21, SQ *KEYSTONE POSTA #1832 Miami FL, $17.90 (posted 2025-06-22, card ****3597) has no matched invoice and was flagged for that reason. The vendor appears in 24 prior ledger entries, each with an invoice match, so the flag reflects the missing invoice alone.",
+   "b": "Transaction 2025-06-21 for $17.90 at SQ *KEYSTONE POSTA #1832 (Miami, FL), posted to the bank feed 2025-06-22 on card ****3597, has no matched invoice and was flagged for \"no matching invoice.\" The ledger history shows numerous prior Keystone Posta transactions, all with invoice matches.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "2026-11-03 NOVA ANALYTICS 653712 ($101.05, pending) matched to INV-001611 (vendor V0246, $100.74, issued 2026-10-19) within the 2% tolerance. Flagged as a first purchase from this vendor.",
+   "b": "2026-11-03 NOVA ANALYTICS 653712 ($101.05, pending) matched to INV-001611 from vendor V0246 ($100.74, issued 2026-10-19), within the 2% tolerance. Flagged because it is the first purchase from this vendor.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2026-11-12 SQ *PACIFIC ASSOCIATES $1,432.96 (posted 2026-11-14, card ****5994) matched to INV-001523 (V0114, $1,422.76, issued 2026-10-30; within 2% tolerance). Not flagged: invoice matched and amount within the usual range.",
+   "b": "Transaction 2026-11-12 SQ *PACIFIC ASSOCIATES $1,432.96 (posted 2026-11-14) matches INV-001523 (vendor V0114, $1,422.76, issued 2026-10-30), within the 2% tolerance. Not flagged: invoice matched and amount is within the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-07-02, SUMMIT SUITE #1987 CHI, $197.19 (posted 2025-07-04 to card ****4700) has no matching invoice and was flagged for that reason. The ledger shows many prior SUMMIT SUITE charges, all with no invoice match.",
+   "b": "Transaction 2025-07-02 for SUMMIT SUITE #1987 CHI ($197.19) has no matching invoice and was flagged for that reason. The bank feed posted it 2025-07-04 to card ****4700 for -$197.19. The vendor has 30+ prior transactions in the ledger, all without invoices.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2026-01-07 (ORCHID MOTEL 2831, $81.32) matched to invoice INV-001584 (vendor V0154, $82.24, issued 2026-01-05), within the 2% tolerance. Not flagged: invoice matched and amount in the usual range. Bank feed posted 2026-01-08 at -$81.32.",
+   "b": "Transaction 2026-01-07 (ORCHID MOTEL 2831, $81.32) matched to invoice INV-001584 (vendor V0154, $82.24, issued 2026-01-05), within the 2% tolerance. Not flagged: the invoice matched and the amount is in the usual range. Bank feed shows it posted 2026-01-08 at -$81.32 on card ****7928.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2026-06-02, SQ *PACIFIC ASSOCIATES, $778.29, matched to INV-001938 (vendor V0114, $790.52, issued 2026-05-23) within the 2% tolerance. Not flagged because the invoice matched and the amount is in the usual range.",
+   "b": "Transaction 2026-06-02 SQ *PACIFIC ASSOCIATES for $778.29 matched to INV-001938 (vendor V0114, $790.52, issued 2026-05-23) within the 2% tolerance, and the bank feed posted it 2026-06-04 for the same amount. Not flagged: the invoice matched and the amount is in the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2026-11-21 (ORCHID MOTEL 541776, $484.59) matched to INV-001949 (vendor V0154, $488.17, issued 2026-11-14), within the 2% tolerance. Not flagged: the invoice matched and the amount is in the usual range. Bank feed posted 2026-11-23.",
+   "b": "Transaction 2026-11-21, ORCHID MOTEL 541776, $484.59, matched to INV-001949 (vendor V0154, $488.17, issued 2026-11-14; within 2% tolerance). Not flagged: invoice matched and amount in usual range. Bank feed posted 2026-11-23 for the same amount.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-05-19 from Evergreen Cargo #8948 for $68.82 matches INV-001492 (vendor V0194, $68.49, within 2%). It was flagged as a first purchase from this vendor. The bank feed shows the posted amount as $70.88 on 2025-05-20.",
+   "b": "Transaction 2025-05-19 (Evergreen Cargo #8948, $68.82) matches INV-001492 from vendor V0194 ($68.49, within the 2% tolerance). It was flagged as an anomaly because it is the first purchase from this vendor. Bank feed posted 2025-05-20 at -$70.88.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-05-01 for $1,082.57 (PRIMETELEPHONE #3592, posted 2025-05-03) matches INV-001772 from vendor V0012 ($1,085.12, issued 2025-04-20) within the 2% tolerance. Flagged as an anomaly because the amount is unusually high for this vendor; prior transactions in the ledger range from about $99 to $249.",
+   "b": "Transaction 2025-05-01 for $1,082.57 (PRIMETELEPHONE #3592, posted 2025-05-03) matches INV-001772 (vendor V0012, $1,085.12), within the 2% tolerance. Flagged as an anomaly because the amount is unusually high for this vendor; prior charges in the ledger range from about $100 to $250.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2026-10-01 (AMAZON PRIME*XGX8G, $103.46, posted 2026-10-02) matches INV-001737 (vendor V0050, $103.23, within the 2% tolerance). It was flagged as a possible duplicate of the 2026-09-29 charge of $103.46 (INV-709370), which has the same amount.",
+   "b": "Transaction 2026-10-01 for $103.46 matched INV-001737 (vendor V0050, $103.23, within the 2% tolerance). Flagged as a possible duplicate of the 2026-09-29 charge of $103.46 (INV-709370), which has the same amount.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "2026-05-18 POS charge at Quartz Motel Portland for $254.57 matched invoice INV-001145 (vendor V0005, $256.74, within the 2% tolerance) and posted 2026-05-20 to card ****3051. It was not flagged because the invoice matched and the amount was in the usual range.",
+   "b": "Transaction 2026-05-18 for $254.57 (POS Quartz Motel Portl) matched invoice INV-001145 (vendor V0005, $256.74, issued 2026-05-15), within the 2% tolerance. Not flagged because the invoice matched and the amount is in the usual range; bank feed posted 2026-05-20.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2025-09-28, Keystone Furniture San, $24.22, posted 2025-09-30 to card ****7008, has no matched invoice and was flagged as a possible duplicate. The flag is consistent with the record: INV-748223 shows an identical $24.22 charge from the same vendor on 2025-09-25.",
+   "b": "Transaction 2025-09-28 for Keystone Furniture San, $24.22, has no matched invoice and was flagged as a possible duplicate of a recent charge. The identical amount appears on 2025-09-25 (INV-748223), and the bank feed shows it posted 2025-09-30 on card ****7008.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "floor",
+   "a": "Transaction 2026-11-28 ORCHID LEGAL PHOENIX AZ $297.30 (posted 2026-11-30, card ****9247) matches INV-001524 (vendor V0230, $292.62, issued 2026-11-10) within the 2% tolerance. Not flagged: invoice matched and the amount is in the usual range.",
+   "b": "2026-11-28 ORCHID LEGAL PHOENIX AZ $297.30 matched to INV-001524 (vendor V0230, $292.62, issued 2026-11-10), within the 2% tolerance. Not flagged: invoice matched and amount in the usual range. Bank posted 2026-11-30 at -$297.30.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2026-07-16 ($298.02, Riverside Analytics Dallas) matches INV-001605 ($302.53, vendor V0165) within the 2% tolerance and posted 2026-07-17. It was flagged as anomalous because the amount is unusually high for this vendor, whose prior charges mostly fall between about $50 and $105.",
+   "b": "Transaction 2026-07-16 for $298.02 (Riverside Analytics, Dallas TX) matches INV-001605 (V0165, $302.53, issued 2026-07-09) within the 2% tolerance; bank posting 2026-07-17 shows -$298.02 on card ****6370. Not flagged: the amount and vendor match the invoice. Note: this amount is well above the vendor's prior transaction history (typically $50\u2013$105, with one $177.07 charge).",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2025-11-26, PRIME PIZZA 589909, $34.17, posted 2025-11-27 to card ****9103, has no matching invoice and was flagged for that reason. The ledger shows 15 prior PRIME PIZZA transactions with no invoices, going back to 2025-03-23.",
+   "b": "Transaction 2025-11-26, PRIME PIZZA 589909, $34.17, posted 2025-11-27 to card ****9103. No matching invoice exists, so it was flagged for that reason. Ledger history shows ten prior PRIME PIZZA transactions, all without invoices.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2026-06-27, TITAN TRAVEL PLAZA MIAMI FL, $17.70, posted 2026-06-28 to card ****4119. No matching invoice exists, so it was flagged for \"no matching invoice.\" The recent ledger shows 30 prior Titan Travel Plaza/PayPal transactions in various cities, none with an invoice.",
+   "b": "Transaction 2026-06-27, TITAN TRAVEL PLAZA MIAMI FL, $17.70 on card ****4119, posted 2026-06-28 to the bank feed. No matching invoice exists. Not flagged; the ledger shows 30 prior Titan Travel Plaza charges, all without invoices.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2025-03-26 PAYPAL *GOLDENDELI #5794 for $31.70 matched invoice INV-000065 (vendor V0171, $31.88, issued 2025-03-24), within the 2% tolerance. Not flagged: the invoice matched and the amount is in the usual range. Bank feed shows it posted 2025-03-28 at -$31.70.",
+   "b": "Transaction 2025-03-26 PAYPAL *GOLDENDELI #5794 for $31.70 (posted 2025-03-28, card ****5848) matched to INV-000065 (vendor V0171, $31.88, issued 2025-03-24), within the 2% tolerance. It was not flagged; the match is a same-vendor, in-tolerance amount.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2026-11-12 SQ *PACIFIC ASSOCIATES $1,432.96 (posted 2026-11-14, card ****5994) matched to INV-001523 (V0114, $1,422.76, issued 2026-10-30; within 2% tolerance). Not flagged: invoice matched and amount within the usual range.",
+   "b": "Transaction 2026-11-12 SQ *PACIFIC ASSOCIATES, $1,432.96, posted 2026-11-14 on card ****5994, matched to INV-001523 (vendor V0114, $1,422.76, issued 2026-10-30) as the amount is within 2%. Not flagged because the invoice matched and the amount is in the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2026-02-09 ($451.10, SQ *PACIFICADVISORS Seattle) matched to INV-000375 (V0126, $459.17, within 2% tolerance) and was flagged as a possible duplicate. The flag matches an identical $451.10 charge from PACIFICADVISORS Denver on 2026-02-08 (INV-264186), posted to the ledger.",
+   "b": "Transaction 2026-02-09 ($451.10, SQ *PACIFICADVISORS Seattle) matched to INV-000375 (V0126, $459.17, within 2% tolerance) and posted to the bank 2026-02-11. Flagged as a possible duplicate of the 2026-02-08 $451.10 Denver charge (INV-264186), which has the same amount and vendor and is 1 day earlier.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2025-11-14 (URBAN SOLAR #2558, $31.21, posted 2025-11-16) matched INV-000315 (vendor V0232, $31.12, within the 2% tolerance). It was flagged as a first purchase from this vendor, per the anomaly rule.",
+   "b": "Transaction 2025-11-14, Urban Solar #2558 (Atlanta, GA), $31.21, matched to INV-000315 (vendor V0232, $31.12, issued 2025-11-12) within the 2% tolerance. Flagged as an anomaly because it is the first purchase from this vendor.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2026-01-19, Cedar Works Chicago IL, $77.09, has no matched invoice and was flagged for that reason. The bank feed shows a pending $79.40 charge from the same merchant on card ****3183, which does not match the ledger amount. Ledger history shows many prior Cedar Works transactions, all without invoices.",
+   "b": "Transaction on 2026-01-19 with CEDAR WORKS CHICAGO IL for $77.09 has no matching invoice and was flagged for that reason. The bank feed shows a pending charge of $79.40 from the same merchant on card ****3183, so the amounts differ and the pending item may need reconciling.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2025-04-11, SUMMIT SUITE #9401 ATL, $100.95 (bank posted 2025-04-12, card ****9610) has no matched invoice and was flagged for that reason. The recent ledger history shows many other SUMMIT SUITE transactions also lacking invoices, so this may be a recurring pattern rather than an isolated item.",
+   "b": "Transaction 2025-04-11 for SUMMIT SUITE #9401 ATL ($100.95), posted 2025-04-12 to card ****9610, has no matched invoice and was flagged as an anomaly for that reason. The recent ledger history shows 12 prior SUMMIT SUITE transactions, all without invoices.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2025-08-30 POS NOVAMOVERS DENVER CO, $230.89, posted 2025-09-01 to card ****5046, matched to INV-001489 (vendor V0164, $232.49, issued 2025-08-27) within the 2% tolerance. Flagged as an anomaly because the amount is unusually high for this vendor; prior ledger charges range from about $9 to $38.",
+   "b": "Transaction 2025-08-30 for $230.89 (POS NOVAMOVERS DENVER CO, posted 2025-09-01) matched invoice INV-001489 from vendor V0164 for $232.49, within the 2% tolerance. It was flagged because the amount is unusually high for this vendor, and the recent history shows typically much smaller charges, mostly $10\u2013$35.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2025-02-28 for $145.00 (Coastal Auto Fuel, Boston MA) matches INV-000546 (vendor V0043, $146.02, issued 2025-02-11) within the 2% tolerance. It was flagged because the amount is unusually high for this vendor.",
+   "b": "Transaction 2025-02-28 ($145.00, Coastal Auto Fuel, Boston MA) matches INV-000546 ($146.02, issued 2025-02-11) within the 2% tolerance. It was flagged as an anomaly because the amount is unusually high for this vendor.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2025-05-19 from Evergreen Cargo #8948 for $68.82 matches INV-001492 (vendor V0194, $68.49, within 2%). It was flagged as a first purchase from this vendor. The bank feed shows the posted amount as $70.88 on 2025-05-20.",
+   "b": "Transaction 2025-05-19 from Evergreen Cargo #8948 for $68.82 matched invoice INV-001492 (vendor V0194, $68.49, within 2% tolerance). It was flagged as an anomaly because it is the first purchase from this vendor. Bank feed posted 2025-05-20 at -$70.88.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2025-10-16 (CHECKCARD VISTA LOGIST, $40.75, posted 2025-10-17 on card ****8439) matches invoice INV-000337 from vendor V0098 for $41.43, within the 2% tolerance. Not flagged: the invoice matched and the amount is within the usual range.",
+   "b": "Transaction 2025-10-16 (CHECKCARD VISTA LOGIST, $40.75) matches INV-000337 (vendor V0098, $41.43, issued 2025-10-07), within the 2% tolerance. Bank feed posted 2025-10-17 at -$40.75. Not flagged: it matches an invoice and its amount is within tolerance.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2026-08-23, PAYPAL *METRORAIL, $419.70 (posted 2026-08-25, card ****6336) has no matched invoice and was flagged for \"no matching invoice.\" The ledger shows 24 prior PAYPAL/METRO RAIL transactions with no invoice match, so this charge follows an established pattern.",
+   "b": "Transaction 2026-08-23 for PAYPAL *METRORAIL, $419.70, posted to card ****6336 on 2026-08-25. No matching invoice was found, so it was flagged as an anomaly. The same merchant has 15 prior transactions in the ledger, all with no invoice.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "abl",
+   "a": "The 2025-04-27 AMAZON PRIME*NKRT3 transaction of $150.27 (posted 2025-04-29) matches INV-000309 from vendor V0050 ($149.06, issued 2025-04-12), within the 2% tolerance. It was flagged as an anomaly because it is the first purchase from this vendor.",
+   "b": "Transaction of $150.27 to AMAZON PRIME*NKRT3 on 2025-04-27 matched invoice INV-000309 ($149.06, vendor V0050), within the 2% tolerance. It was flagged because it is the first purchase from this vendor.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2026-08-23, PAYPAL *METRORAIL, $419.70 (posted 2026-08-25, card ****6336) has no matched invoice and was flagged for \"no matching invoice.\" The ledger shows 24 prior PAYPAL/METRO RAIL transactions with no invoice match, so this charge follows an established pattern.",
+   "b": "Transaction 2026-08-23 for $419.70 (PAYPAL *METRORAIL, card ****6336, posted 2026-08-25) has no matching invoice and was flagged for that reason. The ledger shows 15 prior PAYPAL/METRO RAIL transactions from 2025-11-05 to 2026-04-24, all also without invoices, so the pattern is recurring.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2026-01-10 for PAYPAL *MOSAICSOFT #3205, $55.98, posted 2026-01-11 to card ****1567, matched to INV-000473 (vendor V0236, $56.40, issued 2026-01-03; within 2% tolerance). Flagged as an anomaly because it is the first purchase from this vendor.",
+   "b": "Transaction of $55.98 on 2026-01-10 (PayPal *MOSAICSOFT #3205, posted 2026-01-11) matches invoice INV-000473 for $56.40 (vendor V0236, issued 2026-01-03), within the 2% tolerance. Flagged as an anomaly because it is the first purchase from this vendor.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2026-06-08 for $265.52 (CHECKCARD HARBOR CRUISES #252, posted 2026-06-09) matched to INV-000378 (vendor V0295, $263.94, within the 2% tolerance). Not flagged: invoice matched and amount is within the usual range.",
+   "b": "Transaction of $265.52 on 2026-06-08 (CHECKCARD HARBOR CRUISES #252, posted 2026-06-09) matched to invoice INV-000378 (vendor V0295, $263.94, issued 2026-06-04), a difference within the 2% tolerance. Not flagged: invoice matched and amount is within the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "On 2026-05-21, a $125.40 transaction at LAKESIDEMARKET (posted 2026-05-23 to card ****3971) has no matching invoice and was flagged for that reason. The ledger shows 27 prior LAKESIDEMARKET transactions with no invoice on record.",
+   "b": "Transaction 2026-05-21 to LAKESIDEMARKET for $125.40 has no matching invoice and was flagged for that reason. The ledger shows this vendor with 27 prior transactions, all lacking invoices, so the flag is consistent with the vendor's history.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2026-02-27 for lakesidemarket, $60.03, has no matched invoice and was flagged as an anomaly because it is the first purchase from this vendor. The bank feed shows the posted amount as -$61.83 on 2026-03-01 (card ****8283), which differs from the ledger amount.",
+   "b": "Transaction: LAKESIDEMARKET, -$61.83 posted 2026-03-01 on card ****8283; no matched invoice. Flagged as an anomaly for being the first purchase from this vendor, which the ledger history for LAKESIDEMARKET supports (no prior entries appear).",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2026-09-28, SQ *STERLING ORG #1358 Boise ID, $65.64 on card ****7512, posted 2026-09-30. No matching invoice exists. Flagged as an anomaly for no matching invoice. The ledger shows roughly two dozen prior SQ *STERLING ORG charges across many cities, none with invoices.",
+   "b": "Transaction 2026-09-28, SQ *STERLING ORG #1358 Boise ID, $65.64, posted 2026-09-30 to card ****7512. No matching invoice exists, so it was flagged for that reason. The ledger shows 15 prior Sterling Org Square charges in various cities, all also without invoices.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2025-07-30 PAYPAL *REDWOODELE $51.46 matches INV-001521 (vendor V0082, $51.08, within 2%). Flagged because it is the first purchase from this vendor. Posted to card ****3979 on 2025-08-01.",
+   "b": "Transaction 2025-07-30 PAYPAL *REDWOODELE for $51.46 matched INV-001521 (vendor V0082, $51.08, issued 2025-07-27), within the 2% tolerance. Flagged as an anomaly because it is the first purchase from this vendor.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2025-04-05 ($2,470.55, PRIME PROTE RALEIGH NC) matches INV-001513 (vendor V0158, $2,454.03), within the 2% tolerance. Flagged as an anomaly because the amount is unusually high for this vendor.",
+   "b": "Transaction 2025-04-05 ($2,470.55, Prime Prote, Raleigh NC) matches INV-001513 ($2,454.03, issued 2025-03-19) within the 2% tolerance. It was flagged because the amount is unusually high for this vendor; the prior 24 transactions ranged roughly $498 to $1,018.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2025-02-08 (Amazon Prime, $155.46, posted 2025-02-10) matched to INV-000591 (vendor V0050, $157.33, issued 2025-01-25), a difference within the 2% match tolerance. Not flagged: the invoice matched and the amount is within the usual range.",
+   "b": "Transaction 2025-02-08, AMAZON PRIME*WGD6V, $155.46, posted 2025-02-10 to card ****1020. Not flagged: the invoice matched and the amount is within the usual range for this vendor's history.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2026-03-08 (AMZN MKTP US*7BKXX, $86.69) matched to INV-000121 (vendor V0050, $86.92, issued 2026-02-18), within the 2% tolerance. Not flagged: the invoice matched and the amount is within the usual range.",
+   "b": "Transaction 2026-03-08 (AMZN MKTP US*7BKXX, $86.69, posted 2026-03-10 on card ****7001) was not flagged; the record gives the reason as invoice matched and amount in the usual range. The record does not include the invoice number or the matched invoice's details for this transaction.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2026-09-25 for KEYSTONE FURNITURE DAL, $27.10, matched to INV-000014 (vendor V0014, $26.86, issued 2026-09-07) within the 2% tolerance. Flagged as a possible duplicate of a recent charge; the 2026-09-23 DAL charge of $27.10 (INV-773466) is identical in amount and vendor.",
+   "b": "Transaction 2026-09-25 from Keystone Furniture DAL for $27.10 matched to INV-000014 (vendor V0014, $26.86, issued 2026-09-07) within the 2% tolerance. Flagged as a possible duplicate of a recent charge.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "abl",
+   "a": "On 2025-04-13, a $18.46 GOLDEN NOODLE HOUSE transaction (posted 2025-04-14 to card ****4030) has no matched invoice and was flagged for no matching invoice. The vendor has 24 prior ledger entries, each with an invoice number, most recently INV-304847 on 2025-03-29.",
+   "b": "Bank feed shows a posted 2025-04-14 charge of -$18.46 to GOLDEN NOODLE HOUSE (card ****4030); no matching invoice was found, so it was flagged as an anomaly for that reason. The vendor has 23 prior ledger entries, each with an invoice reference.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2025-01-17 for WILLOW GAS & POWER (Boise, ID) at $110.75 matches invoice INV-001306 (vendor V0140, $110.85, issued 2025-01-03) within the 2% tolerance. Not flagged: the invoice matched and the amount is within the usual range.",
+   "b": "Transaction 2025-01-17 for $110.75 (Willow Gas & Power, Boise ID, posted 2025-01-19) matched INV-001306 (vendor V0140, $110.85, issued 2025-01-03) within the 2% tolerance. It was not flagged because it matched an invoice within tolerance.",
+   "v1": "FAIL",
+   "v1b": "DIFFERENT",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction of $104.03 at Quartz Motel Miami (2025-04-28) matched invoice INV-000406 from vendor V0005 ($103.66, issued 2025-04-22), within the 2% tolerance. Not flagged because the invoice matched and the amount is in the usual range.",
+   "b": "Transaction of $104.03 at Quartz Motel Miami on 2025-04-28 matched invoice INV-000406 (vendor V0005, $103.66, issued 2025-04-22), within the 2% tolerance. Not flagged: invoice matched and amount is in the usual range. Bank feed shows it posted 2025-04-30.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2025-08-12, POS MOSAIC DATA, $58.30, matched to INV-000321 (V0021, $57.55, within 2%). Flagged as possible duplicate: a $58.30 charge with the same merchant posted 2025-08-10 (INV-837644). Bank feed shows posted 2025-08-13, card ****2580.",
+   "b": "Transaction 2025-08-12 for POS MOSAIC DATA, $58.30, posted to the bank feed 2025-08-13 on card ****2580. It was flagged as a possible duplicate because an identical $58.30 charge with the same merchant appears in the ledger on 2025-08-10 under INV-837644. The flag is supported by the matching amount and merchant, two days apart.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2026-10-06 GOLDEN NOODLE HOUSE $38.89 matched INV-000105 (vendor V0136, $39.03, issued 2026-09-29), within the 2% tolerance. Flagged as anomaly because it is the first purchase from this vendor.",
+   "b": "2026-10-06 GOLDEN NOODLE HOUSE $38.89 matched INV-000105 (vendor V0136, $39.03, issued 2026-09-29; within 2% tolerance). Flagged as an anomaly because this is the first purchase from this vendor.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2026-11-28 ORCHID LEGAL PHOENIX AZ $297.30 (posted 2026-11-30, card ****9247) matches INV-001524 (vendor V0230, $292.62, issued 2026-11-10) within the 2% tolerance. Not flagged: invoice matched and the amount is in the usual range.",
+   "b": "Transaction posted 2026-11-30 to ORCHID LEGAL PHOENIX AZ for -$297.30 on card ****9247 matches INV-001524 (vendor V0230, $292.62, issued 2026-11-10), within the 2% tolerance. Not flagged because the invoice matched and the amount is in the usual range.",
+   "v1": "FAIL",
+   "v1b": "FAIL",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2026-01-07 (ORCHID MOTEL 2831, $81.32) matched to invoice INV-001584 (vendor V0154, $82.24, issued 2026-01-05), within the 2% tolerance. Not flagged: invoice matched and amount in the usual range. Bank feed posted 2026-01-08 at -$81.32.",
+   "b": "Transaction 2026-01-07, ORCHID MOTEL 2831, $81.32, matched to INV-001584 (vendor V0154, $82.24, issued 2026-01-05), within the 2% tolerance. Not flagged: the invoice matched and the amount is in the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2025-07-14 at Pacific Mart #1741 TAM for $97.21 matched invoice INV-000016 (vendor V0244, $97.31, issued 2025-07-12) within the 2% tolerance. Not flagged: the invoice matched and the amount was in the usual range.",
+   "b": "Bank transaction PACIFIC MART #1741 TAM (-$100.13, posted 2025-07-16, card ****1271) matched to INV-000016 (vendor V0244, $97.31, issued 2025-07-12) as the amount is within 2%. Not flagged because the invoice matched and the amount is in the usual range.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2025-05-09 at Willow Service Station #7366 (Tampa, FL) for $125.31 has no matched invoice and was flagged as an anomaly for that reason. The bank feed posted 2025-05-11 for -$125.31 on card ****2579. The ledger history shows many prior Willow Service Station charges, all without invoices, so the lack of a match is consistent with the account's history.",
+   "b": "Transaction WILLOW SERVICE STATION # (-$125.31, card ****2579, posted 2025-05-11) has no matched invoice and was flagged as an anomaly for \"no matching invoice.\" The ledger history shows many prior Willow Service Station transactions, all with no invoice, so the flag is consistent with the account's pattern.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2025-07-02 ATLAS PETROL $50.07 matched INV-000107 (V0032, $50.41, within the 2% tolerance). It was flagged as a possible duplicate, since an identical $50.07 ATLAS PETROL charge posted on 2025-06-29 (INV-279479).",
+   "b": "Transaction 2025-07-02 ATLAS PETROL $50.07 matches invoice INV-279479 (2025-06-29, $50.07), and the bank feed posted 2025-07-04 at -$51.57 on card ****7204. It was flagged as a possible duplicate of a recent charge, which the ledger record supports only as a same-amount match to the 2025-06-29 entry; the posted bank amount differs from the ledger amount.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2026-06-21, SQ *BLUE FRESH MARKET #455, $23.33, has no matched invoice and was flagged as a possible duplicate of a recent charge. The bank feed shows the same merchant and amount posted 2026-06-22, and the ledger shows an identical $23.33 charge at #455 on 2026-06-17.",
+   "b": "Transaction 2026-06-21 at SQ *BLUE FRESH MARKET #455 for $23.33 has no matched invoice and was flagged as a possible duplicate of a recent charge. The identical $23.33 charge at the same merchant (#455) posted on 2026-06-17 with no invoice, and the bank feed shows this entry posted 2026-06-22.",
+   "v1": "FAIL",
+   "v1b": "FAIL",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2026-01-07 (ORCHID MOTEL 2831, $81.32) matched to invoice INV-001584 (vendor V0154, $82.24, issued 2026-01-05), within the 2% tolerance. Not flagged: invoice matched and amount in the usual range. Bank feed posted 2026-01-08 at -$81.32.",
+   "b": "Bank feed shows ORCHID MOTEL 2831 posted 2026-01-08 for -$81.32 on card ****7928. Matched to INV-001584 (vendor V0154, $82.24, issued 2026-01-05), within the 2% tolerance. Not flagged: invoice matched and amount is in the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2026-10-05, Riverside Car Rental #2136 San Jose, $1,818.52, posted 2026-10-07, matched to INV-001554 (vendor V0265, $1,825.09, issued 2026-09-21) within the 2% tolerance. Flagged as an anomaly for unusually high amount for this vendor; the ledger shows prior charges mostly between $150 and $720, with one at $1,482.71.",
+   "b": "Transaction 2026-10-05, Riverside Car Rental #2136 San Jose, $1,818.52, posted 2026-10-07, matched to INV-001554 (vendor V0265, $1,825.09, issued 2026-09-21) within the 2% tolerance. Not flagged; the amount falls within tolerance.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2025-04-04 (EVERGREEN CARGO #2289, $115.54) matched invoice INV-000472 from vendor V0194 ($116.82, issued 2025-03-25), within the 2% tolerance. Not flagged: the invoice matched and the amount is within the usual range.",
+   "b": "Transaction 2025-04-04 for EVERGREEN CARGO #2289 ($115.54; bank posted 2025-04-05) matches INV-000472 (vendor V0194, $116.82, issued 2025-03-25) within the 2% tolerance. Not flagged: the invoice matched and the amount is within the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2025-08-12, POS MOSAIC DATA, $58.30, matched to INV-000321 (V0021, $57.55, within 2%). Flagged as possible duplicate: a $58.30 charge with the same merchant posted 2025-08-10 (INV-837644). Bank feed shows posted 2025-08-13, card ****2580.",
+   "b": "Transaction posted 2025-08-13 (POS MOSAIC DATA, -$58.30, card ****2580) matches INV-000321 (vendor V0021, $57.55, issued 2025-07-25) within the 2% tolerance. It was flagged as a possible duplicate of a recent charge: a $58.30 POS MOSAIC DATA charge is already in the ledger on 2025-08-10 under INV-837644.",
+   "v1": "FAIL",
+   "v1b": "FAIL",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "2025-02-24 GOLDEN NOODLE HOUSE transaction for $8.01 (bank feed pending, card ****5363) has no matched invoice and was flagged for that reason. Recent ledger history shows several prior transactions with this vendor also lacking invoices.",
+   "b": "Transaction 2025-02-24, Golden Noodle House, $8.01, is flagged for no matching invoice; the bank feed shows it as a pending $8.01 card charge (card ****5363). The ledger history shows this vendor has most prior transactions matched to invoices, with several earlier entries also lacking invoices.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2025-07-14 at Pacific Mart #1741 TAM for $97.21 matched invoice INV-000016 (vendor V0244, $97.31, issued 2025-07-12) within the 2% tolerance. Not flagged: the invoice matched and the amount was in the usual range.",
+   "b": "Transaction 2025-07-14 at PACIFIC MART #1741 TAM for $97.21 matched invoice INV-000016 (vendor V0244, $97.31, issued 2025-07-12) within the 2% tolerance. Not flagged, as the invoice matched and the amount was in the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "2026-05-20 card transaction of $81.01 at Riverside PA (posted 2026-05-22, card ****7772) has no matching invoice and was flagged for that reason. The record shows no matching invoice for any of the 25 recent Riverside Pantry transactions, so this is not an isolated gap.",
+   "b": "Transaction 2026-05-20 for $81.01 (CHECKCARD RIVERSIDE PA, posted 2026-05-22 on card ****7772) was flagged because no matching invoice exists. The ledger shows no invoice for any of the 25 prior Riverside Pantry transactions listed.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2026-10-28, ZENITH EXPRESS, $27.24 (posted 2026-10-30 to card ****3014) has no matching invoice and was flagged for that reason. The ledger shows this vendor has had 30 prior transactions with no invoice match, so the pattern is recurring, not isolated.",
+   "b": "Transaction: ZENITH EXPRESS, -$27.24, posted 2026-10-30 on card ****3014. No matching invoice was found, so it was flagged as an anomaly for \"no matching invoice.\" The vendor has a long history of similar charges, all with no invoice match, so the flag reflects the absence of invoices rather than an unusual amount.",
+   "v1": "FAIL",
+   "v1b": "FAIL",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2025-08-12, POS MOSAIC DATA, $58.30, matched to INV-000321 (V0021, $57.55, within 2%). Flagged as possible duplicate: a $58.30 charge with the same merchant posted 2025-08-10 (INV-837644). Bank feed shows posted 2025-08-13, card ****2580.",
+   "b": "Transaction 2025-08-12 ($58.30, POS MOSAIC DATA, posted 2025-08-13) matches INV-000321 ($57.55, vendor V0021, issued 2025-07-25) within the 2% tolerance. Flagged as a possible duplicate of a recent charge.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2026-06-15 (AMAZON PRIME*TMZMS, $338.72) matched invoice INV-001720 (vendor V0050, $332.40, issued 2026-06-12), within the 2% tolerance. It was not flagged because the invoice matched and the amount is within the usual range.",
+   "b": "Transaction 2026-06-15 (AMAZON PRIME*TMZMS, $338.72) posted 2026-06-16 to card ****9448 and was not flagged because the record shows an invoice match and an amount in the usual range. The ledger history includes prior Amazon transactions, several of which had no invoice, so the reviewer may wish to confirm the invoice match directly.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction of $104.03 at Quartz Motel Miami (2025-04-28) matched invoice INV-000406 from vendor V0005 ($103.66, issued 2025-04-22), within the 2% tolerance. Not flagged because the invoice matched and the amount is in the usual range.",
+   "b": "Transaction 2025-04-28 for POS QUARTZ MOTEL MIAMI, $104.03, posted to the bank feed 2025-04-30 on card ****5921. The record shows no invoice match for this transaction; the anomaly flag is \"no\" with the reason \"invoice matched and amount in the usual range,\" which conflicts with the absence of an invoice reference and needs reviewer confirmation.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2025-03-12 at POS SUMMIT LODGE for $527.83 (posted 2025-03-13 to card ****9673) has no matched invoice and was flagged as an anomaly for that reason. The ledger shows roughly 30 prior POS SUMMIT LODGE transactions over the past year, all also without invoices.",
+   "b": "Transaction 2025-03-12, POS Summit Lodge, $527.83, posted to card ****9673 on 2025-03-13. No matching invoice found, so it was flagged. This vendor shows 30 prior transactions since March 2024, all with no invoice match.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "abl",
+   "a": "Transaction 2025-10-13 for LOTUS DESK C ($70.64) matched invoice INV-000312 (vendor V0177, $71.35, issued 2025-10-02), within the 2% tolerance. Not flagged because the invoice matched and the amount is in the usual range. Bank feed posted 2025-10-15 for -$70.64 on card ****3178.",
+   "b": "Transaction of $70.64 on 2025-10-13 (LOTUS DESK C, posted 2025-10-15, card ****3178) matches invoice INV-000312 (vendor V0177, $71.35, issued 2025-10-02); the difference is within the 2% tolerance. Not flagged: invoice matched and amount is in the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-04-09 (WILD CELLULAR #3426, $89.66, posted 2025-04-11) matched INV-001856 (vendor V0159, $90.27), a difference within the 2% tolerance. Not flagged: invoice matched and amount is in the usual range.",
+   "b": "Transaction of $89.66 to WILD CELLULAR #3426 on 2025-04-09 matched invoice INV-001856 ($90.27, issued 2025-04-02), within the 2% tolerance. Not flagged: the invoice matched and the amount is within the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2026-11-10, SQ *PACIFIC PIZZA 8710, $14.48 (posted 2026-11-11, card ****5607), has no matched invoice and was flagged for that reason. The recent ledger shows many similar Pacific Pizza charges, all also without invoices.",
+   "b": "Bank feed shows a $14.48 posting on 2026-11-11 to SQ *PACIFIC PIZZA 8710 on card ****5607. No matching invoice was found, so the transaction was flagged as an anomaly. The recent ledger history shows eight prior Pacific Pizza transactions, all also without invoices.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-04-10, Riverside Car Rental #3224 Omaha, $505.40, matched to INV-001390 (vendor V0265, $497.65, issued 2025-03-22) within the 2% tolerance. Not flagged: the invoice matched and the amount is in the usual range.",
+   "b": "Transaction of $505.40 from Riverside Car Rental #3224 (Omaha, NE) on 2025-04-10 matched invoice INV-001390 (vendor V0265, $497.65, issued 2025-03-22), within the 2% tolerance. Not flagged: the invoice matched and the amount is within the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-04-09 (WILD CELLULAR #3426, $89.66, posted 2025-04-11) matched INV-001856 (vendor V0159, $90.27), a difference within the 2% tolerance. Not flagged: invoice matched and amount is in the usual range.",
+   "b": "Transaction on 2025-04-09 with WILD CELLULAR #3426 for $89.66 matched to invoice INV-001856 (vendor V0159, $90.27, issued 2025-04-02), within the 2% tolerance. Not flagged: the invoice matched and the amount is in the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2026-07-16 ($298.02, Riverside Analytics Dallas) matches INV-001605 ($302.53, vendor V0165) within the 2% tolerance and posted 2026-07-17. It was flagged as anomalous because the amount is unusually high for this vendor, whose prior charges mostly fall between about $50 and $105.",
+   "b": "Transaction 2026-07-16 ($298.02, Riverside Analytics, Dallas TX) matches INV-001605 (vendor V0165, $302.53, within the 2% tolerance) and posted 2026-07-17. It was flagged as an anomaly because the amount is unusually high for this vendor, where prior charges range from about $49 to $177.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-04-30 for Mosaic Engineering Boise ($928.08) matches INV-001388 (V0204, $928.15, issued 2025-04-14) within the 2% tolerance. It was flagged as a possible duplicate because an identical $928.08 charge from Mosaic Engineering Boise posted on 2025-04-27 (INV-427944).",
+   "b": "Transaction 2025-04-30, Mosaic Engineering Boise ID, $928.08, matched to INV-001388 (V0204, $928.15, within 2% tolerance). Flagged as a possible duplicate because an identical $928.08 charge posted 2025-04-27 (INV-427944).",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2026-11-28 ORCHID LEGAL PHOENIX AZ $297.30 (posted 2026-11-30, card ****9247) matches INV-001524 (vendor V0230, $292.62, issued 2026-11-10) within the 2% tolerance. Not flagged: invoice matched and the amount is in the usual range.",
+   "b": "Transaction dated 2026-11-28 from ORCHID LEGAL (Phoenix, AZ) for $297.30 matched to invoice INV-001524 (vendor V0230, $292.62, issued 2026-11-10). The amount difference is within the 2% tolerance, so it was not flagged.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-07-15, ORCHID GAS STATION #1473, $42.07, posted 2025-07-16 to card ****7898, has no matched invoice. Flagged as an anomaly because it is the first purchase from this vendor in the ledger history provided.",
+   "b": "Transaction 2025-07-15 for $42.07 at Orchid Gas Station #1473 has no matching invoice and was flagged because it is the first purchase from this vendor. The bank feed shows the same $42.07 posted 2025-07-16 on card ****7898.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2026-08-17, Orchid Noodle House, $12.57, posted 2026-08-19 to card ****8454. No invoice matched. Flagged as a possible duplicate of a recent charge: a $12.57 PayPal charge to Orchidnood on 2026-08-13 with no invoice.",
+   "b": "Transaction on 2026-08-17 at Orchid Noodle House for $12.57 has no matching invoice. Flagged as a possible duplicate of a recent charge.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2026-06-02, SQ *PACIFIC ASSOCIATES, $778.29, matched to INV-001938 (vendor V0114, $790.52, issued 2026-05-23) within the 2% tolerance. Not flagged because the invoice matched and the amount is in the usual range.",
+   "b": "Transaction 2026-06-02, SQ *PACIFIC ASSOCIATES, $778.29, matched to INV-001938 (vendor V0114, $790.52, issued 2026-05-23) within the 2% tolerance. Not flagged: invoice matched and amount is in the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-04-10, Riverside Car Rental #3224 Omaha, $505.40, matched to INV-001390 (vendor V0265, $497.65, issued 2025-03-22) within the 2% tolerance. Not flagged: the invoice matched and the amount is in the usual range.",
+   "b": "Transaction 2025-04-10 for $505.40 (Riverside Car Rental #3224, Omaha NE) matched INV-001390 (vendor V0265, $497.65, issued 2025-03-22) within the 2% tolerance, so it was not flagged. The bank feed posted 2025-04-11 as -$505.40 on card ****4710.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-07-30 PAYPAL *REDWOODELE $51.46 matches INV-001521 (vendor V0082, $51.08, within 2%). Flagged because it is the first purchase from this vendor. Posted to card ****3979 on 2025-08-01.",
+   "b": "Transaction 2025-07-30 PAYPAL *REDWOODELE for $51.46 matches invoice INV-001521 (vendor V0082, $51.08, issued 2025-07-27), within the 2% tolerance. It was flagged because this is the first purchase from this vendor.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-11-18, URBANPUMP #615, $175.49 (pending), matched to INV-001760 (vendor V0055, $176.36, issued 2025-11-05) within the 2% tolerance. Flagged as an anomaly because the amount is unusually high for this vendor.",
+   "b": "Transaction 2025-11-18 for urbanpump #615 ($175.49) matches invoice INV-001760 (vendor V0055, $176.36, issued 2025-11-05) within the 2% tolerance. It was flagged as an anomaly because the amount is unusually high for this vendor relative to recent history.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2026-11-08 for $28.06 (PAYPAL *ECHOWIRELE, Reno NV) matches INV-001858 from vendor V0013 ($28.15, issued 2026-10-30), within the 2% tolerance. It was flagged as a possible duplicate of the 2026-11-04 charge of $28.06 (PAYPAL *ECHOWIRELE #7456, Tucson AZ, INV-413244).",
+   "b": "Transaction of $28.06 on 2026-11-08 (PayPal, Echowire, Reno NV) matched to INV-001858 from vendor V0013 for $28.15, issued 2026-10-30, within the 2% tolerance. Flagged as a possible duplicate of a recent charge.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2026-11-21 (ORCHID MOTEL 541776, $484.59) matched to INV-001949 (vendor V0154, $488.17, issued 2026-11-14), within the 2% tolerance. Not flagged: the invoice matched and the amount is in the usual range. Bank feed posted 2026-11-23.",
+   "b": "Transaction 2026-11-21 for ORCHID MOTEL 541776 ($484.59) matched invoice INV-001949 from vendor V0154 ($488.17, issued 2026-11-14), within the 2% tolerance. Not flagged, as the invoice matched and the amount is in the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-01-18, SQ *WILLOW MARKE PHOEN, $66.63, posted 2025-01-19 on card ****6370, has no matched invoice. It was flagged as an anomaly because it is the first purchase from this vendor in the recent ledger history.",
+   "b": "Transaction on 2025-01-18 at SQ *WILLOW MARKE PHOEN for $66.63 has no matched invoice. Flagged because it is the first purchase from this vendor.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "2026-11-03 NOVA ANALYTICS 653712 ($101.05, pending) matched to INV-001611 (vendor V0246, $100.74, issued 2026-10-19) within the 2% tolerance. Flagged as a first purchase from this vendor.",
+   "b": "Transaction matched to INV-001611 (vendor V0246, $100.74, issued 2026-10-19), within the 2% tolerance. Flagged because this is the first purchase from this vendor.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-02-20 (ORCHID MOTEL, $212.27) matched to INV-002009 (vendor V0154, $210.98, issued 2025-02-16) within the 2% tolerance, so it was not flagged; the amount is in the usual range. The bank feed shows a later posting on 2025-02-21 for $218.64, which is not addressed in the anomaly record.",
+   "b": "Transaction of $212.27 to Orchid Motel on 2025-02-20 matched invoice INV-002009 ($210.98, issued 2025-02-16), within the 2% tolerance. Not flagged: the invoice matched and the amount is within the usual range.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2026-08-17, Orchid Noodle House, $12.57, posted 2026-08-19 to card ****8454. No invoice matched. Flagged as a possible duplicate of a recent charge: a $12.57 PayPal charge to Orchidnood on 2026-08-13 with no invoice.",
+   "b": "2026-08-17 Square charge at Orchid Noodle House, $12.57, has no matched invoice. Flagged as a possible duplicate of a recent charge. The ledger shows prior Orchid Noodle House charges on 2026-05-23 ($14.40), 2026-05-01 ($33.27), and 2026-03-30 ($36.00), none with invoices. The amounts differ.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2026-02-01 at NORTHERN POSTAL SEATTL for $23.75 has no matching invoice and was flagged for that reason. The bank feed posted 2026-02-03 for -$24.46 on card ****4548, a $0.71 difference from the ledger amount.",
+   "b": "Transaction of $23.75 to Northern Postal Seattle on 2026-02-01 has no matching invoice in the record. Flagged for review because no matching invoice was found.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-06-21, SQ *KEYSTONE POSTA #1832 Miami FL, $17.90 (posted 2025-06-22, card ****3597) has no matched invoice and was flagged for that reason. The vendor appears in 24 prior ledger entries, each with an invoice match, so the flag reflects the missing invoice alone.",
+   "b": "Transaction of $17.90 on 2025-06-21 from SQ *KEYSTONE POSTA #1832 (Miami, FL) has no matching invoice and was flagged for that reason. Prior Keystone Posta transactions in the ledger were each matched to invoices.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2026-09-22 (IRON HEATING, $154.13) matched to INV-001407 (vendor V0075, $153.96, issued 2026-09-19) within the 2% tolerance. Not flagged: the invoice matched and the amount is in the usual range.",
+   "b": "Transaction of $154.13 to IRON HEATING on 2026-09-22 matched invoice INV-001407 (vendor V0075, $153.96, issued 2026-09-19), within the 2% tolerance. Not flagged: the invoice matched and the amount is in the usual range relative to recent IRON HEATING payments ($71.24 to $158.50).",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-05-12 from EVERGREEN CARGO #4358 for $44.33 (posted 2025-05-13, card ****1720) matches invoice INV-001606 (vendor V0194, $43.93, issued 2025-04-24) within the 2% tolerance. It was not flagged because the invoice matched and the amount is within the usual range.",
+   "b": "Transaction of $44.33 to Evergreen Cargo #4358 on 2025-05-12 matched invoice INV-001606 (vendor V0194, $43.93, issued 2025-04-24), within the 2% tolerance. Not flagged because the invoice matched and the amount is within the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-07-15, ORCHID GAS STATION #1473, $42.07, posted 2025-07-16 to card ****7898, has no matched invoice. Flagged as an anomaly because it is the first purchase from this vendor in the ledger history provided.",
+   "b": "Transaction of $42.07 at ORCHID GAS STATION #1473 on 2025-07-15 has no matched invoice. Flagged because it is the first purchase from this vendor. Ledger shows prior purchases from Union Gas Station, not Orchid.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2026-01-15 for $1,986.47 to Pos Pacific Associates matched INV-001749 (vendor V0114, $1,949.60, issued 2026-01-12) within the 2% tolerance. Not flagged: the invoice matched and the amount is in the usual range.",
+   "b": "Transaction 2026-01-15 for Pos Pacific Associates, $1,986.47, matched to INV-001749 (vendor V0114, $1,949.60, issued 2026-01-12) within the 2% tolerance. Not flagged: the invoice matched and the amount is in the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2026-01-19 ($2,675.50, Granite Surety Nashville) matched INV-001937 (vendor V0156, $2,719.22, within the 2% tolerance). Flagged as an anomaly because the amount is unusually high for this vendor; recent history shows typical charges of roughly $150\u2013$480.",
+   "b": "Transaction 2026-01-19 ($2,675.50, Granite Surety Nashville) matched invoice INV-001937 (vendor V0156, $2,719.22, within the 2% tolerance). Flagged as unusually high for this vendor, versus a prior history mostly between $170 and $480.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2026-10-01 (AMAZON PRIME*XGX8G, $103.46, posted 2026-10-02) matches INV-001737 (vendor V0050, $103.23, within the 2% tolerance). It was flagged as a possible duplicate of the 2026-09-29 charge of $103.46 (INV-709370), which has the same amount.",
+   "b": "Transaction of $103.46 on 2026-10-01 (AMAZON PRIME*XGX8G) matched to INV-001737 (vendor V0050, $103.23, issued 2026-09-19), within the 2% tolerance. Flagged as a possible duplicate of a recent charge.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-10-06 (posted 2025-10-08), SQ *CEDARDINER MIAMI FL, $40.08 on card ****4370, has no matching invoice and was flagged for that reason. The recent ledger history shows about two dozen similar Cedar Diner charges, none with an invoice.",
+   "b": "Transaction: SQ *CEDARDINER MIAMI FL, -$40.08, card ****4370, posted 2025-10-08. No matching invoice; flagged as an anomaly for that reason. The ledger shows 15 prior CEDAR DINER/CEDARDINER transactions (Sept 2024 to Sept 2025), all with no invoice, so this charge is consistent with that pattern.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-10-25 at POS QUARTZ MOTEL TAMPA for $1,298.08 matches invoice INV-001855 (vendor V0005, $1,279.58, within the 2% tolerance). It was flagged because the amount is unusually high for this vendor.",
+   "b": "Transaction of $1,298.08 on 2025-10-25 at POS Quartz Motel Tampa matches INV-001855 (vendor V0005, $1,279.58, issued 2025-10-19) within the 2% tolerance. Flagged because the amount is unusually high for this vendor relative to recent history.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "2025-02-24 GOLDEN NOODLE HOUSE transaction for $8.01 (bank feed pending, card ****5363) has no matched invoice and was flagged for that reason. Recent ledger history shows several prior transactions with this vendor also lacking invoices.",
+   "b": "Transaction on 2025-02-24 with Golden Noodle House for $8.01 has no matching invoice on record. It was flagged as an anomaly for that reason.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2026-07-18, GOLDEN PROMOTIONS #5437, $186.50, posted 2026-07-20 on card ****9342. No invoice matched. Flagged as a possible duplicate of the 2026-07-17 GOLDEN PROMOTIONS #6325 charge of the same amount, which also has no invoice.",
+   "b": "Transaction 2026-07-18 for $186.50 to GOLDEN PROMOTIONS #5437 has no matched invoice and was flagged as a possible duplicate of the 2026-07-17 charge of $186.50 to GOLDEN PROMOTIONS #6325, which also had no invoice.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-02-21 (POS PRIME TOURS, $377.87, posted 2025-02-23) matches INV-001829 from vendor V0266 ($380.96, within the 2% tolerance). It was flagged as an anomaly because this is the first purchase from this vendor.",
+   "b": "Transaction of $377.87 on 2025-02-21 (POS PRIME TOURS #8741) matched to INV-001829 ($380.96, vendor V0266, issued 2025-02-02) within the 2% tolerance. Flagged because it is the first purchase from this vendor.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-07-30 PAYPAL *REDWOODELE $51.46 matches INV-001521 (vendor V0082, $51.08, within 2%). Flagged because it is the first purchase from this vendor. Posted to card ****3979 on 2025-08-01.",
+   "b": "Transaction of $51.46 on 2025-07-30 (PayPal *REDWOODELE) matched to INV-001521 ($51.08, vendor V0082, issued 2025-07-27), within the 2% tolerance. Flagged because it is the first purchase from this vendor.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2026-10-14 from VISTA LAW GROUP for $318.73 matched INV-001534 (vendor V0198, $316.57, issued 2026-10-09) within the 2% tolerance, so it was not flagged; the amount falls within the usual range. Bank feed posted 2026-10-16 for -$318.73 on card ****8090.",
+   "b": "Transaction 2026-10-14 to Vista Law Group for $318.73 matches invoice INV-001534 ($316.57, issued 2026-10-09, within the 2% tolerance). Not flagged: the invoice matched and the amount is within the vendor's usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-05-19 from Evergreen Cargo #8948 for $68.82 matches INV-001492 (vendor V0194, $68.49, within 2%). It was flagged as a first purchase from this vendor. The bank feed shows the posted amount as $70.88 on 2025-05-20.",
+   "b": "Transaction 2025-05-19, Evergreen Cargo #8948, $68.82, matched to INV-001492 ($68.49, within 2%). Flagged as a first purchase from this vendor. The recent history shows only Sterling Transport entries, so it does not establish a prior Evergreen Cargo purchase.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-02-10, Silver Suppl, $87.75 (bank posted 2025-02-11, card ****6538) has no matching invoice and was flagged for that reason. The ledger shows many prior Silver Suppl transactions, all without invoices, so the lack of a match appears consistent with this vendor's history.",
+   "b": "Transaction of $87.75 to Silver Suppl on 2025-02-10 (bank posted 2025-02-11, card ****6538) was flagged because no matching invoice was found. The bank feed amount and payee match the transaction, so the only open item is the missing invoice.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "pol",
+   "a": "2026-11-03 NOVA ANALYTICS 653712 ($101.05, pending) matched to INV-001611 (vendor V0246, $100.74, issued 2026-10-19) within the 2% tolerance. Flagged as a first purchase from this vendor.",
+   "b": "Transaction of $101.05 on 2026-11-03 (Nova Analytics, 653712) matches invoice INV-001611 (vendor V0246, $100.74, issued 2026-10-19) within the 2% tolerance. Flagged because it is the first purchase from this vendor.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2026-10-05, Riverside Car Rental #2136 San Jose, $1,818.52, posted 2026-10-07, matched to INV-001554 (vendor V0265, $1,825.09, issued 2026-09-21) within the 2% tolerance. Flagged as an anomaly for unusually high amount for this vendor; the ledger shows prior charges mostly between $150 and $720, with one at $1,482.71.",
+   "b": "Transaction 2026-10-05 at Riverside Car Rental #2136 (San Jose, CA) for $1,818.52 matches INV-001554 ($1,825.09, issued 2026-09-21) within the 2% tolerance. It was flagged as an anomaly because the amount is unusually high for this vendor.",
+   "v1": "DIFFERENT",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2026-08-19 at ONYXORGANICS #3100 RENO NV for $140.16 (posted 2026-08-21, card ****7863) matches INV-001610 from vendor V0251 for $141.25, issued 2026-08-12, within the 2% tolerance. Flagged as an anomaly because it is the first purchase from this vendor.",
+   "b": "Transaction 2026-08-19 at ONYXORGANICS #3100 RENO NV for $140.16 matches invoice INV-001610 (vendor V0251, $141.25, issued 2026-08-12), within the 2% tolerance. It was flagged because this is the first purchase from this vendor.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2026-08-23, PAYPAL *METRORAIL, $419.70 (posted 2026-08-25, card ****6336) has no matched invoice and was flagged for \"no matching invoice.\" The ledger shows 24 prior PAYPAL/METRO RAIL transactions with no invoice match, so this charge follows an established pattern.",
+   "b": "Transaction has no matching invoice on record, so it was flagged as an anomaly for reviewer follow-up. No further details were provided in the record.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-07-15, ORCHID GAS STATION #1473, $42.07, posted 2025-07-16 to card ****7898, has no matched invoice. Flagged as an anomaly because it is the first purchase from this vendor in the ledger history provided.",
+   "b": "On 2025-07-15, a $42.07 payment to Orchid Gas Station #1473 has no matching invoice. It was flagged because it is the first purchase from this vendor.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-04-11, SUMMIT SUITE #9401 ATL, $100.95 (bank posted 2025-04-12, card ****9610) has no matched invoice and was flagged for that reason. The recent ledger history shows many other SUMMIT SUITE transactions also lacking invoices, so this may be a recurring pattern rather than an isolated item.",
+   "b": "Transaction flagged as an anomaly because no matching invoice was found in the record. This is the same pattern as the five prior \"SUMMIT SUITE\" charges in the ledger history (Nov 2024 to Jan 2025), none of which have an invoice on file.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-08-30 POS NOVAMOVERS DENVER CO, $230.89, posted 2025-09-01 to card ****5046, matched to INV-001489 (vendor V0164, $232.49, issued 2025-08-27) within the 2% tolerance. Flagged as an anomaly because the amount is unusually high for this vendor; prior ledger charges range from about $9 to $38.",
+   "b": "Transaction of $230.89 on 2025-08-30 (NovaMovers, Denver, CO) matches invoice INV-001489 from vendor V0164 for $232.49, issued 2025-08-27, within the 2% tolerance. Flagged because the amount is unusually high for this vendor.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2026-05-27 for $45.66 to Orchid Communications (Austin, TX) has no matched invoice and was flagged as a possible duplicate of a recent charge. The identical $45.66 charge on 2026-05-25 (INV-936765) is the likely match for that flag.",
+   "b": "Transaction 2026-05-27, $45.66 to Orchidcommunications (Austin, TX), posted 2026-05-29, no matched invoice. Flagged as a possible duplicate: an identical $45.66 charge to the same merchant (INV-936765) posted 2026-05-25, two days earlier.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2026-04-22 ($94.40, POS Lakeside Fiber Madison WI) matched INV-001404 (vendor V0074, $95.76, issued 2026-04-17) within the 2% tolerance, so it was not flagged; amount falls in the usual range. Bank feed posted 2026-04-24 at -$97.23.",
+   "b": "Transaction 2026-04-22 POS LAKESIDE FIBER, $94.40, matched to INV-001404 (V0074, $95.76, issued 2026-04-17) within the 2% tolerance. Bank feed shows posted 2026-04-24 at -$97.23, a difference from the transaction amount not addressed in this record. Not flagged for the amount match.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-04-03, PAYPAL *IRONTRAVEL #9964, $99.12, posted 2025-04-05 to card ****9693; no matching invoice. Flagged as a possible duplicate because an identical $99.12 charge from IRON TRAVEL PLAZA DENVER CO appears on 2025-03-30 with no invoice.",
+   "b": "Transaction 2025-04-03, PAYPAL *IRONTRAVEL #9964, $99.12, posted 2025-04-05 on card ****9693. No matching invoice exists. Flagged as a possible duplicate because an identical $99.12 charge occurred 2025-03-30 (iron travel plaza denver co), also with no invoice.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-01-20 PAYPAL *BLUECONNEC MIA, $33.73, matched to INV-001811 (V0166, $34.21, within 2% tolerance). Not flagged: invoice matched and amount is within the usual range.",
+   "b": "Transaction 2025-01-20 (PayPal *BLUECONNEC MIA, $33.73) matches invoice INV-001811 from vendor V0166 ($34.21, issued 2025-01-11) within the 2% tolerance. Not flagged: the invoice matched and the amount is in the usual range.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-04-23 ($111.96, Golden Noodle House) matches INV-001842 ($110.27, issued 2025-04-19), within the 2% tolerance. It was flagged because the amount is unusually high for this vendor, which is well above its typical history of roughly $6\u2013$56.",
+   "b": "Transaction 2025-04-23 from Golden Noodle House for $111.96 matches invoice INV-001842 ($110.27, issued 2025-04-19) within the 2% tolerance. It was flagged because the amount is unusually high relative to this vendor's prior transactions ($11.75, $41.86, $23.71).",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "DIFFERENT"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-12-29 (posted 2025-12-30) for $538.10 to POS Prime Tours #337 matches INV-001813 (vendor V0266, $540.65, issued 2025-12-19), within the 2% tolerance. Not flagged: the invoice matched and the amount is in the usual range.",
+   "b": "Transaction 2025-12-29 for POS PRIME TOURS #337 ($538.10) matched to invoice INV-001813 (vendor V0266, $540.65, issued 2025-12-19), within the 2% tolerance. Not flagged because the invoice matched and the amount is in the usual range. Bank feed shows it posted 2025-12-30.",
+   "v1": "SAME",
+   "v1b": "SAME",
+   "mini": "SAME"
+  },
+  {
+   "src": "pol",
+   "a": "Transaction 2025-05-19 from Evergreen Cargo #8948 for $68.82 matches INV-001492 (vendor V0194, $68.49, within 2%). It was flagged as a first purchase from this vendor. The bank feed shows the posted amount as $70.88 on 2025-05-20.",
+   "b": "Transaction 2025-05-19 from Evergreen Cargo ($68.82) matched invoice INV-001492 (vendor V0194, $68.49, issued 2025-05-02), within the 2% tolerance. Flagged because it is the first purchase from this vendor.",
+   "v1": "DIFFERENT",
+   "v1b": "DIFFERENT",
+   "mini": "DIFFERENT"
+  }
+ ],
+ "cert": {
+  "learned+reason A": {
+   "cal_summary": {
+    "name": "learned+reason A on calibration (train OOF)",
+    "n": 80,
+    "raw_dis": 0.1875,
+    "raw_ub": 0.2739325791664344,
+    "cons_dis": 0.1125,
+    "cons_ub": 0.18810367615513554,
+    "tokens_removed": 0.26188120625847344,
+    "mean_hist_kept": 14.25,
+    "mean_hist": 21.5375,
+    "fixed_dropped": 0.0,
+    "trunc": 0.0,
+    "frac_full": 0.4625,
+    "by_scn": {
+     "dup": {
+      "n": 14,
+      "tok_removed": 0.0,
+      "cons_dis": 0.2857142857142857,
+      "raw_dis": 0.35714285714285715
+     },
+     "first": {
+      "n": 16,
+      "tok_removed": 0.4450329494364722,
+      "cons_dis": 0.0625,
+      "raw_dis": 0.125
+     },
+     "noinv": {
+      "n": 15,
+      "tok_removed": 0.0,
+      "cons_dis": 0.06666666666666667,
+      "raw_dis": 0.2
+     },
+     "normal": {
+      "n": 25,
+      "tok_removed": 0.4529804520955676,
+      "cons_dis": 0.08,
+      "raw_dis": 0.08
+     },
+     "spike": {
+      "n": 10,
+      "tok_removed": 0.27855862654466557,
+      "cons_dis": 0.1,
+      "raw_dis": 0.3
+     }
+    }
+   },
+   "cert": {
+    "raw@5%": {
+     "cutoff": Infinity,
+     "cal_n": 80,
+     "cal_coverage": 0.0,
+     "cal_emp_error": null,
+     "cal_bound": null,
+     "test_coverage": 0.0,
+     "test_error": null,
+     "test_n_above": 0,
+     "tokens_saved_test": 0.0,
+     "pooled": {
+      "n": 180,
+      "cutoff": Infinity,
+      "coverage": 0.0,
+      "emp_error": null,
+      "bound": null,
+      "tokens_saved": 0.0
+     }
+    },
+    "raw@10%": {
+     "cutoff": Infinity,
+     "cal_n": 80,
+     "cal_coverage": 0.0,
+     "cal_emp_error": null,
+     "cal_bound": null,
+     "test_coverage": 0.0,
+     "test_error": null,
+     "test_n_above": 0,
+     "tokens_saved_test": 0.0,
+     "pooled": {
+      "n": 180,
+      "cutoff": Infinity,
+      "coverage": 0.0,
+      "emp_error": null,
+      "bound": null,
+      "tokens_saved": 0.0
+     }
+    },
+    "raw@15%": {
+     "cutoff": Infinity,
+     "cal_n": 80,
+     "cal_coverage": 0.0,
+     "cal_emp_error": null,
+     "cal_bound": null,
+     "test_coverage": 0.0,
+     "test_error": null,
+     "test_n_above": 0,
+     "tokens_saved_test": 0.0,
+     "pooled": {
+      "n": 180,
+      "cutoff": Infinity,
+      "coverage": 0.0,
+      "emp_error": null,
+      "bound": null,
+      "tokens_saved": 0.0
+     }
+    },
+    "raw@20%": {
+     "cutoff": Infinity,
+     "cal_n": 80,
+     "cal_coverage": 0.0,
+     "cal_emp_error": null,
+     "cal_bound": null,
+     "test_coverage": 0.0,
+     "test_error": null,
+     "test_n_above": 0,
+     "tokens_saved_test": 0.0,
+     "pooled": {
+      "n": 180,
+      "cutoff": Infinity,
+      "coverage": 0.0,
+      "emp_error": null,
+      "bound": null,
+      "tokens_saved": 0.0
+     }
+    },
+    "raw_pooled_summary": {
+     "n": 180,
+     "overall_dis": 0.16111111111111112,
+     "pruned_share": 0.5166666666666667,
+     "top_half_conf_dis": 0.10638297872340426,
+     "n_needed_5": null,
+     "n_needed_10": null,
+     "floor_rate": 0.16
+    },
+    "cons@5%": {
+     "cutoff": Infinity,
+     "cal_n": 80,
+     "cal_coverage": 0.0,
+     "cal_emp_error": null,
+     "cal_bound": null,
+     "test_coverage": 0.0,
+     "test_error": null,
+     "test_n_above": 0,
+     "tokens_saved_test": 0.0,
+     "pooled": {
+      "n": 180,
+      "cutoff": Infinity,
+      "coverage": 0.0,
+      "emp_error": null,
+      "bound": null,
+      "tokens_saved": 0.0
+     }
+    },
+    "cons@10%": {
+     "cutoff": Infinity,
+     "cal_n": 80,
+     "cal_coverage": 0.0,
+     "cal_emp_error": null,
+     "cal_bound": null,
+     "test_coverage": 0.0,
+     "test_error": null,
+     "test_n_above": 0,
+     "tokens_saved_test": 0.0,
+     "pooled": {
+      "n": 180,
+      "cutoff": Infinity,
+      "coverage": 0.0,
+      "emp_error": null,
+      "bound": null,
+      "tokens_saved": 0.0
+     }
+    },
+    "cons@15%": {
+     "cutoff": Infinity,
+     "cal_n": 80,
+     "cal_coverage": 0.0,
+     "cal_emp_error": null,
+     "cal_bound": null,
+     "test_coverage": 0.0,
+     "test_error": null,
+     "test_n_above": 0,
+     "tokens_saved_test": 0.0,
+     "pooled": {
+      "n": 180,
+      "cutoff": Infinity,
+      "coverage": 0.0,
+      "emp_error": null,
+      "bound": null,
+      "tokens_saved": 0.0
+     }
+    },
+    "cons@20%": {
+     "cutoff": Infinity,
+     "cal_n": 80,
+     "cal_coverage": 0.0,
+     "cal_emp_error": null,
+     "cal_bound": null,
+     "test_coverage": 0.0,
+     "test_error": null,
+     "test_n_above": 0,
+     "tokens_saved_test": 0.0,
+     "pooled": {
+      "n": 180,
+      "cutoff": 0.950135917523981,
+      "coverage": 0.5,
+      "emp_error": 0.06666666666666667,
+      "bound": 0.18457839241542714,
+      "tokens_saved": 0.26841816614870334
+     }
+    },
+    "cons_pooled_summary": {
+     "n": 180,
+     "overall_dis": 0.11666666666666667,
+     "pruned_share": 0.5166666666666667,
+     "top_half_conf_dis": 0.06382978723404255,
+     "n_needed_5": null,
+     "n_needed_10": null,
+     "floor_rate": 0.13
+    }
+   }
+  },
+  "learned+reason A +40 unlabelled cal": {
+   "cal_summary": {
+    "name": "learned+reason A on calibration (train OOF + unlabelled train)",
+    "n": 120,
+    "raw_dis": 0.175,
+    "raw_ub": 0.24213394359223783,
+    "cons_dis": 0.1,
+    "cons_ub": 0.15698351392816026,
+    "tokens_removed": 0.24269942014726165,
+    "mean_hist_kept": 15.05,
+    "mean_hist": 21.933333333333334,
+    "fixed_dropped": 0.0,
+    "trunc": 0.0,
+    "frac_full": 0.5083333333333333,
+    "by_scn": {
+     "dup": {
+      "n": 19,
+      "tok_removed": 0.0,
+      "cons_dis": 0.2631578947368421,
+      "raw_dis": 0.3157894736842105
+     },
+     "first": {
+      "n": 19,
+      "tok_removed": 0.45277071682765635,
+      "cons_dis": 0.05263157894736842,
+      "raw_dis": 0.10526315789473684
+     },
+     "noinv": {
+      "n": 24,
+      "tok_removed": 0.0,
+      "cons_dis": 0.041666666666666664,
+      "raw_dis": 0.20833333333333334
+     },
+     "normal": {
+      "n": 38,
+      "tok_removed": 0.48102033817826906,
+      "cons_dis": 0.07894736842105263,
+      "raw_dis": 0.07894736842105263
+     },
+     "spike": {
+      "n": 20,
+      "tok_removed": 0.13453915895940594,
+      "cons_dis": 0.1,
+      "raw_dis": 0.25
+     }
+    }
+   },
+   "cert": {
+    "raw@5%": {
+     "cutoff": Infinity,
+     "cal_n": 120,
+     "cal_coverage": 0.0,
+     "cal_emp_error": null,
+     "cal_bound": null,
+     "test_coverage": 0.0,
+     "test_error": null,
+     "test_n_above": 0,
+     "tokens_saved_test": 0.0,
+     "pooled": {
+      "n": 220,
+      "cutoff": Infinity,
+      "coverage": 0.0,
+      "emp_error": null,
+      "bound": null,
+      "tokens_saved": 0.0
+     }
+    },
+    "raw@10%": {
+     "cutoff": Infinity,
+     "cal_n": 120,
+     "cal_coverage": 0.0,
+     "cal_emp_error": null,
+     "cal_bound": null,
+     "test_coverage": 0.0,
+     "test_error": null,
+     "test_n_above": 0,
+     "tokens_saved_test": 0.0,
+     "pooled": {
+      "n": 220,
+      "cutoff": Infinity,
+      "coverage": 0.0,
+      "emp_error": null,
+      "bound": null,
+      "tokens_saved": 0.0
+     }
+    },
+    "raw@15%": {
+     "cutoff": Infinity,
+     "cal_n": 120,
+     "cal_coverage": 0.0,
+     "cal_emp_error": null,
+     "cal_bound": null,
+     "test_coverage": 0.0,
+     "test_error": null,
+     "test_n_above": 0,
+     "tokens_saved_test": 0.0,
+     "pooled": {
+      "n": 220,
+      "cutoff": Infinity,
+      "coverage": 0.0,
+      "emp_error": null,
+      "bound": null,
+      "tokens_saved": 0.0
+     }
+    },
+    "raw@20%": {
+     "cutoff": Infinity,
+     "cal_n": 120,
+     "cal_coverage": 0.0,
+     "cal_emp_error": null,
+     "cal_bound": null,
+     "test_coverage": 0.0,
+     "test_error": null,
+     "test_n_above": 0,
+     "tokens_saved_test": 0.0,
+     "pooled": {
+      "n": 220,
+      "cutoff": 0.9502155255323107,
+      "coverage": 0.45,
+      "emp_error": 0.08080808080808081,
+      "bound": 0.1969136115963349,
+      "tokens_saved": 0.24603239161054719
+     }
+    },
+    "raw_pooled_summary": {
+     "n": 220,
+     "overall_dis": 0.1590909090909091,
+     "pruned_share": 0.4954545454545455,
+     "top_half_conf_dis": 0.10909090909090909,
+     "n_needed_5": null,
+     "n_needed_10": null,
+     "floor_rate": 0.16
+    },
+    "cons@5%": {
+     "cutoff": Infinity,
+     "cal_n": 120,
+     "cal_coverage": 0.0,
+     "cal_emp_error": null,
+     "cal_bound": null,
+     "test_coverage": 0.0,
+     "test_error": null,
+     "test_n_above": 0,
+     "tokens_saved_test": 0.0,
+     "pooled": {
+      "n": 220,
+      "cutoff": Infinity,
+      "coverage": 0.0,
+      "emp_error": null,
+      "bound": null,
+      "tokens_saved": 0.0
+     }
+    },
+    "cons@10%": {
+     "cutoff": Infinity,
+     "cal_n": 120,
+     "cal_coverage": 0.0,
+     "cal_emp_error": null,
+     "cal_bound": null,
+     "test_coverage": 0.0,
+     "test_error": null,
+     "test_n_above": 0,
+     "tokens_saved_test": 0.0,
+     "pooled": {
+      "n": 220,
+      "cutoff": Infinity,
+      "coverage": 0.0,
+      "emp_error": null,
+      "bound": null,
+      "tokens_saved": 0.0
+     }
+    },
+    "cons@15%": {
+     "cutoff": Infinity,
+     "cal_n": 120,
+     "cal_coverage": 0.0,
+     "cal_emp_error": null,
+     "cal_bound": null,
+     "test_coverage": 0.0,
+     "test_error": null,
+     "test_n_above": 0,
+     "tokens_saved_test": 0.0,
+     "pooled": {
+      "n": 220,
+      "cutoff": Infinity,
+      "coverage": 0.0,
+      "emp_error": null,
+      "bound": null,
+      "tokens_saved": 0.0
+     }
+    },
+    "cons@20%": {
+     "cutoff": Infinity,
+     "cal_n": 120,
+     "cal_coverage": 0.0,
+     "cal_emp_error": null,
+     "cal_bound": null,
+     "test_coverage": 0.0,
+     "test_error": null,
+     "test_n_above": 0,
+     "tokens_saved_test": 0.0,
+     "pooled": {
+      "n": 220,
+      "cutoff": -1.0,
+      "coverage": 1.0,
+      "emp_error": 0.10909090909090909,
+      "bound": 0.18645381546372455,
+      "tokens_saved": 0.26290034634962905
+     }
+    },
+    "cons_pooled_summary": {
+     "n": 220,
+     "overall_dis": 0.10909090909090909,
+     "pruned_share": 0.4954545454545455,
+     "top_half_conf_dis": 0.07272727272727272,
+     "n_needed_5": null,
+     "n_needed_10": null,
+     "floor_rate": 0.13
+    }
+   }
+  }
+ },
+ "cost": {
+  "ledger_total": 4.560056750000009,
+  "new_calls_this_run": 2112,
+  "seconds": 368.54017972946167
+ }
+}

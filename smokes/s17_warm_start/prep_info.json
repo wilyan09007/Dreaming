@@ -1,0 +1,96 @@
+{
+ "eval_labels": {
+  "clinc/travel": [
+   "exchange_rate",
+   "car_rental",
+   "vaccines",
+   "international_visa",
+   "translate",
+   "carry_on",
+   "book_flight",
+   "timezone",
+   "flight_status",
+   "lost_luggage",
+   "book_hotel",
+   "plug_type",
+   "travel_alert",
+   "travel_notification",
+   "travel_suggestion"
+  ],
+  "clinc/work": [
+   "schedule_meeting",
+   "meeting_schedule",
+   "insurance_change",
+   "insurance",
+   "payday",
+   "income",
+   "taxes",
+   "pto_request",
+   "rollover_401k",
+   "pto_request_status",
+   "direct_deposit",
+   "w2",
+   "pto_balance",
+   "next_holiday",
+   "pto_used"
+  ],
+  "banking/sub0": [
+   "balance_not_updated_after_bank_transfer",
+   "cancel_transfer",
+   "card_payment_not_recognised",
+   "edit_personal_details",
+   "failed_transfer",
+   "getting_spare_card",
+   "pending_card_payment",
+   "pending_top_up",
+   "receiving_money",
+   "top_up_reverted",
+   "transfer_fee_charged",
+   "transfer_into_account"
+  ],
+  "banking/sub1": [
+   "automatic_top_up",
+   "cash_withdrawal_charge",
+   "cash_withdrawal_not_recognised",
+   "contactless_not_working",
+   "declined_transfer",
+   "extra_charge_on_statement",
+   "lost_or_stolen_phone",
+   "order_physical_card",
+   "Refund_not_showing_up",
+   "topping_up_by_card",
+   "verify_top_up",
+   "visa_or_mastercard"
+  ],
+  "banking/sub2": [
+   "apple_pay_or_google_pay",
+   "card_acceptance",
+   "card_arrival",
+   "card_linking",
+   "card_payment_wrong_exchange_rate",
+   "direct_debit_payment_not_recognised",
+   "fiat_currency_support",
+   "reverted_card_payment?",
+   "top_up_limits",
+   "transfer_not_received_by_recipient",
+   "virtual_card_not_working",
+   "wrong_exchange_rate_for_cash_withdrawal"
+  ]
+ },
+ "dups_removed": 0,
+ "name_overlaps": [
+  "exchange rate"
+ ],
+ "pool_labels": {
+  "20ng": 20,
+  "ag_news": 4,
+  "banking": 41,
+  "clinc": 120,
+  "emotion": 6,
+  "massive": 57,
+  "trec": 35
+ },
+ "pool_rows": 26622,
+ "desc_fallback": 0,
+ "n_labels": 283
+}

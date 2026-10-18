@@ -1,0 +1,132 @@
+{
+ "G_keys": {
+  "calls": 29398,
+  "distinct_keys": 20796,
+  "cross_prompt_keys": 1846,
+  "identical_pct": 65.70964247020585,
+  "identical_masked_pct": 77.51895991332611,
+  "identical_noerr_pct": 61.92994051553205,
+  "n_noerr": 1513
+ },
+ "G_tools": {
+  "n_tools": 1297,
+  "unobservable": 923,
+  "observable": 374,
+  "deterministic": 188,
+  "mixed": 61,
+  "varying": 125
+ },
+ "G_cert": {
+  "0.01": {
+   "feasible": 1,
+   "skipped_pct": 0.8562133318813553,
+   "err_pct": 0.1589825119236884,
+   "oracle_pct": 19.98422738029482
+  },
+  "0.02": {
+   "feasible": 5,
+   "skipped_pct": 4.614567877707145,
+   "err_pct": 0.6784660766961652,
+   "oracle_pct": 19.98422738029482
+  },
+  "0.05": {
+   "feasible": 10,
+   "skipped_pct": 12.28645712807808,
+   "err_pct": 2.3376911145579435,
+   "oracle_pct": 19.98422738029482
+  }
+ },
+ "T_banking": {
+  "calls": 955,
+  "reads": 196,
+  "seen_pct": 14.285714285714286,
+  "seen_state_pct": 3.061224489795918,
+  "mutating": 457
+ },
+ "F_overview": {
+  "n": 743050,
+  "slow_call_pct": 33.834735212973555,
+  "slow_time_pct": 99.25947459172158
+ },
+ "F_models": {
+  "global median": {
+   "mae": 14381.569422038565,
+   "medae": 190.0,
+   "p90ae": 11154.0,
+   "logerr": 2.0408981571537907
+  },
+  "per-tool median": {
+   "mae": 14274.58456699966,
+   "medae": 357.0,
+   "p90ae": 12091.0,
+   "logerr": 1.4773928893426258
+  },
+  "per-(tool, executable) median": {
+   "mae": 14255.973101918056,
+   "medae": 790.0,
+   "p90ae": 12678.0,
+   "logerr": 1.450296747215968
+  },
+  "per-tool EWMA over the stream (alpha 0.1)": {
+   "mae": 13448.36349579879,
+   "medae": 444.9253081823077,
+   "p90ae": 8826.728142633172,
+   "logerr": 1.1827778848895576
+  },
+  "per-session same-tool EWMA (0.5)": {
+   "mae": 13519.787144100093,
+   "medae": 251.54029166231078,
+   "p90ae": 8691.705699859065,
+   "logerr": 1.0460453393734228
+  },
+  "GBM, call-time features only (tool, executable, input size, hour)": {
+   "mae": 14005.601469351168,
+   "medae": 423.06127281338104,
+   "p90ae": 10359.420049123812,
+   "logerr": 1.7505020133720548
+  },
+  "GBM + session history (previous latencies)": {
+   "mae": 12673.246991595628,
+   "medae": 223.05801434699293,
+   "p90ae": 8514.690918293192,
+   "logerr": 0.9900194709944437
+  }
+ },
+ "F_models_nolong": {
+  "per-tool median": {
+   "mae": 7931.369412449702,
+   "p90ae": 8405.0
+  },
+  "per-tool EWMA": {
+   "mae": 7558.839211232667,
+   "p90ae": 6868.124012365943
+  },
+  "per-session same-tool EWMA": {
+   "mae": 7616.964037757563,
+   "p90ae": 6772.842186015855
+  },
+  "GBM, call-time features only": {
+   "mae": 8020.980569159364,
+   "p90ae": 9921.494285822646
+  },
+  "GBM + session history": {
+   "mae": 7215.185001864797,
+   "p90ae": 6057.373679810113
+  }
+ },
+ "F_slow": {
+  "per-tool slow rate": "0.717",
+  "GBM call-time features": "0.769",
+  "GBM + session history": "0.884"
+ },
+ "F_ablation": {
+  "tool, executable, provider": "1.73",
+  "+ input size": "1.78",
+  "all call-time features (+ n_exe, position in session, hour)": "1.75",
+  "(reference) per-tool median": "1.48"
+ },
+ "F_drift": {
+  "per_tool_median": 1.724853537479106,
+  "gbm": 1.4863779076305765
+ }
+}

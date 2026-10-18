@@ -1,0 +1,1279 @@
+{
+ "meta": {
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "layers": [
+   6,
+   10,
+   13,
+   17,
+   20,
+   24
+  ],
+  "batch1_latency_ms": 65.67239761352539,
+  "throughput": {
+   "b200": 18.828101189175058,
+   "b1000tr": 21.835890448000534,
+   "b1000new": 21.415686805342947,
+   "rb2000": 205.42794950796127
+  },
+  "mean_prompt_tokens": {
+   "b200": 429.435,
+   "b1000tr": 430.828,
+   "b1000new": 429.537,
+   "rb2000": 218.293
+  },
+  "pod": {
+   "gpu": "RTX A5000",
+   "cost_usd_total_s21": 0.13
+  }
+ },
+ "probe_choice": {
+  "pool": "last",
+  "layer": 20,
+  "C": 0.01
+ },
+ "auc_qwen": {
+  "cheap logprob: sequence": [
+   0.6840436326737698,
+   0.5961547308463312,
+   0.7689260136109313
+  ],
+  "cheap logprob gap (min token top-2 gap)": [
+   0.6098427194317606,
+   0.5220816313569205,
+   0.6927466299019608
+  ],
+  "cheap first-token gap": [
+   0.5292364282090309,
+   0.43900957843262045,
+   0.61565352263421
+  ],
+  "student top-2 gap": [
+   0.5206747843734145,
+   0.43052870646766167,
+   0.6088097569119065
+  ],
+  "f1 student==cheap": [
+   0.9502790461694571,
+   0.9098355977243806,
+   0.9864935529303058
+  ],
+  "f3 f1, then cheap logprob gap": [
+   0.9554160324708268,
+   0.9013158748730629,
+   0.9945109282705826
+  ],
+  "f1, then student gap": [
+   0.9477422628107559,
+   0.8953186538877295,
+   0.99173531338227
+  ],
+  "probe (hidden state, proxy-trained)": [
+   0.7754946727549467,
+   0.6990881236534823,
+   0.8391720640383814
+  ],
+  "f2 bge-embedding LR (proxy-trained)": [
+   0.7057331303906645,
+   0.6151308999642137,
+   0.7847094397978444
+  ],
+  "f1, then probe": [
+   0.9591577879249112,
+   0.9072552004058854,
+   0.9950668188632955
+  ],
+  "f1, then f2": [
+   0.9549720953830543,
+   0.8976686056764183,
+   0.9976626225574333
+  ],
+  "random": [
+   0.4449518011161847,
+   0.35783413169041195,
+   0.5335782533196501
+  ],
+  "probe (5-fold on the 200, OOF)": [
+   0.7447995941146626,
+   0.660626512915451,
+   0.8146042071964008
+  ],
+  "f2 bge-embedding LR (5-fold on the 200, OOF)": [
+   0.6204972095383054,
+   0.5316382371683466,
+   0.7090849583484732
+  ],
+  "stack LR [probe, cheap gap, student gap, f1, f2] (5-fold OOF)": [
+   0.9285895484525621,
+   0.859305132921785,
+   0.981482905982906
+  ]
+ },
+ "cert_qwen_rot": {
+  "cheap logprob: sequence|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "cheap logprob: sequence|0.1": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "cheap logprob: sequence|0.15": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "cheap logprob: sequence|0.2": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "cheap logprob gap (min token top-2 gap)|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "cheap logprob gap (min token top-2 gap)|0.1": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "cheap logprob gap (min token top-2 gap)|0.15": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "cheap logprob gap (min token top-2 gap)|0.2": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "cheap first-token gap|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "cheap first-token gap|0.1": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "cheap first-token gap|0.15": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "cheap first-token gap|0.2": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "student top-2 gap|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "student top-2 gap|0.1": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "student top-2 gap|0.15": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "student top-2 gap|0.2": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f1 student==cheap|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f1 student==cheap|0.1": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f1 student==cheap|0.15": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f1 student==cheap|0.2": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f3 f1, then cheap logprob gap|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f3 f1, then cheap logprob gap|0.1": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f3 f1, then cheap logprob gap|0.15": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f3 f1, then cheap logprob gap|0.2": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f1, then student gap|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f1, then student gap|0.1": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f1, then student gap|0.15": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f1, then student gap|0.2": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "probe (hidden state, proxy-trained)|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "probe (hidden state, proxy-trained)|0.1": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "probe (hidden state, proxy-trained)|0.15": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "probe (hidden state, proxy-trained)|0.2": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f2 bge-embedding LR (proxy-trained)|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f2 bge-embedding LR (proxy-trained)|0.1": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f2 bge-embedding LR (proxy-trained)|0.15": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f2 bge-embedding LR (proxy-trained)|0.2": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f1, then probe|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f1, then probe|0.1": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f1, then probe|0.15": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f1, then probe|0.2": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f1, then f2|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f1, then f2|0.1": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f1, then f2|0.15": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f1, then f2|0.2": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "random|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "random|0.1": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "random|0.15": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "random|0.2": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "stack|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "stack|0.1": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "stack|0.15": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "stack|0.2": [
+   0.0,
+   0.0,
+   null,
+   0
+  ]
+ },
+ "cert_qwen_200splits": {
+  "cheap logprob: sequence|0.05": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "cheap logprob: sequence|0.1": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "cheap logprob: sequence|0.15": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "cheap logprob: sequence|0.2": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "cheap logprob gap (min token top-2 gap)|0.05": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "cheap logprob gap (min token top-2 gap)|0.1": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "cheap logprob gap (min token top-2 gap)|0.15": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "cheap logprob gap (min token top-2 gap)|0.2": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "cheap first-token gap|0.05": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "cheap first-token gap|0.1": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "cheap first-token gap|0.15": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "cheap first-token gap|0.2": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "student top-2 gap|0.05": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "student top-2 gap|0.1": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "student top-2 gap|0.15": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "student top-2 gap|0.2": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f1 student==cheap|0.05": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f1 student==cheap|0.1": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f1 student==cheap|0.15": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f1 student==cheap|0.2": [
+   0.005849999999999999,
+   0.03,
+   0.05128205128205128,
+   0.0
+  ],
+  "f3 f1, then cheap logprob gap|0.05": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f3 f1, then cheap logprob gap|0.1": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f3 f1, then cheap logprob gap|0.15": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f3 f1, then cheap logprob gap|0.2": [
+   0.00575,
+   0.03,
+   0.05217391304347826,
+   0.0
+  ],
+  "f1, then student gap|0.05": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f1, then student gap|0.1": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f1, then student gap|0.15": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f1, then student gap|0.2": [
+   0.0098,
+   0.055,
+   0.0,
+   0.0
+  ],
+  "probe (hidden state, proxy-trained)|0.05": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "probe (hidden state, proxy-trained)|0.1": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "probe (hidden state, proxy-trained)|0.15": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "probe (hidden state, proxy-trained)|0.2": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f2 bge-embedding LR (proxy-trained)|0.05": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f2 bge-embedding LR (proxy-trained)|0.1": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f2 bge-embedding LR (proxy-trained)|0.15": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f2 bge-embedding LR (proxy-trained)|0.2": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f1, then probe|0.05": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f1, then probe|0.1": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f1, then probe|0.15": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f1, then probe|0.2": [
+   0.009649999999999999,
+   0.055,
+   0.0,
+   0.0
+  ],
+  "f1, then f2|0.05": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f1, then f2|0.1": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f1, then f2|0.15": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f1, then f2|0.2": [
+   0.009,
+   0.05,
+   0.044444444444444446,
+   0.1
+  ],
+  "random|0.05": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "random|0.1": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "random|0.15": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "random|0.2": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ]
+ },
+ "auc_gpt-5.4-nano (S15)": {
+  "cheap logprob gap (S15 b2)": [
+   0.8917187499999999,
+   0.8463528008449884,
+   0.9346985306571816
+  ],
+  "student top-2 gap": [
+   0.6665625,
+   0.5748886807933791,
+   0.7478943930321176
+  ],
+  "f1 student==cheap": [
+   0.9,
+   0.8372227514676084,
+   0.9516396130704055
+  ],
+  "f3 f1, then cheap logprob gap": [
+   0.9575,
+   0.9263106739688424,
+   0.9819932462052716
+  ],
+  "random": [
+   0.48234375,
+   0.38187079206987373,
+   0.572390171489336
+  ]
+ },
+ "cert_gpt-5.4-nano (S15)": {
+  "cheap logprob gap (S15 b2)|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "cheap logprob gap (S15 b2)|0.1": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "cheap logprob gap (S15 b2)|0.15": [
+   0.642,
+   0.44,
+   0.1125,
+   5
+  ],
+  "cheap logprob gap (S15 b2)|0.2": [
+   0.736,
+   0.65,
+   0.1590909090909091,
+   5
+  ],
+  "student top-2 gap|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "student top-2 gap|0.1": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "student top-2 gap|0.15": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "student top-2 gap|0.2": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f1 student==cheap|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f1 student==cheap|0.1": [
+   0.154,
+   0.0,
+   0.06493506493506493,
+   1
+  ],
+  "f1 student==cheap|0.15": [
+   0.4720000000000001,
+   0.0,
+   0.06493506493506493,
+   3
+  ],
+  "f1 student==cheap|0.2": [
+   0.768,
+   0.73,
+   0.06493506493506493,
+   5
+  ],
+  "f3 f1, then cheap logprob gap|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f3 f1, then cheap logprob gap|0.1": [
+   0.534,
+   0.0,
+   0.0641025641025641,
+   4
+  ],
+  "f3 f1, then cheap logprob gap|0.15": [
+   0.7619999999999999,
+   0.65,
+   0.13636363636363635,
+   5
+  ],
+  "f3 f1, then cheap logprob gap|0.2": [
+   0.826,
+   0.77,
+   0.16483516483516483,
+   5
+  ],
+  "random|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "random|0.1": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "random|0.15": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "random|0.2": [
+   0.0,
+   0.0,
+   null,
+   0
+  ]
+ },
+ "auc_qwen3-next-80b (S15)": {
+  "cheap logprob gap (S15 b2)": [
+   0.7884644884184691,
+   0.7013192207393771,
+   0.859785611729443
+  ],
+  "student top-2 gap": [
+   0.6499463107838626,
+   0.5482632264254387,
+   0.7408089635007912
+  ],
+  "f1 student==cheap": [
+   0.9193894769136371,
+   0.8667690543304041,
+   0.9596145530308987
+  ],
+  "f3 f1, then cheap logprob gap": [
+   0.9513729099555147,
+   0.914868977320488,
+   0.978080016019209
+  ],
+  "random": [
+   0.40466329191593803,
+   0.30454978362506036,
+   0.5043787969771085
+  ]
+ },
+ "cert_qwen3-next-80b (S15)": {
+  "cheap logprob gap (S15 b2)|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "cheap logprob gap (S15 b2)|0.1": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "cheap logprob gap (S15 b2)|0.15": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "cheap logprob gap (S15 b2)|0.2": [
+   0.274,
+   0.0,
+   0.09722222222222222,
+   2
+  ],
+  "student top-2 gap|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "student top-2 gap|0.1": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "student top-2 gap|0.15": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "student top-2 gap|0.2": [
+   0.136,
+   0.0,
+   0.19117647058823528,
+   1
+  ],
+  "f1 student==cheap|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f1 student==cheap|0.1": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f1 student==cheap|0.15": [
+   0.598,
+   0.0,
+   0.02531645569620253,
+   4
+  ],
+  "f1 student==cheap|0.2": [
+   0.738,
+   0.7,
+   0.02531645569620253,
+   5
+  ],
+  "f3 f1, then cheap logprob gap|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f3 f1, then cheap logprob gap|0.1": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "f3 f1, then cheap logprob gap|0.15": [
+   0.692,
+   0.53,
+   0.02531645569620253,
+   5
+  ],
+  "f3 f1, then cheap logprob gap|0.2": [
+   0.8119999999999999,
+   0.75,
+   0.13414634146341464,
+   5
+  ],
+  "random|0.05": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "random|0.1": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "random|0.15": [
+   0.0,
+   0.0,
+   null,
+   0
+  ],
+  "random|0.2": [
+   0.0,
+   0.0,
+   null,
+   0
+  ]
+ },
+ "auc_big": {
+  "cheap logprob: sequence": [
+   0.7066795604395604,
+   0.6744969448546642,
+   0.7395964456426637
+  ],
+  "cheap logprob gap (min token top-2 gap)": [
+   0.6611797802197802,
+   0.6249658443063542,
+   0.6971031279411256
+  ],
+  "student top-2 gap": [
+   0.5961934065934067,
+   0.5584079888761898,
+   0.6309779711555272
+  ],
+  "f1 student==cheap": [
+   0.9718681318681318,
+   0.9614344364029933,
+   0.9816691968199353
+  ],
+  "probe (hidden state, proxy-trained)": [
+   0.7921687912087912,
+   0.7661138889486564,
+   0.8178728011614149
+  ],
+  "f2 bge-embedding LR (proxy-trained)": [
+   0.743781978021978,
+   0.7125351269571546,
+   0.7746775701407599
+  ],
+  "random": [
+   0.5507481318681318,
+   0.5156847307737213,
+   0.5876743637237779
+  ],
+  "f3 f1, then cheap logprob gap": [
+   0.9793635164835165,
+   0.9694192492174493,
+   0.9878563067535069
+  ],
+  "f1, then probe": [
+   0.980698021978022,
+   0.9710533090413028,
+   0.9892673611361623
+  ]
+ },
+ "cert_big": {
+  "cheap logprob: sequence|0.05": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "cheap logprob: sequence|0.1": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "cheap logprob: sequence|0.15": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "cheap logprob: sequence|0.2": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "cheap logprob gap (min token top-2 gap)|0.05": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "cheap logprob gap (min token top-2 gap)|0.1": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "cheap logprob gap (min token top-2 gap)|0.15": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "cheap logprob gap (min token top-2 gap)|0.2": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "student top-2 gap|0.05": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "student top-2 gap|0.1": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "student top-2 gap|0.15": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "student top-2 gap|0.2": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f1 student==cheap|0.05": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f1 student==cheap|0.1": [
+   0.001475,
+   0.005,
+   0.11299435028248588,
+   1.0
+  ],
+  "f1 student==cheap|0.15": [
+   0.13479166666666667,
+   0.475,
+   0.08593508500772798,
+   0.0
+  ],
+  "f1 student==cheap|0.2": [
+   0.28284166666666666,
+   0.995,
+   0.07350991426298577,
+   0.0
+  ],
+  "probe (hidden state, proxy-trained)|0.05": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "probe (hidden state, proxy-trained)|0.1": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "probe (hidden state, proxy-trained)|0.15": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "probe (hidden state, proxy-trained)|0.2": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f2 bge-embedding LR (proxy-trained)|0.05": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f2 bge-embedding LR (proxy-trained)|0.1": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f2 bge-embedding LR (proxy-trained)|0.15": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f2 bge-embedding LR (proxy-trained)|0.2": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "random|0.05": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "random|0.1": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "random|0.15": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "random|0.2": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f3 f1, then cheap logprob gap|0.05": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f3 f1, then cheap logprob gap|0.1": [
+   0.003608333333333333,
+   0.02,
+   0.08775981524249422,
+   0.25
+  ],
+  "f3 f1, then cheap logprob gap|0.15": [
+   0.17321666666666666,
+   0.695,
+   0.08010199172519965,
+   0.0
+  ],
+  "f3 f1, then cheap logprob gap|0.2": [
+   0.28645,
+   1.0,
+   0.08509338453482283,
+   0.0
+  ],
+  "f1, then probe|0.05": [
+   0.0,
+   0.0,
+   NaN,
+   0.0
+  ],
+  "f1, then probe|0.1": [
+   0.022441666666666665,
+   0.125,
+   0.06721128852580766,
+   0.0
+  ],
+  "f1, then probe|0.15": [
+   0.23365833333333336,
+   0.89,
+   0.061806769142979424,
+   0.0
+  ],
+  "f1, then probe|0.2": [
+   0.2842,
+   1.0,
+   0.08063570255688482,
+   0.005
+  ]
+ }
+}

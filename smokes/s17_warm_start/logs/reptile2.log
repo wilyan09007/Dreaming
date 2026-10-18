@@ -1,0 +1,5 @@
+[7s] [reptile] identity-init control on held-out TREC episodes by lrR {0.005: 0.7170801667468335, 0.02: 0.6732139434639434, 0.05: 0.6100766147432815} -> lrR 0.005
+[11s] [reptile] step 50 TREC val 0.716 (identity control 0.717) [10s]
+[16s] [reptile] step 100 TREC val 0.714 (identity control 0.717) [15s]
+[21s] [reptile] step 150 TREC val 0.713 (identity control 0.717) [20s]
+[26s] [reptile] step 200 TREC val 0.711 (identity control 0.717) [25s]

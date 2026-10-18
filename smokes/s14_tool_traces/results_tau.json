@@ -1,0 +1,5833 @@
+{
+ "A": {
+  "retail/gpt-4o/read": {
+   "n": 2477,
+   "in_seen": 85.58740411788453,
+   "in_safe": 85.42591844973758,
+   "st_seen": 80.9850625756964,
+   "st_safe": 80.9850625756964,
+   "sc_seen": 85.5470327008478,
+   "sc_safe": 85.5470327008478,
+   "in_ep_repeat": 1.4937424303593057,
+   "same_task": 64.87686717803795,
+   "other_only": 16.10819539765846,
+   "st_eq_same": 100.0,
+   "st_eq_other": 100.0
+  },
+  "retail/gpt-4o/pure": {
+   "n": 106,
+   "in_seen": 18.867924528301888,
+   "in_safe": 18.867924528301888,
+   "st_seen": 18.867924528301888,
+   "st_safe": 18.867924528301888,
+   "sc_seen": 18.867924528301888,
+   "sc_safe": 18.867924528301888,
+   "in_ep_repeat": 0.0,
+   "same_task": 16.037735849056602,
+   "other_only": 2.830188679245283,
+   "st_eq_same": 100.0,
+   "st_eq_other": 100.0
+  },
+  "retail/gpt-4o/write": {
+   "n": 691,
+   "in_seen": 61.505065123010134,
+   "in_safe": 54.99276410998553,
+   "st_seen": 61.505065123010134,
+   "st_safe": 54.99276410998553,
+   "sc_seen": 61.505065123010134,
+   "sc_safe": 54.99276410998553,
+   "in_ep_repeat": 0.1447178002894356,
+   "same_task": 53.111432706222864,
+   "other_only": 8.393632416787264,
+   "st_eq_same": 96.18528610354224,
+   "st_eq_other": 86.20689655172414
+  },
+  "retail/gpt-4o/in_err_before any write": {
+   "n": 1924,
+   "err": 0.10395010395010396
+  },
+  "retail/gpt-4o/in_err_after >=1 write": {
+   "n": 196,
+   "err": 1.0204081632653061
+  },
+  "retail/sonnet-3.5/read": {
+   "n": 5462,
+   "in_seen": 92.20065909923105,
+   "in_safe": 91.57817649212743,
+   "st_seen": 89.83888685463201,
+   "st_safe": 89.83888685463201,
+   "sc_seen": 92.05419260344196,
+   "sc_safe": 91.9260344196265,
+   "in_ep_repeat": 1.794214573416331,
+   "same_task": 81.34383009886488,
+   "other_only": 8.495056755767118,
+   "st_eq_same": 100.0,
+   "st_eq_other": 100.0
+  },
+  "retail/sonnet-3.5/pure": {
+   "n": 193,
+   "in_seen": 9.844559585492227,
+   "in_safe": 9.844559585492227,
+   "st_seen": 9.844559585492227,
+   "st_safe": 9.844559585492227,
+   "sc_seen": 9.844559585492227,
+   "sc_safe": 9.844559585492227,
+   "in_ep_repeat": 0.5181347150259067,
+   "same_task": 9.32642487046632,
+   "other_only": 0.5181347150259067,
+   "st_eq_same": 100.0,
+   "st_eq_other": 100.0
+  },
+  "retail/sonnet-3.5/write": {
+   "n": 1431,
+   "in_seen": 77.00908455625436,
+   "in_safe": 71.76799440950384,
+   "st_seen": 77.00908455625436,
+   "st_safe": 71.76799440950384,
+   "sc_seen": 77.00908455625436,
+   "sc_safe": 71.76799440950384,
+   "in_ep_repeat": 0.4891684136967156,
+   "same_task": 73.16561844863732,
+   "other_only": 3.843466107617051,
+   "st_eq_same": 95.12893982808023,
+   "st_eq_other": 89.0909090909091
+  },
+  "retail/sonnet-3.5/in_err_before any write": {
+   "n": 4706,
+   "err": 0.31874203144921376
+  },
+  "retail/sonnet-3.5/in_err_after >=1 write": {
+   "n": 330,
+   "err": 5.757575757575758
+  },
+  "retail/pooled/read": {
+   "n": 7939,
+   "in_seen": 94.10505101398161,
+   "in_safe": 93.62640130998867,
+   "st_seen": 91.45988159717848,
+   "st_safe": 91.45988159717848,
+   "sc_seen": 93.99168661040433,
+   "sc_safe": 93.90351429651089,
+   "in_ep_repeat": 1.700466053659151,
+   "same_task": 84.46907670991308,
+   "other_only": 6.990804887265399,
+   "st_eq_same": 100.0,
+   "st_eq_other": 100.0
+  },
+  "retail/pooled/pure": {
+   "n": 299,
+   "in_seen": 15.384615384615385,
+   "in_safe": 15.384615384615385,
+   "st_seen": 15.384615384615385,
+   "st_safe": 15.384615384615385,
+   "sc_seen": 15.384615384615385,
+   "sc_safe": 15.384615384615385,
+   "in_ep_repeat": 0.33444816053511706,
+   "same_task": 13.7123745819398,
+   "other_only": 1.6722408026755853,
+   "st_eq_same": 100.0,
+   "st_eq_other": 100.0
+  },
+  "retail/pooled/write": {
+   "n": 2122,
+   "in_seen": 79.3119698397738,
+   "in_safe": 72.66729500471253,
+   "st_seen": 79.3119698397738,
+   "st_safe": 72.66729500471253,
+   "sc_seen": 79.3119698397738,
+   "sc_safe": 72.66729500471253,
+   "in_ep_repeat": 0.3770028275212064,
+   "same_task": 75.54194156456174,
+   "other_only": 3.770028275212064,
+   "st_eq_same": 94.01122894572676,
+   "st_eq_other": 87.5
+  },
+  "retail/pooled/in_err_before any write": {
+   "n": 6930,
+   "err": 0.23088023088023088
+  },
+  "retail/pooled/in_err_after >=1 write": {
+   "n": 541,
+   "err": 4.066543438077634
+  },
+  "airline/gpt-4o/read": {
+   "n": 678,
+   "in_seen": 67.99410029498524,
+   "in_safe": 67.99410029498524,
+   "st_seen": 64.45427728613569,
+   "st_safe": 64.45427728613569,
+   "sc_seen": 67.99410029498524,
+   "sc_safe": 67.99410029498524,
+   "in_ep_repeat": 1.6224188790560472,
+   "same_task": 57.52212389380531,
+   "other_only": 6.932153392330384,
+   "st_eq_same": 100.0,
+   "st_eq_other": 100.0
+  },
+  "airline/gpt-4o/pure": {
+   "n": 188,
+   "in_seen": 7.446808510638298,
+   "in_safe": 7.446808510638298,
+   "st_seen": 7.446808510638298,
+   "st_safe": 7.446808510638298,
+   "sc_seen": 7.446808510638298,
+   "sc_safe": 7.446808510638298,
+   "in_ep_repeat": 1.5957446808510638,
+   "same_task": 6.914893617021277,
+   "other_only": 0.5319148936170213,
+   "st_eq_same": 100.0,
+   "st_eq_other": 100.0
+  },
+  "airline/gpt-4o/write": {
+   "n": 298,
+   "in_seen": 33.22147651006711,
+   "in_safe": 32.5503355704698,
+   "st_seen": 33.22147651006711,
+   "st_safe": 32.5503355704698,
+   "sc_seen": 33.22147651006711,
+   "sc_safe": 32.5503355704698,
+   "in_ep_repeat": 6.040268456375839,
+   "same_task": 31.543624161073826,
+   "other_only": 1.6778523489932886,
+   "st_eq_same": 97.87234042553192,
+   "st_eq_other": 100.0
+  },
+  "airline/gpt-4o/in_err_before any write": {
+   "n": 412,
+   "err": 0.0
+  },
+  "airline/gpt-4o/in_err_after >=1 write": {
+   "n": 49,
+   "err": 0.0
+  },
+  "airline/sonnet-3.5/read": {
+   "n": 1991,
+   "in_seen": 83.2245102963335,
+   "in_safe": 82.92315419387242,
+   "st_seen": 79.55801104972376,
+   "st_safe": 79.55801104972376,
+   "sc_seen": 82.82270215971873,
+   "sc_safe": 82.82270215971873,
+   "in_ep_repeat": 3.6664992466097437,
+   "same_task": 76.54445002511301,
+   "other_only": 3.0135610246107483,
+   "st_eq_same": 100.0,
+   "st_eq_other": 100.0
+  },
+  "airline/sonnet-3.5/pure": {
+   "n": 145,
+   "in_seen": 8.96551724137931,
+   "in_safe": 8.96551724137931,
+   "st_seen": 8.96551724137931,
+   "st_safe": 8.96551724137931,
+   "sc_seen": 8.96551724137931,
+   "sc_safe": 8.96551724137931,
+   "in_ep_repeat": 5.517241379310345,
+   "same_task": 8.275862068965518,
+   "other_only": 0.6896551724137931,
+   "st_eq_same": 100.0,
+   "st_eq_other": 100.0
+  },
+  "airline/sonnet-3.5/write": {
+   "n": 625,
+   "in_seen": 48.64,
+   "in_safe": 43.04,
+   "st_seen": 48.64,
+   "st_safe": 43.04,
+   "sc_seen": 48.64,
+   "sc_safe": 43.04,
+   "in_ep_repeat": 0.64,
+   "same_task": 45.76,
+   "other_only": 2.88,
+   "st_eq_same": 92.65734265734265,
+   "st_eq_other": 66.66666666666667
+  },
+  "airline/sonnet-3.5/in_err_before any write": {
+   "n": 1544,
+   "err": 0.25906735751295334
+  },
+  "airline/sonnet-3.5/in_err_after >=1 write": {
+   "n": 113,
+   "err": 1.7699115044247788
+  },
+  "airline/pooled/read": {
+   "n": 2669,
+   "in_seen": 86.13713001124016,
+   "in_safe": 85.91232671412514,
+   "st_seen": 82.57774447358561,
+   "st_safe": 82.57774447358561,
+   "sc_seen": 85.83739228175347,
+   "sc_safe": 85.83739228175347,
+   "in_ep_repeat": 3.147246159610341,
+   "same_task": 79.99250655676283,
+   "other_only": 2.58523791682278,
+   "st_eq_same": 100.0,
+   "st_eq_other": 100.0
+  },
+  "airline/pooled/pure": {
+   "n": 333,
+   "in_seen": 9.00900900900901,
+   "in_safe": 9.00900900900901,
+   "st_seen": 9.00900900900901,
+   "st_safe": 9.00900900900901,
+   "sc_seen": 9.00900900900901,
+   "sc_safe": 9.00900900900901,
+   "in_ep_repeat": 3.3033033033033035,
+   "same_task": 8.408408408408409,
+   "other_only": 0.6006006006006006,
+   "st_eq_same": 100.0,
+   "st_eq_other": 100.0
+  },
+  "airline/pooled/write": {
+   "n": 923,
+   "in_seen": 50.270855904658724,
+   "in_safe": 45.395449620801735,
+   "st_seen": 50.270855904658724,
+   "st_safe": 45.395449620801735,
+   "sc_seen": 50.270855904658724,
+   "sc_safe": 45.395449620801735,
+   "in_ep_repeat": 2.38353196099675,
+   "same_task": 47.562296858071505,
+   "other_only": 2.7085590465872156,
+   "st_eq_same": 92.71070615034168,
+   "st_eq_other": 80.0
+  },
+  "airline/pooled/in_err_before any write": {
+   "n": 2119,
+   "err": 0.18876828692779613
+  },
+  "airline/pooled/in_err_after >=1 write": {
+   "n": 180,
+   "err": 1.1111111111111112
+  }
+ },
+ "B": {
+  "W/retail/gpt-4o/k_in/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 960
+    },
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 987
+    },
+    "get_order_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 2600
+    },
+    "get_product_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 845
+    },
+    "list_all_product_types": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 262
+    },
+    "find_user_id_by_email": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 530
+    }
+   },
+   "oracle_reusable_pct": 97.09273863779684
+  },
+  "W/retail/gpt-4o/k_in/0.02": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 97.38033635187581,
+   "realized_err_pct": 0.29890401859847227,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 950,
+     "errors": 0,
+     "n": 960
+    },
+    "get_user_details": {
+     "skipped": 987,
+     "errors": 0,
+     "n": 987
+    },
+    "get_order_details": {
+     "skipped": 2560,
+     "errors": 18,
+     "n": 2600
+    },
+    "get_product_details": {
+     "skipped": 841,
+     "errors": 0,
+     "n": 845
+    },
+    "list_all_product_types": {
+     "skipped": 262,
+     "errors": 0,
+     "n": 262
+    },
+    "find_user_id_by_email": {
+     "skipped": 422,
+     "errors": 0,
+     "n": 530
+    }
+   },
+   "oracle_reusable_pct": 97.09273863779684
+  },
+  "W/retail/gpt-4o/k_in/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 97.38033635187581,
+   "realized_err_pct": 0.29890401859847227,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 950,
+     "errors": 0,
+     "n": 960
+    },
+    "get_user_details": {
+     "skipped": 987,
+     "errors": 0,
+     "n": 987
+    },
+    "get_order_details": {
+     "skipped": 2560,
+     "errors": 18,
+     "n": 2600
+    },
+    "get_product_details": {
+     "skipped": 841,
+     "errors": 0,
+     "n": 845
+    },
+    "list_all_product_types": {
+     "skipped": 262,
+     "errors": 0,
+     "n": 262
+    },
+    "find_user_id_by_email": {
+     "skipped": 422,
+     "errors": 0,
+     "n": 530
+    }
+   },
+   "oracle_reusable_pct": 97.09273863779684
+  },
+  "W/retail/gpt-4o/k_st/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 960
+    },
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 987
+    },
+    "get_order_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 2600
+    },
+    "get_product_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 845
+    },
+    "list_all_product_types": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 262
+    },
+    "find_user_id_by_email": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 530
+    }
+   },
+   "oracle_reusable_pct": 94.18488818040645
+  },
+  "W/retail/gpt-4o/k_st/0.02": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 94.17852522639069,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 950,
+     "errors": 0,
+     "n": 960
+    },
+    "get_user_details": {
+     "skipped": 987,
+     "errors": 0,
+     "n": 987
+    },
+    "get_order_details": {
+     "skipped": 2464,
+     "errors": 0,
+     "n": 2600
+    },
+    "get_product_details": {
+     "skipped": 771,
+     "errors": 0,
+     "n": 845
+    },
+    "list_all_product_types": {
+     "skipped": 230,
+     "errors": 0,
+     "n": 262
+    },
+    "find_user_id_by_email": {
+     "skipped": 422,
+     "errors": 0,
+     "n": 530
+    }
+   },
+   "oracle_reusable_pct": 94.18488818040645
+  },
+  "W/retail/gpt-4o/k_st/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 94.17852522639069,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 950,
+     "errors": 0,
+     "n": 960
+    },
+    "get_user_details": {
+     "skipped": 987,
+     "errors": 0,
+     "n": 987
+    },
+    "get_order_details": {
+     "skipped": 2464,
+     "errors": 0,
+     "n": 2600
+    },
+    "get_product_details": {
+     "skipped": 771,
+     "errors": 0,
+     "n": 845
+    },
+    "list_all_product_types": {
+     "skipped": 230,
+     "errors": 0,
+     "n": 262
+    },
+    "find_user_id_by_email": {
+     "skipped": 422,
+     "errors": 0,
+     "n": 530
+    }
+   },
+   "oracle_reusable_pct": 94.18488818040645
+  },
+  "W/retail/gpt-4o/k_sc/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 960
+    },
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 987
+    },
+    "get_order_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 2600
+    },
+    "get_product_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 845
+    },
+    "list_all_product_types": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 262
+    },
+    "find_user_id_by_email": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 530
+    }
+   },
+   "oracle_reusable_pct": 97.09273863779684
+  },
+  "W/retail/gpt-4o/k_sc/0.02": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 97.08926261319534,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 950,
+     "errors": 0,
+     "n": 960
+    },
+    "get_user_details": {
+     "skipped": 987,
+     "errors": 0,
+     "n": 987
+    },
+    "get_order_details": {
+     "skipped": 2542,
+     "errors": 0,
+     "n": 2600
+    },
+    "get_product_details": {
+     "skipped": 841,
+     "errors": 0,
+     "n": 845
+    },
+    "list_all_product_types": {
+     "skipped": 262,
+     "errors": 0,
+     "n": 262
+    },
+    "find_user_id_by_email": {
+     "skipped": 422,
+     "errors": 0,
+     "n": 530
+    }
+   },
+   "oracle_reusable_pct": 97.09273863779684
+  },
+  "W/retail/gpt-4o/k_sc/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 97.08926261319534,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 950,
+     "errors": 0,
+     "n": 960
+    },
+    "get_user_details": {
+     "skipped": 987,
+     "errors": 0,
+     "n": 987
+    },
+    "get_order_details": {
+     "skipped": 2542,
+     "errors": 0,
+     "n": 2600
+    },
+    "get_product_details": {
+     "skipped": 841,
+     "errors": 0,
+     "n": 845
+    },
+    "list_all_product_types": {
+     "skipped": 262,
+     "errors": 0,
+     "n": 262
+    },
+    "find_user_id_by_email": {
+     "skipped": 422,
+     "errors": 0,
+     "n": 530
+    }
+   },
+   "oracle_reusable_pct": 97.09273863779684
+  },
+  "W/retail/sonnet-3.5/k_in/0.01": {
+   "feasible": 7,
+   "skipped_pct_of_reads": 55.4559907501084,
+   "realized_err_pct": 0.39093041438623927,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1076,
+     "errors": 0,
+     "n": 1920
+    },
+    "get_order_details": {
+     "skipped": 3399,
+     "errors": 26,
+     "n": 6159
+    },
+    "get_product_details": {
+     "skipped": 1399,
+     "errors": 0,
+     "n": 2111
+    },
+    "list_all_product_types": {
+     "skipped": 140,
+     "errors": 0,
+     "n": 216
+    },
+    "get_user_details": {
+     "skipped": 1148,
+     "errors": 4,
+     "n": 2120
+    },
+    "find_user_id_by_email": {
+     "skipped": 512,
+     "errors": 0,
+     "n": 1312
+    }
+   },
+   "oracle_reusable_pct": 98.1383698756825
+  },
+  "W/retail/sonnet-3.5/k_in/0.02": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 98.52579852579852,
+   "realized_err_pct": 0.3960686518996626,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1903,
+     "errors": 0,
+     "n": 1920
+    },
+    "get_order_details": {
+     "skipped": 6153,
+     "errors": 40,
+     "n": 6159
+    },
+    "get_product_details": {
+     "skipped": 2105,
+     "errors": 0,
+     "n": 2111
+    },
+    "list_all_product_types": {
+     "skipped": 216,
+     "errors": 0,
+     "n": 216
+    },
+    "get_user_details": {
+     "skipped": 2120,
+     "errors": 14,
+     "n": 2120
+    },
+    "find_user_id_by_email": {
+     "skipped": 1137,
+     "errors": 0,
+     "n": 1312
+    }
+   },
+   "oracle_reusable_pct": 98.1383698756825
+  },
+  "W/retail/sonnet-3.5/k_in/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 98.52579852579852,
+   "realized_err_pct": 0.3960686518996626,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1903,
+     "errors": 0,
+     "n": 1920
+    },
+    "get_order_details": {
+     "skipped": 6153,
+     "errors": 40,
+     "n": 6159
+    },
+    "get_product_details": {
+     "skipped": 2105,
+     "errors": 0,
+     "n": 2111
+    },
+    "list_all_product_types": {
+     "skipped": 216,
+     "errors": 0,
+     "n": 216
+    },
+    "get_user_details": {
+     "skipped": 2120,
+     "errors": 14,
+     "n": 2120
+    },
+    "find_user_id_by_email": {
+     "skipped": 1137,
+     "errors": 0,
+     "n": 1312
+    }
+   },
+   "oracle_reusable_pct": 98.1383698756825
+  },
+  "W/retail/sonnet-3.5/k_st/0.01": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 96.20609914727562,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1903,
+     "errors": 0,
+     "n": 1920
+    },
+    "get_order_details": {
+     "skipped": 6001,
+     "errors": 0,
+     "n": 6159
+    },
+    "get_product_details": {
+     "skipped": 1967,
+     "errors": 0,
+     "n": 2111
+    },
+    "list_all_product_types": {
+     "skipped": 196,
+     "errors": 0,
+     "n": 216
+    },
+    "get_user_details": {
+     "skipped": 2109,
+     "errors": 0,
+     "n": 2120
+    },
+    "find_user_id_by_email": {
+     "skipped": 1137,
+     "errors": 0,
+     "n": 1312
+    }
+   },
+   "oracle_reusable_pct": 96.22264718005106
+  },
+  "W/retail/sonnet-3.5/k_st/0.02": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 96.20609914727562,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1903,
+     "errors": 0,
+     "n": 1920
+    },
+    "get_order_details": {
+     "skipped": 6001,
+     "errors": 0,
+     "n": 6159
+    },
+    "get_product_details": {
+     "skipped": 1967,
+     "errors": 0,
+     "n": 2111
+    },
+    "list_all_product_types": {
+     "skipped": 196,
+     "errors": 0,
+     "n": 216
+    },
+    "get_user_details": {
+     "skipped": 2109,
+     "errors": 0,
+     "n": 2120
+    },
+    "find_user_id_by_email": {
+     "skipped": 1137,
+     "errors": 0,
+     "n": 1312
+    }
+   },
+   "oracle_reusable_pct": 96.22264718005106
+  },
+  "W/retail/sonnet-3.5/k_st/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 96.20609914727562,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1903,
+     "errors": 0,
+     "n": 1920
+    },
+    "get_order_details": {
+     "skipped": 6001,
+     "errors": 0,
+     "n": 6159
+    },
+    "get_product_details": {
+     "skipped": 1967,
+     "errors": 0,
+     "n": 2111
+    },
+    "list_all_product_types": {
+     "skipped": 196,
+     "errors": 0,
+     "n": 216
+    },
+    "get_user_details": {
+     "skipped": 2109,
+     "errors": 0,
+     "n": 2120
+    },
+    "find_user_id_by_email": {
+     "skipped": 1137,
+     "errors": 0,
+     "n": 1312
+    }
+   },
+   "oracle_reusable_pct": 96.22264718005106
+  },
+  "W/retail/sonnet-3.5/k_sc/0.01": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 98.45353374765139,
+   "realized_err_pct": 0.08807985907222549,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1903,
+     "errors": 0,
+     "n": 1920
+    },
+    "get_order_details": {
+     "skipped": 6143,
+     "errors": 0,
+     "n": 6159
+    },
+    "get_product_details": {
+     "skipped": 2105,
+     "errors": 0,
+     "n": 2111
+    },
+    "list_all_product_types": {
+     "skipped": 216,
+     "errors": 0,
+     "n": 216
+    },
+    "get_user_details": {
+     "skipped": 2120,
+     "errors": 12,
+     "n": 2120
+    },
+    "find_user_id_by_email": {
+     "skipped": 1137,
+     "errors": 0,
+     "n": 1312
+    }
+   },
+   "oracle_reusable_pct": 98.36920324653816
+  },
+  "W/retail/sonnet-3.5/k_sc/0.02": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 98.45353374765139,
+   "realized_err_pct": 0.08807985907222549,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1903,
+     "errors": 0,
+     "n": 1920
+    },
+    "get_order_details": {
+     "skipped": 6143,
+     "errors": 0,
+     "n": 6159
+    },
+    "get_product_details": {
+     "skipped": 2105,
+     "errors": 0,
+     "n": 2111
+    },
+    "list_all_product_types": {
+     "skipped": 216,
+     "errors": 0,
+     "n": 216
+    },
+    "get_user_details": {
+     "skipped": 2120,
+     "errors": 12,
+     "n": 2120
+    },
+    "find_user_id_by_email": {
+     "skipped": 1137,
+     "errors": 0,
+     "n": 1312
+    }
+   },
+   "oracle_reusable_pct": 98.36920324653816
+  },
+  "W/retail/sonnet-3.5/k_sc/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 98.45353374765139,
+   "realized_err_pct": 0.08807985907222549,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1903,
+     "errors": 0,
+     "n": 1920
+    },
+    "get_order_details": {
+     "skipped": 6143,
+     "errors": 0,
+     "n": 6159
+    },
+    "get_product_details": {
+     "skipped": 2105,
+     "errors": 0,
+     "n": 2111
+    },
+    "list_all_product_types": {
+     "skipped": 216,
+     "errors": 0,
+     "n": 216
+    },
+    "get_user_details": {
+     "skipped": 2120,
+     "errors": 12,
+     "n": 2120
+    },
+    "find_user_id_by_email": {
+     "skipped": 1137,
+     "errors": 0,
+     "n": 1312
+    }
+   },
+   "oracle_reusable_pct": 98.36920324653816
+  },
+  "W/retail/pooled/k_in/0.01": {
+   "feasible": 9,
+   "skipped_pct_of_reads": 72.02630437924556,
+   "realized_err_pct": 0.35115882411959465,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1418,
+     "errors": 0,
+     "n": 1920
+    },
+    "get_order_details": {
+     "skipped": 4505,
+     "errors": 31,
+     "n": 6159
+    },
+    "get_product_details": {
+     "skipped": 1786,
+     "errors": 0,
+     "n": 2111
+    },
+    "list_all_product_types": {
+     "skipped": 194,
+     "errors": 0,
+     "n": 216
+    },
+    "get_user_details": {
+     "skipped": 1530,
+     "errors": 4,
+     "n": 2120
+    },
+    "find_user_id_by_email": {
+     "skipped": 534,
+     "errors": 0,
+     "n": 1312
+    }
+   },
+   "oracle_reusable_pct": 98.1383698756825
+  },
+  "W/retail/pooled/k_in/0.02": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 98.52579852579852,
+   "realized_err_pct": 0.3960686518996626,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1903,
+     "errors": 0,
+     "n": 1920
+    },
+    "get_order_details": {
+     "skipped": 6153,
+     "errors": 40,
+     "n": 6159
+    },
+    "get_product_details": {
+     "skipped": 2105,
+     "errors": 0,
+     "n": 2111
+    },
+    "list_all_product_types": {
+     "skipped": 216,
+     "errors": 0,
+     "n": 216
+    },
+    "get_user_details": {
+     "skipped": 2120,
+     "errors": 14,
+     "n": 2120
+    },
+    "find_user_id_by_email": {
+     "skipped": 1137,
+     "errors": 0,
+     "n": 1312
+    }
+   },
+   "oracle_reusable_pct": 98.1383698756825
+  },
+  "W/retail/pooled/k_in/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 98.52579852579852,
+   "realized_err_pct": 0.3960686518996626,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1903,
+     "errors": 0,
+     "n": 1920
+    },
+    "get_order_details": {
+     "skipped": 6153,
+     "errors": 40,
+     "n": 6159
+    },
+    "get_product_details": {
+     "skipped": 2105,
+     "errors": 0,
+     "n": 2111
+    },
+    "list_all_product_types": {
+     "skipped": 216,
+     "errors": 0,
+     "n": 216
+    },
+    "get_user_details": {
+     "skipped": 2120,
+     "errors": 14,
+     "n": 2120
+    },
+    "find_user_id_by_email": {
+     "skipped": 1137,
+     "errors": 0,
+     "n": 1312
+    }
+   },
+   "oracle_reusable_pct": 98.1383698756825
+  },
+  "W/retail/pooled/k_st/0.01": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 97.09495591848533,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1903,
+     "errors": 0,
+     "n": 1920
+    },
+    "get_order_details": {
+     "skipped": 6082,
+     "errors": 0,
+     "n": 6159
+    },
+    "get_product_details": {
+     "skipped": 2006,
+     "errors": 0,
+     "n": 2111
+    },
+    "list_all_product_types": {
+     "skipped": 199,
+     "errors": 0,
+     "n": 216
+    },
+    "get_user_details": {
+     "skipped": 2109,
+     "errors": 0,
+     "n": 2120
+    },
+    "find_user_id_by_email": {
+     "skipped": 1137,
+     "errors": 0,
+     "n": 1312
+    }
+   },
+   "oracle_reusable_pct": 97.10375265792064
+  },
+  "W/retail/pooled/k_st/0.02": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 97.09495591848533,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1903,
+     "errors": 0,
+     "n": 1920
+    },
+    "get_order_details": {
+     "skipped": 6082,
+     "errors": 0,
+     "n": 6159
+    },
+    "get_product_details": {
+     "skipped": 2006,
+     "errors": 0,
+     "n": 2111
+    },
+    "list_all_product_types": {
+     "skipped": 199,
+     "errors": 0,
+     "n": 216
+    },
+    "get_user_details": {
+     "skipped": 2109,
+     "errors": 0,
+     "n": 2120
+    },
+    "find_user_id_by_email": {
+     "skipped": 1137,
+     "errors": 0,
+     "n": 1312
+    }
+   },
+   "oracle_reusable_pct": 97.10375265792064
+  },
+  "W/retail/pooled/k_st/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 97.09495591848533,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1903,
+     "errors": 0,
+     "n": 1920
+    },
+    "get_order_details": {
+     "skipped": 6082,
+     "errors": 0,
+     "n": 6159
+    },
+    "get_product_details": {
+     "skipped": 2006,
+     "errors": 0,
+     "n": 2111
+    },
+    "list_all_product_types": {
+     "skipped": 199,
+     "errors": 0,
+     "n": 216
+    },
+    "get_user_details": {
+     "skipped": 2109,
+     "errors": 0,
+     "n": 2120
+    },
+    "find_user_id_by_email": {
+     "skipped": 1137,
+     "errors": 0,
+     "n": 1312
+    }
+   },
+   "oracle_reusable_pct": 97.10375265792064
+  },
+  "W/retail/pooled/k_sc/0.01": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 98.45353374765139,
+   "realized_err_pct": 0.08807985907222549,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1903,
+     "errors": 0,
+     "n": 1920
+    },
+    "get_order_details": {
+     "skipped": 6143,
+     "errors": 0,
+     "n": 6159
+    },
+    "get_product_details": {
+     "skipped": 2105,
+     "errors": 0,
+     "n": 2111
+    },
+    "list_all_product_types": {
+     "skipped": 216,
+     "errors": 0,
+     "n": 216
+    },
+    "get_user_details": {
+     "skipped": 2120,
+     "errors": 12,
+     "n": 2120
+    },
+    "find_user_id_by_email": {
+     "skipped": 1137,
+     "errors": 0,
+     "n": 1312
+    }
+   },
+   "oracle_reusable_pct": 98.36920324653816
+  },
+  "W/retail/pooled/k_sc/0.02": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 98.45353374765139,
+   "realized_err_pct": 0.08807985907222549,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1903,
+     "errors": 0,
+     "n": 1920
+    },
+    "get_order_details": {
+     "skipped": 6143,
+     "errors": 0,
+     "n": 6159
+    },
+    "get_product_details": {
+     "skipped": 2105,
+     "errors": 0,
+     "n": 2111
+    },
+    "list_all_product_types": {
+     "skipped": 216,
+     "errors": 0,
+     "n": 216
+    },
+    "get_user_details": {
+     "skipped": 2120,
+     "errors": 12,
+     "n": 2120
+    },
+    "find_user_id_by_email": {
+     "skipped": 1137,
+     "errors": 0,
+     "n": 1312
+    }
+   },
+   "oracle_reusable_pct": 98.36920324653816
+  },
+  "W/retail/pooled/k_sc/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 98.45353374765139,
+   "realized_err_pct": 0.08807985907222549,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1903,
+     "errors": 0,
+     "n": 1920
+    },
+    "get_order_details": {
+     "skipped": 6143,
+     "errors": 0,
+     "n": 6159
+    },
+    "get_product_details": {
+     "skipped": 2105,
+     "errors": 0,
+     "n": 2111
+    },
+    "list_all_product_types": {
+     "skipped": 216,
+     "errors": 0,
+     "n": 216
+    },
+    "get_user_details": {
+     "skipped": 2120,
+     "errors": 12,
+     "n": 2120
+    },
+    "find_user_id_by_email": {
+     "skipped": 1137,
+     "errors": 0,
+     "n": 1312
+    }
+   },
+   "oracle_reusable_pct": 98.36920324653816
+  },
+  "W/airline/gpt-4o/k_in/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 306
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 947
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 101
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 362
+    }
+   },
+   "oracle_reusable_pct": 88.44084028487394
+  },
+  "W/airline/gpt-4o/k_in/0.02": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 306
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 947
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 101
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 362
+    }
+   },
+   "oracle_reusable_pct": 88.44084028487394
+  },
+  "W/airline/gpt-4o/k_in/0.05": {
+   "feasible": 9,
+   "skipped_pct_of_reads": 78.08857808857809,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 253,
+     "errors": 0,
+     "n": 306
+    },
+    "get_reservation_details": {
+     "skipped": 768,
+     "errors": 0,
+     "n": 947
+    },
+    "search_onestop_flight": {
+     "skipped": 71,
+     "errors": 0,
+     "n": 101
+    },
+    "search_direct_flight": {
+     "skipped": 248,
+     "errors": 0,
+     "n": 362
+    }
+   },
+   "oracle_reusable_pct": 88.44084028487394
+  },
+  "W/airline/gpt-4o/k_st/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 306
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 947
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 101
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 362
+    }
+   },
+   "oracle_reusable_pct": 82.22457122973933
+  },
+  "W/airline/gpt-4o/k_st/0.02": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 306
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 947
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 101
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 362
+    }
+   },
+   "oracle_reusable_pct": 82.22457122973933
+  },
+  "W/airline/gpt-4o/k_st/0.05": {
+   "feasible": 6,
+   "skipped_pct_of_reads": 46.386946386946384,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 163,
+     "errors": 0,
+     "n": 306
+    },
+    "get_reservation_details": {
+     "skipped": 460,
+     "errors": 0,
+     "n": 947
+    },
+    "search_onestop_flight": {
+     "skipped": 42,
+     "errors": 0,
+     "n": 101
+    },
+    "search_direct_flight": {
+     "skipped": 131,
+     "errors": 0,
+     "n": 362
+    }
+   },
+   "oracle_reusable_pct": 82.22457122973933
+  },
+  "W/airline/gpt-4o/k_sc/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 306
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 947
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 101
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 362
+    }
+   },
+   "oracle_reusable_pct": 88.44084028487394
+  },
+  "W/airline/gpt-4o/k_sc/0.02": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 306
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 947
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 101
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 362
+    }
+   },
+   "oracle_reusable_pct": 88.44084028487394
+  },
+  "W/airline/gpt-4o/k_sc/0.05": {
+   "feasible": 9,
+   "skipped_pct_of_reads": 78.08857808857809,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 253,
+     "errors": 0,
+     "n": 306
+    },
+    "get_reservation_details": {
+     "skipped": 768,
+     "errors": 0,
+     "n": 947
+    },
+    "search_onestop_flight": {
+     "skipped": 71,
+     "errors": 0,
+     "n": 101
+    },
+    "search_direct_flight": {
+     "skipped": 248,
+     "errors": 0,
+     "n": 362
+    }
+   },
+   "oracle_reusable_pct": 88.44084028487394
+  },
+  "W/airline/sonnet-3.5/k_in/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 946
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 2663
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 967
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 378
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 47
+    }
+   },
+   "oracle_reusable_pct": 96.95500834407328
+  },
+  "W/airline/sonnet-3.5/k_in/0.02": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 96.94061187762448,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 932,
+     "errors": 0,
+     "n": 946
+    },
+    "get_reservation_details": {
+     "skipped": 2618,
+     "errors": 0,
+     "n": 2663
+    },
+    "search_direct_flight": {
+     "skipped": 910,
+     "errors": 0,
+     "n": 967
+    },
+    "search_onestop_flight": {
+     "skipped": 341,
+     "errors": 0,
+     "n": 378
+    },
+    "list_all_airports": {
+     "skipped": 47,
+     "errors": 0,
+     "n": 47
+    }
+   },
+   "oracle_reusable_pct": 96.95500834407328
+  },
+  "W/airline/sonnet-3.5/k_in/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 96.94061187762448,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 932,
+     "errors": 0,
+     "n": 946
+    },
+    "get_reservation_details": {
+     "skipped": 2618,
+     "errors": 0,
+     "n": 2663
+    },
+    "search_direct_flight": {
+     "skipped": 910,
+     "errors": 0,
+     "n": 967
+    },
+    "search_onestop_flight": {
+     "skipped": 341,
+     "errors": 0,
+     "n": 378
+    },
+    "list_all_airports": {
+     "skipped": 47,
+     "errors": 0,
+     "n": 47
+    }
+   },
+   "oracle_reusable_pct": 96.95500834407328
+  },
+  "W/airline/sonnet-3.5/k_st/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 946
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 2663
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 967
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 378
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 47
+    }
+   },
+   "oracle_reusable_pct": 94.30750765532167
+  },
+  "W/airline/sonnet-3.5/k_st/0.02": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 94.28114377124575,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 924,
+     "errors": 0,
+     "n": 946
+    },
+    "get_reservation_details": {
+     "skipped": 2597,
+     "errors": 0,
+     "n": 2663
+    },
+    "search_direct_flight": {
+     "skipped": 845,
+     "errors": 0,
+     "n": 967
+    },
+    "search_onestop_flight": {
+     "skipped": 302,
+     "errors": 0,
+     "n": 378
+    },
+    "list_all_airports": {
+     "skipped": 47,
+     "errors": 0,
+     "n": 47
+    }
+   },
+   "oracle_reusable_pct": 94.30750765532167
+  },
+  "W/airline/sonnet-3.5/k_st/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 94.28114377124575,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 924,
+     "errors": 0,
+     "n": 946
+    },
+    "get_reservation_details": {
+     "skipped": 2597,
+     "errors": 0,
+     "n": 2663
+    },
+    "search_direct_flight": {
+     "skipped": 845,
+     "errors": 0,
+     "n": 967
+    },
+    "search_onestop_flight": {
+     "skipped": 302,
+     "errors": 0,
+     "n": 378
+    },
+    "list_all_airports": {
+     "skipped": 47,
+     "errors": 0,
+     "n": 47
+    }
+   },
+   "oracle_reusable_pct": 94.30750765532167
+  },
+  "W/airline/sonnet-3.5/k_sc/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 946
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 2663
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 967
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 378
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 47
+    }
+   },
+   "oracle_reusable_pct": 96.95500834407328
+  },
+  "W/airline/sonnet-3.5/k_sc/0.02": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 96.94061187762448,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 932,
+     "errors": 0,
+     "n": 946
+    },
+    "get_reservation_details": {
+     "skipped": 2618,
+     "errors": 0,
+     "n": 2663
+    },
+    "search_direct_flight": {
+     "skipped": 910,
+     "errors": 0,
+     "n": 967
+    },
+    "search_onestop_flight": {
+     "skipped": 341,
+     "errors": 0,
+     "n": 378
+    },
+    "list_all_airports": {
+     "skipped": 47,
+     "errors": 0,
+     "n": 47
+    }
+   },
+   "oracle_reusable_pct": 96.95500834407328
+  },
+  "W/airline/sonnet-3.5/k_sc/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 96.94061187762448,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 932,
+     "errors": 0,
+     "n": 946
+    },
+    "get_reservation_details": {
+     "skipped": 2618,
+     "errors": 0,
+     "n": 2663
+    },
+    "search_direct_flight": {
+     "skipped": 910,
+     "errors": 0,
+     "n": 967
+    },
+    "search_onestop_flight": {
+     "skipped": 341,
+     "errors": 0,
+     "n": 378
+    },
+    "list_all_airports": {
+     "skipped": 47,
+     "errors": 0,
+     "n": 47
+    }
+   },
+   "oracle_reusable_pct": 96.95500834407328
+  },
+  "W/airline/pooled/k_in/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 946
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 2663
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 967
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 378
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 47
+    }
+   },
+   "oracle_reusable_pct": 97.44204208303867
+  },
+  "W/airline/pooled/k_in/0.02": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 97.44051189762048,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 932,
+     "errors": 0,
+     "n": 946
+    },
+    "get_reservation_details": {
+     "skipped": 2643,
+     "errors": 0,
+     "n": 2663
+    },
+    "search_direct_flight": {
+     "skipped": 910,
+     "errors": 0,
+     "n": 967
+    },
+    "search_onestop_flight": {
+     "skipped": 341,
+     "errors": 0,
+     "n": 378
+    },
+    "list_all_airports": {
+     "skipped": 47,
+     "errors": 0,
+     "n": 47
+    }
+   },
+   "oracle_reusable_pct": 97.44204208303867
+  },
+  "W/airline/pooled/k_in/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 97.44051189762048,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 932,
+     "errors": 0,
+     "n": 946
+    },
+    "get_reservation_details": {
+     "skipped": 2643,
+     "errors": 0,
+     "n": 2663
+    },
+    "search_direct_flight": {
+     "skipped": 910,
+     "errors": 0,
+     "n": 967
+    },
+    "search_onestop_flight": {
+     "skipped": 341,
+     "errors": 0,
+     "n": 378
+    },
+    "list_all_airports": {
+     "skipped": 47,
+     "errors": 0,
+     "n": 47
+    }
+   },
+   "oracle_reusable_pct": 97.44204208303867
+  },
+  "W/airline/pooled/k_st/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 946
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 2663
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 967
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 378
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 47
+    }
+   },
+   "oracle_reusable_pct": 95.67583007138846
+  },
+  "W/airline/pooled/k_st/0.02": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 95.66086782643471,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 924,
+     "errors": 0,
+     "n": 946
+    },
+    "get_reservation_details": {
+     "skipped": 2643,
+     "errors": 0,
+     "n": 2663
+    },
+    "search_direct_flight": {
+     "skipped": 861,
+     "errors": 0,
+     "n": 967
+    },
+    "search_onestop_flight": {
+     "skipped": 309,
+     "errors": 0,
+     "n": 378
+    },
+    "list_all_airports": {
+     "skipped": 47,
+     "errors": 0,
+     "n": 47
+    }
+   },
+   "oracle_reusable_pct": 95.67583007138846
+  },
+  "W/airline/pooled/k_st/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 95.66086782643471,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 924,
+     "errors": 0,
+     "n": 946
+    },
+    "get_reservation_details": {
+     "skipped": 2643,
+     "errors": 0,
+     "n": 2663
+    },
+    "search_direct_flight": {
+     "skipped": 861,
+     "errors": 0,
+     "n": 967
+    },
+    "search_onestop_flight": {
+     "skipped": 309,
+     "errors": 0,
+     "n": 378
+    },
+    "list_all_airports": {
+     "skipped": 47,
+     "errors": 0,
+     "n": 47
+    }
+   },
+   "oracle_reusable_pct": 95.67583007138846
+  },
+  "W/airline/pooled/k_sc/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 946
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 2663
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 967
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 378
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 47
+    }
+   },
+   "oracle_reusable_pct": 97.44204208303867
+  },
+  "W/airline/pooled/k_sc/0.02": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 97.44051189762048,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 932,
+     "errors": 0,
+     "n": 946
+    },
+    "get_reservation_details": {
+     "skipped": 2643,
+     "errors": 0,
+     "n": 2663
+    },
+    "search_direct_flight": {
+     "skipped": 910,
+     "errors": 0,
+     "n": 967
+    },
+    "search_onestop_flight": {
+     "skipped": 341,
+     "errors": 0,
+     "n": 378
+    },
+    "list_all_airports": {
+     "skipped": 47,
+     "errors": 0,
+     "n": 47
+    }
+   },
+   "oracle_reusable_pct": 97.44204208303867
+  },
+  "W/airline/pooled/k_sc/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 97.44051189762048,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 932,
+     "errors": 0,
+     "n": 946
+    },
+    "get_reservation_details": {
+     "skipped": 2643,
+     "errors": 0,
+     "n": 2663
+    },
+    "search_direct_flight": {
+     "skipped": 910,
+     "errors": 0,
+     "n": 967
+    },
+    "search_onestop_flight": {
+     "skipped": 341,
+     "errors": 0,
+     "n": 378
+    },
+    "list_all_airports": {
+     "skipped": 47,
+     "errors": 0,
+     "n": 47
+    }
+   },
+   "oracle_reusable_pct": 97.44204208303867
+  },
+  "X/retail/gpt-4o/k_in/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1157
+    },
+    "find_user_id_by_email": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 633
+    },
+    "list_all_product_types": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 313
+    },
+    "get_product_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1002
+    },
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1169
+    },
+    "get_order_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 3209
+    }
+   },
+   "oracle_reusable_pct": 56.414769193165306
+  },
+  "X/retail/gpt-4o/k_in/0.02": {
+   "feasible": 6,
+   "skipped_pct_of_reads": 32.46024321796071,
+   "realized_err_pct": 0.32935364347468093,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 443,
+     "errors": 0,
+     "n": 1157
+    },
+    "find_user_id_by_email": {
+     "skipped": 142,
+     "errors": 0,
+     "n": 633
+    },
+    "list_all_product_types": {
+     "skipped": 176,
+     "errors": 0,
+     "n": 313
+    },
+    "get_product_details": {
+     "skipped": 377,
+     "errors": 0,
+     "n": 1002
+    },
+    "get_user_details": {
+     "skipped": 342,
+     "errors": 0,
+     "n": 1169
+    },
+    "get_order_details": {
+     "skipped": 949,
+     "errors": 8,
+     "n": 3209
+    }
+   },
+   "oracle_reusable_pct": 56.414769193165306
+  },
+  "X/retail/gpt-4o/k_in/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 56.4613123078979,
+   "realized_err_pct": 0.1893491124260355,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 682,
+     "errors": 0,
+     "n": 1157
+    },
+    "find_user_id_by_email": {
+     "skipped": 228,
+     "errors": 0,
+     "n": 633
+    },
+    "list_all_product_types": {
+     "skipped": 313,
+     "errors": 0,
+     "n": 313
+    },
+    "get_product_details": {
+     "skipped": 700,
+     "errors": 0,
+     "n": 1002
+    },
+    "get_user_details": {
+     "skipped": 588,
+     "errors": 0,
+     "n": 1169
+    },
+    "get_order_details": {
+     "skipped": 1714,
+     "errors": 8,
+     "n": 3209
+    }
+   },
+   "oracle_reusable_pct": 56.414769193165306
+  },
+  "X/retail/gpt-4o/k_st/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1157
+    },
+    "find_user_id_by_email": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 633
+    },
+    "list_all_product_types": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 313
+    },
+    "get_product_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1002
+    },
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1169
+    },
+    "get_order_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 3209
+    }
+   },
+   "oracle_reusable_pct": 50.09305104563457
+  },
+  "X/retail/gpt-4o/k_st/0.02": {
+   "feasible": 6,
+   "skipped_pct_of_reads": 29.506882266470665,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 442,
+     "errors": 0,
+     "n": 1157
+    },
+    "find_user_id_by_email": {
+     "skipped": 123,
+     "errors": 0,
+     "n": 633
+    },
+    "list_all_product_types": {
+     "skipped": 135,
+     "errors": 0,
+     "n": 313
+    },
+    "get_product_details": {
+     "skipped": 295,
+     "errors": 0,
+     "n": 1002
+    },
+    "get_user_details": {
+     "skipped": 344,
+     "errors": 0,
+     "n": 1169
+    },
+    "get_order_details": {
+     "skipped": 869,
+     "errors": 0,
+     "n": 3209
+    }
+   },
+   "oracle_reusable_pct": 50.09305104563457
+  },
+  "X/retail/gpt-4o/k_st/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 50.006681812107445,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 682,
+     "errors": 0,
+     "n": 1157
+    },
+    "find_user_id_by_email": {
+     "skipped": 228,
+     "errors": 0,
+     "n": 633
+    },
+    "list_all_product_types": {
+     "skipped": 228,
+     "errors": 0,
+     "n": 313
+    },
+    "get_product_details": {
+     "skipped": 523,
+     "errors": 0,
+     "n": 1002
+    },
+    "get_user_details": {
+     "skipped": 587,
+     "errors": 0,
+     "n": 1169
+    },
+    "get_order_details": {
+     "skipped": 1494,
+     "errors": 0,
+     "n": 3209
+    }
+   },
+   "oracle_reusable_pct": 50.09305104563457
+  },
+  "X/retail/gpt-4o/k_sc/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1157
+    },
+    "find_user_id_by_email": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 633
+    },
+    "list_all_product_types": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 313
+    },
+    "get_product_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1002
+    },
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1169
+    },
+    "get_order_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 3209
+    }
+   },
+   "oracle_reusable_pct": 56.414769193165306
+  },
+  "X/retail/gpt-4o/k_sc/0.02": {
+   "feasible": 9,
+   "skipped_pct_of_reads": 52.02458906855539,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 650,
+     "errors": 0,
+     "n": 1157
+    },
+    "find_user_id_by_email": {
+     "skipped": 203,
+     "errors": 0,
+     "n": 633
+    },
+    "list_all_product_types": {
+     "skipped": 283,
+     "errors": 0,
+     "n": 313
+    },
+    "get_product_details": {
+     "skipped": 635,
+     "errors": 0,
+     "n": 1002
+    },
+    "get_user_details": {
+     "skipped": 541,
+     "errors": 0,
+     "n": 1169
+    },
+    "get_order_details": {
+     "skipped": 1581,
+     "errors": 0,
+     "n": 3209
+    }
+   },
+   "oracle_reusable_pct": 56.414769193165306
+  },
+  "X/retail/gpt-4o/k_sc/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 56.3544033141788,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 682,
+     "errors": 0,
+     "n": 1157
+    },
+    "find_user_id_by_email": {
+     "skipped": 228,
+     "errors": 0,
+     "n": 633
+    },
+    "list_all_product_types": {
+     "skipped": 313,
+     "errors": 0,
+     "n": 313
+    },
+    "get_product_details": {
+     "skipped": 700,
+     "errors": 0,
+     "n": 1002
+    },
+    "get_user_details": {
+     "skipped": 588,
+     "errors": 0,
+     "n": 1169
+    },
+    "get_order_details": {
+     "skipped": 1706,
+     "errors": 0,
+     "n": 3209
+    }
+   },
+   "oracle_reusable_pct": 56.414769193165306
+  },
+  "X/retail/sonnet-3.5/k_in/0.01": {
+   "feasible": 2,
+   "skipped_pct_of_reads": 11.408059845559846,
+   "realized_err_pct": 0.47593865679534636,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 231,
+     "errors": 0,
+     "n": 2317
+    },
+    "get_user_details": {
+     "skipped": 263,
+     "errors": 2,
+     "n": 2540
+    },
+    "get_order_details": {
+     "skipped": 771,
+     "errors": 7,
+     "n": 7408
+    },
+    "get_product_details": {
+     "skipped": 441,
+     "errors": 0,
+     "n": 2517
+    },
+    "find_user_id_by_email": {
+     "skipped": 135,
+     "errors": 0,
+     "n": 1525
+    },
+    "list_all_product_types": {
+     "skipped": 50,
+     "errors": 0,
+     "n": 269
+    }
+   },
+   "oracle_reusable_pct": 56.35141600212597
+  },
+  "X/retail/sonnet-3.5/k_in/0.02": {
+   "feasible": 9,
+   "skipped_pct_of_reads": 51.55043436293436,
+   "realized_err_pct": 0.37448800468110005,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1213,
+     "errors": 0,
+     "n": 2317
+    },
+    "get_user_details": {
+     "skipped": 1198,
+     "errors": 7,
+     "n": 2540
+    },
+    "get_order_details": {
+     "skipped": 3635,
+     "errors": 25,
+     "n": 7408
+    },
+    "get_product_details": {
+     "skipped": 1708,
+     "errors": 0,
+     "n": 2517
+    },
+    "find_user_id_by_email": {
+     "skipped": 548,
+     "errors": 0,
+     "n": 1525
+    },
+    "list_all_product_types": {
+     "skipped": 243,
+     "errors": 0,
+     "n": 269
+    }
+   },
+   "oracle_reusable_pct": 56.35141600212597
+  },
+  "X/retail/sonnet-3.5/k_in/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 56.473214285714285,
+   "realized_err_pct": 0.3738916782395043,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1317,
+     "errors": 0,
+     "n": 2317
+    },
+    "get_user_details": {
+     "skipped": 1308,
+     "errors": 8,
+     "n": 2540
+    },
+    "get_order_details": {
+     "skipped": 3934,
+     "errors": 27,
+     "n": 7408
+    },
+    "get_product_details": {
+     "skipped": 1885,
+     "errors": 0,
+     "n": 2517
+    },
+    "find_user_id_by_email": {
+     "skipped": 648,
+     "errors": 0,
+     "n": 1525
+    },
+    "list_all_product_types": {
+     "skipped": 269,
+     "errors": 0,
+     "n": 269
+    }
+   },
+   "oracle_reusable_pct": 56.35141600212597
+  },
+  "X/retail/sonnet-3.5/k_st/0.01": {
+   "feasible": 9,
+   "skipped_pct_of_reads": 48.3409749034749,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1251,
+     "errors": 0,
+     "n": 2317
+    },
+    "get_user_details": {
+     "skipped": 1193,
+     "errors": 0,
+     "n": 2540
+    },
+    "get_order_details": {
+     "skipped": 3434,
+     "errors": 0,
+     "n": 7408
+    },
+    "get_product_details": {
+     "skipped": 1336,
+     "errors": 0,
+     "n": 2517
+    },
+    "find_user_id_by_email": {
+     "skipped": 592,
+     "errors": 0,
+     "n": 1525
+    },
+    "list_all_product_types": {
+     "skipped": 207,
+     "errors": 0,
+     "n": 269
+    }
+   },
+   "oracle_reusable_pct": 52.92538230878898
+  },
+  "X/retail/sonnet-3.5/k_st/0.02": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 52.83542471042471,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1317,
+     "errors": 0,
+     "n": 2317
+    },
+    "get_user_details": {
+     "skipped": 1298,
+     "errors": 0,
+     "n": 2540
+    },
+    "get_order_details": {
+     "skipped": 3760,
+     "errors": 0,
+     "n": 7408
+    },
+    "get_product_details": {
+     "skipped": 1491,
+     "errors": 0,
+     "n": 2517
+    },
+    "find_user_id_by_email": {
+     "skipped": 648,
+     "errors": 0,
+     "n": 1525
+    },
+    "list_all_product_types": {
+     "skipped": 244,
+     "errors": 0,
+     "n": 269
+    }
+   },
+   "oracle_reusable_pct": 52.92538230878898
+  },
+  "X/retail/sonnet-3.5/k_st/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 52.83542471042471,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1317,
+     "errors": 0,
+     "n": 2317
+    },
+    "get_user_details": {
+     "skipped": 1298,
+     "errors": 0,
+     "n": 2540
+    },
+    "get_order_details": {
+     "skipped": 3760,
+     "errors": 0,
+     "n": 7408
+    },
+    "get_product_details": {
+     "skipped": 1491,
+     "errors": 0,
+     "n": 2517
+    },
+    "find_user_id_by_email": {
+     "skipped": 648,
+     "errors": 0,
+     "n": 1525
+    },
+    "list_all_product_types": {
+     "skipped": 244,
+     "errors": 0,
+     "n": 269
+    }
+   },
+   "oracle_reusable_pct": 52.92538230878898
+  },
+  "X/retail/sonnet-3.5/k_sc/0.01": {
+   "feasible": 8,
+   "skipped_pct_of_reads": 45.366795366795365,
+   "realized_err_pct": 0.0797872340425532,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1109,
+     "errors": 0,
+     "n": 2317
+    },
+    "get_user_details": {
+     "skipped": 1086,
+     "errors": 6,
+     "n": 2540
+    },
+    "get_order_details": {
+     "skipped": 3131,
+     "errors": 0,
+     "n": 7408
+    },
+    "get_product_details": {
+     "skipped": 1491,
+     "errors": 0,
+     "n": 2517
+    },
+    "find_user_id_by_email": {
+     "skipped": 515,
+     "errors": 0,
+     "n": 1525
+    },
+    "list_all_product_types": {
+     "skipped": 188,
+     "errors": 0,
+     "n": 269
+    }
+   },
+   "oracle_reusable_pct": 56.35141600212597
+  },
+  "X/retail/sonnet-3.5/k_sc/0.02": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 56.29826254826255,
+   "realized_err_pct": 0.06429489927132448,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1317,
+     "errors": 0,
+     "n": 2317
+    },
+    "get_user_details": {
+     "skipped": 1306,
+     "errors": 6,
+     "n": 2540
+    },
+    "get_order_details": {
+     "skipped": 3907,
+     "errors": 0,
+     "n": 7408
+    },
+    "get_product_details": {
+     "skipped": 1885,
+     "errors": 0,
+     "n": 2517
+    },
+    "find_user_id_by_email": {
+     "skipped": 648,
+     "errors": 0,
+     "n": 1525
+    },
+    "list_all_product_types": {
+     "skipped": 269,
+     "errors": 0,
+     "n": 269
+    }
+   },
+   "oracle_reusable_pct": 56.35141600212597
+  },
+  "X/retail/sonnet-3.5/k_sc/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 56.29826254826255,
+   "realized_err_pct": 0.06429489927132448,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1317,
+     "errors": 0,
+     "n": 2317
+    },
+    "get_user_details": {
+     "skipped": 1306,
+     "errors": 6,
+     "n": 2540
+    },
+    "get_order_details": {
+     "skipped": 3907,
+     "errors": 0,
+     "n": 7408
+    },
+    "get_product_details": {
+     "skipped": 1885,
+     "errors": 0,
+     "n": 2517
+    },
+    "find_user_id_by_email": {
+     "skipped": 648,
+     "errors": 0,
+     "n": 1525
+    },
+    "list_all_product_types": {
+     "skipped": 269,
+     "errors": 0,
+     "n": 269
+    }
+   },
+   "oracle_reusable_pct": 56.35141600212597
+  },
+  "X/retail/pooled/k_in/0.01": {
+   "feasible": 6,
+   "skipped_pct_of_reads": 32.328858223533814,
+   "realized_err_pct": 0.3342761635381846,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 1189,
+     "errors": 0,
+     "n": 3474
+    },
+    "find_user_id_by_email": {
+     "skipped": 423,
+     "errors": 0,
+     "n": 2158
+    },
+    "list_all_product_types": {
+     "skipped": 362,
+     "errors": 0,
+     "n": 582
+    },
+    "get_product_details": {
+     "skipped": 1573,
+     "errors": 0,
+     "n": 3519
+    },
+    "get_user_details": {
+     "skipped": 1143,
+     "errors": 2,
+     "n": 3709
+    },
+    "get_order_details": {
+     "skipped": 3088,
+     "errors": 24,
+     "n": 10617
+    }
+   },
+   "oracle_reusable_pct": 58.30976252679369
+  },
+  "X/retail/pooled/k_in/0.02": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 58.39394821064882,
+   "realized_err_pct": 0.306071606520037,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 2005,
+     "errors": 0,
+     "n": 3474
+    },
+    "find_user_id_by_email": {
+     "skipped": 897,
+     "errors": 0,
+     "n": 2158
+    },
+    "list_all_product_types": {
+     "skipped": 582,
+     "errors": 0,
+     "n": 582
+    },
+    "get_product_details": {
+     "skipped": 2648,
+     "errors": 0,
+     "n": 3519
+    },
+    "get_user_details": {
+     "skipped": 2002,
+     "errors": 8,
+     "n": 3709
+    },
+    "get_order_details": {
+     "skipped": 5915,
+     "errors": 35,
+     "n": 10617
+    }
+   },
+   "oracle_reusable_pct": 58.30976252679369
+  },
+  "X/retail/pooled/k_in/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 58.39394821064882,
+   "realized_err_pct": 0.306071606520037,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 2005,
+     "errors": 0,
+     "n": 3474
+    },
+    "find_user_id_by_email": {
+     "skipped": 897,
+     "errors": 0,
+     "n": 2158
+    },
+    "list_all_product_types": {
+     "skipped": 582,
+     "errors": 0,
+     "n": 582
+    },
+    "get_product_details": {
+     "skipped": 2648,
+     "errors": 0,
+     "n": 3519
+    },
+    "get_user_details": {
+     "skipped": 2002,
+     "errors": 8,
+     "n": 3709
+    },
+    "get_order_details": {
+     "skipped": 5915,
+     "errors": 35,
+     "n": 10617
+    }
+   },
+   "oracle_reusable_pct": 58.30976252679369
+  },
+  "X/retail/pooled/k_st/0.01": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 54.574171827590504,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 2005,
+     "errors": 0,
+     "n": 3474
+    },
+    "find_user_id_by_email": {
+     "skipped": 897,
+     "errors": 0,
+     "n": 2158
+    },
+    "list_all_product_types": {
+     "skipped": 472,
+     "errors": 0,
+     "n": 582
+    },
+    "get_product_details": {
+     "skipped": 2130,
+     "errors": 0,
+     "n": 3519
+    },
+    "get_user_details": {
+     "skipped": 1991,
+     "errors": 0,
+     "n": 3709
+    },
+    "get_order_details": {
+     "skipped": 5635,
+     "errors": 0,
+     "n": 10617
+    }
+   },
+   "oracle_reusable_pct": 54.671774125743354
+  },
+  "X/retail/pooled/k_st/0.02": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 54.574171827590504,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 2005,
+     "errors": 0,
+     "n": 3474
+    },
+    "find_user_id_by_email": {
+     "skipped": 897,
+     "errors": 0,
+     "n": 2158
+    },
+    "list_all_product_types": {
+     "skipped": 472,
+     "errors": 0,
+     "n": 582
+    },
+    "get_product_details": {
+     "skipped": 2130,
+     "errors": 0,
+     "n": 3519
+    },
+    "get_user_details": {
+     "skipped": 1991,
+     "errors": 0,
+     "n": 3709
+    },
+    "get_order_details": {
+     "skipped": 5635,
+     "errors": 0,
+     "n": 10617
+    }
+   },
+   "oracle_reusable_pct": 54.671774125743354
+  },
+  "X/retail/pooled/k_st/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 54.574171827590504,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 2005,
+     "errors": 0,
+     "n": 3474
+    },
+    "find_user_id_by_email": {
+     "skipped": 897,
+     "errors": 0,
+     "n": 2158
+    },
+    "list_all_product_types": {
+     "skipped": 472,
+     "errors": 0,
+     "n": 582
+    },
+    "get_product_details": {
+     "skipped": 2130,
+     "errors": 0,
+     "n": 3519
+    },
+    "get_user_details": {
+     "skipped": 1991,
+     "errors": 0,
+     "n": 3709
+    },
+    "get_order_details": {
+     "skipped": 5635,
+     "errors": 0,
+     "n": 10617
+    }
+   },
+   "oracle_reusable_pct": 54.671774125743354
+  },
+  "X/retail/pooled/k_sc/0.01": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 58.24015960763124,
+   "realized_err_pct": 0.04282043962318012,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 2005,
+     "errors": 0,
+     "n": 3474
+    },
+    "find_user_id_by_email": {
+     "skipped": 897,
+     "errors": 0,
+     "n": 2158
+    },
+    "list_all_product_types": {
+     "skipped": 582,
+     "errors": 0,
+     "n": 582
+    },
+    "get_product_details": {
+     "skipped": 2648,
+     "errors": 0,
+     "n": 3519
+    },
+    "get_user_details": {
+     "skipped": 2000,
+     "errors": 6,
+     "n": 3709
+    },
+    "get_order_details": {
+     "skipped": 5880,
+     "errors": 0,
+     "n": 10617
+    }
+   },
+   "oracle_reusable_pct": 58.30976252679369
+  },
+  "X/retail/pooled/k_sc/0.02": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 58.24015960763124,
+   "realized_err_pct": 0.04282043962318012,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 2005,
+     "errors": 0,
+     "n": 3474
+    },
+    "find_user_id_by_email": {
+     "skipped": 897,
+     "errors": 0,
+     "n": 2158
+    },
+    "list_all_product_types": {
+     "skipped": 582,
+     "errors": 0,
+     "n": 582
+    },
+    "get_product_details": {
+     "skipped": 2648,
+     "errors": 0,
+     "n": 3519
+    },
+    "get_user_details": {
+     "skipped": 2000,
+     "errors": 6,
+     "n": 3709
+    },
+    "get_order_details": {
+     "skipped": 5880,
+     "errors": 0,
+     "n": 10617
+    }
+   },
+   "oracle_reusable_pct": 58.30976252679369
+  },
+  "X/retail/pooled/k_sc/0.05": {
+   "feasible": 10,
+   "skipped_pct_of_reads": 58.24015960763124,
+   "realized_err_pct": 0.04282043962318012,
+   "violations": 0,
+   "per_tool": {
+    "find_user_id_by_name_zip": {
+     "skipped": 2005,
+     "errors": 0,
+     "n": 3474
+    },
+    "find_user_id_by_email": {
+     "skipped": 897,
+     "errors": 0,
+     "n": 2158
+    },
+    "list_all_product_types": {
+     "skipped": 582,
+     "errors": 0,
+     "n": 582
+    },
+    "get_product_details": {
+     "skipped": 2648,
+     "errors": 0,
+     "n": 3519
+    },
+    "get_user_details": {
+     "skipped": 2000,
+     "errors": 6,
+     "n": 3709
+    },
+    "get_order_details": {
+     "skipped": 5880,
+     "errors": 0,
+     "n": 10617
+    }
+   },
+   "oracle_reusable_pct": 58.30976252679369
+  },
+  "X/airline/gpt-4o/k_in/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 351
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1152
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 410
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 116
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 9
+    }
+   },
+   "oracle_reusable_pct": 16.380289276200806
+  },
+  "X/airline/gpt-4o/k_in/0.02": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 351
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1152
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 410
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 116
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 9
+    }
+   },
+   "oracle_reusable_pct": 16.380289276200806
+  },
+  "X/airline/gpt-4o/k_in/0.05": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 351
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1152
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 410
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 116
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 9
+    }
+   },
+   "oracle_reusable_pct": 16.380289276200806
+  },
+  "X/airline/gpt-4o/k_st/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 351
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1152
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 410
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 116
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 9
+    }
+   },
+   "oracle_reusable_pct": 15.102120773649938
+  },
+  "X/airline/gpt-4o/k_st/0.02": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 351
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1152
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 410
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 116
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 9
+    }
+   },
+   "oracle_reusable_pct": 15.102120773649938
+  },
+  "X/airline/gpt-4o/k_st/0.05": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 351
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1152
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 410
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 116
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 9
+    }
+   },
+   "oracle_reusable_pct": 15.102120773649938
+  },
+  "X/airline/gpt-4o/k_sc/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 351
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1152
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 410
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 116
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 9
+    }
+   },
+   "oracle_reusable_pct": 16.380289276200806
+  },
+  "X/airline/gpt-4o/k_sc/0.02": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 351
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1152
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 410
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 116
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 9
+    }
+   },
+   "oracle_reusable_pct": 16.380289276200806
+  },
+  "X/airline/gpt-4o/k_sc/0.05": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 351
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1152
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 410
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 116
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 9
+    }
+   },
+   "oracle_reusable_pct": 16.380289276200806
+  },
+  "X/airline/sonnet-3.5/k_in/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1136
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 3473
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1174
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 492
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 39
+    }
+   },
+   "oracle_reusable_pct": 17.862632316984133
+  },
+  "X/airline/sonnet-3.5/k_in/0.02": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1136
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 3473
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1174
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 492
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 39
+    }
+   },
+   "oracle_reusable_pct": 17.862632316984133
+  },
+  "X/airline/sonnet-3.5/k_in/0.05": {
+   "feasible": 5,
+   "skipped_pct_of_reads": 7.364586632879316,
+   "realized_err_pct": 0.6451612903225806,
+   "violations": 0,
+   "per_tool": {
+    "get_reservation_details": {
+     "skipped": 250,
+     "errors": 3,
+     "n": 3473
+    },
+    "search_direct_flight": {
+     "skipped": 75,
+     "errors": 0,
+     "n": 1174
+    },
+    "get_user_details": {
+     "skipped": 112,
+     "errors": 0,
+     "n": 1136
+    },
+    "search_onestop_flight": {
+     "skipped": 17,
+     "errors": 0,
+     "n": 492
+    },
+    "list_all_airports": {
+     "skipped": 11,
+     "errors": 0,
+     "n": 39
+    }
+   },
+   "oracle_reusable_pct": 17.862632316984133
+  },
+  "X/airline/sonnet-3.5/k_st/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1136
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 3473
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1174
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 492
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 39
+    }
+   },
+   "oracle_reusable_pct": 17.121717978811596
+  },
+  "X/airline/sonnet-3.5/k_st/0.02": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1136
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 3473
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1174
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 492
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 39
+    }
+   },
+   "oracle_reusable_pct": 17.121717978811596
+  },
+  "X/airline/sonnet-3.5/k_st/0.05": {
+   "feasible": 4,
+   "skipped_pct_of_reads": 5.7491289198606275,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "get_reservation_details": {
+     "skipped": 193,
+     "errors": 0,
+     "n": 3473
+    },
+    "search_direct_flight": {
+     "skipped": 56,
+     "errors": 0,
+     "n": 1174
+    },
+    "get_user_details": {
+     "skipped": 94,
+     "errors": 0,
+     "n": 1136
+    },
+    "search_onestop_flight": {
+     "skipped": 16,
+     "errors": 0,
+     "n": 492
+    },
+    "list_all_airports": {
+     "skipped": 4,
+     "errors": 0,
+     "n": 39
+    }
+   },
+   "oracle_reusable_pct": 17.121717978811596
+  },
+  "X/airline/sonnet-3.5/k_sc/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1136
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 3473
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1174
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 492
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 39
+    }
+   },
+   "oracle_reusable_pct": 17.761669756458225
+  },
+  "X/airline/sonnet-3.5/k_sc/0.02": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1136
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 3473
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1174
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 492
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 39
+    }
+   },
+   "oracle_reusable_pct": 17.761669756458225
+  },
+  "X/airline/sonnet-3.5/k_sc/0.05": {
+   "feasible": 5,
+   "skipped_pct_of_reads": 7.301235350015838,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "get_reservation_details": {
+     "skipped": 248,
+     "errors": 0,
+     "n": 3473
+    },
+    "search_direct_flight": {
+     "skipped": 73,
+     "errors": 0,
+     "n": 1174
+    },
+    "get_user_details": {
+     "skipped": 112,
+     "errors": 0,
+     "n": 1136
+    },
+    "search_onestop_flight": {
+     "skipped": 17,
+     "errors": 0,
+     "n": 492
+    },
+    "list_all_airports": {
+     "skipped": 11,
+     "errors": 0,
+     "n": 39
+    }
+   },
+   "oracle_reusable_pct": 17.761669756458225
+  },
+  "X/airline/pooled/k_in/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1487
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 4625
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1584
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 608
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 48
+    }
+   },
+   "oracle_reusable_pct": 18.216396429776218
+  },
+  "X/airline/pooled/k_in/0.02": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1487
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 4625
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1584
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 608
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 48
+    }
+   },
+   "oracle_reusable_pct": 18.216396429776218
+  },
+  "X/airline/pooled/k_in/0.05": {
+   "feasible": 6,
+   "skipped_pct_of_reads": 10.165229885057471,
+   "realized_err_pct": 0.7067137809187279,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 194,
+     "errors": 0,
+     "n": 1487
+    },
+    "get_reservation_details": {
+     "skipped": 481,
+     "errors": 6,
+     "n": 4625
+    },
+    "search_direct_flight": {
+     "skipped": 125,
+     "errors": 0,
+     "n": 1584
+    },
+    "search_onestop_flight": {
+     "skipped": 36,
+     "errors": 0,
+     "n": 608
+    },
+    "list_all_airports": {
+     "skipped": 13,
+     "errors": 0,
+     "n": 48
+    }
+   },
+   "oracle_reusable_pct": 18.216396429776218
+  },
+  "X/airline/pooled/k_st/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1487
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 4625
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1584
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 608
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 48
+    }
+   },
+   "oracle_reusable_pct": 17.68947686291655
+  },
+  "X/airline/pooled/k_st/0.02": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1487
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 4625
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1584
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 608
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 48
+    }
+   },
+   "oracle_reusable_pct": 17.68947686291655
+  },
+  "X/airline/pooled/k_st/0.05": {
+   "feasible": 7,
+   "skipped_pct_of_reads": 11.6977969348659,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 243,
+     "errors": 0,
+     "n": 1487
+    },
+    "get_reservation_details": {
+     "skipped": 573,
+     "errors": 0,
+     "n": 4625
+    },
+    "search_direct_flight": {
+     "skipped": 112,
+     "errors": 0,
+     "n": 1584
+    },
+    "search_onestop_flight": {
+     "skipped": 29,
+     "errors": 0,
+     "n": 608
+    },
+    "list_all_airports": {
+     "skipped": 20,
+     "errors": 0,
+     "n": 48
+    }
+   },
+   "oracle_reusable_pct": 17.68947686291655
+  },
+  "X/airline/pooled/k_sc/0.01": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1487
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 4625
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1584
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 608
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 48
+    }
+   },
+   "oracle_reusable_pct": 18.10272280354007
+  },
+  "X/airline/pooled/k_sc/0.02": {
+   "feasible": 0,
+   "skipped_pct_of_reads": 0.0,
+   "realized_err_pct": null,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1487
+    },
+    "get_reservation_details": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 4625
+    },
+    "search_direct_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 1584
+    },
+    "search_onestop_flight": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 608
+    },
+    "list_all_airports": {
+     "skipped": 0,
+     "errors": 0,
+     "n": 48
+    }
+   },
+   "oracle_reusable_pct": 18.10272280354007
+  },
+  "X/airline/pooled/k_sc/0.05": {
+   "feasible": 7,
+   "skipped_pct_of_reads": 12.116858237547893,
+   "realized_err_pct": 0.0,
+   "violations": 0,
+   "per_tool": {
+    "get_user_details": {
+     "skipped": 245,
+     "errors": 0,
+     "n": 1487
+    },
+    "get_reservation_details": {
+     "skipped": 590,
+     "errors": 0,
+     "n": 4625
+    },
+    "search_direct_flight": {
+     "skipped": 121,
+     "errors": 0,
+     "n": 1584
+    },
+    "search_onestop_flight": {
+     "skipped": 34,
+     "errors": 0,
+     "n": 608
+    },
+    "list_all_airports": {
+     "skipped": 22,
+     "errors": 0,
+     "n": 48
+    }
+   },
+   "oracle_reusable_pct": 18.10272280354007
+  }
+ },
+ "C": {
+  "retail/gpt-4o/get_order_details/circuit breaker": {
+   "calls": 2600,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 1086,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "retail/gpt-4o/get_order_details/plain last-value cache (input key)": {
+   "calls": 2600,
+   "answered_pct": 98.46153846153847,
+   "err_pct": 0.703125,
+   "eps": 1086,
+   "served_pct": 97.23756906077348,
+   "served_correct_pct": 95.58011049723757
+  },
+  "retail/gpt-4o/get_order_details/state-aware cache, uncertified": {
+   "calls": 2600,
+   "answered_pct": 94.76923076923077,
+   "err_pct": 0.0,
+   "eps": 1086,
+   "served_pct": 91.06813996316758,
+   "served_correct_pct": 91.06813996316758
+  },
+  "retail/gpt-4o/get_order_details/certified state-aware cache @1%": {
+   "calls": 2600,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 1086,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "retail/gpt-4o/get_order_details/certified input-keyed cache @1%": {
+   "calls": 2600,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 1086,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "retail/gpt-4o/get_order_details/certified state-aware cache @2%": {
+   "calls": 2600,
+   "answered_pct": 94.76923076923077,
+   "err_pct": 0.0,
+   "eps": 1086,
+   "served_pct": 91.06813996316758,
+   "served_correct_pct": 91.06813996316758
+  },
+  "retail/gpt-4o/get_order_details/certified input-keyed cache @2%": {
+   "calls": 2600,
+   "answered_pct": 98.46153846153847,
+   "err_pct": 0.703125,
+   "eps": 1086,
+   "served_pct": 97.23756906077348,
+   "served_correct_pct": 95.58011049723757
+  },
+  "retail/gpt-4o/get_user_details/circuit breaker": {
+   "calls": 987,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 987,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "retail/gpt-4o/get_user_details/plain last-value cache (input key)": {
+   "calls": 987,
+   "answered_pct": 100.0,
+   "err_pct": 0.0,
+   "eps": 987,
+   "served_pct": 100.0,
+   "served_correct_pct": 100.0
+  },
+  "retail/gpt-4o/get_user_details/state-aware cache, uncertified": {
+   "calls": 987,
+   "answered_pct": 100.0,
+   "err_pct": 0.0,
+   "eps": 987,
+   "served_pct": 100.0,
+   "served_correct_pct": 100.0
+  },
+  "retail/gpt-4o/get_user_details/certified state-aware cache @1%": {
+   "calls": 987,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 987,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "retail/gpt-4o/get_user_details/certified input-keyed cache @1%": {
+   "calls": 987,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 987,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "retail/gpt-4o/get_user_details/certified state-aware cache @2%": {
+   "calls": 987,
+   "answered_pct": 100.0,
+   "err_pct": 0.0,
+   "eps": 987,
+   "served_pct": 100.0,
+   "served_correct_pct": 100.0
+  },
+  "retail/gpt-4o/get_user_details/certified input-keyed cache @2%": {
+   "calls": 987,
+   "answered_pct": 100.0,
+   "err_pct": 0.0,
+   "eps": 987,
+   "served_pct": 100.0,
+   "served_correct_pct": 100.0
+  },
+  "retail/gpt-4o/find_user_id_by_name_zip/circuit breaker": {
+   "calls": 960,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 928,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "retail/gpt-4o/find_user_id_by_name_zip/plain last-value cache (input key)": {
+   "calls": 960,
+   "answered_pct": 98.95833333333333,
+   "err_pct": 0.0,
+   "eps": 928,
+   "served_pct": 98.92241379310344,
+   "served_correct_pct": 98.92241379310344
+  },
+  "retail/gpt-4o/find_user_id_by_name_zip/state-aware cache, uncertified": {
+   "calls": 960,
+   "answered_pct": 98.95833333333333,
+   "err_pct": 0.0,
+   "eps": 928,
+   "served_pct": 98.92241379310344,
+   "served_correct_pct": 98.92241379310344
+  },
+  "retail/gpt-4o/find_user_id_by_name_zip/certified state-aware cache @1%": {
+   "calls": 960,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 928,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "retail/gpt-4o/find_user_id_by_name_zip/certified input-keyed cache @1%": {
+   "calls": 960,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 928,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "retail/gpt-4o/find_user_id_by_name_zip/certified state-aware cache @2%": {
+   "calls": 960,
+   "answered_pct": 98.95833333333333,
+   "err_pct": 0.0,
+   "eps": 928,
+   "served_pct": 98.92241379310344,
+   "served_correct_pct": 98.92241379310344
+  },
+  "retail/gpt-4o/find_user_id_by_name_zip/certified input-keyed cache @2%": {
+   "calls": 960,
+   "answered_pct": 98.95833333333333,
+   "err_pct": 0.0,
+   "eps": 928,
+   "served_pct": 98.92241379310344,
+   "served_correct_pct": 98.92241379310344
+  },
+  "retail/sonnet-3.5/get_order_details/circuit breaker": {
+   "calls": 6159,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 2249,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "retail/sonnet-3.5/get_order_details/plain last-value cache (input key)": {
+   "calls": 6159,
+   "answered_pct": 99.90258158792011,
+   "err_pct": 0.6500893872907525,
+   "eps": 2249,
+   "served_pct": 99.73321476211649,
+   "served_correct_pct": 97.95464650955981
+  },
+  "retail/sonnet-3.5/get_order_details/state-aware cache, uncertified": {
+   "calls": 6159,
+   "answered_pct": 97.43464848189642,
+   "err_pct": 0.0,
+   "eps": 2249,
+   "served_pct": 95.68697198755002,
+   "served_correct_pct": 95.68697198755002
+  },
+  "retail/sonnet-3.5/get_order_details/certified state-aware cache @1%": {
+   "calls": 6159,
+   "answered_pct": 97.43464848189642,
+   "err_pct": 0.0,
+   "eps": 2249,
+   "served_pct": 95.68697198755002,
+   "served_correct_pct": 95.68697198755002
+  },
+  "retail/sonnet-3.5/get_order_details/certified input-keyed cache @1%": {
+   "calls": 6159,
+   "answered_pct": 55.18753044325378,
+   "err_pct": 0.7649308620182407,
+   "eps": 2249,
+   "served_pct": 51.044908848377055,
+   "served_correct_pct": 49.93330369052912
+  },
+  "retail/sonnet-3.5/get_order_details/certified state-aware cache @2%": {
+   "calls": 6159,
+   "answered_pct": 97.43464848189642,
+   "err_pct": 0.0,
+   "eps": 2249,
+   "served_pct": 95.68697198755002,
+   "served_correct_pct": 95.68697198755002
+  },
+  "retail/sonnet-3.5/get_order_details/certified input-keyed cache @2%": {
+   "calls": 6159,
+   "answered_pct": 99.90258158792011,
+   "err_pct": 0.6500893872907525,
+   "eps": 2249,
+   "served_pct": 99.73321476211649,
+   "served_correct_pct": 97.95464650955981
+  },
+  "retail/sonnet-3.5/get_product_details/circuit breaker": {
+   "calls": 2111,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 1405,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "retail/sonnet-3.5/get_product_details/plain last-value cache (input key)": {
+   "calls": 2111,
+   "answered_pct": 99.71577451444813,
+   "err_pct": 0.0,
+   "eps": 1405,
+   "served_pct": 99.57295373665481,
+   "served_correct_pct": 99.57295373665481
+  },
+  "retail/sonnet-3.5/get_product_details/state-aware cache, uncertified": {
+   "calls": 2111,
+   "answered_pct": 93.17858834675509,
+   "err_pct": 0.0,
+   "eps": 1405,
+   "served_pct": 92.02846975088968,
+   "served_correct_pct": 92.02846975088968
+  },
+  "retail/sonnet-3.5/get_product_details/certified state-aware cache @1%": {
+   "calls": 2111,
+   "answered_pct": 93.17858834675509,
+   "err_pct": 0.0,
+   "eps": 1405,
+   "served_pct": 92.02846975088968,
+   "served_correct_pct": 92.02846975088968
+  },
+  "retail/sonnet-3.5/get_product_details/certified input-keyed cache @1%": {
+   "calls": 2111,
+   "answered_pct": 66.27190904784463,
+   "err_pct": 0.0,
+   "eps": 1405,
+   "served_pct": 62.77580071174377,
+   "served_correct_pct": 62.77580071174377
+  },
+  "retail/sonnet-3.5/get_product_details/certified state-aware cache @2%": {
+   "calls": 2111,
+   "answered_pct": 93.17858834675509,
+   "err_pct": 0.0,
+   "eps": 1405,
+   "served_pct": 92.02846975088968,
+   "served_correct_pct": 92.02846975088968
+  },
+  "retail/sonnet-3.5/get_product_details/certified input-keyed cache @2%": {
+   "calls": 2111,
+   "answered_pct": 99.71577451444813,
+   "err_pct": 0.0,
+   "eps": 1405,
+   "served_pct": 99.57295373665481,
+   "served_correct_pct": 99.57295373665481
+  },
+  "retail/sonnet-3.5/get_user_details/circuit breaker": {
+   "calls": 2120,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 2084,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "retail/sonnet-3.5/get_user_details/plain last-value cache (input key)": {
+   "calls": 2120,
+   "answered_pct": 100.0,
+   "err_pct": 0.660377358490566,
+   "eps": 2084,
+   "served_pct": 100.0,
+   "served_correct_pct": 99.61612284069098
+  },
+  "retail/sonnet-3.5/get_user_details/state-aware cache, uncertified": {
+   "calls": 2120,
+   "answered_pct": 99.48113207547169,
+   "err_pct": 0.0,
+   "eps": 2084,
+   "served_pct": 99.4721689059501,
+   "served_correct_pct": 99.4721689059501
+  },
+  "retail/sonnet-3.5/get_user_details/certified state-aware cache @1%": {
+   "calls": 2120,
+   "answered_pct": 99.48113207547169,
+   "err_pct": 0.0,
+   "eps": 2084,
+   "served_pct": 99.4721689059501,
+   "served_correct_pct": 99.4721689059501
+  },
+  "retail/sonnet-3.5/get_user_details/certified input-keyed cache @1%": {
+   "calls": 2120,
+   "answered_pct": 54.15094339622642,
+   "err_pct": 0.34843205574912894,
+   "eps": 2084,
+   "served_pct": 54.27063339731286,
+   "served_correct_pct": 54.174664107485604
+  },
+  "retail/sonnet-3.5/get_user_details/certified state-aware cache @2%": {
+   "calls": 2120,
+   "answered_pct": 99.48113207547169,
+   "err_pct": 0.0,
+   "eps": 2084,
+   "served_pct": 99.4721689059501,
+   "served_correct_pct": 99.4721689059501
+  },
+  "retail/sonnet-3.5/get_user_details/certified input-keyed cache @2%": {
+   "calls": 2120,
+   "answered_pct": 100.0,
+   "err_pct": 0.660377358490566,
+   "eps": 2084,
+   "served_pct": 100.0,
+   "served_correct_pct": 99.61612284069098
+  },
+  "retail/pooled/get_order_details/circuit breaker": {
+   "calls": 6159,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 2249,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "retail/pooled/get_order_details/plain last-value cache (input key)": {
+   "calls": 6159,
+   "answered_pct": 99.90258158792011,
+   "err_pct": 0.6500893872907525,
+   "eps": 2249,
+   "served_pct": 99.73321476211649,
+   "served_correct_pct": 97.95464650955981
+  },
+  "retail/pooled/get_order_details/state-aware cache, uncertified": {
+   "calls": 6159,
+   "answered_pct": 98.74979704497483,
+   "err_pct": 0.0,
+   "eps": 2249,
+   "served_pct": 97.02089817696753,
+   "served_correct_pct": 97.02089817696753
+  },
+  "retail/pooled/get_order_details/certified state-aware cache @1%": {
+   "calls": 6159,
+   "answered_pct": 98.74979704497483,
+   "err_pct": 0.0,
+   "eps": 2249,
+   "served_pct": 97.02089817696753,
+   "served_correct_pct": 97.02089817696753
+  },
+  "retail/pooled/get_order_details/certified input-keyed cache @1%": {
+   "calls": 6159,
+   "answered_pct": 73.14499106997889,
+   "err_pct": 0.6881243063263041,
+   "eps": 2249,
+   "served_pct": 66.96309470875944,
+   "served_correct_pct": 65.71809693196977
+  },
+  "retail/pooled/get_order_details/certified state-aware cache @2%": {
+   "calls": 6159,
+   "answered_pct": 98.74979704497483,
+   "err_pct": 0.0,
+   "eps": 2249,
+   "served_pct": 97.02089817696753,
+   "served_correct_pct": 97.02089817696753
+  },
+  "retail/pooled/get_order_details/certified input-keyed cache @2%": {
+   "calls": 6159,
+   "answered_pct": 99.90258158792011,
+   "err_pct": 0.6500893872907525,
+   "eps": 2249,
+   "served_pct": 99.73321476211649,
+   "served_correct_pct": 97.95464650955981
+  },
+  "retail/pooled/get_user_details/circuit breaker": {
+   "calls": 2120,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 2084,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "retail/pooled/get_user_details/plain last-value cache (input key)": {
+   "calls": 2120,
+   "answered_pct": 100.0,
+   "err_pct": 0.660377358490566,
+   "eps": 2084,
+   "served_pct": 100.0,
+   "served_correct_pct": 99.61612284069098
+  },
+  "retail/pooled/get_user_details/state-aware cache, uncertified": {
+   "calls": 2120,
+   "answered_pct": 99.48113207547169,
+   "err_pct": 0.0,
+   "eps": 2084,
+   "served_pct": 99.4721689059501,
+   "served_correct_pct": 99.4721689059501
+  },
+  "retail/pooled/get_user_details/certified state-aware cache @1%": {
+   "calls": 2120,
+   "answered_pct": 99.48113207547169,
+   "err_pct": 0.0,
+   "eps": 2084,
+   "served_pct": 99.4721689059501,
+   "served_correct_pct": 99.4721689059501
+  },
+  "retail/pooled/get_user_details/certified input-keyed cache @1%": {
+   "calls": 2120,
+   "answered_pct": 72.16981132075472,
+   "err_pct": 0.26143790849673204,
+   "eps": 2084,
+   "served_pct": 72.31285988483685,
+   "served_correct_pct": 72.2168905950096
+  },
+  "retail/pooled/get_user_details/certified state-aware cache @2%": {
+   "calls": 2120,
+   "answered_pct": 99.48113207547169,
+   "err_pct": 0.0,
+   "eps": 2084,
+   "served_pct": 99.4721689059501,
+   "served_correct_pct": 99.4721689059501
+  },
+  "retail/pooled/get_user_details/certified input-keyed cache @2%": {
+   "calls": 2120,
+   "answered_pct": 100.0,
+   "err_pct": 0.660377358490566,
+   "eps": 2084,
+   "served_pct": 100.0,
+   "served_correct_pct": 99.61612284069098
+  },
+  "retail/pooled/get_product_details/circuit breaker": {
+   "calls": 2111,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 1405,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "retail/pooled/get_product_details/plain last-value cache (input key)": {
+   "calls": 2111,
+   "answered_pct": 99.71577451444813,
+   "err_pct": 0.0,
+   "eps": 1405,
+   "served_pct": 99.57295373665481,
+   "served_correct_pct": 99.57295373665481
+  },
+  "retail/pooled/get_product_details/state-aware cache, uncertified": {
+   "calls": 2111,
+   "answered_pct": 95.02605400284226,
+   "err_pct": 0.0,
+   "eps": 1405,
+   "served_pct": 93.52313167259787,
+   "served_correct_pct": 93.52313167259787
+  },
+  "retail/pooled/get_product_details/certified state-aware cache @1%": {
+   "calls": 2111,
+   "answered_pct": 95.02605400284226,
+   "err_pct": 0.0,
+   "eps": 1405,
+   "served_pct": 93.52313167259787,
+   "served_correct_pct": 93.52313167259787
+  },
+  "retail/pooled/get_product_details/certified input-keyed cache @1%": {
+   "calls": 2111,
+   "answered_pct": 84.60445286594032,
+   "err_pct": 0.0,
+   "eps": 1405,
+   "served_pct": 81.70818505338079,
+   "served_correct_pct": 81.70818505338079
+  },
+  "retail/pooled/get_product_details/certified state-aware cache @2%": {
+   "calls": 2111,
+   "answered_pct": 95.02605400284226,
+   "err_pct": 0.0,
+   "eps": 1405,
+   "served_pct": 93.52313167259787,
+   "served_correct_pct": 93.52313167259787
+  },
+  "retail/pooled/get_product_details/certified input-keyed cache @2%": {
+   "calls": 2111,
+   "answered_pct": 99.71577451444813,
+   "err_pct": 0.0,
+   "eps": 1405,
+   "served_pct": 99.57295373665481,
+   "served_correct_pct": 99.57295373665481
+  },
+  "airline/gpt-4o/get_reservation_details/circuit breaker": {
+   "calls": 947,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 384,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/gpt-4o/get_reservation_details/plain last-value cache (input key)": {
+   "calls": 947,
+   "answered_pct": 91.129883843717,
+   "err_pct": 0.0,
+   "eps": 384,
+   "served_pct": 90.625,
+   "served_correct_pct": 90.625
+  },
+  "airline/gpt-4o/get_reservation_details/state-aware cache, uncertified": {
+   "calls": 947,
+   "answered_pct": 84.79408658922914,
+   "err_pct": 0.0,
+   "eps": 384,
+   "served_pct": 86.45833333333333,
+   "served_correct_pct": 86.45833333333333
+  },
+  "airline/gpt-4o/get_reservation_details/certified state-aware cache @1%": {
+   "calls": 947,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 384,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/gpt-4o/get_reservation_details/certified input-keyed cache @1%": {
+   "calls": 947,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 384,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/gpt-4o/get_reservation_details/certified state-aware cache @2%": {
+   "calls": 947,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 384,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/gpt-4o/get_reservation_details/certified input-keyed cache @2%": {
+   "calls": 947,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 384,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/gpt-4o/search_direct_flight/circuit breaker": {
+   "calls": 362,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 169,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/gpt-4o/search_direct_flight/plain last-value cache (input key)": {
+   "calls": 362,
+   "answered_pct": 80.11049723756906,
+   "err_pct": 0.0,
+   "eps": 169,
+   "served_pct": 75.7396449704142,
+   "served_correct_pct": 75.7396449704142
+  },
+  "airline/gpt-4o/search_direct_flight/state-aware cache, uncertified": {
+   "calls": 362,
+   "answered_pct": 71.54696132596685,
+   "err_pct": 0.0,
+   "eps": 169,
+   "served_pct": 63.31360946745562,
+   "served_correct_pct": 63.31360946745562
+  },
+  "airline/gpt-4o/search_direct_flight/certified state-aware cache @1%": {
+   "calls": 362,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 169,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/gpt-4o/search_direct_flight/certified input-keyed cache @1%": {
+   "calls": 362,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 169,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/gpt-4o/search_direct_flight/certified state-aware cache @2%": {
+   "calls": 362,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 169,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/gpt-4o/search_direct_flight/certified input-keyed cache @2%": {
+   "calls": 362,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 169,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/gpt-4o/get_user_details/circuit breaker": {
+   "calls": 306,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 306,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/gpt-4o/get_user_details/plain last-value cache (input key)": {
+   "calls": 306,
+   "answered_pct": 93.13725490196079,
+   "err_pct": 0.0,
+   "eps": 306,
+   "served_pct": 93.13725490196079,
+   "served_correct_pct": 93.13725490196079
+  },
+  "airline/gpt-4o/get_user_details/state-aware cache, uncertified": {
+   "calls": 306,
+   "answered_pct": 90.52287581699346,
+   "err_pct": 0.0,
+   "eps": 306,
+   "served_pct": 90.52287581699346,
+   "served_correct_pct": 90.52287581699346
+  },
+  "airline/gpt-4o/get_user_details/certified state-aware cache @1%": {
+   "calls": 306,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 306,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/gpt-4o/get_user_details/certified input-keyed cache @1%": {
+   "calls": 306,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 306,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/gpt-4o/get_user_details/certified state-aware cache @2%": {
+   "calls": 306,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 306,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/gpt-4o/get_user_details/certified input-keyed cache @2%": {
+   "calls": 306,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 306,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/sonnet-3.5/get_reservation_details/circuit breaker": {
+   "calls": 2663,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 930,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/sonnet-3.5/get_reservation_details/plain last-value cache (input key)": {
+   "calls": 2663,
+   "answered_pct": 98.31017649267743,
+   "err_pct": 0.0,
+   "eps": 930,
+   "served_pct": 97.63440860215054,
+   "served_correct_pct": 97.63440860215054
+  },
+  "airline/sonnet-3.5/get_reservation_details/state-aware cache, uncertified": {
+   "calls": 2663,
+   "answered_pct": 97.52159218926023,
+   "err_pct": 0.0,
+   "eps": 930,
+   "served_pct": 96.66666666666667,
+   "served_correct_pct": 96.66666666666667
+  },
+  "airline/sonnet-3.5/get_reservation_details/certified state-aware cache @1%": {
+   "calls": 2663,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 930,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/sonnet-3.5/get_reservation_details/certified input-keyed cache @1%": {
+   "calls": 2663,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 930,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/sonnet-3.5/get_reservation_details/certified state-aware cache @2%": {
+   "calls": 2663,
+   "answered_pct": 97.52159218926023,
+   "err_pct": 0.0,
+   "eps": 930,
+   "served_pct": 96.66666666666667,
+   "served_correct_pct": 96.66666666666667
+  },
+  "airline/sonnet-3.5/get_reservation_details/certified input-keyed cache @2%": {
+   "calls": 2663,
+   "answered_pct": 98.31017649267743,
+   "err_pct": 0.0,
+   "eps": 930,
+   "served_pct": 97.63440860215054,
+   "served_correct_pct": 97.63440860215054
+  },
+  "airline/sonnet-3.5/search_direct_flight/circuit breaker": {
+   "calls": 967,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 403,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/sonnet-3.5/search_direct_flight/plain last-value cache (input key)": {
+   "calls": 967,
+   "answered_pct": 94.10548086866598,
+   "err_pct": 0.0,
+   "eps": 403,
+   "served_pct": 93.05210918114143,
+   "served_correct_pct": 93.05210918114143
+  },
+  "airline/sonnet-3.5/search_direct_flight/state-aware cache, uncertified": {
+   "calls": 967,
+   "answered_pct": 87.38366080661841,
+   "err_pct": 0.0,
+   "eps": 403,
+   "served_pct": 88.33746898263027,
+   "served_correct_pct": 88.33746898263027
+  },
+  "airline/sonnet-3.5/search_direct_flight/certified state-aware cache @1%": {
+   "calls": 967,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 403,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/sonnet-3.5/search_direct_flight/certified input-keyed cache @1%": {
+   "calls": 967,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 403,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/sonnet-3.5/search_direct_flight/certified state-aware cache @2%": {
+   "calls": 967,
+   "answered_pct": 87.38366080661841,
+   "err_pct": 0.0,
+   "eps": 403,
+   "served_pct": 88.33746898263027,
+   "served_correct_pct": 88.33746898263027
+  },
+  "airline/sonnet-3.5/search_direct_flight/certified input-keyed cache @2%": {
+   "calls": 967,
+   "answered_pct": 94.10548086866598,
+   "err_pct": 0.0,
+   "eps": 403,
+   "served_pct": 93.05210918114143,
+   "served_correct_pct": 93.05210918114143
+  },
+  "airline/sonnet-3.5/get_user_details/circuit breaker": {
+   "calls": 946,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 889,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/sonnet-3.5/get_user_details/plain last-value cache (input key)": {
+   "calls": 946,
+   "answered_pct": 98.5200845665962,
+   "err_pct": 0.0,
+   "eps": 889,
+   "served_pct": 98.4251968503937,
+   "served_correct_pct": 98.4251968503937
+  },
+  "airline/sonnet-3.5/get_user_details/state-aware cache, uncertified": {
+   "calls": 946,
+   "answered_pct": 97.67441860465117,
+   "err_pct": 0.0,
+   "eps": 889,
+   "served_pct": 97.52530933633295,
+   "served_correct_pct": 97.52530933633295
+  },
+  "airline/sonnet-3.5/get_user_details/certified state-aware cache @1%": {
+   "calls": 946,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 889,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/sonnet-3.5/get_user_details/certified input-keyed cache @1%": {
+   "calls": 946,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 889,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/sonnet-3.5/get_user_details/certified state-aware cache @2%": {
+   "calls": 946,
+   "answered_pct": 97.67441860465117,
+   "err_pct": 0.0,
+   "eps": 889,
+   "served_pct": 97.52530933633295,
+   "served_correct_pct": 97.52530933633295
+  },
+  "airline/sonnet-3.5/get_user_details/certified input-keyed cache @2%": {
+   "calls": 946,
+   "answered_pct": 98.5200845665962,
+   "err_pct": 0.0,
+   "eps": 889,
+   "served_pct": 98.4251968503937,
+   "served_correct_pct": 98.4251968503937
+  },
+  "airline/pooled/get_reservation_details/circuit breaker": {
+   "calls": 2663,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 930,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/pooled/get_reservation_details/plain last-value cache (input key)": {
+   "calls": 2663,
+   "answered_pct": 99.24896733007886,
+   "err_pct": 0.0,
+   "eps": 930,
+   "served_pct": 99.24731182795699,
+   "served_correct_pct": 99.24731182795699
+  },
+  "airline/pooled/get_reservation_details/state-aware cache, uncertified": {
+   "calls": 2663,
+   "answered_pct": 99.24896733007886,
+   "err_pct": 0.0,
+   "eps": 930,
+   "served_pct": 99.24731182795699,
+   "served_correct_pct": 99.24731182795699
+  },
+  "airline/pooled/get_reservation_details/certified state-aware cache @1%": {
+   "calls": 2663,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 930,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/pooled/get_reservation_details/certified input-keyed cache @1%": {
+   "calls": 2663,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 930,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/pooled/get_reservation_details/certified state-aware cache @2%": {
+   "calls": 2663,
+   "answered_pct": 99.24896733007886,
+   "err_pct": 0.0,
+   "eps": 930,
+   "served_pct": 99.24731182795699,
+   "served_correct_pct": 99.24731182795699
+  },
+  "airline/pooled/get_reservation_details/certified input-keyed cache @2%": {
+   "calls": 2663,
+   "answered_pct": 99.24896733007886,
+   "err_pct": 0.0,
+   "eps": 930,
+   "served_pct": 99.24731182795699,
+   "served_correct_pct": 99.24731182795699
+  },
+  "airline/pooled/search_direct_flight/circuit breaker": {
+   "calls": 967,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 403,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/pooled/search_direct_flight/plain last-value cache (input key)": {
+   "calls": 967,
+   "answered_pct": 94.10548086866598,
+   "err_pct": 0.0,
+   "eps": 403,
+   "served_pct": 93.05210918114143,
+   "served_correct_pct": 93.05210918114143
+  },
+  "airline/pooled/search_direct_flight/state-aware cache, uncertified": {
+   "calls": 967,
+   "answered_pct": 89.0382626680455,
+   "err_pct": 0.0,
+   "eps": 403,
+   "served_pct": 91.3151364764268,
+   "served_correct_pct": 91.3151364764268
+  },
+  "airline/pooled/search_direct_flight/certified state-aware cache @1%": {
+   "calls": 967,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 403,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/pooled/search_direct_flight/certified input-keyed cache @1%": {
+   "calls": 967,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 403,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/pooled/search_direct_flight/certified state-aware cache @2%": {
+   "calls": 967,
+   "answered_pct": 89.0382626680455,
+   "err_pct": 0.0,
+   "eps": 403,
+   "served_pct": 91.3151364764268,
+   "served_correct_pct": 91.3151364764268
+  },
+  "airline/pooled/search_direct_flight/certified input-keyed cache @2%": {
+   "calls": 967,
+   "answered_pct": 94.10548086866598,
+   "err_pct": 0.0,
+   "eps": 403,
+   "served_pct": 93.05210918114143,
+   "served_correct_pct": 93.05210918114143
+  },
+  "airline/pooled/get_user_details/circuit breaker": {
+   "calls": 946,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 889,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/pooled/get_user_details/plain last-value cache (input key)": {
+   "calls": 946,
+   "answered_pct": 98.5200845665962,
+   "err_pct": 0.0,
+   "eps": 889,
+   "served_pct": 98.4251968503937,
+   "served_correct_pct": 98.4251968503937
+  },
+  "airline/pooled/get_user_details/state-aware cache, uncertified": {
+   "calls": 946,
+   "answered_pct": 97.67441860465117,
+   "err_pct": 0.0,
+   "eps": 889,
+   "served_pct": 97.52530933633295,
+   "served_correct_pct": 97.52530933633295
+  },
+  "airline/pooled/get_user_details/certified state-aware cache @1%": {
+   "calls": 946,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 889,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/pooled/get_user_details/certified input-keyed cache @1%": {
+   "calls": 946,
+   "answered_pct": 0.0,
+   "err_pct": null,
+   "eps": 889,
+   "served_pct": 0.0,
+   "served_correct_pct": 0.0
+  },
+  "airline/pooled/get_user_details/certified state-aware cache @2%": {
+   "calls": 946,
+   "answered_pct": 97.67441860465117,
+   "err_pct": 0.0,
+   "eps": 889,
+   "served_pct": 97.52530933633295,
+   "served_correct_pct": 97.52530933633295
+  },
+  "airline/pooled/get_user_details/certified input-keyed cache @2%": {
+   "calls": 946,
+   "answered_pct": 98.5200845665962,
+   "err_pct": 0.0,
+   "eps": 889,
+   "served_pct": 98.4251968503937,
+   "served_correct_pct": 98.4251968503937
+  }
+ },
+ "D": {
+  "retail/tool-only LR": {
+   "auc": 0.5848297058037827,
+   "ap": 0.1326978926975044,
+   "base": 0.10356788899900891,
+   "n": 2018,
+   "errors": 209
+  },
+  "retail/all-context LR": {
+   "auc": 0.7399102308764525,
+   "ap": 0.33423468062932216,
+   "base": 0.10356788899900891,
+   "n": 2018,
+   "errors": 209
+  },
+  "retail/all-context GBM": {
+   "auc": 0.7947741357010798,
+   "ap": 0.4737733691389127,
+   "base": 0.10356788899900891,
+   "n": 2018,
+   "errors": 209
+  },
+  "retail/per-tool base rate": {
+   "auc": 0.5979062687625138,
+   "ap": 0.14175451368752995,
+   "base": 0.10356788899900891,
+   "n": 2018,
+   "errors": 209
+  },
+  "airline/tool-only LR": {
+   "auc": 0.6429632232904046,
+   "ap": 0.25209772631219507,
+   "base": 0.1989247311827957,
+   "n": 744,
+   "errors": 148
+  },
+  "airline/all-context LR": {
+   "auc": 0.8495487937602032,
+   "ap": 0.549336720162957,
+   "base": 0.1989247311827957,
+   "n": 744,
+   "errors": 148
+  },
+  "airline/all-context GBM": {
+   "auc": 0.7891120986758571,
+   "ap": 0.47721133897620455,
+   "base": 0.1989247311827957,
+   "n": 744,
+   "errors": 148
+  },
+  "airline/per-tool base rate": {
+   "auc": 0.6535518320333757,
+   "ap": 0.25964250444693315,
+   "base": 0.1989247311827957,
+   "n": 744,
+   "errors": 148
+  }
+ },
+ "E": {
+  "W/retail/gpt-4o": {
+   "n": 1380.0,
+   "name_top1": 66.81159420289855,
+   "name_top3": 86.52173913043478,
+   "heur_top1": 29.347826086956523,
+   "heur_top3": 34.20289855072464,
+   "comb_top1": 67.10144927536231,
+   "comb_top3": 71.15942028985508,
+   "spec_useful": 55.072463768115945,
+   "spec_launch": 75.57971014492753,
+   "prefix_cov": 93.6231884057971,
+   "prefix_prec": 71.51702786377709,
+   "next_read": 72.82608695652173,
+   "hit_by": {
+    "immediate chain": {
+     "rate": 77.83333333333333,
+     "share": 43.47826086956522
+    },
+    "name:immediate chain": {
+     "rate": 82.0,
+     "share": 43.47826086956522
+    },
+    "name+args top1, next is read": {
+     "rate": 75.62189054726367,
+     "share": 72.82608695652173
+    },
+    "name top1, next is read": {
+     "rate": 80.09950248756219,
+     "share": 72.82608695652173
+    },
+    "after user turn": {
+     "rate": 58.84615384615385,
+     "share": 56.52173913043478
+    },
+    "name:after user turn": {
+     "rate": 55.12820512820513,
+     "share": 56.52173913043478
+    },
+    "name+args top1, next is write": {
+     "rate": 44.266666666666666,
+     "share": 27.17391304347826
+    },
+    "name top1, next is write": {
+     "rate": 31.2,
+     "share": 27.17391304347826
+    }
+   },
+   "gate": {
+    "0.0": {
+     "launched": 75.57971014492753,
+     "precision": 72.8667305848514
+    },
+    "0.3": {
+     "launched": 68.84057971014492,
+     "precision": 78.21052631578948
+    },
+    "0.5": {
+     "launched": 61.95652173913044,
+     "precision": 83.27485380116958
+    },
+    "0.7": {
+     "launched": 25.942028985507246,
+     "precision": 93.01675977653632
+    },
+    "0.9": {
+     "launched": 1.4492753623188406,
+     "precision": 100.0
+    }
+   }
+  },
+  "W/retail/sonnet-3.5": {
+   "n": 3039.0,
+   "name_top1": 67.09443896018428,
+   "name_top3": 87.79203685422837,
+   "heur_top1": 24.383020730503453,
+   "heur_top3": 27.73938795656466,
+   "comb_top1": 72.72128989799276,
+   "comb_top3": 75.88022375781507,
+   "spec_useful": 60.77657124053965,
+   "spec_launch": 76.73576834485029,
+   "prefix_cov": 96.90687726225732,
+   "prefix_prec": 75.00848896434636,
+   "next_read": 75.22211253701876,
+   "hit_by": {
+    "immediate chain": {
+     "rate": 84.89751887810141,
+     "share": 61.00691016781836
+    },
+    "name:immediate chain": {
+     "rate": 80.96008629989213,
+     "share": 61.00691016781836
+    },
+    "name+args top1, next is read": {
+     "rate": 80.79615048118985,
+     "share": 75.22211253701876
+    },
+    "name top1, next is read": {
+     "rate": 77.16535433070867,
+     "share": 75.22211253701876
+    },
+    "after user turn": {
+     "rate": 53.67088607594937,
+     "share": 38.99308983218164
+    },
+    "name:after user turn": {
+     "rate": 45.40084388185654,
+     "share": 38.99308983218164
+    },
+    "name+args top1, next is write": {
+     "rate": 48.20717131474104,
+     "share": 24.777887462981244
+    },
+    "name top1, next is write": {
+     "rate": 36.52058432934927,
+     "share": 24.777887462981244
+    }
+   },
+   "gate": {
+    "0.0": {
+     "launched": 76.73576834485029,
+     "precision": 79.20240137221269
+    },
+    "0.3": {
+     "launched": 74.72852912142152,
+     "precision": 80.71334214002643
+    },
+    "0.5": {
+     "launched": 66.46923330042777,
+     "precision": 85.89108910891089
+    },
+    "0.7": {
+     "launched": 44.257979598552154,
+     "precision": 95.09293680297398
+    },
+    "0.9": {
+     "launched": 9.279368213228036,
+     "precision": 98.58156028368795
+    }
+   }
+  },
+  "W/airline/gpt-4o": {
+   "n": 455.0,
+   "name_top1": 55.16483516483517,
+   "name_top3": 79.78021978021978,
+   "heur_top1": 9.23076923076923,
+   "heur_top3": 14.725274725274724,
+   "comb_top1": 49.010989010989015,
+   "comb_top3": 51.42857142857143,
+   "spec_useful": 40.65934065934066,
+   "spec_launch": 59.56043956043956,
+   "prefix_cov": 74.94505494505495,
+   "prefix_prec": 64.80938416422288,
+   "next_read": 56.043956043956044,
+   "hit_by": {
+    "immediate chain": {
+     "rate": 61.67883211678832,
+     "share": 60.21978021978022
+    },
+    "name:immediate chain": {
+     "rate": 74.81751824817518,
+     "share": 60.21978021978022
+    },
+    "name+args top1, next is read": {
+     "rate": 72.54901960784314,
+     "share": 56.043956043956044
+    },
+    "name top1, next is read": {
+     "rate": 70.19607843137256,
+     "share": 56.043956043956044
+    },
+    "after user turn": {
+     "rate": 29.834254143646408,
+     "share": 39.78021978021978
+    },
+    "name:after user turn": {
+     "rate": 25.414364640883978,
+     "share": 39.78021978021978
+    },
+    "name+args top1, next is write": {
+     "rate": 19.0,
+     "share": 43.956043956043956
+    },
+    "name top1, next is write": {
+     "rate": 36.0,
+     "share": 43.956043956043956
+    }
+   },
+   "gate": {
+    "0.0": {
+     "launched": 59.56043956043956,
+     "precision": 68.26568265682657
+    },
+    "0.3": {
+     "launched": 54.065934065934066,
+     "precision": 74.39024390243902
+    },
+    "0.5": {
+     "launched": 47.032967032967036,
+     "precision": 80.37383177570094
+    },
+    "0.7": {
+     "launched": 14.285714285714286,
+     "precision": 89.23076923076923
+    },
+    "0.9": {
+     "launched": 0.0,
+     "precision": NaN
+    }
+   }
+  },
+  "W/airline/sonnet-3.5": {
+   "n": 1108.0,
+   "name_top1": 61.28158844765343,
+   "name_top3": 84.02527075812274,
+   "heur_top1": 12.00361010830325,
+   "heur_top3": 19.04332129963899,
+   "comb_top1": 64.53068592057761,
+   "comb_top3": 66.15523465703971,
+   "spec_useful": 54.78339350180505,
+   "spec_launch": 74.09747292418773,
+   "prefix_cov": 92.32851985559567,
+   "prefix_prec": 69.59921798631476,
+   "next_read": 70.66787003610108,
+   "hit_by": {
+    "immediate chain": {
+     "rate": 77.95698924731182,
+     "share": 67.14801444043322
+    },
+    "name:immediate chain": {
+     "rate": 77.01612903225806,
+     "share": 67.14801444043322
+    },
+    "name+args top1, next is read": {
+     "rate": 77.52234993614304,
+     "share": 70.66787003610108
+    },
+    "name top1, next is read": {
+     "rate": 70.49808429118774,
+     "share": 70.66787003610108
+    },
+    "after user turn": {
+     "rate": 37.08791208791209,
+     "share": 32.851985559566785
+    },
+    "name:after user turn": {
+     "rate": 29.12087912087912,
+     "share": 32.851985559566785
+    },
+    "name+args top1, next is write": {
+     "rate": 33.23076923076923,
+     "share": 29.332129963898918
+    },
+    "name top1, next is write": {
+     "rate": 39.07692307692308,
+     "share": 29.332129963898918
+    }
+   },
+   "gate": {
+    "0.0": {
+     "launched": 74.09747292418773,
+     "precision": 73.93422655298417
+    },
+    "0.3": {
+     "launched": 71.20938628158845,
+     "precision": 76.29911280101395
+    },
+    "0.5": {
+     "launched": 57.31046931407942,
+     "precision": 85.35433070866142
+    },
+    "0.7": {
+     "launched": 36.73285198555957,
+     "precision": 93.36609336609337
+    },
+    "0.9": {
+     "launched": 2.707581227436823,
+     "precision": 96.66666666666667
+    }
+   }
+  },
+  "X/retail/gpt-4o": {
+   "n": 825.8,
+   "name_top1": 60.2567207556309,
+   "name_top3": 78.20295471058368,
+   "heur_top1": 28.14240736255752,
+   "heur_top3": 32.6229111164931,
+   "comb_top1": 40.5182852991039,
+   "comb_top3": 45.99176556066844,
+   "spec_useful": 38.09639137805764,
+   "spec_launch": 81.15766529426011,
+   "prefix_cov": 50.956648098813275,
+   "prefix_prec": 52.37642585551331,
+   "next_read": 73.11697747638654,
+   "hit_by": {
+    "after user turn": {
+     "rate": 35.10684692542521,
+     "share": 55.5340276095907
+    },
+    "name:after user turn": {
+     "rate": 48.1901439162669,
+     "share": 55.5340276095907
+    },
+    "name+args top1, next is read": {
+     "rate": 52.10334547863531,
+     "share": 73.11697747638654
+    },
+    "name top1, next is read": {
+     "rate": 75.9523020867837,
+     "share": 73.11697747638654
+    },
+    "name+args top1, next is write": {
+     "rate": 9.00900900900901,
+     "share": 26.883022523613466
+    },
+    "name top1, next is write": {
+     "rate": 17.56756756756757,
+     "share": 26.883022523613466
+    },
+    "immediate chain": {
+     "rate": 47.27668845315904,
+     "share": 44.4659723904093
+    },
+    "name:immediate chain": {
+     "rate": 75.32679738562092,
+     "share": 44.4659723904093
+    }
+   },
+   "gate": {
+    "0.0": {
+     "launched": 81.15766529426011,
+     "precision": 46.941211578633244
+    },
+    "0.3": {
+     "launched": 63.21143133930734,
+     "precision": 59.808429118773944
+    },
+    "0.5": {
+     "launched": 36.255751998062486,
+     "precision": 72.87909151636606
+    },
+    "0.7": {
+     "launched": 20.07750060547348,
+     "precision": 79.37273823884198
+    },
+    "0.9": {
+     "launched": 0.6781302978929523,
+     "precision": 100.0
+    }
+   }
+  },
+  "X/retail/sonnet-3.5": {
+   "n": 1822.4,
+   "name_top1": 63.02677787532924,
+   "name_top3": 81.99078138718174,
+   "heur_top1": 24.056189640035118,
+   "heur_top3": 27.216856892010536,
+   "comb_top1": 41.14354697102722,
+   "comb_top3": 45.269973661106235,
+   "spec_useful": 39.03643546971027,
+   "spec_launch": 80.54214223002634,
+   "prefix_cov": 51.668129938542585,
+   "prefix_prec": 55.52251486830926,
+   "next_read": 75.55970149253731,
+   "hit_by": {
+    "after user turn": {
+     "rate": 20.54794520547945,
+     "share": 38.45478489903424
+    },
+    "name:after user turn": {
+     "rate": 37.5,
+     "share": 38.45478489903424
+    },
+    "name+args top1, next is write": {
+     "rate": 8.621463852716658,
+     "share": 24.440298507462686
+    },
+    "name top1, next is write": {
+     "rate": 23.30489447687472,
+     "share": 24.440298507462686
+    },
+    "name+args top1, next is read": {
+     "rate": 51.66303558460421,
+     "share": 75.55970149253731
+    },
+    "name top1, next is read": {
+     "rate": 75.87509077705157,
+     "share": 75.55970149253731
+    },
+    "immediate chain": {
+     "rate": 54.01212553495007,
+     "share": 61.54521510096576
+    },
+    "name:immediate chain": {
+     "rate": 78.97646219686163,
+     "share": 61.54521510096576
+    }
+   },
+   "gate": {
+    "0.0": {
+     "launched": 80.54214223002634,
+     "precision": 48.467093609483584
+    },
+    "0.3": {
+     "launched": 69.88586479367866,
+     "precision": 55.35489949748744
+    },
+    "0.5": {
+     "launched": 40.43020193151887,
+     "precision": 69.24538545059718
+    },
+    "0.7": {
+     "launched": 26.591308165057068,
+     "precision": 74.70078415187784
+    },
+    "0.9": {
+     "launched": 3.7203687445127303,
+     "precision": 88.20058997050147
+    }
+   }
+  },
+  "X/airline/gpt-4o": {
+   "n": 261.0,
+   "name_top1": 51.64750957854406,
+   "name_top3": 71.57088122605364,
+   "heur_top1": 9.96168582375479,
+   "heur_top3": 12.796934865900383,
+   "comb_top1": 15.632183908045977,
+   "comb_top3": 18.39080459770115,
+   "spec_useful": 14.17624521072797,
+   "spec_launch": 74.94252873563218,
+   "prefix_cov": 15.172413793103448,
+   "prefix_prec": 53.535353535353536,
+   "next_read": 58.77394636015325,
+   "hit_by": {
+    "immediate chain": {
+     "rate": 17.4346201743462,
+     "share": 61.53256704980843
+    },
+    "name:immediate chain": {
+     "rate": 70.36114570361146,
+     "share": 61.53256704980843
+    },
+    "name+args top1, next is read": {
+     "rate": 24.11994784876141,
+     "share": 58.77394636015325
+    },
+    "name top1, next is read": {
+     "rate": 74.70664928292047,
+     "share": 58.77394636015325
+    },
+    "after user turn": {
+     "rate": 12.749003984063744,
+     "share": 38.46743295019157
+    },
+    "name:after user turn": {
+     "rate": 21.713147410358566,
+     "share": 38.46743295019157
+    },
+    "name+args top1, next is write": {
+     "rate": 3.5315985130111525,
+     "share": 41.22605363984675
+    },
+    "name top1, next is write": {
+     "rate": 18.773234200743495,
+     "share": 41.22605363984675
+    }
+   },
+   "gate": {
+    "0.0": {
+     "launched": 74.94252873563218,
+     "precision": 18.916155419222903
+    },
+    "0.3": {
+     "launched": 48.81226053639847,
+     "precision": 28.571428571428573
+    },
+    "0.5": {
+     "launched": 14.329501915708812,
+     "precision": 48.1283422459893
+    },
+    "0.7": {
+     "launched": 5.900383141762452,
+     "precision": 75.32467532467533
+    },
+    "0.9": {
+     "launched": 0.0,
+     "precision": NaN
+    }
+   }
+  },
+  "X/airline/sonnet-3.5": {
+   "n": 730.4,
+   "name_top1": 55.50383351588171,
+   "name_top3": 71.19386637458926,
+   "heur_top1": 11.007667031763416,
+   "heur_top3": 15.909090909090908,
+   "comb_top1": 16.730558598028477,
+   "comb_top3": 20.92004381161008,
+   "spec_useful": 15.854326396495072,
+   "spec_launch": 80.14786418400877,
+   "prefix_cov": 16.730558598028477,
+   "prefix_prec": 47.299509001636665,
+   "next_read": 70.947426067908,
+   "hit_by": {
+    "immediate chain": {
+     "rate": 21.87375942834458,
+     "share": 68.97590361445783
+    },
+    "name:immediate chain": {
+     "rate": 71.17903930131004,
+     "share": 68.97590361445783
+    },
+    "name+args top1, next is read": {
+     "rate": 22.346584330374373,
+     "share": 70.947426067908
+    },
+    "name top1, next is read": {
+     "rate": 69.50984175993825,
+     "share": 70.947426067908
+    },
+    "after user turn": {
+     "rate": 5.29567519858782,
+     "share": 31.02409638554217
+    },
+    "name:after user turn": {
+     "rate": 20.653133274492497,
+     "share": 31.02409638554217
+    },
+    "name+args top1, next is write": {
+     "rate": 3.016022620169651,
+     "share": 29.052573932092006
+    },
+    "name top1, next is write": {
+     "rate": 21.30065975494816,
+     "share": 29.052573932092006
+    }
+   },
+   "gate": {
+    "0.0": {
+     "launched": 80.14786418400877,
+     "precision": 19.781346088144858
+    },
+    "0.3": {
+     "launched": 48.849945235487404,
+     "precision": 23.934977578475337
+    },
+    "0.5": {
+     "launched": 12.48630887185104,
+     "precision": 58.771929824561404
+    },
+    "0.7": {
+     "launched": 7.831325301204819,
+     "precision": 75.17482517482517
+    },
+    "0.9": {
+     "launched": 0.43811610076670315,
+     "precision": 100.0
+    }
+   }
+  }
+ }
+}

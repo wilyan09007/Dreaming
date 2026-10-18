@@ -1,0 +1,12 @@
+{
+ "#1 p265 A0-A3 (spike)": {"class": "benign rounding (extractor over-strict)", "why": "history range $99-$249 vs $100-$250; the record's range is $99.23-$249.09, both notes round it; judge SAME is right"},
+ "#2 p288 A0-A3 (spike)": {"class": "judge miss on a real numeric error", "why": "note A says typical charges 'roughly $150-$480' but the record's lowest prior charge is $167.71 (B says $167 to $481, correct); the conclusion (unusually high) is unchanged, so a reviewer-level judge may rightly shrug, but a strict rubric asking for the evidence should not"},
+ "#3 p252 A2-A3 (spike)": {"class": "loose characterisation (borderline)", "why": "'typically around $100-$200' vs 'ranged roughly $82 to $210' (record: $82.42-$209.58); A summarises, B reports the range; same conclusion"},
+ "#4 p294 A1-A3 (spike)": {"class": "benign rounding (extractor over-strict)", "why": "'$400 to $900' vs '$400 to $925' (record $401.52-$923.94); judge SAME is right"},
+ "#5 p215 A0-A3 (noinv)": {"class": "optional detail omitted (judge right)", "why": "bank amount -$87.75 stated in B only; equals the transaction amount, no conflict"},
+ "#6 p219 A0-A3 (normal)": {"class": "optional detail omitted (judge right)", "why": "bank amount stated in B only; equals the transaction amount"},
+ "#7 p226 A0-A3 (spike)": {"class": "optional detail omitted (judge right)", "why": "bank amount stated in B only; equals the transaction amount"},
+ "#8 p238 A0-A3 (normal)": {"class": "optional detail omitted (judge right)", "why": "bank amount stated in B only; equals the transaction amount"},
+ "#9 p239 A0-A3 (noinv)": {"class": "optional detail omitted (judge right)", "why": "bank amount stated in B only; equals the transaction amount"},
+ "#10 p254 A0-A3 (noinv)": {"class": "optional detail omitted (judge right)", "why": "bank amount stated in A only; equals the transaction amount"}
+}

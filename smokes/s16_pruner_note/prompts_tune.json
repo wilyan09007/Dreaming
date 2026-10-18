@@ -1,0 +1,2826 @@
+[
+{
+"id": 0,
+"scn": "spike",
+"vendor": "V0300",
+"cat": "professional",
+"tx_amt": 5586.07,
+"spike": true,
+"tx": "Transaction: 2026-09-27 | TITAN PARTN | $5,586.07",
+"inv": "Matched invoice: INV-000011 (vendor V0300, $5,484.12, issued 2026-09-18; amount within 2% of the transaction, counts as a match)",
+"flag": "Anomaly flag: yes (reason: amount unusually high for this vendor)",
+"bank": "Bank feed: posted 2026-09-28 | TITAN PARTN | -$5,586.07 | card ****6742 | POSTED",
+"flag_reasons": [
+"amount unusually high for this vendor"
+],
+"bank_mismatch": false,
+"hist": [
+{
+"days": 64,
+"amt": 1398.44,
+"text": "2026-07-25 | CHECKCARD TITAN PARTNERS AUSTIN TX | $1,398.44 | INV-107946"
+},
+{
+"days": 78,
+"amt": 1380.69,
+"text": "2026-07-11 | CHECKCARD TITAN PARTN DENVER CO | $1,380.69 | INV-590245"
+},
+{
+"days": 100,
+"amt": 751.02,
+"text": "2026-06-19 | CHECKCARD TITAN PARTN BOSTON MA | $751.02 | no invoice"
+},
+{
+"days": 102,
+"amt": 632.31,
+"text": "2026-06-17 | TITAN PARTN | $632.31 | INV-553420"
+},
+{
+"days": 108,
+"amt": 1684.03,
+"text": "2026-06-11 | CHECKCARD TITAN PARTNERS RALEIGH NC | $1,684.03 | INV-750256"
+},
+{
+"days": 122,
+"amt": 2147.48,
+"text": "2026-05-28 | CHECKCARD TITAN PARTN SAN JOSE CA | $2,147.48 | INV-560567"
+},
+{
+"days": 141,
+"amt": 756.78,
+"text": "2026-05-09 | CHECKCARD TITAN PARTN RENO NV | $756.78 | INV-710020"
+},
+{
+"days": 145,
+"amt": 1402.2,
+"text": "2026-05-05 | CHECKCARD TITAN PARTN SAN JOSE CA | $1,402.20 | INV-875069"
+},
+{
+"days": 163,
+"amt": 781.72,
+"text": "2026-04-17 | CHECKCARD TITAN PARTNERS OMAHA NE | $781.72 | INV-135907"
+},
+{
+"days": 177,
+"amt": 747.01,
+"text": "2026-04-03 | CHECKCARD TITAN PARTN PHOENIX AZ | $747.01 | INV-848115"
+},
+{
+"days": 184,
+"amt": 1167.36,
+"text": "2026-03-27 | CHECKCARD TITAN PARTN MADISON WI | $1,167.36 | INV-896640"
+},
+{
+"days": 211,
+"amt": 794.37,
+"text": "2026-02-28 | CHECKCARD TITAN PARTNERS DALLAS TX | $794.37 | no invoice"
+},
+{
+"days": 213,
+"amt": 1092.64,
+"text": "2026-02-26 | TITAN PARTN | $1,092.64 | INV-511218"
+},
+{
+"days": 217,
+"amt": 708.27,
+"text": "2026-02-22 | Checkcard Titan Partn Omaha Ne | $708.27 | INV-851500"
+},
+{
+"days": 220,
+"amt": 351.46,
+"text": "2026-02-19 | CHECKCARD TITAN PARTN PHOENIX AZ | $351.46 | INV-143638"
+},
+{
+"days": 245,
+"amt": 656.17,
+"text": "2026-01-25 | TITAN PARTN | $656.17 | INV-980162"
+},
+{
+"days": 248,
+"amt": 970.17,
+"text": "2026-01-22 | TITAN PARTN | $970.17 | INV-467147"
+},
+{
+"days": 250,
+"amt": 1051.42,
+"text": "2026-01-20 | CHECKCARD TITAN PARTNERS NEW YORK NY | $1,051.42 | INV-564057"
+},
+{
+"days": 256,
+"amt": 962.04,
+"text": "2026-01-14 | CHECKCARD TITAN PARTNERS DALLAS TX | $962.04 | INV-185448"
+},
+{
+"days": 278,
+"amt": 456.07,
+"text": "2025-12-23 | CHECKCARD TITAN PARTNERS OMAHA NE | $456.07 | INV-931091"
+}
+],
+"has_inv": true
+},
+{
+"id": 1,
+"scn": "dup",
+"vendor": "V0182",
+"cat": "travel",
+"tx_amt": 76.38,
+"spike": false,
+"tx": "Transaction: 2026-03-28 | CHECKCARD ATLAS RESORT DALLAS TX | $76.38",
+"inv": "Matched invoice: INV-000013 (vendor V0182, $76.37, issued 2026-03-20; amount within 2% of the transaction, counts as a match)",
+"flag": "Anomaly flag: yes (reason: possible duplicate of a recent charge)",
+"bank": "Bank feed: posted 2026-03-30 | CHECKCARD ATLAS RESORT D | -$78.67 | card ****2030 | POSTED",
+"flag_reasons": [
+"possible duplicate of a recent charge"
+],
+"bank_mismatch": true,
+"hist": [
+{
+"days": 2,
+"amt": 76.38,
+"text": "2026-03-26 | CHECKCARD ATLAS RESORT DALLAS TX | $76.38 | INV-538281"
+},
+{
+"days": 9,
+"amt": 96.72,
+"text": "2026-03-19 | CHECKCARD ATLAS RESORT CHICAGO IL | $96.72 | INV-482929"
+},
+{
+"days": 21,
+"amt": 231.26,
+"text": "2026-03-07 | CHECKCARD ATLAS RESORT MADISON WI | $231.26 | INV-460475"
+},
+{
+"days": 24,
+"amt": 151.99,
+"text": "2026-03-04 | CHECKCARD ATLAS RESORT TAMPA FL | $151.99 | INV-850525"
+},
+{
+"days": 43,
+"amt": 358.4,
+"text": "2026-02-13 | Checkcard Atlas Resort Raleigh Nc | $358.40 | INV-308004"
+},
+{
+"days": 71,
+"amt": 259.29,
+"text": "2026-01-16 | CHECKCARD ATLAS RESORT ATLANTA GA | $259.29 | INV-962522"
+},
+{
+"days": 78,
+"amt": 216.96,
+"text": "2026-01-09 | Checkcard Atlas Resort Boston Ma | $216.96 | INV-904048"
+},
+{
+"days": 86,
+"amt": 77.97,
+"text": "2026-01-01 | CHECKCARD ATLAS RESORT OMAHA NE | $77.97 | INV-151400"
+},
+{
+"days": 105,
+"amt": 134.9,
+"text": "2025-12-13 | CHECKCARD ATLAS RESORT DALLAS TX | $134.90 | INV-196351"
+},
+{
+"days": 108,
+"amt": 210.05,
+"text": "2025-12-10 | CHECKCARD ATLAS RESORT PORTLAND OR | $210.05 | INV-702940"
+},
+{
+"days": 117,
+"amt": 133.15,
+"text": "2025-12-01 | Checkcard Atlas Resort Atlanta Ga | $133.15 | INV-930908"
+},
+{
+"days": 129,
+"amt": 211.55,
+"text": "2025-11-19 | Checkcard Atlas Resort Nashville Tn | $211.55 | INV-993669"
+},
+{
+"days": 150,
+"amt": 213.37,
+"text": "2025-10-29 | checkcard atlas resort chicago il | $213.37 | INV-237989"
+},
+{
+"days": 173,
+"amt": 121.24,
+"text": "2025-10-06 | CHECKCARD ATLAS RESORT SEATTLE WA | $121.24 | no invoice"
+},
+{
+"days": 186,
+"amt": 105.27,
+"text": "2025-09-23 | CHECKCARD ATLAS RESORT SAN JOSE CA | $105.27 | INV-563329"
+},
+{
+"days": 200,
+"amt": 298.01,
+"text": "2025-09-09 | CHECKCARD ATLAS RESORT MADISON WI | $298.01 | INV-146338"
+}
+],
+"has_inv": true
+},
+{
+"id": 2,
+"scn": "normal",
+"vendor": "V0170",
+"cat": "utilities",
+"tx_amt": 245.6,
+"spike": false,
+"tx": "Transaction: 2025-06-11 | FALCON UTILITIES 725204 | $245.60",
+"inv": "Matched invoice: INV-000014 (vendor V0170, $247.61, issued 2025-05-23; amount within 2% of the transaction, counts as a match)",
+"flag": "Anomaly flag: no (reason: invoice matched and amount in the usual range)",
+"bank": "Bank feed: posted 2025-06-12 | FALCON UTILITIES 725204 | -$245.60 | card ****5227 | POSTED",
+"flag_reasons": [],
+"bank_mismatch": false,
+"hist": [
+{
+"days": 32,
+"amt": 188.15,
+"text": "2025-05-10 | FALCON UTILITIES 681150 | $188.15 | no invoice"
+},
+{
+"days": 57,
+"amt": 196.19,
+"text": "2025-04-15 | FALCON UTILITIES 447341 | $196.19 | INV-263230"
+},
+{
+"days": 87,
+"amt": 108.17,
+"text": "2025-03-16 | falcon utilities 522057 | $108.17 | INV-969618"
+},
+{
+"days": 113,
+"amt": 184.56,
+"text": "2025-02-18 | FALCON UTILITIES 489176 | $184.56 | INV-641238"
+},
+{
+"days": 142,
+"amt": 156.21,
+"text": "2025-01-20 | FALCON UTILITIES 293560 | $156.21 | INV-190138"
+},
+{
+"days": 175,
+"amt": 131.01,
+"text": "2024-12-18 | FALCON UTILITIES 139499 | $131.01 | INV-144963"
+},
+{
+"days": 207,
+"amt": 145.34,
+"text": "2024-11-16 | FALCON UTILITIES 859180 | $145.34 | INV-812954"
+},
+{
+"days": 239,
+"amt": 142.43,
+"text": "2024-10-15 | Falcon Utilities 672518 | $142.43 | INV-849530"
+},
+{
+"days": 270,
+"amt": 120.57,
+"text": "2024-09-14 | FALCON UTILITIES 969138 | $120.57 | INV-976558"
+},
+{
+"days": 296,
+"amt": 96.26,
+"text": "2024-08-19 | FALCON UTILITIES 49792 | $96.26 | INV-930025"
+},
+{
+"days": 323,
+"amt": 171.93,
+"text": "2024-07-23 | falcon utilities 522529 | $171.93 | INV-659569"
+},
+{
+"days": 354,
+"amt": 167.08,
+"text": "2024-06-22 | FALCON UTILITIES 152876 | $167.08 | INV-617643"
+},
+{
+"days": 387,
+"amt": 218.52,
+"text": "2024-05-20 | FALCON UTILITIES 946957 | $218.52 | INV-472656"
+},
+{
+"days": 418,
+"amt": 208.38,
+"text": "2024-04-19 | FALCON UTILITIES 598640 | $208.38 | INV-794650"
+},
+{
+"days": 449,
+"amt": 164.14,
+"text": "2024-03-19 | FALCON UTILITIES 741124 | $164.14 | no invoice"
+},
+{
+"days": 480,
+"amt": 193.88,
+"text": "2024-02-17 | FALCON UTILITIES 49063 | $193.88 | INV-816261"
+},
+{
+"days": 512,
+"amt": 230.25,
+"text": "2024-01-16 | FALCON UTILITIES 394059 | $230.25 | INV-474340"
+},
+{
+"days": 543,
+"amt": 131.73,
+"text": "2023-12-16 | Falcon Utilities 657850 | $131.73 | INV-994579"
+},
+{
+"days": 570,
+"amt": 146.77,
+"text": "2023-11-19 | falcon utilities 264102 | $146.77 | INV-557229"
+},
+{
+"days": 602,
+"amt": 167.66,
+"text": "2023-10-18 | FALCON UTILITIES 254284 | $167.66 | INV-962621"
+},
+{
+"days": 630,
+"amt": 111.6,
+"text": "2023-09-20 | Falcon Utilities 445805 | $111.60 | INV-822149"
+},
+{
+"days": 656,
+"amt": 119.52,
+"text": "2023-08-25 | FALCON UTILITIES 46889 | $119.52 | INV-797841"
+},
+{
+"days": 686,
+"amt": 184.9,
+"text": "2023-07-26 | FALCON UTILITIES 961825 | $184.90 | INV-645710"
+},
+{
+"days": 713,
+"amt": 140.72,
+"text": "2023-06-29 | FALCON UTILITIES 444364 | $140.72 | INV-539230"
+},
+{
+"days": 740,
+"amt": 175.52,
+"text": "2023-06-02 | FALCON UTILITIES 346128 | $175.52 | no invoice"
+},
+{
+"days": 770,
+"amt": 152.3,
+"text": "2023-05-03 | FALCON UTILITIES 397935 | $152.30 | INV-802919"
+},
+{
+"days": 798,
+"amt": 213.37,
+"text": "2023-04-05 | FALCON UTILITIES 167685 | $213.37 | INV-408165"
+},
+{
+"days": 826,
+"amt": 167.86,
+"text": "2023-03-08 | FALCON UTILITIES 348686 | $167.86 | INV-925674"
+},
+{
+"days": 857,
+"amt": 162.03,
+"text": "2023-02-05 | FALCON UTILITIES 494922 | $162.03 | INV-201406"
+},
+{
+"days": 890,
+"amt": 146.24,
+"text": "2023-01-03 | FALCON UTILITIES 839601 | $146.24 | INV-784017"
+}
+],
+"has_inv": true
+},
+{
+"id": 3,
+"scn": "noinv",
+"vendor": "V0028",
+"cat": "meals",
+"tx_amt": 64.08,
+"spike": false,
+"tx": "Transaction: 2025-02-06 | silver grill #9553 | $64.08",
+"inv": "Matched invoice: NONE",
+"flag": "Anomaly flag: yes (reason: no matching invoice)",
+"bank": "Bank feed: posted 2025-02-08 | SILVER GRILL #9553 | -$64.08 | card ****3114 | POSTED",
+"flag_reasons": [
+"no matching invoice"
+],
+"bank_mismatch": false,
+"hist": [
+{
+"days": 28,
+"amt": 27.77,
+"text": "2025-01-09 | SILVER GRILL #2138 | $27.77 | no invoice"
+},
+{
+"days": 34,
+"amt": 26.51,
+"text": "2025-01-03 | SQ *SILVER GRILL | $26.51 | no invoice"
+},
+{
+"days": 63,
+"amt": 7.28,
+"text": "2024-12-05 | SQ *SILVER GRILL | $7.28 | no invoice"
+},
+{
+"days": 89,
+"amt": 20.19,
+"text": "2024-11-09 | SILVER GRILL #675 | $20.19 | no invoice"
+},
+{
+"days": 116,
+"amt": 102.29,
+"text": "2024-10-13 | SQ *SILVER GRILL | $102.29 | no invoice"
+},
+{
+"days": 138,
+"amt": 29.69,
+"text": "2024-09-21 | SQ *SILVER GRILL | $29.69 | no invoice"
+},
+{
+"days": 149,
+"amt": 18.13,
+"text": "2024-09-10 | SQ *SILVER GRILL | $18.13 | no invoice"
+},
+{
+"days": 210,
+"amt": 53.55,
+"text": "2024-07-11 | SQ *SILVER GRILL | $53.55 | no invoice"
+},
+{
+"days": 212,
+"amt": 28.95,
+"text": "2024-07-09 | SQ *SILVER GRILL | $28.95 | no invoice"
+},
+{
+"days": 242,
+"amt": 31.7,
+"text": "2024-06-09 | SQ *SILVER GRILL | $31.70 | no invoice"
+},
+{
+"days": 254,
+"amt": 9.9,
+"text": "2024-05-28 | SILVER GRILL #5710 | $9.90 | no invoice"
+},
+{
+"days": 259,
+"amt": 16.1,
+"text": "2024-05-23 | SILVER GRILL #5559 | $16.10 | no invoice"
+},
+{
+"days": 278,
+"amt": 29.08,
+"text": "2024-05-04 | SILVER GRILL #6027 | $29.08 | no invoice"
+},
+{
+"days": 285,
+"amt": 44.42,
+"text": "2024-04-27 | silver grill #2446 | $44.42 | no invoice"
+},
+{
+"days": 302,
+"amt": 17.24,
+"text": "2024-04-10 | SQ *SILVER GRILL | $17.24 | no invoice"
+},
+{
+"days": 306,
+"amt": 19.04,
+"text": "2024-04-06 | SILVER GRILL #9496 | $19.04 | no invoice"
+},
+{
+"days": 316,
+"amt": 35.09,
+"text": "2024-03-27 | SILVER GRILL #2868 | $35.09 | no invoice"
+},
+{
+"days": 325,
+"amt": 24.93,
+"text": "2024-03-18 | SQ *SILVER GRILL | $24.93 | no invoice"
+},
+{
+"days": 330,
+"amt": 15.68,
+"text": "2024-03-13 | SQ *SILVER GRILL | $15.68 | no invoice"
+},
+{
+"days": 367,
+"amt": 47.29,
+"text": "2024-02-05 | SILVER GRILL #7163 | $47.29 | no invoice"
+},
+{
+"days": 376,
+"amt": 39.89,
+"text": "2024-01-27 | SILVER GRILL #3789 | $39.89 | no invoice"
+},
+{
+"days": 379,
+"amt": 12.54,
+"text": "2024-01-24 | SQ *SILVER GRILL | $12.54 | no invoice"
+},
+{
+"days": 401,
+"amt": 18.95,
+"text": "2024-01-02 | Silver Grill #3984 | $18.95 | no invoice"
+},
+{
+"days": 404,
+"amt": 38.14,
+"text": "2023-12-30 | SILVER GRILL #1869 | $38.14 | no invoice"
+},
+{
+"days": 426,
+"amt": 26.96,
+"text": "2023-12-08 | SQ *SILVER GRILL | $26.96 | no invoice"
+},
+{
+"days": 441,
+"amt": 11.0,
+"text": "2023-11-23 | SILVER GRILL #7589 | $11.00 | no invoice"
+},
+{
+"days": 509,
+"amt": 13.93,
+"text": "2023-09-16 | SQ *SILVER GRILL | $13.93 | no invoice"
+},
+{
+"days": 519,
+"amt": 26.66,
+"text": "2023-09-06 | SQ *SILVER GRILL | $26.66 | no invoice"
+},
+{
+"days": 524,
+"amt": 27.12,
+"text": "2023-09-01 | SQ *SILVER GRILL | $27.12 | no invoice"
+},
+{
+"days": 527,
+"amt": 42.72,
+"text": "2023-08-29 | SQ *SILVER GRILL | $42.72 | no invoice"
+}
+],
+"has_inv": false
+},
+{
+"id": 4,
+"scn": "noinv",
+"vendor": "V0160",
+"cat": "travel",
+"tx_amt": 124.6,
+"spike": false,
+"tx": "Transaction: 2026-10-07 | LAKESIDE RAIL DENVER CO | $124.60",
+"inv": "Matched invoice: NONE",
+"flag": "Anomaly flag: yes (reason: no matching invoice)",
+"bank": "Bank feed: posted 2026-10-08 | LAKESIDE RAIL DENVER CO | -$124.60 | card ****3922 | POSTED",
+"flag_reasons": [
+"no matching invoice"
+],
+"bank_mismatch": false,
+"hist": [
+{
+"days": 7,
+"amt": 279.81,
+"text": "2026-09-30 | LAKESIDE RAIL SEATTLE WA | $279.81 | no invoice"
+},
+{
+"days": 10,
+"amt": 501.92,
+"text": "2026-09-27 | LAKESIDE RAIL BOISE ID | $501.92 | no invoice"
+},
+{
+"days": 15,
+"amt": 330.09,
+"text": "2026-09-22 | LAKESIDE RAIL MADISON WI | $330.09 | no invoice"
+},
+{
+"days": 38,
+"amt": 500.82,
+"text": "2026-08-30 | LAKESIDE RAIL BOSTON MA | $500.82 | no invoice"
+},
+{
+"days": 40,
+"amt": 223.91,
+"text": "2026-08-28 | lakeside rail chicago il | $223.91 | no invoice"
+},
+{
+"days": 48,
+"amt": 331.87,
+"text": "2026-08-20 | lakeside rail madison wi | $331.87 | no invoice"
+},
+{
+"days": 89,
+"amt": 267.6,
+"text": "2026-07-10 | LAKESIDE RAIL BOSTON MA | $267.60 | no invoice"
+},
+{
+"days": 116,
+"amt": 361.57,
+"text": "2026-06-13 | LAKESIDE RAIL TUCSON AZ | $361.57 | no invoice"
+},
+{
+"days": 121,
+"amt": 409.09,
+"text": "2026-06-08 | LAKESIDE RAIL CHICAGO IL | $409.09 | no invoice"
+},
+{
+"days": 125,
+"amt": 140.96,
+"text": "2026-06-04 | LAKESIDE RAIL PORTLAND OR | $140.96 | no invoice"
+},
+{
+"days": 174,
+"amt": 123.09,
+"text": "2026-04-16 | LAKESIDE RAIL TAMPA FL | $123.09 | no invoice"
+},
+{
+"days": 198,
+"amt": 151.02,
+"text": "2026-03-23 | LAKESIDE RAIL RENO NV | $151.02 | no invoice"
+},
+{
+"days": 207,
+"amt": 430.85,
+"text": "2026-03-14 | lakeside rail denver co | $430.85 | no invoice"
+},
+{
+"days": 217,
+"amt": 333.57,
+"text": "2026-03-04 | LAKESIDE RAIL ATLANTA GA | $333.57 | no invoice"
+},
+{
+"days": 231,
+"amt": 428.26,
+"text": "2026-02-18 | LAKESIDE RAIL CHICAGO IL | $428.26 | no invoice"
+},
+{
+"days": 234,
+"amt": 165.21,
+"text": "2026-02-15 | LAKESIDE RAIL SEATTLE WA | $165.21 | no invoice"
+},
+{
+"days": 259,
+"amt": 269.49,
+"text": "2026-01-21 | LAKESIDE RAIL MADISON WI | $269.49 | no invoice"
+},
+{
+"days": 277,
+"amt": 330.23,
+"text": "2026-01-03 | LAKESIDE RAIL DENVER CO | $330.23 | no invoice"
+},
+{
+"days": 290,
+"amt": 99.08,
+"text": "2025-12-21 | LAKESIDE RAIL SEATTLE WA | $99.08 | no invoice"
+},
+{
+"days": 296,
+"amt": 209.76,
+"text": "2025-12-15 | LAKESIDE RAIL ATLANTA GA | $209.76 | no invoice"
+},
+{
+"days": 305,
+"amt": 303.51,
+"text": "2025-12-06 | LAKESIDE RAIL CHICAGO IL | $303.51 | no invoice"
+},
+{
+"days": 330,
+"amt": 290.01,
+"text": "2025-11-11 | lakeside rail raleigh nc | $290.01 | no invoice"
+},
+{
+"days": 344,
+"amt": 175.81,
+"text": "2025-10-28 | LAKESIDE RAIL NASHVILLE TN | $175.81 | no invoice"
+},
+{
+"days": 370,
+"amt": 232.8,
+"text": "2025-10-02 | LAKESIDE RAIL OMAHA NE | $232.80 | no invoice"
+},
+{
+"days": 401,
+"amt": 367.03,
+"text": "2025-09-01 | LAKESIDE RAIL DALLAS TX | $367.03 | no invoice"
+},
+{
+"days": 406,
+"amt": 335.45,
+"text": "2025-08-27 | LAKESIDE RAIL NEW YORK NY | $335.45 | no invoice"
+},
+{
+"days": 415,
+"amt": 373.89,
+"text": "2025-08-18 | LAKESIDE RAIL PHOENIX AZ | $373.89 | no invoice"
+}
+],
+"has_inv": false
+},
+{
+"id": 5,
+"scn": "normal",
+"vendor": "V0071",
+"cat": "insurance",
+"tx_amt": 243.14,
+"spike": false,
+"tx": "Transaction: 2025-08-31 | CHECKCARD LOTUS MUTUAL | $243.14",
+"inv": "Matched invoice: INV-000017 (vendor V0071, $245.37, issued 2025-08-17; amount within 2% of the transaction, counts as a match)",
+"flag": "Anomaly flag: no (reason: invoice matched and amount in the usual range)",
+"bank": "Bank feed: posted 2025-09-01 | CHECKCARD LOTUS MUTUAL | -$243.14 | card ****4689 | POSTED",
+"flag_reasons": [],
+"bank_mismatch": false,
+"hist": [
+{
+"days": 26,
+"amt": 564.52,
+"text": "2025-08-05 | PAYPAL *LOTUSMUTUA #8926 | $564.52 | INV-253612"
+},
+{
+"days": 57,
+"amt": 417.54,
+"text": "2025-07-05 | paypal *lotusmutua #4659 | $417.54 | INV-830206"
+},
+{
+"days": 83,
+"amt": 488.86,
+"text": "2025-06-09 | CHECKCARD LOTUS MUTUAL | $488.86 | INV-872078"
+},
+{
+"days": 110,
+"amt": 341.93,
+"text": "2025-05-13 | CHECKCARD LOTUS MUTUAL | $341.93 | INV-483121"
+},
+{
+"days": 139,
+"amt": 395.13,
+"text": "2025-04-14 | paypal *lotusmutua #6691 | $395.13 | no invoice"
+},
+{
+"days": 171,
+"amt": 398.29,
+"text": "2025-03-13 | PAYPAL *LOTUSMUTUA #6318 | $398.29 | INV-893675"
+},
+{
+"days": 201,
+"amt": 445.43,
+"text": "2025-02-11 | CHECKCARD LOTUS MUTUAL | $445.43 | INV-619595"
+},
+{
+"days": 237,
+"amt": 572.33,
+"text": "2025-01-06 | PAYPAL *LOTUSMUTUA #2934 | $572.33 | INV-524289"
+},
+{
+"days": 269,
+"amt": 269.12,
+"text": "2024-12-05 | PAYPAL *LOTUSMUTUA #2346 | $269.12 | no invoice"
+},
+{
+"days": 299,
+"amt": 530.97,
+"text": "2024-11-05 | CHECKCARD LOTUS MUTUAL | $530.97 | INV-600414"
+},
+{
+"days": 324,
+"amt": 406.72,
+"text": "2024-10-11 | CHECKCARD LOTUS MUTUAL | $406.72 | INV-629092"
+},
+{
+"days": 356,
+"amt": 483.05,
+"text": "2024-09-09 | CHECKCARD LOTUS MUTUAL | $483.05 | INV-516234"
+},
+{
+"days": 387,
+"amt": 359.34,
+"text": "2024-08-09 | checkcard lotus mutual | $359.34 | INV-183083"
+},
+{
+"days": 418,
+"amt": 428.47,
+"text": "2024-07-09 | CHECKCARD LOTUS MUTUAL | $428.47 | INV-478417"
+},
+{
+"days": 448,
+"amt": 327.37,
+"text": "2024-06-09 | CHECKCARD LOTUS MUTUAL | $327.37 | INV-625827"
+},
+{
+"days": 477,
+"amt": 497.89,
+"text": "2024-05-11 | PAYPAL *LOTUSMUTUA #9366 | $497.89 | INV-366734"
+},
+{
+"days": 508,
+"amt": 436.92,
+"text": "2024-04-10 | CHECKCARD LOTUS MUTUAL | $436.92 | INV-315181"
+},
+{
+"days": 536,
+"amt": 582.5,
+"text": "2024-03-13 | CHECKCARD LOTUS MUTUAL | $582.50 | INV-229890"
+},
+{
+"days": 563,
+"amt": 387.64,
+"text": "2024-02-15 | CHECKCARD LOTUS MUTUAL | $387.64 | no invoice"
+},
+{
+"days": 596,
+"amt": 428.49,
+"text": "2024-01-13 | PAYPAL *LOTUSMUTUA #6593 | $428.49 | INV-214089"
+},
+{
+"days": 625,
+"amt": 468.88,
+"text": "2023-12-15 | CHECKCARD LOTUS MUTUAL | $468.88 | INV-783577"
+},
+{
+"days": 654,
+"amt": 448.18,
+"text": "2023-11-16 | CHECKCARD LOTUS MUTUAL | $448.18 | INV-272975"
+},
+{
+"days": 685,
+"amt": 422.87,
+"text": "2023-10-16 | PAYPAL *LOTUSMUTUA #1601 | $422.87 | INV-794834"
+},
+{
+"days": 719,
+"amt": 376.92,
+"text": "2023-09-12 | CHECKCARD LOTUS MUTUAL | $376.92 | INV-501050"
+},
+{
+"days": 754,
+"amt": 367.21,
+"text": "2023-08-08 | CHECKCARD LOTUS MUTUAL | $367.21 | INV-221496"
+},
+{
+"days": 786,
+"amt": 339.72,
+"text": "2023-07-07 | CHECKCARD LOTUS MUTUAL | $339.72 | INV-790200"
+},
+{
+"days": 811,
+"amt": 368.82,
+"text": "2023-06-12 | PAYPAL *LOTUSMUTUA #8832 | $368.82 | INV-317536"
+}
+],
+"has_inv": true
+},
+{
+"id": 6,
+"scn": "dup",
+"vendor": "V0146",
+"cat": "groceries",
+"tx_amt": 55.07,
+"spike": false,
+"tx": "Transaction: 2026-09-13 | SQ *CEDAR CO-OP SAN JOSE CA | $55.07",
+"inv": "Matched invoice: INV-000019 (vendor V0146, $54.17, issued 2026-08-29; amount within 2% of the transaction, counts as a match)",
+"flag": "Anomaly flag: yes (reason: possible duplicate of a recent charge)",
+"bank": "Bank feed: posted 2026-09-15 | SQ *CEDAR CO-OP SAN JOSE | -$56.72 | card ****7454 | POSTED",
+"flag_reasons": [
+"possible duplicate of a recent charge"
+],
+"bank_mismatch": true,
+"hist": [
+{
+"days": 4,
+"amt": 55.07,
+"text": "2026-09-09 | sq *cedar co-op austin tx | $55.07 | INV-692665"
+},
+{
+"days": 13,
+"amt": 33.9,
+"text": "2026-08-31 | CEDAR CO-OP RALEIGH NC | $33.90 | INV-568531"
+},
+{
+"days": 16,
+"amt": 106.91,
+"text": "2026-08-28 | CEDAR CO-OP OMAHA NE | $106.91 | INV-291015"
+},
+{
+"days": 18,
+"amt": 42.62,
+"text": "2026-08-26 | Sq *Cedar Co-Op Nashville Tn | $42.62 | INV-984881"
+},
+{
+"days": 45,
+"amt": 44.51,
+"text": "2026-07-30 | CEDAR CO-OP AUSTIN TX | $44.51 | INV-776971"
+},
+{
+"days": 51,
+"amt": 34.34,
+"text": "2026-07-24 | SQ *CEDAR CO-OP MADISON WI | $34.34 | INV-966207"
+},
+{
+"days": 76,
+"amt": 67.14,
+"text": "2026-06-29 | SQ *CEDAR CO-OP PORTLAND OR | $67.14 | INV-873007"
+},
+{
+"days": 93,
+"amt": 30.64,
+"text": "2026-06-12 | CEDAR CO-OP NASHVILLE TN | $30.64 | INV-687396"
+},
+{
+"days": 95,
+"amt": 47.84,
+"text": "2026-06-10 | Sq *Cedar Co-Op Boston Ma | $47.84 | no invoice"
+},
+{
+"days": 141,
+"amt": 18.73,
+"text": "2026-04-25 | CEDAR CO-OP DENVER CO | $18.73 | INV-461842"
+},
+{
+"days": 148,
+"amt": 92.6,
+"text": "2026-04-18 | sq *cedar co-op tucson az | $92.60 | INV-503917"
+},
+{
+"days": 170,
+"amt": 53.69,
+"text": "2026-03-27 | CEDAR CO-OP PHOENIX AZ | $53.69 | INV-379686"
+},
+{
+"days": 199,
+"amt": 104.96,
+"text": "2026-02-26 | Sq *Cedar Co-Op Chicago Il | $104.96 | no invoice"
+},
+{
+"days": 209,
+"amt": 83.92,
+"text": "2026-02-16 | sq *cedar co-op phoenix az | $83.92 | no invoice"
+},
+{
+"days": 219,
+"amt": 85.79,
+"text": "2026-02-06 | CEDAR CO-OP MADISON WI | $85.79 | INV-436609"
+},
+{
+"days": 224,
+"amt": 64.63,
+"text": "2026-02-01 | Cedar Co-Op Boston Ma | $64.63 | no invoice"
+},
+{
+"days": 261,
+"amt": 87.42,
+"text": "2025-12-26 | CEDAR CO-OP DALLAS TX | $87.42 | INV-523522"
+},
+{
+"days": 263,
+"amt": 75.5,
+"text": "2025-12-24 | SQ *CEDAR CO-OP PORTLAND OR | $75.50 | INV-684912"
+},
+{
+"days": 265,
+"amt": 131.43,
+"text": "2025-12-22 | SQ *CEDAR CO-OP RENO NV | $131.43 | no invoice"
+},
+{
+"days": 283,
+"amt": 72.86,
+"text": "2025-12-04 | SQ *CEDAR CO-OP MIAMI FL | $72.86 | INV-430191"
+},
+{
+"days": 300,
+"amt": 32.36,
+"text": "2025-11-17 | CEDAR CO-OP TAMPA FL | $32.36 | INV-300430"
+},
+{
+"days": 307,
+"amt": 102.43,
+"text": "2025-11-10 | CEDAR CO-OP MIAMI FL | $102.43 | INV-820607"
+},
+{
+"days": 315,
+"amt": 26.13,
+"text": "2025-11-02 | SQ *CEDAR CO-OP CHICAGO IL | $26.13 | INV-468945"
+},
+{
+"days": 320,
+"amt": 101.19,
+"text": "2025-10-28 | SQ *CEDAR CO-OP OMAHA NE | $101.19 | INV-330666"
+},
+{
+"days": 338,
+"amt": 125.7,
+"text": "2025-10-10 | SQ *CEDAR CO-OP NASHVILLE TN | $125.70 | INV-513856"
+},
+{
+"days": 419,
+"amt": 116.24,
+"text": "2025-07-21 | SQ *CEDAR CO-OP DENVER CO | $116.24 | INV-689729"
+},
+{
+"days": 425,
+"amt": 45.75,
+"text": "2025-07-15 | SQ *CEDAR CO-OP MADISON WI | $45.75 | INV-808107"
+},
+{
+"days": 432,
+"amt": 63.41,
+"text": "2025-07-08 | Cedar Co-Op Tucson Az | $63.41 | INV-700993"
+},
+{
+"days": 451,
+"amt": 63.86,
+"text": "2025-06-19 | SQ *CEDAR CO-OP DENVER CO | $63.86 | INV-381898"
+},
+{
+"days": 474,
+"amt": 28.68,
+"text": "2025-05-27 | SQ *CEDAR CO-OP BOISE ID | $28.68 | INV-977015"
+},
+{
+"days": 483,
+"amt": 31.05,
+"text": "2025-05-18 | sq *cedar co-op austin tx | $31.05 | INV-629299"
+}
+],
+"has_inv": true
+},
+{
+"id": 7,
+"scn": "spike",
+"vendor": "V0138",
+"cat": "groceries",
+"tx_amt": 270.58,
+"spike": true,
+"tx": "Transaction: 2025-10-31 | PAYPAL *PACIFICFAR #97 | $270.58",
+"inv": "Matched invoice: NONE",
+"flag": "Anomaly flag: yes (reason: no matching invoice; amount unusually high for this vendor)",
+"bank": "Bank feed: posted 2025-11-01 | PAYPAL *PACIFICFAR #97 | -$270.58 | card ****1974 | POSTED",
+"flag_reasons": [
+"no matching invoice",
+"amount unusually high for this vendor"
+],
+"bank_mismatch": false,
+"hist": [
+{
+"days": 19,
+"amt": 39.08,
+"text": "2025-10-12 | POS PACIFIC FARMS CHICAGO IL | $39.08 | no invoice"
+},
+{
+"days": 39,
+"amt": 57.27,
+"text": "2025-09-22 | pos pacific farms austin tx | $57.27 | no invoice"
+},
+{
+"days": 50,
+"amt": 117.63,
+"text": "2025-09-11 | Pos Pacific Farms Austin Tx | $117.63 | no invoice"
+},
+{
+"days": 78,
+"amt": 71.28,
+"text": "2025-08-14 | PAYPAL *PACIFICFAR #81 | $71.28 | no invoice"
+},
+{
+"days": 92,
+"amt": 82.19,
+"text": "2025-07-31 | POS PACIFIC FARMS DALLAS TX | $82.19 | no invoice"
+},
+{
+"days": 105,
+"amt": 56.9,
+"text": "2025-07-18 | paypal *pacificfar #19 | $56.90 | no invoice"
+},
+{
+"days": 113,
+"amt": 168.71,
+"text": "2025-07-10 | POS PACIFIC FARMS BOISE ID | $168.71 | no invoice"
+},
+{
+"days": 146,
+"amt": 141.6,
+"text": "2025-06-07 | POS PACIFIC FARMS NEW YORK NY | $141.60 | no invoice"
+},
+{
+"days": 158,
+"amt": 57.96,
+"text": "2025-05-26 | PAYPAL *PACIFICFAR #83 | $57.96 | no invoice"
+},
+{
+"days": 173,
+"amt": 105.84,
+"text": "2025-05-11 | POS PACIFIC FARMS AUSTIN TX | $105.84 | no invoice"
+},
+{
+"days": 209,
+"amt": 154.82,
+"text": "2025-04-05 | POS PACIFIC FARMS TAMPA FL | $154.82 | no invoice"
+},
+{
+"days": 211,
+"amt": 38.12,
+"text": "2025-04-03 | POS PACIFIC FARMS DALLAS TX | $38.12 | no invoice"
+},
+{
+"days": 215,
+"amt": 128.74,
+"text": "2025-03-30 | PAYPAL *PACIFICFAR #59 | $128.74 | no invoice"
+},
+{
+"days": 221,
+"amt": 49.91,
+"text": "2025-03-24 | POS PACIFIC FARMS DALLAS TX | $49.91 | no invoice"
+},
+{
+"days": 244,
+"amt": 56.88,
+"text": "2025-03-01 | pos pacific farms reno nv | $56.88 | no invoice"
+},
+{
+"days": 262,
+"amt": 130.57,
+"text": "2025-02-11 | PAYPAL *PACIFICFAR #38 | $130.57 | no invoice"
+},
+{
+"days": 353,
+"amt": 62.28,
+"text": "2024-11-12 | PAYPAL *PACIFICFAR #99 | $62.28 | no invoice"
+},
+{
+"days": 366,
+"amt": 74.54,
+"text": "2024-10-30 | POS PACIFIC FARMS SAN JOSE CA | $74.54 | no invoice"
+},
+{
+"days": 368,
+"amt": 48.09,
+"text": "2024-10-28 | pos pacific farms seattle wa | $48.09 | no invoice"
+},
+{
+"days": 383,
+"amt": 62.9,
+"text": "2024-10-13 | PAYPAL *PACIFICFAR #37 | $62.90 | no invoice"
+},
+{
+"days": 397,
+"amt": 106.88,
+"text": "2024-09-29 | POS PACIFIC FARMS OMAHA NE | $106.88 | no invoice"
+},
+{
+"days": 416,
+"amt": 93.39,
+"text": "2024-09-10 | POS PACIFIC FARMS CHICAGO IL | $93.39 | no invoice"
+},
+{
+"days": 442,
+"amt": 66.11,
+"text": "2024-08-15 | PAYPAL *PACIFICFAR #59 | $66.11 | no invoice"
+},
+{
+"days": 450,
+"amt": 20.34,
+"text": "2024-08-07 | POS PACIFIC FARMS RALEIGH NC | $20.34 | no invoice"
+},
+{
+"days": 456,
+"amt": 95.48,
+"text": "2024-08-01 | PAYPAL *PACIFICFAR #88 | $95.48 | no invoice"
+},
+{
+"days": 477,
+"amt": 31.47,
+"text": "2024-07-11 | POS PACIFIC FARMS NEW YORK NY | $31.47 | no invoice"
+},
+{
+"days": 495,
+"amt": 92.48,
+"text": "2024-06-23 | POS PACIFIC FARMS DENVER CO | $92.48 | no invoice"
+},
+{
+"days": 533,
+"amt": 46.67,
+"text": "2024-05-16 | POS PACIFIC FARMS MADISON WI | $46.67 | no invoice"
+},
+{
+"days": 540,
+"amt": 102.33,
+"text": "2024-05-09 | PAYPAL *PACIFICFAR #25 | $102.33 | no invoice"
+},
+{
+"days": 548,
+"amt": 170.74,
+"text": "2024-05-01 | paypal *pacificfar #81 | $170.74 | no invoice"
+}
+],
+"has_inv": false
+},
+{
+"id": 8,
+"scn": "normal",
+"vendor": "V0241",
+"cat": "telecom",
+"tx_amt": 76.95,
+"spike": false,
+"tx": "Transaction: 2026-03-26 | BRIGHT TELECOM 764637 | $76.95",
+"inv": "Matched invoice: INV-000024 (vendor V0241, $78.32, issued 2026-03-22; amount within 2% of the transaction, counts as a match)",
+"flag": "Anomaly flag: no (reason: invoice matched and amount in the usual range)",
+"bank": "Bank feed: pending | BRIGHT TELECOM 764637 | -$76.95 | card ****9862 | PENDING",
+"flag_reasons": [],
+"bank_mismatch": false,
+"hist": [
+{
+"days": 28,
+"amt": 74.32,
+"text": "2026-02-26 | BRIGHT TELECOM 138913 | $74.32 | no invoice"
+},
+{
+"days": 60,
+"amt": 107.44,
+"text": "2026-01-25 | BRIGHT TELECOM 766220 | $107.44 | INV-786842"
+},
+{
+"days": 89,
+"amt": 52.52,
+"text": "2025-12-27 | BRIGHT TELECOM 759278 | $52.52 | INV-761241"
+},
+{
+"days": 121,
+"amt": 104.4,
+"text": "2025-11-25 | BRIGHT TELECOM 472397 | $104.40 | no invoice"
+},
+{
+"days": 155,
+"amt": 86.78,
+"text": "2025-10-22 | BRIGHT TELECOM 313565 | $86.78 | INV-842530"
+},
+{
+"days": 184,
+"amt": 90.34,
+"text": "2025-09-23 | BRIGHT TELECOM 149850 | $90.34 | INV-739001"
+},
+{
+"days": 214,
+"amt": 62.5,
+"text": "2025-08-24 | Bright Telecom 645539 | $62.50 | no invoice"
+},
+{
+"days": 245,
+"amt": 86.29,
+"text": "2025-07-24 | BRIGHT TELECOM 17402 | $86.29 | INV-847209"
+},
+{
+"days": 276,
+"amt": 81.48,
+"text": "2025-06-23 | bright telecom 1450 | $81.48 | INV-106663"
+},
+{
+"days": 306,
+"amt": 126.87,
+"text": "2025-05-24 | BRIGHT TELECOM 908952 | $126.87 | INV-611289"
+},
+{
+"days": 333,
+"amt": 153.43,
+"text": "2025-04-27 | BRIGHT TELECOM 7924 | $153.43 | INV-871557"
+},
+{
+"days": 363,
+"amt": 92.39,
+"text": "2025-03-28 | BRIGHT TELECOM 693227 | $92.39 | INV-790036"
+},
+{
+"days": 393,
+"amt": 162.14,
+"text": "2025-02-26 | BRIGHT TELECOM 893450 | $162.14 | INV-493723"
+},
+{
+"days": 423,
+"amt": 112.97,
+"text": "2025-01-27 | BRIGHT TELECOM 133716 | $112.97 | INV-438200"
+},
+{
+"days": 451,
+"amt": 91.31,
+"text": "2024-12-30 | BRIGHT TELECOM 403372 | $91.31 | no invoice"
+}
+],
+"has_inv": true
+},
+{
+"id": 9,
+"scn": "first",
+"vendor": "V0297",
+"cat": "professional",
+"tx_amt": 548.82,
+"spike": false,
+"tx": "Transaction: 2026-03-01 | POS PIONEER LAW GROUP #6048 DALLAS TX | $548.82",
+"inv": "Matched invoice: INV-000025 (vendor V0297, $556.91, issued 2026-02-15; amount within 2% of the transaction, counts as a match)",
+"flag": "Anomaly flag: yes (reason: first purchase from this vendor)",
+"bank": "Bank feed: posted 2026-03-02 | POS PIONEER LAW GROUP #6 | -$548.82 | card ****9699 | POSTED",
+"flag_reasons": [
+"first purchase from this vendor"
+],
+"bank_mismatch": false,
+"hist": [
+{
+"days": 2,
+"amt": 247.26,
+"text": "2026-02-27 | KEYSTONE INN 401969 | $247.26 | no invoice"
+},
+{
+"days": 10,
+"amt": 107.65,
+"text": "2026-02-19 | POS PRIME DIGITAL #8195 738251 | $107.65 | INV-491325"
+},
+{
+"days": 17,
+"amt": 91.95,
+"text": "2026-02-12 | Prime Digital | $91.95 | no invoice"
+},
+{
+"days": 19,
+"amt": 145.88,
+"text": "2026-02-10 | PRIME DIGITAL | $145.88 | INV-153478"
+},
+{
+"days": 33,
+"amt": 689.89,
+"text": "2026-01-27 | PAYPAL *EVERGREENI #5407 BOSTON MA | $689.89 | INV-122870"
+},
+{
+"days": 35,
+"amt": 203.68,
+"text": "2026-01-25 | KEYSTONE INN 502442 | $203.68 | no invoice"
+},
+{
+"days": 38,
+"amt": 260.13,
+"text": "2026-01-22 | KEYSTONE INN 583745 | $260.13 | INV-404473"
+},
+{
+"days": 47,
+"amt": 190.33,
+"text": "2026-01-13 | PRIME DIGITAL | $190.33 | no invoice"
+},
+{
+"days": 49,
+"amt": 350.46,
+"text": "2026-01-11 | KEYSTONE INN 453057 | $350.46 | INV-936580"
+},
+{
+"days": 56,
+"amt": 194.78,
+"text": "2026-01-04 | KEYSTONE INN 222832 | $194.78 | INV-697617"
+},
+{
+"days": 64,
+"amt": 671.63,
+"text": "2025-12-27 | KEYSTONE INN 850784 | $671.63 | INV-370875"
+},
+{
+"days": 96,
+"amt": 315.62,
+"text": "2025-11-25 | prime digital | $315.62 | no invoice"
+},
+{
+"days": 104,
+"amt": 370.23,
+"text": "2025-11-17 | Paypal *Evergreeni #9420 Phoenix Az | $370.23 | no invoice"
+},
+{
+"days": 106,
+"amt": 230.42,
+"text": "2025-11-15 | PAYPAL *EVERGREENI #3168 TAMPA FL | $230.42 | no invoice"
+},
+{
+"days": 108,
+"amt": 684.86,
+"text": "2025-11-13 | PAYPAL *EVERGREENI #334 RALEIGH NC | $684.86 | no invoice"
+},
+{
+"days": 119,
+"amt": 209.27,
+"text": "2025-11-02 | pos prime digital #395 438538 | $209.27 | INV-695430"
+},
+{
+"days": 189,
+"amt": 414.41,
+"text": "2025-08-24 | KEYSTONE INN 307638 | $414.41 | no invoice"
+},
+{
+"days": 191,
+"amt": 478.66,
+"text": "2025-08-22 | KEYSTONE INN 511530 | $478.66 | INV-945829"
+},
+{
+"days": 198,
+"amt": 389.33,
+"text": "2025-08-15 | pos prime digital #2996 476059 | $389.33 | no invoice"
+},
+{
+"days": 209,
+"amt": 126.31,
+"text": "2025-08-04 | prime digital | $126.31 | INV-313910"
+},
+{
+"days": 223,
+"amt": 222.72,
+"text": "2025-07-21 | POS PRIME DIGITAL #8961 622677 | $222.72 | no invoice"
+},
+{
+"days": 241,
+"amt": 124.29,
+"text": "2025-07-03 | Prime Digital | $124.29 | no invoice"
+},
+{
+"days": 252,
+"amt": 293.87,
+"text": "2025-06-22 | pos prime digital #5561 17574 | $293.87 | no invoice"
+},
+{
+"days": 256,
+"amt": 225.05,
+"text": "2025-06-18 | PAYPAL *EVERGREENI #7609 MADISON WI | $225.05 | INV-231337"
+},
+{
+"days": 306,
+"amt": 314.61,
+"text": "2025-04-29 | KEYSTONE INN 78441 | $314.61 | no invoice"
+},
+{
+"days": 308,
+"amt": 208.37,
+"text": "2025-04-27 | PAYPAL *EVERGREENI #5622 NEW YORK NY | $208.37 | INV-421921"
+},
+{
+"days": 319,
+"amt": 203.39,
+"text": "2025-04-16 | Keystone Inn 922857 | $203.39 | INV-810860"
+},
+{
+"days": 343,
+"amt": 216.03,
+"text": "2025-03-23 | paypal *evergreeni #1654 raleigh nc | $216.03 | no invoice"
+},
+{
+"days": 386,
+"amt": 136.43,
+"text": "2025-02-08 | PAYPAL *EVERGREENI #2574 CHICAGO IL | $136.43 | no invoice"
+},
+{
+"days": 392,
+"amt": 234.68,
+"text": "2025-02-02 | PAYPAL *EVERGREENI #271 BOISE ID | $234.68 | no invoice"
+}
+],
+"has_inv": true
+},
+{
+"id": 10,
+"scn": "first",
+"vendor": "V0138",
+"cat": "groceries",
+"tx_amt": 23.98,
+"spike": false,
+"tx": "Transaction: 2026-06-08 | PAYPAL *PACIFICFAR #16 | $23.98",
+"inv": "Matched invoice: NONE",
+"flag": "Anomaly flag: yes (reason: first purchase from this vendor)",
+"bank": "Bank feed: posted 2026-06-09 | PAYPAL *PACIFICFAR #16 | -$23.98 | card ****5951 | POSTED",
+"flag_reasons": [
+"first purchase from this vendor"
+],
+"bank_mismatch": false,
+"hist": [
+{
+"days": 30,
+"amt": 215.39,
+"text": "2026-05-09 | FALCON UTILITIES 903130 | $215.39 | no invoice"
+},
+{
+"days": 58,
+"amt": 34.21,
+"text": "2026-04-11 | paypal *ironsoft nashv | $34.21 | no invoice"
+},
+{
+"days": 60,
+"amt": 72.04,
+"text": "2026-04-09 | PAYPAL *IRONSOFT MADIS | $72.04 | no invoice"
+},
+{
+"days": 77,
+"amt": 133.76,
+"text": "2026-03-23 | PAYPAL *IRONSOFT NEW Y | $133.76 | INV-298092"
+},
+{
+"days": 104,
+"amt": 172.97,
+"text": "2026-02-24 | FALCON UTILITIES 275818 | $172.97 | INV-698033"
+},
+{
+"days": 106,
+"amt": 103.99,
+"text": "2026-02-22 | PAYPAL *IRONSOFT SEATT | $103.99 | INV-865139"
+},
+{
+"days": 114,
+"amt": 224.89,
+"text": "2026-02-14 | FALCON UTILITIES 130269 | $224.89 | no invoice"
+},
+{
+"days": 164,
+"amt": 46.84,
+"text": "2025-12-26 | POS ORCHID INTER #4695 19521 | $46.84 | no invoice"
+},
+{
+"days": 193,
+"amt": 128.26,
+"text": "2025-11-27 | CHECKCARD SUNRISE SUITES #7421 55875 | $128.26 | no invoice"
+},
+{
+"days": 221,
+"amt": 81.4,
+"text": "2025-10-30 | POS ORCHID INTER #4480 912496 | $81.40 | no invoice"
+},
+{
+"days": 222,
+"amt": 147.61,
+"text": "2025-10-29 | CHECKCARD SUNRISE SUITES #5391 704643 | $147.61 | no invoice"
+},
+{
+"days": 262,
+"amt": 119.59,
+"text": "2025-09-19 | POS ORCHID INTERNET #4 | $119.59 | no invoice"
+},
+{
+"days": 275,
+"amt": 66.36,
+"text": "2025-09-06 | FALCON UTILITIES 510788 | $66.36 | no invoice"
+},
+{
+"days": 301,
+"amt": 17.36,
+"text": "2025-08-11 | checkcard orchid inter austin tx | $17.36 | no invoice"
+},
+{
+"days": 330,
+"amt": 352.1,
+"text": "2025-07-13 | SUNRISE SUITE 933061 | $352.10 | INV-973476"
+},
+{
+"days": 367,
+"amt": 121.81,
+"text": "2025-06-06 | FALCON UTILITIES 195832 | $121.81 | no invoice"
+},
+{
+"days": 391,
+"amt": 288.14,
+"text": "2025-05-13 | EVERGREENPOWERCO | $288.14 | no invoice"
+}
+],
+"has_inv": false
+},
+{
+"id": 11,
+"scn": "first",
+"vendor": "V0138",
+"cat": "groceries",
+"tx_amt": 238.24,
+"spike": false,
+"tx": "Transaction: 2026-07-08 | PAYPAL *PACIFICFAR #66 | $238.24",
+"inv": "Matched invoice: NONE",
+"flag": "Anomaly flag: yes (reason: first purchase from this vendor)",
+"bank": "Bank feed: posted 2026-07-10 | PAYPAL *PACIFICFAR #66 | -$245.39 | card ****5156 | POSTED",
+"flag_reasons": [
+"first purchase from this vendor"
+],
+"bank_mismatch": true,
+"hist": [
+{
+"days": 7,
+"amt": 35.17,
+"text": "2026-07-01 | FALCON NOODL #7216 MAD | $35.17 | no invoice"
+},
+{
+"days": 8,
+"amt": 35.17,
+"text": "2026-06-30 | FALCON NOODL #1075 RAL | $35.17 | INV-796674"
+},
+{
+"days": 12,
+"amt": 15.11,
+"text": "2026-06-26 | POS FALCON NOODLE HOUS | $15.11 | INV-251814"
+},
+{
+"days": 43,
+"amt": 341.47,
+"text": "2026-05-26 | EVERGREEN LODGE #975 | $341.47 | no invoice"
+},
+{
+"days": 53,
+"amt": 34.43,
+"text": "2026-05-16 | checkcard bluefulfillment #8525 690020 | $34.43 | INV-750643"
+},
+{
+"days": 89,
+"amt": 41.91,
+"text": "2026-04-10 | MOSAIC FULFI #3012 570778 | $41.91 | INV-325715"
+},
+{
+"days": 111,
+"amt": 16.54,
+"text": "2026-03-19 | POS FALCON NOODLE HOUS | $16.54 | INV-132879"
+},
+{
+"days": 115,
+"amt": 10.59,
+"text": "2026-03-15 | FALCON NOODL #5004 RAL | $10.59 | no invoice"
+},
+{
+"days": 126,
+"amt": 73.19,
+"text": "2026-03-04 | MOSAIC FULFI #3341 272219 | $73.19 | no invoice"
+},
+{
+"days": 130,
+"amt": 28.36,
+"text": "2026-02-28 | CHECKCARD BLUEFULFILLMENT #7079 480172 | $28.36 | no invoice"
+},
+{
+"days": 134,
+"amt": 43.13,
+"text": "2026-02-24 | urban stack | $43.13 | no invoice"
+},
+{
+"days": 156,
+"amt": 59.78,
+"text": "2026-02-02 | CHECKCARD BLUEFULFILLMENT #2847 514043 | $59.78 | INV-898785"
+},
+{
+"days": 197,
+"amt": 21.31,
+"text": "2025-12-23 | MOSAIC FULFI #9339 7322 | $21.31 | INV-804346"
+},
+{
+"days": 206,
+"amt": 66.58,
+"text": "2025-12-14 | mosaic fulfi #3682 101513 | $66.58 | INV-693179"
+},
+{
+"days": 212,
+"amt": 39.48,
+"text": "2025-12-08 | CHECKCARD BLUEFULFILLMENT #8293 450850 | $39.48 | INV-791283"
+},
+{
+"days": 223,
+"amt": 15.13,
+"text": "2025-11-27 | CHECKCARD BLUEFULFILLMENT #3814 473062 | $15.13 | INV-580719"
+},
+{
+"days": 237,
+"amt": 166.25,
+"text": "2025-11-13 | EVERGREEN LO #9525 244960 | $166.25 | no invoice"
+},
+{
+"days": 244,
+"amt": 244.13,
+"text": "2025-11-06 | EVERGREEN LO #7915 278363 | $244.13 | INV-894426"
+},
+{
+"days": 250,
+"amt": 23.49,
+"text": "2025-10-31 | URBAN STACK | $23.49 | no invoice"
+},
+{
+"days": 269,
+"amt": 101.42,
+"text": "2025-10-12 | Checkcard Bluefulfillment #294 666138 | $101.42 | no invoice"
+},
+{
+"days": 297,
+"amt": 40.4,
+"text": "2025-09-14 | URBAN STACK | $40.40 | no invoice"
+},
+{
+"days": 312,
+"amt": 16.17,
+"text": "2025-08-30 | FALCON NOODL #4696 NAS | $16.17 | INV-493447"
+},
+{
+"days": 328,
+"amt": 113.75,
+"text": "2025-08-14 | BLUE FULFILLMENT BOISE | $113.75 | INV-775492"
+},
+{
+"days": 347,
+"amt": 15.73,
+"text": "2025-07-26 | Blue Fulfillment New Y | $15.73 | INV-588103"
+},
+{
+"days": 394,
+"amt": 31.64,
+"text": "2025-06-09 | URBAN STACK | $31.64 | INV-743760"
+}
+],
+"has_inv": false
+},
+{
+"id": 12,
+"scn": "normal",
+"vendor": "V0098",
+"cat": "advertising",
+"tx_amt": 1162.1,
+"spike": false,
+"tx": "Transaction: 2026-10-31 | iron campaig | $1,162.10",
+"inv": "Matched invoice: INV-000032 (vendor V0098, $1,164.52, issued 2026-10-18; amount within 2% of the transaction, counts as a match)",
+"flag": "Anomaly flag: no (reason: invoice matched and amount in the usual range)",
+"bank": "Bank feed: posted 2026-11-02 | IRON CAMPAIG | -$1,162.10 | card ****4775 | POSTED",
+"flag_reasons": [],
+"bank_mismatch": false,
+"hist": [
+{
+"days": 26,
+"amt": 518.1,
+"text": "2026-10-05 | IRON CAMPAIG | $518.10 | INV-152484"
+},
+{
+"days": 56,
+"amt": 335.49,
+"text": "2026-09-05 | IRON CAMPAIG | $335.49 | INV-103691"
+},
+{
+"days": 88,
+"amt": 536.71,
+"text": "2026-08-04 | Checkcard Iron Campa #8727 | $536.71 | INV-649032"
+},
+{
+"days": 116,
+"amt": 289.84,
+"text": "2026-07-07 | IRON CAMPAIG | $289.84 | no invoice"
+},
+{
+"days": 143,
+"amt": 298.49,
+"text": "2026-06-10 | CHECKCARD IRON CAMPA #5414 | $298.49 | INV-303714"
+},
+{
+"days": 177,
+"amt": 436.61,
+"text": "2026-05-07 | IRON CAMPAIG | $436.61 | INV-491783"
+},
+{
+"days": 206,
+"amt": 381.81,
+"text": "2026-04-08 | Iron Campaig | $381.81 | INV-348275"
+},
+{
+"days": 235,
+"amt": 501.85,
+"text": "2026-03-10 | IRON CAMPAIG | $501.85 | INV-188297"
+},
+{
+"days": 267,
+"amt": 340.05,
+"text": "2026-02-06 | CHECKCARD IRON CAMPA #8165 | $340.05 | no invoice"
+},
+{
+"days": 298,
+"amt": 601.0,
+"text": "2026-01-06 | CHECKCARD IRON CAMPA #3459 | $601.00 | INV-891340"
+},
+{
+"days": 332,
+"amt": 539.65,
+"text": "2025-12-03 | CHECKCARD IRON CAMPA #3448 | $539.65 | INV-685865"
+},
+{
+"days": 362,
+"amt": 422.19,
+"text": "2025-11-03 | Iron Campaig | $422.19 | INV-103431"
+},
+{
+"days": 391,
+"amt": 348.76,
+"text": "2025-10-05 | CHECKCARD IRON CAMPA #2840 | $348.76 | no invoice"
+},
+{
+"days": 423,
+"amt": 484.65,
+"text": "2025-09-03 | iron campaig | $484.65 | INV-712292"
+},
+{
+"days": 456,
+"amt": 422.97,
+"text": "2025-08-01 | CHECKCARD IRON CAMPA #2555 | $422.97 | INV-742658"
+},
+{
+"days": 485,
+"amt": 310.38,
+"text": "2025-07-03 | IRON CAMPAIG | $310.38 | INV-451153"
+},
+{
+"days": 511,
+"amt": 296.3,
+"text": "2025-06-07 | iron campaig | $296.30 | INV-138896"
+},
+{
+"days": 539,
+"amt": 411.2,
+"text": "2025-05-10 | IRON CAMPAIG | $411.20 | INV-512480"
+},
+{
+"days": 565,
+"amt": 267.07,
+"text": "2025-04-14 | IRON CAMPAIG | $267.07 | no invoice"
+},
+{
+"days": 594,
+"amt": 443.88,
+"text": "2025-03-16 | checkcard iron campa #5626 | $443.88 | INV-460677"
+},
+{
+"days": 624,
+"amt": 269.76,
+"text": "2025-02-14 | CHECKCARD IRON CAMPA #3598 | $269.76 | INV-736404"
+},
+{
+"days": 652,
+"amt": 391.19,
+"text": "2025-01-17 | CHECKCARD IRON CAMPA #3270 | $391.19 | INV-183717"
+},
+{
+"days": 685,
+"amt": 430.13,
+"text": "2024-12-15 | CHECKCARD IRON CAMPA #7982 | $430.13 | INV-877457"
+},
+{
+"days": 714,
+"amt": 437.79,
+"text": "2024-11-16 | CHECKCARD IRON CAMPA #3630 | $437.79 | INV-362140"
+}
+],
+"has_inv": true
+},
+{
+"id": 13,
+"scn": "normal",
+"vendor": "V0045",
+"cat": "office",
+"tx_amt": 41.98,
+"spike": false,
+"tx": "Transaction: 2025-07-10 | AMAZON PRIME*BFZB9 | $41.98",
+"inv": "Matched invoice: INV-000034 (vendor V0045, $41.78, issued 2025-06-26; amount within 2% of the transaction, counts as a match)",
+"flag": "Anomaly flag: no (reason: invoice matched and amount in the usual range)",
+"bank": "Bank feed: posted 2025-07-11 | AMAZON PRIME*BFZB9 | -$41.98 | card ****7831 | POSTED",
+"flag_reasons": [],
+"bank_mismatch": false,
+"hist": [
+{
+"days": 3,
+"amt": 52.0,
+"text": "2025-07-07 | Amazon.com*SNLEK | $52.00 | INV-821100"
+},
+{
+"days": 35,
+"amt": 22.59,
+"text": "2025-06-05 | Amazon Prime*1Xusn | $22.59 | INV-890665"
+},
+{
+"days": 68,
+"amt": 34.75,
+"text": "2025-05-03 | AMAZON PRIME*KK9CY | $34.75 | no invoice"
+},
+{
+"days": 97,
+"amt": 139.15,
+"text": "2025-04-04 | Amazon.com*U5UU3 | $139.15 | no invoice"
+},
+{
+"days": 122,
+"amt": 55.73,
+"text": "2025-03-10 | AMAZON PRIME*D4A00 | $55.73 | INV-592456"
+},
+{
+"days": 125,
+"amt": 49.26,
+"text": "2025-03-07 | Amazon.com*4JB1R | $49.26 | INV-137853"
+},
+{
+"days": 176,
+"amt": 39.22,
+"text": "2025-01-15 | Amazon.com*NTVDP | $39.22 | INV-163155"
+},
+{
+"days": 202,
+"amt": 31.95,
+"text": "2024-12-20 | Amazon.com*7Y36A | $31.95 | INV-392556"
+},
+{
+"days": 208,
+"amt": 32.44,
+"text": "2024-12-14 | Amazon Prime*G3Mdn | $32.44 | no invoice"
+},
+{
+"days": 245,
+"amt": 66.38,
+"text": "2024-11-07 | Amazon.com*349TG | $66.38 | INV-413313"
+},
+{
+"days": 250,
+"amt": 16.69,
+"text": "2024-11-02 | Amazon Prime*V1Kd5 | $16.69 | no invoice"
+},
+{
+"days": 252,
+"amt": 206.04,
+"text": "2024-10-31 | Amazon.com*SUTC9 | $206.04 | INV-748843"
+},
+{
+"days": 310,
+"amt": 74.48,
+"text": "2024-09-03 | AMZN Mktp US*HHM2Y | $74.48 | INV-283481"
+},
+{
+"days": 313,
+"amt": 38.31,
+"text": "2024-08-31 | AMZN Mktp US*291K7 | $38.31 | INV-327225"
+},
+{
+"days": 355,
+"amt": 50.15,
+"text": "2024-07-20 | amazon prime*lu45f | $50.15 | INV-934255"
+},
+{
+"days": 360,
+"amt": 26.76,
+"text": "2024-07-15 | AMAZON PRIME*9NWB6 | $26.76 | INV-732646"
+},
+{
+"days": 383,
+"amt": 32.29,
+"text": "2024-06-22 | Amazon.com*K51NR | $32.29 | INV-607932"
+},
+{
+"days": 394,
+"amt": 25.12,
+"text": "2024-06-11 | amazon prime*ewtc8 | $25.12 | INV-707843"
+},
+{
+"days": 406,
+"amt": 52.26,
+"text": "2024-05-30 | Amzn Mktp Us*Rzlrc | $52.26 | INV-823275"
+},
+{
+"days": 413,
+"amt": 57.38,
+"text": "2024-05-23 | amazon.com*jav02 | $57.38 | INV-188783"
+},
+{
+"days": 447,
+"amt": 126.55,
+"text": "2024-04-19 | Amazon Prime*V0Wwx | $126.55 | INV-521201"
+},
+{
+"days": 454,
+"amt": 96.68,
+"text": "2024-04-12 | Amazon.com*U76R4 | $96.68 | no invoice"
+},
+{
+"days": 466,
+"amt": 47.05,
+"text": "2024-03-31 | AMZN Mktp US*0PMK5 | $47.05 | INV-611199"
+},
+{
+"days": 469,
+"amt": 72.75,
+"text": "2024-03-28 | AMAZON PRIME*95N94 | $72.75 | INV-730045"
+}
+],
+"has_inv": true
+},
+{
+"id": 14,
+"scn": "dup",
+"vendor": "V0269",
+"cat": "fuel",
+"tx_amt": 108.84,
+"spike": false,
+"tx": "Transaction: 2026-08-23 | PAYPAL *STERLINGTR #8857 AUSTIN TX | $108.84",
+"inv": "Matched invoice: NONE",
+"flag": "Anomaly flag: yes (reason: possible duplicate of a recent charge)",
+"bank": "Bank feed: posted 2026-08-25 | PAYPAL *STERLINGTR #8857 | -$108.84 | card ****6866 | POSTED",
+"flag_reasons": [
+"possible duplicate of a recent charge"
+],
+"bank_mismatch": false,
+"hist": [
+{
+"days": 4,
+"amt": 108.84,
+"text": "2026-08-19 | PAYPAL *STERLINGTR #8857 AUSTIN TX | $108.84 | no invoice"
+},
+{
+"days": 25,
+"amt": 43.22,
+"text": "2026-07-29 | CHECKCARD STERLINGTRAVELPLAZA #8941 NASHVILLE TN | $43.22 | no invoice"
+},
+{
+"days": 27,
+"amt": 40.97,
+"text": "2026-07-27 | CHECKCARD STERLINGTRAVELPLAZA #631 TUCSON AZ | $40.97 | no invoice"
+},
+{
+"days": 44,
+"amt": 48.94,
+"text": "2026-07-10 | PAYPAL *STERLINGTR #5763 AUSTIN TX | $48.94 | no invoice"
+},
+{
+"days": 47,
+"amt": 117.02,
+"text": "2026-07-07 | PAYPAL *STERLINGTR #4367 NASHVILLE TN | $117.02 | no invoice"
+},
+{
+"days": 50,
+"amt": 53.67,
+"text": "2026-07-04 | CHECKCARD STERLINGTRAVELPLAZA #9717 DALLAS TX | $53.67 | no invoice"
+},
+{
+"days": 58,
+"amt": 82.81,
+"text": "2026-06-26 | PAYPAL *STERLINGTR #8820 PHOENIX AZ | $82.81 | no invoice"
+},
+{
+"days": 69,
+"amt": 43.25,
+"text": "2026-06-15 | CHECKCARD STERLINGTRAVELPLAZA #9875 DENVER CO | $43.25 | no invoice"
+},
+{
+"days": 72,
+"amt": 43.43,
+"text": "2026-06-12 | PAYPAL *STERLINGTR #2044 DALLAS TX | $43.43 | no invoice"
+},
+{
+"days": 82,
+"amt": 54.7,
+"text": "2026-06-02 | PAYPAL *STERLINGTR #5018 DENVER CO | $54.70 | no invoice"
+},
+{
+"days": 93,
+"amt": 81.52,
+"text": "2026-05-22 | CHECKCARD STERLINGTRAVELPLAZA #6998 PHOENIX AZ | $81.52 | no invoice"
+},
+{
+"days": 139,
+"amt": 88.05,
+"text": "2026-04-06 | PAYPAL *STERLINGTR #8975 SAN JOSE CA | $88.05 | no invoice"
+},
+{
+"days": 150,
+"amt": 50.57,
+"text": "2026-03-26 | PAYPAL *STERLINGTR #4735 MADISON WI | $50.57 | no invoice"
+},
+{
+"days": 165,
+"amt": 58.46,
+"text": "2026-03-11 | CHECKCARD STERLINGTRAVELPLAZA #2139 RENO NV | $58.46 | no invoice"
+},
+{
+"days": 174,
+"amt": 40.32,
+"text": "2026-03-02 | PAYPAL *STERLINGTR #4691 NEW YORK NY | $40.32 | no invoice"
+},
+{
+"days": 177,
+"amt": 63.98,
+"text": "2026-02-27 | PAYPAL *STERLINGTR #5156 NEW YORK NY | $63.98 | no invoice"
+},
+{
+"days": 179,
+"amt": 33.18,
+"text": "2026-02-25 | PAYPAL *STERLINGTR #7940 ATLANTA GA | $33.18 | no invoice"
+},
+{
+"days": 181,
+"amt": 56.76,
+"text": "2026-02-23 | PAYPAL *STERLINGTR #8848 RALEIGH NC | $56.76 | no invoice"
+},
+{
+"days": 186,
+"amt": 33.31,
+"text": "2026-02-18 | CHECKCARD STERLINGTRAVELPLAZA #2950 ATLANTA GA | $33.31 | no invoice"
+},
+{
+"days": 214,
+"amt": 63.3,
+"text": "2026-01-21 | PAYPAL *STERLINGTR #8723 PORTLAND OR | $63.30 | no invoice"
+},
+{
+"days": 235,
+"amt": 108.58,
+"text": "2025-12-31 | PAYPAL *STERLINGTR #9159 BOISE ID | $108.58 | no invoice"
+},
+{
+"days": 241,
+"amt": 45.23,
+"text": "2025-12-25 | PAYPAL *STERLINGTR #3226 ATLANTA GA | $45.23 | no invoice"
+},
+{
+"days": 247,
+"amt": 198.68,
+"text": "2025-12-19 | CHECKCARD STERLINGTRAVELPLAZA #7591 NASHVILLE TN | $198.68 | no invoice"
+},
+{
+"days": 280,
+"amt": 32.04,
+"text": "2025-11-16 | PAYPAL *STERLINGTR #3605 SEATTLE WA | $32.04 | no invoice"
+},
+{
+"days": 303,
+"amt": 42.49,
+"text": "2025-10-24 | CHECKCARD STERLINGTRAVELPLAZA #7460 MIAMI FL | $42.49 | no invoice"
+},
+{
+"days": 305,
+"amt": 35.85,
+"text": "2025-10-22 | PAYPAL *STERLINGTR #9719 SEATTLE WA | $35.85 | no invoice"
+},
+{
+"days": 351,
+"amt": 55.75,
+"text": "2025-09-06 | CHECKCARD STERLINGTRAVELPLAZA #1779 RENO NV | $55.75 | no invoice"
+},
+{
+"days": 365,
+"amt": 96.67,
+"text": "2025-08-23 | paypal *sterlingtr #829 tampa fl | $96.67 | no invoice"
+},
+{
+"days": 373,
+"amt": 183.51,
+"text": "2025-08-15 | paypal *sterlingtr #9091 austin tx | $183.51 | no invoice"
+},
+{
+"days": 375,
+"amt": 18.02,
+"text": "2025-08-13 | PAYPAL *STERLINGTR #5892 DALLAS TX | $18.02 | no invoice"
+}
+],
+"has_inv": false
+},
+{
+"id": 15,
+"scn": "noinv",
+"vendor": "V0138",
+"cat": "groceries",
+"tx_amt": 56.98,
+"spike": false,
+"tx": "Transaction: 2025-04-01 | POS PACIFIC FARMS BOISE ID | $56.98",
+"inv": "Matched invoice: NONE",
+"flag": "Anomaly flag: yes (reason: no matching invoice)",
+"bank": "Bank feed: posted 2025-04-03 | POS PACIFIC FARMS BOISE  | -$56.98 | card ****7347 | POSTED",
+"flag_reasons": [
+"no matching invoice"
+],
+"bank_mismatch": false,
+"hist": [
+{
+"days": 2,
+"amt": 137.09,
+"text": "2025-03-30 | PAYPAL *PACIFICFAR #92 | $137.09 | no invoice"
+},
+{
+"days": 68,
+"amt": 57.47,
+"text": "2025-01-23 | pos pacific farms nashville tn | $57.47 | no invoice"
+},
+{
+"days": 92,
+"amt": 114.21,
+"text": "2024-12-30 | POS PACIFIC FARMS NASHVILLE TN | $114.21 | no invoice"
+},
+{
+"days": 102,
+"amt": 76.27,
+"text": "2024-12-20 | paypal *pacificfar #75 | $76.27 | no invoice"
+},
+{
+"days": 149,
+"amt": 72.61,
+"text": "2024-11-03 | POS PACIFIC FARMS OMAHA NE | $72.61 | no invoice"
+},
+{
+"days": 165,
+"amt": 77.02,
+"text": "2024-10-18 | POS PACIFIC FARMS BOSTON MA | $77.02 | no invoice"
+},
+{
+"days": 196,
+"amt": 24.86,
+"text": "2024-09-17 | Paypal *Pacificfar #82 | $24.86 | no invoice"
+},
+{
+"days": 200,
+"amt": 43.37,
+"text": "2024-09-13 | POS PACIFIC FARMS MADISON WI | $43.37 | no invoice"
+},
+{
+"days": 205,
+"amt": 60.37,
+"text": "2024-09-08 | Pos Pacific Farms Raleigh Nc | $60.37 | no invoice"
+},
+{
+"days": 212,
+"amt": 70.35,
+"text": "2024-09-01 | PAYPAL *PACIFICFAR #70 | $70.35 | no invoice"
+},
+{
+"days": 231,
+"amt": 47.46,
+"text": "2024-08-13 | pos pacific farms reno nv | $47.46 | no invoice"
+},
+{
+"days": 233,
+"amt": 59.55,
+"text": "2024-08-11 | Paypal *Pacificfar #50 | $59.55 | no invoice"
+},
+{
+"days": 260,
+"amt": 68.75,
+"text": "2024-07-15 | PAYPAL *PACIFICFAR #61 | $68.75 | no invoice"
+},
+{
+"days": 297,
+"amt": 90.55,
+"text": "2024-06-08 | POS PACIFIC FARMS RALEIGH NC | $90.55 | no invoice"
+},
+{
+"days": 312,
+"amt": 96.82,
+"text": "2024-05-24 | POS PACIFIC FARMS MIAMI FL | $96.82 | no invoice"
+},
+{
+"days": 350,
+"amt": 70.43,
+"text": "2024-04-16 | Paypal *Pacificfar #96 | $70.43 | no invoice"
+},
+{
+"days": 396,
+"amt": 139.25,
+"text": "2024-03-01 | Pos Pacific Farms Reno Nv | $139.25 | no invoice"
+},
+{
+"days": 423,
+"amt": 40.81,
+"text": "2024-02-03 | Pos Pacific Farms Tampa Fl | $40.81 | no invoice"
+},
+{
+"days": 443,
+"amt": 80.4,
+"text": "2024-01-14 | PAYPAL *PACIFICFAR #60 | $80.40 | no invoice"
+},
+{
+"days": 456,
+"amt": 51.05,
+"text": "2024-01-01 | PAYPAL *PACIFICFAR #33 | $51.05 | no invoice"
+},
+{
+"days": 459,
+"amt": 37.85,
+"text": "2023-12-29 | PAYPAL *PACIFICFAR #48 | $37.85 | no invoice"
+},
+{
+"days": 500,
+"amt": 56.6,
+"text": "2023-11-18 | paypal *pacificfar #91 | $56.60 | no invoice"
+},
+{
+"days": 503,
+"amt": 57.8,
+"text": "2023-11-15 | POS PACIFIC FARMS BOISE ID | $57.80 | no invoice"
+},
+{
+"days": 508,
+"amt": 123.53,
+"text": "2023-11-10 | POS PACIFIC FARMS DENVER CO | $123.53 | no invoice"
+},
+{
+"days": 514,
+"amt": 51.55,
+"text": "2023-11-04 | PAYPAL *PACIFICFAR #86 | $51.55 | no invoice"
+},
+{
+"days": 520,
+"amt": 32.0,
+"text": "2023-10-29 | PAYPAL *PACIFICFAR #94 | $32.00 | no invoice"
+}
+],
+"has_inv": false
+},
+{
+"id": 16,
+"scn": "normal",
+"vendor": "V0112",
+"cat": "shipping",
+"tx_amt": 57.25,
+"spike": false,
+"tx": "Transaction: 2026-04-25 | PAYPAL *ATLASFULFI #633 TAMPA FL | $57.25",
+"inv": "Matched invoice: INV-000038 (vendor V0112, $58.31, issued 2026-04-14; amount within 2% of the transaction, counts as a match)",
+"flag": "Anomaly flag: no (reason: invoice matched and amount in the usual range)",
+"bank": "Bank feed: posted 2026-04-26 | PAYPAL *ATLASFULFI #633  | -$58.97 | card ****7687 | POSTED",
+"flag_reasons": [],
+"bank_mismatch": true,
+"hist": [
+{
+"days": 6,
+"amt": 43.25,
+"text": "2026-04-19 | PAYPAL *ATLASFULFI #1841 BOSTON MA | $43.25 | INV-999865"
+},
+{
+"days": 9,
+"amt": 107.56,
+"text": "2026-04-16 | ATLAS FULFILLMENT #5554 | $107.56 | INV-608711"
+},
+{
+"days": 12,
+"amt": 28.86,
+"text": "2026-04-13 | PAYPAL *ATLASFULFI #6817 ATLANTA GA | $28.86 | INV-867769"
+},
+{
+"days": 14,
+"amt": 58.73,
+"text": "2026-04-11 | ATLAS FULFILLMENT #1360 | $58.73 | INV-926839"
+},
+{
+"days": 33,
+"amt": 324.75,
+"text": "2026-03-23 | PAYPAL *ATLASFULFI #4393 NEW YORK NY | $324.75 | INV-503509"
+},
+{
+"days": 35,
+"amt": 76.53,
+"text": "2026-03-21 | PAYPAL *ATLASFULFI #4932 DALLAS TX | $76.53 | INV-516800"
+},
+{
+"days": 61,
+"amt": 52.23,
+"text": "2026-02-23 | PAYPAL *ATLASFULFI #2510 MADISON WI | $52.23 | no invoice"
+},
+{
+"days": 71,
+"amt": 111.95,
+"text": "2026-02-13 | atlas fulfillment #6980 | $111.95 | INV-408835"
+},
+{
+"days": 75,
+"amt": 65.34,
+"text": "2026-02-09 | PAYPAL *ATLASFULFI #7945 MIAMI FL | $65.34 | INV-802856"
+},
+{
+"days": 99,
+"amt": 43.59,
+"text": "2026-01-16 | ATLAS FULFILLMENT #6842 | $43.59 | INV-494567"
+},
+{
+"days": 113,
+"amt": 59.24,
+"text": "2026-01-02 | ATLAS FULFILLMENT #1245 | $59.24 | INV-497910"
+},
+{
+"days": 141,
+"amt": 35.08,
+"text": "2025-12-05 | PAYPAL *ATLASFULFI #5789 OMAHA NE | $35.08 | INV-380887"
+},
+{
+"days": 170,
+"amt": 69.43,
+"text": "2025-11-06 | ATLAS FULFILLMENT #8401 | $69.43 | INV-577983"
+},
+{
+"days": 200,
+"amt": 111.11,
+"text": "2025-10-07 | PAYPAL *ATLASFULFI #7675 MIAMI FL | $111.11 | INV-341105"
+},
+{
+"days": 225,
+"amt": 42.09,
+"text": "2025-09-12 | ATLAS FULFILLMENT #9471 | $42.09 | INV-681194"
+},
+{
+"days": 234,
+"amt": 137.76,
+"text": "2025-09-03 | ATLAS FULFILLMENT #4807 | $137.76 | INV-682482"
+},
+{
+"days": 244,
+"amt": 116.33,
+"text": "2025-08-24 | ATLAS FULFILLMENT #6278 | $116.33 | INV-264180"
+},
+{
+"days": 277,
+"amt": 57.94,
+"text": "2025-07-22 | PAYPAL *ATLASFULFI #6281 DALLAS TX | $57.94 | INV-780749"
+},
+{
+"days": 296,
+"amt": 82.09,
+"text": "2025-07-03 | PAYPAL *ATLASFULFI #8065 ATLANTA GA | $82.09 | INV-250469"
+},
+{
+"days": 310,
+"amt": 140.29,
+"text": "2025-06-19 | ATLAS FULFILLMENT #1832 | $140.29 | no invoice"
+},
+{
+"days": 334,
+"amt": 142.13,
+"text": "2025-05-26 | PAYPAL *ATLASFULFI #2978 RALEIGH NC | $142.13 | no invoice"
+},
+{
+"days": 387,
+"amt": 36.37,
+"text": "2025-04-03 | PAYPAL *ATLASFULFI #7042 RALEIGH NC | $36.37 | INV-277424"
+},
+{
+"days": 409,
+"amt": 76.87,
+"text": "2025-03-12 | ATLAS FULFILLMENT #9065 | $76.87 | INV-872908"
+},
+{
+"days": 428,
+"amt": 40.56,
+"text": "2025-02-21 | ATLAS FULFILLMENT #4049 | $40.56 | INV-515612"
+}
+],
+"has_inv": true
+},
+{
+"id": 17,
+"scn": "spike",
+"vendor": "V0171",
+"cat": "advertising",
+"tx_amt": 2648.32,
+"spike": true,
+"tx": "Transaction: 2026-01-19 | MAPLE CAMPAI BOSTON MA | $2,648.32",
+"inv": "Matched invoice: INV-000068 (vendor V0171, $2,668.25, issued 2026-01-02; amount within 2% of the transaction, counts as a match)",
+"flag": "Anomaly flag: yes (reason: amount unusually high for this vendor)",
+"bank": "Bank feed: posted 2026-01-20 | MAPLE CAMPAI BOSTON MA | -$2,648.32 | card ****5870 | POSTED",
+"flag_reasons": [
+"amount unusually high for this vendor"
+],
+"bank_mismatch": false,
+"hist": [
+{
+"days": 32,
+"amt": 691.25,
+"text": "2025-12-18 | MAPLE CAMPAI PORTLAND  | $691.25 | INV-721230"
+},
+{
+"days": 62,
+"amt": 615.42,
+"text": "2025-11-18 | MAPLE CAMPAI RENO NV 3 | $615.42 | INV-746938"
+},
+{
+"days": 95,
+"amt": 835.27,
+"text": "2025-10-16 | MAPLE CAMPAI ATLANTA G | $835.27 | INV-550371"
+},
+{
+"days": 127,
+"amt": 472.13,
+"text": "2025-09-14 | MAPLE CAMPAI OMAHA NE  | $472.13 | INV-867514"
+},
+{
+"days": 156,
+"amt": 894.83,
+"text": "2025-08-16 | MAPLE CAMPAI MADISON W | $894.83 | INV-109620"
+},
+{
+"days": 189,
+"amt": 838.41,
+"text": "2025-07-14 | MAPLE CAMPAI BOISE ID  | $838.41 | INV-278215"
+},
+{
+"days": 218,
+"amt": 423.82,
+"text": "2025-06-15 | MAPLE CAMPAI PHOENIX A | $423.82 | INV-834207"
+},
+{
+"days": 251,
+"amt": 753.91,
+"text": "2025-05-13 | MAPLE CAMPAI MADISON W | $753.91 | INV-614317"
+},
+{
+"days": 277,
+"amt": 806.8,
+"text": "2025-04-17 | MAPLE CAMPAI OMAHA NE  | $806.80 | INV-213606"
+},
+{
+"days": 305,
+"amt": 563.02,
+"text": "2025-03-20 | MAPLE CAMPAI DENVER CO | $563.02 | INV-552218"
+},
+{
+"days": 335,
+"amt": 540.08,
+"text": "2025-02-18 | MAPLE CAMPAI TUCSON AZ | $540.08 | no invoice"
+},
+{
+"days": 360,
+"amt": 742.66,
+"text": "2025-01-24 | MAPLE CAMPAI MADISON W | $742.66 | no invoice"
+},
+{
+"days": 389,
+"amt": 673.09,
+"text": "2024-12-26 | maple campai nashville | $673.09 | INV-969171"
+},
+{
+"days": 414,
+"amt": 590.73,
+"text": "2024-12-01 | MAPLE CAMPAI DENVER CO | $590.73 | no invoice"
+},
+{
+"days": 441,
+"amt": 964.36,
+"text": "2024-11-04 | Maple Campai Dallas Tx | $964.36 | INV-349019"
+},
+{
+"days": 470,
+"amt": 739.73,
+"text": "2024-10-06 | Maple Campai New York  | $739.73 | INV-894147"
+},
+{
+"days": 504,
+"amt": 630.07,
+"text": "2024-09-02 | MAPLE CAMPAI CHICAGO I | $630.07 | INV-419880"
+},
+{
+"days": 535,
+"amt": 710.43,
+"text": "2024-08-02 | MAPLE CAMPAI TUCSON AZ | $710.43 | INV-545048"
+},
+{
+"days": 567,
+"amt": 547.69,
+"text": "2024-07-01 | MAPLE CAMPAI RENO NV 9 | $547.69 | INV-542065"
+},
+{
+"days": 591,
+"amt": 460.78,
+"text": "2024-06-07 | MAPLE CAMPAI DALLAS TX | $460.78 | INV-473798"
+}
+],
+"has_inv": true
+},
+{
+"id": 18,
+"scn": "noinv",
+"vendor": "V0138",
+"cat": "groceries",
+"tx_amt": 148.81,
+"spike": false,
+"tx": "Transaction: 2026-06-16 | POS PACIFIC FARMS OMAHA NE | $148.81",
+"inv": "Matched invoice: NONE",
+"flag": "Anomaly flag: yes (reason: no matching invoice)",
+"bank": "Bank feed: posted 2026-06-18 | POS PACIFIC FARMS OMAHA  | -$148.81 | card ****4323 | POSTED",
+"flag_reasons": [
+"no matching invoice"
+],
+"bank_mismatch": false,
+"hist": [
+{
+"days": 4,
+"amt": 84.53,
+"text": "2026-06-12 | PAYPAL *PACIFICFAR #53 | $84.53 | no invoice"
+},
+{
+"days": 13,
+"amt": 48.79,
+"text": "2026-06-03 | POS PACIFIC FARMS BOISE ID | $48.79 | no invoice"
+},
+{
+"days": 18,
+"amt": 85.89,
+"text": "2026-05-29 | POS PACIFIC FARMS AUSTIN TX | $85.89 | no invoice"
+},
+{
+"days": 23,
+"amt": 98.38,
+"text": "2026-05-24 | PAYPAL *PACIFICFAR #48 | $98.38 | no invoice"
+},
+{
+"days": 35,
+"amt": 74.37,
+"text": "2026-05-12 | PAYPAL *PACIFICFAR #63 | $74.37 | no invoice"
+},
+{
+"days": 51,
+"amt": 70.38,
+"text": "2026-04-26 | paypal *pacificfar #25 | $70.38 | no invoice"
+},
+{
+"days": 84,
+"amt": 68.89,
+"text": "2026-03-24 | PAYPAL *PACIFICFAR #34 | $68.89 | no invoice"
+},
+{
+"days": 101,
+"amt": 148.33,
+"text": "2026-03-07 | POS PACIFIC FARMS TAMPA FL | $148.33 | no invoice"
+},
+{
+"days": 121,
+"amt": 60.55,
+"text": "2026-02-15 | POS PACIFIC FARMS ATLANTA GA | $60.55 | no invoice"
+},
+{
+"days": 135,
+"amt": 54.51,
+"text": "2026-02-01 | POS PACIFIC FARMS DALLAS TX | $54.51 | no invoice"
+},
+{
+"days": 149,
+"amt": 93.27,
+"text": "2026-01-18 | PAYPAL *PACIFICFAR #56 | $93.27 | no invoice"
+},
+{
+"days": 155,
+"amt": 43.91,
+"text": "2026-01-12 | PAYPAL *PACIFICFAR #20 | $43.91 | no invoice"
+},
+{
+"days": 171,
+"amt": 72.81,
+"text": "2025-12-27 | POS PACIFIC FARMS SEATTLE WA | $72.81 | no invoice"
+},
+{
+"days": 183,
+"amt": 56.55,
+"text": "2025-12-15 | POS PACIFIC FARMS MADISON WI | $56.55 | no invoice"
+},
+{
+"days": 195,
+"amt": 80.55,
+"text": "2025-12-03 | Pos Pacific Farms New York Ny | $80.55 | no invoice"
+},
+{
+"days": 227,
+"amt": 103.46,
+"text": "2025-11-01 | PAYPAL *PACIFICFAR #34 | $103.46 | no invoice"
+},
+{
+"days": 234,
+"amt": 144.16,
+"text": "2025-10-25 | Pos Pacific Farms Denver Co | $144.16 | no invoice"
+},
+{
+"days": 244,
+"amt": 133.38,
+"text": "2025-10-15 | PAYPAL *PACIFICFAR #91 | $133.38 | no invoice"
+},
+{
+"days": 270,
+"amt": 78.43,
+"text": "2025-09-19 | PAYPAL *PACIFICFAR #54 | $78.43 | no invoice"
+},
+{
+"days": 292,
+"amt": 40.25,
+"text": "2025-08-28 | PAYPAL *PACIFICFAR #57 | $40.25 | no invoice"
+}
+],
+"has_inv": false
+},
+{
+"id": 19,
+"scn": "spike",
+"vendor": "V0122",
+"cat": "office",
+"tx_amt": 305.03,
+"spike": true,
+"tx": "Transaction: 2025-07-15 | PRIMEOFFICESUPPLY #546 | $305.03",
+"inv": "Matched invoice: INV-000095 (vendor V0122, $303.42, issued 2025-07-03; amount within 2% of the transaction, counts as a match)",
+"flag": "Anomaly flag: yes (reason: amount unusually high for this vendor)",
+"bank": "Bank feed: posted 2025-07-17 | PRIMEOFFICESUPPLY #546 | -$305.03 | card ****9799 | POSTED",
+"flag_reasons": [
+"amount unusually high for this vendor"
+],
+"bank_mismatch": false,
+"hist": [
+{
+"days": 2,
+"amt": 66.92,
+"text": "2025-07-13 | POS PRIME OFFICE SUPPL | $66.92 | INV-930438"
+},
+{
+"days": 4,
+"amt": 70.85,
+"text": "2025-07-11 | PRIMEOFFICESUPPLY #405 | $70.85 | INV-551645"
+},
+{
+"days": 7,
+"amt": 97.3,
+"text": "2025-07-08 | POS PRIME OFFICE SUPPL | $97.30 | INV-865921"
+},
+{
+"days": 18,
+"amt": 25.86,
+"text": "2025-06-27 | PRIMEOFFICESUPPLY TAMP | $25.86 | INV-313709"
+},
+{
+"days": 29,
+"amt": 45.51,
+"text": "2025-06-16 | primeofficesupply nash | $45.51 | INV-699699"
+},
+{
+"days": 49,
+"amt": 82.89,
+"text": "2025-05-27 | PRIMEOFFICESUPPLY BOIS | $82.89 | INV-928727"
+},
+{
+"days": 53,
+"amt": 39.62,
+"text": "2025-05-23 | POS PRIME OFFICE SUPPL | $39.62 | INV-938341"
+},
+{
+"days": 60,
+"amt": 29.99,
+"text": "2025-05-16 | PRIMEOFFICESUPPLY #899 | $29.99 | INV-797804"
+},
+{
+"days": 62,
+"amt": 114.63,
+"text": "2025-05-14 | Primeofficesupply Reno | $114.63 | INV-534652"
+},
+{
+"days": 111,
+"amt": 68.71,
+"text": "2025-03-26 | PRIMEOFFICESUPPLY #885 | $68.71 | INV-748431"
+},
+{
+"days": 115,
+"amt": 32.46,
+"text": "2025-03-22 | POS PRIME OFFICE SUPPL | $32.46 | no invoice"
+},
+{
+"days": 157,
+"amt": 68.17,
+"text": "2025-02-08 | PRIMEOFFICESUPPLY #814 | $68.17 | INV-557048"
+},
+{
+"days": 162,
+"amt": 76.44,
+"text": "2025-02-03 | POS PRIME OFFICE SUPPL | $76.44 | INV-466174"
+},
+{
+"days": 209,
+"amt": 76.33,
+"text": "2024-12-18 | PRIMEOFFICESUPPLY BOIS | $76.33 | no invoice"
+},
+{
+"days": 213,
+"amt": 38.19,
+"text": "2024-12-14 | primeofficesupply #501 | $38.19 | INV-271887"
+},
+{
+"days": 224,
+"amt": 155.81,
+"text": "2024-12-03 | PRIMEOFFICESUPPLY #613 | $155.81 | INV-556866"
+},
+{
+"days": 238,
+"amt": 50.55,
+"text": "2024-11-19 | pos prime office suppl | $50.55 | INV-200002"
+},
+{
+"days": 258,
+"amt": 65.0,
+"text": "2024-10-30 | PRIMEOFFICESUPPLY #274 | $65.00 | INV-409652"
+},
+{
+"days": 274,
+"amt": 87.68,
+"text": "2024-10-14 | PRIMEOFFICESUPPLY #880 | $87.68 | INV-357460"
+},
+{
+"days": 298,
+"amt": 31.47,
+"text": "2024-09-20 | PRIMEOFFICESUPPLY NEW  | $31.47 | INV-704222"
+},
+{
+"days": 341,
+"amt": 100.62,
+"text": "2024-08-08 | POS PRIME OFFICE SUPPL | $100.62 | INV-450482"
+},
+{
+"days": 348,
+"amt": 56.8,
+"text": "2024-08-01 | PRIMEOFFICESUPPLY #374 | $56.80 | INV-337797"
+},
+{
+"days": 352,
+"amt": 64.83,
+"text": "2024-07-28 | PRIMEOFFICESUPPLY #310 | $64.83 | INV-998237"
+},
+{
+"days": 354,
+"amt": 76.12,
+"text": "2024-07-26 | pos prime office suppl | $76.12 | no invoice"
+},
+{
+"days": 368,
+"amt": 129.11,
+"text": "2024-07-12 | PRIMEOFFICESUPPLY #758 | $129.11 | INV-121888"
+}
+],
+"has_inv": true
+}
+]

@@ -1,0 +1,1087 @@
+{
+ "setup": {
+  "n": 12,
+  "vendors": 11,
+  "folds": 2,
+  "fold_sizes": [
+   6,
+   6
+  ],
+  "old_split_heldout_prompts_with_vendor_in_train": 24,
+  "old_split_heldout_n": 60,
+  "by_scn": {
+   "normal": 5,
+   "dup": 1,
+   "noinv": 3,
+   "first": 3
+  },
+  "max_prompts_per_vendor": 2
+ },
+ "scorer_diag": {
+  "learned": {
+   "within_auc": 0.05250000000000002,
+   "n_mixed": 2,
+   "recall@2": 0.025641025641025644,
+   "all_needed_kept@2": 0.0,
+   "recall@5": 0.06410256410256411,
+   "all_needed_kept@5": 0.0
+  },
+  "cross-encoder": {
+   "within_auc": 0.4442857142857143,
+   "n_mixed": 2,
+   "recall@2": 0.11611721611721613,
+   "all_needed_kept@2": 0.0,
+   "recall@5": 0.2355311355311355,
+   "all_needed_kept@5": 0.0
+  },
+  "recency": {
+   "within_auc": 0.5,
+   "n_mixed": 2,
+   "recall@2": 0.09230769230769231,
+   "all_needed_kept@2": 0.0,
+   "recall@5": 0.23076923076923075,
+   "all_needed_kept@5": 0.0
+  },
+  "random": {
+   "within_auc": 0.3179591836734694,
+   "n_mixed": 2,
+   "recall@2": 0.04945054945054945,
+   "all_needed_kept@2": 0.0,
+   "recall@5": 0.14505494505494507,
+   "all_needed_kept@5": 0.0
+  }
+ },
+ "floor": {
+  "n": 12,
+  "cons": 0.16666666666666666,
+  "cons_ub": 0.43810543511531136,
+  "cons_ci_vendor": [
+   0.0,
+   0.4166666666666667
+  ],
+  "raw": 0.16666666666666666,
+  "raw_ub": 0.43810543511531136,
+  "by_scn": {
+   "dup": 0.0,
+   "first": 0.0,
+   "noinv": 0.6666666666666666,
+   "normal": 0.0
+  }
+ },
+ "cells": {
+  "m=0": {
+   "name": "m=0 (4 fixed fields)",
+   "n": 12,
+   "cons_dis": 0.25,
+   "cons_ub": 0.5273266035603434,
+   "cons_ci_vendor": [
+    0.0,
+    0.5454545454545454
+   ],
+   "raw_dis": 0.25,
+   "raw_ub": 0.5273266035603434,
+   "tokens_removed": 0.793463458919655,
+   "hist_kept": 0.0,
+   "hist_total": 22.75,
+   "fixed_dropped": 0.0,
+   "trunc": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 1,
+     "cons_dis": 1.0,
+     "tokens_removed": 0.842993396918562
+    },
+    "first": {
+     "n": 3,
+     "cons_dis": 0.0,
+     "tokens_removed": 0.7698019801980198
+    },
+    "noinv": {
+     "n": 3,
+     "cons_dis": 0.6666666666666666,
+     "tokens_removed": 0.8143525741029641
+    },
+    "normal": {
+     "n": 5,
+     "cons_dis": 0.0,
+     "tokens_removed": 0.7818619031260735
+    }
+   },
+   "floor_cons": 0.16666666666666666,
+   "vs_floor": {
+    "pruned_only_diff": 2,
+    "floor_only_diff": 1,
+    "p": 1.0
+   }
+  },
+  "learned m=2": {
+   "name": "learned m=2",
+   "n": 12,
+   "cons_dis": 0.25,
+   "cons_ub": 0.5273266035603434,
+   "cons_ci_vendor": [
+    0.0,
+    0.5454545454545454
+   ],
+   "raw_dis": 0.3333333333333333,
+   "raw_ub": 0.6091376982290366,
+   "tokens_removed": 0.7103949160236042,
+   "hist_kept": 2.0,
+   "hist_total": 22.75,
+   "fixed_dropped": 0.0,
+   "trunc": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 1,
+     "cons_dis": 1.0,
+     "tokens_removed": 0.7747615553925165
+    },
+    "first": {
+     "n": 3,
+     "cons_dis": 0.0,
+     "tokens_removed": 0.6665487977369166
+    },
+    "noinv": {
+     "n": 3,
+     "cons_dis": 0.6666666666666666,
+     "tokens_removed": 0.7288611544461778
+    },
+    "normal": {
+     "n": 5,
+     "cons_dis": 0.0,
+     "tokens_removed": 0.7064582617657162
+    }
+   },
+   "floor_cons": 0.16666666666666666,
+   "vs_floor": {
+    "pruned_only_diff": 2,
+    "floor_only_diff": 1,
+    "p": 1.0
+   }
+  },
+  "cross-encoder m=2": {
+   "name": "cross-encoder m=2",
+   "n": 12,
+   "cons_dis": 0.16666666666666666,
+   "cons_ub": 0.43810543511531136,
+   "cons_ci_vendor": [
+    0.0,
+    0.4166666666666667
+   ],
+   "raw_dis": 0.16666666666666666,
+   "raw_ub": 0.43810543511531136,
+   "tokens_removed": 0.7135724012709941,
+   "hist_kept": 2.0,
+   "hist_total": 22.75,
+   "fixed_dropped": 0.0,
+   "trunc": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 1,
+     "cons_dis": 0.0,
+     "tokens_removed": 0.7762289068231841
+    },
+    "first": {
+     "n": 3,
+     "cons_dis": 0.3333333333333333,
+     "tokens_removed": 0.6711456859971712
+    },
+    "noinv": {
+     "n": 3,
+     "cons_dis": 0.3333333333333333,
+     "tokens_removed": 0.7385335413416536
+    },
+    "normal": {
+     "n": 5,
+     "cons_dis": 0.0,
+     "tokens_removed": 0.705771212641704
+    }
+   },
+   "floor_cons": 0.16666666666666666,
+   "vs_floor": {
+    "pruned_only_diff": 1,
+    "floor_only_diff": 1,
+    "p": 1.0
+   }
+  },
+  "rule (tx+inv+flag)": {
+   "name": "rule (tx+inv+flag)",
+   "n": 12,
+   "cons_dis": 0.25,
+   "cons_ub": 0.5273266035603434,
+   "cons_ci_vendor": [
+    0.0,
+    0.5454545454545454
+   ],
+   "raw_dis": 0.25,
+   "raw_ub": 0.5273266035603434,
+   "tokens_removed": 0.8408987743985474,
+   "hist_kept": 0.0,
+   "hist_total": 22.75,
+   "fixed_dropped": 1.0,
+   "trunc": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 1,
+     "cons_dis": 1.0,
+     "tokens_removed": 0.8840792369772561
+    },
+    "first": {
+     "n": 3,
+     "cons_dis": 0.0,
+     "tokens_removed": 0.8235502121640735
+    },
+    "noinv": {
+     "n": 3,
+     "cons_dis": 0.6666666666666666,
+     "tokens_removed": 0.8627145085803432
+    },
+    "normal": {
+     "n": 5,
+     "cons_dis": 0.0,
+     "tokens_removed": 0.8272071453108898
+    }
+   },
+   "floor_cons": 0.16666666666666666,
+   "vs_floor": {
+    "pruned_only_diff": 2,
+    "floor_only_diff": 1,
+    "p": 1.0
+   }
+  }
+ },
+ "cert": {
+  "learned m=0": {
+   "5%": {
+    "budget": 0.05,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "cross-encoder m=0": {
+   "5%": {
+    "budget": 0.05,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "oracle m=0": {
+   "5%": {
+    "budget": 0.05,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "random m=0": {
+   "5%": {
+    "budget": 0.05,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "learned m=2": {
+   "5%": {
+    "budget": 0.05,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "cross-encoder m=2": {
+   "5%": {
+    "budget": 0.05,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "rule (tx+inv+flag)": {
+   "5%": {
+    "budget": 0.05,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  }
+ },
+ "headline": {
+  "5%": [
+   [
+    "learned m=0",
+    0.0,
+    0.0,
+    null,
+    null
+   ],
+   [
+    "cross-encoder m=0",
+    0.0,
+    0.0,
+    null,
+    null
+   ],
+   [
+    "oracle m=0",
+    0.0,
+    0.0,
+    null,
+    null
+   ]
+  ],
+  "10%": [
+   [
+    "learned m=0",
+    0.0,
+    0.0,
+    null,
+    null
+   ],
+   [
+    "cross-encoder m=0",
+    0.0,
+    0.0,
+    null,
+    null
+   ],
+   [
+    "oracle m=0",
+    0.0,
+    0.0,
+    null,
+    null
+   ]
+  ],
+  "15%": [
+   [
+    "learned m=0",
+    0.0,
+    0.0,
+    null,
+    null
+   ],
+   [
+    "cross-encoder m=0",
+    0.0,
+    0.0,
+    null,
+    null
+   ],
+   [
+    "oracle m=0",
+    0.0,
+    0.0,
+    null,
+    null
+   ]
+  ],
+  "excess@5%": [
+   [
+    "learned m=0",
+    0.0,
+    0.0,
+    null,
+    null
+   ],
+   [
+    "cross-encoder m=0",
+    0.0,
+    0.0,
+    null,
+    null
+   ],
+   [
+    "oracle m=0",
+    0.0,
+    0.0,
+    null,
+    null
+   ]
+  ],
+  "excess@10%": [
+   [
+    "learned m=0",
+    0.0,
+    0.0,
+    null,
+    null
+   ],
+   [
+    "cross-encoder m=0",
+    0.0,
+    0.0,
+    null,
+    null
+   ],
+   [
+    "oracle m=0",
+    0.0,
+    0.0,
+    null,
+    null
+   ]
+  ],
+  "excess@15%": [
+   [
+    "learned m=0",
+    0.0,
+    0.0,
+    null,
+    null
+   ],
+   [
+    "cross-encoder m=0",
+    0.0,
+    0.0,
+    null,
+    null
+   ],
+   [
+    "oracle m=0",
+    0.0,
+    0.0,
+    null,
+    null
+   ]
+  ]
+ },
+ "cost": {
+  "s16b_spend": 0.05211574999999957,
+  "ledger_total": 4.61217575,
+  "new_calls": 0,
+  "seconds": 22.33993434906006
+ }
+}

@@ -1,0 +1,36 @@
+[6s] base encoder via transformers vs stored sentence-transformers embeddings: min cosine 1.00000
+[7s] [enc all] labels 248 rows 24109; step 0 (base encoder) TREC 3-shot 0.702
+/workspace/job/proj/smokes/s17_warm_start/lite.py:196: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:835.)
+  if step % 100 == 0: log(f"[enc {name}] step {step} loss {float(loss):.3f}")
+[11s] [enc all] step 100 loss 3.353
+[14s] [enc all] step 200 loss 1.828
+[16s] [enc all] step 250 TREC 3-shot 0.705
+[18s] [enc all] step 300 loss 1.099
+[21s] [enc all] step 400 loss 0.874
+[25s] [enc all] step 500 loss 0.796
+[25s] [enc all] step 500 TREC 3-shot 0.692
+[29s] [enc all] step 600 loss 0.557
+[32s] [enc all] step 700 loss 0.594
+[34s] [enc all] step 750 TREC 3-shot 0.691
+[36s] [enc all] step 800 loss 0.667
+[39s] [enc all] step 900 loss 0.481
+[43s] [enc all] step 1000 loss 0.475
+[43s] [enc all] step 1000 TREC 3-shot 0.690
+[43s] [enc all] chosen step 250
+[45s] [enc nosib] labels 87 rows 8099; step 0 (base encoder) TREC 3-shot 0.702
+[49s] [enc nosib] step 100 loss 1.868
+[52s] [enc nosib] step 200 loss 1.134
+[54s] [enc nosib] step 250 TREC 3-shot 0.689
+[56s] [enc nosib] step 300 loss 0.790
+[60s] [enc nosib] step 400 loss 0.443
+[63s] [enc nosib] step 500 loss 0.473
+[63s] [enc nosib] step 500 TREC 3-shot 0.668
+[67s] [enc nosib] step 600 loss 0.335
+[70s] [enc nosib] step 700 loss 0.240
+[73s] [enc nosib] step 750 TREC 3-shot 0.668
+[74s] [enc nosib] step 800 loss 0.297
+[78s] [enc nosib] step 900 loss 0.362
+[81s] [enc nosib] step 1000 loss 0.319
+[82s] [enc nosib] step 1000 TREC 3-shot 0.666
+[82s] [enc nosib] chosen step 250

@@ -1,0 +1,24 @@
+{'tag': 'A:note', 'pt': 798, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 8.03e-05, 'provider': 'Claude Platform on AWS', 'ms': 1184.0810775756836, 'id': 0, 'hist': True, 'chars': 1249, 'n_hist': 16, 'scn': 'normal'}
+{'tag': 'A:note', 'pt': 235, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 2.4e-05, 'provider': 'Claude Platform on AWS', 'ms': 561.9924068450928, 'id': 0, 'hist': False, 'chars': 337, 'n_hist': 0, 'scn': 'normal'}
+{'tag': 'A:note', 'pt': 1349, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 0.0001354, 'provider': 'Claude Platform on AWS', 'ms': 604.4468879699707, 'id': 1, 'hist': True, 'chars': 2171, 'n_hist': 30, 'scn': 'dup'}
+{'tag': 'A:note', 'pt': 200, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 2.05e-05, 'provider': 'Claude Platform on AWS', 'ms': 603.1372547149658, 'id': 1, 'hist': False, 'chars': 241, 'n_hist': 0, 'scn': 'dup'}
+{'tag': 'A:note', 'pt': 958, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 9.63e-05, 'provider': 'Claude Platform on AWS', 'ms': 599.2641448974609, 'id': 2, 'hist': True, 'chars': 1576, 'n_hist': 21, 'scn': 'noinv'}
+{'tag': 'A:note', 'pt': 183, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 1.88e-05, 'provider': 'Claude Platform on AWS', 'ms': 555.687427520752, 'id': 2, 'hist': False, 'chars': 214, 'n_hist': 0, 'scn': 'noinv'}
+{'tag': 'A:note', 'pt': 794, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 7.99e-05, 'provider': 'Claude Platform on AWS', 'ms': 607.926607131958, 'id': 5, 'hist': True, 'chars': 1232, 'n_hist': 15, 'scn': 'first'}
+{'tag': 'A:note', 'pt': 188, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 1.93e-05, 'provider': 'Claude Platform on AWS', 'ms': 571.0899829864502, 'id': 5, 'hist': False, 'chars': 231, 'n_hist': 0, 'scn': 'first'}
+{'tag': 'A:note', 'pt': 945, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 9.5e-05, 'provider': 'Claude Platform on AWS', 'ms': 598.212480545044, 'id': 13, 'hist': True, 'chars': 1523, 'n_hist': 21, 'scn': 'spike'}
+{'tag': 'A:note', 'pt': 230, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 2.35e-05, 'provider': 'Claude Platform on AWS', 'ms': 579.827070236206, 'id': 13, 'hist': False, 'chars': 333, 'n_hist': 0, 'scn': 'spike'}
+{'tag': 'A:note', 'pt': 764, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 7.69e-05, 'provider': 'Claude Platform on AWS', 'ms': 1213.8676643371582, 'id': 3, 'hist': True, 'chars': 1264, 'n_hist': 16, 'scn': 'normal'}
+{'tag': 'A:note', 'pt': 227, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 2.32e-05, 'provider': 'Claude Platform on AWS', 'ms': 627.6721954345703, 'id': 3, 'hist': False, 'chars': 342, 'n_hist': 0, 'scn': 'normal'}
+{'tag': 'A:note', 'pt': 1466, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 0.0001471, 'provider': 'Claude Platform on AWS', 'ms': 573.1518268585205, 'id': 4, 'hist': True, 'chars': 2312, 'n_hist': 30, 'scn': 'normal'}
+{'tag': 'A:note', 'pt': 248, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 2.53e-05, 'provider': 'Claude Platform on AWS', 'ms': 703.0644416809082, 'id': 4, 'hist': False, 'chars': 358, 'n_hist': 0, 'scn': 'normal'}
+{'tag': 'A:note', 'pt': 1075, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 0.000108, 'provider': 'Claude Platform on AWS', 'ms': 639.9257183074951, 'id': 6, 'hist': True, 'chars': 1693, 'n_hist': 29, 'scn': 'noinv'}
+{'tag': 'A:note', 'pt': 177, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 1.82e-05, 'provider': 'Claude Platform on AWS', 'ms': 577.7266025543213, 'id': 6, 'hist': False, 'chars': 200, 'n_hist': 0, 'scn': 'noinv'}
+{'tag': 'A:note', 'pt': 904, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 9.09e-05, 'provider': 'Claude Platform on AWS', 'ms': 708.310604095459, 'id': 7, 'hist': True, 'chars': 1486, 'n_hist': 18, 'scn': 'normal'}
+{'tag': 'A:note', 'pt': 237, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 2.42e-05, 'provider': 'Claude Platform on AWS', 'ms': 616.9979572296143, 'id': 7, 'hist': False, 'chars': 350, 'n_hist': 0, 'scn': 'normal'}
+{'tag': 'A:note', 'pt': 1338, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 0.0001343, 'provider': 'Claude Platform on AWS', 'ms': 623.0478286743164, 'id': 8, 'hist': True, 'chars': 2119, 'n_hist': 30, 'scn': 'dup'}
+{'tag': 'A:note', 'pt': 237, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 2.42e-05, 'provider': 'Claude Platform on AWS', 'ms': 593.4603214263916, 'id': 8, 'hist': False, 'chars': 338, 'n_hist': 0, 'scn': 'dup'}
+{'tag': 'A:cat12', 'pt': 276, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 2.81e-05, 'provider': 'Claude Platform on AWS', 'ms': 636.2864971160889, 'chars': 805}
+{'tag': 'A:sys_note_only', 'pt': 67, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 7.2e-06, 'provider': 'Claude Platform on AWS', 'ms': 816.7116641998291}
+{'tag': 'A:s13', 'pt': 777, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 7.82e-05, 'provider': 'Claude Platform on AWS', 'ms': 804.2006492614746}
+[spent so far $0.00138]

@@ -1,0 +1,15 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[calls] jobs=2200 cached=55 to_run=2145 spent_so_far=$0.0039
+[calls] done 2145 calls, 0 errors, spent=$0.1590
+nano_A   n=200 $/1k=0.0979 served_by={'OpenAI': 200} mean_ms=896 ntok_mean=4.0 no_lp=0
+nano_Ab  n=200 $/1k=0.0979 served_by={'OpenAI': 200} mean_ms=828 ntok_mean=4.0 no_lp=0
+nano_S   n=200 $/1k=0.0978 served_by={'OpenAI': 200} mean_ms=793 ntok_mean=4.0 no_lp=0
+nano_V   n=200 $/1k=0.1094 served_by={'OpenAI': 200} mean_ms=802 ntok_mean=7.0 no_lp=0
+nano_Vb  n=200 $/1k=0.1095 served_by={'OpenAI': 200} mean_ms=816 ntok_mean=7.1 no_lp=0
+g41_A    n=200 $/1k=0.0459 served_by={'OpenAI': 200} mean_ms=686 ntok_mean=3.7 no_lp=0
+g41_Ab   n=200 $/1k=0.0459 served_by={'OpenAI': 200} mean_ms=729 ntok_mean=3.7 no_lp=0
+g41_S    n=200 $/1k=0.0459 served_by={'OpenAI': 200} mean_ms=724 ntok_mean=3.7 no_lp=0
+qnx_A    n=200 $/1k=0.0483 served_by={'Parasail': 200} mean_ms=592 ntok_mean=3.9 no_lp=0
+qnx_Ab   n=200 $/1k=0.0483 served_by={'Parasail': 200} mean_ms=546 ntok_mean=3.9 no_lp=0
+qnx_S    n=200 $/1k=0.0483 served_by={'Parasail': 200} mean_ms=552 ntok_mean=3.9 no_lp=0
+[summary] total spent=$0.1590

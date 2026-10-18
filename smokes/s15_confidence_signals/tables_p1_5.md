@@ -1,0 +1,171 @@
+## S15 part 1: student-side confidence signals (frozen BAAI/bge-small-en-v1.5 + LR student, C=10)
+Signals (higher = more confident): a top-2 gap; b max prob; c -entropy; d top-2 gap after temperature scaling (T fit on the head-training rows); e share of the 10 nearest student-training rows (cosine) with the predicted label; f LR head on the z-scored prompt embedding predicting 'student is wrong'; g LR head on z-scored (a-e) features (+log gap, log temp-gap); h gap + kNN share (parameter-free sum).
+
+### Banking77, 770 rows: student trained on 770 rows (14s), test accuracy 0.821 (551 errors of 3076), head-training pool 9223 unused train rows, 5 random splits (cal 500 / holdout 2576)
+
+**Banking77, 770 rows, heads trained on 1000 rows** (temperature fit T = 0.46 ± 0.02). AUROC = ranking errors above correct answers on the holdout; coverage = share of holdout answered by the student at the certified cutoff (certificate fit on 500 cal rows, delta 5%); error = realized error among those answers. Cells are mean (min over splits) for coverage, mean (max) for error.
+| signal | AUROC mean ± sd | cov @2% | err @2% | cov @5% | err @5% | cov @10% | err @10% |
+|---|---|---|---|---|---|---|---|
+| a gap | 0.878 ± 0.003 | 0.00 (0.00) | - | 0.12 (0.00) | 0.010 (0.016) | 0.69 (0.60) | 0.049 (0.060) |
+| b maxp | 0.869 ± 0.005 | 0.00 (0.00) | - | 0.11 (0.00) | 0.010 (0.010) | 0.61 (0.38) | 0.045 (0.062) |
+| c -entropy | 0.820 ± 0.008 | 0.00 (0.00) | - | 0.06 (0.00) | 0.029 (0.029) | 0.29 (0.00) | 0.050 (0.069) |
+| d temp-gap | 0.876 ± 0.003 | 0.00 (0.00) | - | 0.20 (0.00) | 0.013 (0.018) | 0.67 (0.60) | 0.045 (0.057) |
+| e kNN agree | 0.749 ± 0.007 | 0.00 (0.00) | - | 0.00 (0.00) | - | 0.12 (0.00) | 0.049 (0.062) |
+| f head(emb) | 0.659 ± 0.039 | 0.00 (0.00) | - | 0.00 (0.00) | - | 0.00 (0.00) | - |
+| g head(a-e) | 0.883 ± 0.003 | 0.00 (0.00) | - | 0.17 (0.00) | 0.017 (0.018) | 0.70 (0.67) | 0.047 (0.054) |
+| h gap+kNN | 0.835 ± 0.005 | 0.00 (0.00) | - | 0.00 (0.00) | - | 0.53 (0.38) | 0.043 (0.075) |
+
+Paired difference vs the student's own gap (mean ± sd over 5 splits; wins = splits where the signal is better):
+| signal | dAUROC | AUROC wins | boot 95% CI dAUROC (split 0) | dcov @5% | wins | dcov @10% | wins |
+|---|---|---|---|---|---|---|---|
+| b maxp | -0.0097 ± 0.0026 | 0/5 | [-0.0154, -0.0010] | -0.014 ± 0.029 | 1/5 | -0.077 ± 0.080 | 0/5 |
+| c -entropy | -0.0588 ± 0.0054 | 0/5 | [-0.0720, -0.0419] | -0.057 ± 0.145 | 1/5 | -0.403 ± 0.268 | 0/5 |
+| d temp-gap | -0.0019 ± 0.0012 | 0/5 | [-0.0067, +0.0004] | +0.077 ± 0.131 | 2/5 | -0.017 ± 0.022 | 2/5 |
+| e kNN agree | -0.1290 ± 0.0052 | 0/5 | [-0.1405, -0.1034] | -0.121 ± 0.151 | 0/5 | -0.569 ± 0.127 | 0/5 |
+| f head(emb) | -0.2191 ± 0.0394 | 0/5 | [-0.2552, -0.1949] | -0.121 ± 0.151 | 0/5 | -0.689 ± 0.048 | 0/5 |
+| g head(a-e) | +0.0047 ± 0.0013 | 5/5 | [-0.0028, +0.0081] | +0.047 ± 0.249 | 2/5 | +0.015 ± 0.031 | 2/5 |
+| h gap+kNN | -0.0438 ± 0.0029 | 0/5 | [-0.0494, -0.0309] | -0.121 ± 0.151 | 0/5 | -0.162 ± 0.057 | 0/5 |
+
+**Banking77, 770 rows, heads trained on 300 rows** (temperature fit T = 0.47 ± 0.01). AUROC = ranking errors above correct answers on the holdout; coverage = share of holdout answered by the student at the certified cutoff (certificate fit on 500 cal rows, delta 5%); error = realized error among those answers. Cells are mean (min over splits) for coverage, mean (max) for error.
+| signal | AUROC mean ± sd | cov @2% | err @2% | cov @5% | err @5% | cov @10% | err @10% |
+|---|---|---|---|---|---|---|---|
+| a gap | 0.878 ± 0.003 | 0.00 (0.00) | - | 0.12 (0.00) | 0.010 (0.016) | 0.69 (0.60) | 0.049 (0.060) |
+| b maxp | 0.869 ± 0.005 | 0.00 (0.00) | - | 0.11 (0.00) | 0.010 (0.010) | 0.61 (0.38) | 0.045 (0.062) |
+| c -entropy | 0.820 ± 0.008 | 0.00 (0.00) | - | 0.06 (0.00) | 0.029 (0.029) | 0.29 (0.00) | 0.050 (0.069) |
+| d temp-gap | 0.877 ± 0.003 | 0.00 (0.00) | - | 0.20 (0.00) | 0.013 (0.018) | 0.67 (0.60) | 0.045 (0.055) |
+| e kNN agree | 0.749 ± 0.007 | 0.00 (0.00) | - | 0.00 (0.00) | - | 0.12 (0.00) | 0.049 (0.062) |
+| f head(emb) | 0.607 ± 0.019 | 0.00 (0.00) | - | 0.00 (0.00) | - | 0.00 (0.00) | - |
+| g head(a-e) | 0.877 ± 0.004 | 0.00 (0.00) | - | 0.17 (0.00) | 0.019 (0.019) | 0.68 (0.62) | 0.047 (0.059) |
+| h gap+kNN | 0.835 ± 0.005 | 0.00 (0.00) | - | 0.00 (0.00) | - | 0.53 (0.38) | 0.043 (0.075) |
+
+Paired difference vs the student's own gap (mean ± sd over 5 splits; wins = splits where the signal is better):
+| signal | dAUROC | AUROC wins | boot 95% CI dAUROC (split 0) | dcov @5% | wins | dcov @10% | wins |
+|---|---|---|---|---|---|---|---|
+| b maxp | -0.0097 ± 0.0026 | 0/5 | - | -0.014 ± 0.029 | 1/5 | -0.077 ± 0.080 | 0/5 |
+| c -entropy | -0.0588 ± 0.0054 | 0/5 | - | -0.057 ± 0.145 | 1/5 | -0.403 ± 0.268 | 0/5 |
+| d temp-gap | -0.0016 ± 0.0010 | 0/5 | - | +0.074 ± 0.130 | 2/5 | -0.017 ± 0.021 | 2/5 |
+| e kNN agree | -0.1290 ± 0.0052 | 0/5 | - | -0.121 ± 0.151 | 0/5 | -0.569 ± 0.127 | 0/5 |
+| f head(emb) | -0.2716 ± 0.0211 | 0/5 | - | -0.121 ± 0.151 | 0/5 | -0.689 ± 0.048 | 0/5 |
+| g head(a-e) | -0.0014 ± 0.0033 | 2/5 | - | +0.051 ± 0.066 | 2/5 | -0.009 ± 0.023 | 2/5 |
+| h gap+kNN | -0.0438 ± 0.0029 | 0/5 | - | -0.121 ± 0.151 | 0/5 | -0.162 ± 0.057 | 0/5 |
+
+**Banking77, 770 rows, heads trained on 3000 rows** (temperature fit T = 0.46 ± 0.01). AUROC = ranking errors above correct answers on the holdout; coverage = share of holdout answered by the student at the certified cutoff (certificate fit on 500 cal rows, delta 5%); error = realized error among those answers. Cells are mean (min over splits) for coverage, mean (max) for error.
+| signal | AUROC mean ± sd | cov @2% | err @2% | cov @5% | err @5% | cov @10% | err @10% |
+|---|---|---|---|---|---|---|---|
+| a gap | 0.878 ± 0.003 | 0.00 (0.00) | - | 0.12 (0.00) | 0.010 (0.016) | 0.69 (0.60) | 0.049 (0.060) |
+| b maxp | 0.869 ± 0.005 | 0.00 (0.00) | - | 0.11 (0.00) | 0.010 (0.010) | 0.61 (0.38) | 0.045 (0.062) |
+| c -entropy | 0.820 ± 0.008 | 0.00 (0.00) | - | 0.06 (0.00) | 0.029 (0.029) | 0.29 (0.00) | 0.050 (0.069) |
+| d temp-gap | 0.877 ± 0.003 | 0.00 (0.00) | - | 0.20 (0.00) | 0.013 (0.018) | 0.68 (0.60) | 0.047 (0.057) |
+| e kNN agree | 0.749 ± 0.007 | 0.00 (0.00) | - | 0.00 (0.00) | - | 0.12 (0.00) | 0.049 (0.062) |
+| f head(emb) | 0.755 ± 0.007 | 0.00 (0.00) | - | 0.00 (0.00) | - | 0.05 (0.00) | 0.073 (0.073) |
+| g head(a-e) | 0.883 ± 0.003 | 0.00 (0.00) | - | 0.25 (0.00) | 0.017 (0.018) | 0.69 (0.65) | 0.046 (0.058) |
+| h gap+kNN | 0.835 ± 0.005 | 0.00 (0.00) | - | 0.00 (0.00) | - | 0.53 (0.38) | 0.043 (0.075) |
+
+Paired difference vs the student's own gap (mean ± sd over 5 splits; wins = splits where the signal is better):
+| signal | dAUROC | AUROC wins | boot 95% CI dAUROC (split 0) | dcov @5% | wins | dcov @10% | wins |
+|---|---|---|---|---|---|---|---|
+| b maxp | -0.0097 ± 0.0026 | 0/5 | - | -0.014 ± 0.029 | 1/5 | -0.077 ± 0.080 | 0/5 |
+| c -entropy | -0.0588 ± 0.0054 | 0/5 | - | -0.057 ± 0.145 | 1/5 | -0.403 ± 0.268 | 0/5 |
+| d temp-gap | -0.0018 ± 0.0009 | 0/5 | - | +0.076 ± 0.130 | 2/5 | -0.009 ± 0.018 | 2/5 |
+| e kNN agree | -0.1290 ± 0.0052 | 0/5 | - | -0.121 ± 0.151 | 0/5 | -0.569 ± 0.127 | 0/5 |
+| f head(emb) | -0.1231 ± 0.0064 | 0/5 | - | -0.121 ± 0.151 | 0/5 | -0.638 ± 0.112 | 0/5 |
+| g head(a-e) | +0.0051 ± 0.0013 | 5/5 | - | +0.129 ± 0.171 | 3/5 | +0.004 ± 0.024 | 3/5 |
+| h gap+kNN | -0.0438 ± 0.0029 | 0/5 | - | -0.121 ± 0.151 | 0/5 | -0.162 ± 0.057 | 0/5 |
+
+### Banking77, 3080 rows: student trained on 3080 rows (12s), test accuracy 0.910 (276 errors of 3076), head-training pool 6913 unused train rows, 5 random splits (cal 500 / holdout 2576)
+
+**Banking77, 3080 rows, heads trained on 1000 rows** (temperature fit T = 0.55 ± 0.02). AUROC = ranking errors above correct answers on the holdout; coverage = share of holdout answered by the student at the certified cutoff (certificate fit on 500 cal rows, delta 5%); error = realized error among those answers. Cells are mean (min over splits) for coverage, mean (max) for error.
+| signal | AUROC mean ± sd | cov @2% | err @2% | cov @5% | err @5% | cov @10% | err @10% |
+|---|---|---|---|---|---|---|---|
+| a gap | 0.898 ± 0.004 | 0.00 (0.00) | - | 0.75 (0.63) | 0.021 (0.033) | 0.92 (0.87) | 0.055 (0.079) |
+| b maxp | 0.889 ± 0.005 | 0.00 (0.00) | - | 0.71 (0.52) | 0.021 (0.034) | 0.91 (0.84) | 0.054 (0.070) |
+| c -entropy | 0.848 ± 0.007 | 0.00 (0.00) | - | 0.51 (0.00) | 0.025 (0.038) | 0.87 (0.70) | 0.055 (0.073) |
+| d temp-gap | 0.899 ± 0.004 | 0.00 (0.00) | - | 0.74 (0.63) | 0.018 (0.027) | 0.92 (0.90) | 0.056 (0.069) |
+| e kNN agree | 0.879 ± 0.002 | 0.00 (0.00) | - | 0.65 (0.59) | 0.018 (0.033) | 0.92 (0.89) | 0.055 (0.062) |
+| f head(emb) | 0.613 ± 0.013 | 0.00 (0.00) | - | 0.00 (0.00) | - | 0.46 (0.00) | 0.077 (0.083) |
+| g head(a-e) | 0.908 ± 0.003 | 0.00 (0.00) | - | 0.78 (0.74) | 0.020 (0.031) | 0.92 (0.87) | 0.055 (0.068) |
+| h gap+kNN | 0.907 ± 0.003 | 0.00 (0.00) | - | 0.77 (0.70) | 0.019 (0.027) | 0.92 (0.89) | 0.055 (0.070) |
+
+Paired difference vs the student's own gap (mean ± sd over 5 splits; wins = splits where the signal is better):
+| signal | dAUROC | AUROC wins | boot 95% CI dAUROC (split 0) | dcov @5% | wins | dcov @10% | wins |
+|---|---|---|---|---|---|---|---|
+| b maxp | -0.0088 ± 0.0017 | 0/5 | [-0.0152, -0.0041] | -0.043 ± 0.045 | 1/5 | -0.010 ± 0.016 | 2/5 |
+| c -entropy | -0.0496 ± 0.0052 | 0/5 | [-0.0637, -0.0353] | -0.247 ± 0.224 | 0/5 | -0.048 ± 0.068 | 2/5 |
+| d temp-gap | +0.0011 ± 0.0007 | 5/5 | [-0.0019, +0.0047] | -0.018 ± 0.052 | 3/5 | +0.003 ± 0.018 | 3/5 |
+| e kNN agree | -0.0185 ± 0.0031 | 0/5 | [-0.0325, -0.0000] | -0.099 ± 0.072 | 0/5 | +0.005 ± 0.027 | 2/5 |
+| f head(emb) | -0.2848 ± 0.0158 | 0/5 | [-0.3220, -0.2407] | -0.753 ± 0.083 | 0/5 | -0.458 ± 0.378 | 0/5 |
+| g head(a-e) | +0.0100 ± 0.0018 | 5/5 | [+0.0055, +0.0155] | +0.031 ± 0.054 | 3/5 | +0.009 ± 0.016 | 3/5 |
+| h gap+kNN | +0.0092 ± 0.0016 | 5/5 | [+0.0028, +0.0175] | +0.012 ± 0.058 | 3/5 | +0.009 ± 0.020 | 3/5 |
+
+**Banking77, 3080 rows, heads trained on 300 rows** (temperature fit T = 0.51 ± 0.02). AUROC = ranking errors above correct answers on the holdout; coverage = share of holdout answered by the student at the certified cutoff (certificate fit on 500 cal rows, delta 5%); error = realized error among those answers. Cells are mean (min over splits) for coverage, mean (max) for error.
+| signal | AUROC mean ± sd | cov @2% | err @2% | cov @5% | err @5% | cov @10% | err @10% |
+|---|---|---|---|---|---|---|---|
+| a gap | 0.898 ± 0.004 | 0.00 (0.00) | - | 0.75 (0.63) | 0.021 (0.033) | 0.92 (0.87) | 0.055 (0.079) |
+| b maxp | 0.889 ± 0.005 | 0.00 (0.00) | - | 0.71 (0.52) | 0.021 (0.034) | 0.91 (0.84) | 0.054 (0.070) |
+| c -entropy | 0.848 ± 0.007 | 0.00 (0.00) | - | 0.51 (0.00) | 0.025 (0.038) | 0.87 (0.70) | 0.055 (0.073) |
+| d temp-gap | 0.899 ± 0.004 | 0.00 (0.00) | - | 0.74 (0.64) | 0.018 (0.027) | 0.92 (0.90) | 0.056 (0.069) |
+| e kNN agree | 0.879 ± 0.002 | 0.00 (0.00) | - | 0.65 (0.59) | 0.018 (0.033) | 0.92 (0.89) | 0.055 (0.062) |
+| f head(emb) | 0.557 ± 0.034 | 0.00 (0.00) | - | 0.00 (0.00) | - | 0.16 (0.00) | 0.094 (0.094) |
+| g head(a-e) | 0.905 ± 0.004 | 0.00 (0.00) | - | 0.78 (0.70) | 0.020 (0.032) | 0.93 (0.87) | 0.058 (0.075) |
+| h gap+kNN | 0.907 ± 0.003 | 0.00 (0.00) | - | 0.77 (0.70) | 0.019 (0.027) | 0.92 (0.89) | 0.055 (0.070) |
+
+Paired difference vs the student's own gap (mean ± sd over 5 splits; wins = splits where the signal is better):
+| signal | dAUROC | AUROC wins | boot 95% CI dAUROC (split 0) | dcov @5% | wins | dcov @10% | wins |
+|---|---|---|---|---|---|---|---|
+| b maxp | -0.0088 ± 0.0017 | 0/5 | - | -0.043 ± 0.045 | 1/5 | -0.010 ± 0.016 | 2/5 |
+| c -entropy | -0.0496 ± 0.0052 | 0/5 | - | -0.247 ± 0.224 | 0/5 | -0.048 ± 0.068 | 2/5 |
+| d temp-gap | +0.0010 ± 0.0008 | 5/5 | - | -0.018 ± 0.051 | 3/5 | +0.003 ± 0.018 | 3/5 |
+| e kNN agree | -0.0185 ± 0.0031 | 0/5 | - | -0.099 ± 0.072 | 0/5 | +0.005 ± 0.027 | 2/5 |
+| f head(emb) | -0.3406 ± 0.0309 | 0/5 | - | -0.753 ± 0.083 | 0/5 | -0.751 ± 0.304 | 0/5 |
+| g head(a-e) | +0.0074 ± 0.0033 | 5/5 | - | +0.025 ± 0.033 | 4/5 | +0.013 ± 0.018 | 4/5 |
+| h gap+kNN | +0.0092 ± 0.0016 | 5/5 | - | +0.012 ± 0.058 | 3/5 | +0.009 ± 0.020 | 3/5 |
+
+**Banking77, 3080 rows, heads trained on 3000 rows** (temperature fit T = 0.54 ± 0.01). AUROC = ranking errors above correct answers on the holdout; coverage = share of holdout answered by the student at the certified cutoff (certificate fit on 500 cal rows, delta 5%); error = realized error among those answers. Cells are mean (min over splits) for coverage, mean (max) for error.
+| signal | AUROC mean ± sd | cov @2% | err @2% | cov @5% | err @5% | cov @10% | err @10% |
+|---|---|---|---|---|---|---|---|
+| a gap | 0.898 ± 0.004 | 0.00 (0.00) | - | 0.75 (0.63) | 0.021 (0.033) | 0.92 (0.87) | 0.055 (0.079) |
+| b maxp | 0.889 ± 0.005 | 0.00 (0.00) | - | 0.71 (0.52) | 0.021 (0.034) | 0.91 (0.84) | 0.054 (0.070) |
+| c -entropy | 0.848 ± 0.007 | 0.00 (0.00) | - | 0.51 (0.00) | 0.025 (0.038) | 0.87 (0.70) | 0.055 (0.073) |
+| d temp-gap | 0.899 ± 0.004 | 0.00 (0.00) | - | 0.74 (0.63) | 0.018 (0.027) | 0.92 (0.90) | 0.056 (0.069) |
+| e kNN agree | 0.879 ± 0.002 | 0.00 (0.00) | - | 0.65 (0.59) | 0.018 (0.033) | 0.92 (0.89) | 0.055 (0.062) |
+| f head(emb) | 0.680 ± 0.005 | 0.00 (0.00) | - | 0.00 (0.00) | - | 0.48 (0.00) | 0.067 (0.074) |
+| g head(a-e) | 0.908 ± 0.003 | 0.00 (0.00) | - | 0.78 (0.72) | 0.020 (0.030) | 0.93 (0.90) | 0.058 (0.074) |
+| h gap+kNN | 0.907 ± 0.003 | 0.00 (0.00) | - | 0.77 (0.70) | 0.019 (0.027) | 0.92 (0.89) | 0.055 (0.070) |
+
+Paired difference vs the student's own gap (mean ± sd over 5 splits; wins = splits where the signal is better):
+| signal | dAUROC | AUROC wins | boot 95% CI dAUROC (split 0) | dcov @5% | wins | dcov @10% | wins |
+|---|---|---|---|---|---|---|---|
+| b maxp | -0.0088 ± 0.0017 | 0/5 | - | -0.043 ± 0.045 | 1/5 | -0.010 ± 0.016 | 2/5 |
+| c -entropy | -0.0496 ± 0.0052 | 0/5 | - | -0.247 ± 0.224 | 0/5 | -0.048 ± 0.068 | 2/5 |
+| d temp-gap | +0.0012 ± 0.0008 | 5/5 | - | -0.017 ± 0.051 | 3/5 | +0.003 ± 0.018 | 3/5 |
+| e kNN agree | -0.0185 ± 0.0031 | 0/5 | - | -0.099 ± 0.072 | 0/5 | +0.005 ± 0.027 | 2/5 |
+| f head(emb) | -0.2172 ± 0.0050 | 0/5 | - | -0.753 ± 0.083 | 0/5 | -0.437 ± 0.370 | 0/5 |
+| g head(a-e) | +0.0106 ± 0.0014 | 5/5 | - | +0.024 ± 0.040 | 3/5 | +0.017 ± 0.015 | 4/5 |
+| h gap+kNN | +0.0092 ± 0.0016 | 5/5 | - | +0.012 ± 0.058 | 3/5 | +0.009 ± 0.020 | 3/5 |
+
+### CLINC150 (in-scope), 1500 rows: student trained on 1500 rows (9s), test accuracy 0.906 (424 errors of 4500), head-training pool 13500 unused train rows, 5 random splits (cal 500 / holdout 4000)
+
+**CLINC150 (in-scope), 1500 rows, heads trained on 1000 rows** (temperature fit T = 0.38 ± 0.01). AUROC = ranking errors above correct answers on the holdout; coverage = share of holdout answered by the student at the certified cutoff (certificate fit on 500 cal rows, delta 5%); error = realized error among those answers. Cells are mean (min over splits) for coverage, mean (max) for error.
+| signal | AUROC mean ± sd | cov @2% | err @2% | cov @5% | err @5% | cov @10% | err @10% |
+|---|---|---|---|---|---|---|---|
+| a gap | 0.891 ± 0.001 | 0.00 (0.00) | - | 0.65 (0.56) | 0.015 (0.024) | 0.92 (0.90) | 0.060 (0.066) |
+| b maxp | 0.860 ± 0.002 | 0.00 (0.00) | - | 0.51 (0.29) | 0.013 (0.030) | 0.90 (0.86) | 0.059 (0.062) |
+| c -entropy | 0.798 ± 0.003 | 0.00 (0.00) | - | 0.23 (0.00) | 0.015 (0.020) | 0.85 (0.82) | 0.062 (0.072) |
+| d temp-gap | 0.899 ± 0.002 | 0.00 (0.00) | - | 0.69 (0.63) | 0.017 (0.019) | 0.92 (0.90) | 0.057 (0.078) |
+| e kNN agree | 0.788 ± 0.002 | 0.00 (0.00) | - | 0.00 (0.00) | - | 0.73 (0.62) | 0.046 (0.049) |
+| f head(emb) | 0.644 ± 0.010 | 0.00 (0.00) | - | 0.00 (0.00) | - | 0.08 (0.00) | 0.057 (0.057) |
+| g head(a-e) | 0.894 ± 0.002 | 0.00 (0.00) | - | 0.62 (0.45) | 0.014 (0.023) | 0.92 (0.90) | 0.059 (0.063) |
+| h gap+kNN | 0.856 ± 0.001 | 0.00 (0.00) | - | 0.54 (0.46) | 0.012 (0.023) | 0.87 (0.81) | 0.057 (0.067) |
+
+Paired difference vs the student's own gap (mean ± sd over 5 splits; wins = splits where the signal is better):
+| signal | dAUROC | AUROC wins | boot 95% CI dAUROC (split 0) | dcov @5% | wins | dcov @10% | wins |
+|---|---|---|---|---|---|---|---|
+| b maxp | -0.0310 ± 0.0015 | 0/5 | [-0.0395, -0.0245] | -0.137 ± 0.078 | 0/5 | -0.020 ± 0.012 | 0/5 |
+| c -entropy | -0.0930 ± 0.0029 | 0/5 | [-0.1105, -0.0802] | -0.413 ± 0.137 | 0/5 | -0.078 ± 0.027 | 0/5 |
+| d temp-gap | +0.0081 ± 0.0016 | 5/5 | [+0.0033, +0.0125] | +0.049 ± 0.079 | 3/5 | -0.007 ± 0.020 | 1/5 |
+| e kNN agree | -0.1026 ± 0.0024 | 0/5 | [-0.1238, -0.0850] | -0.646 ± 0.088 | 0/5 | -0.197 ± 0.055 | 0/5 |
+| f head(emb) | -0.2469 ± 0.0104 | 0/5 | [-0.2905, -0.2247] | -0.646 ± 0.088 | 0/5 | -0.842 ± 0.162 | 0/5 |
+| g head(a-e) | +0.0026 ± 0.0011 | 5/5 | [+0.0011, +0.0035] | -0.022 ± 0.046 | 2/5 | -0.001 ± 0.004 | 2/5 |
+| h gap+kNN | -0.0350 ± 0.0013 | 0/5 | [-0.0459, -0.0259] | -0.103 ± 0.136 | 1/5 | -0.053 ± 0.032 | 0/5 |
+
+wall time 290s

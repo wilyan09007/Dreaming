@@ -1,0 +1,6 @@
+bundle 0.01 MB
+community launch failed, trying ALL: [{'message': 'There are no longer any instances available with the requested specifications. Please refresh and try again.', 'path': ['podFindAndDeployOnDemand'], 'extensions': {'code': 'SUPPLY_CONSTR
+pod {'id': '9r9b47pa01okoj', 'machineId': 'k6e7ne29obf7', 'costPerHr': 0.89}
+pod gone
+terminate failed (pod may have self-terminated): [{'message': 'pod not found to terminate', 'path': ['podTerminate'], 'extensions': {'code': 'POD_NOT_FOUND', 'userId': 'user_31zqpkFHJXKChEdBC7mMjcr2YHv', 'podId': '9r9b47pa01okoj'}}]
+wall 2.1 min, est cost $0.031 at $0.89/h, ok=False
