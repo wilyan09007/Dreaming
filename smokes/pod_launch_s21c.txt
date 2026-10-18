@@ -11,7 +11,7 @@ bundle extracted 7 files
 no CUDA on this pod: refusing to run the extraction on CPU
 exit=1
 [325s status=RUNNING log=570B]
-/home/user/dreaming/smokes/pod.py:105: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
+smokes/pod.py:105: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
   with tarfile.open(fileobj=io.BytesIO(r.content), mode="r:gz") as tar: tar.extractall(ROOT)
 results extracted (0.94 MB) into ['smokes/s21_hidden_state_probe']
 terminate: {'podTerminate': None}

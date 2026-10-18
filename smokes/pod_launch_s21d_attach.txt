@@ -37,7 +37,7 @@ Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF
 wrote results.json
 exit=0
 [220s status=RUNNING log=1514B]
-/home/user/dreaming/smokes/pod.py:105: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
+smokes/pod.py:105: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
   with tarfile.open(fileobj=io.BytesIO(r.content), mode="r:gz") as tar: tar.extractall(ROOT)
 results extracted (79.99 MB) into ['smokes/s21_hidden_state_probe']
 terminate: {'podTerminate': None}

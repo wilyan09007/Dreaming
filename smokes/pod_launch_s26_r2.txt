@@ -123,7 +123,7 @@ results_hyper: {"n_tasks": 800, "n_labels": 201, "fit_datasets": ["banking77", "
 [763s] pod done
 exit=0
 [937s status=RUNNING log=13715B]
-/home/user/dreaming/smokes/pod.py:105: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
+smokes/pod.py:105: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
   with tarfile.open(fileobj=io.BytesIO(r.content), mode="r:gz") as tar: tar.extractall(ROOT)
 results extracted (0.05 MB) into ['smokes/s26_pool_transfer']
 terminate: {'podTerminate': None}

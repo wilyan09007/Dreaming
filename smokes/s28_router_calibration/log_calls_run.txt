@@ -8,10 +8,10 @@ Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF
    ERR E1 2668 APIStatusError: Error code: 402 - {'error': {'message': 'This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.', 'code': 402, 'metadata': {'reason': 'in_flight_budget_exhausted', 'limit_source': 'openrouter_in_flight_budget', '
 nano_A  n=1000 $/1k=0.0979 cost_field=1000/1000 served_by={'OpenAI': 1000} mean_ms=797 no_lp=0 empty=0
 Traceback (most recent call last):
-  File "/home/user/dreaming/smokes/s28_router_calibration/calls.py", line 106, in <module>
+  File "smokes/s28_router_calibration/calls.py", line 106, in <module>
     elif cmd == "run": go(NNEW); summary()
                                  ~~~~~~~^^
-  File "/home/user/dreaming/smokes/s28_router_calibration/calls.py", line 100, in summary
+  File "smokes/s28_router_calibration/calls.py", line 100, in summary
     f"mean_ms={np.mean([r['ms'] for r in rr]):.0f} no_lp={sum(1 for r in rr if RUNS[run][3] and not r['toks'])} empty={sum(1 for r in rr if not (r['content'] or '').strip())}")
                         ~^^^^^^
 KeyError: 'ms'
