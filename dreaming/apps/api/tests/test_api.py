@@ -334,6 +334,11 @@ def test_budget_recertifies_and_restores(client: TestClient) -> None:
     att = tight.policy.attempt  # the page's "no promise at 0.1%" numbers
     assert att is not None and att.budget == 0.001 and att.n > 0 and att.bound > 0.001
     assert att.min_budget is not None and 0.001 < att.min_budget <= 0.05
+    # the window is re-priced at once: the dream's calls go back to the real call, so a run costs more and replays less, and the
+    # chart gets one point at the same x; with no promise a call costs what the real call costs
+    assert s1.metrics.cost_per_run > s0.metrics.cost_per_run and s1.metrics.replayable_pct < s0.metrics.replayable_pct
+    assert s1.metrics.runs == s0.metrics.runs and s1.series[-1] == s1.metrics and len(s1.series) == len(s0.series) + 1
+    assert tight.cost_dream_usd == tight.cost_awake_usd and before.cost_dream_usd < before.cost_awake_usd
 
     r = client.post("/budget", json={"budget": 0.05})
     assert r.status_code == 200 and r.json() == {"budget": 0.05}
@@ -343,6 +348,8 @@ def test_budget_recertifies_and_restores(client: TestClient) -> None:
     assert back.policy.cert_id not in (None, before.policy.cert_id)  # a fresh promise ...
     assert back.certificate.calib_sha == before.certificate.calib_sha and back.certificate.bound <= 0.05  # ... on the same stored rows
     assert back.policy.weights_sha == before.policy.weights_sha
+    assert s2.metrics == s0.metrics  # the same promises price the same window the same way
+    assert back.cost_dream_usd == pytest.approx(before.cost_dream_usd)
 
     evs = events(client, limit=1000)
     assert [e.data["budget"] for e in evs if e.kind == EventKind.budget_changed] == [0.001, 0.05]
@@ -385,6 +392,7 @@ def test_a_probe_clears_an_outage_the_switch_did_not_cause(client: TestClient, d
     client.post(f"/tools/{VEN}/outage", json={"down": True})
     assert site(batch(client, 10), VEN).policy.outage is True
     down["vendor"] = False  # the tool comes back by itself: nobody plugs the switch
+    s = state(client)
     for _ in range(6):  # while out, 1 call in 20 probes the real call; a success clears the outage
         s = batch(client, 50)
         if not site(s, VEN).policy.outage:

@@ -317,7 +317,7 @@ class SiteView(BaseModel):
     policy: Policy
     certificate: Certificate | None = None
     cost_awake_usd: float = 0.0  # mean cost of rows the real call answered
-    cost_dream_usd: float = 0.0  # mean cost of rows the predictor answered (a router's cheap call is not free)
+    cost_dream_usd: float = 0.0  # a call under the promise in force: covered share at the prediction's cost (1 in N audited), the rest awake
     sec_awake: float = 0.0
     sec_dream: float = 0.0
 
@@ -334,7 +334,7 @@ class State(BaseModel):
     batch: Batch
     config: dict[str, str] = Field(default_factory=dict)  # supabase_url, supabase_publishable_key: what Realtime needs
     spare_certificates: dict[str, Certificate] = Field(default_factory=dict)  # Policy.shadow[name].cert_id -> its certificate: the journal prints the spares' bounds
-    unplugged: list[str] = Field(default_factory=list)  # tool sites whose fault switch is off (POST /tools/{site}/outage): the page's plug pill
+    unplugged: list[str] = Field(default_factory=list)  # tool sites whose fault switch is off (POST /tools/{site}/outage): the plug pill and, with Policy.outage, the rain cloud
 
 
 class RunView(BaseModel):

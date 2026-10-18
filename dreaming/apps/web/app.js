@@ -28,7 +28,7 @@ const now = () => performance.now();
 const S = {
   view: 'flows', sel: 'categorize', selRun: null, rp: null, trace: null, loading: null, unplugged: false,
   narr: '', narrIdle: true, narrRank: 0, narrUntil: 0, queued: null, verdicts: [], last: null, quietUntil: 0, budgetAt: -1e9,
-  note: null, prev: {}, pop: {}, shown: {}, hold: {}, recheck: {}, lastCert: {}, saved: 0, runs: 0,
+  note: null, prev: {}, pop: {}, shown: {}, hold: {}, recheck: {}, lastCert: {}, saved: 0, runs: 0, bnow: '',
   cmdAt: 0, stAt: 0, failQ: {}, failSaid: new Set(), // command reply time, request time of the /state on screen, train failures to judge
 };
 
@@ -177,7 +177,7 @@ const sheepSVG = (/** @type {boolean} */ full) => `<svg viewBox="0 0 24 20" aria
 /** @param {string} name @param {string} phase  the Policy's phase now @returns {string | null} */
 function held(name, phase) {
   const t = now(), was = S.shown[name];
-  if (!S.hold[name] && was && was !== phase && !S.recheck[name]) S.hold[name] = { q: [phase], p: was, until: 0 };
+  if (!S.hold[name] && was && was !== phase && !S.recheck[name]) S.hold[name] = { q: was === 'watching' && phase === 'dreaming' ? ['testing', phase] : [phase], p: was, until: 0 };
   const h = S.hold[name];
   if (!h) return null;
   if (t >= h.until && h.q.length) { h.p = h.q.shift(); h.until = t + HOLD_PHASE; }
@@ -196,7 +196,7 @@ function onPhase(e) {
 function phase(v) {
   const p = v.policy, c = v.certificate ?? null, th = v.site.thresholds;
   // a certificate installed a moment before its phase write (one tick: install, then site.phase) already means dreaming
-  const pp = p.phase === 'testing' && p.cert_id && c ? 'dreaming' : p.phase, h = held(v.site.name, pp);
+  const pp = p.phase === 'testing' && p.cert_id && c ? 'dreaming' : p.phase === 'dreaming' && !c ? 'testing' : p.phase, h = held(v.site.name, pp);
   const raw = h && !(h === 'dreaming' && !c) ? h : pp;
   // README (d): the runtime leaves a site in testing when nothing certifies: the page's "no promise at 5%" (shown awake, as designed)
   const cant = !h && raw === 'testing' && !p.cert_id && p.shadow_rows >= th.calibrate_after;
@@ -314,6 +314,7 @@ function teacherWords() {
 // ---------- events: the narration's source, and which of them mean "read /state again" ----------
 const seen = new Set(); // Event.id: backfill, poll and live inserts overlap. Ids are random: never compare, keep arrival order
 let last = '';
+let regating = false; // inside the run of events one budget change emits (budget.changed, then each site's cert.* and site.phase)
 /** @param {DEvent} e @param {boolean} fresh  false for backfill: history is not animated @returns {boolean} true when /state changed */
 function onEvent(e, fresh) {
   if (seen.has(e.id)) return false;
@@ -322,8 +323,10 @@ function onEvent(e, fresh) {
   if (e.kind === 'component.error') { problems.events = [...problems.events, `${e.component}: ${e.error ?? e.message}`].slice(-3); strip(); }
   const name = short(e.call_site || ''), v = byName(name), d = /** @type {any} */ (e.data);
   if (e.kind === 'cert.issued' && d.certificate) S.lastCert[name] = d.certificate;
+  regating = e.kind === 'budget.changed' || (regating && /^(cert\.|site\.phase|candidate\.)/.test(e.kind));
   if (fresh) {
-    if (e.kind === 'site.phase') onPhase(e);
+    // a budget change's phase moves are the ripple's to animate; they reach the page a poll later and must not replay as held stickers
+    if (e.kind === 'site.phase') { if (!regating) onPhase(e); }
     else if (e.kind === 'batch.finished' && d.metrics) narrateLast(doneLine(d.metrics));
     else if (e.kind === 'budget.changed') S.budgetAt = now();
     else if (e.kind === 'cert.revoked' && v && !S.recheck[name] && now() - S.budgetAt > 5000 && !S.unplugged) narrateEvent(`${nm(v)} lost its promise · the real call answers again`, 3);
@@ -505,7 +508,7 @@ function renderCharts() {
 /** @type {Record<string, {b: HTMLElement, icon: HTMLElement, status: HTMLElement, cand: HTMLElement, cost: HTMLElement}>} */
 const ROWS = {};
 function buildJournal() {
-  $('#jrows').innerHTML = sites().map((v) => `<li><button class="jrow" type="button" data-id="${v.site.name}" aria-pressed="false"><span class="jicon"></span><span class="jtext"><b>${nameOf(v.site.id)}</b><span class="jstatus"></span><span class="jcand"></span></span><span class="jcost"></span></button></li>`).join('');
+  $('#jrows').innerHTML = sites().map((v) => `<li><button class="jrow" type="button" data-id="${v.site.name}" aria-pressed="false"><span class="jicon"></span><span class="jtext"><b>${nameOf(v.site.id)}</b><span class="jstatus"></span></span><span class="jcost"></span><span class="jcand" title="the trained models for this step: the one that answers and the share of calls it takes, its certified error bound, then the spares"></span></button></li>`).join('');
   for (const v of sites()) {
     const b = $(`.jrow[data-id="${v.site.name}"]`), q = (/** @type {string} */ s) => /** @type {HTMLElement} */ (b.querySelector(s));
     ROWS[v.site.name] = { b, icon: q('.jicon'), status: q('.jstatus'), cand: q('.jcand'), cost: q('.jcost') };
@@ -522,25 +525,28 @@ function statusLine(v, ph, rc, down) {
   if (ph.p === 'dreaming') return v.site.kind === 'router' ? (ph.cov >= 100 ? 'dreaming · thinking off on every call' : `dreaming · thinking off on ${ph.cov}% of calls`) : `dreaming · answers ${ph.cov}% of calls`;
   return ph.cant ? `awake · no promise at ${ph.b}% yet` : 'awake · logging every call';
 }
-// The candidate rows (DESIGN.md §5, training-plan §1): the promoted family with its certified coverage and bound, then each spare.
+// The candidate rows (DESIGN.md §5, training-plan §1): the promoted family in plain words with the share it answers and its certified
+// error bound (the card's "at most"), then each spare. They follow the held sticker: a row still showing "testing" states no result.
 // No "·" here: Gaegu lacks it and the fallback glyph shifts the line.
-/** @param {SiteView} v */
-function candHTML(v) {
-  const p = v.policy, c = v.certificate, certs = st?.spare_certificates ?? {};
+/** @param {SiteView} v @param {Look} ph */
+function candHTML(v, ph) {
+  const p = v.policy, c = ph.p === 'dreaming' ? v.certificate : null, certs = st?.spare_certificates ?? {}, err = v.site.kind === 'router' ? 'disagrees' : 'wrong';
   if (!p.candidate) return '';
-  const waiting = p.phase === 'watching' ? 'shadowing' : 'not certified';
-  const lines = [c && c.candidate === p.candidate ? `${p.candidate} answers ${Math.round(c.coverage * 100)}%, bound ${pf(c.bound)}` : `${p.candidate}, ${waiting}`];
+  const plain = (/** @type {string} */ n) => PLAIN[n] ?? n, waiting = ph.p === 'watching' ? 'shadowing' : ph.p === 'testing' ? 'being checked' : 'not certified';
+  const lines = [c && c.candidate === p.candidate ? `${plain(p.candidate)} answers ${Math.round(c.coverage * 100)}%, ${err} at most ${pf(c.bound)}` : `${plain(p.candidate)}, ${waiting}`];
   for (const [name, sp] of Object.entries(p.shadow)) {
-    const sc = sp.cert_id && certs[sp.cert_id]?.budget === st?.budget ? certs[sp.cert_id] : null; // a promise at an older budget is not one now
-    lines.push(sc ? `spare ${name}: ${Math.round(sc.coverage * 100)}%, bound ${pf(sc.bound)}` : `spare ${name}, ${waiting}`);
+    const sc = c && sp.cert_id && certs[sp.cert_id]?.budget === st?.budget ? certs[sp.cert_id] : null; // a promise at an older budget is not one now
+    lines.push(sc ? `spare ${plain(name)}: ${Math.round(sc.coverage * 100)}%, ${err} at most ${pf(sc.bound)}` : `spare ${plain(name)}, ${waiting}`);
   }
   return lines.map((l) => `<span>${esc(l)}</span>`).join('');
 }
+// no real call in the window (only the dream and the snapshot answered, e.g. during an outage): no cost to print
+const noCost = (/** @type {SiteView} */ v) => !v.policy.rows || (!v.cost_awake_usd && !v.sec_awake);
 /** @param {SiteView} v @param {Look} ph */
 function costHTML(v, ph) {
-  if (!v.policy.rows || (!v.cost_awake_usd && !v.sec_awake)) return '<span>–</span>'; // no real call in the window (e.g. only the snapshot answered)
-  if (ph.p !== 'dreaming' || !v.policy.predicted_rows) return `<span>${cents(v.cost_awake_usd)}</span>`;
-  return `<s>${cents(v.cost_awake_usd)}</s>${WOB}<em>${cents(v.cost_dream_usd)}</em>`;
+  if (noCost(v)) return '<span>–</span>';
+  if (ph.p !== 'dreaming') return `<span>${cents(v.cost_awake_usd)}</span>`;
+  return `<s>${cents(v.cost_awake_usd)}</s>${WOB}<em>${cents(v.cost_dream_usd)}</em>`; // cost_dream_usd: the blend the promise in force certifies
 }
 function renderJournal() {
   for (const cur of sites()) {
@@ -550,13 +556,15 @@ function renderJournal() {
     setAttr(row.b, 'aria-pressed', String(S.sel === cur.site.name));
     setHTML(row.icon, STATUS[rc ? 'testing' : down ? 'down' : ph.p](ph.p === 'dreaming' && !down && !rc ? 50 : 46));
     setText(row.status, statusLine(v, ph, rc, down));
-    if (!pend) setHTML(row.cand, candHTML(v)); // a row waiting to re-check keeps its old candidate lines: the new spare certificates are already in State
+    if (!pend) setHTML(row.cand, candHTML(v, ph)); // a row waiting to re-check keeps its old candidate lines: the new spare certificates are already in State
     // while a row re-checks, its old saving stays visible (dimmed) rather than looking like it vanished
     setHTML(row.cost, costHTML(v, phase(v)));
     row.cost.classList.toggle('dim', pend);
   }
   const m = st?.metrics, busy = Object.keys(S.recheck).length > 0;
-  setHTML($('#bnow'), busy ? 'right now: <b>re-checking…</b>' : m && m.runs ? `right now: <b>${cents(m.cost_per_run)}</b> per run · <b>${Math.round(m.replayable_pct)}%</b> replayable` : 'right now: <b>no runs yet</b>');
+  // a sticker still held (README (g)) has not stated its result yet, so neither has this line; after a budget change the API re-priced the window
+  if (!Object.keys(S.hold).length || !S.bnow) S.bnow = m && m.runs ? `right now: <b>${cents(m.cost_per_run)}</b> per run · <b>${Math.round(m.replayable_pct)}%</b> replayable` : 'right now: <b>no runs yet</b>';
+  setHTML($('#bnow'), busy ? 'right now: <b>re-checking…</b>' : S.bnow);
   const bud = /** @type {HTMLInputElement} */ ($('#budget'));
   if (st && document.activeElement !== bud && !busy && !budgetBusy) { bud.value = String(Math.round(st.budget * 100)); setText($('#bout'), bud.value + '%'); }
 }
@@ -564,12 +572,15 @@ function renderJournal() {
 function certHTML(name) {
   const cur = byName(name);
   if (!cur) return '';
-  const { v, ph, rc, pend } = look(cur), s = v.site, p = v.policy, th = s.thresholds, router = s.kind === 'router', tool = s.kind === 'tool';
+  // in its re-check turn the card keeps the old promise's body, dimmed, with "re-checking…" in its place: phase(v), not look()'s testing
+  const { v, rc, pend } = look(cur), ph = phase(v), s = v.site, p = v.policy, th = s.thresholds, router = s.kind === 'router', tool = s.kind === 'tool';
   const down = downOf(cur), real = tool ? 'real API returns' : 'real answers', b = ph.b;
   const icon = rc ? 'testing' : down ? 'down' : ph.p;
   const head = `<div class="chead">${STATUS[icon](icon === 'dreaming' ? 44 : 40)}<h2>${nameOf(s.id)}</h2></div>`;
-  const per = th.calibrate_after / 10, filled = Math.floor(ph.counted / per); // README (d): 1 sheep = calibrate_after / 10
-  const sheep = `<div class="sheep" role="img" aria-label="${filled * per} of ${th.calibrate_after} ${real} checked">${Array.from({ length: 10 }, (_, i) => sheepSVG(i < filled)).join('')}<small>1 sheep = ${int(per)}</small></div>`;
+  // README (d): the sheep count the rows checked, 1 sheep = a tenth of them: calibrate_after while counting, then the rows the gate read
+  const total = ph.c?.n_calib ?? (ph.cant && p.attempt?.n ? p.attempt.n : th.calibrate_after), per = total / 10;
+  const filled = ph.c || ph.cant ? 10 : Math.floor(ph.counted / per);
+  const sheep = `<div class="sheep" role="img" aria-label="${int(filled * per)} of ${int(total)} ${real} checked">${Array.from({ length: 10 }, (_, i) => sheepSVG(i < filled)).join('')}<small>1 sheep = ${int(per)}</small></div>`;
   const helper = router ? 'thinking off' : 'dream', teacher = router ? 'thinking on' : down ? 'snapshot' : teacherOf(v);
   const split = (/** @type {number} */ dream, /** @type {string} */ label) => `<div class="split" role="img" aria-label="${helper} answers ${dream}%"><i style="width:${dream}%"></i></div><div class="legend">${dream ? `<span><i style="background:#B39DFF"></i>${helper} ${dream}%</span>` : ''}${dream < 100 ? `<span><i style="background:#FFF3A8"></i>${label} ${100 - dream}%</span>` : ''}</div>`;
   const promise = (/** @type {string} */ text, soft = false) => `<p class="promise${soft || rc ? ' soft' : ''}">${rc ? 're-checking…' : text}</p>`;
@@ -583,34 +594,44 @@ function certHTML(name) {
   else if (ph.p === 'testing' || !ph.c) {
     body = promise('checking…', true) + sheep + `<p class="cline">${router ? `measuring how often thinking off disagrees with thinking on, against a ${b}% limit.` : `sorting ${th.calibrate_after} ${real} by confidence to find where mistakes stay under ${b}%.`}</p>`;
     if (ph.cant) {
+      // answering every call is what failed; the hint's budget is where a cutoff leaves out enough unsure calls to stay under it
       const a = p.attempt;
-      body = promise(`no promise at ${b}%`, true) + sheep + (a ? `<p class="cline">${helper} disagreed on ${pf(a.emp_error)} of ${int(a.n)} ${real} — it could be as high as ${pf(a.bound)}.</p>` : '') + split(0, teacher) +
+      body = promise(`no promise at ${b}%`, true) + sheep + (a ? `<p class="cline">answering every call, the ${helper} disagreed on ${pf(a.emp_error)} of ${int(a.n)} ${real} (at most ${pf(a.bound)}). no cutoff keeps it under ${b}%.</p>` : '') + split(0, teacher) +
         (a && a.min_budget != null ? `<p class="hint">allow ${pf(a.min_budget)} and it ${router ? 'switches thinking off' : 'starts dreaming'}</p>` : '');
     }
   } else {
     const c = ph.c, every = Math.round(1 / th.audit_rate), cert = `<span class="nw">cert ${c.id.slice(5, 11)}</span>`;
+    const checks = down ? 'no double-checks while the API is down' : `1 in ${every} still double-checked${router ? ' with thinking on' : ''}`;
     const fine = !s.replayable
-      ? `1 in ${every} still double-checked with thinking on · ${cert} · not replayable: it is still the ${teacherOf(v)}`
-      : `1 in ${every} still double-checked · ${cert} · <span class="nw">weights <code>${(p.weights_sha ?? c.weights_sha).slice(0, 6)}</code></span>`;
+      ? `${checks} · ${cert} · not replayable: it is still the ${teacherOf(v)}`
+      : `${checks} · ${cert} · <span class="nw">weights <code>${(p.weights_sha ?? c.weights_sha).slice(0, 6)}</code></span>`;
     const unit = s.teacher.provider === 'rule' ? 'per call at rule-teacher prices' : 'per call'; // a tool site bills its own price_call
-    const cost = p.predicted_rows ? `<p class="ccost"><s>${cents(v.cost_awake_usd)}</s> → <em>${cents(v.cost_dream_usd)}</em> ${unit}</p>` : `<p class="ccost">${cents(v.cost_awake_usd)} ${unit}</p>`;
-    body = promise(`wrong ≤ ${pf(c.budget)}`) + sheep + `<p class="cline">checked against ${int(c.n_calib)} ${real} · ${router ? 'disagreed' : 'wrong'} on ${pf(c.emp_error)}${router ? `, could be ${pf(c.bound)}` : ''}.</p>` +
+    const cost = noCost(v) ? '' : `<p class="ccost"><s>${cents(v.cost_awake_usd)}</s> → <em>${cents(v.cost_dream_usd)}</em> ${unit}</p>`;
+    // the three numbers of one promise: allowed (the headline), seen on the calls it answers, and the certified bound on them
+    body = promise(`wrong ≤ ${pf(c.budget)}`) + sheep + `<p class="cline">checked against ${int(c.n_calib)} ${real} · ${ph.cov >= 100 ? 'on every call' : `on the ${ph.cov}% it answers`}, ${router ? 'disagreed' : 'wrong'} ${pf(c.emp_error)}, at most ${pf(c.bound)}.</p>` +
       (down ? `<p class="cline">API down: calls the dream is unsure about use the last snapshot.</p>` : '') + split(ph.cov, teacher) + cost + `<p class="fine">${fine}</p>`;
   }
   return head + (pend ? `<div class="rc">${body}</div>` : body);
 }
 // Releasing the slider: POST /budget, then the rows that hold or tried a promise ripple through the results already returned.
-let budgetBusy = false;
+// A release while one is in flight is sent when it returns (the latest release wins), so the slider never shows a budget nobody sent.
+let budgetBusy = false, budgetNext = 0, budgetSeq = 0;
 async function onBudget(commit = false) {
-  const el = /** @type {HTMLInputElement} */ ($('#budget')), b = +el.value;
+  const el = /** @type {HTMLInputElement} */ ($('#budget'));
+  let b = +el.value;
   setText($('#bout'), b + '%');
-  if (!commit || !st || b === Math.round(st.budget * 100) || budgetBusy) return;
+  if (!commit || !st) return;
+  if (budgetBusy) { budgetNext = b; return; }
+  if (b === Math.round(st.budget * 100)) return;
   budgetBusy = true;
   S.budgetAt = now();
-  const done = sites().filter((v) => v.policy.phase === 'testing' || v.policy.phase === 'dreaming'); // what set_budget re-gates
+  const seq = ++budgetSeq; // a newer release replaces this one's summary
+  const done = sites().filter((v) => v.policy.phase === 'testing' || v.policy.phase === 'dreaming'); // what set_budget re-gates (and keeps re-gating)
   const olds = done.map((v) => look(v).v);
   done.forEach((v, i) => { S.recheck[v.site.name] = { from: Infinity, to: Infinity, old: olds[i] }; delete S.hold[v.site.name]; }); // dimmed while in flight
-  const r = await cmd('POST', '/budget', { budget: b / 100 });
+  let r = await cmd('POST', '/budget', { budget: b / 100 });
+  while (r.ok && budgetNext && budgetNext !== b) { b = budgetNext; budgetNext = 0; S.budgetAt = now(); r = await cmd('POST', '/budget', { budget: b / 100 }); }
+  budgetNext = 0;
   budgetBusy = false;
   const t = now();
   if (!r.ok) {
@@ -622,10 +643,12 @@ async function onBudget(commit = false) {
   done.forEach((v, i) => { S.recheck[v.site.name] = { from: t + i * 170, to: t + i * 170 + 450, old: olds[i] }; });
   const end = done.length ? (done.length - 1) * 170 + 450 : 0;
   S.quietUntil = t + end + 60;
+  // read now, from the reply to this budget: a later release must not change what this summary says
+  const n = done.length, kept = done.filter((v) => byName(v.site.name)?.policy.cert_id).length, m = st.metrics;
+  const cost = m.runs ? ` · cost per run now ${cents(m.cost_per_run)}` : ''; // the API re-priced the last runs under the new promises
   setTimeout(() => {
-    const n = done.length, kept = done.filter((v) => byName(v.site.name)?.policy.cert_id).length;
     // during an outage the outage line stays up
-    if (n && !S.unplugged) narrate(`re-checked at ${b}% · ${kept} of ${n} step${n > 1 ? 's' : ''} hold${kept === 1 && n === 1 ? 's' : ''} a promise`);
+    if (n && !S.unplugged && seq === budgetSeq) narrate(`re-checked at ${b}% · ${kept} of ${n} step${n > 1 ? 's' : ''} hold${kept === 1 && n === 1 ? 's' : ''} a promise${cost}`);
   }, end);
 }
 
