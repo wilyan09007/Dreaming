@@ -16,6 +16,10 @@ The agent is the bookkeeping workflow from `missions.md` (categorize → vendor 
 
 **Vocabulary (keep it consistent everywhere):** *awake* = the real call (big model or API) answers. *watching* = a dream runs in shadow, "counting sheep" (collecting 500 real answers). *testing* = certifying. *dreaming* = promoted: the dream answers first, and the real call happens when it is unsure plus 1 in 20 spot checks. A *promise* is a certificate.
 
+## Principles (added 2026-10-18 03:40, from the user)
+
+Follow the style guide below to a T, but the *components and flows* are not sacred: the page is for an ops or platform team that runs agents on infrastructure they already have, so every element must be useful to that reader (what is dreaming, what it saved, what it promised, what can be replayed, which candidate is serving). Uncluttered beats complete. This is a hackathon demo, so flash and pomp are welcome; anything that makes no sense from any angle is not, however pretty.
+
 ## Style source of truth
 
 The design is **D · Lucid Doodle** from the "Dreaming UI Explorations" canvas. Reference renders (`doodle-{Flow,Distill,Data}.png`) and their sources (`Doodle-*.dc.html`) were kept outside this repo. The demo should look like the same product.

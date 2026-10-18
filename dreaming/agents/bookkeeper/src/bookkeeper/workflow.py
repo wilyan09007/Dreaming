@@ -28,7 +28,9 @@ def _teachers() -> tuple[TeacherSpec, TeacherSpec | None]:
         # cheaper tier step-3.5-flash; reasoning tokens bill as output; temperature defaults to 0.5, so it is set.
         # floor: 200 identical calls on one ambiguous input disagreed 3.5% (193 / 2 / 5 unparsed), measured 2026-10-17 (smokes/RESULTS.md)
         teacher = TeacherSpec(provider="stepfun", model="step-5-preview", params={"reasoning_effort": "low", "temperature": 0}, price_in=1.00, price_out=2.70, floor=0.035)
-        cheap = TeacherSpec(provider="stepfun", model="step-3.5-flash", params={"temperature": 0}, price_in=0.10, price_out=0.30)
+        cheap = TeacherSpec(provider="stepfun", model="step-3.5-flash", params={"temperature": 0, "reasoning_effort": "low"}, price_in=0.10, price_out=0.30)
+        # reasoning_effort=low: without it step-3.5-flash spent the whole 1024-token budget thinking on 58% of anything_odd prompts
+        # (empty content, no label; data/recorded.jsonl 03:30); with it 61 tokens and a parsed label (measured 2026-10-18)
         return teacher, cheap
     # Pinned to Anthropic's endpoint; no temperature/seed/require_parameters: Anthropic ignores or 404s them (S13, SERVICES.md).
     pin = {"provider": {"order": ["anthropic"], "allow_fallbacks": False}}

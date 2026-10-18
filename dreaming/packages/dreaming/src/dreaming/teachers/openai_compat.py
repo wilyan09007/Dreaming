@@ -76,6 +76,12 @@ class OpenAICompatTeacher:
             model=spec.model, messages=messages(site, rendered), max_tokens=max_tokens, extra_body=body, extra_headers=headers
         )
         text: str = r.choices[0].message.content or ""
+        if not text and site.labels is not None and r.choices[0].finish_reason == "length":
+            # a reasoning model spent the whole budget thinking (StepFun: 20% of match_invoice answers at 1024): one retry, 4x
+            r = client.chat.completions.create(
+                model=spec.model, messages=messages(site, rendered), max_tokens=4 * max_tokens, extra_body=body, extra_headers=headers
+            )
+            text = r.choices[0].message.content or ""
         usage: dict[str, Any] = r.usage.model_dump() if r.usage else {}
         extra: dict[str, Any] = r.model_extra or {}
         meta: dict[str, Any] = extra.get("openrouter_metadata") or {}  # absent on cache hits; GET /generation?id= is the fallback
