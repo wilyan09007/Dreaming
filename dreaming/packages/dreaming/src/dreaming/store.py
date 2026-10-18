@@ -17,7 +17,7 @@ from typing import TYPE_CHECKING, Protocol
 
 from pydantic import BaseModel
 
-from .contracts import CallSite, Certificate, Event, Json, Phase, Policy, Run, TraceRow
+from .contracts import CallSite, Certificate, Checkpoint, EvalSet, Event, Json, Phase, Policy, Run, TraceRow, TrainRun
 
 CALIBRATION = (Phase.watching, Phase.testing)
 
@@ -54,6 +54,14 @@ class Store(Protocol):
     def put_weights(self, weights_sha: str, data: bytes, meta: dict[str, str]) -> None: ...
     def weights(self, weights_sha: str) -> bytes: ...
 
+    # the offline campaign (docs/training-plan.md §3): cells write these on Modal; the benchmark report reads them
+    def put_train_run(self, run: TrainRun) -> None: ...
+    def put_checkpoint(self, ck: Checkpoint) -> None: ...
+    def put_eval_set(self, es: EvalSet) -> None: ...  # frozen by sha: a second write of the same sha is ignored
+    def train_runs(self, campaign: str | None = None) -> list[TrainRun]: ...  # by id; None: every campaign
+    def checkpoints(self, campaign: str | None = None) -> list[Checkpoint]: ...  # of that campaign's runs (None: all), by run then rung
+    def eval_sets(self, call_site: str) -> list[EvalSet]: ...  # by sha
+
     # events: the live feed and the audit trail
     def emit(self, event: Event) -> None: ...
     def events(self, *, after_id: str | None = None, limit: int = 200) -> list[Event]: ...
@@ -70,6 +78,9 @@ class MemoryStore:
         self._runs: dict[str, Run] = {}
         self._certs: dict[str, Certificate] = {}
         self._weights: dict[str, bytes] = {}
+        self._train_runs: dict[str, TrainRun] = {}
+        self._checkpoints: dict[tuple[str, int], Checkpoint] = {}
+        self._eval_sets: dict[str, EvalSet] = {}
         self._events: list[Event] = []
 
     def upsert_sites(self, sites: Sequence[CallSite]) -> None:
@@ -131,6 +142,25 @@ class MemoryStore:
     def weights(self, weights_sha: str) -> bytes:
         return self._weights[weights_sha]
 
+    def put_train_run(self, run: TrainRun) -> None:
+        self._train_runs[run.id] = run
+
+    def put_checkpoint(self, ck: Checkpoint) -> None:
+        self._checkpoints[ck.run_id, ck.rung] = ck
+
+    def put_eval_set(self, es: EvalSet) -> None:
+        self._eval_sets.setdefault(es.sha, es)
+
+    def train_runs(self, campaign: str | None = None) -> list[TrainRun]:
+        return sorted((r for r in self._train_runs.values() if campaign in (None, r.campaign)), key=lambda r: r.id)
+
+    def checkpoints(self, campaign: str | None = None) -> list[Checkpoint]:
+        runs = {r.id for r in self.train_runs(campaign)}
+        return sorted((c for c in self._checkpoints.values() if c.run_id in runs), key=lambda c: (c.run_id, c.rung))
+
+    def eval_sets(self, call_site: str) -> list[EvalSet]:
+        return sorted((e for e in self._eval_sets.values() if e.call_site == call_site), key=lambda e: e.sha)
+
     def emit(self, event: Event) -> None:
         self._events.append(event)
 
@@ -151,16 +181,18 @@ def _j(v: Json | BaseModel) -> Jsonb | None:
     return Jsonb(v.model_dump(mode="json") if isinstance(v, BaseModel) else v)
 
 
-def _insert(table: str, model: type[BaseModel], key: str, *, update: bool) -> Composed:
+def _insert(table: str, model: type[BaseModel], key: str | tuple[str, ...], *, update: bool) -> Composed:
     """INSERT for a table that mirrors a contract one column per field, so the column list is the model's fields.
-    `update` replaces the row on a duplicate key; otherwise the duplicate is ignored (a retried batch must not fail)."""
+    `key` is the primary key's column or columns. `update` replaces the row on a duplicate key; otherwise the duplicate
+    is ignored (a retried batch must not fail)."""
     from psycopg import sql
 
+    keys = (key,) if isinstance(key, str) else key
     cols = list(model.model_fields)
-    sets = sql.SQL(", ").join(sql.SQL("{0} = excluded.{0}").format(sql.Identifier(c)) for c in cols if c != key)
+    sets = sql.SQL(", ").join(sql.SQL("{0} = excluded.{0}").format(sql.Identifier(c)) for c in cols if c not in keys)
     return sql.SQL("insert into {} ({}) values ({}) on conflict ({}) {}").format(
-        sql.Identifier(table), sql.SQL(", ").join(map(sql.Identifier, cols)), sql.SQL(", ").join(map(sql.Placeholder, cols)), sql.Identifier(key),
-        sql.SQL("do update set {}").format(sets) if update else sql.SQL("do nothing"))
+        sql.Identifier(table), sql.SQL(", ").join(map(sql.Identifier, cols)), sql.SQL(", ").join(map(sql.Placeholder, cols)),
+        sql.SQL(", ").join(map(sql.Identifier, keys)), sql.SQL("do update set {}").format(sets) if update else sql.SQL("do nothing"))
 
 
 class PostgresStore:
@@ -168,7 +200,7 @@ class PostgresStore:
     enough for the demo, and there is no reconnect: a store error is the caller's to log (fail open, see the module docstring).
 
     Same behaviour as MemoryStore, with the differences the schema forces: rows, runs and events come back in (ts, id) order
-    where MemoryStore keeps insertion order; sites() is ordered by id; trace rows, policies and certificates need their
+    where MemoryStore keeps insertion order; sites() is ordered by id (so are train_runs; checkpoints by run then rung, eval_sets by sha); trace rows, policies and certificates need their
     call site declared first (foreign keys); a duplicate trace row or event id is ignored instead of appended.
     """
 
@@ -258,6 +290,27 @@ class PostgresStore:
         if r is None or r["data"] is None:  # a row with only a uri (object storage) has no bytes to give here
             raise KeyError(weights_sha)
         return bytes(r["data"])
+
+    def put_train_run(self, run: TrainRun) -> None:
+        self._conn.execute(_insert("train_runs", TrainRun, "id", update=True), {**dict(run), "config": _j(run.config)})
+
+    def put_checkpoint(self, ck: Checkpoint) -> None:
+        self._conn.execute(_insert("checkpoints", Checkpoint, ("run_id", "rung"), update=True), {**dict(ck), "summary": _j(ck.summary)})
+
+    def put_eval_set(self, es: EvalSet) -> None:
+        self._conn.execute(_insert("eval_sets", EvalSet, "sha", update=False), {**dict(es), "row_ids": _j(es.row_ids), "labels": _j(es.labels), "groups": _j(es.groups)})
+
+    def train_runs(self, campaign: str | None = None) -> list[TrainRun]:
+        cur = self._conn.execute("select * from train_runs where %(c)s::text is null or campaign = %(c)s order by id", {"c": campaign})
+        return [TrainRun.model_validate(r) for r in cur]
+
+    def checkpoints(self, campaign: str | None = None) -> list[Checkpoint]:
+        cur = self._conn.execute("select c.* from checkpoints c join train_runs r on r.id = c.run_id where %(c)s::text is null or r.campaign = %(c)s "
+                                 "order by c.run_id, c.rung", {"c": campaign})
+        return [Checkpoint.model_validate(r) for r in cur]
+
+    def eval_sets(self, call_site: str) -> list[EvalSet]:
+        return [EvalSet.model_validate(r) for r in self._conn.execute("select * from eval_sets where call_site = %s order by sha", (call_site,))]
 
     def emit(self, event: Event) -> None:
         self._conn.execute(_insert("events", Event, "id", update=False), {**dict(event), "data": _j(event.data)})
