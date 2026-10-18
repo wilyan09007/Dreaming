@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dreaming launch</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,400..700&display=swap">
+<style>
+/* Lucid Doodle tokens, same as apps/web/index.html */
+:root{
+  --ink:#2B2B33;--muted:#5C5A66;--faint:#8E8B98;--paper:#FFFEFB;--dot:#DCD8E4;
+  --purple:#6A4FD8;--green:#1E7A55;--red:#9A2F2F;--lav:#B39DFF;
+  --yellow:#FFE58F;--lilac:#E2D9FF;--sky:#CFE8FF;--mint:#CDEFDD;--peach:#FFE9D6;--rose:#FFD6E0;
+  --teacher:#E0795F;--ours:#6A4FD8;
+  --hand:'Gaegu','Comic Sans MS',cursive;
+  --body:'Bricolage Grotesque','Trebuchet MS',sans-serif;
+  --mono:ui-monospace,'Cascadia Mono',Consolas,monospace;
+  --lift:4px 5px 0 rgba(43,43,51,.13);
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden}
+body{background-color:var(--paper);background-image:radial-gradient(circle,var(--dot) 1.1px,transparent 1.4px);background-size:22px 22px;color:var(--ink);font-family:var(--body)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--purple);outline-offset:3px}
+[hidden]{display:none!important}
+h1,h2,h3,b,output{font-family:var(--hand);font-weight:700}
+h1,h2,h3,p{margin:0}
+p{text-wrap:pretty}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.bob{animation:bob 2.4s ease-in-out infinite;transform-box:fill-box}
+
+/* the 1600x900 stage; deck.js scales it to the window */
+#stage{position:absolute;left:0;top:0;width:1600px;height:900px;transform-origin:0 0;overflow:hidden}
+.blobs{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.blobs i{position:absolute;filter:blur(18px)}
+.screen{position:absolute;inset:0;padding:96px 72px 64px;opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .45s ease,transform .45s ease,visibility 0s .45s}
+.screen.on{opacity:1;visibility:visible;transform:none;transition:opacity .45s ease,transform .45s ease,visibility 0s}
+.brand{position:absolute;left:40px;top:26px;display:flex;align-items:center;gap:10px;z-index:2}
+.brand b{font-size:34px;line-height:.9}
+.brand span{display:flex;flex-direction:column}
+
+/* shared pieces screens may use */
+.kicker{font-family:var(--hand);font-size:26px;color:var(--purple)}
+.title{font-family:var(--hand);font-size:64px;line-height:1}
+.card{background:#fff;border:2.5px solid var(--ink);border-radius:18px;box-shadow:var(--lift)}
+.sticky{background:var(--yellow);box-shadow:3px 5px 0 rgba(43,43,51,.14);padding:14px 18px}
+.fine{font-size:15px;color:var(--muted)}
+.num{font-variant-numeric:tabular-nums}
+
+#dots{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);display:flex;gap:10px;z-index:5;opacity:.55;transition:opacity .2s}
+#dots:hover{opacity:1}
+#dots button{width:12px;height:12px;padding:0;border-radius:50%;border:2px solid var(--ink);background:transparent;cursor:pointer}
+#dots button[aria-current=step]{background:var(--ink)}
+#presenter{display:none}
+body.presenter #presenter{display:grid;position:fixed;left:0;right:0;bottom:0;height:34vh;grid-template-columns:1fr auto;gap:8px 24px;padding:14px 24px;background:#fff;border-top:2.5px solid var(--ink);font-size:20px;z-index:6}
+#p-now{font-family:var(--hand);font-size:28px;font-weight:700}
+#p-notes{grid-column:1/-1;white-space:pre-wrap;overflow:auto;line-height:1.4}
+#p-next{color:var(--muted);align-self:center}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="3.2"/></filter></svg>
+<main id="stage">
+  <div class="blobs" aria-hidden="true">
+    <i style="left:-80px;top:420px;width:420px;height:300px;border-radius:58% 42% 63% 37%/45% 55% 45% 55%;background:#FFD6E0;opacity:.45"></i>
+    <i style="right:-60px;top:-40px;width:460px;height:280px;border-radius:40% 60% 45% 55%/60% 40% 60% 40%;background:#D4E6FF;opacity:.55"></i>
+    <i style="right:18%;bottom:-80px;width:520px;height:260px;border-radius:55% 45% 50% 50%/40% 60% 40% 60%;background:#DDF5E8;opacity:.55"></i>
+    <i style="left:30%;top:40px;width:300px;height:160px;border-radius:45% 55% 60% 40%/55% 45% 55% 45%;background:#FFF0C2;opacity:.5"></i>
+  </div>
+  <div class="brand" aria-label="Dreaming">
+    <svg width="58" height="46" viewBox="0 0 58 46" style="filter:url(#rough)" aria-hidden="true"><path d="M12 38h30a9 9 0 0 0 1.5-17.9A13 13 0 0 0 18.6 17 10 10 0 0 0 12 38z" fill="#EDE7FF" stroke="#2B2B33" stroke-width="2.2" stroke-linejoin="round"/><path d="M20 29q2.5 2.4 5 0M30 29q2.5 2.4 5 0" fill="none" stroke="#2B2B33" stroke-width="2" stroke-linecap="round"/><path class="bob" d="M44 4h6l-6 7h6M51 13h4l-4 5h4" fill="none" stroke="#6A4FD8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span><b>dreaming</b><svg width="128" height="8" viewBox="0 0 128 8" aria-hidden="true"><path d="M2 5 Q12 1 22 5" fill="none" stroke="#FF8A80" stroke-width="3" stroke-linecap="round"/><path d="M24 5 Q34 1 44 5" fill="none" stroke="#FFB84D" stroke-width="3" stroke-linecap="round"/><path d="M46 5 Q56 1 66 5" fill="none" stroke="#7BD8B4" stroke-width="3" stroke-linecap="round"/><path d="M68 5 Q78 1 88 5" fill="none" stroke="#7FB7FF" stroke-width="3" stroke-linecap="round"/><path d="M90 5 Q100 1 110 5" fill="none" stroke="#B39DFF" stroke-width="3" stroke-linecap="round"/></svg></span>
+  </div>
+</main>
+<nav id="dots" aria-label="screens"></nav>
+<aside id="presenter" aria-live="polite"><div id="p-now"></div><div id="p-next"></div><div id="p-notes"></div></aside>
+<script src="numbers.js"></script>
+<script src="deck.js"></script>
+<!-- screen order = launch order; each file registers one screen -->
+<script src="screens/hook.js"></script>
+<script src="screens/race.js"></script>
+<script src="screens/bench.js"></script>
+<script src="screens/psi.js"></script>
+<script src="screens/train.js"></script>
+<script src="screens/build.js"></script>
+<script src="screens/close.js"></script>
+<script>Launch.start()</script>
+</body>
+</html>
