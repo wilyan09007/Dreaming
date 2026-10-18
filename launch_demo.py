@@ -25,6 +25,7 @@ import tempfile
 import threading
 import time
 import urllib.request
+from collections.abc import Callable
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -32,12 +33,17 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 WEB = ROOT / "dreaming" / "apps" / "web"
 MODULES = ["hook", "race", "bench", "psi", "train", "build", "close"]
-OFFLINE = {"DATABASE_URL": "", "TEACHER": "rule", "ENCODER": "char", "TRAINER": "local"}  # the API with no accounts (justfile `dev`)
+OFFLINE = {
+    "DATABASE_URL": "",
+    "TEACHER": "rule",
+    "ENCODER": "char",
+    "TRAINER": "local",
+}  # the API with no accounts (justfile `dev`)
 LIVE_TITLE = "Dreaming"  # apps/web/index.html <title>
 
 
 class Quiet(SimpleHTTPRequestHandler):
-    def log_message(self, *_: object) -> None:
+    def log_message(self, format: str, *args: object) -> None:
         pass
 
 
@@ -57,9 +63,13 @@ def free_port(preferred: int) -> int:
         return s.getsockname()[1]
 
 
-def spawn(cmd: list[str], **kw: object) -> subprocess.Popen[bytes]:
+def spawn(cmd: list[str] | str, **kw: object) -> subprocess.Popen[bytes]:
     """A quiet child we can kill with its whole tree (uv -> python, browser -> renderers)."""
-    group = {"creationflags": subprocess.CREATE_NEW_PROCESS_GROUP} if sys.platform == "win32" else {"start_new_session": True}
+    group = (
+        {"creationflags": subprocess.CREATE_NEW_PROCESS_GROUP}
+        if sys.platform == "win32"
+        else {"start_new_session": True}
+    )
     out = {"stdout": subprocess.DEVNULL, "stderr": subprocess.DEVNULL, **kw}
     return subprocess.Popen(cmd, stdin=subprocess.DEVNULL, **group, **out)  # type: ignore[call-overload]
 
@@ -68,24 +78,34 @@ def stop(p: subprocess.Popen[bytes] | None) -> None:
     if p is None or p.poll() is not None:
         return
     if sys.platform == "win32":
-        subprocess.run(["taskkill", "/T", "/F", "/PID", str(p.pid)], capture_output=True)
+        subprocess.run(["taskkill", "/T", "/F", "/PID", str(p.pid)], check=False, capture_output=True)
     else:
         os.killpg(p.pid, signal.SIGTERM)
 
 
 def start_api(port: int, log: Path) -> subprocess.Popen[bytes] | None:
+    """The offline API with the server image's packages only (infra/serve.Dockerfile): no torch, so a first run is quick.
+    `--inexact` only adds, so a dev venv keeps everything else it has."""
     uv = shutil.which("uv")
     if not uv:
         print("  api       skipped: uv is not on PATH (https://docs.astral.sh/uv/)")
         return None
-    cmd = [uv, "run", "--directory", str(ROOT / "dreaming"), "--all-packages", "python", "-m", "uvicorn",
-           "dreaming_api.wiring:app", "--factory", "--host", "127.0.0.1", "--port", str(port)]
-    return spawn(cmd, env={**os.environ, **OFFLINE}, stdout=log.open("wb"), stderr=subprocess.STDOUT)
+    sync = f'"{uv}" sync --inexact --package dreaming-api --package bookkeeper --package quickbooks'
+    serve = f'"{uv}" run --no-sync python -m uvicorn dreaming_api.wiring:app --factory --host 127.0.0.1 --port {port}'
+    env = {**os.environ, **OFFLINE}
+    return spawn(
+        f"{sync} && {serve}",
+        shell=True,
+        cwd=ROOT / "dreaming",
+        env=env,
+        stdout=log.open("wb"),
+        stderr=subprocess.STDOUT,
+    )
 
 
-def up(url: str, timeout: float) -> bool:
+def up(url: str, timeout: float, keep_waiting: Callable[[], bool] = lambda: True) -> bool:
     end = time.monotonic() + timeout
-    while time.monotonic() < end:
+    while time.monotonic() < end and keep_waiting():
         try:
             with urllib.request.urlopen(url, timeout=2) as r:
                 return r.status == 200
@@ -97,10 +117,18 @@ def up(url: str, timeout: float) -> bool:
 def browser() -> str | None:
     """Chrome or Edge: their --app windows have no tabs, toolbar or address bar."""
     local = os.environ.get("LOCALAPPDATA", "")
-    paths = [rf"{local}\Google\Chrome\Application\chrome.exe", r"C:\Program Files\Google\Chrome\Application\chrome.exe",
-             r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
-             "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
-             *filter(None, map(shutil.which, ["google-chrome", "chromium", "chromium-browser", "microsoft-edge", "chrome", "msedge"]))]
+    paths = [
+        rf"{local}\Google\Chrome\Application\chrome.exe",
+        r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+        r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+        r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
+        "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
+        *filter(
+            None,
+            map(shutil.which, ["google-chrome", "chromium", "chromium-browser", "microsoft-edge", "chrome", "msedge"]),
+        ),
+    ]
     return next((p for p in paths if Path(p).is_file()), None)
 
 
@@ -124,7 +152,12 @@ def arrange(want: dict[str, bool], swap: bool) -> None:
     u.SetWindowPos.argtypes = [H, H, I, I, I, I, wintypes.UINT]
 
     class Info(ctypes.Structure):
-        _fields_ = [("cbSize", wintypes.DWORD), ("rcMonitor", wintypes.RECT), ("rcWork", wintypes.RECT), ("dwFlags", wintypes.DWORD)]
+        _fields_ = [
+            ("cbSize", wintypes.DWORD),
+            ("rcMonitor", wintypes.RECT),
+            ("rcWork", wintypes.RECT),
+            ("dwFlags", wintypes.DWORD),
+        ]
 
     displays: list[tuple[bool, wintypes.RECT]] = []  # (primary, work area)
 
@@ -134,9 +167,18 @@ def arrange(want: dict[str, bool], swap: bool) -> None:
         displays.append((bool(info.dwFlags & 1), info.rcWork))
         return True
 
-    u.EnumDisplayMonitors(None, None, ctypes.WINFUNCTYPE(ctypes.c_bool, wintypes.HMONITOR, wintypes.HDC, ctypes.c_void_p, wintypes.LPARAM)(on_display), 0)
+    u.EnumDisplayMonitors(
+        None,
+        None,
+        ctypes.WINFUNCTYPE(ctypes.c_bool, wintypes.HMONITOR, wintypes.HDC, ctypes.c_void_p, wintypes.LPARAM)(
+            on_display
+        ),
+        0,
+    )
     primary = next(r for p, r in displays if p)
-    external = next((r for p, r in displays if not p), primary)  # a laptop is the primary display; the big monitor extends it
+    external = next(
+        (r for p, r in displays if not p), primary
+    )  # a laptop is the primary display; the big monitor extends it
     if swap:
         primary, external = external, primary
 
@@ -164,8 +206,9 @@ def arrange(want: dict[str, bool], swap: bool) -> None:
         u.ShowWindow(hwnd, 9)  # restore, so it can move
         u.SetWindowPos(hwnd, 0, r.left, r.top, r.right - r.left, r.bottom - r.top, 0x0040)
         u.ShowWindow(hwnd, 3)  # maximize on that display
-        for z in (-1, -2):  # topmost, then not: raises it over the terminal, which HWND_TOP from a background process can't
-            u.SetWindowPos(hwnd, z, 0, 0, 0, 0, 0x0003)
+        # Windows will not let a background process take the foreground, so raise it via topmost-and-back instead
+        u.SetWindowPos(hwnd, -1, 0, 0, 0, 0, 0x0013)  # HWND_TOPMOST, no move/size/activate
+        u.SetWindowPos(hwnd, -2, 0, 0, 0, 0, 0x0013)  # HWND_NOTOPMOST: a normal window again, still in front
     if first := found.get(next(iter(want))):
         u.keybd_event(0x12, 0, 0, 0)  # an Alt tap lets this process take the foreground (focus-stealing rule)
         u.keybd_event(0x12, 0, 2, 0)
@@ -176,10 +219,15 @@ def arrange(want: dict[str, bool], swap: bool) -> None:
 def check(base: str, live: str | None) -> bool:
     """Fetch every module page, every script the deck loads, and the live app: what a window would need."""
     page = urllib.request.urlopen(f"{base}/launch/", timeout=5).read().decode()
-    urls = [f"{base}/launch/?only={m}" for m in MODULES] + [f"{base}/launch/{s}" for s in re.findall(r'<script src="([^"]+)"', page)]
-    urls += [f"{live}/healthz", f"{live}/"] if live else []
+    urls = [f"{base}/launch/?only={m}" for m in MODULES] + [
+        f"{base}/launch/{s}" for s in re.findall(r'<script src="([^"]+)"', page)
+    ]
+    urls += [f"{live}/healthz", f"{live}/state", f"{live}/"] if live else []
     bad = [u for u in urls if not up(u, 5)]
-    print(f"  check     {len(urls) - len(bad)}/{len(urls)} pages answered" + (": missing " + ", ".join(bad) if bad else ""))
+    print(
+        f"  check     {len(urls) - len(bad)}/{len(urls)} pages answered"
+        + (": missing " + ", ".join(bad) if bad else "")
+    )
     return not bad
 
 
@@ -196,7 +244,8 @@ def main() -> int:
     modules = a.modules or MODULES
 
     t0 = time.monotonic()
-    tmp = Path(tempfile.mkdtemp(prefix="dreaming-demo-"))  # a fresh browser profile each run: no stale cached JS, windows we own
+    # a fresh browser profile each run: no stale cached JS, and the windows are ours to close
+    tmp = Path(tempfile.mkdtemp(prefix="dreaming-demo-"))
     api = live = main_browser = None
     if not a.no_live and not a.url:
         port = free_port(8000)
@@ -207,36 +256,53 @@ def main() -> int:
     print(f"  modules   {base}/launch/  ({len(modules)} module{'s' * (len(modules) > 1)})")
     try:
         exe = None if a.check else browser()
-        flags = [exe, f"--user-data-dir={tmp / 'browser'}", "--no-first-run", "--no-default-browser-check", "--new-window"]
         urls = {f"{m} · dreaming": f"{base}/launch/?only={m}" for m in modules}
+
+        def window(url: str) -> subprocess.Popen[bytes]:
+            profile = [
+                f"--user-data-dir={tmp / 'browser'}",
+                "--no-first-run",
+                "--no-default-browser-check",
+                "--new-window",
+            ]
+            return spawn([str(exe), *profile, f"--app={url}"])
+
+        def windows_open() -> bool:
+            return main_browser is None or main_browser.poll() is None
+
         if exe:  # the module windows open now; only the live app waits for the API
-            main_browser = spawn([*flags, f"--app={next(iter(urls.values()))}"])
+            main_browser = window(next(iter(urls.values())))
             lock = [tmp / "browser" / n for n in ("lockfile", "SingletonLock")]
             end = time.monotonic() + 10
             while not any(p.exists() or p.is_symlink() for p in lock) and time.monotonic() < end:
                 time.sleep(0.05)  # once the first browser owns the profile, the rest open as its windows and exit
             for url in list(urls.values())[1:]:
-                spawn([*flags, f"--app={url}"])
-        api_down = bool(live and api is not None and not up(f"{live}/healthz", 90))
-        if api_down:
-            log = Path(tempfile.gettempdir()) / "dreaming-demo-api.log"  # tmp is removed on exit; keep the log readable
-            shutil.copyfile(tmp / "api.log", log)
-            print(f"  api       did not come up; log: {log} (first run downloads torch: rerun once uv has synced)")
+                window(url)
+        if api is not None:
+            print("  api       starting (the first run on a machine installs its packages: about a minute)")
+        if live and api is not None and not up(f"{live}/healthz", 300, windows_open):
+            if not windows_open():
+                return 0  # every window was closed while the API was still starting
+            kept = Path(tempfile.gettempdir()) / "dreaming-demo-api.log"  # tmp is removed on exit
+            shutil.copyfile(tmp / "api.log", kept)
+            print(f"  api       did not come up; log: {kept}")
+            if a.check:
+                return 1
             live = None
         elif live:
             print(f"  live app  {live}/  (up in {time.monotonic() - t0:.1f} s)")
         if a.check:
-            return 0 if check(base, live) and not api_down else 1
+            return 0 if check(base, live) else 1
         if not exe:
             print("  no Chrome or Edge found; open these yourself:", *urls.values(), live or "", sep="\n    ")
             input("  Enter stops the backends ")
             return 0
         if live:
             urls[LIVE_TITLE] = f"{live}/"
-            spawn([*flags, f"--app={live}/"])
-        arrange({t: not t == LIVE_TITLE for t in urls}, a.swap)
+            window(urls[LIVE_TITLE])
+        arrange({t: t != LIVE_TITLE for t in urls}, a.swap)
         print(f"  ready in {time.monotonic() - t0:.1f} s. Close every window or press Ctrl+C to stop.")
-        while main_browser.poll() is None:
+        while windows_open():
             time.sleep(0.5)
         return 0
     except KeyboardInterrupt:
@@ -244,7 +310,11 @@ def main() -> int:
     finally:
         stop(api)
         stop(main_browser)
-        shutil.rmtree(tmp, ignore_errors=True)
+        for _ in range(25):  # the browser lets go of its profile files a moment after it exits
+            shutil.rmtree(tmp, ignore_errors=True)
+            if not tmp.exists():
+                break
+            time.sleep(0.2)
 
 
 if __name__ == "__main__":

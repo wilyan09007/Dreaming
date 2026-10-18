@@ -20,8 +20,16 @@ Status: IN_PROGRESS. Moved from the laptop session so the team can work on the m
   - Closing the browser stops the API.
 
 ## Open items
-1. **Windowed run on the laptop, still owed.** It needs a Windows display. Check: 8/8 placed, windows in front, the hook window focused (clicker keys work), and closing the windows stops the API.
-2. **Windows behind the terminal: fixed, untested.** `arrange()` now toggles each window topmost and back, which raises it, then sends an Alt tap and `SetForegroundWindow` to the first module. The Alt tap is the usual way around the focus-stealing rule. If the terminal shows a stray menu highlight, drop the two `keybd_event` lines.
+1. Windowed run on the laptop (11:05, 1 display): done.
+   - 8/8 windows placed, in front, maximized.
+   - Closing the windows stops the API and the launcher, and removes the temp profile.
+   - Closing them while the API is still starting exits cleanly.
+   - Solo mode is checked: arrows are ignored, and focus replays the module.
+   - Still untested: the Alt tap + `SetForegroundWindow` focus (merged from the cloud session at 11:15), and a two-display placement.
+2. API start no longer uses `--all-packages`.
+   - It runs `uv sync --inexact --package dreaming-api --package bookkeeper --package quickbooks`, the server image's set, then `uv run --no-sync`. So torch and CUDA are never installed.
+   - Fresh clone on the laptop: `--check` 19/19 (now including `/state`) in 59 s, with 0 torch, sentence-transformers or nvidia packages in the venv.
+   - The API wait is 300 s, and `--check` exits 1 when the API is down.
 3. **Not deployed.** Fly (`dreaming-demo`) does not serve `/launch/` until a deploy. Ask the user first: a deploy restarts the live app.
 4. **Secrets.** Deploys (Fly), Modal, StepFun and Supabase need the `.env` names below in the cloud environment's variables. Names only; the user must add the values:
    - Deploy and run: FLY_API_TOKEN, STEPFUNKEY, DATABASE_URL, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, MODAL_TOKEN_ID, MODAL_TOKEN_SECRET, AGENTVERSEKEY, AGENT_SEED, ASI1KEY, OPENROUTERKEY.
