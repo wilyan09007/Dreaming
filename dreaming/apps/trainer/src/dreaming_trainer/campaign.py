@@ -357,6 +357,9 @@ def _export(cs: CallSite) -> list[dict[str, str]]:
         raw: list[dict[str, Any]] = data.rows(cs.name, data.download(Path("/tmp/quickbooks")))
     else:
         raw = _trace_rows(cs)
+        # the demo stream replays one ledger, so a text recurs with the same label on every batch: identical (text, label) rows
+        # carry no information and swamped the memory's vote (acc 0.2 at 9k rows vs 0.9 at 600 unique, 2026-10-18); keep the earliest
+        raw = list({(r["rendered"], r["label"]): r for r in sorted(raw, key=lambda r: str(r["ts"]), reverse=True)}.values())
     rows = [{k: str(r[k]) for k in ("rendered", "label", "group", "ts")} for r in raw]
     return sorted(rows, key=lambda r: (r["ts"], r["rendered"]))
 
