@@ -27,3 +27,9 @@ Status: IN_PROGRESS (started 03:00 PDT). Goal text: the `/goal` of the 03:10 ses
 - S29 (RunPod 4090 15 min $0.23 + Modal CPU): seeded Hopfield ties LR on certified coverage at <=77 labels (k=3/10), loses at 150; use 1/count vote weighting; 0.3 ms/query at 1k rows, 17 ms at 100k; byte-stable across processes
 - Sentry: Tracing + Logs + gen_ai spans (merged 04:12)
 - Add-on in progress (05:31): memory evidence rows (top-3 voting rows) in the trace card
+
+## 08:08 status
+- Deploy #4 (08:04): PostgresStore connection serialized (_Locked) after the 07:33 batch left the API's connection idle-in-transaction for 20 min (API saw 3,622 runs, Postgres 707); ModalTrainer hands the router's `config` candidate to LocalTrainer (anything_odd never left awake before). Validation batch running (reset, 2,000 runs, Postgres count check, replay).
+- Committed, not yet deployed (deploy #5 with the QA fixes): BENCHMARK_CAMPAIGNS = tier1-1018-final,qb-1018b (final2 ran on the truncated table: 707 rows, nothing certified; excluded from the scores tab).
+- QA round 1: 47 findings reproduced; 4 fixers still working (since ~07:35).
+- Human: CREAO secret + re-run + share; Devpost draft.
