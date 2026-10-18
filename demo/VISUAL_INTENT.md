@@ -160,6 +160,8 @@ Every number is a field of `GET /benchmark` (README (e)). The page formats perce
 - Check: the header holds four tabs with no overlap at ≥1024px; the table fits the card with no sideways page scroll at 1280×720 and 1440×900; small text ≥13px; the best row has the highlighter; "no promise yet" cells read clearly weaker than real numbers; no console errors.
 
 ## Recording sizes
+Known limit, measured 2026-10-18 09:40 on the live page: at 1280×720 the flows graph scales to 0.79 (the canvas is height-limited by the metrics card), so node sublabels render at ~9.5 px. Rendering them at 13 px there needs a 16.4 px font, which makes "dream answers 89%" 155 px wide against 132 px of node text area; keeping it on one line needs ~230 px nodes, i.e. 1,234 px of nodes and gaps on the 1,200 px stage. The two rules below (≥13 px, one line) are therefore satisfiable together only from 1440 wide (scale ≥1.08), which is why the recording sizes are 1440×900 and 1920×1080. Not a bug to fix under the demo; a layout change (narrower blobs or a taller stage at short heights) would be the route.
+
 At 1920×1080 the flows graph scales itself up, and the dreams, replay and scores tabs are zoomed 1.18× so all three tabs read at the same scale. Small explanatory text is at least 13px. On short screens (≤780px tall, e.g. 1280×720) the dreams column tightens its spacing, so the promise card fits without scrolling.
 
 ## Demo script (what will be recorded)
