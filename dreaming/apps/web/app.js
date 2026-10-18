@@ -29,6 +29,7 @@ const S = {
   view: 'flows', sel: 'categorize', selRun: null, rp: null, trace: null, unplugged: false,
   narr: '', narrIdle: true, narrRank: 0, narrUntil: 0, queued: null, verdicts: [], last: null, quietUntil: 0, budgetAt: -1e9,
   note: null, prev: {}, pop: {}, shown: {}, hold: {}, recheck: {}, lastCert: {}, saved: 0, runs: 0,
+  cmdAt: 0, stAt: 0, failQ: {}, failSaid: new Set(), // command reply time, request time of the /state on screen, train failures to judge
 };
 
 // ---------- the API: every request goes through req(); a refusal becomes one line of text, never a throw ----------
@@ -43,9 +44,14 @@ async function req(method, path, body) {
     return { ok: false, data: null, text: String(e) };
   }
 }
-/** A command, then /state again. @param {'GET' | 'POST'} method @param {string} path @param {object} [body] */
-async function cmd(method, path, body) {
+/** A command, then /state again. /state reads sent before the reply predate it and are dropped (a newer read follows);
+ * `apply` patches the page from the reply at once, so a slow /state never shows the old state.
+ * @param {'GET' | 'POST'} method @param {string} path @param {object} [body] @param {(data: any) => void} [apply] */
+async function cmd(method, path, body, apply) {
+  S.cmdAt = Infinity;
   const r = await req(method, path, body);
+  S.cmdAt = now();
+  if (r.ok && apply) apply(r.data);
   await refresh();
   return r;
 }
@@ -58,9 +64,9 @@ function refresh() {
     try {
       do {
         again = false;
-        const r = await req('GET', '/state');
+        const t0 = now(), r = await req('GET', '/state');
         problems.state = r.ok ? '' : `GET /state: ${r.text}`;
-        if (r.ok) loaded(r.data);
+        if (r.ok && t0 >= S.cmdAt) { S.stAt = t0; loaded(r.data); }
         if (again) await new Promise((done) => setTimeout(done, 250));
       } while (again);
     } finally { inflight = null; strip(); }
@@ -87,11 +93,19 @@ function strip() {
 function loaded(s) {
   const first = !st;
   st = s;
+  const vid = vendor()?.site.id;
+  S.unplugged = !!vid && (s.unplugged ?? []).includes(vid); // the fault switch (README (d)): the pill survives a reload and other tabs
   if (first) {
     buildJournal();
-    S.unplugged = !!vendor()?.policy.outage; // the switch itself is not in State (README, open gap 3): start from the detected outage
     S.saved = s.metrics.saved_usd; S.runs = s.metrics.runs;
   }
+}
+// A page opened mid-outage or mid-batch says so, not the idle line (after /healthz: the batch line names the teacher).
+function greet() {
+  const v = vendor();
+  if (!st || !v) return;
+  if (S.unplugged) narrate(outageLine(v));
+  else if (st.batch.running) narrate(st.batch.paused ? `paused at run ${int(st.metrics.runs)}` : `fast-forwarding ${int(st.batch.target)} transactions · ${teacherWords()}`);
 }
 
 // ---------- the sites: names are a page map keyed by site.name (README (d)) ----------
@@ -103,6 +117,9 @@ const nameOf = (/** @type {string} */ id) => NAME[short(id)] ?? short(id).replac
 const sites = () => (st ? st.sites.filter((v) => v.site.kind !== 'effect') : []);
 const byName = (/** @type {string} */ n) => sites().find((v) => v.site.name === n);
 const vendor = () => byName('vendor_lookup');
+// a tool is down while its fault switch is off (the pill: State.unplugged) or after the runtime saw it fail (Policy.outage)
+const downOf = (/** @type {SiteView} */ v) => v.site.kind === 'tool' && (S.unplugged || v.policy.outage);
+const outageLine = (/** @type {SiteView} */ v) => (phase(v).p === 'dreaming' ? 'vendor API is down · the dream answers, the last snapshot covers the rest' : 'vendor API is down · nothing has learned it yet, so the last snapshot answers');
 const teacherOf = (/** @type {SiteView} */ v) => (v.site.teacher.provider === 'tool' ? 'vendor API' : 'big model');
 const lastRun = () => (st && st.runs.length ? st.runs[st.runs.length - 1] : null);
 const stuckNow = () => S.unplugged && !!lastRun()?.stuck_at; // runs are stuck only when the newest one says so
@@ -203,7 +220,7 @@ function show(/** @type {string} */ msg, /** @type {number} */ rank, idle = fals
 function narrate(/** @type {string} */ msg, idle = false) { S.verdicts = []; S.last = null; show(msg, 2, idle); }
 function narrateLast(/** @type {string} */ msg) { if (S.verdicts.length || (now() < S.narrUntil && S.narrRank === 3)) S.last = msg; else narrate(msg); }
 function narrateEvent(/** @type {string} */ msg, /** @type {number} */ rank) {
-  const free = now() >= S.narrUntil || rank > S.narrRank;
+  const free = !st?.batch.paused && (now() >= S.narrUntil || rank > S.narrRank);
   if (rank === 3) { if (free && !S.verdicts.length) show(msg, 3); else S.verdicts.push(msg); }
   else if (free && !S.verdicts.length) show(msg, rank);
   else if (!S.queued || rank >= S.queued.rank) S.queued = { msg, rank };
@@ -235,14 +252,15 @@ function noteText(n) {
   const ph = phase(v), tool = v.site.kind === 'tool';
   if (n.kind === 'down') return !S.unplugged ? null : ph.p === 'dreaming' ? 'API down, still answering!' : stuckNow() ? 'stuck! nothing learned yet' : 'API down, the snapshot answers!';
   // the saving is the site's own two costs; no predicted call yet means no saving to point at
-  if (ph.p !== 'dreaming' || (tool && v.policy.outage) || !v.policy.predicted_rows || !v.cost_awake_usd) return null;
+  if (ph.p !== 'dreaming' || downOf(v) || !v.policy.predicted_rows || !v.cost_awake_usd) return null;
   const save = Math.round((1 - v.cost_dream_usd / v.cost_awake_usd) * 100);
   return v.site.kind === 'router' ? `thinks less now! −${save}% cost` : tool ? `knows what the API will say! −${save}% cost` : `learned to dream! −${save}% cost`;
 }
 function watchPhases() {
   const msgs = [];
   for (const cur of sites()) {
-    const name = cur.site.name, { ph } = look(cur), key = ph.p + (ph.cant ? '!' : '');
+    const name = cur.site.name, { ph, pend } = look(cur), key = ph.p + (ph.cant ? '!' : '');
+    if (pend) continue; // a budget re-check is narrated by its summary; compared after it, a promise it kept is no new promotion
     const was = S.prev[name];
     S.shown[name] = ph.raw;
     if (was && was !== key) {
@@ -260,7 +278,14 @@ function watchPhases() {
     if (lesser) narrateEvent(lesser.msg, lesser.rank);
     for (const m of msgs) if (m.rank === 3) narrateEvent(m.msg, 3);
   }
-  if (!S.unplugged && now() >= S.narrUntil) {
+  // a training failure is news only when no candidate of that site trained in the same tick (a spare failing is not), once per site
+  for (const [name, at] of Object.entries(S.failQ)) {
+    if (at >= S.stAt) continue; // judged on a /state read sent after the event
+    delete S.failQ[name];
+    const v = byName(name);
+    if (v && !v.policy.candidate && !S.failSaid.has(name) && !S.unplugged) { S.failSaid.add(name); narrateEvent(`the ${nm(v)} dream failed to train · the real call keeps answering`, 2); }
+  }
+  if (!S.unplugged && !st?.batch.paused && now() >= S.narrUntil) {
     if (S.verdicts.length) show(S.verdicts.shift(), 3);
     else if (S.last) { show(S.last, 2); S.last = null; }
     else if (S.queued) show(S.queued.msg, S.queued.rank);
@@ -299,9 +324,10 @@ function onEvent(e, fresh) {
     else if (e.kind === 'batch.finished' && d.metrics) narrateLast(doneLine(d.metrics));
     else if (e.kind === 'budget.changed') S.budgetAt = now();
     else if (e.kind === 'cert.revoked' && v && !S.recheck[name] && now() - S.budgetAt > 5000 && !S.unplugged) narrateEvent(`${nm(v)} lost its promise · the real call answers again`, 3);
-    else if (e.kind === 'train.failed' && v && !S.unplugged) narrateEvent(`the ${nm(v)} dream failed to train · the real call keeps answering`, 3);
+    else if (e.kind === 'train.failed' && v) S.failQ[name] = now();
+    else if (e.kind === 'train.finished') { delete S.failQ[name]; S.failSaid.delete(name); }
   }
-  return /^(batch\.|site\.phase|cert\.|tool\.|budget\.changed|candidate\.|train\.finished)/.test(e.kind);
+  return /^(batch\.|site\.phase|cert\.|tool\.|budget\.changed|candidate\.|train\.(finished|failed))/.test(e.kind); // a failure is judged on the next read
 }
 // Polling when Realtime is not configured: the first read is history, then `after=<last id>`, faster while a batch runs.
 // /state is also re-read while the last read failed (API down at load, a 500 mid-batch), so the page never stays stale.
@@ -382,7 +408,7 @@ function renderStage() {
   for (const n of NODES) {
     const cur = byName(n.id);
     if (!cur || !n.el || !n.badge || !n.who) continue;
-    const { v, ph, rc } = look(cur), down = cur.site.kind === 'tool' && cur.policy.outage, sk = down ? 'down' : ph.p;
+    const { v, ph, rc } = look(cur), down = downOf(cur), sk = down ? 'down' : ph.p;
     setAttr(n.el, 'class', `node${n.round ? ' round' : ''} ${sk}${S.pop[n.id] > now() ? ' pop' : ''}`);
     setHTML(n.badge, STATUS[sk](sk === 'dreaming' ? 30 : 26));
     const who = whoText(v, ph, down, rc);
@@ -404,15 +430,17 @@ function renderStage() {
   setText(/** @type {HTMLElement} */ (note.firstChild), text);
   setHTML(note.lastChild, ARROWS[at.a](at.l));
 }
+let plugBusy = false; // one toggle in flight: rapid clicks must not race each other to the switch
 async function togglePlug() {
   const v = vendor();
-  if (!v) return;
+  if (!v || plugBusy) return;
+  plugBusy = true;
   const down = !S.unplugged; // shown at once: the presenter's action; reverted if the API refuses
   S.unplugged = down;
   S.note = down ? { id: 'vendor_lookup', kind: 'down' } : null;
-  if (!down) narrate('vendor API is back');
-  else narrate(phase(v).p === 'dreaming' ? 'vendor API is down · the dream answers, the last snapshot covers the rest' : 'vendor API is down · nothing has learned it yet, so the last snapshot answers');
-  const r = await cmd('POST', `/tools/${encodeURIComponent(v.site.id)}/outage`, { down });
+  narrate(down ? outageLine(v) : 'vendor API is back');
+  const r = await cmd('POST', `/tools/${encodeURIComponent(v.site.id)}/outage`, { down }, (p) => { const cur = vendor(); if (cur) cur.policy = p; plugBusy = false; });
+  plugBusy = false;
   if (!r.ok) { S.unplugged = !down; S.note = null; narrate(`the fault switch refused: ${esc(r.text)}`); }
 }
 
@@ -435,23 +463,24 @@ function buildCharts() {
     Object.assign(m, { val: q('.val'), was: q('.was'), svg: q('svg'), line: q('.line'), ref: q('.ref') });
   }
 }
+// "circuit breaker: 100%" is comparison copy, not a measurement (README (d)): every run calls vendor lookup, so a breaker fails them all
+const BREAKER = 'a plain circuit breaker fails every run while the vendor API is down, because every run needs it. not measured by this run';
 let drawn = '';
 function renderCharts() {
   if (!st) return;
   const cur = st.metrics, pts = st.series, first = pts[0] || cur, b = st.batch, ran = cur.runs > 0;
   // x is Metrics.runs; the axis reaches the end of the batch that is running (Metrics.runs counts the run in flight, Batch.done not)
   const xmax = Math.max(BATCH, Math.ceil((cur.runs + (b.running ? b.target - b.done - 1 : 0)) / BATCH) * BATCH);
-  const down = S.unplugged || !!vendor()?.policy.outage;
+  const vv = vendor(), down = !!vv && downOf(vv);
   setText($('#xr'), `0 → ${int(xmax)} runs`);
   for (const m of METRICS) {
     if (!m.val || !m.was || !m.svg || !m.line || !m.ref) continue;
     const alarm = m.k === 'failed_pct' && down;
     setText(m.val, ran ? m.f(cur[m.k]) : '–');
-    // "circuit breaker: 100%" is comparison copy from the S4 smoke, not something this run measured (README, open gap 2)
-    setText(m.was, alarm ? 'circuit breaker: 100% (S4)' : ran ? `was ${m.f(first[m.k])}` : '');
-    setAttr(m.was, 'title', alarm ? 'measured in the S4 smoke (smokes/FINDINGS.md), not by this run' : '');
+    setText(m.was, alarm ? 'circuit breaker: 100%' : ran ? `was ${m.f(first[m.k])}` : '');
+    setAttr(m.was, 'title', alarm ? BREAKER : '');
     m.was.classList.toggle('alarm', alarm);
-    setAttr(m.svg, 'aria-label', ran ? `${m.lbl}: was ${m.f(first[m.k])}, now ${m.f(cur[m.k])}${alarm ? '; a circuit breaker failed 100% of runs in the S4 smoke' : ''}` : `${m.lbl}: no runs yet`);
+    setAttr(m.svg, 'aria-label', ran ? `${m.lbl}: was ${m.f(first[m.k])}, now ${m.f(cur[m.k])}${alarm ? `; ${BREAKER}` : ''}` : `${m.lbl}: no runs yet`);
   }
   const lastPt = pts[pts.length - 1], key = `${pts.length}:${lastPt?.runs}:${xmax}`;
   if (key === drawn) return;
@@ -462,7 +491,7 @@ function renderCharts() {
     if (!pts.length) { m.ref.setAttribute('d', 'M0 30H300'); m.line.setAttribute('d', ''); continue; } // four lines waiting to move
     // each line gets its own height, from zero, so a halving looks like a halving
     const top = Math.max(...pts.map((p) => p[m.k])) * 1.15 || 1;
-    const Y = (/** @type {number} */ v) => (54 - v / top * 50).toFixed(1);
+    const Y = (/** @type {number} */ v) => (49 - v / top * 45).toFixed(1); // zero sits above the 2px axis, so a flat 0% line still shows
     m.ref.setAttribute('d', `M0 ${Y(pts[0][m.k])}H300`);
     // the short flat tail marks "now", so a change at the latest run reads as a step, not a clipped edge
     m.line.setAttribute('d', pts.map((p, i) => `${i ? 'L' : 'M'}${X(p.runs).toFixed(1)} ${Y(p[m.k])}`).join('') + `H${(X(lastPt.runs) + 10).toFixed(1)}`);
@@ -514,7 +543,7 @@ function renderJournal() {
   for (const cur of sites()) {
     const row = ROWS[cur.site.name];
     if (!row) continue;
-    const { v, ph, rc, pend } = look(cur), down = cur.site.kind === 'tool' && cur.policy.outage;
+    const { v, ph, rc, pend } = look(cur), down = downOf(cur);
     setAttr(row.b, 'aria-pressed', String(S.sel === cur.site.name));
     setHTML(row.icon, STATUS[rc ? 'testing' : down ? 'down' : ph.p](ph.p === 'dreaming' && !down && !rc ? 50 : 46));
     setText(row.status, statusLine(v, ph, rc, down));
@@ -533,7 +562,7 @@ function certHTML(name) {
   const cur = byName(name);
   if (!cur) return '';
   const { v, ph, rc, pend } = look(cur), s = v.site, p = v.policy, th = s.thresholds, router = s.kind === 'router', tool = s.kind === 'tool';
-  const down = tool && cur.policy.outage, real = tool ? 'real API returns' : 'real answers', b = ph.b;
+  const down = downOf(cur), real = tool ? 'real API returns' : 'real answers', b = ph.b;
   const icon = rc ? 'testing' : down ? 'down' : ph.p;
   const head = `<div class="chead">${STATUS[icon](icon === 'dreaming' ? 44 : 40)}<h2>${nameOf(s.id)}</h2></div>`;
   const per = th.calibrate_after / 10, filled = Math.floor(ph.counted / per); // README (d): 1 sheep = calibrate_after / 10
@@ -844,12 +873,13 @@ function fit() {
 const glide = (/** @type {number} */ cur, /** @type {number} */ to, /** @type {number} */ dt) => (Math.abs(to - cur) < .005 ? to : cur + (to - cur) * Math.min(1, dt * 5));
 function renderTop(/** @type {number} */ dt) {
   const m = st?.metrics, b = st?.batch;
-  if (m) { S.saved = glide(S.saved, m.saved_usd, dt); S.runs = glide(S.runs, m.runs, dt); }
-  const saved = money(Math.max(0, S.saved));
+  if (m) { S.saved = glide(S.saved, m.saved_usd, dt); S.runs = b?.running && !b.paused ? glide(S.runs, m.runs, dt) : m.runs; }
+  const saved = m ? money(Math.max(0, S.saved)) : '–'; // before the first /state: nothing to show yet, not a zero
   setText($('#saved'), saved);
   setAttr($('#savedbox'), 'aria-label', `${saved} saved so far`);
-  setText($('#count'), `${int(S.runs)} runs`);
-  const rb = $('#run'), running = !!b?.running && !b.paused;
+  setText($('#count'), m ? `${int(S.runs)} runs` : '– runs');
+  const rb = /** @type {HTMLButtonElement} */ ($('#run')), running = !!b?.running && !b.paused;
+  rb.disabled = !st; // no run button until the page knows whether a batch is running
   const label = b?.running ? (b.paused ? 'resume' : 'pause') : m?.runs ? `run ${int(BATCH)} more` : `run ${int(BATCH)}`;
   setHTML(rb, ico(running ? 'pause' : 'play', 20) + label);
   rb.classList.toggle('on', running);
@@ -872,17 +902,27 @@ function frame(/** @type {number} */ t) {
   requestAnimationFrame(frame);
 }
 
+let runBusy = false; // a double click sends one command (a second POST /batch would be a 409)
 $('#run').addEventListener('click', async () => {
-  const b = st?.batch, runs = () => int(st?.metrics.runs ?? 0); // read after the reply: the batch moves ~100 runs/s offline
-  // during an outage the outage line stays up: it is what explains the runs that keep going (or don't)
-  if (b?.running) {
-    const pause = !b.paused, at = runs(), r = pause ? await cmd('POST', '/batch/pause') : await cmd('POST', '/batch/resume');
+  if (runBusy || !st) return;
+  runBusy = true;
+  const b = st.batch, runs = () => int(st?.metrics.runs ?? 0); // read after the reply: the batch moves ~100 runs/s offline
+  /** @param {Partial<import('./schema').Batch>} patch @param {() => void} [then] */
+  const replied = (patch, then) => () => { if (st) st.batch = { ...st.batch, ...patch }; runBusy = false; then?.(); };
+  // during an outage the outage line stays up: it is what explains the runs that keep going (or don't).
+  // pause and resume are shown with show(), not narrate(): verdicts still queued follow them instead of being dropped
+  if (b.running) {
+    const pause = !b.paused, at = runs();
+    const then = replied({ paused: pause }, () => { if (!pause && !S.unplugged) show(`resuming at run ${at}`, 2); });
+    const r = pause ? await cmd('POST', '/batch/pause', undefined, then) : await cmd('POST', '/batch/resume', undefined, then);
+    runBusy = false;
     if (!r.ok) narrate(`the run did not ${pause ? 'pause' : 'resume'}: ${esc(r.text)}`);
-    else if (!S.unplugged) narrate(pause ? `paused at run ${runs()}` : `resuming at run ${at}`);
+    else if (pause && !S.unplugged) show(`paused at run ${runs()}`, 2);
     return;
   }
-  if (!S.unplugged) narrate(st?.metrics.runs ? `fast-forwarding ${int(BATCH)} more transactions · ${teacherWords()}` : `fast-forwarding ${int(BATCH)} transactions · ${teacherWords()} · every call is logged`);
-  const r = await cmd('POST', '/batch', { n: BATCH });
+  if (!S.unplugged) narrate(st.metrics.runs ? `fast-forwarding ${int(BATCH)} more transactions · ${teacherWords()}` : `fast-forwarding ${int(BATCH)} transactions · ${teacherWords()} · every call is logged`);
+  const r = await cmd('POST', '/batch', { n: BATCH }, replied({ running: true, paused: false, target: BATCH, done: 0 }));
+  runBusy = false;
   if (!r.ok) narrate(`the run did not start: ${esc(r.text)}`);
 });
 $('#budget').addEventListener('input', () => onBudget(false));
@@ -902,6 +942,6 @@ buildStage(); buildCharts();
 narrate(`a bookkeeping agent, wrapped not rewritten · press run to fast-forward ${int(BATCH)} transactions`, true);
 route();
 requestAnimationFrame(frame);
-healthz();
+const hz = healthz();
 setInterval(healthz, 15000);
-refresh().then(() => live(st?.config ?? {}));
+refresh().then(() => { live(st?.config ?? {}); hz.then(greet); });

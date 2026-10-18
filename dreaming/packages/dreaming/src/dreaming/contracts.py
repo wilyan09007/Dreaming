@@ -334,6 +334,7 @@ class State(BaseModel):
     batch: Batch
     config: dict[str, str] = Field(default_factory=dict)  # supabase_url, supabase_publishable_key: what Realtime needs
     spare_certificates: dict[str, Certificate] = Field(default_factory=dict)  # Policy.shadow[name].cert_id -> its certificate: the journal prints the spares' bounds
+    unplugged: list[str] = Field(default_factory=list)  # tool sites whose fault switch is off (POST /tools/{site}/outage): the page's plug pill
 
 
 class RunView(BaseModel):

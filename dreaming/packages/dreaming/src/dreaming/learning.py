@@ -21,7 +21,8 @@ Rules the smokes forced:
   Clopper-Pearson bound exceeds the budget (>= 50 audits) the certificate is revoked.
   shortcut: a one-shot bound on the audit stream, not S18's anytime-valid e-process; upgrade before a long deployment.
 - Outages are detected, never declared: three consecutive failures of the real call set Policy.outage; while out, one
-  call in twenty probes the real call and a success clears it.
+  call in twenty probes the real call and a success clears it. Plugging the fault switch back in clears it too (`plugged`):
+  an idle runtime makes no probe, and the page would show a dead API that is back.
 - Fail open: a trainer or store failure is one component.error event; the site stays where it was.
 """
 
@@ -160,6 +161,15 @@ class Learner:
                     p.phase, "its dream is not certified yet, so the fallback answers")
                 emit(self.rt.store, self.rt.component, EventKind.tool_outage, f"{site.name} is down: {what}", call_site=site.id,
                      error=row.error)
+
+    def plugged(self, site_id: str) -> None:
+        """The fault switch is back on: forget the detected outage now. If the tool still fails, three failures detect it again."""
+        p = self.rt.policies[site_id]
+        self._failures.pop(site_id, None)
+        if p.outage:
+            p.outage = False
+            self.rt.persist(p)
+            emit(self.rt.store, self.rt.component, EventKind.tool_recovered, f"{self.rt.sites[site_id].name} is back: plugged in", call_site=site_id)
 
     # ------------------------------------------------------------------ the tick
     def tick(self) -> None:
