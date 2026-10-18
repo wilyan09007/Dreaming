@@ -1,0 +1,392 @@
+bundle 0.02 MB
+community launch failed, trying ALL: [{'message': 'There are no longer any instances available with the requested specifications. Please refresh and try again.', 'path': ['podFindAndDeployOnDemand'], 'extensions': {'code': 'SUPPLY_CONSTR
+pod {'id': 'yh8w43ww0m3lqo', 'machineId': 'h2vg40zc2gvn', 'costPerHr': 0.89}
+[123s] bundle uploaded
+name, memory.total [MiB]
+NVIDIA GeForce RTX 4090, 24564 MiB
+waiting for bundle
+bundle extracted 7 files
+[orch +1s] nvidia-smi: NVIDIA GeForce RTX 4090, 24564 MiB | cpus 128 | torch 2.8.0+cu128
+[orch +1s] start; resumed cells: 0
+[154s status=RUNNING log=228B]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[185s status=RUNNING log=366B]
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[w0 +50s] tasks [('travel', 15, 1500, 450, 300), ('work', 15, 1500, 450, 300), ('bank0', 12, 1715, 480, 300), ('bank1', 12, 1564, 480, 300), ('bank2', 12, 1585, 479, 300)] pool jobs 14 device cuda
+[w0 +56s] solo calibration {'lora_steps_per_s': 9.77, 'comp_steps_per_s': 8.42, 'gpu': 'NVIDIA GeForce RTX 4090', 'cpus': 128, 'torch': '2.8.0+cu128', 'peak_gb': 4.23}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[216s status=RUNNING log=1310B]
+[orch +89s] cells complete: 0 records: 0
+[247s status=RUNNING log=1351B]
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[w2 +105s] tasks [('travel', 15, 1500, 450, 300), ('work', 15, 1500, 450, 300), ('bank0', 12, 1715, 480, 300), ('bank1', 12, 1564, 480, 300), ('bank2', 12, 1585, 479, 300)] pool jobs 14 device cuda
+[w1 +105s] tasks [('travel', 15, 1500, 450, 300), ('work', 15, 1500, 450, 300), ('bank0', 12, 1715, 480, 300), ('bank1', 12, 1564, 480, 300), ('bank2', 12, 1585, 479, 300)] pool jobs 14 device cuda
+[orch +119s] cells complete: 0 records: 0
+[w1 +124s] pool job {'job': 'clinc__auto_and_commute', 'fam': 'clinc', 'which': 'auto_and_commute', 'rows': 1500, 'labels': 15, 'steps': 150, 'secs': 17.7, 'pool_acc': 1.0, 'params': 2176128, 'worker': 1, 'disjoint': 'pool intents = 8 CLINC domains, asserted disjoint from travel/work intents'}
+[278s status=RUNNING log=2690B]
+[w1 +141s] pool job {'job': 'clinc__banking', 'fam': 'clinc', 'which': 'banking', 'rows': 1500, 'labels': 15, 'steps': 150, 'secs': 17.0, 'pool_acc': 1.0, 'params': 2176128, 'worker': 1, 'disjoint': 'pool intents = 8 CLINC domains, asserted disjoint from travel/work intents'}
+[w0 +142s] pool job {'job': 'clinc__shared', 'fam': 'clinc', 'which': 'shared', 'rows': 12000, 'labels': 120, 'steps': 750, 'secs': 83.3, 'pool_acc': 0.983, 'params': 2270208, 'worker': 0, 'disjoint': 'pool intents = 8 CLINC domains, asserted disjoint from travel/work intents'}
+[orch +149s] cells complete: 0 records: 0
+[309s status=RUNNING log=3288B]
+[w1 +160s] pool job {'job': 'clinc__credit_cards', 'fam': 'clinc', 'which': 'credit_cards', 'rows': 1500, 'labels': 15, 'steps': 150, 'secs': 17.6, 'pool_acc': 0.997, 'params': 2176128, 'worker': 1, 'disjoint': 'pool intents = 8 CLINC domains, asserted disjoint from travel/work intents'}
+[w0 +161s] pool job {'job': 'clinc__home', 'fam': 'clinc', 'which': 'home', 'rows': 1500, 'labels': 15, 'steps': 150, 'secs': 17.9, 'pool_acc': 0.997, 'params': 2176128, 'worker': 0, 'disjoint': 'pool intents = 8 CLINC domains, asserted disjoint from travel/work intents'}
+[w2 +177s] pool job {'job': 'bank__shared', 'fam': 'bank', 'which': 'shared', 'rows': 5129, 'labels': 41, 'steps': 600, 'secs': 70.7, 'pool_acc': 0.997, 'params': 2199424, 'worker': 2, 'disjoint': 'pool labels = 41 Banking77 ids, asserted disjoint from the 36 ids of bank0-2'}
+[w1 +178s] pool job {'job': 'clinc__kitchen_and_dining', 'fam': 'clinc', 'which': 'kitchen_and_dining', 'rows': 1500, 'labels': 15, 'steps': 150, 'secs': 17.6, 'pool_acc': 0.993, 'params': 2176128, 'worker': 1, 'disjoint': 'pool intents = 8 CLINC domains, asserted disjoint from travel/work intents'}
+[orch +179s] cells complete: 0 records: 0
+[w0 +180s] pool job {'job': 'clinc__meta', 'fam': 'clinc', 'which': 'meta', 'rows': 1500, 'labels': 15, 'steps': 150, 'secs': 17.9, 'pool_acc': 0.973, 'params': 2176128, 'worker': 0, 'disjoint': 'pool intents = 8 CLINC domains, asserted disjoint from travel/work intents'}
+[340s status=RUNNING log=4743B]
+[w2 +194s] pool job {'job': 'clinc__small_talk', 'fam': 'clinc', 'which': 'small_talk', 'rows': 1500, 'labels': 15, 'steps': 150, 'secs': 16.9, 'pool_acc': 0.993, 'params': 2176128, 'worker': 2, 'disjoint': 'pool intents = 8 CLINC domains, asserted disjoint from travel/work intents'}
+[w1 +196s] pool job {'job': 'clinc__utility', 'fam': 'clinc', 'which': 'utility', 'rows': 1500, 'labels': 15, 'steps': 150, 'secs': 16.9, 'pool_acc': 1.0, 'params': 2176128, 'worker': 1, 'disjoint': 'pool intents = 8 CLINC domains, asserted disjoint from travel/work intents'}
+[w0 +197s] pool job {'job': 'bank__bank_group_0', 'fam': 'bank', 'which': 'bank group 0', 'rows': 1336, 'labels': 11, 'steps': 150, 'secs': 16.9, 'pool_acc': 1.0, 'params': 2172544, 'worker': 0, 'disjoint': 'pool labels = 41 Banking77 ids, asserted disjoint from the 36 ids of bank0-2'}
+[orch +209s] cells complete: 0 records: 0
+[w2 +216s] pool job {'job': 'bank__bank_group_1', 'fam': 'bank', 'which': 'bank group 1', 'rows': 1329, 'labels': 10, 'steps': 150, 'secs': 20.2, 'pool_acc': 1.0, 'params': 2171648, 'worker': 2, 'disjoint': 'pool labels = 41 Banking77 ids, asserted disjoint from the 36 ids of bank0-2'}
+[w1 +217s] pool job {'job': 'bank__bank_group_2', 'fam': 'bank', 'which': 'bank group 2', 'rows': 1221, 'labels': 10, 'steps': 150, 'secs': 20.0, 'pool_acc': 0.99, 'params': 2171648, 'worker': 1, 'disjoint': 'pool labels = 41 Banking77 ids, asserted disjoint from the 36 ids of bank0-2'}
+[w2 +217s] cell travel 0 3
+[w1 +218s] cell work 0 3
+[w2 +218s] {'task': 'travel', 'seed': 0, 'k': 3, 'arm': 'F', 'train_s': 0.02, 'params': 5775, 'acc': 0.9622, 'cov': 0.9356, 'err': 0.0048}
+[w0 +219s] pool job {'job': 'bank__bank_group_3', 'fam': 'bank', 'which': 'bank group 3', 'rows': 1243, 'labels': 10, 'steps': 150, 'secs': 20.3, 'pool_acc': 1.0, 'params': 2171648, 'worker': 0, 'disjoint': 'pool labels = 41 Banking77 ids, asserted disjoint from the 36 ids of bank0-2'}
+[w1 +219s] {'task': 'work', 'seed': 0, 'k': 3, 'arm': 'F', 'train_s': 0.02, 'params': 5775, 'acc': 0.8667, 'cov': 0.62, 'err': 0.043}
+[371s status=RUNNING log=6821B]
+[w0 +220s] cell bank0 0 3
+[w0 +221s] {'task': 'bank0', 'seed': 0, 'k': 3, 'arm': 'F', 'train_s': 0.02, 'params': 4620, 'acc': 0.8979, 'cov': 0.7083, 'err': 0.0147}
+[orch +239s] cells complete: 0 records: 3
+[w2 +250s] {'task': 'travel', 'seed': 0, 'k': 3, 'arm': 'B', 'train_s': 30.28, 'params': 2176128, 'acc': 0.9356, 'cov': 0.9022, 'err': 0.0123}
+[402s status=RUNNING log=7170B]
+[w1 +252s] {'task': 'work', 'seed': 0, 'k': 3, 'arm': 'B', 'train_s': 31.99, 'params': 2176128, 'acc': 0.8689, 'cov': 0.0, 'err': None}
+[w0 +256s] {'task': 'bank0', 'seed': 0, 'k': 3, 'arm': 'B', 'train_s': 33.32, 'params': 2173440, 'acc': 0.7771, 'cov': 0.0, 'err': None}
+[orch +269s] cells complete: 0 records: 6
+[433s status=RUNNING log=7485B]
+[w2 +288s] {'task': 'travel', 'seed': 0, 'k': 3, 'arm': 'D_comp', 'train_s': 37.08, 'params': 13448, 'acc': 0.8689, 'cov': 0.7756, 'err': 0.0258}
+[w1 +290s] {'task': 'work', 'seed': 0, 'k': 3, 'arm': 'D_comp', 'train_s': 37.05, 'params': 13448, 'acc': 0.84, 'cov': 0.0, 'err': None}
+[w0 +297s] {'task': 'bank0', 'seed': 0, 'k': 3, 'arm': 'D_comp', 'train_s': 39.37, 'params': 10756, 'acc': 0.8146, 'cov': 0.4771, 'err': 0.0087}
+[w2 +299s] {'task': 'travel', 'seed': 0, 'k': 3, 'arm': 'D_comp_ft', 'train_s': 47.18, 'params': 2176128, 'acc': 0.9156, 'cov': 0.68, 'err': 0.0}
+[orch +299s] cells complete: 0 records: 10
+[w1 +301s] {'task': 'work', 'seed': 0, 'k': 3, 'arm': 'D_comp_ft', 'train_s': 48.03, 'params': 2176128, 'acc': 0.8267, 'cov': 0.0, 'err': None}
+[w0 +309s] {'task': 'bank0', 'seed': 0, 'k': 3, 'arm': 'D_comp_ft', 'train_s': 50.6, 'params': 2173440, 'acc': 0.6833, 'cov': 0.0, 'err': None}
+[463s status=RUNNING log=8390B]
+[orch +329s] cells complete: 0 records: 12
+[w2 +331s] {'task': 'travel', 'seed': 0, 'k': 3, 'arm': 'A', 'train_s': 30.56, 'params': 2176128, 'acc': 0.8822, 'cov': 0.7267, 'err': 0.0214}
+[w2 +331s] cell bank1 0 3
+[w2 +332s] {'task': 'bank1', 'seed': 0, 'k': 3, 'arm': 'F', 'train_s': 0.01, 'params': 4620, 'acc': 0.9271, 'cov': 0.6583, 'err': 0.0}
+[w1 +334s] {'task': 'work', 'seed': 0, 'k': 3, 'arm': 'A', 'train_s': 31.75, 'params': 2176128, 'acc': 0.7489, 'cov': 0.0, 'err': None}
+[w1 +335s] cell bank2 0 3
+[w1 +335s] {'task': 'bank2', 'seed': 0, 'k': 3, 'arm': 'F', 'train_s': 0.01, 'params': 4620, 'acc': 0.9541, 'cov': 0.7787, 'err': 0.0054}
+[494s status=RUNNING log=9037B]
+[w0 +345s] {'task': 'bank0', 'seed': 0, 'k': 3, 'arm': 'A', 'train_s': 34.1, 'params': 2173440, 'acc': 0.7583, 'cov': 0.0, 'err': None}
+[w0 +345s] cell travel 1 3
+[w0 +345s] {'task': 'travel', 'seed': 1, 'k': 3, 'arm': 'F', 'train_s': 0.01, 'params': 5775, 'acc': 0.9578, 'cov': 0.9267, 'err': 0.0048}
+[orch +359s] cells complete: 3 records: 18
+[w2 +368s] {'task': 'bank1', 'seed': 0, 'k': 3, 'arm': 'B', 'train_s': 34.58, 'params': 2173440, 'acc': 0.7792, 'cov': 0.0, 'err': None}
+[w1 +371s] {'task': 'bank2', 'seed': 0, 'k': 3, 'arm': 'B', 'train_s': 33.94, 'params': 2173440, 'acc': 0.8559, 'cov': 0.0, 'err': None}
+[525s status=RUNNING log=9656B]
+[w0 +380s] {'task': 'travel', 'seed': 1, 'k': 3, 'arm': 'B', 'train_s': 33.81, 'params': 2176128, 'acc': 0.9, 'cov': 0.0, 'err': None}
+[orch +389s] cells complete: 3 records: 21
+[556s status=RUNNING log=9834B]
+[w2 +412s] {'task': 'bank1', 'seed': 0, 'k': 3, 'arm': 'D_comp', 'train_s': 42.39, 'params': 10756, 'acc': 0.8104, 'cov': 0.0, 'err': None}
+[w1 +415s] {'task': 'bank2', 'seed': 0, 'k': 3, 'arm': 'D_comp', 'train_s': 42.76, 'params': 10756, 'acc': 0.7641, 'cov': 0.0, 'err': None}
+[orch +419s] cells complete: 3 records: 23
+[w0 +421s] {'task': 'travel', 'seed': 1, 'k': 3, 'arm': 'D_comp', 'train_s': 39.32, 'params': 13448, 'acc': 0.8178, 'cov': 0.0, 'err': None}
+[w2 +425s] {'task': 'bank1', 'seed': 0, 'k': 3, 'arm': 'D_comp_ft', 'train_s': 53.55, 'params': 2173440, 'acc': 0.7729, 'cov': 0.0, 'err': None}
+[w1 +428s] {'task': 'bank2', 'seed': 0, 'k': 3, 'arm': 'D_comp_ft', 'train_s': 54.09, 'params': 2173440, 'acc': 0.8413, 'cov': 0.0, 'err': None}
+[w0 +433s] {'task': 'travel', 'seed': 1, 'k': 3, 'arm': 'D_comp_ft', 'train_s': 50.8, 'params': 2176128, 'acc': 0.9422, 'cov': 0.92, 'err': 0.0169}
+[587s status=RUNNING log=10736B]
+[orch +449s] cells complete: 3 records: 27
+[w2 +460s] {'task': 'bank1', 'seed': 0, 'k': 3, 'arm': 'A', 'train_s': 33.56, 'params': 2173440, 'acc': 0.8313, 'cov': 0.0, 'err': None}
+[w2 +460s] cell work 1 3
+[w2 +461s] {'task': 'work', 'seed': 1, 'k': 3, 'arm': 'F', 'train_s': 0.01, 'params': 5775, 'acc': 0.9489, 'cov': 0.8333, 'err': 0.016}
+[w1 +464s] {'task': 'bank2', 'seed': 0, 'k': 3, 'arm': 'A', 'train_s': 34.49, 'params': 2173440, 'acc': 0.8372, 'cov': 0.0, 'err': None}
+[w1 +464s] cell bank0 1 3
+[w1 +464s] {'task': 'bank0', 'seed': 1, 'k': 3, 'arm': 'F', 'train_s': 0.01, 'params': 4620, 'acc': 0.8917, 'cov': 0.0, 'err': None}
+[618s status=RUNNING log=11373B]
+[w0 +468s] {'task': 'travel', 'seed': 1, 'k': 3, 'arm': 'A', 'train_s': 34.07, 'params': 2176128, 'acc': 0.8, 'cov': 0.0, 'err': None}
+[w0 +469s] cell bank1 1 3
+[w0 +469s] {'task': 'bank1', 'seed': 1, 'k': 3, 'arm': 'F', 'train_s': 0.01, 'params': 4620, 'acc': 0.8917, 'cov': 0.6375, 'err': 0.0033}
+[orch +479s] cells complete: 6 records: 33
+[w2 +495s] {'task': 'work', 'seed': 1, 'k': 3, 'arm': 'B', 'train_s': 33.8, 'params': 2176128, 'acc': 0.92, 'cov': 0.8, 'err': 0.0083}
+[649s status=RUNNING log=11850B]
+[w1 +500s] {'task': 'bank0', 'seed': 1, 'k': 3, 'arm': 'B', 'train_s': 33.78, 'params': 2173440, 'acc': 0.7167, 'cov': 0.0, 'err': None}
+[w0 +507s] {'task': 'bank1', 'seed': 1, 'k': 3, 'arm': 'B', 'train_s': 35.88, 'params': 2173440, 'acc': 0.8042, 'cov': 0.0, 'err': None}
+[orch +509s] cells complete: 6 records: 36
+[680s status=RUNNING log=12167B]
+[w2 +535s] {'task': 'work', 'seed': 1, 'k': 3, 'arm': 'D_comp', 'train_s': 38.6, 'params': 13448, 'acc': 0.92, 'cov': 0.8111, 'err': 0.0247}
+[orch +539s] cells complete: 6 records: 37
+[w1 +543s] {'task': 'bank0', 'seed': 1, 'k': 3, 'arm': 'D_comp', 'train_s': 42.1, 'params': 10756, 'acc': 0.7104, 'cov': 0.0, 'err': None}
+[w2 +546s] {'task': 'work', 'seed': 1, 'k': 3, 'arm': 'D_comp_ft', 'train_s': 49.3, 'params': 2176128, 'acc': 0.9156, 'cov': 0.4156, 'err': 0.0053}
+[w0 +549s] {'task': 'bank1', 'seed': 1, 'k': 3, 'arm': 'D_comp', 'train_s': 40.45, 'params': 10756, 'acc': 0.8313, 'cov': 0.0, 'err': None}
+[w1 +557s] {'task': 'bank0', 'seed': 1, 'k': 3, 'arm': 'D_comp_ft', 'train_s': 54.13, 'params': 2173440, 'acc': 0.6104, 'cov': 0.0, 'err': None}
+[711s status=RUNNING log=12923B]
+[w0 +561s] {'task': 'bank1', 'seed': 1, 'k': 3, 'arm': 'D_comp_ft', 'train_s': 51.24, 'params': 2173440, 'acc': 0.7625, 'cov': 0.0, 'err': None}
+[orch +569s] cells complete: 6 records: 42
+[w2 +579s] {'task': 'work', 'seed': 1, 'k': 3, 'arm': 'A', 'train_s': 31.32, 'params': 2176128, 'acc': 0.9244, 'cov': 0.6711, 'err': 0.0166}
+[w2 +579s] cell bank2 1 3
+[w2 +579s] {'task': 'bank2', 'seed': 1, 'k': 3, 'arm': 'F', 'train_s': 0.01, 'params': 4620, 'acc': 0.9395, 'cov': 0.0, 'err': None}
+[742s status=RUNNING log=13411B]
+[w1 +594s] {'task': 'bank0', 'seed': 1, 'k': 3, 'arm': 'A', 'train_s': 35.59, 'params': 2173440, 'acc': 0.6833, 'cov': 0.0, 'err': None}
+[w1 +595s] cell travel 2 3
+[w1 +595s] {'task': 'travel', 'seed': 2, 'k': 3, 'arm': 'F', 'train_s': 0.01, 'params': 5775, 'acc': 0.9844, 'cov': 1.0, 'err': 0.0156}
+[w0 +596s] {'task': 'bank1', 'seed': 1, 'k': 3, 'arm': 'A', 'train_s': 33.02, 'params': 2173440, 'acc': 0.7104, 'cov': 0.0, 'err': None}
+[w0 +596s] cell work 2 3
+[w0 +596s] {'task': 'work', 'seed': 2, 'k': 3, 'arm': 'F', 'train_s': 0.01, 'params': 5775, 'acc': 0.8911, 'cov': 0.4733, 'err': 0.0235}
+[orch +599s] cells complete: 9 records: 48
+[w2 +614s] {'task': 'bank2', 'seed': 1, 'k': 3, 'arm': 'B', 'train_s': 33.17, 'params': 2173440, 'acc': 0.8476, 'cov': 0.0, 'err': None}
+[773s status=RUNNING log=14190B]
+[w0 +629s] {'task': 'work', 'seed': 2, 'k': 3, 'arm': 'B', 'train_s': 31.96, 'params': 2176128, 'acc': 0.8844, 'cov': 0.5867, 'err': 0.0114}
+[orch +629s] cells complete: 9 records: 50
+[w1 +630s] {'task': 'travel', 'seed': 2, 'k': 3, 'arm': 'B', 'train_s': 33.82, 'params': 2176128, 'acc': 0.96, 'cov': 0.9067, 'err': 0.0221}
+[804s status=RUNNING log=14515B]
+[w2 +654s] {'task': 'bank2', 'seed': 1, 'k': 3, 'arm': 'D_comp', 'train_s': 38.41, 'params': 10756, 'acc': 0.8246, 'cov': 0.0, 'err': None}
+[orch +659s] cells complete: 9 records: 52
+[w2 +665s] {'task': 'bank2', 'seed': 1, 'k': 3, 'arm': 'D_comp_ft', 'train_s': 49.0, 'params': 2173440, 'acc': 0.7599, 'cov': 0.0, 'err': None}
+[w1 +667s] {'task': 'travel', 'seed': 2, 'k': 3, 'arm': 'D_comp', 'train_s': 35.96, 'params': 13448, 'acc': 0.9489, 'cov': 0.8556, 'err': 0.0078}
+[w0 +669s] {'task': 'work', 'seed': 2, 'k': 3, 'arm': 'D_comp', 'train_s': 38.58, 'params': 13448, 'acc': 0.8178, 'cov': 0.4467, 'err': 0.005}
+[w1 +679s] {'task': 'travel', 'seed': 2, 'k': 3, 'arm': 'D_comp_ft', 'train_s': 46.37, 'params': 2176128, 'acc': 0.8756, 'cov': 0.4733, 'err': 0.0094}
+[w0 +680s] {'task': 'work', 'seed': 2, 'k': 3, 'arm': 'D_comp_ft', 'train_s': 49.73, 'params': 2176128, 'acc': 0.82, 'cov': 0.0, 'err': None}
+[835s status=RUNNING log=15424B]
+[orch +689s] cells complete: 9 records: 57
+[w2 +701s] {'task': 'bank2', 'seed': 1, 'k': 3, 'arm': 'A', 'train_s': 34.2, 'params': 2173440, 'acc': 0.785, 'cov': 0.0, 'err': None}
+[w2 +701s] cell bank0 2 3
+[w2 +702s] {'task': 'bank0', 'seed': 2, 'k': 3, 'arm': 'F', 'train_s': 0.01, 'params': 4620, 'acc': 0.9083, 'cov': 0.7271, 'err': 0.0201}
+[w1 +711s] {'task': 'travel', 'seed': 2, 'k': 3, 'arm': 'A', 'train_s': 31.82, 'params': 2176128, 'acc': 0.88, 'cov': 0.8156, 'err': 0.0436}
+[w1 +712s] cell bank1 2 3
+[w1 +712s] {'task': 'bank1', 'seed': 2, 'k': 3, 'arm': 'F', 'train_s': 0.01, 'params': 4620, 'acc': 0.9083, 'cov': 0.8396, 'err': 0.0099}
+[866s status=RUNNING log=16071B]
+[w0 +715s] {'task': 'work', 'seed': 2, 'k': 3, 'arm': 'A', 'train_s': 33.67, 'params': 2176128, 'acc': 0.8, 'cov': 0.0, 'err': None}
+[w0 +715s] cell bank2 2 3
+[w0 +716s] {'task': 'bank2', 'seed': 2, 'k': 3, 'arm': 'F', 'train_s': 0.01, 'params': 4620, 'acc': 0.8873, 'cov': 0.6618, 'err': 0.0158}
+[orch +719s] cells complete: 12 records: 63
+[w2 +737s] {'task': 'bank0', 'seed': 2, 'k': 3, 'arm': 'B', 'train_s': 33.07, 'params': 2173440, 'acc': 0.8271, 'cov': 0.0, 'err': None}
+[897s status=RUNNING log=16549B]
+[w1 +748s] {'task': 'bank1', 'seed': 2, 'k': 3, 'arm': 'B', 'train_s': 34.29, 'params': 2173440, 'acc': 0.8792, 'cov': 0.0, 'err': None}
+[orch +749s] cells complete: 12 records: 65
+[w0 +751s] {'task': 'bank2', 'seed': 2, 'k': 3, 'arm': 'B', 'train_s': 34.47, 'params': 2173440, 'acc': 0.785, 'cov': 0.0, 'err': None}
+[928s status=RUNNING log=16866B]
+[orch +779s] cells complete: 12 records: 66
+[w2 +782s] {'task': 'bank0', 'seed': 2, 'k': 3, 'arm': 'D_comp', 'train_s': 43.13, 'params': 10756, 'acc': 0.8375, 'cov': 0.0, 'err': None}
+[w2 +794s] {'task': 'bank0', 'seed': 2, 'k': 3, 'arm': 'D_comp_ft', 'train_s': 54.11, 'params': 2173440, 'acc': 0.7667, 'cov': 0.0, 'err': None}
+[w1 +796s] {'task': 'bank1', 'seed': 2, 'k': 3, 'arm': 'D_comp', 'train_s': 45.71, 'params': 10756, 'acc': 0.8646, 'cov': 0.4562, 'err': 0.0}
+[w0 +799s] {'task': 'bank2', 'seed': 2, 'k': 3, 'arm': 'D_comp', 'train_s': 45.48, 'params': 10756, 'acc': 0.7432, 'cov': 0.0, 'err': None}
+[959s status=RUNNING log=17477B]
+[w1 +808s] {'task': 'bank1', 'seed': 2, 'k': 3, 'arm': 'D_comp_ft', 'train_s': 57.32, 'params': 2173440, 'acc': 0.7917, 'cov': 0.0, 'err': None}
+[orch +809s] cells complete: 12 records: 71
+[w0 +811s] {'task': 'bank2', 'seed': 2, 'k': 3, 'arm': 'D_comp_ft', 'train_s': 56.9, 'params': 2173440, 'acc': 0.6994, 'cov': 0.0, 'err': None}
+[w2 +828s] {'task': 'bank0', 'seed': 2, 'k': 3, 'arm': 'A', 'train_s': 32.0, 'params': 2173440, 'acc': 0.8063, 'cov': 0.0, 'err': None}
+[w2 +828s] cell travel 0 1
+[w2 +828s] {'task': 'travel', 'seed': 0, 'k': 1, 'arm': 'F', 'train_s': 0.01, 'params': 5775, 'acc': 0.9422, 'cov': 0.5956, 'err': 0.0075}
+[990s status=RUNNING log=18112B]
+[orch +839s] cells complete: 13 records: 74
+[w1 +846s] {'task': 'bank1', 'seed': 2, 'k': 3, 'arm': 'A', 'train_s': 35.43, 'params': 2173440, 'acc': 0.8292, 'cov': 0.0, 'err': None}
+[w1 +846s] cell work 0 1
+[w1 +846s] {'task': 'work', 'seed': 0, 'k': 1, 'arm': 'F', 'train_s': 0.01, 'params': 5775, 'acc': 0.7578, 'cov': 0.0, 'err': None}
+[w0 +848s] {'task': 'bank2', 'seed': 2, 'k': 3, 'arm': 'A', 'train_s': 35.29, 'params': 2173440, 'acc': 0.7662, 'cov': 0.0, 'err': None}
+[w0 +848s] cell bank0 0 1
+[w0 +848s] {'task': 'bank0', 'seed': 0, 'k': 1, 'arm': 'F', 'train_s': 0.01, 'params': 4620, 'acc': 0.7688, 'cov': 0.0, 'err': None}
+[w2 +860s] {'task': 'travel', 'seed': 0, 'k': 1, 'arm': 'B', 'train_s': 31.44, 'params': 2176128, 'acc': 0.8378, 'cov': 0.0, 'err': None}
+[orch +869s] cells complete: 15 records: 79
+[1021s status=RUNNING log=18928B]
+[w1 +877s] {'task': 'work', 'seed': 0, 'k': 1, 'arm': 'B', 'train_s': 30.72, 'params': 2176128, 'acc': 0.7689, 'cov': 0.0, 'err': None}
+[w0 +880s] {'task': 'bank0', 'seed': 0, 'k': 1, 'arm': 'B', 'train_s': 29.68, 'params': 2173440, 'acc': 0.4646, 'cov': 0.0, 'err': None}
+[w2 +898s] {'task': 'travel', 'seed': 0, 'k': 1, 'arm': 'D_comp', 'train_s': 36.56, 'params': 13448, 'acc': 0.7556, 'cov': 0.0, 'err': None}
+[orch +899s] cells complete: 15 records: 82
+[1052s status=RUNNING log=19386B]
+[w2 +909s] {'task': 'travel', 'seed': 0, 'k': 1, 'arm': 'D_comp_ft', 'train_s': 46.95, 'params': 2176128, 'acc': 0.6467, 'cov': 0.0, 'err': None}
+[w1 +913s] {'task': 'work', 'seed': 0, 'k': 1, 'arm': 'D_comp', 'train_s': 34.27, 'params': 13448, 'acc': 0.6933, 'cov': 0.0, 'err': None}
+[w0 +916s] {'task': 'bank0', 'seed': 0, 'k': 1, 'arm': 'D_comp', 'train_s': 35.33, 'params': 10756, 'acc': 0.4458, 'cov': 0.0, 'err': None}
+[w1 +923s] {'task': 'work', 'seed': 0, 'k': 1, 'arm': 'D_comp_ft', 'train_s': 43.78, 'params': 2176128, 'acc': 0.6533, 'cov': 0.0, 'err': None}
+[w0 +927s] {'task': 'bank0', 'seed': 0, 'k': 1, 'arm': 'D_comp_ft', 'train_s': 44.87, 'params': 2173440, 'acc': 0.4979, 'cov': 0.0, 'err': None}
+[orch +929s] cells complete: 15 records: 87
+[1083s status=RUNNING log=20144B]
+[w2 +941s] {'task': 'travel', 'seed': 0, 'k': 1, 'arm': 'A', 'train_s': 30.94, 'params': 2176128, 'acc': 0.6378, 'cov': 0.0, 'err': None}
+[w2 +941s] cell bank1 0 1
+[w2 +941s] {'task': 'bank1', 'seed': 0, 'k': 1, 'arm': 'F', 'train_s': 0.01, 'params': 4620, 'acc': 0.6687, 'cov': 0.0, 'err': None}
+[w1 +952s] {'task': 'work', 'seed': 0, 'k': 1, 'arm': 'A', 'train_s': 28.8, 'params': 2176128, 'acc': 0.6378, 'cov': 0.0, 'err': None}
+[w1 +952s] cell bank2 0 1
+[w1 +952s] {'task': 'bank2', 'seed': 0, 'k': 1, 'arm': 'F', 'train_s': 0.01, 'params': 4620, 'acc': 0.8038, 'cov': 0.0, 'err': None}
+[w0 +959s] {'task': 'bank0', 'seed': 0, 'k': 1, 'arm': 'A', 'train_s': 30.22, 'params': 2173440, 'acc': 0.4021, 'cov': 0.0, 'err': None}
+[w0 +959s] cell travel 1 1
+[w0 +959s] {'task': 'travel', 'seed': 1, 'k': 1, 'arm': 'F', 'train_s': 0.01, 'params': 5775, 'acc': 0.8689, 'cov': 0.0, 'err': None}
+[orch +959s] cells complete: 18 records: 93
+[1114s status=RUNNING log=21077B]
+[w2 +974s] {'task': 'bank1', 'seed': 0, 'k': 1, 'arm': 'B', 'train_s': 30.88, 'params': 2173440, 'acc': 0.4917, 'cov': 0.0, 'err': None}
+[w1 +982s] {'task': 'bank2', 'seed': 0, 'k': 1, 'arm': 'B', 'train_s': 28.62, 'params': 2173440, 'acc': 0.4802, 'cov': 0.0, 'err': None}
+[orch +990s] cells complete: 18 records: 95
+[w0 +992s] {'task': 'travel', 'seed': 1, 'k': 1, 'arm': 'B', 'train_s': 32.07, 'params': 2176128, 'acc': 0.7422, 'cov': 0.0, 'err': None}
+[1145s status=RUNNING log=21533B]
+[w2 +1014s] {'task': 'bank1', 'seed': 0, 'k': 1, 'arm': 'D_comp', 'train_s': 38.09, 'params': 10756, 'acc': 0.5271, 'cov': 0.0, 'err': None}
+[orch +1020s] cells complete: 18 records: 97
+[w1 +1021s] {'task': 'bank2', 'seed': 0, 'k': 1, 'arm': 'D_comp', 'train_s': 37.48, 'params': 10756, 'acc': 0.4301, 'cov': 0.0, 'err': None}
+[1176s status=RUNNING log=21860B]
+[w2 +1025s] {'task': 'bank1', 'seed': 0, 'k': 1, 'arm': 'D_comp_ft', 'train_s': 48.7, 'params': 2173440, 'acc': 0.5583, 'cov': 0.0, 'err': None}
+[w0 +1031s] {'task': 'travel', 'seed': 1, 'k': 1, 'arm': 'D_comp', 'train_s': 37.76, 'params': 13448, 'acc': 0.6444, 'cov': 0.0, 'err': None}
+[w1 +1032s] {'task': 'bank2', 'seed': 0, 'k': 1, 'arm': 'D_comp_ft', 'train_s': 47.24, 'params': 2173440, 'acc': 0.6388, 'cov': 0.0, 'err': None}
+[w0 +1043s] {'task': 'travel', 'seed': 1, 'k': 1, 'arm': 'D_comp_ft', 'train_s': 48.25, 'params': 2176128, 'acc': 0.6889, 'cov': 0.0, 'err': None}
+[orch +1050s] cells complete: 18 records: 102
+[1207s status=RUNNING log=22486B]
+[w2 +1058s] {'task': 'bank1', 'seed': 0, 'k': 1, 'arm': 'A', 'train_s': 31.46, 'params': 2173440, 'acc': 0.4562, 'cov': 0.0, 'err': None}
+[w2 +1059s] cell work 1 1
+[w2 +1059s] {'task': 'work', 'seed': 1, 'k': 1, 'arm': 'F', 'train_s': 0.01, 'params': 5775, 'acc': 0.7644, 'cov': 0.0, 'err': None}
+[w1 +1062s] {'task': 'bank2', 'seed': 0, 'k': 1, 'arm': 'A', 'train_s': 28.64, 'params': 2173440, 'acc': 0.4864, 'cov': 0.0, 'err': None}
+[w1 +1063s] cell bank0 1 1
+[w1 +1063s] {'task': 'bank0', 'seed': 1, 'k': 1, 'arm': 'F', 'train_s': 0.01, 'params': 4620, 'acc': 0.8667, 'cov': 0.0, 'err': None}
+[w0 +1076s] {'task': 'travel', 'seed': 1, 'k': 1, 'arm': 'A', 'train_s': 31.91, 'params': 2176128, 'acc': 0.6222, 'cov': 0.0, 'err': None}
+[w0 +1076s] cell bank1 1 1
+[w0 +1076s] {'task': 'bank1', 'seed': 1, 'k': 1, 'arm': 'F', 'train_s': 0.01, 'params': 4620, 'acc': 0.8688, 'cov': 0.0, 'err': None}
+[orch +1080s] cells complete: 21 records: 108
+[1238s status=RUNNING log=23428B]
+[w2 +1091s] {'task': 'work', 'seed': 1, 'k': 1, 'arm': 'B', 'train_s': 31.93, 'params': 2176128, 'acc': 0.6867, 'cov': 0.0, 'err': None}
+[w1 +1095s] {'task': 'bank0', 'seed': 1, 'k': 1, 'arm': 'B', 'train_s': 30.87, 'params': 2173440, 'acc': 0.3646, 'cov': 0.0, 'err': None}
+[w0 +1109s] {'task': 'bank1', 'seed': 1, 'k': 1, 'arm': 'B', 'train_s': 32.14, 'params': 2173440, 'acc': 0.5417, 'cov': 0.0, 'err': None}
+[orch +1110s] cells complete: 21 records: 111
+[1269s status=RUNNING log=23887B]
+[w2 +1131s] {'task': 'work', 'seed': 1, 'k': 1, 'arm': 'D_comp', 'train_s': 38.29, 'params': 13448, 'acc': 0.5444, 'cov': 0.0, 'err': None}
+[orch +1140s] cells complete: 21 records: 112
+[w1 +1141s] {'task': 'bank0', 'seed': 1, 'k': 1, 'arm': 'D_comp', 'train_s': 44.83, 'params': 10756, 'acc': 0.5083, 'cov': 0.0, 'err': None}
+[w2 +1143s] {'task': 'work', 'seed': 1, 'k': 1, 'arm': 'D_comp_ft', 'train_s': 49.84, 'params': 2176128, 'acc': 0.5556, 'cov': 0.0, 'err': None}
+[1300s status=RUNNING log=24359B]
+[w0 +1154s] {'task': 'bank1', 'seed': 1, 'k': 1, 'arm': 'D_comp', 'train_s': 42.34, 'params': 10756, 'acc': 0.5271, 'cov': 0.0, 'err': None}
+[w1 +1154s] {'task': 'bank0', 'seed': 1, 'k': 1, 'arm': 'D_comp_ft', 'train_s': 56.18, 'params': 2173440, 'acc': 0.3583, 'cov': 0.0, 'err': None}
+[w0 +1166s] {'task': 'bank1', 'seed': 1, 'k': 1, 'arm': 'D_comp_ft', 'train_s': 53.55, 'params': 2173440, 'acc': 0.5958, 'cov': 0.0, 'err': None}
+[orch +1170s] cells complete: 21 records: 117
+[w2 +1179s] {'task': 'work', 'seed': 1, 'k': 1, 'arm': 'A', 'train_s': 35.8, 'params': 2176128, 'acc': 0.6667, 'cov': 0.0, 'err': None}
+[w2 +1179s] cell bank2 1 1
+[w2 +1179s] {'task': 'bank2', 'seed': 1, 'k': 1, 'arm': 'F', 'train_s': 0.01, 'params': 4620, 'acc': 0.7161, 'cov': 0.0, 'err': None}
+[1331s status=RUNNING log=25135B]
+[w1 +1189s] {'task': 'bank0', 'seed': 1, 'k': 1, 'arm': 'A', 'train_s': 33.23, 'params': 2173440, 'acc': 0.3104, 'cov': 0.0, 'err': None}
+[w1 +1189s] cell travel 2 1
+[w1 +1189s] {'task': 'travel', 'seed': 2, 'k': 1, 'arm': 'F', 'train_s': 0.01, 'params': 5775, 'acc': 0.86, 'cov': 0.7467, 'err': 0.0298}
+[orch +1200s] cells complete: 23 records: 121
+[w0 +1201s] {'task': 'bank1', 'seed': 1, 'k': 1, 'arm': 'A', 'train_s': 33.28, 'params': 2173440, 'acc': 0.5229, 'cov': 0.0, 'err': None}
+[w0 +1201s] cell work 2 1
+[w0 +1201s] {'task': 'work', 'seed': 2, 'k': 1, 'arm': 'F', 'train_s': 0.02, 'params': 5775, 'acc': 0.7422, 'cov': 0.0, 'err': None}
+[1362s status=RUNNING log=25782B]
+[w2 +1218s] {'task': 'bank2', 'seed': 1, 'k': 1, 'arm': 'B', 'train_s': 37.32, 'params': 2173440, 'acc': 0.4029, 'cov': 0.0, 'err': None}
+[w1 +1222s] {'task': 'travel', 'seed': 2, 'k': 1, 'arm': 'B', 'train_s': 32.53, 'params': 2176128, 'acc': 0.7133, 'cov': 0.4044, 'err': 0.0165}
+[orch +1230s] cells complete: 24 records: 125
+[w0 +1237s] {'task': 'work', 'seed': 2, 'k': 1, 'arm': 'B', 'train_s': 34.93, 'params': 2176128, 'acc': 0.7222, 'cov': 0.0, 'err': None}
+[1393s status=RUNNING log=26247B]
+[orch +1260s] cells complete: 24 records: 126
+[w2 +1264s] {'task': 'bank2', 'seed': 1, 'k': 1, 'arm': 'D_comp', 'train_s': 43.97, 'params': 10756, 'acc': 0.476, 'cov': 0.0, 'err': None}
+[w1 +1265s] {'task': 'travel', 'seed': 2, 'k': 1, 'arm': 'D_comp', 'train_s': 42.11, 'params': 13448, 'acc': 0.4422, 'cov': 0.0, 'err': None}
+[1424s status=RUNNING log=26575B]
+[w2 +1277s] {'task': 'bank2', 'seed': 1, 'k': 1, 'arm': 'D_comp_ft', 'train_s': 56.2, 'params': 2173440, 'acc': 0.3862, 'cov': 0.0, 'err': None}
+[w1 +1278s] {'task': 'travel', 'seed': 2, 'k': 1, 'arm': 'D_comp_ft', 'train_s': 53.66, 'params': 2176128, 'acc': 0.7422, 'cov': 0.0, 'err': None}
+[w0 +1279s] {'task': 'work', 'seed': 2, 'k': 1, 'arm': 'D_comp', 'train_s': 41.27, 'params': 13448, 'acc': 0.5356, 'cov': 0.0, 'err': None}
+[orch +1290s] cells complete: 24 records: 131
+[w0 +1291s] {'task': 'work', 'seed': 2, 'k': 1, 'arm': 'D_comp_ft', 'train_s': 52.72, 'params': 2176128, 'acc': 0.6178, 'cov': 0.0, 'err': None}
+[1455s status=RUNNING log=27198B]
+[w2 +1311s] {'task': 'bank2', 'seed': 1, 'k': 1, 'arm': 'A', 'train_s': 32.3, 'params': 2173440, 'acc': 0.428, 'cov': 0.0, 'err': None}
+[w2 +1311s] cell bank0 2 1
+[w2 +1311s] {'task': 'bank0', 'seed': 2, 'k': 1, 'arm': 'F', 'train_s': 0.01, 'params': 4620, 'acc': 0.7562, 'cov': 0.0, 'err': None}
+[w1 +1314s] {'task': 'travel', 'seed': 2, 'k': 1, 'arm': 'A', 'train_s': 35.08, 'params': 2176128, 'acc': 0.4556, 'cov': 0.0, 'err': None}
+[w1 +1314s] cell bank1 2 1
+[w1 +1314s] {'task': 'bank1', 'seed': 2, 'k': 1, 'arm': 'F', 'train_s': 0.01, 'params': 4620, 'acc': 0.8292, 'cov': 0.4938, 'err': 0.0042}
+[orch +1320s] cells complete: 26 records: 136
+[w0 +1328s] {'task': 'work', 'seed': 2, 'k': 1, 'arm': 'A', 'train_s': 36.03, 'params': 2176128, 'acc': 0.5667, 'cov': 0.0, 'err': None}
+[w0 +1328s] cell bank2 2 1
+[w0 +1328s] {'task': 'bank2', 'seed': 2, 'k': 1, 'arm': 'F', 'train_s': 0.01, 'params': 4620, 'acc': 0.7724, 'cov': 0.0, 'err': None}
+[1486s status=RUNNING log=28144B]
+[w2 +1342s] {'task': 'bank0', 'seed': 2, 'k': 1, 'arm': 'B', 'train_s': 29.97, 'params': 2173440, 'acc': 0.4167, 'cov': 0.0, 'err': None}
+[w1 +1345s] {'task': 'bank1', 'seed': 2, 'k': 1, 'arm': 'B', 'train_s': 29.93, 'params': 2173440, 'acc': 0.5188, 'cov': 0.0, 'err': None}
+[orch +1350s] cells complete: 27 records: 140
+[w0 +1362s] {'task': 'bank2', 'seed': 2, 'k': 1, 'arm': 'B', 'train_s': 32.15, 'params': 2173440, 'acc': 0.5031, 'cov': 0.0, 'err': None}
+[1517s status=RUNNING log=28604B]
+[orch +1380s] cells complete: 27 records: 141
+[w2 +1386s] {'task': 'bank0', 'seed': 2, 'k': 1, 'arm': 'D_comp', 'train_s': 42.17, 'params': 10756, 'acc': 0.5021, 'cov': 0.0, 'err': None}
+[w1 +1390s] {'task': 'bank1', 'seed': 2, 'k': 1, 'arm': 'D_comp', 'train_s': 42.86, 'params': 10756, 'acc': 0.5146, 'cov': 0.0, 'err': None}
+[1548s status=RUNNING log=28932B]
+[w2 +1399s] {'task': 'bank0', 'seed': 2, 'k': 1, 'arm': 'D_comp_ft', 'train_s': 53.97, 'params': 2173440, 'acc': 0.3646, 'cov': 0.0, 'err': None}
+[w1 +1403s] {'task': 'bank1', 'seed': 2, 'k': 1, 'arm': 'D_comp_ft', 'train_s': 54.84, 'params': 2173440, 'acc': 0.5062, 'cov': 0.0, 'err': None}
+[w0 +1408s] {'task': 'bank2', 'seed': 2, 'k': 1, 'arm': 'D_comp', 'train_s': 44.49, 'params': 10756, 'acc': 0.428, 'cov': 0.0, 'err': None}
+[orch +1410s] cells complete: 27 records: 146
+[w0 +1421s] {'task': 'bank2', 'seed': 2, 'k': 1, 'arm': 'D_comp_ft', 'train_s': 56.32, 'params': 2173440, 'acc': 0.5094, 'cov': 0.0, 'err': None}
+[1579s status=RUNNING log=29556B]
+[w2 +1434s] {'task': 'bank0', 'seed': 2, 'k': 1, 'arm': 'A', 'train_s': 33.67, 'params': 2173440, 'acc': 0.4562, 'cov': 0.0, 'err': None}
+[w2 +1435s] cell travel 0 10
+[w2 +1435s] {'task': 'travel', 'seed': 0, 'k': 10, 'arm': 'F', 'train_s': 0.01, 'params': 5775, 'acc': 0.9956, 'cov': 1.0, 'err': 0.0044}
+[orch +1440s] cells complete: 28 records: 149
+[w1 +1440s] {'task': 'bank1', 'seed': 2, 'k': 1, 'arm': 'A', 'train_s': 35.12, 'params': 2173440, 'acc': 0.5083, 'cov': 0.0, 'err': None}
+[w1 +1440s] cell work 0 10
+[w1 +1440s] {'task': 'work', 'seed': 0, 'k': 10, 'arm': 'F', 'train_s': 0.03, 'params': 5775, 'acc': 0.9489, 'cov': 0.9378, 'err': 0.0237}
+[w0 +1457s] {'task': 'bank2', 'seed': 2, 'k': 1, 'arm': 'A', 'train_s': 34.39, 'params': 2173440, 'acc': 0.4572, 'cov': 0.0, 'err': None}
+[w0 +1457s] cell bank0 0 10
+[w0 +1457s] {'task': 'bank0', 'seed': 0, 'k': 10, 'arm': 'F', 'train_s': 0.01, 'params': 4620, 'acc': 0.9417, 'cov': 0.7542, 'err': 0.0055}
+[1610s status=RUNNING log=30517B]
+[w2 +1468s] {'task': 'travel', 'seed': 0, 'k': 10, 'arm': 'B', 'train_s': 32.07, 'params': 2176128, 'acc': 0.9844, 'cov': 1.0, 'err': 0.0156}
+[orch +1470s] cells complete: 30 records: 154
+[w1 +1475s] {'task': 'work', 'seed': 0, 'k': 10, 'arm': 'B', 'train_s': 34.01, 'params': 2176128, 'acc': 0.9422, 'cov': 0.8422, 'err': 0.0106}
+[1641s status=RUNNING log=30848B]
+[w0 +1495s] {'task': 'bank0', 'seed': 0, 'k': 10, 'arm': 'B', 'train_s': 36.08, 'params': 2173440, 'acc': 0.9208, 'cov': 0.7396, 'err': 0.0085}
+[orch +1500s] cells complete: 30 records: 156
+[w2 +1508s] {'task': 'travel', 'seed': 0, 'k': 10, 'arm': 'D_comp', 'train_s': 38.43, 'params': 13448, 'acc': 0.9689, 'cov': 0.9667, 'err': 0.0138}
+[w2 +1520s] {'task': 'travel', 'seed': 0, 'k': 10, 'arm': 'D_comp_ft', 'train_s': 49.63, 'params': 2176128, 'acc': 0.9756, 'cov': 0.9422, 'err': 0.0047}
+[1673s status=RUNNING log=31339B]
+[w1 +1522s] {'task': 'work', 'seed': 0, 'k': 10, 'arm': 'D_comp', 'train_s': 45.59, 'params': 13448, 'acc': 0.9289, 'cov': 0.8289, 'err': 0.0134}
+[orch +1530s] cells complete: 30 records: 159
+[w1 +1535s] {'task': 'work', 'seed': 0, 'k': 10, 'arm': 'D_comp_ft', 'train_s': 57.92, 'params': 2176128, 'acc': 0.9, 'cov': 0.62, 'err': 0.0072}
+[w0 +1541s] {'task': 'bank0', 'seed': 0, 'k': 10, 'arm': 'D_comp', 'train_s': 44.93, 'params': 10756, 'acc': 0.9229, 'cov': 0.8729, 'err': 0.0215}
+[1704s status=RUNNING log=31824B]
+[w2 +1555s] {'task': 'travel', 'seed': 0, 'k': 10, 'arm': 'A', 'train_s': 33.77, 'params': 2176128, 'acc': 0.9756, 'cov': 0.9467, 'err': 0.0}
+[w2 +1555s] cell bank1 0 10
+[w2 +1555s] {'task': 'bank1', 'seed': 0, 'k': 10, 'arm': 'F', 'train_s': 0.02, 'params': 4620, 'acc': 0.9646, 'cov': 0.9875, 'err': 0.0253}
+[w0 +1555s] {'task': 'bank0', 'seed': 0, 'k': 10, 'arm': 'D_comp_ft', 'train_s': 57.38, 'params': 2173440, 'acc': 0.8583, 'cov': 0.4792, 'err': 0.0}
+[orch +1560s] cells complete: 31 records: 164
+[w1 +1573s] {'task': 'work', 'seed': 0, 'k': 10, 'arm': 'A', 'train_s': 36.84, 'params': 2176128, 'acc': 0.9289, 'cov': 0.8489, 'err': 0.0262}
+[w1 +1573s] cell bank2 0 10
+[w1 +1573s] {'task': 'bank2', 'seed': 0, 'k': 10, 'arm': 'F', 'train_s': 0.01, 'params': 4620, 'acc': 0.9749, 'cov': 0.9562, 'err': 0.0066}
+[1735s status=RUNNING log=32640B]
+[orch +1590s] cells complete: 32 records: 166
+[w2 +1596s] {'task': 'bank1', 'seed': 0, 'k': 10, 'arm': 'B', 'train_s': 39.33, 'params': 2173440, 'acc': 0.9062, 'cov': 0.0, 'err': None}
+[w0 +1598s] {'task': 'bank0', 'seed': 0, 'k': 10, 'arm': 'A', 'train_s': 40.96, 'params': 2173440, 'acc': 0.9167, 'cov': 0.8313, 'err': 0.0175}
+[w0 +1598s] cell travel 1 10
+[w0 +1598s] {'task': 'travel', 'seed': 1, 'k': 10, 'arm': 'F', 'train_s': 0.01, 'params': 5775, 'acc': 0.9933, 'cov': 0.9889, 'err': 0.0022}
+[1766s status=RUNNING log=33139B]
+[w1 +1616s] {'task': 'bank2', 'seed': 0, 'k': 10, 'arm': 'B', 'train_s': 41.23, 'params': 2173440, 'acc': 0.9248, 'cov': 0.8267, 'err': 0.0177}
+[orch +1620s] cells complete: 33 records: 170
+[w0 +1637s] {'task': 'travel', 'seed': 1, 'k': 10, 'arm': 'B', 'train_s': 37.02, 'params': 2176128, 'acc': 0.9889, 'cov': 0.9956, 'err': 0.0089}
+[1797s status=RUNNING log=33474B]
+[w2 +1646s] {'task': 'bank1', 'seed': 0, 'k': 10, 'arm': 'D_comp', 'train_s': 47.89, 'params': 10756, 'acc': 0.9271, 'cov': 0.0, 'err': None}
+[orch +1650s] cells complete: 33 records: 172
+[w2 +1661s] {'task': 'bank1', 'seed': 0, 'k': 10, 'arm': 'D_comp_ft', 'train_s': 60.65, 'params': 2173440, 'acc': 0.9354, 'cov': 0.0, 'err': None}
+[w1 +1666s] {'task': 'bank2', 'seed': 0, 'k': 10, 'arm': 'D_comp', 'train_s': 48.01, 'params': 10756, 'acc': 0.9269, 'cov': 0.7891, 'err': 0.0132}
+[1828s status=RUNNING log=33956B]
+[orch +1680s] cells complete: 33 records: 174
+[w0 +1680s] {'task': 'travel', 'seed': 1, 'k': 10, 'arm': 'D_comp', 'train_s': 41.56, 'params': 13448, 'acc': 0.9756, 'cov': 0.9978, 'err': 0.0245}
+[w1 +1681s] {'task': 'bank2', 'seed': 0, 'k': 10, 'arm': 'D_comp_ft', 'train_s': 61.06, 'params': 2173440, 'acc': 0.9081, 'cov': 0.7474, 'err': 0.0084}
+[w0 +1692s] {'task': 'travel', 'seed': 1, 'k': 10, 'arm': 'D_comp_ft', 'train_s': 53.01, 'params': 2176128, 'acc': 0.9778, 'cov': 0.9956, 'err': 0.0179}
+[w2 +1701s] {'task': 'bank1', 'seed': 0, 'k': 10, 'arm': 'A', 'train_s': 38.5, 'params': 2173440, 'acc': 0.925, 'cov': 0.825, 'err': 0.0101}
+[w2 +1702s] cell work 1 10
+[w2 +1702s] {'task': 'work', 'seed': 1, 'k': 10, 'arm': 'F', 'train_s': 0.01, 'params': 5775, 'acc': 0.9733, 'cov': 0.9778, 'err': 0.0136}
+[1859s status=RUNNING log=34762B]
+[orch +1710s] cells complete: 34 records: 179
+[w1 +1721s] {'task': 'bank2', 'seed': 0, 'k': 10, 'arm': 'A', 'train_s': 38.45, 'params': 2173440, 'acc': 0.9436, 'cov': 0.8768, 'err': 0.0167}
+[w1 +1721s] cell bank0 1 10
+[w1 +1721s] {'task': 'bank0', 'seed': 1, 'k': 10, 'arm': 'F', 'train_s': 0.01, 'params': 4620, 'acc': 0.9604, 'cov': 0.6625, 'err': 0.0}
+[w0 +1727s] {'task': 'travel', 'seed': 1, 'k': 10, 'arm': 'A', 'train_s': 33.36, 'params': 2176128, 'acc': 0.9711, 'cov': 1.0, 'err': 0.0289}
+[w0 +1727s] cell bank1 1 10
+[w0 +1727s] {'task': 'bank1', 'seed': 1, 'k': 10, 'arm': 'F', 'train_s': 0.01, 'params': 4620, 'acc': 0.9688, 'cov': 0.9667, 'err': 0.0172}
+[w2 +1737s] {'task': 'work', 'seed': 1, 'k': 10, 'arm': 'B', 'train_s': 34.17, 'params': 2176128, 'acc': 0.9689, 'cov': 0.8689, 'err': 0.0051}
+[1890s status=RUNNING log=35570B]
+[orch +1740s] cells complete: 36 records: 184
+[w1 +1763s] {'task': 'bank0', 'seed': 1, 'k': 10, 'arm': 'B', 'train_s': 40.28, 'params': 2173440, 'acc': 0.9354, 'cov': 0.85, 'err': 0.0147}
+[w0 +1764s] {'task': 'bank1', 'seed': 1, 'k': 10, 'arm': 'B', 'train_s': 35.53, 'params': 2173440, 'acc': 0.9292, 'cov': 0.8896, 'err': 0.0211}
+[orch +1770s] cells complete: 36 records: 186
+[1921s status=RUNNING log=35948B]

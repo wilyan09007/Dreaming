@@ -1,0 +1,78 @@
+bundle 0.06 MB
+community launch failed, trying ALL: [{'message': 'There are no longer any instances available with the requested specifications. Please refresh and try again.', 'path': ['podFindAndDeployOnDemand'], 'extensions': {'code': 'SUPPLY_CONSTR
+pod {'id': 'thkqiaieeqls0a', 'machineId': '5tdpktfonhj8', 'costPerHr': 0.89}
+[31s] bundle uploaded
+name, memory.total [MiB]
+NVIDIA GeForce RTX 4090, 24564 MiB
+waiting for bundle
+bundle extracted 13 files
+[64s status=RUNNING log=105B]
+[pod +0s] cpus=8 gpu=NVIDIA GeForce RTX 4090, 24564 MiB
+[96s status=RUNNING log=161B]
+[128s status=RUNNING log=161B]
+[160s status=RUNNING log=161B]
+[192s status=RUNNING log=161B]
+[pod +132s] prep exit 0  split:   0%|          | 0/500 [00:00<?, ? examples/s]
+Generating test split: 100%|ââââââââââ| 500/500 [00:00<00:00, 119953.78 examples/s]
+[embed] 2513 texts in 0.3s
+pool rows 24994, exact-text duplicates with eval removed: 42; label-name overlaps pool/eval: ['exchange rate', 'transfer']
+pool labels per dataset {'20ng': 20, 'ag_news': 4, 'banking': 17, 'clinc': 105, 'dbpedia': 14, 'emotion': 6, 'hate': 3, 'massive': 57, 'sst5': 5, 'trec': 35} rows 24952
+[embed] 266 texts in 0.0s
+[embed] 266 texts in 0.0s
+pool labels whose description fell back to the label name: 0/266
+LLM spend so far $0.0033
+
+[224s status=RUNNING log=806B]
+[256s status=RUNNING log=806B]
+[289s status=RUNNING log=806B]
+[321s status=RUNNING log=806B]
+[353s status=RUNNING log=806B]
+[pod +284s] synth2 exit 0 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[embed] 150 texts in 0.4s
+[embed] 150 texts in 0.0s
+[embed] 150 texts in 0.0s
+[embed] 120 texts in 0.0s
+[embed] 120 texts in 0.0s
+[embed] 120 texts in 0.0s
+[embed] 120 texts in 0.0s
+[embed] 120 texts in 0.0s
+[embed] 170 texts in 0.0s
+synth2 done for 9 tasks; LLM spend total $0.0123
+
+[pod +284s] start fomaml_m0_0.0_0.05_10
+[pod +284s] start fomaml_m1_0.001_0.05_10
+[pod +284s] start meta_SETTR_800
+[pod +284s] start meta_LINGEN_800
+[pod +284s] start meta_SETTR_clinc7
+[pod +284s] start meta_LINGEN_clinc7
+[pod +304s] done meta_LINGEN_clinc7 exit 0
+[pod +304s] done meta_LINGEN_800 exit 0
+[pod +304s] start meta_SETTR_100
+[pod +304s] start meta_SETTR_25
+[pod +309s] done fomaml_m0_0.0_0.05_10 exit 1
+[pod +309s] start meta_LINGEN_100
+[385s status=RUNNING log=1704B]
+[pod +329s] done meta_LINGEN_100 exit 0
+[pod +329s] start meta_LINGEN_25
+[pod +334s] done fomaml_m1_0.001_0.05_10 exit 1
+[pod +334s] start meta_SETTR_800nb
+[417s status=RUNNING log=1860B]
+[pod +349s] done meta_LINGEN_25 exit 0
+[pod +349s] start meta_LINGEN_800nb
+[pod +369s] done meta_LINGEN_800nb exit 0
+[pod +369s] done meta_SETTR_800 exit 0
+[pod +369s] start meta_SETTR_800_1
+[pod +369s] start meta_LINGEN_800_1
+[pod +374s] done meta_SETTR_clinc7 exit 0
+[pod +374s] start meta_METRIC_800
+[449s status=RUNNING log=2163B]
+[pod +389s] done meta_LINGEN_800_1 exit 0
+[pod +389s] done meta_SETTR_25 exit 0
+[pod +389s] done meta_SETTR_100 exit 0
+[pod +389s] start meta_SETTR_3000
+[pod +389s] start meta_METRIC_clinc7
+[pod +404s] done meta_METRIC_800 exit 0
+[481s status=RUNNING log=2393B]
+[pod +419s] done meta_METRIC_clinc7 exit 0
+[pod +419s] done meta_SETTR_800nb exit 0
+[513s status=RUNNING log=2477B]

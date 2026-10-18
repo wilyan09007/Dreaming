@@ -1,0 +1,132 @@
+bundle 0.05 MB
+community launch failed, trying ALL: [{'message': 'There are no longer any instances available with the requested specifications. Please refresh and try again.', 'path': ['podFindAndDeployOnDemand'], 'extensions': {'code': 'SUPPLY_CONSTR
+pod {'id': 'iuoal0lximppfh', 'machineId': 'nmkpojvxocdd', 'costPerHr': 0.89}
+[31s] bundle uploaded
+name, memory.total [MiB]
+NVIDIA GeForce RTX 4090, 24564 MiB
+waiting for bundle
+bundle extracted 12 files
+[62s status=RUNNING log=105B]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Generating train split:   0%|          | 0/15250 [00:00<?, ? examples/s]Generating train split: 100%|ââââââââââ| 15250/15250 [00:00<00:00, 1457849.25 examples/s]
+Generating validation split:   0%|          | 0/3100 [00:00<?, ? examples/s]Generating validation split: 100%|ââââââââââ| 3100/3100 [00:00<00:00, 851495.90 examples/s]
+Generating test split:   0%|          | 0/5500 [00:00<?, ? examples/s]Generating test split: 100%|ââââââââââ| 5500/5500 [00:00<00:00, 1456263.62 examples/s]
+[93s status=RUNNING log=796B]
+Generating train split:   0%|          | 0/9993 [00:00<?, ? examples/s]Generating train split: 100%|ââââââââââ| 9993/9993 [00:00<00:00, 1799333.73 examples/s]
+Generating test split:   0%|          | 0/3076 [00:00<?, ? examples/s]Generating test split: 100%|ââââââââââ| 3076/3076 [00:00<00:00, 1138818.88 examples/s]
+[124s status=RUNNING log=1156B]
+[76s] [embed] 150 texts in 0.3s
+[76s] [embed] 1500 texts in 0.2s
+[76s] [embed] 300 texts in 0.0s
+[76s] [embed] 450 texts in 0.0s
+[76s] [embed] 150 texts in 0.0s
+[76s] [embed] 1500 texts in 0.1s
+[76s] [embed] 300 texts in 0.0s
+[76s] [embed] 450 texts in 0.0s
+[77s] [embed] 120 texts in 0.0s
+[77s] [embed] 1415 texts in 0.2s
+[77s] [embed] 300 texts in 0.1s
+[77s] [embed] 480 texts in 0.1s
+[77s] [embed] 120 texts in 0.0s
+[77s] [embed] 1264 texts in 0.1s
+[77s] [embed] 300 texts in 0.0s
+[77s] [embed] 480 texts in 0.1s
+[82s] [embed] 111 texts in 0.0s
+[82s] [embed] 1285 texts in 0.1s
+[82s] [embed] 300 texts in 0.1s
+[82s] [embed] 479 texts in 0.1s
+[82s] eval tasks [('clinc/travel', 15, 1500, 300, 450, 150), ('clinc/work', 15, 1500, 300, 450, 150), ('banking/sub0', 12, 1415, 300, 480, 120), ('banking/sub1', 12, 1264, 300, 480, 120), ('banking/sub2', 12, 1285, 300, 479, 111)]
+[83s] [embed] 10500 texts in 0.7s
+[83s] [embed] 1500 texts in 0.1s
+[83s] [embed] 5129 texts in 0.4s
+Repo card metadata block was not found. Setting CardData to empty.
+Generating train split:   0%|          | 0/5452 [00:00<?, ? examples/s]Generating train split: 100%|ââââââââââ| 5452/5452 [00:00<00:00, 616819.39 examples/s]
+Generating test split:   0%|          | 0/500 [00:00<?, ? examples/s]Generating test split: 100%|ââââââââââ| 500/500 [00:00<00:00, 165221.15 examples/s]
+[86s] [embed] 2513 texts in 0.2s
+Repo card metadata block was not found. Setting CardData to empty.
+Generating train split:   0%|          | 0/16000 [00:00<?, ? examples/s]Generating train split: 100%|ââââââââââ| 16000/16000 [00:00<00:00, 2194319.20 examples/s]
+Generating validation split:   0%|          | 0/2000 [00:00<?, ? examples/s]Generating validation split: 100%|ââââââââââ| 2000/2000 [00:00<00:00, 797623.66 examples/s]
+Generating test split:   0%|          | 0/2000 [00:00<?, ? examples/s]Generating test split: 100%|ââââââââââ| 2000/2000 [00:00<00:00, 532643.85 examples/s]
+[90s] [embed] 600 texts in 0.1s
+[155s status=RUNNING log=3238B]
+Generating train split:   0%|          | 0/120000 [00:00<?, ? examples/s]Generating train split:  62%|âââââââ   | 73949/120000 [00:00<00:00, 657783.36 examples/s]Generating train split: 100%|ââââââââââ| 120000/120000 [00:00<00:00, 680824.43 examples/s]
+Generating test split:   0%|          | 0/7600 [00:00<?, ? examples/s]Generating test split: 100%|ââââââââââ| 7600/7600 [00:00<00:00, 1395775.04 examples/s]
+[93s] [embed] 400 texts in 0.1s
+[93s] pool labels per dataset {'ag_news': 4, 'banking': 41, 'clinc': 105, 'emotion': 6, 'trec': 35} rows 18023 dups removed 0 | val rows 1500
+[95s] memory arms done for clinc/travel
+[97s] memory arms done for clinc/work
+[100s] memory arms done for banking/sub0
+[102s] memory arms done for banking/sub1
+[104s] memory arms done for banking/sub2
+[186s status=RUNNING log=4082B]
+[144s] bayes arms done for clinc/travel
+[218s status=RUNNING log=4122B]
+[175s] symbolic arm done; LLM spend so far $0.0548
+[179s] bayes arms done for clinc/work
+[249s status=RUNNING log=4211B]
+[205s] bayes arms done for banking/sub0
+[280s status=RUNNING log=4251B]
+[233s] bayes arms done for banking/sub1
+[312s status=RUNNING log=4291B]
+[261s] bayes arms done for banking/sub2
+[263s] [pfn] synthetic tasks (K=10,k=3): LR accuracy quantiles 10/25/50/75/90% = [0.388, 0.564, 0.913, 0.995, 1.0]
+[263s] [pfn] params 3,332,368 on cuda; sources ['synth', 'ag_news', 'banking', 'clinc', 'emotion', 'trec'] p=[0.35, 0.06, 0.2, 0.25, 0.06, 0.08]; val LR reference {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925}; budget 840s
+[269s] [pfn] step 500 6s loss 0.609 val(meta domain) acc {1: 0.54, 3: 0.685, 10: 0.77} mean 0.665 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[276s] [pfn] step 1000 12s loss 0.460 val(meta domain) acc {1: 0.6066666666666667, 3: 0.7266666666666666, 10: 0.8183333333333334} mean 0.717 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[343s status=RUNNING log=5045B]
+[281s] [pfn] step 1500 18s loss 0.412 val(meta domain) acc {1: 0.5933333333333333, 3: 0.7216666666666667, 10: 0.8366666666666667} mean 0.717 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[287s] [pfn] step 2000 24s loss 0.331 val(meta domain) acc {1: 0.6333333333333333, 3: 0.775, 10: 0.8566666666666667} mean 0.755 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[293s] [pfn] step 2500 30s loss 0.304 val(meta domain) acc {1: 0.6383333333333334, 3: 0.77, 10: 0.8583333333333334} mean 0.756 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[299s] [pfn] step 3000 35s loss 0.268 val(meta domain) acc {1: 0.64, 3: 0.775, 10: 0.8483333333333334} mean 0.754 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[304s] [pfn] step 3500 41s loss 0.247 val(meta domain) acc {1: 0.6366666666666667, 3: 0.795, 10: 0.87} mean 0.767 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[310s] [pfn] step 4000 47s loss 0.236 val(meta domain) acc {1: 0.6666666666666666, 3: 0.7866666666666666, 10: 0.8566666666666667} mean 0.770 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[374s status=RUNNING log=6188B]
+[316s] [pfn] step 4500 53s loss 0.271 val(meta domain) acc {1: 0.6866666666666666, 3: 0.7983333333333333, 10: 0.865} mean 0.783 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[321s] [pfn] step 5000 58s loss 0.226 val(meta domain) acc {1: 0.6616666666666666, 3: 0.79, 10: 0.865} mean 0.772 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[327s] [pfn] step 5500 64s loss 0.252 val(meta domain) acc {1: 0.6616666666666666, 3: 0.8183333333333334, 10: 0.8666666666666667} mean 0.782 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[332s] [pfn] step 6000 69s loss 0.312 val(meta domain) acc {1: 0.6716666666666666, 3: 0.78, 10: 0.8683333333333334} mean 0.773 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[338s] [pfn] step 6500 75s loss 0.257 val(meta domain) acc {1: 0.6566666666666667, 3: 0.8333333333333334, 10: 0.8733333333333333} mean 0.788 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[405s status=RUNNING log=7154B]
+[344s] [pfn] step 7000 81s loss 0.195 val(meta domain) acc {1: 0.6599999999999999, 3: 0.8200000000000001, 10: 0.8716666666666667} mean 0.784 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[350s] [pfn] step 7500 87s loss 0.276 val(meta domain) acc {1: 0.66, 3: 0.81, 10: 0.87} mean 0.780 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[356s] [pfn] step 8000 93s loss 0.211 val(meta domain) acc {1: 0.6383333333333334, 3: 0.775, 10: 0.8566666666666667} mean 0.757 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[362s] [pfn] step 8500 99s loss 0.186 val(meta domain) acc {1: 0.6633333333333333, 3: 0.8233333333333333, 10: 0.88} mean 0.789 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[368s] [pfn] step 9000 104s loss 0.190 val(meta domain) acc {1: 0.6583333333333334, 3: 0.79, 10: 0.875} mean 0.774 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[437s status=RUNNING log=8079B]
+[374s] [pfn] step 9500 111s loss 0.159 val(meta domain) acc {1: 0.6416666666666667, 3: 0.7883333333333333, 10: 0.845} mean 0.758 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[380s] [pfn] step 10000 117s loss 0.248 val(meta domain) acc {1: 0.67, 3: 0.8183333333333334, 10: 0.86} mean 0.783 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[387s] [pfn] step 10500 124s loss 0.262 val(meta domain) acc {1: 0.6816666666666666, 3: 0.8200000000000001, 10: 0.8766666666666667} mean 0.793 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[393s] [pfn] step 11000 130s loss 0.201 val(meta domain) acc {1: 0.6833333333333333, 3: 0.81, 10: 0.88} mean 0.791 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[399s] [pfn] step 11500 136s loss 0.359 val(meta domain) acc {1: 0.69, 3: 0.8216666666666668, 10: 0.8833333333333333} mean 0.798 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[468s status=RUNNING log=9025B]
+[406s] [pfn] step 12000 142s loss 0.246 val(meta domain) acc {1: 0.64, 3: 0.815, 10: 0.8783333333333334} mean 0.778 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[412s] [pfn] step 12500 148s loss 0.245 val(meta domain) acc {1: 0.675, 3: 0.7916666666666667, 10: 0.8816666666666666} mean 0.783 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[418s] [pfn] step 13000 155s loss 0.289 val(meta domain) acc {1: 0.6716666666666666, 3: 0.8116666666666668, 10: 0.88} mean 0.788 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[424s] [pfn] step 13500 160s loss 0.231 val(meta domain) acc {1: 0.6716666666666666, 3: 0.8083333333333333, 10: 0.8766666666666667} mean 0.786 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[429s] [pfn] step 14000 166s loss 0.261 val(meta domain) acc {1: 0.6683333333333333, 3: 0.8, 10: 0.87} mean 0.779 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[499s status=RUNNING log=9972B]
+[435s] [pfn] step 14500 172s loss 0.205 val(meta domain) acc {1: 0.6416666666666666, 3: 0.7783333333333333, 10: 0.8666666666666667} mean 0.762 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[441s] [pfn] step 15000 178s loss 0.164 val(meta domain) acc {1: 0.6533333333333333, 3: 0.7866666666666666, 10: 0.865} mean 0.768 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[447s] [pfn] step 15500 184s loss 0.185 val(meta domain) acc {1: 0.6566666666666667, 3: 0.7966666666666666, 10: 0.87} mean 0.774 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[452s] [pfn] step 16000 189s loss 0.168 val(meta domain) acc {1: 0.625, 3: 0.7783333333333333, 10: 0.8533333333333334} mean 0.752 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[459s] [pfn] step 16500 195s loss 0.247 val(meta domain) acc {1: 0.6499999999999999, 3: 0.8049999999999999, 10: 0.8766666666666667} mean 0.777 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[465s] [pfn] step 17000 201s loss 0.227 val(meta domain) acc {1: 0.665, 3: 0.7949999999999999, 10: 0.865} mean 0.775 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[530s status=RUNNING log=11142B]
+[471s] [pfn] step 17500 208s loss 0.160 val(meta domain) acc {1: 0.6733333333333333, 3: 0.8066666666666666, 10: 0.8633333333333333} mean 0.781 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[476s] [pfn] step 18000 213s loss 0.204 val(meta domain) acc {1: 0.6716666666666666, 3: 0.8183333333333334, 10: 0.88} mean 0.790 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[482s] [pfn] step 18500 219s loss 0.202 val(meta domain) acc {1: 0.6466666666666667, 3: 0.8049999999999999, 10: 0.8833333333333333} mean 0.778 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[488s] [pfn] step 19000 225s loss 0.191 val(meta domain) acc {1: 0.665, 3: 0.8116666666666666, 10: 0.8716666666666667} mean 0.783 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[494s] [pfn] step 19500 231s loss 0.223 val(meta domain) acc {1: 0.6416666666666666, 3: 0.8083333333333333, 10: 0.8600000000000001} mean 0.770 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[561s status=RUNNING log=12145B]
+[500s] [pfn] step 20000 237s loss 0.254 val(meta domain) acc {1: 0.6766666666666666, 3: 0.8300000000000001, 10: 0.8766666666666667} mean 0.794 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[507s] [pfn] step 20500 243s loss 0.187 val(meta domain) acc {1: 0.6433333333333333, 3: 0.79, 10: 0.8666666666666667} mean 0.767 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[513s] [pfn] step 21000 249s loss 0.193 val(meta domain) acc {1: 0.6433333333333333, 3: 0.8200000000000001, 10: 0.8783333333333333} mean 0.781 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[518s] [pfn] step 21500 255s loss 0.195 val(meta domain) acc {1: 0.6516666666666667, 3: 0.8200000000000001, 10: 0.89} mean 0.787 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[524s] [pfn] step 22000 261s loss 0.129 val(meta domain) acc {1: 0.6583333333333333, 3: 0.82, 10: 0.8899999999999999} mean 0.789 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[592s status=RUNNING log=13133B]
+[530s] [pfn] step 22500 267s loss 0.203 val(meta domain) acc {1: 0.6683333333333333, 3: 0.8200000000000001, 10: 0.8916666666666667} mean 0.793 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[536s] [pfn] step 23000 273s loss 0.165 val(meta domain) acc {1: 0.655, 3: 0.815, 10: 0.8833333333333333} mean 0.784 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[542s] [pfn] step 23500 279s loss 0.205 val(meta domain) acc {1: 0.65, 3: 0.79, 10: 0.875} mean 0.772 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[549s] [pfn] step 24000 285s loss 0.218 val(meta domain) acc {1: 0.6466666666666667, 3: 0.7833333333333333, 10: 0.855} mean 0.762 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[555s] [pfn] step 24500 292s loss 0.257 val(meta domain) acc {1: 0.6733333333333333, 3: 0.815, 10: 0.8783333333333333} mean 0.789 (LR {1: 0.7733333333333334, 3: 0.8816666666666666, 10: 0.925})
+[625s status=RUNNING log=14070B]

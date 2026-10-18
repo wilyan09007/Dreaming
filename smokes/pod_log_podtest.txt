@@ -1,0 +1,10 @@
+name, memory.total [MiB]
+NVIDIA GeForce RTX 4090, 24564 MiB
+waiting for bundle
+bundle extracted 4 files
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Generating train split:   0%|          | 0/9993 [00:00<?, ? examples/s]Generating train split: 100%|ââââââââââ| 9993/9993 [00:00<00:00, 792573.79 examples/s]
+Generating test split:   0%|          | 0/3076 [00:00<?, ? examples/s]Generating test split: 100%|ââââââââââ| 3076/3076 [00:00<00:00, 671472.84 examples/s]
+[embed] 2000 texts in 19.5s (BAAI/bge-small-en-v1.5)
+embedded (2000, 384) in 27.6 s; cuda True
+exit=0

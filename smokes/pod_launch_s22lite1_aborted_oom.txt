@@ -1,0 +1,86 @@
+bundle 0.02 MB
+community launch failed, trying ALL: [{'message': 'There are no longer any instances available with the requested specifications. Please refresh and try again.', 'path': ['podFindAndDeployOnDemand'], 'extensions': {'code': 'SUPPLY_CONSTR
+pod {'id': '8rem466nenxeir', 'machineId': 'fi6z62uapuji', 'costPerHr': 0.89}
+[93s] bundle uploaded
+name, memory.total [MiB]
+NVIDIA GeForce RTX 4090, 24564 MiB
+waiting for bundle
+bundle extracted 8 files
+[124s status=RUNNING log=104B]
+[orch +1s] nvidia-smi: NVIDIA GeForce RTX 4090, 24564 MiB | cpus 128 | torch 2.8.0+cu128
+[orch +1s] start; resumed cells: 0
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[156s status=RUNNING log=366B]
+[187s status=RUNNING log=366B]
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[w0 +68s] tasks [('travel', 15, 1500, 450, 300), ('work', 15, 1500, 450, 300), ('bank0', 12, 1715, 480, 300), ('bank1', 12, 1564, 480, 300), ('bank2', 12, 1585, 479, 300)] pool jobs 14 device cuda
+[w0 +76s] solo calibration {'lora_steps_per_s': 8.07, 'comp_steps_per_s': 6.61, 'gpu': 'NVIDIA GeForce RTX 4090', 'cpus': 128, 'torch': '2.8.0+cu128', 'peak_gb': 8.21}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[218s status=RUNNING log=1310B]
+[orch +111s] cells complete: 0 records: 0
+[249s status=RUNNING log=1352B]
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[w2 +139s] tasks [('travel', 15, 1500, 450, 300), ('work', 15, 1500, 450, 300), ('bank0', 12, 1715, 480, 300), ('bank1', 12, 1564, 480, 300), ('bank2', 12, 1585, 479, 300)] pool jobs 14 device cuda
+[w1 +139s] tasks [('travel', 15, 1500, 450, 300), ('work', 15, 1500, 450, 300), ('bank0', 12, 1715, 480, 300), ('bank1', 12, 1564, 480, 300), ('bank2', 12, 1585, 479, 300)] pool jobs 14 device cuda
+[orch +141s] cells complete: 0 records: 0
+[281s status=RUNNING log=2396B]
+[w1 +160s] pool job {'job': 'clinc__auto_and_commute', 'fam': 'clinc', 'which': 'auto_and_commute', 'rows': 1500, 'labels': 15, 'steps': 150, 'secs': 19.8, 'pool_acc': 1.0, 'params': 2176128, 'worker': 1, 'disjoint': 'pool intents = 8 CLINC domains, asserted disjoint from travel/work intents'}
+[orch +171s] cells complete: 0 records: 0
+[w0 +178s] pool job {'job': 'clinc__shared', 'fam': 'clinc', 'which': 'shared', 'rows': 12000, 'labels': 120, 'steps': 750, 'secs': 97.5, 'pool_acc': 0.983, 'params': 2270208, 'worker': 0, 'disjoint': 'pool intents = 8 CLINC domains, asserted disjoint from travel/work intents'}
+[w1 +179s] pool job {'job': 'clinc__banking', 'fam': 'clinc', 'which': 'banking', 'rows': 1500, 'labels': 15, 'steps': 150, 'secs': 18.3, 'pool_acc': 1.0, 'params': 2176128, 'worker': 1, 'disjoint': 'pool intents = 8 CLINC domains, asserted disjoint from travel/work intents'}
+[312s status=RUNNING log=3289B]
+[w0 +197s] pool job {'job': 'clinc__credit_cards', 'fam': 'clinc', 'which': 'credit_cards', 'rows': 1500, 'labels': 15, 'steps': 150, 'secs': 18.9, 'pool_acc': 0.997, 'params': 2176128, 'worker': 0, 'disjoint': 'pool intents = 8 CLINC domains, asserted disjoint from travel/work intents'}
+[w1 +198s] pool job {'job': 'clinc__home', 'fam': 'clinc', 'which': 'home', 'rows': 1500, 'labels': 15, 'steps': 150, 'secs': 18.4, 'pool_acc': 0.997, 'params': 2176128, 'worker': 1, 'disjoint': 'pool intents = 8 CLINC domains, asserted disjoint from travel/work intents'}
+[orch +201s] cells complete: 0 records: 0
+[w2 +216s] pool job {'job': 'bank__shared', 'fam': 'bank', 'which': 'shared', 'rows': 5129, 'labels': 41, 'steps': 600, 'secs': 76.8, 'pool_acc': 0.997, 'params': 2199424, 'worker': 2, 'disjoint': 'pool labels = 41 Banking77 ids, asserted disjoint from the 36 ids of bank0-2'}
+[w1 +218s] pool job {'job': 'clinc__meta', 'fam': 'clinc', 'which': 'meta', 'rows': 1500, 'labels': 15, 'steps': 150, 'secs': 18.8, 'pool_acc': 0.973, 'params': 2176128, 'worker': 1, 'disjoint': 'pool intents = 8 CLINC domains, asserted disjoint from travel/work intents'}
+[w0 +218s] pool job {'job': 'clinc__kitchen_and_dining', 'fam': 'clinc', 'which': 'kitchen_and_dining', 'rows': 1500, 'labels': 15, 'steps': 150, 'secs': 19.4, 'pool_acc': 0.993, 'params': 2176128, 'worker': 0, 'disjoint': 'pool intents = 8 CLINC domains, asserted disjoint from travel/work intents'}
+[343s status=RUNNING log=4744B]
+[orch +231s] cells complete: 0 records: 0
+[w2 +236s] pool job {'job': 'clinc__small_talk', 'fam': 'clinc', 'which': 'small_talk', 'rows': 1500, 'labels': 15, 'steps': 150, 'secs': 18.5, 'pool_acc': 0.993, 'params': 2176128, 'worker': 2, 'disjoint': 'pool intents = 8 CLINC domains, asserted disjoint from travel/work intents'}
+[w1 +236s] pool job {'job': 'clinc__utility', 'fam': 'clinc', 'which': 'utility', 'rows': 1500, 'labels': 15, 'steps': 150, 'secs': 18.1, 'pool_acc': 1.0, 'params': 2176128, 'worker': 1, 'disjoint': 'pool intents = 8 CLINC domains, asserted disjoint from travel/work intents'}
+[w1 +237s] POOL ERROR bank bank group 2 ed to allocate 20.00 MiB. GPU 0 has a total capacity of 23.52 GiB of which 3.12 MiB is free. Process 176 has 8.89 GiB memory in use. Process 316 has 7.84 GiB memory in use. Including non-PyTorch memory, this process has 6.76 GiB memory in use. Of the allocated memory 6.19 GiB is allocated by PyTorch, and 117.58 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+[w0 +237s] pool job {'job': 'bank__bank_group_0', 'fam': 'bank', 'which': 'bank group 0', 'rows': 1336, 'labels': 11, 'steps': 150, 'secs': 18.7, 'pool_acc': 1.0, 'params': 2172544, 'worker': 0, 'disjoint': 'pool labels = 41 Banking77 ids, asserted disjoint from the 36 ids of bank0-2'}
+[w0 +238s] cell travel 0 3
+[w0 +239s] {'task': 'travel', 'seed': 0, 'k': 3, 'arm': 'F', 'train_s': 0.03, 'params': 5775, 'acc': 0.9622, 'cov': 0.9356, 'err': 0.0048}
+[374s status=RUNNING log=6442B]
+[w2 +257s] pool job {'job': 'bank__bank_group_1', 'fam': 'bank', 'which': 'bank group 1', 'rows': 1329, 'labels': 10, 'steps': 150, 'secs': 20.4, 'pool_acc': 1.0, 'params': 2171648, 'worker': 2, 'disjoint': 'pool labels = 41 Banking77 ids, asserted disjoint from the 36 ids of bank0-2'}
+[w2 +258s] cell work 0 3
+[w1 +258s] pool job {'job': 'bank__bank_group_3', 'fam': 'bank', 'which': 'bank group 3', 'rows': 1243, 'labels': 10, 'steps': 150, 'secs': 20.1, 'pool_acc': 1.0, 'params': 2171648, 'worker': 1, 'disjoint': 'pool labels = 41 Banking77 ids, asserted disjoint from the 36 ids of bank0-2'}
+[w1 +258s] cell bank0 0 3
+Traceback (most recent call last):
+  File "/workspace/job/proj/smokes/s22_architectures/worker.py", line 275, in <module>
+    log("cell", tn, s, k); run_cell(TASKS[tn], get_pool(TASKS[tn]["fam"]), s, k)
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/job/proj/smokes/s22_architectures/worker.py", line 190, in get_pool
+    wait_pool(fam); shared = torch.load(SCR / "pools" / f"{fam}__shared.pt", map_location=dev)["sd"]
+    ^^^^^^^^^^^^^^
+  File "/workspace/job/proj/smokes/s22_architectures/worker.py", line 184, in wait_pool
+    if any((SCR / "pools" / (n + ".err")).exists() for n in need): raise RuntimeError(f"pool {fam} failed (see .err in {SCR/'pools'})")
+                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: pool bank failed (see .err in /tmp/s22_work/pools)
+[w2 +260s] {'task': 'work', 'seed': 0, 'k': 3, 'arm': 'F', 'train_s': 0.03, 'params': 5775, 'acc': 0.8667, 'cov': 0.62, 'err': 0.043}
+[orch +261s] cells complete: 0 records: 2
+[w0 +280s] {'task': 'travel', 'seed': 0, 'k': 3, 'arm': 'B', 'train_s': 39.6, 'params': 2176128, 'acc': 0.9356, 'cov': 0.9022, 'err': 0.0123}
+[405s status=RUNNING log=8294B]

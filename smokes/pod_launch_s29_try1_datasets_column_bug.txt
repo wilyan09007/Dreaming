@@ -1,0 +1,34 @@
+bundle 0.04 MB
+community launch failed, trying ALL: [{'message': 'There are no longer any instances available with the requested specifications. Please refresh and try again.', 'path': ['podFindAndDeployOnDemand'], 'extensions': {'code': 'SUPPLY_CONSTR
+pod {'id': 'bc0m7hfsz33j7c', 'machineId': 'fwb8o4tcz9hl', 'costPerHr': 0.89}
+[126s] bundle uploaded
+name, memory.total [MiB]
+NVIDIA GeForce RTX 4090, 24564 MiB
+waiting for bundle
+bundle extracted 6 files
+[      2s] cuda ok on attempt 1
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[158s status=RUNNING log=274B]
+Generating train split:   0%|          | 0/9993 [00:00<?, ? examples/s]Generating train split: 100%|ââââââââââ| 9993/9993 [00:00<00:00, 1348487.22 examples/s]
+Generating test split:   0%|          | 0/3076 [00:00<?, ? examples/s]Generating test split: 100%|ââââââââââ| 3076/3076 [00:00<00:00, 1040541.91 examples/s]
+Generating train split:   0%|          | 0/15250 [00:00<?, ? examples/s]Generating train split: 100%|ââââââââââ| 15250/15250 [00:00<00:00, 1418345.70 examples/s]
+Generating validation split:   0%|          | 0/3100 [00:00<?, ? examples/s]Generating validation split: 100%|ââââââââââ| 3100/3100 [00:00<00:00, 827647.51 examples/s]
+Generating test split:   0%|          | 0/5500 [00:00<?, ? examples/s]Generating test split: 100%|ââââââââââ| 5500/5500 [00:00<00:00, 1257628.09 examples/s]
+[190s status=RUNNING log=1187B]
+Traceback (most recent call last):
+  File "/workspace/job/proj/smokes/s29_memory_student/run.py", line 510, in <module>
+    main()
+  File "/workspace/job/proj/smokes/s29_memory_student/run.py", line 491, in main
+    W = build_worlds(); b, c, c45 = W["banking77"], W["clinc150"], W["clinc45"]; save()
+        ^^^^^^^^^^^^^^
+  File "/workspace/job/proj/smokes/s29_memory_student/run.py", line 98, in build_worlds
+    E = embed(btr + bte + ctr + cte + [s for _, s in syn_b] + [s for _, s in syn_c]); o = 0
+              ~~~~^~~~~
+TypeError: unsupported operand type(s) for +: 'Column' and 'Column'
+exit=1
+[222s status=RUNNING log=1789B]
+C:\Users\<user>\Desktop\personalprojects\Dreaming-smokes\smokes\pod.py:111: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
+  with tarfile.open(fileobj=io.BytesIO(r.content), mode="r:gz") as tar: tar.extractall(ROOT)
+results extracted (0.01 MB) into ['smokes/s29_memory_student']
+terminate: {'podTerminate': None}
+wall 3.8 min, est cost $0.056 at $0.89/h, ok=True

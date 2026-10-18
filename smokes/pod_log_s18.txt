@@ -1,0 +1,456 @@
+name, memory.total [MiB]
+NVIDIA GeForce RTX 4090, 24564 MiB
+waiting for bundle
+bundle extracted 16 files
+iid 1% errors: P(ever U<realized) chernoff 0.000 wsr 0.020; P(ever L>realized) chernoff 0.000; final U chernoff 0.0364 wsr 0.0352, realized 0.0105
+clustered: 40 errors in the first 60 calls: P(ever U<realized) chernoff 0.000 wsr 0.007; P(ever L>realized) chernoff 0.000; final U chernoff 0.0364 wsr 0.0499, realized 0.0100
+zero errors, t=1000: chernoff 0.05298329342517657 vs rule-of-three 3/(p t) = 0.03
+ltt toy {'cutoff': inf, 'coverage': 0.0, 'emp_error': None}
+cs self-check ok
+[analyze] world4/stationary/nn: 40 rows, 13s
+[analyze] world12/stationary/nn: 57 rows, 14s
+[analyze] world13/shift/lr: 57 rows, 17s
+[analyze] world14/shift/lr: 57 rows, 18s
+[analyze] world4/shift/lr: 57 rows, 18s
+[analyze] world14/stationary/nn: 57 rows, 19s
+[analyze] world12/shift/lr: 57 rows, 19s
+[analyze] n770_s1/stationary/lr: 20 rows, 3s
+[analyze] world11/shift/lr: 57 rows, 21s
+[analyze] world13/stationary/nn: 57 rows, 22s
+[analyze] n770_s2/stationary/lr: 34 rows, 4s
+[analyze] n770_s0/stationary/lr: 34 rows, 5s
+[analyze] world11/stationary/nn: 57 rows, 23s
+[analyze] n3080_s0/stationary/lr: 34 rows, 5s
+[analyze] n3080_s1/stationary/lr: 34 rows, 5s
+[analyze] n3080_s2/stationary/lr: 34 rows, 4s
+[analyze] world15/shift/lr: 57 rows, 13s
+[analyze] world15/stationary/nn: 57 rows, 13s
+[analyze] world4/stationary/lr: 69 rows, 31s
+[analyze] world15/stationary/lr: 69 rows, 32s
+[analyze] world14/stationary/lr: 69 rows, 32s
+[analyze] world12/stationary/lr: 69 rows, 32s
+[analyze] world13/stationary/lr: 69 rows, 32s
+[analyze] world11/stationary/lr: 69 rows, 33s
+[analyze] 1271 rows, 33s
+/usr/local/lib/python3.12/dist-packages/numpy/_core/fromnumeric.py:54: RuntimeWarning: overflow encountered in accumulate
+  return bound(*args, **kwds)
+[confseq] world 4: T=8872, 72s
+[confseq] world 11: T=10055, 82s
+### R1. One-shot certificates on the long serving stream (cp = common.certify grid 40; ltt = fixed-sequence, split). OVER = realized error of all served calls exceeds the budget
+
+**S4 LR**
+
+| world | budget | cal_cov | served | T | err@1k | err@5k | err@all | cp | ltt served | ltt err@all | ltt |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 4 | 0.01 | 0.676 | 0.685 | 8.87e+03 | 0.002 | 0.0018 | 0.00169 | ok | 0.738 | 0.00157 | ok |
+| 11 | 0.01 | 0.75 | 0.777 | 1.01e+04 | 0.014 | 0.0158 | 0.0157 | OVER | 0.777 | 0.0157 | OVER |
+| 12 | 0.01 | 0.676 | 0.676 | 8.75e+03 | 0 | 0.0002 | 0.000114 | ok | 0.665 | 0.000116 | ok |
+| 13 | 0.01 | 0.675 | 0.696 | 9.02e+03 | 0.006 | 0.0036 | 0.00388 | ok | 0.707 | 0.00382 | ok |
+| 14 | 0.01 | 0.7 | 0.716 | 9.26e+03 | 0 | 0 | 0 | ok | 0.718 | 0 | ok |
+| 15 | 0.01 | 0.75 | 0.741 | 9.59e+03 | 0.002 | 0.001 | 0.00219 | ok | - | - | - |
+| 4 | 0.02 | 0.775 | 0.771 | 9.99e+03 | 0.001 | 0.0018 | 0.0015 | ok | 0.776 | 0.00179 | ok |
+| 11 | 0.02 | 0.75 | 0.777 | 1.01e+04 | 0.014 | 0.0158 | 0.0157 | ok | 0.797 | 0.0242 | OVER |
+| 12 | 0.02 | 0.676 | 0.676 | 8.75e+03 | 0 | 0.0002 | 0.000114 | ok | 0.665 | 0.000116 | ok |
+| 13 | 0.02 | 0.726 | 0.749 | 9.7e+03 | 0.009 | 0.008 | 0.00742 | ok | 0.754 | 0.00737 | ok |
+| 14 | 0.02 | 0.7 | 0.716 | 9.26e+03 | 0 | 0 | 0 | ok | 0.729 | 0 | ok |
+| 15 | 0.02 | 0.775 | 0.76 | 9.84e+03 | 0.002 | 0.001 | 0.00213 | ok | 0.774 | 0.00369 | ok |
+| 4 | 0.05 | 0.801 | 0.793 | 1.03e+04 | 0.012 | 0.0082 | 0.00944 | ok | - | - | - |
+| 11 | 0.05 | 0.8 | 0.849 | 1.1e+04 | 0.073 | 0.0652 | 0.0666 | OVER | 0.851 | 0.0683 | OVER |
+| 12 | 0.05 | 0.8 | 0.772 | 1e+04 | 0.005 | 0.0044 | 0.0037 | ok | 0.774 | 0.00379 | ok |
+| 13 | 0.05 | 0.775 | 0.798 | 1.03e+04 | 0.026 | 0.02 | 0.0188 | ok | 0.789 | 0.019 | ok |
+| 14 | 0.05 | 0.775 | 0.789 | 1.02e+04 | 0.005 | 0.004 | 0.00529 | ok | 0.794 | 0.00759 | ok |
+| 15 | 0.05 | 0.825 | 0.789 | 1.02e+04 | 0.008 | 0.0098 | 0.0116 | ok | 0.783 | 0.00759 | ok |
+
+**S4 NN**
+
+| world | budget | cal_cov | served | T | err@1k | err@5k | err@all | cp | ltt served | ltt err@all | ltt |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 11 | 0.01 | 0.579 | 0.593 | 7.68e+03 | 0.003 | 0.0028 | 0.00365 | ok | 0.585 | 0.0037 | ok |
+| 12 | 0.01 | 0.428 | 0.411 | 5.32e+03 | 0.001 | 0.002 | 0.00188 | ok | 0.484 | 0.00319 | ok |
+| 13 | 0.01 | 0.65 | 0.676 | 8.75e+03 | 0.032 | 0.0264 | 0.0253 | OVER | - | - | - |
+| 14 | 0.01 | 0.575 | 0.584 | 7.55e+03 | 0.001 | 0.0008 | 0.00053 | ok | 0.594 | 0.000651 | ok |
+| 15 | 0.01 | 0.625 | 0.61 | 7.9e+03 | 0 | 0.0004 | 0.000506 | ok | 0.617 | 0.0005 | ok |
+| 4 | 0.02 | 0.6 | 0.602 | 7.8e+03 | 0 | 0 | 0 | ok | - | - | - |
+| 11 | 0.02 | 0.579 | 0.593 | 7.68e+03 | 0.003 | 0.0028 | 0.00365 | ok | 0.708 | 0.0219 | OVER |
+| 12 | 0.02 | 0.501 | 0.483 | 6.25e+03 | 0.001 | 0.0036 | 0.0032 | ok | 0.626 | 0.0074 | ok |
+| 13 | 0.02 | 0.675 | 0.704 | 9.12e+03 | 0.047 | 0.0364 | 0.0343 | OVER | - | - | - |
+| 14 | 0.02 | 0.575 | 0.584 | 7.55e+03 | 0.001 | 0.0008 | 0.00053 | ok | 0.594 | 0.000651 | ok |
+| 15 | 0.02 | 0.625 | 0.61 | 7.9e+03 | 0 | 0.0004 | 0.000506 | ok | 0.63 | 0.000612 | ok |
+| 4 | 0.05 | 0.7 | 0.679 | 8.8e+03 | 0.002 | 0.0028 | 0.00239 | ok | 0.679 | 0.00239 | ok |
+| 11 | 0.05 | 0.725 | 0.772 | 1e+04 | 0.076 | 0.0676 | 0.0693 | OVER | 0.785 | 0.0765 | OVER |
+| 12 | 0.05 | 0.65 | 0.64 | 8.29e+03 | 0.01 | 0.0082 | 0.00736 | ok | 0.688 | 0.00909 | ok |
+| 13 | 0.05 | 0.726 | 0.754 | 9.76e+03 | 0.051 | 0.044 | 0.0414 | ok | 0.758 | 0.0443 | ok |
+| 14 | 0.05 | 0.7 | 0.704 | 9.1e+03 | 0.01 | 0.0076 | 0.0078 | ok | 0.72 | 0.0148 | ok |
+| 15 | 0.05 | 0.7 | 0.673 | 8.72e+03 | 0.003 | 0.0034 | 0.00356 | ok | 0.686 | 0.00675 | ok |
+
+**S4 LR shift**
+
+| world | budget | cal_cov | served | T | err@1k | err@5k | err@all | cp | ltt served | ltt err@all | ltt |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 4 | 0.01 | 0.676 | 0.555 | 7.19e+03 | 0.002 | 0.0026 | 0.00431 | ok | 0.598 | 0.004 | ok |
+| 11 | 0.01 | 0.75 | 0.647 | 8.38e+03 | 0.014 | 0.0158 | 0.0319 | OVER | 0.648 | 0.0318 | OVER |
+| 12 | 0.01 | 0.676 | 0.548 | 7.09e+03 | 0 | 0.0002 | 0.000141 | ok | 0.538 | 0.000144 | ok |
+| 13 | 0.01 | 0.675 | 0.567 | 7.34e+03 | 0.006 | 0.0048 | 0.00668 | ok | 0.574 | 0.0066 | ok |
+| 14 | 0.01 | 0.7 | 0.58 | 7.51e+03 | 0 | 0 | 0 | ok | 0.582 | 0 | ok |
+| 15 | 0.01 | 0.75 | 0.602 | 7.8e+03 | 0.002 | 0.0016 | 0.00397 | ok | - | - | - |
+| 4 | 0.02 | 0.775 | 0.623 | 8.08e+03 | 0.001 | 0.0018 | 0.00384 | ok | 0.628 | 0.00467 | ok |
+| 11 | 0.02 | 0.75 | 0.647 | 8.38e+03 | 0.014 | 0.0158 | 0.0319 | OVER | 0.668 | 0.047 | OVER |
+| 12 | 0.02 | 0.676 | 0.548 | 7.09e+03 | 0 | 0.0002 | 0.000141 | ok | 0.538 | 0.000144 | ok |
+| 13 | 0.02 | 0.726 | 0.613 | 7.93e+03 | 0.009 | 0.0088 | 0.0154 | ok | 0.617 | 0.0153 | ok |
+| 14 | 0.02 | 0.7 | 0.58 | 7.51e+03 | 0 | 0 | 0 | ok | 0.592 | 0 | ok |
+| 15 | 0.02 | 0.775 | 0.619 | 8.01e+03 | 0.002 | 0.001 | 0.00387 | ok | 0.63 | 0.00637 | ok |
+| 4 | 0.05 | 0.801 | 0.646 | 8.36e+03 | 0.012 | 0.0082 | 0.0186 | ok | - | - | - |
+| 11 | 0.05 | 0.8 | 0.746 | 9.66e+03 | 0.073 | 0.0652 | 0.13 | OVER | 0.749 | 0.134 | OVER |
+| 12 | 0.05 | 0.8 | 0.628 | 8.13e+03 | 0.005 | 0.0044 | 0.00812 | ok | 0.629 | 0.00835 | ok |
+| 13 | 0.05 | 0.775 | 0.66 | 8.55e+03 | 0.026 | 0.02 | 0.0381 | ok | 0.653 | 0.0386 | ok |
+| 14 | 0.05 | 0.775 | 0.647 | 8.37e+03 | 0.005 | 0.004 | 0.0098 | ok | 0.652 | 0.0139 | ok |
+| 15 | 0.05 | 0.825 | 0.647 | 8.38e+03 | 0.008 | 0.0098 | 0.0211 | ok | 0.64 | 0.0135 | ok |
+
+**B77 control**
+
+| stream | budget | cal_cov | served | T | err@1k | err@5k | err@all | cp | ltt served | ltt err@all | ltt |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| n3080_s0 | 0.02 | 0.425 | 0.417 | 3.52e+03 | 0.001 | - | 0.00426 | ok | - | - | - |
+| n3080_s1 | 0.02 | 0.55 | 0.576 | 4.87e+03 | 0.005 | - | 0.00739 | ok | 0.769 | 0.02 | ok |
+| n3080_s2 | 0.02 | 0.575 | 0.557 | 4.71e+03 | 0.006 | - | 0.00659 | ok | - | - | - |
+| n770_s0 | 0.02 | 0.25 | 0.245 | 2.64e+03 | 0.005 | - | 0.00455 | ok | 0.374 | 0.0144 | ok |
+| n770_s2 | 0.02 | 0.225 | 0.21 | 2.26e+03 | 0.002 | - | 0.0031 | ok | - | - | - |
+| n3080_s0 | 0.05 | 0.85 | 0.853 | 7.21e+03 | 0.032 | 0.0308 | 0.0316 | ok | 0.871 | 0.0358 | ok |
+| n3080_s1 | 0.05 | 0.825 | 0.831 | 7.02e+03 | 0.032 | 0.0288 | 0.0276 | ok | 0.868 | 0.0338 | ok |
+| n3080_s2 | 0.05 | 0.85 | 0.849 | 7.18e+03 | 0.034 | 0.0328 | 0.0307 | ok | 0.865 | 0.0341 | ok |
+| n770_s0 | 0.05 | 0.575 | 0.575 | 6.19e+03 | 0.032 | 0.0316 | 0.031 | ok | 0.619 | 0.0373 | ok |
+| n770_s1 | 0.05 | 0.45 | 0.458 | 4.93e+03 | 0.017 | - | 0.0189 | ok | 0.662 | 0.0406 | ok |
+| n770_s2 | 0.05 | 0.475 | 0.466 | 5.02e+03 | 0.02 | 0.0194 | 0.0193 | ok | - | - | - |
+
+### R2. How often did each one-shot certificate exceed its budget on the long stream? (streams where something was certifiable)
+
+| setting | certificate | budget | streams certifiable | over budget | share over | mean served share |
+|---|---|---|---|---|---|---|
+| S4 LR | cp | 0.01 | 6 | 1 | 0.167 | 0.715 |
+| S4 LR | cp | 0.02 | 6 | 0 | 0 | 0.741 |
+| S4 LR | cp | 0.05 | 6 | 1 | 0.167 | 0.798 |
+| S4 LR | ltt | 0.01 | 5 | 1 | 0.2 | 0.721 |
+| S4 LR | ltt | 0.02 | 6 | 1 | 0.167 | 0.749 |
+| S4 LR | ltt | 0.05 | 5 | 1 | 0.2 | 0.798 |
+| S4 NN | cp | 0.01 | 5 | 1 | 0.2 | 0.575 |
+| S4 NN | cp | 0.02 | 6 | 1 | 0.167 | 0.596 |
+| S4 NN | cp | 0.05 | 6 | 1 | 0.167 | 0.704 |
+| S4 NN | ltt | 0.01 | 4 | 0 | 0 | 0.57 |
+| S4 NN | ltt | 0.02 | 4 | 1 | 0.25 | 0.64 |
+| S4 NN | ltt | 0.05 | 6 | 1 | 0.167 | 0.719 |
+| S4 LR shift | cp | 0.01 | 6 | 1 | 0.167 | 0.583 |
+| S4 LR shift | cp | 0.02 | 6 | 1 | 0.167 | 0.605 |
+| S4 LR shift | cp | 0.05 | 6 | 1 | 0.167 | 0.662 |
+| S4 LR shift | ltt | 0.01 | 5 | 1 | 0.2 | 0.588 |
+| S4 LR shift | ltt | 0.02 | 6 | 1 | 0.167 | 0.612 |
+| S4 LR shift | ltt | 0.05 | 5 | 1 | 0.2 | 0.665 |
+| B77 control | cp | 0.01 | 0 | 0 | - | - |
+| B77 control | cp | 0.02 | 5 | 0 | 0 | 0.401 |
+| B77 control | cp | 0.05 | 6 | 0 | 0 | 0.672 |
+| B77 control | ltt | 0.01 | 0 | 0 | - | - |
+| B77 control | ltt | 0.02 | 2 | 0 | 0 | 0.572 |
+| B77 control | ltt | 0.05 | 5 | 0 | 0 | 0.777 |
+
+### R3. Does the bound ever fall below the realized error? Share of audit-coin sequences with at least one violation (any call t), mean over budgets and audit rates
+
+| setting | bound | configs | ever below running realized (mean) | (worst config) | ever below final realized (mean) | (worst config) | configs with >5% |
+|---|---|---|---|---|---|---|---|
+| S4 LR | naive | 54 | 0.846 | 1 | 0.889 | 1 | 48 |
+| S4 LR | cp_peek | 54 | 0.0552 | 0.21 | 0.0626 | 0.25 | 24 |
+| S4 LR | wsr | 54 | 0.0125 | 0.1 | 0.0144 | 0.1 | 4 |
+| S4 LR | chern | 54 | 0.00315 | 0.02 | 0.00333 | 0.02 | 0 |
+| S4 LR | wsr_g[tpl] | 54 | 0 | 0 | 0 | 0 | 0 |
+| S4 LR | chern_g[tpl] | 54 | 0 | 0 | 0 | 0 | 0 |
+| S4 LR | chern_g[orc] | 54 | 0 | 0 | 0 | 0 | 0 |
+| S4 NN | naive | 51 | 0.882 | 1 | 0.94 | 1 | 48 |
+| S4 NN | cp_peek | 51 | 0.0537 | 0.23 | 0.0465 | 0.22 | 15 |
+| S4 NN | wsr | 17 | 0.00882 | 0.05 | 0.00441 | 0.025 | 0 |
+| S4 NN | chern | 51 | 0.00314 | 0.04 | 0.00216 | 0.03 | 0 |
+| S4 NN | wsr_g[tpl] | 17 | 0 | 0 | 0 | 0 | 0 |
+| S4 NN | chern_g[tpl] | 51 | 0.000196 | 0.01 | 0.000196 | 0.01 | 0 |
+| S4 NN | chern_g[orc] | 51 | 0.000196 | 0.01 | 0.00118 | 0.05 | 0 |
+| S4 LR shift | naive | 54 | 0.855 | 1 | 0.889 | 1 | 48 |
+| S4 LR shift | cp_peek | 54 | 0.077 | 0.28 | 0.366 | 1 | 33 |
+| S4 LR shift | wsr | 18 | 0.0361 | 0.325 | 0.15 | 0.8 | 3 |
+| S4 LR shift | chern | 54 | 0.00259 | 0.02 | 0.129 | 1 | 0 |
+| S4 LR shift | wsr_g[tpl] | 18 | 0.00556 | 0.1 | 0.0472 | 0.675 | 1 |
+| S4 LR shift | chern_g[tpl] | 54 | 0 | 0 | 0.0406 | 1 | 0 |
+| S4 LR shift | chern_g[orc] | 54 | 0 | 0 | 0.228 | 1 | 0 |
+| B77 control | naive | 33 | 0.96 | 1 | 0.992 | 1 | 33 |
+| B77 control | cp_peek | 33 | 0.08 | 0.21 | 0.0818 | 0.26 | 21 |
+| B77 control | wsr | 11 | 0.0114 | 0.05 | 0.0114 | 0.05 | 0 |
+| B77 control | chern | 33 | 0.00424 | 0.03 | 0.00303 | 0.04 | 0 |
+| B77 control | wsr_g[confbin] | 11 | 0 | 0 | 0 | 0 | 0 |
+| B77 control | chern_g[confbin] | 33 | 0 | 0 | 0 | 0 | 0 |
+
+Per world (S4 LR stationary), audit rate 10%, mean over the three budgets (naive and cp_peek are not valid bounds; the last column is the one-shot cp certificate):
+
+| world | naive | cp_peek | wsr | chern | wsr_g[tpl] | chern_g[tpl] | chern_g[orc] | cp over budget (budgets) |
+|---|---|---|---|---|---|---|---|---|
+| 4 | 0.947 | 0.03 | 0 | 0 | 0 | 0 | 0 | 0/3 |
+| 11 | 0.983 | 0.11 | 0 | 0.00667 | 0 | 0 | 0 | 2/3 |
+| 12 | 0.917 | 0.0133 | 0 | 0 | 0 | 0 | 0 | 0/3 |
+| 13 | 0.983 | 0.0833 | 0.0417 | 0.01 | 0 | 0 | 0 | 0/3 |
+| 14 | 0.303 | 0.0333 | 0.025 | 0 | 0 | 0 | 0 | 0/3 |
+| 15 | 0.96 | 0.0533 | 0.025 | 0.00333 | 0 | 0 | 0 | 0/3 |
+
+### R3b. False certification: streams whose final realized error is ABOVE the budget; share of audit-coin sequences in which the bound nevertheless dropped under the budget at some call (the one-shot certificates did this in R2). Lower is safer; a valid bound should stay near or under 5% (it is a proxy: the running error at that call may still have been under the budget)
+
+| setting | method | configs | mean_share | worst |
+|---|---|---|---|---|
+| S4 LR | chern | 6 | 0 | 0 |
+| S4 LR | chern_g[orc] | 6 | 0 | 0 |
+| S4 LR | chern_g[tpl] | 6 | 0 | 0 |
+| S4 LR | cp_peek | 6 | 0.00833 | 0.02 |
+| S4 LR | naive | 6 | 0.99 | 1 |
+| S4 LR | wsr | 6 | 0 | 0 |
+| S4 LR | wsr_g[tpl] | 6 | 0 | 0 |
+| S4 LR shift | chern | 9 | 0.00222 | 0.01 |
+| S4 LR shift | chern_g[orc] | 9 | 0 | 0 |
+| S4 LR shift | chern_g[tpl] | 9 | 0 | 0 |
+| S4 LR shift | cp_peek | 9 | 0.0911 | 0.38 |
+| S4 LR shift | naive | 9 | 0.996 | 1 |
+| S4 LR shift | wsr | 3 | 0.0167 | 0.05 |
+| S4 LR shift | wsr_g[tpl] | 3 | 0 | 0 |
+| S4 NN | chern | 9 | 0 | 0 |
+| S4 NN | chern_g[orc] | 9 | 0 | 0 |
+| S4 NN | chern_g[tpl] | 9 | 0 | 0 |
+| S4 NN | cp_peek | 9 | 0.01 | 0.03 |
+| S4 NN | naive | 9 | 0.99 | 1 |
+| S4 NN | wsr | 3 | 0 | 0 |
+| S4 NN | wsr_g[tpl] | 3 | 0 | 0 |
+
+### R4. Calls until the audit bound is under the budget, and its value after 1k / 5k / all served calls (S4 stationary; worlds whose realized error is within the budget; median over coin sequences, WSR 40 sequences, rest 100)
+
+| setting | budget | audit rate | bound | worlds in budget | median calls to certify | share certified by end | bound@1k | bound@5k | bound@all | realized@all |
+|---|---|---|---|---|---|---|---|---|---|---|
+| S4 LR | 0.01 | 0.05 | chern | 5 | never | 0 | 0.106 | 0.0212 | 0.0121 | 0.00169 |
+| S4 LR | 0.01 | 0.05 | chern_g[orc] | 5 | never | 0 | 0.122 | 0.025 | 0.0147 | 0.00169 |
+| S4 LR | 0.01 | 0.05 | chern_g[tpl] | 5 | never | 0 | 0.24 | 0.0479 | 0.0274 | 0.00169 |
+| S4 LR | 0.01 | 0.05 | wsr | 5 | 8.54e+03 | 0.57 | 0.0812 | 0.0163 | 0.00935 | 0.00169 |
+| S4 LR | 0.01 | 0.05 | wsr_g[tpl] | 5 | never | 0 | 0.207 | 0.041 | 0.0237 | 0.00169 |
+| S4 LR | 0.01 | 0.1 | chern | 5 | 8.5e+03 | 0.676 | 0.053 | 0.0106 | 0.00958 | 0.00169 |
+| S4 LR | 0.01 | 0.1 | chern_g[orc] | 5 | 7.49e+03 | 0.8 | 0.0619 | 0.013 | 0.00843 | 0.00169 |
+| S4 LR | 0.01 | 0.1 | chern_g[tpl] | 5 | never | 0 | 0.12 | 0.024 | 0.0172 | 0.00169 |
+| S4 LR | 0.01 | 0.1 | wsr | 5 | 4.27e+03 | 0.705 | 0.0404 | 0.00813 | 0.00821 | 0.00169 |
+| S4 LR | 0.01 | 0.1 | wsr_g[tpl] | 5 | never | 0 | 0.103 | 0.0205 | 0.0147 | 0.00169 |
+| S4 LR | 0.01 | 0.2 | chern | 5 | 4.25e+03 | 0.852 | 0.0265 | 0.0085 | 0.00711 | 0.00169 |
+| S4 LR | 0.01 | 0.2 | chern_g[orc] | 5 | 3.4e+03 | 1 | 0.032 | 0.00699 | 0.00507 | 0.00169 |
+| S4 LR | 0.01 | 0.2 | chern_g[tpl] | 5 | never | 0.544 | 0.0599 | 0.0152 | 0.011 | 0.00169 |
+| S4 LR | 0.01 | 0.2 | wsr | 5 | 2.14e+03 | 0.85 | 0.0201 | 0.00615 | 0.00574 | 0.00169 |
+| S4 LR | 0.01 | 0.2 | wsr_g[tpl] | 5 | 7.55e+03 | 0.69 | 0.0514 | 0.0121 | 0.00876 | 0.00169 |
+| S4 LR | 0.02 | 0.05 | chern | 6 | 5.3e+03 | 0.64 | 0.106 | 0.0212 | 0.0171 | 0.00182 |
+| S4 LR | 0.02 | 0.05 | chern_g[orc] | 6 | 6.59e+03 | 0.833 | 0.121 | 0.0254 | 0.0141 | 0.00182 |
+| S4 LR | 0.02 | 0.05 | chern_g[tpl] | 6 | never | 0 | 0.24 | 0.0479 | 0.0308 | 0.00182 |
+| S4 LR | 0.02 | 0.05 | wsr | 6 | 4.26e+03 | 0.725 | 0.0812 | 0.0163 | 0.0128 | 0.00182 |
+| S4 LR | 0.02 | 0.05 | wsr_g[tpl] | 6 | never | 0 | 0.204 | 0.0414 | 0.0248 | 0.00182 |
+| S4 LR | 0.02 | 0.1 | chern | 6 | 2.65e+03 | 0.765 | 0.053 | 0.0138 | 0.00968 | 0.00182 |
+| S4 LR | 0.02 | 0.1 | chern_g[orc] | 6 | 3.2e+03 | 0.833 | 0.0614 | 0.0134 | 0.00786 | 0.00182 |
+| S4 LR | 0.02 | 0.1 | chern_g[tpl] | 6 | 7.62e+03 | 0.645 | 0.12 | 0.0272 | 0.0166 | 0.00182 |
+| S4 LR | 0.02 | 0.1 | wsr | 6 | 2.13e+03 | 0.771 | 0.0404 | 0.0102 | 0.0076 | 0.00182 |
+| S4 LR | 0.02 | 0.1 | wsr_g[tpl] | 6 | 5.59e+03 | 0.7 | 0.102 | 0.0223 | 0.0138 | 0.00182 |
+| S4 LR | 0.02 | 0.2 | chern | 6 | 1.32e+03 | 0.843 | 0.0265 | 0.00959 | 0.00685 | 0.00182 |
+| S4 LR | 0.02 | 0.2 | chern_g[orc] | 6 | 1.6e+03 | 1 | 0.0315 | 0.00739 | 0.00484 | 0.00182 |
+| S4 LR | 0.02 | 0.2 | chern_g[tpl] | 6 | 3.81e+03 | 0.778 | 0.0599 | 0.0164 | 0.0103 | 0.00182 |
+| S4 LR | 0.02 | 0.2 | wsr | 6 | 1.06e+03 | 0.829 | 0.0201 | 0.00744 | 0.00605 | 0.00182 |
+| S4 LR | 0.02 | 0.2 | wsr_g[tpl] | 6 | 3.01e+03 | 0.771 | 0.0515 | 0.013 | 0.00898 | 0.00182 |
+| S4 LR | 0.05 | 0.05 | chern | 5 | 3.4e+03 | 0.942 | 0.106 | 0.0427 | 0.0283 | 0.00944 |
+| S4 LR | 0.05 | 0.05 | chern_g[orc] | 5 | 2.86e+03 | 1 | 0.128 | 0.031 | 0.026 | 0.00944 |
+| S4 LR | 0.05 | 0.05 | chern_g[tpl] | 5 | 7.8e+03 | 0.734 | 0.24 | 0.0703 | 0.0417 | 0.00944 |
+| S4 LR | 0.05 | 0.05 | wsr | 5 | 1.6e+03 | 0.93 | 0.0812 | 0.0352 | 0.0285 | 0.00944 |
+| S4 LR | 0.05 | 0.05 | wsr_g[tpl] | 5 | 6e+03 | 0.8 | 0.207 | 0.0587 | 0.0391 | 0.00944 |
+| S4 LR | 0.05 | 0.1 | chern | 5 | 1.7e+03 | 0.998 | 0.085 | 0.0291 | 0.0235 | 0.00944 |
+| S4 LR | 0.05 | 0.1 | chern_g[orc] | 5 | 1.42e+03 | 1 | 0.0679 | 0.0222 | 0.0192 | 0.00944 |
+| S4 LR | 0.05 | 0.1 | chern_g[tpl] | 5 | 3.9e+03 | 0.972 | 0.152 | 0.0429 | 0.0306 | 0.00944 |
+| S4 LR | 0.05 | 0.1 | wsr | 5 | 803 | 0.99 | 0.0615 | 0.0248 | 0.0216 | 0.00944 |
+| S4 LR | 0.05 | 0.1 | wsr_g[tpl] | 5 | 2.86e+03 | 0.955 | 0.119 | 0.0363 | 0.0285 | 0.00944 |
+| S4 LR | 0.05 | 0.2 | chern | 5 | 850 | 1 | 0.0534 | 0.0212 | 0.0181 | 0.00944 |
+| S4 LR | 0.05 | 0.2 | chern_g[orc] | 5 | 700 | 1 | 0.038 | 0.0163 | 0.0145 | 0.00944 |
+| S4 LR | 0.05 | 0.2 | chern_g[tpl] | 5 | 1.95e+03 | 1 | 0.0878 | 0.0285 | 0.0216 | 0.00944 |
+| S4 LR | 0.05 | 0.2 | wsr | 5 | 586 | 1 | 0.0404 | 0.0216 | 0.0188 | 0.00944 |
+| S4 LR | 0.05 | 0.2 | wsr_g[tpl] | 5 | 1.36e+03 | 0.99 | 0.0704 | 0.027 | 0.0215 | 0.00944 |
+| S4 NN | 0.01 | 0.05 | chern | 4 | never | 0 | 0.106 | 0.0276 | 0.0181 | 0.0012 |
+| S4 NN | 0.01 | 0.05 | chern_g[orc] | 4 | never | 0 | 0.121 | 0.0254 | 0.0178 | 0.0012 |
+| S4 NN | 0.01 | 0.05 | chern_g[tpl] | 4 | never | 0 | 0.24 | 0.0545 | 0.0357 | 0.0012 |
+| S4 NN | 0.01 | 0.1 | chern | 4 | never | 0.512 | 0.053 | 0.0138 | 0.0105 | 0.0012 |
+| S4 NN | 0.01 | 0.1 | chern_g[orc] | 4 | never | 0.5 | 0.0609 | 0.0134 | 0.00995 | 0.0012 |
+| S4 NN | 0.01 | 0.1 | chern_g[tpl] | 4 | never | 0 | 0.12 | 0.0272 | 0.0194 | 0.0012 |
+| S4 NN | 0.01 | 0.1 | wsr | 4 | never | 0.662 | 0.0404 | 0.0102 | 0.00844 | 0.0012 |
+| S4 NN | 0.01 | 0.1 | wsr_g[tpl] | 4 | never | 0 | 0.103 | 0.0222 | 0.0174 | 0.0012 |
+| S4 NN | 0.01 | 0.2 | chern | 4 | 3.45e+03 | 0.765 | 0.0265 | 0.00959 | 0.00783 | 0.0012 |
+| S4 NN | 0.01 | 0.2 | chern_g[orc] | 4 | 3.4e+03 | 1 | 0.031 | 0.00739 | 0.006 | 0.0012 |
+| S4 NN | 0.01 | 0.2 | chern_g[tpl] | 4 | never | 0.302 | 0.0599 | 0.0164 | 0.0133 | 0.0012 |
+| S4 NN | 0.02 | 0.05 | chern | 5 | 5.3e+03 | 0.708 | 0.106 | 0.0212 | 0.014 | 0.00053 |
+| S4 NN | 0.02 | 0.05 | chern_g[orc] | 5 | 6.19e+03 | 0.8 | 0.121 | 0.0248 | 0.0164 | 0.00053 |
+| S4 NN | 0.02 | 0.05 | chern_g[tpl] | 5 | never | 0 | 0.24 | 0.0479 | 0.0317 | 0.00053 |
+| S4 NN | 0.02 | 0.1 | chern | 5 | 2.65e+03 | 0.928 | 0.053 | 0.0106 | 0.00701 | 0.00053 |
+| S4 NN | 0.02 | 0.1 | chern_g[orc] | 5 | 3.1e+03 | 1 | 0.0609 | 0.0128 | 0.00846 | 0.00053 |
+| S4 NN | 0.02 | 0.1 | chern_g[tpl] | 5 | 5.99e+03 | 0.588 | 0.12 | 0.024 | 0.0159 | 0.00053 |
+| S4 NN | 0.02 | 0.1 | wsr | 5 | 2.13e+03 | 0.965 | 0.0404 | 0.00813 | 0.00535 | 0.00053 |
+| S4 NN | 0.02 | 0.1 | wsr_g[tpl] | 5 | 5.15e+03 | 0.815 | 0.102 | 0.0206 | 0.0135 | 0.00053 |
+| S4 NN | 0.02 | 0.2 | chern | 5 | 1.32e+03 | 1 | 0.0265 | 0.0085 | 0.00562 | 0.00053 |
+| S4 NN | 0.02 | 0.2 | chern_g[orc] | 5 | 1.55e+03 | 1 | 0.031 | 0.00679 | 0.0045 | 0.00053 |
+| S4 NN | 0.02 | 0.2 | chern_g[tpl] | 5 | 3e+03 | 0.95 | 0.0599 | 0.0152 | 0.0101 | 0.00053 |
+| S4 NN | 0.05 | 0.05 | chern | 5 | 3.4e+03 | 0.798 | 0.106 | 0.0427 | 0.0277 | 0.00736 |
+| S4 NN | 0.05 | 0.05 | chern_g[orc] | 5 | 2.82e+03 | 0.8 | 0.13 | 0.0312 | 0.0205 | 0.00736 |
+| S4 NN | 0.05 | 0.05 | chern_g[tpl] | 5 | 7.03e+03 | 0.69 | 0.24 | 0.0703 | 0.0428 | 0.00736 |
+| S4 NN | 0.05 | 0.1 | chern | 5 | 1.7e+03 | 0.806 | 0.085 | 0.0291 | 0.0217 | 0.00736 |
+| S4 NN | 0.05 | 0.1 | chern_g[orc] | 5 | 1.4e+03 | 0.95 | 0.0699 | 0.0192 | 0.0139 | 0.00736 |
+| S4 NN | 0.05 | 0.1 | chern_g[tpl] | 5 | 3.51e+03 | 0.8 | 0.152 | 0.0429 | 0.0297 | 0.00736 |
+| S4 NN | 0.05 | 0.1 | wsr | 5 | 803 | 0.805 | 0.0615 | 0.0248 | 0.0201 | 0.00736 |
+| S4 NN | 0.05 | 0.1 | wsr_g[tpl] | 5 | 2.8e+03 | 0.805 | 0.12 | 0.0368 | 0.026 | 0.00736 |
+| S4 NN | 0.05 | 0.2 | chern | 5 | 850 | 0.82 | 0.0534 | 0.0198 | 0.0163 | 0.00736 |
+| S4 NN | 0.05 | 0.2 | chern_g[orc] | 5 | 720 | 1 | 0.04 | 0.0132 | 0.011 | 0.00736 |
+| S4 NN | 0.05 | 0.2 | chern_g[tpl] | 5 | 1.76e+03 | 0.806 | 0.0878 | 0.027 | 0.0204 | 0.00736 |
+
+Per world, audit rate 10%, pooled Chernoff and WSR bounds:
+
+| budget | world | T | realT | U1k chern | U1k wsr | U5k chern | U5k wsr | UT chern | UT wsr | tcert chern | tcert wsr |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 0.01 | 4 | 8.87e+03 | 0.00169 | 0.053 | 0.0404 | 0.017 | 0.0124 | 0.00958 | 0.00821 | 8.5e+03 | 6.44e+03 |
+| 0.02 | 4 | 9.99e+03 | 0.0015 | 0.053 | 0.0404 | 0.017 | 0.0124 | 0.00851 | 0.00615 | 2.65e+03 | 2.13e+03 |
+| 0.05 | 4 | 1.03e+04 | 0.00944 | 0.085 | 0.0615 | 0.0291 | 0.0248 | 0.0235 | 0.0216 | 2.14e+03 | 1.17e+03 |
+| 0.01 | 15 | 9.59e+03 | 0.00219 | 0.053 | 0.0404 | 0.0106 | 0.00813 | 0.0111 | 0.00935 | 8.5e+03 | 4.27e+03 |
+| 0.02 | 15 | 9.84e+03 | 0.00213 | 0.053 | 0.0404 | 0.0106 | 0.00813 | 0.0109 | 0.00904 | 2.65e+03 | 2.13e+03 |
+| 0.05 | 15 | 1.02e+04 | 0.0116 | 0.085 | 0.0615 | 0.0291 | 0.0276 | 0.025 | 0.0232 | 1.7e+03 | 803 |
+| 0.01 | 14 | 9.26e+03 | 0 | 0.053 | 0.0404 | 0.0106 | 0.00813 | 0.00572 | 0.00434 | 5.3e+03 | 4.27e+03 |
+| 0.02 | 14 | 9.26e+03 | 0 | 0.053 | 0.0404 | 0.0106 | 0.00813 | 0.00572 | 0.00434 | 2.65e+03 | 2.13e+03 |
+| 0.05 | 14 | 1.02e+04 | 0.00529 | 0.053 | 0.0404 | 0.0214 | 0.0175 | 0.018 | 0.0142 | 1.06e+03 | 803 |
+| 0.01 | 12 | 8.75e+03 | 0.000114 | 0.053 | 0.0404 | 0.0106 | 0.00813 | 0.00605 | 0.00466 | 5.3e+03 | 4.27e+03 |
+| 0.02 | 12 | 8.75e+03 | 0.000114 | 0.053 | 0.0404 | 0.0106 | 0.00813 | 0.00605 | 0.00466 | 2.65e+03 | 2.13e+03 |
+| 0.05 | 12 | 1e+04 | 0.0037 | 0.053 | 0.051 | 0.0214 | 0.0169 | 0.0126 | 0.0124 | 1.06e+03 | 803 |
+| 0.01 | 13 | 9.02e+03 | 0.00388 | 0.053 | 0.051 | 0.017 | 0.0124 | 0.014 | 0.0115 | never | never |
+| 0.02 | 13 | 9.7e+03 | 0.00742 | 0.085 | 0.0615 | 0.0272 | 0.0232 | 0.0204 | 0.0182 | 9.17e+03 | 7.64e+03 |
+| 0.05 | 13 | 1.03e+04 | 0.0188 | 0.126 | 0.0936 | 0.0483 | 0.0482 | 0.036 | 0.0404 | 3.81e+03 | 3.31e+03 |
+| 0.01 | 11 | 1.01e+04 | 0.0157 | 0.085 | 0.0615 | 0.0425 | 0.0404 | 0.0334 | 0.0328 | never | never |
+| 0.02 | 11 | 1.01e+04 | 0.0157 | 0.085 | 0.0615 | 0.0425 | 0.0377 | 0.0327 | 0.0328 | never | never |
+| 0.05 | 11 | 1.1e+04 | 0.0666 | 0.198 | 0.181 | 0.112 | 0.115 | 0.0963 | 0.1 | never | never |
+
+### R5. Re-certify alarms (a lower bound above the budget). Streams where the one-shot cp certificate exceeded its budget, by audit rate. 'frac' = share of coin sequences that ever alarm; 'call' = median call of the first alarm (never = fewer than half alarmed). pooled = Chernoff lower bound on all served calls; tpl-pooled = sum of the per-template-group lower bounds (observable group); tpl-any / orc-any = some group's error rate is certainly above the budget (orc = oracle novelty flag, not observable at serving time); cp_peek = continuously peeked Clopper-Pearson lower bound (not valid)
+
+| setting | world | budget | realized@all | audit rate | pooled call | pooled frac | tpl-pooled call | tpl-pooled frac | tpl-any call | tpl-any frac | orc-any call | orc-any frac | cp_peek call | cp_peek frac |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| S4 LR shift | 11 | 0.01 | 0.0319 | 0.05 | 7.99e+03 | 0.55 | 8.36e+03 | 0.51 | 5.86e+03 | 0.94 | 2.24e+03 | 1 | 5.85e+03 | 0.93 |
+| S4 LR shift | 11 | 0.01 | 0.0319 | 0.1 | 6.79e+03 | 0.94 | 7.12e+03 | 0.87 | 4.42e+03 | 1 | 1.37e+03 | 1 | 5.36e+03 | 0.99 |
+| S4 LR shift | 11 | 0.01 | 0.0319 | 0.2 | 5.77e+03 | 1 | 5.82e+03 | 1 | 2.24e+03 | 1 | 543 | 1 | 2.48e+03 | 1 |
+| S4 LR shift | 11 | 0.02 | 0.0319 | 0.05 | never | 0.02 | never | 0.02 | 7.52e+03 | 0.77 | 2.18e+03 | 1 | never | 0.42 |
+| S4 LR shift | 11 | 0.02 | 0.0319 | 0.1 | never | 0.12 | never | 0.08 | 6.13e+03 | 0.99 | 1.05e+03 | 1 | 7.86e+03 | 0.63 |
+| S4 LR shift | 11 | 0.02 | 0.0319 | 0.2 | 8.38e+03 | 0.51 | never | 0.3 | 5.19e+03 | 1 | 520 | 1 | 7.14e+03 | 0.95 |
+| S4 LR shift | 11 | 0.05 | 0.13 | 0.05 | 6.85e+03 | 1 | 7.07e+03 | 1 | 2.46e+03 | 1 | 662 | 1 | 3.5e+03 | 1 |
+| S4 LR shift | 11 | 0.05 | 0.13 | 0.1 | 6.09e+03 | 1 | 6.22e+03 | 1 | 1.15e+03 | 1 | 360 | 1 | 1.86e+03 | 1 |
+| S4 LR shift | 11 | 0.05 | 0.13 | 0.2 | 5.76e+03 | 1 | 5.84e+03 | 1 | 662 | 1 | 186 | 1 | 1.21e+03 | 1 |
+| S4 NN | 13 | 0.01 | 0.0253 | 0.05 | never | 0.28 | never | 0.27 | 3.21e+03 | 0.92 | 1.4e+03 | 1 | 2.61e+03 | 0.84 |
+| S4 NN | 13 | 0.01 | 0.0253 | 0.1 | 5.05e+03 | 0.81 | 5.49e+03 | 0.76 | 1.04e+03 | 1 | 438 | 1 | 700 | 1 |
+| S4 NN | 13 | 0.01 | 0.0253 | 0.2 | 2.5e+03 | 0.99 | 3.15e+03 | 0.99 | 533 | 1 | 246 | 1 | 380 | 1 |
+| S4 NN | 13 | 0.02 | 0.0343 | 0.05 | never | 0.14 | never | 0.09 | 2.69e+03 | 0.95 | 824 | 1 | 4.29e+03 | 0.69 |
+| S4 NN | 13 | 0.02 | 0.0343 | 0.1 | 7.14e+03 | 0.52 | never | 0.43 | 786 | 1 | 594 | 1 | 800 | 0.94 |
+| S4 NN | 13 | 0.02 | 0.0343 | 0.2 | 4.29e+03 | 0.9 | 5.27e+03 | 0.85 | 640 | 1 | 106 | 1 | 330 | 1 |
+| S4 NN | 11 | 0.05 | 0.0693 | 0.05 | never | 0.12 | never | 0.08 | 2.14e+03 | 1 | 756 | 1 | 3.09e+03 | 0.74 |
+| S4 NN | 11 | 0.05 | 0.0693 | 0.1 | never | 0.31 | never | 0.22 | 775 | 1 | 396 | 1 | 1.36e+03 | 0.95 |
+| S4 NN | 11 | 0.05 | 0.0693 | 0.2 | 8.86e+03 | 0.68 | 9.86e+03 | 0.56 | 347 | 1 | 134 | 1 | 380 | 1 |
+| S4 LR | 11 | 0.01 | 0.0157 | 0.05 | never | 0.02 | never | 0.01 | 8.66e+03 | 0.61 | 2.23e+03 | 1 | 9.47e+03 | 0.55 |
+| S4 LR | 11 | 0.01 | 0.0157 | 0.1 | never | 0.13 | never | 0.08 | 3.75e+03 | 0.91 | 1.05e+03 | 1 | 3.52e+03 | 0.74 |
+| S4 LR | 11 | 0.01 | 0.0157 | 0.2 | never | 0.19 | never | 0.11 | 2.4e+03 | 1 | 588 | 1 | 2.79e+03 | 0.85 |
+| S4 LR | 11 | 0.05 | 0.0666 | 0.05 | never | 0.07 | never | 0.04 | 2.43e+03 | 1 | 692 | 1 | 2.97e+03 | 0.73 |
+| S4 LR | 11 | 0.05 | 0.0666 | 0.1 | never | 0.29 | never | 0.2 | 1.21e+03 | 1 | 328 | 1 | 1.81e+03 | 0.96 |
+| S4 LR | 11 | 0.05 | 0.0666 | 0.2 | 9.74e+03 | 0.55 | never | 0.44 | 594 | 1 | 185 | 1 | 710 | 0.98 |
+
+False alarms: streams where the one-shot certificate held (final realized error within the budget); share of coin sequences in which the alarm fired anyway. The pooled lower bound is a statement about all served calls and is valid; group alarms are statements about each group, which can legitimately sit above the pooled budget while the pool is fine, so they are diagnostics and not budget alarms.
+
+| alarm | setting | audit rate | configs | mean false-alarm share | worst config |
+|---|---|---|---|---|---|
+| pooled | B77 control | 0.05 | 11 | 0.000909 | 0.01 |
+| pooled | B77 control | 0.1 | 11 | 0 | 0 |
+| pooled | B77 control | 0.2 | 11 | 0 | 0 |
+| pooled | S4 LR | 0.05 | 16 | 0 | 0 |
+| pooled | S4 LR | 0.1 | 16 | 0 | 0 |
+| pooled | S4 LR | 0.2 | 16 | 0 | 0 |
+| pooled | S4 LR shift | 0.05 | 15 | 0 | 0 |
+| pooled | S4 LR shift | 0.1 | 15 | 0 | 0 |
+| pooled | S4 LR shift | 0.2 | 15 | 0 | 0 |
+| pooled | S4 NN | 0.05 | 14 | 0 | 0 |
+| pooled | S4 NN | 0.1 | 14 | 0.000714 | 0.01 |
+| pooled | S4 NN | 0.2 | 14 | 0.000714 | 0.01 |
+| tpl-pooled | S4 LR | 0.05 | 16 | 0 | 0 |
+| tpl-pooled | S4 LR | 0.1 | 16 | 0 | 0 |
+| tpl-pooled | S4 LR | 0.2 | 16 | 0 | 0 |
+| tpl-pooled | S4 LR shift | 0.05 | 15 | 0 | 0 |
+| tpl-pooled | S4 LR shift | 0.1 | 15 | 0 | 0 |
+| tpl-pooled | S4 LR shift | 0.2 | 15 | 0 | 0 |
+| tpl-pooled | S4 NN | 0.05 | 14 | 0 | 0 |
+| tpl-pooled | S4 NN | 0.1 | 14 | 0.000714 | 0.01 |
+| tpl-pooled | S4 NN | 0.2 | 14 | 0.000714 | 0.01 |
+| tpl-any | S4 LR | 0.05 | 16 | 0.01 | 0.13 |
+| tpl-any | S4 LR | 0.1 | 16 | 0.0244 | 0.3 |
+| tpl-any | S4 LR | 0.2 | 16 | 0.06 | 0.8 |
+| tpl-any | S4 LR shift | 0.05 | 15 | 0.0447 | 0.46 |
+| tpl-any | S4 LR shift | 0.1 | 15 | 0.0893 | 0.88 |
+| tpl-any | S4 LR shift | 0.2 | 15 | 0.142 | 0.98 |
+| tpl-any | S4 NN | 0.05 | 14 | 0.065 | 0.91 |
+| tpl-any | S4 NN | 0.1 | 14 | 0.0714 | 1 |
+| tpl-any | S4 NN | 0.2 | 14 | 0.0714 | 1 |
+| orc-any | S4 LR | 0.05 | 16 | 0.402 | 0.95 |
+| orc-any | S4 LR | 0.1 | 16 | 0.574 | 1 |
+| orc-any | S4 LR | 0.2 | 16 | 0.706 | 1 |
+| orc-any | S4 LR shift | 0.05 | 15 | 0.502 | 1 |
+| orc-any | S4 LR shift | 0.1 | 15 | 0.657 | 1 |
+| orc-any | S4 LR shift | 0.2 | 15 | 0.725 | 1 |
+| orc-any | S4 NN | 0.05 | 14 | 0.268 | 1 |
+| orc-any | S4 NN | 0.1 | 14 | 0.444 | 1 |
+| orc-any | S4 NN | 0.2 | 14 | 0.596 | 1 |
+| cp_peek | B77 control | 0.05 | 11 | 0.0236 | 0.07 |
+| cp_peek | B77 control | 0.1 | 11 | 0.0182 | 0.08 |
+| cp_peek | B77 control | 0.2 | 11 | 0.0236 | 0.1 |
+| cp_peek | S4 LR | 0.05 | 16 | 0.00813 | 0.05 |
+| cp_peek | S4 LR | 0.1 | 16 | 0.00875 | 0.06 |
+| cp_peek | S4 LR | 0.2 | 16 | 0.00187 | 0.03 |
+| cp_peek | S4 LR shift | 0.05 | 15 | 0.00933 | 0.08 |
+| cp_peek | S4 LR shift | 0.1 | 15 | 0.00667 | 0.07 |
+| cp_peek | S4 LR shift | 0.2 | 15 | 0.00533 | 0.06 |
+| cp_peek | S4 NN | 0.05 | 14 | 0.0164 | 0.15 |
+| cp_peek | S4 NN | 0.1 | 14 | 0.00929 | 0.13 |
+| cp_peek | S4 NN | 0.2 | 14 | 0.0107 | 0.15 |
+
+### R6. Cost of auditing vs tightness (S4 LR stationary, Chernoff pooled bound, worlds in budget; budget in first column)
+
+| budget | p | worlds | served_share | paid_share | bound_1k | bound_5k | bound_all | realized | calls_to_certify |
+|---|---|---|---|---|---|---|---|---|---|
+| 0.01 | 0.05 | 5 | 0.703 | 0.332 | 0.106 | 0.0212 | 0.0121 | 0.00169 | never |
+| 0.01 | 0.1 | 5 | 0.703 | 0.368 | 0.053 | 0.0106 | 0.00958 | 0.00169 | 8.5e+03 |
+| 0.01 | 0.2 | 5 | 0.703 | 0.438 | 0.0265 | 0.0085 | 0.00711 | 0.00169 | 4.25e+03 |
+| 0.02 | 0.05 | 6 | 0.741 | 0.296 | 0.106 | 0.0212 | 0.0171 | 0.00182 | 5.3e+03 |
+| 0.02 | 0.1 | 6 | 0.741 | 0.333 | 0.053 | 0.0138 | 0.00968 | 0.00182 | 2.65e+03 |
+| 0.02 | 0.2 | 6 | 0.741 | 0.407 | 0.0265 | 0.00959 | 0.00685 | 0.00182 | 1.32e+03 |
+| 0.05 | 0.05 | 5 | 0.788 | 0.251 | 0.106 | 0.0427 | 0.0283 | 0.00944 | 3.4e+03 |
+| 0.05 | 0.1 | 5 | 0.788 | 0.291 | 0.085 | 0.0291 | 0.0235 | 0.00944 | 1.7e+03 |
+| 0.05 | 0.2 | 5 | 0.788 | 0.369 | 0.0534 | 0.0212 | 0.0181 | 0.00944 | 850 |
+
+### R7. Banking77 control (iid errors), audit rate 10%
+
+| budget | method | streams | viol | calls_to_certify | certified | bound_1k | bound_5k | bound_all | realized |
+|---|---|---|---|---|---|---|---|---|---|
+| 0.02 | chern | 5 | 0 | never | 0.182 | 0.053 | - | 0.0268 | 0.00455 |
+| 0.02 | chern_g[confbin] | 5 | 0 | never | 0 | 0.12 | - | 0.0433 | 0.00455 |
+| 0.02 | cp_peek | 5 | 0.02 | 2.25e+03 | 0.774 | 0.0326 | - | - | 0.00455 |
+| 0.02 | naive | 5 | 0.936 | 7 | 1 | 0 | - | 0.00397 | 0.00455 |
+| 0.02 | wsr | 5 | 0 | 3.13e+03 | 0.53 | 0.0404 | - | 0.0201 | 0.00455 |
+| 0.02 | wsr_g[confbin] | 5 | 0 | never | 0 | 0.104 | - | 0.0344 | 0.00455 |
+| 0.05 | chern | 6 | 0.00667 | never | 0.462 | 0.126 | 0.0628 | 0.0553 | 0.0291 |
+| 0.05 | chern_g[confbin] | 6 | 0 | never | 0.0617 | 0.195 | 0.0802 | 0.0681 | 0.0291 |
+| 0.05 | cp_peek | 6 | 0.138 | 2.03e+03 | 0.942 | 0.0763 | 0.0451 | - | 0.0291 |
+| 0.05 | naive | 6 | 0.977 | 7.75 | 1 | 0.0301 | 0.0295 | 0.0287 | 0.0291 |
+| 0.05 | wsr | 6 | 0.0208 | never | 0.479 | 0.1 | 0.0615 | 0.0535 | 0.0291 |
+| 0.05 | wsr_g[confbin] | 6 | 0 | never | 0.146 | 0.161 | 0.0746 | 0.0648 | 0.0291 |
+
+### R8. Cross-check: my betting CS (cs.wsr) against the reference confseq.betting.betting_cs, same audit streams (budget 1%, audit rate 10%)
+
+confseq 0.0.11 (PyPI sdist, pure-Python betting.py; betting_cs(alpha=0.10, theta=1/2) = one-sided 5%), predictable-plug-in EB bets
+
+| world | T | errors | realized | method | seqs | U1k | U5k | UT | ever_below_realized | calls_to_under_budget |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 4 | 8872 | 15 | 0.00169 | mine (cs.wsr) | 3 | 0.0404 | 0.0124 | 0.00708 | 0 | 6.38e+03 |
+| 4 | 8872 | 15 | 0.00169 | confseq betting_cs | 3 | 0.06 | 0.015 | 0.0085 | 0 | 7.37e+03 |
+| 11 | 10055 | 158 | 0.0157 | mine (cs.wsr) | 3 | 0.0615 | 0.0285 | 0.0248 | 0 | never |
+| 11 | 10055 | 158 | 0.0157 | confseq betting_cs | 3 | 0.0735 | 0.029 | 0.0245 | 0 | never |
+
+exit=0
