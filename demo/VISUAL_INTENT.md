@@ -163,6 +163,8 @@ Every number is a field of `GET /benchmark` (README (e)). The page formats perce
 At 1920×1080 the flows graph scales itself up, and the dreams, replay and scores tabs are zoomed 1.18× so all three tabs read at the same scale. Small explanatory text is at least 13px. On short screens (≤780px tall, e.g. 1280×720) the dreams column tightens its spacing, so the promise card fits without scrolling.
 
 ## Demo script (what will be recorded)
+*Numbers on the API-backed page (`dreaming/apps/web`):* the figures in this file (13.1¢ → 7.8¢, 60%, 10.7%, ~2.6¢, ~70% at 1%) are the simulation's in `demo/index.html`. The API-backed page prints only the backend's fields (`apps/web/README.md` (e)), so check the beats there, not these figures. Cost, seconds, failed and replayable average the last 100 finished runs, so a budget change shows in the lines only once runs follow it. On the offline backend (`TEACHER=rule`, which `agents/bookkeeper/tests` pin) the teacher is an exact rule at 1¢ and 800 ms a call (no failed runs), its thinking-off configuration is the same rule (anything odd? certifies at 5%, so 7% changes nothing), and vendor lookup falls back to last night's snapshot (an outage fails no run and strands none, before or after learning).
+
 1. flows, fresh: every step awake, $0.00, flat values.
 2. Press **run 2,000**. Watch the stickers go sun → eye → half moon → sleeping cloud for categorize (~run 600), vendor lookup (~740), match invoice (~940). "anything odd?" starts watching at ~660 and stays awake at 5% (~1,200). The lines step, the savings tick up, and it ends with "done · cost per run 13.1¢ → 7.8¢ · …".
 3. Click **categorize** → dreams opens with its promise.
