@@ -16,7 +16,7 @@ kill_timeout = "30s"        # keep the default SIGINT: uAgents shuts down cleanl
   ENCODER_REV = "5c38ec7c405ec4b44b94cc5a9bb96e735b38267a"   # the same commit for `modal deploy`; model.safetensors sha256 3c9f3166… (133 MB: Modal Volume, not Supabase Storage)
   RECORDED_ANSWERS = "/app/data/recorded.jsonl"
   EMBEDDING_CACHE = "/app/data/embeddings.npz"
-  DREAMING_API = "http://dreaming-demo.internal:8080"   # the agent machine relays chats here over Fly's private network
+  DREAMING_API = "https://dreaming-demo.fly.dev"   # the agent relays chats here. Not .internal: it resolves to IPv6 6PN only and the API binds 0.0.0.0 (refused, 2026-10-18)
 
 [processes]
   api = "uvicorn dreaming_api.wiring:app --factory --host 0.0.0.0 --port 8080 --proxy-headers --forwarded-allow-ips=*"

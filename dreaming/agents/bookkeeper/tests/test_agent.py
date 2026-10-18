@@ -95,10 +95,9 @@ def test_a_chat_line_is_acked_relayed_to_the_api_and_answered_in_words() -> None
     ctx, msg = FakeCtx(log), chat(LINE)
     deliver(proto, ctx, msg)
 
-    ack, working, final = ctx.sent
+    ack, final = ctx.sent  # no "working on it": the planner would take it as the answer
     assert isinstance(ack, ChatAcknowledgement) and ack.acknowledged_msg_id == msg.msg_id
-    assert log == ["ChatAcknowledgement", "ChatMessage", "POST /run", "ChatMessage"]  # ack, "working on it", the call, the answer
-    assert isinstance(working, ChatMessage) and "Working on it" in working.text() and not any(isinstance(c, EndSessionContent) for c in working.content)
+    assert log == ["ChatAcknowledgement", "POST /run", "ChatMessage"]  # ack, the call, the answer
     assert isinstance(final, ChatMessage) and isinstance(final.content[-1], EndSessionContent) and final.text() == agent.to_reply(view)
 
     (request,) = seen
@@ -161,9 +160,9 @@ def test_an_api_failure_becomes_a_reply_naming_it_not_a_crash(handle: Callable[[
     proto = chat_handler(API, workflow.W, agent.to_input, agent.to_reply, http=client(handle, log))
     ctx = FakeCtx(log)
     deliver(proto, ctx, chat(LINE))  # must not raise
-    ack, working, final = ctx.sent
-    assert isinstance(ack, ChatAcknowledgement) and isinstance(working, ChatMessage) and isinstance(final, ChatMessage)
-    assert "Working on it" in working.text() and named in final.text() and "may not have posted" in final.text()
+    ack, final = ctx.sent
+    assert isinstance(ack, ChatAcknowledgement) and isinstance(final, ChatMessage)
+    assert named in final.text() and "may not have posted" in final.text()
     assert isinstance(final.content[-1], EndSessionContent)
 
 
@@ -171,6 +170,8 @@ def test_to_input_reads_descriptor_and_amount() -> None:
     txn = cast(dict[str, Any], agent.to_input("  UBER   TRIP  *WEB  $1,023.50 "))
     assert (txn["descriptor"], txn["amount"], txn["merchant"]) == ("UBER TRIP *WEB", 1023.5, "")
     assert txn["id"] != cast(dict[str, Any], agent.to_input("AWS 12"))["id"]  # every chat is its own transaction
+    asked = cast(dict[str, Any], agent.to_input("Process this bank-feed line: `NOTION *WEB 96.00`"))  # how ASI:One's planner relays it
+    assert (asked["descriptor"], asked["amount"]) == ("NOTION *WEB", 96.0)
 
 
 def test_main_attaches_the_chat_protocol_to_a_mailbox_agent(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -196,3 +197,4 @@ def test_main_attaches_the_chat_protocol_to_a_mailbox_agent(monkeypatch: pytest.
     (a,) = built
     assert a.name == "dreaming-bookkeeper" and a.address.startswith("agent1q")
     assert [p.name for p in a.protocols.values()] == ["AgentChatProtocol"]
+    assert "tag:innovationlab" in a._build_registration_profile().readme  # pyright: ignore[reportPrivateUsage] - /connect publishes the README
