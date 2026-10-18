@@ -1,0 +1,51 @@
+<!doctype html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,400..700&display=swap">
+<style>
+:root{--paper:#FFFEFB;--ink:#2B2B33;--purple:#6A4FD8;--muted:#5C5A66}
+html,body{margin:0;height:100%}
+body{background-color:var(--paper);background-image:radial-gradient(circle,#E4E0EC 1.1px,transparent 1.4px);background-size:22px 22px;display:grid;place-items:center;overflow:hidden;font-family:'Bricolage Grotesque',system-ui,sans-serif;color:var(--ink)}
+.blob{position:fixed;border-radius:50%;filter:blur(60px);opacity:.55}
+.b1{width:520px;height:380px;background:#FFE7A8;left:8%;top:6%}.b2{width:560px;height:420px;background:#D9E8FF;right:4%;top:-4%}
+.b3{width:480px;height:420px;background:#FFD6DE;left:-6%;bottom:-8%}.b4{width:600px;height:380px;background:#D7F5E8;right:12%;bottom:-10%}
+.wrap{display:flex;flex-direction:column;align-items:center;gap:26px}
+.mark{display:flex;align-items:center;gap:34px}
+.cloud{width:300px;height:238px;transform:scale(0) rotate(-12deg);opacity:0}
+.word{font-family:'Gaegu',cursive;font-weight:700;font-size:200px;line-height:.9;display:flex}
+.word span{display:inline-block;transform:translateY(40px);opacity:0}
+.under path{stroke-dasharray:24;stroke-dashoffset:24}
+.z{opacity:0}
+.tag{font-family:'Gaegu',cursive;font-weight:700;font-size:54px;color:var(--purple);opacity:0;transform:translateY(16px)}
+.url{font-size:30px;color:var(--muted);opacity:0}
+.go .cloud{animation:pop .7s cubic-bezier(.3,1.6,.5,1) forwards}
+.go .word span{animation:up .45s cubic-bezier(.3,1.4,.5,1) forwards}
+.go .under path{animation:draw .35s ease-out forwards}
+.go .z{animation:zz 1.6s ease-in-out .7s infinite}
+.go .tag{animation:fade .5s ease-out 1.35s forwards}
+.go .url{animation:fade .5s ease-out 1.7s forwards}
+@keyframes pop{to{transform:scale(1) rotate(0);opacity:1}}
+@keyframes up{to{transform:none;opacity:1}}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes zz{0%{opacity:0;transform:translate(0,6px)}30%{opacity:1}100%{opacity:0;transform:translate(6px,-10px)}}
+@keyframes fade{to{opacity:1;transform:none}}
+</style>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div>
+<div class="wrap" id="root">
+  <div class="mark">
+    <svg class="cloud" viewBox="0 0 58 46"><path d="M12 38h30a9 9 0 0 0 1.5-17.9A13 13 0 0 0 18.6 17 10 10 0 0 0 12 38z" fill="#EDE7FF" stroke="#2B2B33" stroke-width="2.2" stroke-linejoin="round"/><path d="M20 29q2.5 2.4 5 0M30 29q2.5 2.4 5 0" fill="none" stroke="#2B2B33" stroke-width="2" stroke-linecap="round"/><path class="z" d="M44 4h6l-6 7h6M51 13h4l-4 5h4" fill="none" stroke="#6A4FD8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div>
+      <div class="word" id="word"></div>
+      <svg class="under" width="640" height="40" viewBox="0 0 128 8"><path d="M2 5 Q12 1 22 5" fill="none" stroke="#FF8A80" stroke-width="3" stroke-linecap="round"/><path d="M24 5 Q34 1 44 5" fill="none" stroke="#FFB84D" stroke-width="3" stroke-linecap="round"/><path d="M46 5 Q56 1 66 5" fill="none" stroke="#7BD8B4" stroke-width="3" stroke-linecap="round"/><path d="M68 5 Q78 1 88 5" fill="none" stroke="#7FB7FF" stroke-width="3" stroke-linecap="round"/><path d="M90 5 Q100 1 110 5" fill="none" stroke="#B39DFF" stroke-width="3" stroke-linecap="round"/></svg>
+    </div>
+  </div>
+  <div class="tag" id="tag"></div>
+  <div class="url" id="url"></div>
+</div>
+<script>
+const outro = location.hash === '#outro';
+document.getElementById('word').innerHTML = [...'dreaming'].map((c, i) => `<span style="animation-delay:${0.25 + i * 0.06}s">${c}</span>`).join('');
+document.querySelectorAll('.under path').forEach((p, i) => { p.style.animationDelay = (0.85 + i * 0.09) + 's'; });
+document.getElementById('tag').textContent = outro ? 'keep on dreaming' : 'agents, awake only when it matters';
+document.getElementById('url').textContent = outro ? 'dreaming-demo.fly.dev' : '';
+window.__go = () => document.getElementById('root').classList.add('go');
+</script>
