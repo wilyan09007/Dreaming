@@ -27,7 +27,7 @@ Traceback (most recent call last):
 TypeError: unsupported operand type(s) for +: 'Column' and 'Column'
 exit=1
 [222s status=RUNNING log=1789B]
-C:\Users\<user>\Desktop\personalprojects\Dreaming-smokes\smokes\pod.py:111: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
+C:\Users\<user>\Desktop\personalprojects\Dreaming\smokes\pod.py:111: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
   with tarfile.open(fileobj=io.BytesIO(r.content), mode="r:gz") as tar: tar.extractall(ROOT)
 results extracted (0.01 MB) into ['smokes/s29_memory_student']
 terminate: {'podTerminate': None}

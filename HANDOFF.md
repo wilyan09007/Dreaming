@@ -23,7 +23,7 @@ This repo is being handed from a local Claude Code session (Windows laptop) to a
 ## 3. Cloud resources (as of 2026-10-17 23:40 UTC)
 - **No Dreaming pods are running.** RunPod balance ≈ $12.90. The user's own pods (`promo-*`) are not ours; do not touch them.
 - **OpenRouter prepaid credits are exhausted** ($0.03 of $495 left; the key itself has ~$31 of its $50 limit unused). Any API-bound smoke needs a top-up first. ASI:One and Agentverse keys work.
-- The cloud session (claude.ai/code) that ran round 4 is stopped; the laptop session owns the branch. The branch is checked out in the worktree `C:\Users\<user>\Desktop\personalprojects\Dreaming-smokes` because another local session (the mock-dir build) owns the main checkout; copy `.env` into any new worktree.
+- The cloud session (claude.ai/code) that ran round 4 is stopped; the laptop session owns the branch; copy `.env` into any new worktree.
 - `smokes/pod.py` now has `--pull` (fetch partial results on every poll) and `--attach`; a re-attach from a second machine terminates the pod when it fetches, so never run two launchers against one pod.
 
 ## 4. How compute works here
