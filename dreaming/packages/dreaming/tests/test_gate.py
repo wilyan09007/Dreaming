@@ -46,6 +46,15 @@ def test_constant_confidence_pays_delta_once():
     assert not certify(conf, correct, budget=0.064).certified and certify(conf, correct, budget=0.065).certified
 
 
+def test_abstentions_cost_no_delta():
+    """The tool memory: 337 seen inputs at confidence 1, 163 unseen at 0 (label "", always wrong). Only the seen level is tested,
+    at the full delta, so a deterministic tool certifies at 1% (VISUAL_INTENT's 1% moment; the 0-cutoff level made it 1.1%)."""
+    conf = np.r_[np.ones(337), np.zeros(163)]
+    g = certify(conf, conf > 0, budget=0.01)
+    assert g.certified and g.n == 337 and g.errors == 0 and abs(g.bound - cp_upper(0, 337, 0.05)) < 1e-12
+    assert not certify(np.zeros(50), np.ones(50, dtype=bool), budget=0.05).certified  # all ties: nothing to answer
+
+
 def test_empty_calibration_is_uncertified_not_an_error():
     g = certify(np.zeros(0), np.zeros(0, dtype=bool), budget=0.05)
     assert not g.certified and g.total == 0
