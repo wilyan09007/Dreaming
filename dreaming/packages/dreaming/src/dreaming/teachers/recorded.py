@@ -9,6 +9,7 @@ when one is given and are appended, so the file only grows.
 from __future__ import annotations
 
 import json
+import threading
 from pathlib import Path
 
 from ..contracts import CallSite, TeacherAnswer
@@ -22,6 +23,7 @@ class RecordedTeacher:
     def __init__(self, path: Path, live: Teacher | None = None) -> None:
         self.path, self.live = path, live
         self._answers: dict[str, TeacherAnswer] = {}
+        self._lock = threading.Lock()  # bookkeeper.record asks N-wide; one line per append, whole
         if path.exists():
             for line in path.read_text(encoding="utf-8").splitlines():
                 d = json.loads(line)
@@ -39,7 +41,8 @@ class RecordedTeacher:
         if self.live is None:
             raise LookupError(f"no recorded answer for {site.id} and no live teacher")
         ans = self.live.ask(site, rendered)
-        self._answers[k] = ans
-        with self.path.open("a", encoding="utf-8") as f:
-            f.write(json.dumps({"key": k, "answer": ans.model_dump(mode="json")}) + "\n")
+        with self._lock:
+            self._answers[k] = ans
+            with self.path.open("a", encoding="utf-8") as f:
+                f.write(json.dumps({"key": k, "answer": ans.model_dump(mode="json")}) + "\n")
         return ans

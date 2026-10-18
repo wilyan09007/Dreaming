@@ -203,9 +203,9 @@ take over 10 minutes. Minimum that still satisfies the rule: one saved agent, on
 allowed per the FAQ) and select this repo; submit the #cognition credits form (how credits land is *unverified*; Free
 has "limited usage"); set Settings → Devin → Pull requests → Open PRs as: Devin.
 **Minimal use (UI, ~30 minutes):** commit `packages/dreaming/tests/test_hdc.py` (pure Python, no `.env`, no network) and an
-`AGENTS.md` whose first lines give the working directory `mock-dir/`, `uv sync`, `uv run pytest packages/dreaming/tests/test_hdc.py -q`,
+`AGENTS.md` whose first lines give the working directory `dreaming/`, `uv sync`, `uv run pytest packages/dreaming/tests/test_hdc.py -q`,
 `uv run ruff check`, and the spec pointer (`docs/training-plan.md` §1 `hdc`, `smokes/s25_exotic/arms.py`). Prompt:
-"In this repo, on the build branch, implement `mock-dir/packages/dreaming/src/dreaming/predictors/hdc.py`
+"In this repo, on the build branch, implement `dreaming/packages/dreaming/src/dreaming/predictors/hdc.py`
 so the committed test passes; touch only that file and `candidates.py` to register it; do not edit tests; run ruff and pyright;
 open a PR titled `hdc candidate`." Review, merge.
 **Evidence:** the session URL, the PR (its footer carries "Link to Devin session"), the commit author line from `git log`, a README

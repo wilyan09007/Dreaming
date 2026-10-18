@@ -58,15 +58,15 @@ This repo is being handed from a local Claude Code session (Windows laptop) to a
 
 ---
 
-# HANDOFF 2 — mock-dir build order (local session paused 2026-10-17 23:15 PDT)
+# HANDOFF 2 — dreaming build order (local session paused 2026-10-17 23:15 PDT)
 
-The design docs are frozen and the sign-ins are all cleared; what remains is the build order in `mock-dir/DESIGN.md` §12 and the
-clock in `mock-dir/docs/training-plan.md` §7. Hackathon deadline: **2026-10-18 10:00 PDT** (a little over is tolerated).
+The design docs are frozen and the sign-ins are all cleared; what remains is the build order in `dreaming/DESIGN.md` §12 and the
+clock in `dreaming/docs/training-plan.md` §7. Hackathon deadline: **2026-10-18 10:00 PDT** (a little over is tolerated).
 
 ## 1. Read first, in this order
-`mock-dir/docs/README.md` (index, decided/open, sign-in status: everything done; Devin's repo connection is deliberately NOT done),
-`mock-dir/DESIGN.md` §4-§5 and §12, `mock-dir/docs/training-plan.md` §3-§4 (the campaign and the monitor), §7 (the clock), §8-§9,
-`mock-dir/TREE.md`. `mock-dir/smokes/RESULTS.md` has tonight's measured rows.
+`dreaming/docs/README.md` (index, decided/open, sign-in status: everything done; Devin's repo connection is deliberately NOT done),
+`dreaming/DESIGN.md` §4-§5 and §12, `dreaming/docs/training-plan.md` §3-§4 (the campaign and the monitor), §7 (the clock), §8-§9,
+`dreaming/TREE.md`. `dreaming/smokes/RESULTS.md` has tonight's measured rows.
 
 ## 2. State of the code (all committed on this branch)
 - **Done and reviewed:** the candidate slot (`predictors/candidates.py`), the provider table (`teachers/openai_compat.py`, StepFun pinned
@@ -84,7 +84,7 @@ clock in `mock-dir/docs/training-plan.md` §7. Hackathon deadline: **2026-10-18 
 - **The one failing test:** `agents/bookkeeper/tests/test_agent.py::test_a_chat_line_is_acked_relayed_to_the_api_and_answered_in_words`
   (it expects only `predicted` decisions; with `memory` as a second default candidate the loop now logs `called` rows too). Decide
   whether the test or `DEFAULT[Kind.model]` is right; do not paper over it.
-- **Data:** `mock-dir/data/recorded.jsonl` holds 232 StepFun answers for ledger seed 0 (a resumable partial file).
+- **Data:** `dreaming/data/recorded.jsonl` holds 232 StepFun answers for ledger seed 0 (a resumable partial file).
 
 ## 3. Measured tonight (do not re-measure)
 - StepFun `step-5-preview`: self-disagreement floor 3.5%; 10/10 labels parse at `max_tokens=1024`; ≈ 47 calls/min at 5-way

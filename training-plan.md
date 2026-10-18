@@ -1,6 +1,6 @@
 # Training plan: the student candidates, per call site
 
-Written 2026-10-18 from the round-4 smokes (`smokes/FINDINGS.md`) and the demo stack in `mock-dir/` (`DESIGN.md`, `db/migrations/0001_init.sql`, `packages/dreaming`). Decision it implements: **every candidate student is trained per call site in parallel, each gets its own certificate, the certificate picks what is promoted. The Hopfield memory is priority 1.**
+Written 2026-10-18 from the round-4 smokes (`smokes/FINDINGS.md`) and the demo stack in `dreaming/` (`DESIGN.md`, `db/migrations/0001_init.sql`, `packages/dreaming`). Decision it implements: **every candidate student is trained per call site in parallel, each gets its own certificate, the certificate picks what is promoted. The Hopfield memory is priority 1.**
 
 Numbers quoted below are measured unless marked "est." Smoke ids (S1, S24, ...) point at `smokes/sNN_*/RESULTS.md`.
 
@@ -35,7 +35,7 @@ Rejected with numbers, do not build: hypernetworks (S2, S17, S26), hybrid SSM em
 
 ### 2.1 The row
 
-One `trace_rows` row per call (schema of record: `mock-dir/db/migrations/0001_init.sql`). The fields the trainers use:
+One `trace_rows` row per call (schema of record: `dreaming/db/migrations/0001_init.sql`). The fields the trainers use:
 
 | field | used for |
 |---|---|
@@ -124,7 +124,7 @@ Banking77 (77 labels) at 77 / 385 / 770 / 3,080 / 9,993 rows and CLINC150 (150 l
 
 ### 3.3 Live benchmark
 
-The deployed demo stack (`mock-dir`, Fly API + Modal trainer + Supabase): a 2,000-run batch of the bookkeeping workflow over four call sites. Measured today with the linear head and the rule teacher, 500 calibration rows, 5% budget: categorize 40% coverage (bound 4.4%), vendor_lookup 67% (1.1%), match_invoice 60% (4.2%), anything_odd 100% (0.6%); all four sites dreaming by 116 s. The parallel trainer is judged on: certified coverage per site at the operator's budget (per candidate), seconds to the first certificate (seed rows only vs with shadow rows), ms per predicted call, replay `same_bytes` rate, and runs per second after promotion.
+The deployed demo stack (`dreaming`, Fly API + Modal trainer + Supabase): a 2,000-run batch of the bookkeeping workflow over four call sites. Measured today with the linear head and the rule teacher, 500 calibration rows, 5% budget: categorize 40% coverage (bound 4.4%), vendor_lookup 67% (1.1%), match_invoice 60% (4.2%), anything_odd 100% (0.6%); all four sites dreaming by 116 s. The parallel trainer is judged on: certified coverage per site at the operator's budget (per candidate), seconds to the first certificate (seed rows only vs with shadow rows), ms per predicted call, replay `same_bytes` rate, and runs per second after promotion.
 
 ### 3.4 Real traces
 
