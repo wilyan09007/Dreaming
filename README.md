@@ -119,8 +119,10 @@ site in TypeSafe's System One wire format (state and typed questions in, probabi
 ### CREAO
 Agent "Dreaming benchmark runner", ID `ca9c3ce9-78d9-4bc6-ad8f-5ec1d3275991` (https://agent.creao.ai/apps/ca9c3ce9-78d9-4bc6-ad8f-5ec1d3275991), built on
 agent.creao.ai. It calls our API (`POST /campaign/run {provider, site}`), reads `GET /campaign/{name}` and writes the provider's benchmark row. It ran once from
-the UI and once through the API at about 05:20. Until its `DREAMING_API_KEY` secret was set, `POST /campaign/run` answered 401 and the agent used its
-`fallback_campaign` input (recipe status, 05:15). Run link: (shared by the team at submission).
+the UI and once through the API at about 05:20 (fallback: no `DREAMING_API_KEY` yet). With the secret set (09:10), the UI run at 09:13 did the
+core work end to end: from CREAO's sandbox our log shows `GET /healthz` 200, `POST /campaign/run` 200 (campaign `stepfun-bookkeeper.categorize`,
+cells launched on Modal) and `GET /campaign/stepfun-bookkeeper.categorize` 200. Run thread: https://agent.creao.ai/chat?threadId=e70ad788-f390-457a-9441-2d8aec4a80b7
+(public share link added by the team at submission).
 
 ### veri.studio
 The `finetune` candidate (bge-small unfrozen plus a head) ran as a `veri run-script` job on an L4: `dreaming/experiments/veri_finetune/` (`train.py` is the job,
