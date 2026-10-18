@@ -1,12 +1,13 @@
 """The routes added for Intuit's System One format, the Modal campaign and the budget floor, plus the Sentry sink, all offline.
 
 The app is the one test_api.py builds (conftest `rt`: `books.categorize` with labels Software/Meals/Travel, and the tool
-`books.vendor_lookup`). A trained student is a fake in `rt.predictors`; Modal is the `remote` function of campaign_routes,
-replaced per test; Sentry is a fake `sentry_sdk` module in sys.modules.
+`books.vendor_lookup`). A trained student is a fake in `rt.predictors`; Modal is a fake `modal.Function.from_name`; the
+TypeSafe client is the real typesafe-sdk over an in-process transport; Sentry is a fake `sentry_sdk` module in sys.modules.
 """
 
 from __future__ import annotations
 
+import json
 import sys
 import types
 from collections.abc import Callable
@@ -16,7 +17,6 @@ import pytest
 from dreaming.contracts import Component, EventKind, Hashes, Json, Prediction
 from dreaming.runtime import Runtime
 from dreaming.telemetry import emit
-from dreaming_api import campaign_routes
 from fastapi.testclient import TestClient
 
 CAT = "books.categorize"
@@ -72,12 +72,22 @@ def test_systemone_answers_in_the_wire_format(c: TestClient, rt: Runtime, qid: s
     r = ask(c, qid, state={"d": "ADOBE", "amt": 12})
     assert r.status_code == 200, r.text
     body = r.json()
-    assert body["model"] == "typesafe/jev-1.13"
+    assert body["model"] == "dreaming/books.categorize@w1"  # what answered, not the model the client named
     a = body["answers"][qid]
     assert a["type"] == "choice" and a["choice"] == "Meals" and a["confidence"] == 0.5  # 0.7 - 0.2
     assert sum(a["probabilities"].values()) == pytest.approx(1.0) and set(a["probabilities"]) == set(OPTIONS)
+    assert a["certified"] is False and a["certificate"] is None  # no certificate on the site yet
     assert body["usage"]["input_tokens"] == 1 and body["usage"]["output_tokens"] == 1
     assert student.seen == ['{"amt":12,"d":"ADOBE"}']  # an object state is its canonical JSON
+
+
+def test_systemone_says_when_the_certificate_covers_the_answer(c: TestClient, rt: Runtime) -> None:
+    rt.predictors[CAT] = FakeStudent()
+    rt.policies[CAT] = rt.policies[CAT].model_copy(update={"cert_id": "cert-1", "cutoff": 0.5})
+    a = ask(c).json()["answers"]["categorize"]
+    assert a["certified"] is True and a["certificate"] == "cert-1"  # confidence 0.5 >= cutoff 0.5
+    rt.policies[CAT] = rt.policies[CAT].model_copy(update={"cutoff": 0.6})
+    assert ask(c).json()["answers"]["categorize"]["certified"] is False
 
 
 def test_systemone_without_scores_is_one_hot(c: TestClient, rt: Runtime) -> None:
@@ -86,31 +96,89 @@ def test_systemone_without_scores_is_one_hot(c: TestClient, rt: Runtime) -> None
     assert a["probabilities"] == {"Software": 0.0, "Meals": 1.0, "Travel": 0.0} and a["confidence"] == 1.0
 
 
+def test_typesafe_sdk_parses_our_reply(c: TestClient, rt: Runtime) -> None:
+    """The compatibility proof (devtools.md): typesafe-sdk 0.7.5's own client posts to our route and validates the reply."""
+    sdk: Any = pytest.importorskip("typesafe_sdk")
+    httpx2: Any = pytest.importorskip("httpx2")
+    rt.predictors[CAT] = FakeStudent()
+    sent: list[Any] = []
+
+    def forward(req: Any) -> Any:
+        sent.append(json.loads(req.content))
+        r = c.request(req.method, req.url.path, content=req.content, headers={"content-type": req.headers["content-type"]})
+        return httpx2.Response(r.status_code, content=r.content, headers={"content-type": r.headers["content-type"]})
+
+    client = sdk.TypeSafeClient(api_key="unused", base_url="http://dreaming.test", model="typesafe/jev-1.13", transport=httpx2.MockTransport(forward),
+                                compression=False)
+    res = client.system_one("ADOBE *1234, $12.00", {"categorize": sdk.Choice(criteria=OPTIONS, instructions="category")})
+    assert sent[0]["questions"]["categorize"]["type"] == "choice" and sent[0]["state"] == "ADOBE *1234, $12.00"
+    a = res.answers["categorize"]
+    assert isinstance(a, sdk.ChoiceAnswer) and a.choice == "Meals" and a.confidence == 0.5
+    assert res.model == "dreaming/books.categorize@w1" and res.usage.input_tokens == 3
+    with pytest.raises(sdk.TypeSafeUnprocessableEntityError):  # our 422 maps to the SDK's own error
+        client.system_one("x", {"nope": sdk.Choice(criteria=OPTIONS)})
+
+
 # ------------------------------------------------------------------ /campaign
 
-
-def test_campaign_routes_proxy_modal(c: TestClient, monkeypatch: pytest.MonkeyPatch) -> None:
-    calls: list[tuple[str, tuple[Json, ...]]] = []
-
-    def fake(fn_name: str, *args: Json) -> Json:
-        calls.append((fn_name, args))
-        return [{"cell": "a"}] if fn_name == "launch_cells" else {"done": 3}
-
-    monkeypatch.setattr(campaign_routes, "remote", fake)
-    r = c.post("/campaign/run", json={"campaign": "x", "sites": ["a"], "limit": 5})
-    assert r.status_code == 200 and r.json() == {"cells": [{"cell": "a"}]}
-    assert c.post("/campaign/run", json={"campaign": "x"}).status_code == 200  # sites [] = all, limit 0 = all
-    assert c.get("/campaign/x").json() == {"campaign": "x", "table": {"done": 3}}
-    assert calls == [("launch_cells", ("x", ["a"], 5)), ("launch_cells", ("x", [], 0)), ("progress", ("x",))]
+Calls = list[tuple[str, str, tuple[Json, ...]]]
+KEY = {"Authorization": "Bearer hackathon-key"}
 
 
-def test_campaign_failure_is_503_with_the_error(c: TestClient, monkeypatch: pytest.MonkeyPatch) -> None:
-    def boom(fn_name: str, *args: Json) -> Json:
-        raise RuntimeError("app not deployed")
+class FakeFunction:
+    """modal.Function.from_name(app, name) as the routes use it, `await fn.remote.aio(*args)`; `error` plays an undeployed app."""
 
-    monkeypatch.setattr(campaign_routes, "remote", boom)
-    for r in (c.post("/campaign/run", json={"campaign": "x"}), c.get("/campaign/x")):
-        assert r.status_code == 503 and "app not deployed" in r.json()["detail"]
+    def __init__(self, calls: Calls, app: str, name: str, error: Exception | None) -> None:
+        async def aio(*args: Json) -> Json:
+            if error:
+                raise error
+            calls.append((app, name, args))
+            return [{"cell": "a"}] if name == "launch_cells" else {"done": 3}
+
+        self.remote = types.SimpleNamespace(aio=aio)
+
+
+@pytest.fixture
+def modal_fn(monkeypatch: pytest.MonkeyPatch) -> Callable[[Exception | None], Calls]:
+    import modal
+
+    def install(error: Exception | None) -> Calls:
+        calls: Calls = []
+        monkeypatch.setattr(modal.Function, "from_name", lambda app, name: FakeFunction(calls, app, name, error))  # pyright: ignore[reportUnknownLambdaType, reportUnknownArgumentType]
+        monkeypatch.setenv("DREAMING_API_KEY", "hackathon-key")
+        return calls
+
+    return install
+
+
+def test_campaign_routes_call_modal_by_name(c: TestClient, modal_fn: Callable[[Exception | None], Calls]) -> None:
+    calls = modal_fn(None)
+    r = c.post("/campaign/run", json={"provider": "stepfun", "site": "invoice_paid"}, headers=KEY)
+    assert r.status_code == 200 and r.json() == {"campaign_id": "stepfun-invoice_paid", "cells": [{"cell": "a"}]}
+    assert c.post("/campaign/run", json={"provider": "books", "site": "bill_account", "campaign": "night-1018", "limit": 3}, headers=KEY).status_code == 200
+    assert c.get("/campaign/night-1018").json() == {"campaign": "night-1018", "table": {"done": 3}}
+    assert calls == [("dreaming-campaign", "launch_cells", ("stepfun-invoice_paid", ["invoice_paid"], 0)),
+                     ("dreaming-campaign", "launch_cells", ("night-1018", ["bill_account"], 3)),
+                     ("dreaming-campaign", "progress", ("night-1018",))]
+
+
+def test_campaign_launch_needs_the_key(c: TestClient, monkeypatch: pytest.MonkeyPatch, modal_fn: Callable[[Exception | None], Calls]) -> None:
+    calls = modal_fn(None)
+    body = {"provider": "stepfun", "site": "invoice_paid"}
+    assert c.post("/campaign/run", json=body).status_code == 401
+    assert c.post("/campaign/run", json=body, headers={"Authorization": "Bearer wrong"}).status_code == 401
+    assert c.post("/campaign/run", json={"provider": "a b", "site": "x"}, headers=KEY).status_code == 422  # names go into run ids and URLs
+    monkeypatch.delenv("DREAMING_API_KEY")
+    assert c.post("/campaign/run", json=body, headers=KEY).status_code == 503  # no key configured: launching is off, not open
+    assert calls == []
+
+
+def test_campaign_undeployed_is_503_with_the_error(c: TestClient, modal_fn: Callable[[Exception | None], Calls]) -> None:
+    from modal.exception import NotFoundError
+
+    modal_fn(NotFoundError("Lookup failed for Function 'launch_cells' from the 'dreaming-campaign' app"))
+    for r in (c.post("/campaign/run", json={"provider": "stepfun", "site": "invoice_paid"}, headers=KEY), c.get("/campaign/x")):
+        assert r.status_code == 503 and "NotFoundError" in r.json()["detail"] and "dreaming-campaign" in r.json()["detail"]
 
 
 # ------------------------------------------------------------------ POST /budget
