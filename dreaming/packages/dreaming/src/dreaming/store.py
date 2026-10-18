@@ -119,13 +119,14 @@ class MemoryStore:
             self._runs[r.id] = r
 
     def runs(self, *, limit: int = 50) -> list[Run]:
-        return sorted(self._runs.values(), key=lambda r: (r.started_at, r.n))[-limit:]
+        return sorted(list(self._runs.values()), key=lambda r: (r.started_at, r.n))[-limit:]  # a copy: fast-forward writes concurrently
 
     def run_count(self) -> int:
         return len(self._runs)
 
     def first_run(self) -> Run | None:
-        return min(self._runs.values(), key=lambda r: r.n) if self._runs else None
+        runs = list(self._runs.values())
+        return min(runs, key=lambda r: r.n) if runs else None
 
     def put_certificate(self, cert: Certificate) -> None:
         self._certs[cert.id] = cert

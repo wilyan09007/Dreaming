@@ -22,7 +22,7 @@ from pydantic_core import to_jsonable_python
 
 from . import registry
 from .context import RunCtx, current, run_boundary
-from .contracts import (
+from .contracts import (, Phase
     Batch,
     CallSite,
     Component,
@@ -315,7 +315,9 @@ class Runtime:
         """(cost awake, cost dreaming, seconds awake, seconds dreaming) per call, from the last rows: the page's "2.1¢ → 0.33¢"."""
         rows = self.store.rows(site_id, limit=window)
         real = [r for r in rows if r.decision in (Decision.called, Decision.audited)]
-        dream = [r for r in rows if r.decision == Decision.predicted]
+        # "dreaming" is the blended price of a call once promoted: predicted rows (free), the real calls the dream was unsure
+        # about and the audits; predicted rows alone would print "-100%" for every student site (web review, 2026-10-18)
+        dream = [r for r in rows if r.phase == Phase.dreaming] or [r for r in rows if r.decision == Decision.predicted]
         return (_mean([r.cost_usd for r in real]), _mean([r.cost_usd for r in dream]),
                 _mean([r.latency_ms for r in real]) / 1000, _mean([r.latency_ms for r in dream]) / 1000)
 
