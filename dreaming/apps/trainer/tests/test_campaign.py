@@ -1,5 +1,3 @@
-# pyright: basic
-# (the trainer package is not installed in the dev venv, so pyright cannot resolve `dreaming_trainer` and sees it as Unknown; basic mode keeps the rest checked)
 """Offline checks for the campaign (campaign.py) and the monitor (monitor.py): the split, the matrix, one rung end to end, the pruning rules.
 
 No Modal, no Postgres: `run_rung` takes the encoder and the rows directly, so the head candidate runs on a bag-of-trigrams fake in a second.
@@ -7,7 +5,7 @@ No Modal, no Postgres: `run_rung` takes the encoder and the rows directly, so th
 
 from __future__ import annotations
 
-import sys
+import json
 import zlib
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
@@ -15,12 +13,12 @@ from typing import Any
 
 import numpy as np
 import pytest
-from dreaming.contracts import CallSite, Hashes, Kind, Prediction
+from dreaming.contracts import CallSite, Hashes, Kind, Prediction, TeacherAnswer
+from dreaming.hashing import sha
 from dreaming.predictors.candidates import CANDIDATES, Candidate, Fitted
 from dreaming.predictors.student import Vec
-
-sys.path.insert(0, str(Path(__file__).parents[1] / "src"))  # the trainer package is installed only on its Modal image (`uv sync --package dreaming-trainer`)
-from dreaming_trainer import campaign, monitor  # pyright: ignore[reportMissingImports]
+from dreaming.teachers.recorded import RecordedTeacher
+from dreaming_trainer import campaign, monitor  # installed by `uv sync --all-packages`
 
 LABELS = ["Software", "Meals", "Travel"]
 MERCHANTS = {"ADOBE": "Software", "NOTION": "Software", "FIGMA": "Software", "BLUE BOTTLE": "Meals", "DOORDASH": "Meals", "SWEETGREEN": "Meals",
@@ -83,6 +81,9 @@ def test_eval_sets_are_frozen_by_content() -> None:
     assert [s.split for s in sets] == ["calib", "test", "forward"]
     assert sets == campaign.eval_sets("w.cat", rows, sp) and len({s.sha for s in sets}) == 3
     assert sets[1].row_ids == [str(i) for i in sp["test"]] and sets[1].labels == [rows[i]["label"] for i in sp["test"]]
+    relabelled = [{**r, "label": "Other"} for r in rows]  # a re-prepared site: same line numbers, new labels -> new eval sets
+    assert {s.sha for s in campaign.eval_sets("w.cat", relabelled, sp)}.isdisjoint(s.sha for s in sets)
+    assert campaign.eval_sets("w.other", rows, sp)[0].sha != sets[0].sha  # line numbers repeat across sites; the sha must not
 
 
 @pytest.mark.parametrize("finetune", [True, False])
@@ -92,13 +93,58 @@ def test_cells_matrix(monkeypatch: pytest.MonkeyPatch, finetune: bool) -> None:
     assert len(got) == (34 if finetune else 30)
     assert len({c["id"] for c in got}) == len(got)
     first = campaign.cells("night", ["categorize"])[:3]
-    assert [c["id"] for c in first] == [f"night:bookkeeper.categorize:head:seed+real:s{k}" for k in range(3)]
+    assert [c["id"] for c in first] == [f"night:bookkeeper.categorize:head:real:s{k}" for k in range(3)]
     assert {c["candidate"] for c in got if c["call_site"] in campaign.TOOL_SITES} == {"exact"}
     gpu = [c for c in got if c["where"] == "modal:T4"]
     assert len(gpu) == (4 if finetune else 0) and all(c["candidate"] == "finetune" and c["seed"] == 0 for c in gpu)
     assert {c["call_site"] for c in campaign.cells("night", ["bank_match", "quickbooks.bill_account"])} == {"quickbooks.bank_match", "quickbooks.bill_account"}
     with pytest.raises(ValueError, match="unknown campaign site"):
         campaign.cells("night", ["nope"])
+    # seed rows on the Volume for one site add its seed+real and seed variants: 6 CPU cells each, plus a finetune cell per variant
+    seeded = campaign.cells("t", ["categorize", "match_invoice", "vendor_lookup"], seeded={"bookkeeper.categorize"})
+    by_site = {s: [c for c in seeded if c["call_site"] == s] for s in campaign.SITES[:3]}
+    assert [len(by_site[s]) for s in campaign.SITES[:3]] == ([21, 7, 3] if finetune else [18, 6, 3])
+    assert {c["variant"] for c in by_site["bookkeeper.categorize"]} == {"real", "seed+real", "seed"} and {c["variant"] for c in by_site["bookkeeper.match_invoice"]} == {"real"}
+    assert all(c["config"]["rungs"] == ([0] if c["variant"] == "seed" else [60, 200, 500, 2000]) for c in seeded)
+    assert len({c["id"] for c in seeded}) == len(seeded) and len(campaign.cells("t", [], seeded=set(campaign.SITES))) == (90 if finetune else 78)
+
+
+def test_labels_for_joins_the_stepfun_record_and_drops_the_rest(tmp_path: Path) -> None:
+    cs, rows = site(), ledger(4)
+    trace = campaign.as_trace_rows(cs, rows)  # their own teacher says MERCHANTS; the record says otherwise for two of them
+    lines = [{"key": RecordedTeacher.key(cs, rows[0]["rendered"]), "answer": TeacherAnswer(text="Travel", label="Travel", provider="stepfun", model="m").model_dump(mode="json")},
+             {"key": RecordedTeacher.key(cs, rows[1]["rendered"]), "answer": TeacherAnswer(text="??", label=None, provider="stepfun", model="m").model_dump(mode="json")}]
+    (tmp_path / "r.jsonl").write_text("".join(json.dumps(d) + "\n" for d in lines), encoding="utf-8")
+    got = campaign.labels_for(cs, trace, RecordedTeacher(tmp_path / "r.jsonl"))
+    assert got == [{**rows[0], "label": "Travel", "group": campaign.group_of(cs.id, rows[0]["rendered"])}]  # row 1 unparsed, 2 and 3 unrecorded
+    assert [r["label"] for r in campaign.labels_for(site(Kind.tool), trace, None)] == [r["label"] for r in rows]  # a tool site keeps its exact answers
+
+
+def test_seed_rows_reads_b1s_file_for_the_current_schema(tmp_path: Path) -> None:
+    cs = site()
+    key = sha([cs.labels, cs.descriptions])
+    lines = [{"key": key, "id": "seed:Meals:0", "label": "Meals", "text": "Transaction: CAFE, $4.00", "model": "asi1-mini"},
+             {"key": "stale", "id": "seed:Meals:0", "label": "Meals", "text": "old schema", "model": "asi1-mini"}]
+    (tmp_path / f"{cs.id}.jsonl").write_text("".join(json.dumps(d) + "\n" for d in lines), encoding="utf-8")
+    assert campaign.seed_rows(cs, tmp_path) == [{"rendered": "Transaction: CAFE, $4.00", "label": "Meals"}]
+    assert campaign.seed_rows(site(Kind.tool), tmp_path) == [] and campaign.seed_rows(CallSite(id="w.none", workflow="w", name="none", kind=Kind.model, labels=["a"]), tmp_path) == []
+
+
+def test_site_data_refuses_a_site_re_prepared_under_the_campaign(tmp_path: Path) -> None:
+    rows, seeds = ledger(5), [{"rendered": "Transaction: CAFE, $4.00", "label": "Meals"}]
+    (tmp_path / "rows.jsonl").write_text("".join(json.dumps(r) + "\n" for r in rows))
+    (tmp_path / "seeds.jsonl").write_text("".join(json.dumps(r) + "\n" for r in seeds))
+    np.save(tmp_path / "embeddings.npy", np.zeros((6, 4), np.float32))
+    meta = json.dumps({"site_id": "w.cat", "labels": LABELS, "encoder_sha": "", "env_sha": "", "n": 5, "n_seeds": 1})
+    (tmp_path / "meta.json").write_text(meta)
+    want = campaign.sha_bytes(meta.encode())
+    got = campaign.site_data(tmp_path, want)
+    assert got[0]["n"] == 5 and got[1] == rows and got[2] == seeds and campaign.site_data(tmp_path, None)[1] == rows  # no expectation: counts alone
+    with pytest.raises(RuntimeError, match="changed since launch"):
+        campaign.site_data(tmp_path, "someone else's prepare")
+    np.save(tmp_path / "embeddings.npy", np.zeros((5, 4), np.float32))  # the mixed state of 2026-10-18: old vectors, new seeds
+    with pytest.raises(RuntimeError, match="disagree"):
+        campaign.site_data(tmp_path, want)
 
 
 def test_group_and_rungs() -> None:
@@ -121,6 +167,7 @@ def test_summarize_on_a_hand_made_eval() -> None:
     assert s["coverage_02"] == 0.0 and s["coverage_05"] == 0.0 and s["bound_05"] == 1.0  # 40 clean rows bound the error at 7.2% > 5%: nothing certifies
     assert s["coverage_10"] == 1.0 and s["err_10"] == pytest.approx(0.1)  # at 10% the one cutoff (0.9) certifies; the test slice shows its one miss
     assert s["coverage_20"] == 1.0 and s["ece"] == pytest.approx(0.0)  # test: confidence 0.9 and accuracy 0.9
+    assert (s["cov_fwd_05"], s["err_fwd_05"]) == (0.0, 0.0)  # nothing certified at 5%, so the forward slice gets no cutoff either
 
 
 def test_run_rung_head_end_to_end() -> None:
@@ -170,7 +217,7 @@ def test_volume_encoder_looks_vectors_up() -> None:
 # ---------------------------------------------------------------- the monitor
 
 
-def row(run_id: str, cand: str, seed: int, rung: int | None, *, site_: str = "s", variant: str = "seed+real", status: str = "done", stable: bool = True,
+def row(run_id: str, cand: str, seed: int, rung: int | None, *, site_: str = "s", variant: str = "real", status: str = "done", stable: bool = True,
         cov: float | None = 0.5, err: float = 0.0, where: str = "modal:cpu", fc: str | None = None) -> dict[str, Any]:
     return {"run_id": run_id, "call_site": site_, "candidate": cand, "variant": variant, "seed": seed, "where": where, "status": status, "note": None,
             "seconds": 1.0, "fc_id": fc, "rung": rung, "bytes": 10, "stable": stable if rung else None, "coverage_05": cov if rung else None,

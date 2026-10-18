@@ -7,9 +7,9 @@ Called by campaign.monitor (a Modal cron every 10 minutes, so it runs whether or
                                                realized error, accuracy, seconds, bytes, stable, status, note
     render(table) -> str                       the same table as text, one block per site
     prune(campaign) -> list[dict]              decide() on every checkpoint, then status -> pruned with the reason in `note`; a pruned
-                                               GPU cell is cancelled (FunctionCall.from_id(config.fc_id).cancel())
+                                               GPU cell is cancelled (FunctionCall.from_id(config.fc_id).cancel()); a cell still `running`
+                                               40 minutes after its start was killed by Modal (timeout, memory) -> failed
     decide(rows) -> list[(run_id, note)]       the four rules of §4 as a pure function over flat (run x checkpoint) rows
-    recompute(run_id, rung, budget, delta)     any metric from the stored scores .npz, after the fact: the point of storing them
 
 Rules (§4): 1 at any rung: not byte-stable, realized error over 5% on the test slice, or the cell raised. 2 at rungs 500 and 2000: within
 a site and variant, a candidate whose best seed's coverage at 5% is below the median of the candidates by more than 0.10 (needs two
@@ -31,13 +31,17 @@ BUDGET = 0.05  # rule 1's error ceiling: the 5% budget the table headlines
 MARGIN = 0.10  # rule 2: two s.e. in the smokes
 PRUNE_RUNGS = (500, 2000)
 LIVE = ("queued", "running", "done")  # statuses a rule may still change; pruned and failed are final
-COLUMNS = ("candidate", "variant", "seed", "where", "status", "rung", "coverage_05", "coverage_20", "err_05", "acc_test", "seconds", "bytes", "stable", "note")
+# test = held-out merchants (whole groups), the generalization number; fwd = the last 20% by time with the cutoff certified on calib, the
+# production-like headline (training-plan §3; on the bookkeeper ledger the two differ by 0.9: merchants repeat in time, not across groups)
+COLUMNS = ("candidate", "variant", "seed", "where", "status", "rung", "coverage_05", "err_05", "acc_test", "cov_fwd_05", "err_fwd_05", "acc_forward",
+           "seconds", "bytes", "stable", "eval_sha", "note")
 
 _FETCH = """
 select r.id as run_id, r.call_site, r.candidate, r.variant, r.seed, r."where", r.status, r.note, r.seconds, r.config ->> 'fc_id' as fc_id,
-       c.rung, c.bytes, c.stable,
+       c.rung, c.bytes, c.stable, left(c.eval_sha, 10) as eval_sha,
        (c.summary ->> 'coverage_05')::float8 as coverage_05, (c.summary ->> 'coverage_20')::float8 as coverage_20,
-       (c.summary ->> 'err_05')::float8 as err_05, (c.summary ->> 'acc_test')::float8 as acc_test
+       (c.summary ->> 'err_05')::float8 as err_05, (c.summary ->> 'acc_test')::float8 as acc_test, (c.summary ->> 'acc_forward')::float8 as acc_forward,
+       (c.summary ->> 'cov_fwd_05')::float8 as cov_fwd_05, (c.summary ->> 'err_fwd_05')::float8 as err_fwd_05
 from train_runs r left join checkpoints c on c.run_id = r.id
 where r.campaign = %s order by r.call_site, r.candidate, r.variant, r.seed, c.rung
 """
@@ -121,6 +125,9 @@ def decide(rows: list[dict[str, Any]]) -> list[tuple[str, str]]:
 
 def prune(campaign: str) -> list[dict[str, Any]]:
     """Apply decide(): status -> pruned, reason in note; cancel the pruned cells that run on a GPU. Returns what it pruned."""
+    with _connect() as conn:  # rule 1's "cell that raised" where no except could see it: killed at its timeout (30 min at most) or out of memory
+        conn.execute("update train_runs set status = 'failed', note = 'killed: no finish within 40 minutes of its start (timeout or memory)', finished_at = now() "
+                     "where campaign = %s and status = 'running' and started_at < now() - interval '40 minutes'", (campaign,))
     rows = fetch(campaign)
     meta = {r["run_id"]: r for r in rows}
     out: list[dict[str, Any]] = []
@@ -135,7 +142,3 @@ def prune(campaign: str) -> list[dict[str, Any]]:
             modal.FunctionCall.from_id(r["fc_id"]).cancel()
         out.append({"run_id": run_id, "note": note, "cancelled": cancelled})
     return out
-
-
-def recompute(run_id: str, rung: int, budget: float, delta: float) -> dict[str, float]:
-    raise NotImplementedError("shortcut: np.load the checkpoint's scores_uri from the Volume and call gate.certify / gate.realized; wire it when a table needs a budget the summary lacks")
