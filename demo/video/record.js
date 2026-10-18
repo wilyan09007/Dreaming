@@ -73,7 +73,7 @@ const CAPTURES = [
       await c.at(T('structural') - 0.2); await c.move(...D(1180, 885), 800);       // learn = append
       await c.at(shot('bound').start); await c.hash('bench'); await c.move(...D(1550, 380), 900); // coverage card
       await c.at(T('strong') - 0.3); await c.move(...D(1552, 822), 800);           // the budget ruler
-      await c.at(T('ours,') - 0.3); await c.hash('train'); await c.move(...D(650, 293), 900); // bound 7.1%
+      await c.at(T('ours,') - 0.3); await c.page.evaluate(() => __warp(2.5)); await c.hash('train'); await c.move(...D(650, 293), 900); // bound 7.1%
       await c.at(T('stand-ins') - 0.3); await c.move(...D(1040, 520), 800);        // certified seeds
       await c.at(T('budget.') - 0.4); await c.move(...D(1505, 185), 700);          // alive 11
     },

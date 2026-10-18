@@ -1722,13 +1722,13 @@
    "end": 22.226
   },
   {
-   "text": "while lowering processing latency from",
+   "text": "while lowering processing latency",
    "start": 22.226,
-   "end": 24.278
+   "end": 23.97
   },
   {
-   "text": "2.6 seconds to 5 milliseconds using",
-   "start": 24.278,
+   "text": "from 2.6 seconds to 5 milliseconds using",
+   "start": 23.97,
    "end": 27.269
   },
   {
@@ -1737,83 +1737,63 @@
    "end": 29.808
   },
   {
-   "text": "So let's start by running",
+   "text": "So let's start by running 2,000 workflow runs.",
    "start": 29.808,
-   "end": 30.832
-  },
-  {
-   "text": "2,000 workflow runs.",
-   "start": 30.832,
    "end": 32.473
   },
   {
-   "text": "What's amazing about Psi is that",
+   "text": "What's amazing about Psi is that it can pick",
    "start": 32.473,
-   "end": 33.908
+   "end": 34.267
   },
   {
-   "text": "it can pick up on workflow results",
-   "start": 33.908,
-   "end": 35.379
+   "text": "up on workflow results quickly and with little",
+   "start": 34.267,
+   "end": 36.49
   },
   {
-   "text": "quickly and with little data with",
-   "start": 35.379,
-   "end": 36.985
-  },
-  {
-   "text": "its structural memory capabilities.",
-   "start": 36.985,
+   "text": "data with its structural memory capabilities.",
+   "start": 36.49,
    "end": 39.225
   },
   {
-   "text": "Of course, a lot of companies have different",
+   "text": "Of course, a lot of companies have different error",
    "start": 39.225,
-   "end": 41.002
+   "end": 41.242
   },
   {
-   "text": "error rates depending on how strong",
-   "start": 41.002,
-   "end": 42.524
+   "text": "rates depending on how strong they want their models",
+   "start": 41.242,
+   "end": 43.259
   },
   {
-   "text": "they want their models to be. For ours,",
-   "start": 42.524,
-   "end": 44.644
+   "text": "to be. For ours, we compute a statistical",
+   "start": 43.259,
+   "end": 45.84
   },
   {
-   "text": "we compute a statistical bound on the error",
-   "start": 44.644,
-   "end": 46.746
+   "text": "bound on the error and we only allow our stand-ins",
+   "start": 45.84,
+   "end": 48.421
   },
   {
-   "text": "and we only allow our stand-ins to take",
-   "start": 46.746,
-   "end": 48.763
-  },
-  {
-   "text": "over when that bound is under your budget.",
-   "start": 48.763,
+   "text": "to take over when that bound is under your budget.",
+   "start": 48.421,
    "end": 50.91
   },
   {
-   "text": "You can adjust that by clicking on the",
+   "text": "You can adjust that by clicking on the Dreams tab",
    "start": 50.91,
-   "end": 52.431
+   "end": 52.927
   },
   {
-   "text": "Dreams tab here and adjusting the",
-   "start": 52.431,
-   "end": 54.038
+   "text": "here and adjusting the number of allowed mistakes",
+   "start": 52.927,
+   "end": 55.047
   },
   {
-   "text": "number of allowed mistakes and watching",
-   "start": 54.038,
-   "end": 55.867
-  },
-  {
-   "text": "coverage shrink or grow accordingly.",
-   "start": 55.867,
+   "text": "and watching coverage shrink or grow accordingly.",
+   "start": 55.047,
    "end": 57.779
   },
   {
@@ -1822,13 +1802,8 @@
    "end": 59.574
   },
   {
-   "text": "you've probably noticed a",
+   "text": "you've probably noticed a big issue with your LLM providers.",
    "start": 59.574,
-   "end": 60.565
-  },
-  {
-   "text": "big issue with your LLM providers.",
-   "start": 60.565,
    "end": 63.16
   },
   {
@@ -1842,48 +1817,43 @@
    "end": 66.545
   },
   {
-   "text": "different answers just because of all the",
+   "text": "different answers just because of all",
    "start": 66.545,
-   "end": 68.339
+   "end": 68.186
   },
   {
-   "text": "different machines they use for computation.",
-   "start": 68.339,
+   "text": "the different machines they use for computation.",
+   "start": 68.186,
    "end": 70.203
   },
   {
-   "text": "We hash every single machine that",
+   "text": "We hash every single machine that we use",
    "start": 70.203,
-   "end": 71.998
+   "end": 72.339
   },
   {
-   "text": "we use and we attach these hashes to",
-   "start": 71.998,
-   "end": 73.639
+   "text": "and we attach these hashes",
+   "start": 72.339,
+   "end": 73.416
   },
   {
-   "text": "every single response we give back.",
-   "start": 73.639,
+   "text": "to every single response we give back.",
+   "start": 73.416,
    "end": 75.532
   },
   {
-   "text": "That way, anyone can reproduce our",
+   "text": "That way, anyone can reproduce our model returns",
    "start": 75.532,
-   "end": 77.173
+   "end": 77.874
   },
   {
-   "text": "model returns with a byte-identical",
-   "start": 77.173,
-   "end": 79.053
+   "text": "with a byte-identical return, which is made",
+   "start": 77.874,
+   "end": 80.164
   },
   {
-   "text": "return, which is made even easier",
-   "start": 79.053,
-   "end": 80.797
-  },
-  {
-   "text": "using our replay functionality.",
-   "start": 80.797,
+   "text": "even easier using our replay functionality.",
+   "start": 80.164,
    "end": 82.549
   },
   {
@@ -1907,53 +1877,48 @@
    "end": 89.685
   },
   {
-   "text": "That's part of what allows us to",
+   "text": "That's part of what allows us",
    "start": 89.685,
-   "end": 90.915
+   "end": 90.762
   },
   {
-   "text": "lower latency by up to 500 times.",
-   "start": 90.915,
+   "text": "to lower latency by up to 500 times.",
+   "start": 90.762,
    "end": 93.355
   },
   {
-   "text": "Finally, you can always manage your",
+   "text": "Finally, you can always manage your own",
    "start": 93.355,
-   "end": 94.723
+   "end": 94.894
   },
   {
-   "text": "own data and your own model training.",
-   "start": 94.723,
+   "text": "data and your own model training.",
+   "start": 94.894,
    "end": 96.479
   },
   {
-   "text": "If we go to scores here, we can see",
+   "text": "If we go to scores here, we can see exactly how",
    "start": 96.479,
-   "end": 97.932
+   "end": 98.582
   },
   {
-   "text": "exactly how different data points have been",
-   "start": 97.932,
-   "end": 99.573
+   "text": "different data points have been categorized,",
+   "start": 98.582,
+   "end": 100.377
   },
   {
-   "text": "categorized, how they performed,",
-   "start": 99.573,
-   "end": 101.265
+   "text": "how they performed, what their costs were,",
+   "start": 100.377,
+   "end": 102.052
   },
   {
-   "text": "what their costs were, and what their latency was.",
-   "start": 101.265,
-   "end": 103.334
+   "text": "and what their latency was. Then you can decide",
+   "start": 102.052,
+   "end": 104.069
   },
   {
-   "text": "Then you can decide at each",
-   "start": 103.334,
-   "end": 104.394
-  },
-  {
-   "text": "node whether to use our stand-ins or not.",
-   "start": 104.394,
+   "text": "at each node whether to use our stand-ins or not.",
+   "start": 104.069,
    "end": 106.513
   },
   {
@@ -1962,13 +1927,13 @@
    "end": 107.778
   },
   {
-   "text": "handling policies, Dreaming is available in",
+   "text": "handling policies, Dreaming is available",
    "start": 107.778,
-   "end": 109.847
+   "end": 109.556
   },
   {
-   "text": "self-hosted and fully managed flavors.",
-   "start": 109.847,
+   "text": "in self-hosted and fully managed flavors.",
+   "start": 109.556,
    "end": 111.898
   },
   {

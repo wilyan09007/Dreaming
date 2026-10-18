@@ -113,7 +113,7 @@ def main():
     for p in phrases:
         ws = p["words"]
         L = len(p["text"])
-        n = -(-L // 44)
+        n = -(-L // 50)
         ends, pos = [], 0  # char position after each word
         for w, _ in ws:
             pos += len(w) + 1
@@ -128,6 +128,12 @@ def main():
             chunk = ws[prev:c + 1]
             cues.append({"text": " ".join(w for w, _ in chunk), "start": chunk[0][1]})
             prev = c + 1
+    # a cue on screen under ~1 s is unreadable: fold it into the next line of the same phrase when that stays short
+    for i in range(len(cues) - 2, -1, -1):
+        a, b = cues[i], cues[i + 1]
+        if b["start"] - a["start"] < 1.0 and len(a["text"]) + len(b["text"]) < 62 and b["start"] - a["start"] > 0:
+            b["text"], b["start"] = a["text"] + " " + b["text"], a["start"]
+            del cues[i]
     for i, c in enumerate(cues):
         nxt = cues[i + 1]["start"] if i + 1 < len(cues) else phrases[-1]["end"] + 0.4
         c["end"] = min(nxt, c["start"] + 6.0)
