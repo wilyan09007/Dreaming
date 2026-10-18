@@ -4,23 +4,32 @@
     just campaign night-1017 categorize,invoice_paid 3    launch_cells: queue the TrainRun rows, spawn the cells (here: 3) by name, print fc ids
     just monitor night-1017                                print the monitor's table once (the cron prints and prunes every 10 min)
 
-    prepare_site(site) -> {rows, bytes}        the rows a site trains on, written once to the Volume (below). Bookkeeper sites export the
-                                               teacher-labelled trace_rows from Postgres; QuickBooks sites call quickbooks.data inside Modal
+    prepare_site(site) -> {rows, seeds, bytes} the rows a site trains on, written once to the Volume (below). Bookkeeper sites export the
+                                               trace_rows from Postgres, relabelled from the StepFun record; QuickBooks sites call quickbooks.data
     train_cell(run: dict) -> dict              one TrainRun on CPU: rungs 60/200/500/2000 of a seeded row order; at each rung fit, score the three
                                                frozen EvalSets twice (stability), write Checkpoint + weights + scores .npz; running -> done | failed
     train_cell_gpu(run: dict) -> dict          the same body on a T4 for candidates with needs_gpu (finetune); the 10-GPU cap queues the rest
-    launch_cells(campaign, sites, limit)       cells() -> prepare_site for sites not on the Volume yet -> queued train_runs rows -> spawn each
-                                               by name (a site that fails to prepare gets its cells as failed rows, the error in `note`)
+    launch_cells(campaign, sites, limit, force)  prepare_site for sites not on the Volume yet (every named site with --force) -> queued train_runs
+                                               rows -> spawn each by name (a site that fails to prepare gets its cells as failed rows, the error in `note`)
     progress(campaign) -> dict                 monitor.table as plain rows, for the API
     monitor() [cron */10]                      monitor.prune + monitor.table for every campaign started in the last 24 h; one campaign.progress event
-    cells(campaign, sites) -> [TrainRun dict]  the matrix; split(rows) -> {train, calib, test, forward}  the frozen eval sets
+    cells(campaign, sites, seeded) -> [TrainRun dict]  the matrix; split(rows) -> {train, calib, test, forward}  the frozen eval sets
+
+Two files come from the laptop, not from Postgres, and go up by hand (re-upload with -f when they grow, then re-prepare with --force):
+    modal volume put dreaming-weights data/recorded.jsonl campaign/_recorded.jsonl       RecordedTeacher's file: the StepFun answers by key
+    modal volume put dreaming-weights data/seeds/bookkeeper.categorize.jsonl campaign/_seeds/   predictors.seeds' rows for a site (B1's writer)
+    modal run apps/trainer/src/dreaming_trainer/campaign.py --campaign X --sites categorize,match_invoice --force   re-prepare, then launch
 
 Volume layout, per site, written by prepare_site and only read by cells:
     /weights/campaign/<site>/rows.jsonl      {"rendered", "label", "group", "ts"} per line, sorted by (ts, rendered); a row's id is its line number
+    /weights/campaign/<site>/seeds.jsonl     {"rendered", "label"} per line: the LLM-written seed rows for the site's current schema, when uploaded
     /weights/campaign/<site>/meta.json       {"site_id", "labels", "encoder_sha", "env_sha", "n"}
-    /weights/campaign/<site>/embeddings.npy  float32 [n, 384], row i = embed(rows[i].rendered) at batch size 1 (model sites; tools need none)
+    /weights/campaign/<site>/embeddings.npy  float32 [n + seeds, 384], row i = embed(text i) at batch size 1, rows then seeds (model sites only)
     /weights/campaign/<run>/<rung>.npz       idx int32, split int8 (0 calib, 1 test, 2 forward), scores float16 [N, L], conf float32, pred int32,
                                              conf2 / pred2 (the second pass); Checkpoint.eval_sha = sha of the three EvalSet shas (calib, test, forward)
+
+Variants (training-plan §3): "real" trains on the rung's real rows; "seed+real" prepends every seed row; "seed" is day zero, one checkpoint at
+rung 0 of seed rows only. Eval rows are always real rows. A site without seeds on the Volume runs "real" only (launch_cells says so).
 
 Rules: a cell never writes a Policy; the same request gives the same weights_sha; eval rows are never training rows (EvalSet by group, and
 forward in time); cells never call a teacher; a cell opens Postgres only to write and closes it (the session pooler's pool is small).
@@ -32,7 +41,7 @@ import contextlib
 import importlib
 import json
 import os
-from collections.abc import Mapping, Sequence
+from collections.abc import Collection, Mapping, Sequence
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
@@ -56,12 +65,13 @@ from dreaming.contracts import (
     TrainRun,
 )
 from dreaming.gate import certify, realized
-from dreaming.hashing import sha
+from dreaming.hashing import canonical, sha
 from dreaming.predictors import Predictor
 from dreaming.predictors.candidates import CANDIDATES, Candidate, Fitted
 from dreaming.predictors.student import ENCODER_REV, SentenceEncoder, Vec
 from dreaming.predictors.train import labelled
 from dreaming.store import PostgresStore
+from dreaming.teachers.recorded import RecordedTeacher
 from numpy.typing import NDArray
 from psycopg.types.json import Jsonb
 
@@ -74,8 +84,9 @@ from dreaming_trainer.modal_app import image as base_image
 # modal_app.image already holds torch, the encoder and `dreaming` (copied); the two workflows and this package come after.
 image = (
     base_image.uv_pip_install("huggingface_hub==1.33.0", "pyyaml==6.0.2")  # the hub version sentence-transformers 6.1.0 resolves to; quickbooks.data reads the dataset with it
-    # same weights_sha on any Modal CPU: one BLAS thread and one kernel family (numpy's OpenBLAS picks per CPU otherwise; measured: 4 of 9 shas matched)
-    .env({"OPENBLAS_NUM_THREADS": "1", "OPENBLAS_CORETYPE": "Haswell"})
+    # same weights_sha on any Modal CPU: one BLAS thread and one kernel family (numpy's OpenBLAS picks per CPU otherwise; measured: 4 of 9 shas matched).
+    # TEACHER=stepfun: the workflows declare the StepFun TeacherSpec, so RecordedTeacher.key matches the record file's keys (its model and params)
+    .env({"OPENBLAS_NUM_THREADS": "1", "OPENBLAS_CORETYPE": "Haswell", "TEACHER": "stepfun"})
     .add_local_python_source("bookkeeper", "quickbooks", "dreaming_trainer", copy=True)
 )
 app = modal.App("dreaming-campaign", image=image)  # its own app: the trainer's `train` has max_containers=2
@@ -90,6 +101,8 @@ BUDGETS = (0.02, 0.05, 0.10, 0.20)
 DELTA = 0.05
 SPLITS: tuple[Literal["calib", "test", "forward"], ...] = ("calib", "test", "forward")  # the order of the npz's split codes
 ROOT = Path("/weights/campaign")
+RECORDED, SEEDS = ROOT / "_recorded.jsonl", ROOT / "_seeds"  # uploaded by hand (module docstring)
+SEED_TS = "2026-01-01T00:00:00+00:00"  # seed rows predate every real row: they are the prior, never the forward slice
 URI = "modal://dreaming-weights/campaign"
 MAX_BYTES = 8 * 1024 * 1024  # weights above this go to the Volume, not a bytea
 MAX_DENSE = 64  # a label set wider than this (document ids) stores no per-label score matrix
@@ -117,22 +130,28 @@ def _finetune_ported() -> bool:
     return "finetune" in CANDIDATES
 
 
-def cells(campaign: str, sites: Sequence[str] = ()) -> list[dict[str, Any]]:
-    """The matrix as TrainRun dicts, candidate-major then seed, so `limit=3` on one site is three seeds of its first candidate.
+Variant = Literal["seed+real", "real", "seed"]
 
-    Model sites: head and memory x seeds 0,1,2 on CPU, plus finetune x seed 0 on a T4 when it is registered. Tool sites: exact x seeds 0,1,2.
-    shortcut: nothing writes LLM seed rows yet, so every cell is variant "real" (the label says what it trained on) and the docs' "seed+real"
-    and "seed" variants (58 cells) become 34 (30 without finetune); add both when a seed.jsonl per site exists.
+
+def cells(campaign: str, sites: Sequence[str] = (), seeded: Collection[str] = ()) -> list[dict[str, Any]]:
+    """The matrix as TrainRun dicts, variant-major, then candidate, then seed, so `limit=3` on one site is three seeds of head on real rows.
+
+    Per site and variant: head and memory x seeds 0,1,2 on CPU, plus finetune x seed 0 on a T4 when it is registered (model sites); exact x
+    seeds 0,1,2 (tool sites). Variants: "real" everywhere (the smokes' baseline, S17), "seed+real" and "seed" too for the sites in `seeded`
+    (those with seed rows on the Volume): the six-site matrix is 34 cells unseeded, 58 with every model site seeded.
     """
     out: list[dict[str, Any]] = []
     for s in [site_id(n) for n in sites] or SITES:
-        plan = [(c, k, "modal:cpu") for c in (["exact"] if s in TOOL_SITES else ["head", "memory"]) for k in range(3)]
-        if s not in TOOL_SITES and _finetune_ported():
+        tool = s in TOOL_SITES
+        variants: list[Variant] = ["real"] if tool or s not in seeded else ["real", "seed+real", "seed"]
+        plan = [(c, k, "modal:cpu") for c in (["exact"] if tool else ["head", "memory"]) for k in range(3)]
+        if not tool and _finetune_ported():
             plan.append(("finetune", 0, "modal:T4"))
-        for cand, seed, where in plan:
-            run = TrainRun(id=f"{campaign}:{s}:{cand}:real:s{seed}", campaign=campaign, call_site=s, candidate=cand, variant="real",
-                           seed=seed, where=where, config={"rungs": list(RUNGS)})
-            out.append(run.model_dump(mode="json"))
+        for variant in variants:
+            for cand, seed, where in plan:
+                run = TrainRun(id=f"{campaign}:{s}:{cand}:{variant}:s{seed}", campaign=campaign, call_site=s, candidate=cand, variant=variant,
+                               seed=seed, where=where, config={"rungs": [0] if variant == "seed" else list(RUNGS)})
+                out.append(run.model_dump(mode="json"))
     return out
 
 
@@ -280,47 +299,87 @@ def call_site(site: str) -> CallSite:
     raise LookupError(f"{site}: not declared by its workflow (registry has {sorted(s.id for s in registry.sites())})")
 
 
-def _trace_rows(site: str) -> list[dict[str, Any]]:
-    """Every row of a bookkeeper site that has a teacher label, from Postgres (the rule teacher now, StepFun after the record pass)."""
+def labels_for(cs: CallSite, trace: Sequence[TraceRow], recorded: RecordedTeacher | None) -> list[dict[str, Any]]:
+    """A site's trace rows as training rows. A tool site (`recorded` None) keeps the tool's exact answer. A model site's label is the StepFun
+    answer recorded for the same rendered input (RecordedTeacher.key), whatever teacher the run itself used; a row with no recorded answer,
+    or an unparsed one, is dropped: never a rule label."""
+    out: list[dict[str, Any]] = []
+    for r in trace:
+        if recorded is None:
+            pairs = labelled([r])
+        else:
+            text = r.request if isinstance(r.request, str) else canonical(r.request).decode()
+            try:
+                label = recorded.ask(cs, text).label
+            except LookupError:
+                continue
+            pairs = [(text, label)] if label else []
+        out += [{"rendered": text, "label": label, "group": group_of(cs.id, text), "ts": r.ts.isoformat()} for text, label in pairs]
+    return out
+
+
+def _trace_rows(cs: CallSite) -> list[dict[str, Any]]:
+    """Every bookkeeper trace row with a label (labels_for), from Postgres and the record file on the Volume."""
     store = PostgresStore(os.environ["DATABASE_URL"])
     try:
-        trace = store.rows(site, limit=100_000)
+        trace = store.rows(cs.id, limit=100_000)
     finally:
         store.close()
-    return [{"rendered": text, "label": label, "group": group_of(site, text), "ts": r.ts.isoformat()}
-            for r in trace for text, label in labelled([r])]
+    recorded = None
+    if cs.id not in TOOL_SITES:
+        if not RECORDED.is_file():
+            raise FileNotFoundError(f"{RECORDED} is not on the Volume: `modal volume put dreaming-weights data/recorded.jsonl campaign/_recorded.jsonl`")
+        recorded = RecordedTeacher(RECORDED)
+    rows = labels_for(cs, trace, recorded)
+    print(f"{cs.id}: {len(rows)} of {len(trace)} trace rows have a label", flush=True)
+    return rows
 
 
-def _export(site: str) -> list[dict[str, str]]:
-    if site.startswith("quickbooks."):
-        data = _import("quickbooks.data", site)
-        raw: list[dict[str, Any]] = data.rows(site.split(".")[1], data.download(ROOT / "_quickbooks"))
+def seed_rows(cs: CallSite, root: Path) -> list[dict[str, str]]:
+    """The LLM-written seed rows for the site's current schema, {"rendered", "label"}, from <root>/<site id>.jsonl; [] when there is none.
+    shortcut: the file is predictors.seeds' (B1's branch: {"key": sha([labels, descriptions]), "id", "label", "text", "model"}); read it with
+    seeds.rows once that branch is merged."""
+    path = root / f"{cs.id}.jsonl"
+    if cs.labels is None or not path.is_file():
+        return []
+    key = sha([cs.labels, cs.descriptions])
+    return [{"rendered": d["text"], "label": d["label"]} for d in map(json.loads, path.read_text(encoding="utf-8").splitlines()) if d["key"] == key]
+
+
+def _export(cs: CallSite) -> list[dict[str, str]]:
+    if cs.id.startswith("quickbooks."):
+        data = _import("quickbooks.data", cs.id)
+        raw: list[dict[str, Any]] = data.rows(cs.name, data.download(ROOT / "_quickbooks"))
     else:
-        raw = _trace_rows(site)
+        raw = _trace_rows(cs)
     rows = [{k: str(r[k]) for k in ("rendered", "label", "group", "ts")} for r in raw]
     return sorted(rows, key=lambda r: (r["ts"], r["rendered"]))
 
 
 @app.function(cpu=(1.0, 1.0), memory=2048, timeout=40 * 60, max_containers=4, volumes={"/weights": volume}, secrets=[db])
 def prepare_site(site: str) -> dict[str, Any]:
-    """Export a site's rows, embed them once (batch size 1), write the three files, commit the Volume."""
+    """Export a site's rows and its seed rows, embed them once (batch size 1), write the files, commit the Volume. Overwrites a prepared site."""
     site = site_id(site)
     cs = call_site(site)
-    rows = _export(site)
+    rows = _export(cs)
     if not rows:
         raise ValueError(f"{site}: no labelled rows to train on")
+    seeds = [] if site in TOOL_SITES else seed_rows(cs, SEEDS)
     d = ROOT / site
     d.mkdir(parents=True, exist_ok=True)
     encoder_sha = env_sha = ""
     if site not in TOOL_SITES:  # `exact` needs no vectors, and a tool site can have tens of thousands of rows
         enc = SentenceEncoder("/opt/encoder", revision=ENCODER_REV)
         encoder_sha, env_sha = enc.model_sha, enc.env_sha
-        np.save(d / "embeddings.npy", np.stack([enc.embed(r["rendered"]) for r in rows]).astype(np.float32))
+        np.save(d / "embeddings.npy", np.stack([enc.embed(r["rendered"]) for r in rows + seeds]).astype(np.float32))
     labels = cs.labels if cs.labels is not None else sorted({r["label"] for r in rows})
     (d / "rows.jsonl").write_text("".join(json.dumps(r) + "\n" for r in rows))
+    (d / "seeds.jsonl").unlink(missing_ok=True)  # a re-prepare without seeds leaves none behind
+    if seeds:
+        (d / "seeds.jsonl").write_text("".join(json.dumps(r) + "\n" for r in seeds))
     (d / "meta.json").write_text(json.dumps({"site_id": site, "labels": labels, "encoder_sha": encoder_sha, "env_sha": env_sha, "n": len(rows)}))
     volume.commit()
-    return {"site": site, "rows": len(rows), "bytes": sum(f.stat().st_size for f in d.iterdir())}
+    return {"site": site, "rows": len(rows), "seeds": len(seeds), "bytes": sum(f.stat().st_size for f in d.iterdir())}
 
 
 # ---------------------------------------------------------------- the cell
@@ -382,6 +441,9 @@ def _cell(run_dict: dict[str, Any], gpu: bool) -> dict[str, Any]:
         d = ROOT / run.call_site
         meta = json.loads((d / "meta.json").read_text())
         rows: list[dict[str, Any]] = [json.loads(line) for line in (d / "rows.jsonl").read_text().splitlines()]
+        seeds: list[dict[str, Any]] = [json.loads(line) for line in (d / "seeds.jsonl").read_text().splitlines()] if (d / "seeds.jsonl").is_file() else []
+        if run.variant != "real" and not seeds:
+            raise ValueError(f"{run.call_site}: variant {run.variant} needs seed rows and the Volume has none (upload them, then re-prepare with --force)")
         tool = run.call_site in TOOL_SITES
         site = CallSite(id=run.call_site, workflow=run.call_site.split(".")[0], name=run.call_site.split(".")[1], kind=Kind.tool if tool else Kind.model,
                         labels=None if tool else meta["labels"])
@@ -390,7 +452,7 @@ def _cell(run_dict: dict[str, Any], gpu: bool) -> dict[str, Any]:
         if cand.needs_encoder and gpu:
             encoder = SentenceEncoder("/opt/encoder", revision=ENCODER_REV)
         elif cand.needs_encoder:
-            encoder = VolumeEncoder([r["rendered"] for r in rows], np.load(d / "embeddings.npy"), meta["encoder_sha"], meta["env_sha"])
+            encoder = VolumeEncoder([r["rendered"] for r in rows + seeds], np.load(d / "embeddings.npy"), meta["encoder_sha"], meta["env_sha"])
         sp = split(rows)
         sets = eval_sets(run.call_site, rows, sp)
         eval_sha = sha([s.sha for s in sets])
@@ -399,11 +461,12 @@ def _cell(run_dict: dict[str, Any], gpu: bool) -> dict[str, Any]:
             raise ValueError(f"{run.call_site}: the split left no training rows ({len(rows)} rows, {len({r['group'] for r in rows})} groups)")
         order = [pool[int(i)] for i in np.random.default_rng(run.seed).permutation(len(pool))]  # shortcut: the seed picks which rows come first; Candidate.fit has no seed, so its holdout draw is fixed
         trace = as_trace_rows(site, [rows[i] for i in order])
+        prior = as_trace_rows(site, [{**s, "ts": SEED_TS} for s in seeds]) if run.variant != "real" else []  # the seed rows come first, at every rung
         out = ROOT / run.id
         out.mkdir(parents=True, exist_ok=True)
-        for n in rungs_for(len(pool), gpu):
+        for n in [0] if run.variant == "seed" else rungs_for(len(pool), gpu):
             t1 = perf_counter()
-            r = run_rung(site, cand, trace[:n], rows, sp, meta["labels"], encoder)
+            r = run_rung(site, cand, prior + trace[:n], rows, sp, meta["labels"], encoder)
             cast(Any, np.savez)(out / f"{n}.npz", **r.arrays)
             t2 = perf_counter()
             volume.commit()
@@ -439,13 +502,20 @@ def train_cell_gpu(run: dict[str, Any]) -> dict[str, Any]:
 
 
 @app.function(memory=1024, secrets=[db], timeout=45 * 60, volumes={"/weights": volume})
-def launch_cells(campaign: str, sites: list[str], limit: int) -> list[dict[str, Any]]:
-    """Prepare the sites the Volume lacks (once; re-prepare with `modal run campaign.py::prepare_site --site ...`), queue the cells in
+def launch_cells(campaign: str, sites: list[str], limit: int, force: bool = False) -> list[dict[str, Any]]:
+    """Prepare the sites the Volume lacks (every named site with `force`: new labels or seed rows were uploaded), queue the cells in
     train_runs, then spawn each by name on the deployed app (they outlive this call). The fc id lands in config["fc_id"]."""
-    todo = cells(campaign, sites)[: limit or None]
-    missing = sorted({c["call_site"] for c in todo if not (ROOT / c["call_site"] / "meta.json").is_file()})
+    names = [site_id(n) for n in sites] or list(SITES)
+    missing = names if force else [s for s in names if not (ROOT / s / "meta.json").is_file()]
     done: list[Any] = list(cast(Any, prepare_site).map(missing, return_exceptions=True)) if missing else []  # in parallel, one container per site
     broken = {s: f"prepare_site: {type(r).__name__}: {r}" for s, r in zip(missing, done, strict=True) if isinstance(r, BaseException)}
+    volume.reload()  # see what the prepare containers committed
+    seeded = {s for s in names if (ROOT / s / "seeds.jsonl").is_file()}
+    for s in names:
+        if s not in seeded and s not in TOOL_SITES and s not in broken:
+            print(f"{s}: no seed rows on the Volume ({SEEDS / s}.jsonl missing, or uploaded after the site was prepared: --force); "
+                  "variants seed+real and seed skipped, real runs", flush=True)
+    todo = cells(campaign, names, seeded)[: limit or None]
     by_name: Any = cast(Any, modal.Function).from_name  # Modal's Function is untyped; spawning by name keeps the calls alive after the caller exits
     fn_cpu, fn_gpu = by_name("dreaming-campaign", "train_cell"), by_name("dreaming-campaign", "train_cell_gpu")
     with _pg() as conn:
@@ -485,7 +555,7 @@ def monitor() -> None:
 
 
 @app.local_entrypoint()
-def launch(campaign: str = "night-1017", sites: str = "", limit: int = 0) -> None:
-    """`sites` is comma-separated, full ids or bare names; empty means all six."""
-    for c in launch_cells.remote(campaign, [s for s in sites.split(",") if s], limit):
+def launch(campaign: str = "night-1017", sites: str = "", limit: int = 0, force: bool = False) -> None:
+    """`sites` is comma-separated, full ids or bare names; empty means all six. `--force` re-prepares the named sites first."""
+    for c in launch_cells.remote(campaign, [s for s in sites.split(",") if s], limit, force):
         print(c["id"], c["config"]["fc_id"])

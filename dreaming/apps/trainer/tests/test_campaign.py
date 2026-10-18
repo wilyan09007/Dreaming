@@ -5,15 +5,19 @@ No Modal, no Postgres: `run_rung` takes the encoder and the rows directly, so th
 
 from __future__ import annotations
 
+import json
 import zlib
 from datetime import UTC, datetime, timedelta
+from pathlib import Path
 from typing import Any
 
 import numpy as np
 import pytest
-from dreaming.contracts import CallSite, Hashes, Kind, Prediction
+from dreaming.contracts import CallSite, Hashes, Kind, Prediction, TeacherAnswer
+from dreaming.hashing import sha
 from dreaming.predictors.candidates import CANDIDATES, Candidate, Fitted
 from dreaming.predictors.student import Vec
+from dreaming.teachers.recorded import RecordedTeacher
 from dreaming_trainer import campaign, monitor  # installed by `uv sync --all-packages`
 
 LABELS = ["Software", "Meals", "Travel"]
@@ -96,6 +100,34 @@ def test_cells_matrix(monkeypatch: pytest.MonkeyPatch, finetune: bool) -> None:
     assert {c["call_site"] for c in campaign.cells("night", ["bank_match", "quickbooks.bill_account"])} == {"quickbooks.bank_match", "quickbooks.bill_account"}
     with pytest.raises(ValueError, match="unknown campaign site"):
         campaign.cells("night", ["nope"])
+    # seed rows on the Volume for one site add its seed+real and seed variants: 6 CPU cells each, plus a finetune cell per variant
+    seeded = campaign.cells("t", ["categorize", "match_invoice", "vendor_lookup"], seeded={"bookkeeper.categorize"})
+    by_site = {s: [c for c in seeded if c["call_site"] == s] for s in campaign.SITES[:3]}
+    assert [len(by_site[s]) for s in campaign.SITES[:3]] == ([21, 7, 3] if finetune else [18, 6, 3])
+    assert {c["variant"] for c in by_site["bookkeeper.categorize"]} == {"real", "seed+real", "seed"} and {c["variant"] for c in by_site["bookkeeper.match_invoice"]} == {"real"}
+    assert all(c["config"]["rungs"] == ([0] if c["variant"] == "seed" else [60, 200, 500, 2000]) for c in seeded)
+    assert len({c["id"] for c in seeded}) == len(seeded) and len(campaign.cells("t", [], seeded=set(campaign.SITES))) == (90 if finetune else 78)
+
+
+def test_labels_for_joins_the_stepfun_record_and_drops_the_rest(tmp_path: Path) -> None:
+    cs, rows = site(), ledger(4)
+    trace = campaign.as_trace_rows(cs, rows)  # their own teacher says MERCHANTS; the record says otherwise for two of them
+    lines = [{"key": RecordedTeacher.key(cs, rows[0]["rendered"]), "answer": TeacherAnswer(text="Travel", label="Travel", provider="stepfun", model="m").model_dump(mode="json")},
+             {"key": RecordedTeacher.key(cs, rows[1]["rendered"]), "answer": TeacherAnswer(text="??", label=None, provider="stepfun", model="m").model_dump(mode="json")}]
+    (tmp_path / "r.jsonl").write_text("".join(json.dumps(d) + "\n" for d in lines), encoding="utf-8")
+    got = campaign.labels_for(cs, trace, RecordedTeacher(tmp_path / "r.jsonl"))
+    assert got == [{**rows[0], "label": "Travel", "group": campaign.group_of(cs.id, rows[0]["rendered"])}]  # row 1 unparsed, 2 and 3 unrecorded
+    assert [r["label"] for r in campaign.labels_for(site(Kind.tool), trace, None)] == [r["label"] for r in rows]  # a tool site keeps its exact answers
+
+
+def test_seed_rows_reads_b1s_file_for_the_current_schema(tmp_path: Path) -> None:
+    cs = site()
+    key = sha([cs.labels, cs.descriptions])
+    lines = [{"key": key, "id": "seed:Meals:0", "label": "Meals", "text": "Transaction: CAFE, $4.00", "model": "asi1-mini"},
+             {"key": "stale", "id": "seed:Meals:0", "label": "Meals", "text": "old schema", "model": "asi1-mini"}]
+    (tmp_path / f"{cs.id}.jsonl").write_text("".join(json.dumps(d) + "\n" for d in lines), encoding="utf-8")
+    assert campaign.seed_rows(cs, tmp_path) == [{"rendered": "Transaction: CAFE, $4.00", "label": "Meals"}]
+    assert campaign.seed_rows(site(Kind.tool), tmp_path) == [] and campaign.seed_rows(CallSite(id="w.none", workflow="w", name="none", kind=Kind.model, labels=["a"]), tmp_path) == []
 
 
 def test_group_and_rungs() -> None:
