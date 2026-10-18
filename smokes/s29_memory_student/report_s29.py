@@ -17,7 +17,7 @@ def sec(f, name):
     try: f()
     except Exception as e: P(f"_{name}: not available ({type(e).__name__}: {e})_\n")
 
-WORLDS = ["banking77", "clinc150", "clinc45"]; ARMS = ["LR", "Hopfield", "kNN10", "Prototype", "HDC", "Hopfield+synth", "LR+synth"]
+WORLDS = ["banking77", "clinc150", "clinc45", "banking77 k-exact", "clinc45 k-exact", "clinc150 k-exact"]; ARMS = ["LR", "Hopfield", "kNN10", "Prototype", "HDC", "Hopfield+synth", "LR+synth"]
 A = R.get("A", []); META = R.get("meta", {})
 idx = {}
 for c in A: idx.setdefault((c["world"], c["n"], c["arm"]), {})[c["split"]] = c
@@ -85,7 +85,7 @@ def secA():
         P(f"### {w}: Hopfield beta picked on calibration accuracy (median, min-max over splits)\n")
         bs = lambda a, n: (lambda v: f"{int(np.median(v))} ({int(min(v))}-{int(max(v))})")([c["beta"] for c in idx[(w, n, a)].values()]) if (w, n, a) in idx else "-"
         tab(["arm"] + [str(n) for n in ns(w)], [[a] + [bs(a, n) for n in ns(w)] for a in ("Hopfield", "Hopfield+synth") if any(k[0] == w and k[2] == a for k in idx)])
-        if w == "clinc150":
+        if w.startswith("clinc150"):
             P("### clinc150: accuracy on holdout rows of the 45 seeded labels / of the other 105 labels\n")
             tab(["rows"] + arms, [[n] + [f"{mean(vals(w, n, a, lambda c: c.get('acc_seeded')))} / {mean(vals(w, n, a, lambda c: c.get('acc_unseeded')))}" for a in arms] for n in ns(w)])
         P(f"### {w}: LR fit seconds (GPU L-BFGS, mean) and L-BFGS iterations / final max-gradient\n")
@@ -159,6 +159,11 @@ def secE():
         P("### Approximate index (hnswlib)\n")
         if isinstance(E["ann"], dict): tab(["test", "result"], [[k, v] for k, v in E["ann"].items()])
         else: P(E["ann"] + "\n")
+    if "cross_process" in E:
+        runs = [r for r in E["cross_process"] if isinstance(r, dict)]; P(f"### Across processes: dense read of every test query in {len(E['cross_process'])} fresh interpreters ({len(runs)} ran); distinct sha256 per device\n")
+        tab(["device", "distinct raw bytes", "distinct label + conf (4 dp)"], [[d, len({r[d]["raw"] for r in runs}), len({r[d]["label_conf4"] for r in runs})] for d in (runs[0] if runs else {}) if d != "cpu_vs_cuda"])
+        if runs and "cpu_vs_cuda" in runs[0]: P(f"CPU vs GPU, same process, all test queries: {json.dumps(runs[0]['cpu_vs_cuda'])} (label_diff / conf4_diff = queries whose label / confidence rounded to 4 dp differ; max_abs_dconf = largest |gap_cpu - gap_gpu|)\n")
+        if runs and "cuda" in runs[0]: P(f"CPU and GPU agree on (label, confidence to 4 dp) for every query: {runs[0]['cpu']['label_conf4'] == runs[0]['cuda']['label_conf4']}; raw bytes equal: {runs[0]['cpu']['raw'] == runs[0]['cuda']['raw']}\n")
 sec(secE, "E")
 
 OUTF.write_text("\n".join(L) + "\n", encoding="utf-8"); print("wrote", OUTF, len(L), "lines")

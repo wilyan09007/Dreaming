@@ -70,3 +70,5 @@ pod_s25b,0.03,RunPod RTX 4090 ~2 min, terminated (redundant: first S25 run recov
 s28_router_calibration,1.7096,929 E1 (gpt-5.4 low) + 1000 cheap (gpt-5.4-nano) calls; sum of usage.cost over responses.jsonl (E1 1.6117 + cheap 0.0979); 531 error rows at 0; 71 E1 calls not made (OpenRouter credits exhausted); analysis CPU only
 pod_s29,0.056,RunPod NVIDIA GeForce RTX 4090 4 min ok=True
 s29_memory_student,0.00,cancelled by the user before results; pod_s29 rows above are boot time only (one launch failed on a datasets column bug, the second was terminated at boot)
+pod_s29b,0.225,RunPod NVIDIA GeForce RTX 4090 15 min ok=True
+s29_memory_student_run,0.03,Modal CPU for A_k (8 cores ~4 min; est.); the pod is the pod_s29b row above ($0.225 RTX 4090 secure-cloud fallback as community had no supply; A-E in 512 s of a 15.2-min pod); two s29c pod launches (RTX 4090 and RTX A5000) got no supply at $0

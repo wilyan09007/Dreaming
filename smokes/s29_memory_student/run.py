@@ -6,7 +6,7 @@ Sections (results.json is rewritten after every cell, cheapest / most informativ
   B  class imbalance (Zipf vs uniform class counts at 3080 rows)     C  deletion (classes / random rows / a frequent token) + recertification
   E  determinism (S7/S8 protocol on CPU 1 thread and GPU)             D  query cost (flat read at 1k..1M rows, hnswlib top-50) incl. the 1M index
 Env: S29_TINY=1 builds a fake world with random embeddings; S29_DRY=1 uses the real labels / texts / synthetic rows with RANDOM embeddings and tiny sizes (both are local wiring checks only);
-S29_OUT redirects outputs; argv = sections to run (default all).
+S29_OUT redirects outputs; argv = sections to run (default all). Run order: A_banking, B, C, E, D, A_clinc (CLINC last so a pod timeout costs only its largest cells).
 Confidence everywhere = top-2 gap of the arm's class scores. Certificate = common.certify (fixed 40-point grid, delta 0.05) on a 500-row calibration slice of the test set,
 applied to the remaining test rows. Accuracy is on those remaining rows."""
 import os, sys, json, time, math, re, subprocess, threading, traceback, warnings
@@ -19,7 +19,7 @@ TINY = bool(os.environ.get("S29_TINY")); DRY = bool(os.environ.get("S29_DRY")); 
 OUT = Path(os.environ.get("S29_OUT", str(HERE))); OUT.mkdir(parents=True, exist_ok=True)
 RES, LOG = OUT / "results.json", OUT / "log.txt"
 T0 = time.time()
-BUDGETS = (0.02, 0.05, 0.10); BETAS = (5, 10, 20, 40, 80, 160); HC = 3  # HC: number of CUDA attempts (fresh subprocess each)
+BUDGETS = (0.02, 0.05, 0.10); BETAS = (5, 10, 20, 40, 80, 160, 320, 640); HC = 3  # HC: number of CUDA attempts (fresh subprocess each)
 CFG = dict(splits=2, ncal=60, hd=1000, reps=60, n_mid=160, d_sizes=[100, 160, 320, 2000, 5000], d_q=40) if TINY else \
       dict(splits=2, ncal=500, hd=500, reps=24, n_mid=770, d_sizes=[1000, 770, 9993], d_q=20) if DRY else \
       dict(splits=5, ncal=500, hd=10000, reps=1000, n_mid=3080, d_sizes=[1000, 3080, 9993, 100000, 1000000], d_q=300)
@@ -36,7 +36,7 @@ def save():
 # ------------------------------------------------------------------ CUDA gate: fresh subprocess, 3 tries, drop the image's forward-compat libcuda on the first miss (error 999 on new drivers), exit 2 if absent
 def cuda_ok():
     return subprocess.run([sys.executable, "-c", "import torch,sys; sys.exit(0 if torch.cuda.is_available() else 1)"], capture_output=True).returncode == 0
-if not LOCAL:
+if not LOCAL and not os.environ.get("S29_CPU"):  # S29_CPU=1: CPU-only fallback host (modal_ak.py), no CUDA gate
     for i in range(HC):
         if cuda_ok(): log(f"cuda ok on attempt {i + 1}"); break
         log(f"cuda NOT available on attempt {i + 1}")
@@ -142,9 +142,14 @@ def lr_fit(X, y, K, C=10.0, sw=None, iters=1000):
     return W.detach(), b.detach(), dict(iters=int(opt.state_dict()["state"][0]["n_iter"]), gnorm=gn)
 def lr_proba(W, b, Xq): return torch.softmax(Xq.double() @ W.T + b, 1).cpu().numpy()
 
-def hopfield(M, y, Xq, K, cal, yq, norm=None):
-    """scores_c = sum_{i: y_i=c} softmax_i(beta cos(q, x_i)); beta from BETAS picked on calibration accuracy (ties: lower NLL). norm: per-class row counts -> divide, renormalise."""
+def hopfield(M, y, Xq, K, cal, yq, norm=None, cap=None):
+    """scores_c = sum_{i: y_i=c} softmax_i(beta cos(q, x_i)); beta from BETAS picked on calibration accuracy (ties: lower NLL). norm: per-class row counts -> divide, renormalise.
+    cap: per query keep only the cap most similar rows of each class (missing slots -inf), then the same read."""
     S = Xq @ M.T; Y = F.one_hot(T(y, torch.long), K).float(); yc = T(yq[cal], torch.long); best = None; cal_t = T(cal, torch.long)
+    if cap:
+        V = torch.full((len(Xq), K, cap), float("-inf"), device=DEV); yt = T(y, torch.long)
+        for c in torch.unique(yt).tolist(): Sc = S[:, yt == c]; k = min(cap, Sc.shape[1]); V[:, c, :k] = Sc.topk(k, 1).values
+        S = V.reshape(len(Xq), -1); Y = F.one_hot(torch.arange(K, device=DEV).repeat_interleave(cap), K).float()
     for b in BETAS:
         P = torch.softmax(b * S, 1) @ Y
         if norm is not None: P = P / T(np.maximum(norm, 1), torch.float32); P = P / P.sum(1, keepdim=True)
@@ -181,16 +186,17 @@ def evaluate(S, y, cal, hold, conf=None):
 def split_idx(n, s, base=1000): p = np.random.default_rng(base + s).permutation(n); return p[:NCAL], p[NCAL:]
 
 # ------------------------------------------------------------------ A. rows ladder
-def section_A(w, sizes):
+def section_A(w, sizes, exact=False):  # exact: exactly n // K rows of every label (A_k) instead of n rows with >= 1 per label
     K, ytr, yte = w["K"], w["ytr"], w["yte"]; Xte = w["Xte_t"]; HVtr, HVte = hv(w["Xtr_t"]), hv(Xte); has_syn = w["Xsyn_t"] is not None
     for n in sizes:
         n = min(n, len(ytr)); t0 = time.time()
         for s in range(SPLITS):
-            idx = stratified_subsample(ytr, n, seed=s) if n > 0 else np.array([], int); cal, hold = split_idx(len(yte), s)
+            r = np.random.default_rng(s); idx = np.concatenate([r.choice(np.flatnonzero(ytr == c), n // K, replace=False) for c in range(K)]) if exact else \
+                  stratified_subsample(ytr, n, seed=s) if n > 0 else np.array([], int); cal, hold = split_idx(len(yte), s)
             M, y = w["Xtr_t"][T(idx, torch.long)] if n else w["Xtr_t"][:0], ytr[idx]
             def rec(arm, S, conf=None, **extra):
                 e, pred = evaluate(S, yte, cal, hold, conf)
-                if w["name"] == "clinc150": sm = w["seeded"][yte[hold]]; e.update(acc_seeded=float((pred[hold] == yte[hold])[sm].mean()), acc_unseeded=float((pred[hold] == yte[hold])[~sm].mean()))
+                if w["name"].startswith("clinc150"): sm = w["seeded"][yte[hold]]; e.update(acc_seeded=float((pred[hold] == yte[hold])[sm].mean()), acc_unseeded=float((pred[hold] == yte[hold])[~sm].mean()))
                 R["A"].append(dict(world=w["name"], n=int(n), split=s, arm=arm, **e, **extra))
             if has_syn:
                 Ms, ys = torch.cat([M, w["Xsyn_t"]]), np.concatenate([y, w["ysyn"]])
@@ -244,6 +250,7 @@ def section_B(w):
             rare = np.argsort(cnt, kind="stable")[:20]; top = np.argsort(-cnt, kind="stable")[:20]; M = w["Xtr_t"][T(idx, torch.long)]
             sw = (len(y) / (K * cnt[y])).astype(np.float64)
             arms = {"Hopfield": lambda: hopfield(M, y, Xte, K, cal, yte), "Hopfield/count": lambda: hopfield(M, y, Xte, K, cal, yte, norm=cnt),
+                    "Hopfield cap1": lambda: hopfield(M, y, Xte, K, cal, yte, cap=1), "Hopfield cap5": lambda: hopfield(M, y, Xte, K, cal, yte, cap=5),
                     "Prototype": lambda: (proto(M, y, Xte, K), None), "HDC": lambda: (hdc_scores(HVte, hdc_fit(HVtr[T(idx, torch.long)], y, K)), None),
                     "LR": lambda: (lr_proba(*lr_fit(M, y, K)[:2], Xte), None), "LR balanced": lambda: (lr_proba(*lr_fit(M, y, K, sw=sw)[:2], Xte), None)}
             for arm, fn in arms.items():
@@ -335,6 +342,18 @@ def mid_memory(w, seed=0):
     idx = stratified_subsample(w["ytr"], NMID, seed=seed); return idx
 def pstats(v): v = np.sort(np.asarray(v) * 1000); return dict(p50=float(np.percentile(v, 50)), p95=float(np.percentile(v, 95)), mean=float(v.mean()), n=len(v))  # v in seconds -> ms
 
+DIGEST = r"""
+import sys, json, hashlib, numpy as np, torch, torch.nn.functional as F
+torch.set_num_threads(1); torch.backends.cuda.matmul.allow_tf32 = False; z = np.load(sys.argv[1]); o, got = {}, {}
+for d in ["cpu"] + (["cuda"] if torch.cuda.is_available() else []):
+    M, Q = torch.as_tensor(z["M"], device=d), torch.as_tensor(z["Q"], device=d); Y = F.one_hot(torch.as_tensor(z["y"], device=d), int(z["K"])).float()
+    P = (torch.softmax(float(z["beta"]) * (Q @ M.T), 1) @ Y).cpu().numpy(); s = np.sort(P, 1); g = s[:, -1] - s[:, -2]; got[d] = (P.argmax(1), g)
+    o[d] = dict(raw=hashlib.sha256(P.tobytes()).hexdigest(), label_conf4=hashlib.sha256(P.argmax(1).tobytes() + np.round(g, 4).tobytes()).hexdigest())
+if "cuda" in got:
+    (la, ga), (lb, gb) = got["cpu"], got["cuda"]
+    o["cpu_vs_cuda"] = dict(n=len(la), label_diff=int((la != lb).sum()), conf4_diff=int((np.round(ga, 4) != np.round(gb, 4)).sum()), max_abs_dconf=float(np.abs(ga - gb).max()))
+print(json.dumps(o))
+"""
 BETA_MID = None
 def section_E(w):
     global BETA_MID
@@ -403,6 +422,11 @@ def section_E(w):
         if th == 1: ref1, ref8 = a, b8
         rows[th] = dict(batch1_same_bytes_as_1_thread=a == ref1, batch8_same_bytes_as_1_thread=b8 == ref8)
     torch.set_num_threads(1); E["thread_count"] = rows; log("E thread count", rows)
+    # across processes: the same dense read of every test query in 3 fresh interpreters (raw bytes, and label + confidence to 4 dp, hashed)
+    import tempfile; f = Path(tempfile.gettempdir()) / "s29_e.npz"; np.savez(f, M=Mn, y=y, Q=w["Xte"], K=K, beta=beta); runs = []
+    for _ in range(3):
+        p = subprocess.run([sys.executable, "-c", DIGEST, str(f)], capture_output=True, text=True); runs.append(json.loads(p.stdout.strip().splitlines()[-1]) if p.returncode == 0 else p.stderr[-800:])
+    E["cross_process"] = runs; save(); log("E cross-process", runs)
     # approximate index: repeat, batch, rebuild invariance
     h = get_hnsw()
     if h is None: E["ann"] = "hnswlib not installed"; save(); return
@@ -463,7 +487,7 @@ def section_D(w, big=True):
         if h is None: D["ann_note"] = "hnswlib not installed"; del Mg, Mc; continue
         if N >= 1000000:
             est = D.get("_build100k_s", 0) * 12
-            if est > 540 or time.time() - T0 > 25 * 60: D["ann"].append(dict(N=int(N), skipped=f"estimated build {est:.0f}s / elapsed {time.time() - T0:.0f}s over the cap")); save(); del Mg, Mc; continue
+            if est > 240 or time.time() - T0 > 25 * 60: D["ann"].append(dict(N=int(N), skipped=f"estimated build {est:.0f}s / elapsed {time.time() - T0:.0f}s over the cap")); save(); del Mg, Mc; continue
         q_ann = Qall if N == NMID else Qs; Mn = Mc.numpy(); ix, tb = hbuild(h, Mn, min(8, os.cpu_count() or 1))
         if N == 100000: D["_build100k_s"] = tb
         with torch.no_grad():
@@ -490,10 +514,10 @@ def section_D(w, big=True):
 
 # ------------------------------------------------------------------ main
 def main():
-    secs = sys.argv[1:] or ["A_banking", "B", "C", "A_clinc", "E", "D"]
+    secs = sys.argv[1:] or ["A_banking", "B", "C", "A_clinc", "E", "D", "A_k"]
     W = build_worlds(); b, c, c45 = W["banking77"], W["clinc150"], W["clinc45"]; save()
     if "worlds" in secs: return
-    ladders = {"banking77": [0, 77, 385, 770, 3080, 9993], "clinc150": [150, 750, 1500, 7500, 15000], "clinc45": [45, 225, 450, 2250, 4500]}
+    ladders = {"banking77": [0, 77, 231, 385, 770, 3080, 9993], "clinc150": [150, 450, 750, 1500, 7500, 15000], "clinc45": [45, 135, 225, 450, 2250, 4500]}
     if TINY: ladders = {"banking77": [0, 8, 24, 80, 320], "clinc150": [10, 30, 100, 400], "clinc45": [5, 15, 50, 200]}
     if DRY: ladders = {"banking77": [0, 77], "clinc150": [150], "clinc45": [45]}
     def guard(name, fn, *a):
@@ -505,10 +529,13 @@ def main():
         guard("A_banking", section_A, b, ladders["banking77"]); guard("lr_check_banking", lr_check, b, [min(770, len(b["ytr"])), min(NMID, len(b["ytr"]))] if not LOCAL else [77 if DRY else 24])
     if "B" in secs: guard("B", section_B, b)
     if "C" in secs: guard("C", section_C, b)
-    if "A_clinc" in secs:
-        guard("A_clinc45", section_A, c45, ladders["clinc45"]); guard("A_clinc150", section_A, c, ladders["clinc150"]); guard("lr_check_clinc", lr_check, c, [1500] if not LOCAL else [150 if DRY else 30])
     if "E" in secs: guard("E", section_E, b)
     if "D" in secs: guard("D", section_D, b, True)
+    if "A_clinc" in secs:
+        guard("A_clinc45", section_A, c45, ladders["clinc45"]); guard("A_clinc150", section_A, c, ladders["clinc150"]); guard("lr_check_clinc", lr_check, c, [1500] if not LOCAL else [150 if DRY else 30])
+    if "A_k" in secs:  # exactly k = 1 / 3 / 10 rows per label (the 5-task protocol's k); the ladder's small sizes are n rows with >= 1 per label, so their class counts are uneven
+        for w in (b, c45, c):
+            nm = w["name"] + " k-exact"; R["meta"]["worlds"][nm] = R["meta"]["worlds"][w["name"]]; guard("A_k_" + w["name"], section_A, dict(w, name=nm), [k * w["K"] for k in ((1, 3) if DRY else (1, 3, 10))], True)
     log("all sections finished; errors:", len(R["errors"]))
 
 if __name__ == "__main__":
