@@ -49,4 +49,4 @@ def migrate(sql: str, reset: bool = False, demo_reset: bool = False) -> dict[str
 @app.local_entrypoint()
 def main(reset: bool = False, demo_reset: bool = False) -> None:
     print([p.name for p in MIGRATIONS])
-    print(migrate.remote("\n-- MIGRATION --\n".join(p.read_text(encoding="utf-8") for p in MIGRATIONS), reset))
+    print(migrate.remote("\n-- MIGRATION --\n".join(p.read_text(encoding="utf-8") for p in MIGRATIONS), reset, demo_reset))
