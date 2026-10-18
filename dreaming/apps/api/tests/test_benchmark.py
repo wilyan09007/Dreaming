@@ -190,7 +190,8 @@ def test_missing_baselines_are_skipped_with_a_note(w: World) -> None:
 
 def test_unreadable_scores_fall_back_to_the_checkpoint_summary(w: World) -> None:
     for ck in w.store.checkpoints("night"):
-        w.store.put_checkpoint(ck.model_copy(update={"summary": {"coverage_02": 0.0, "err_02": 0.0, "coverage_05": 0.4, "err_05": 0.0, "coverage_10": 0.6, "err_10": 0.02}}))
+        w.store.put_checkpoint(ck.model_copy(update={"summary": {"coverage_02": 0.0, "err_02": 0.0, "coverage_05": 0.4, "err_05": 0.0, "coverage_10": 0.6, "err_10": 0.02,
+                                                                 "acc_test": 0.9, "acc_forward": 0.8}}))
 
     def gone(uri: str) -> dict[str, Any]:
         raise OSError(f"{uri}: volume unavailable")
@@ -201,6 +202,7 @@ def test_unreadable_scores_fall_back_to_the_checkpoint_summary(w: World) -> None
     assert any("head seed+real: no repeat-traffic" in n and "acc_forward" in n for n in b.notes)
     assert [c.test_coverage for c in head.cells] == [0.0, 0.4, 0.6, None] and [c.test_error for c in head.cells] == [None, 0.0, 0.02, None]
     assert any("volume unavailable" in n for n in b.notes) and "†" in markdown(b)
+    assert (head.acc_test, head.acc_forward) == (0.9, 0.8)  # the accuracy columns are the checkpoints' own summary, scored or not
 
 
 def test_an_ok_array_scores_a_site_with_no_label_list() -> None:

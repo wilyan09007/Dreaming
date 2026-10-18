@@ -86,6 +86,14 @@ const stop = subscribe(supabaseUrl, publishableKey, '', (m) => apply(m)); // m.t
 on a tool site; it wins over the stored phase, and `Phase.down` is never stored. `testing` lasts milliseconds server-side (one `tick()` goes watching, testing, certify);
 the page holds each sticker for at least 0.9 s from the `site.phase` events, which spaces the display out and changes no value.
 
+## (h) The scores tab
+`GET /benchmark` -> `Benchmark {campaign, rows: Row[], notes}` (`apps/api/.../benchmark.py`, not in `contracts.py`: `app.js` declares `BRow`/`Bench` typedefs), fetched
+each time the tab opens; the latest campaign only. One notebook card per `Row.call_site` (workflow order), one table row per `Row` in the server's order. The 5% cell
+(`cells[budget == 0.05]`) gives repeat traffic (`forward_coverage`, `forward_error`) and unseen (`test_coverage`, `test_error`; the 2/10/20% coverages are its tooltip);
+`acc_forward` / `acc_test` are the accuracy column; `without_dreaming` / `with_dreaming` give `$ per 1,000 calls` and p50 ms. Coverage 0 reads "no promise yet"
+(a baseline: "no promise at 5%"); a missing or null field reads "–". The page's only choices: the highlighted row (highest repeat coverage at 5%, then unseen;
+with no coverage anywhere, highest accuracy) and the verdict sentence built from that row's fields. `notes` are listed verbatim. No rows: "no campaign has run yet".
+
 ## Open gaps (what the page still cannot show from the API)
 
 1. The spares' certificates come from `spare_certificates`, a field `main.py`'s `PageState` adds to `State`; move it into `contracts.State` with the next `just schema`.

@@ -99,5 +99,5 @@ def test_every_request_the_page_makes_is_a_route_the_api_has(client: TestClient)
     paths = client.get("/openapi.json").json()["paths"]
     routes = {(method.upper(), norm(path)) for path, ops in paths.items() for method in ops}
     assert used <= routes, f"routes the page calls that the API does not have: {sorted(used - routes)}"
-    assert {("GET", "/healthz"), ("GET", "/state"), ("GET", "/events")} <= used  # a parse that found nothing must not pass
+    assert {("GET", "/healthz"), ("GET", "/state"), ("GET", "/events"), ("GET", "/benchmark")} <= used  # a parse that found nothing must not pass
     assert {p for m, p in used if m == "POST"} == {"/batch", "/batch/pause", "/batch/resume", "/budget", "/tools/{}/outage", "/replay/{}"}
