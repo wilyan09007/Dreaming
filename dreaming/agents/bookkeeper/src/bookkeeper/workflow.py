@@ -25,13 +25,15 @@ def _teachers() -> tuple[TeacherSpec, TeacherSpec | None]:
         # The sponsor's model: no provider pin (one provider), no thinking toggle (so no router step), unknown body fields rejected.
         return TeacherSpec(provider="asi1", model="asi1-mini", price_in=0.18, price_out=0.45), None  # $/M per docs.asi1.ai; not in usage
     if os.environ.get("TEACHER") == "stepfun":
-        # StepFun (docs/devtools.md): step-5-preview cannot switch thinking off, so mission 1's cheaper configuration is the
-        # cheaper tier step-3.5-flash; reasoning tokens bill as output; temperature defaults to 0.5, so it is set.
-        # floor: 200 identical calls on one ambiguous input disagreed 3.5% (193 / 2 / 5 unparsed), measured 2026-10-17 (smokes/RESULTS.md)
+        # StepFun (docs/devtools.md): step-5-preview cannot switch thinking off; reasoning tokens bill as output; temperature
+        # defaults to 0.5, so it is set. floor: 200 identical calls on one ambiguous input disagreed 3.5% (193 / 2 / 5 unparsed),
+        # measured 2026-10-17 (smokes/RESULTS.md).
+        # Mission 1's cheaper configuration is the SAME model at reasoning_effort=minimal (54 tokens, 2.4 s on a hard
+        # anything_odd prompt), not the step-3.5-flash tier: on the real anything_odd prompts step-3.5-flash thought for
+        # 500-4,096 tokens even at low effort (p50 13 s, p90 57 s, 12% unparsed; data/recorded.jsonl 2026-10-18 04:45),
+        # which made it slower and no cheaper than the teacher.
         teacher = TeacherSpec(provider="stepfun", model="step-5-preview", params={"reasoning_effort": "low", "temperature": 0}, price_in=1.00, price_out=2.70, floor=0.035)
-        cheap = TeacherSpec(provider="stepfun", model="step-3.5-flash", params={"temperature": 0, "reasoning_effort": "low"}, price_in=0.10, price_out=0.30)
-        # reasoning_effort=low: without it step-3.5-flash spent the whole 1024-token budget thinking on 58% of anything_odd prompts
-        # (empty content, no label; data/recorded.jsonl 03:30); with it 61 tokens and a parsed label (measured 2026-10-18)
+        cheap = TeacherSpec(provider="stepfun", model="step-5-preview", params={"reasoning_effort": "minimal", "temperature": 0}, price_in=1.00, price_out=2.70)
         return teacher, cheap
     # Pinned to Anthropic's endpoint; no temperature/seed/require_parameters: Anthropic ignores or 404s them (S13, SERVICES.md).
     pin = {"provider": {"order": ["anthropic"], "allow_fallbacks": False}}

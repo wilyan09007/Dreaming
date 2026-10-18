@@ -60,7 +60,7 @@ switch**, only `reasoning_effort` low | medium | high. Siblings: `step-3.7-flash
 Default temperature 0.5. Voucher-only accounts stay at tier V0: 5 concurrent, 100 RPM, 500k TPM. `response_format`
 json_object and function tools exist; built-in web search does not on step-5-preview.
 **What this changes in the design:** the router site's cheap configuration cannot be "thinking off" on StepFun; it is the
-cheaper tier `step-3.5-flash` (mission 1's original tier router). The record pass is rate-bound: 2,000 runs × 3 typed steps =
+cheaper configuration is `step-5-preview` at `reasoning_effort=minimal` (2026-10-18: `step-3.5-flash` thought 500-4,096 tokens on the real anything_odd prompts, p50 13 s, 12% unparsed, so it was slower and no cheaper). The record pass is rate-bound: 2,000 runs × 3 typed steps =
 6,000 calls per seed ≈ 60 minutes at 100 RPM, est. $3–5 per seed at low effort; record seed 0 first and decide on 1–2 after.
 With `max_tokens` small, the reply can be all reasoning and empty content: check `finish_reason` and that the label parsed;
 `max_tokens=256` is the safe setting for a one-word label at low effort (*unverified* whether reasoning tokens count toward it).

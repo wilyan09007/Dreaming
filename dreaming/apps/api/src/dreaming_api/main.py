@@ -51,6 +51,7 @@ from fastapi import FastAPI, HTTPException, Query, Request, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
+from .benchmark import benchmark_router, volume_scores
 from .campaign_routes import router as campaign_router
 from .systemone import systemone_router
 from .wiring import build_runtime, checks
@@ -189,6 +190,7 @@ def create_app(runtime: Runtime | None = None, inputs: Iterable[Json] | None = N
 
     app.include_router(systemone_router(rt))
     app.include_router(campaign_router)
+    app.include_router(benchmark_router(rt.store, volume_scores))  # GET /benchmark, /benchmark.md: the provider table from the campaign's stored scores
 
     web = Path(__file__).resolve().parents[3] / "web"
     if (web / "index.html").is_file():
