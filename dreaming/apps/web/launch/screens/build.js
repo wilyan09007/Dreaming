@@ -6,7 +6,7 @@
   const CHIPS = ['categorize', 'vendor lookup', 'match invoice', 'anything odd?', 'post to books', 'wake a human', 'summarize email'];
   // synonym table: words that point at a measured site (wake_a_human = human handoff, never dreamed)
   const SYN = {
-    categorize: 'categorize categorise classify category tag label sort bucket expense type code',
+    categorize: 'categorize categorise classify category tag label sort bucket expense type code transaction',
     vendor_lookup: 'vendor lookup look up supplier merchant find enrich company',
     match_invoice: 'match invoice reconcile po purchase order bill receipt',
     anything_odd: 'anything odd anomaly fraud flag suspicious check weird unusual duplicate risk',
@@ -28,10 +28,10 @@
     if (!ws.length) return null;
     let best = { id: null, score: 0 };
     for (const id in SYNW) {
-      const hits = ws.filter((w) => SYNW[id].some(([s]) => s === w)).length;
-      let fuzzy = 0;
-      for (const w of ws) { const t = tri(w); for (const [, st] of SYNW[id]) fuzzy = Math.max(fuzzy, dice(t, st)); }
-      const score = Math.max(hits ? 0.6 + (0.4 * hits) / ws.length : 0, 0.85 * fuzzy);
+      const ratio = ws.filter((w) => SYNW[id].some(([s]) => s === w)).length / ws.length;
+      let fuzzy = 0; // mean over words of the best trigram match, so one generic word ("write an email") stays a weak match
+      for (const w of ws) { const t = tri(w); let b = 0; for (const [, st] of SYNW[id]) b = Math.max(b, dice(t, st)); fuzzy += b / ws.length; }
+      const score = Math.max(ratio > 0.5 ? 0.6 + 0.4 * ratio : 0, 0.85 * fuzzy);
       if (score > best.score) best = { id, score };
     }
     return best;
@@ -73,9 +73,9 @@
   // re-snap every step and redraw the lanes; typing only touches pills and the right column, never the inputs
   function refresh() {
     const rs = rows(), steps = [];
-    rs.forEach((r, i) => {
+    rs.forEach((r) => {
       const text = r.querySelector('input').value, m = snap(text), [cls, bar, label] = pill(m);
-      r.querySelector('.n').textContent = i + 1;
+      r.querySelector('.n').textContent = m ? steps.length + 1 : ''; // blank rows are skipped in the lanes too
       const p = r.querySelector('.pill');
       p.className = 'pill ' + cls; p.innerHTML = bar + `<span></span>`; p.lastChild.textContent = label; p.title = label;
       if (m) steps.push(step(text, m));
@@ -101,7 +101,7 @@
 #s-build .n{font-family:var(--hand);font-weight:700;font-size:20px;color:var(--muted);text-align:right}
 #s-build input{width:100%;min-width:0;height:36px;font:17px var(--body);padding:0 10px;border:2px solid var(--ink);border-radius:10px;background:#fff;color:var(--ink)}
 #s-build input:focus{outline:3px solid var(--lav);outline-offset:1px}
-#s-build .pill{display:flex;align-items:center;gap:6px;min-width:0;height:38px;padding:0 10px;border-radius:12px;border:2px solid transparent;font-size:16px;line-height:1.08;overflow:hidden}
+#s-build .pill{display:flex;align-items:center;gap:6px;min-width:0;height:40px;padding:0 10px;border-radius:12px;border:2px solid transparent;font-size:16px;line-height:1.04;overflow:hidden}
 #s-build .pill span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
 #s-build .pill.ok{background:var(--lilac);color:var(--purple)} #s-build .pill.near{background:var(--sky)}
 #s-build .pill.new{background:var(--peach);border-color:var(--teacher);color:#9a4330} #s-build .pill.human{background:var(--sky);border:2px dashed var(--ink)}
@@ -150,9 +150,9 @@
         refresh();
       });
       el.querySelector('.add').addEventListener('click', (ev) => { const b = ev.target.closest('button'); if (b) add(b.dataset.chip); });
-      runBtn.addEventListener('click', () => { if (!cur || runBtn.disabled) return; refresh(); R.play(cur, box, 150); });
+      runBtn.addEventListener('click', () => { if (!cur || runBtn.disabled) return; clearTimeout(pending); refresh(); R.play(cur, box, 150); });
     },
-    enter(e, run) { cur = run; list.replaceChildren(...DEFAULTS.map(row)); refresh(); },
+    enter(e, run) { cur = run; if (!list.children.length) list.replaceChildren(...DEFAULTS.map(row)); refresh(); }, // a judge's edits survive leaving and coming back
     leave() { cur = null; clearTimeout(pending); R.reset(box); },
     // Space on a focused build button presses it instead of advancing the deck
     key(ev) { if (ev.key === ' ' && ev.target.closest && ev.target.closest('#s-build button')) { ev.target.click(); return true; } },

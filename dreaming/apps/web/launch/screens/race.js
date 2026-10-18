@@ -20,9 +20,10 @@
   const trigger = { label: 'webhook', kind: 'trigger', teacherMs: 0, oursMs: 0, teacherUsd1k: 0, oursUsd1k: 0, coverage: 0 };
 
   function verdict(steps, k) {
+    if (!steps.some((s) => s.kind === 'llm')) return 'no LLM step here: nothing for the teacher to answer';
     const tMs = steps.reduce((a, s) => a + s.teacherMs, 0), oMs = steps.reduce((a, s) => a + s.oursMs, 0);
     const cheaper = k.teacherUsd > 0 ? Math.round((1 - k.oursUsd / k.teacherUsd) * 100) : 0;
-    const faster = oMs > 0 ? Math.floor(tMs / oMs) : 0;
+    const x = oMs > 0 ? tMs / oMs : 0, faster = x >= 10 ? Math.floor(x) : Math.floor(x * 10) / 10; // small wins keep a decimal (1.4x)
     const parts = [];
     if (cheaper > 0) parts.push(`<b>${cheaper}%</b> cheaper per invoice`);
     if (faster > 1) parts.push(`<b>${faster}x</b> faster end to end`);
@@ -77,29 +78,30 @@
     for (const L of st.lanes) {
       L.state = []; L.at = -1; L.el.classList.remove('over');
       L.nodes.forEach((nd) => nd.classList.remove('work', 'done'));
-      L.tok.style.transform = L.fill.style.transform = '';
+      L.tok.style.transform = `translateX(${L.xs[0]}%)`; L.fill.style.transform = '';
       L.watch.textContent = L.fmt(0);
       ['0', '$0.00', '0', '0.0 h'].forEach((v, i) => (L.stats[i].textContent = v));
     }
   }
 
-  async function play(run, c, delay = 500) {
+  const LEAD = 800, ROLL = 1000; // x1,000 counters start as the teacher nears the flag, so the screen settles in ~12 s
+  async function play(run, c, delay = 100) {
     const st = c._race; reset(c);
     await run.wait(delay);
     const scale = Math.min(1, MAX_MS / Math.max(st.lanes[0].total, 1)); // <1 = fast-forward, the stopwatch still reads true time
     const t0 = performance.now();
     const live = () => c._race === st; // a remount (build screen edit) abandons this play
+    const fm = [(v) => Math.round(v).toLocaleString(), (v) => '$' + v.toFixed(2), (v) => Math.round(v).toLocaleString(), (v) => v.toFixed(1) + ' h'];
+    let counting;
+    const roll = () => { c.classList.add('k'); return Promise.all(st.lanes.flatMap((L) => L.to.map((to, i) => run.count(L.stats[i], to, ROLL, fm[i])))); };
     await new Promise((res) => run.frame((now) => {
       if (!live()) return false;
       const e = (now - t0) / scale;
       const done = st.lanes.map((L) => tick(L, e)).every(Boolean);
+      if (!counting && now - t0 >= st.lanes[0].total * scale - LEAD) counting = roll();
       if (done) { res(); return false; }
     }));
-    await run.wait(400);
-    if (!live()) return;
-    c.classList.add('k');
-    const fm = [(v) => Math.round(v).toLocaleString(), (v) => '$' + v.toFixed(2), (v) => Math.round(v).toLocaleString(), (v) => v.toFixed(1) + ' h'];
-    await Promise.all(st.lanes.flatMap((L) => L.to.map((to, i) => run.count(L.stats[i], to, 1600, fm[i]))));
+    await (counting || roll());
     if (live()) c.classList.add('v');
   }
 
@@ -127,12 +129,12 @@ ${S} .done .dot::after{content:'\\2713';position:absolute;right:-9px;top:-9px;wi
 ${S} .done .lat{opacity:1;transform:none}
 ${S} .dense .lab{display:none} ${S} .dense .lat{margin-top:6px;white-space:nowrap;font-size:17px}
 @keyframes rcpulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(43,43,51,.0)}50%{transform:scale(1.12);box-shadow:0 0 0 9px rgba(43,43,51,.07)}}
-${S} .flag{position:absolute;top:2px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center}
+${S} .flag{position:absolute;top:12px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center}
 ${S} .pole{width:26px;height:68px;background:repeating-conic-gradient(var(--ink) 0 25%,#fff 0 50%) 0 0/13px 13px;border:2px solid var(--ink);border-radius:3px}
 ${S} .dn{display:none;font-family:var(--hand);font-size:24px;color:var(--ink)} ${S} .over .dn{display:inline}
 ${S} .over .watch{background:var(--mint)}
 ${S} .lane.over .pole{box-shadow:0 0 0 5px var(--soft)}
-${S} .tok{position:absolute;left:0;top:0;width:100%;height:0;pointer-events:none;transition:transform .3s cubic-bezier(.3,.7,.3,1)}
+${S} .tok{position:absolute;left:0;top:8px;width:100%;height:0;pointer-events:none;transition:transform .3s cubic-bezier(.3,.7,.3,1)}
 ${S} .tok i{position:absolute;left:-15px;top:-8px;width:30px;height:26px;background:#fff;border:2.2px solid var(--ink);border-radius:4px;box-shadow:2px 2px 0 rgba(43,43,51,.2);background-image:linear-gradient(var(--c),var(--c)),linear-gradient(var(--faint),var(--faint));background-size:16px 3px,12px 2px;background-position:5px 6px,5px 14px;background-repeat:no-repeat}
 ${S} .stats{grid-column:2;grid-row:1/3;width:360px;display:grid;grid-template-columns:1fr 1fr;gap:4px 18px;align-content:center;border-left:2px dashed var(--dot);padding-left:22px;opacity:.28;transition:opacity .4s}
 ${S} .rc.k .stats{opacity:1}

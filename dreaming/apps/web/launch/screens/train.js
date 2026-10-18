@@ -161,7 +161,7 @@ ${N.rungs.map((_, r) => `#s-train[data-rung="${r}"] .ruler em:nth-child(${r + 1}
           dying.forEach((c, k) => { c.el.style.transitionDelay = k * 22 + 'ms'; c.el.classList.add('dead'); place(c, r, true); c.tag.classList.add('on'); tally[c.why]++; });
           const p0 = pruned; pruned += dying.length;
           run.tween(600, (t) => setCounts(Math.round(p0 + (pruned - p0) * t)));
-          ui.tally.forEach((t) => (t.n.textContent = tally[t.r]));
+          run.after(600, () => ui.tally.forEach((t) => (t.n.textContent = tally[t.r]))); // with the tile tween, never ahead of it
           await run.wait(800);
           if (r < LAST) {
             cells.forEach((c) => { c.el.style.transitionDelay = ''; if (c.die > r) place(c, r + 1); });

@@ -28,7 +28,7 @@
   Launch.add({
     id: 'close',
     title: 'What it means at scale',
-    notes: 'Drag the dial to your traffic: these are yearly savings from the measured per-1,000-invoice numbers.\nAt 10M runs a month that is real money, billions of LLM calls and years of waiting gone.\nAnd it is safe: certified at 5% or less, replay byte-identical, 1 in 20 served calls audited.\nIt is live right now at dreaming-demo.fly.dev.',
+    notes: 'Drag the dial to your traffic: these are yearly savings from the measured per-1,000-invoice numbers.\nAt 10M runs a month that is real money, hundreds of millions of LLM calls and decades of waiting gone, every year.\nAnd it is safe: certified at 5% or less, replay byte-identical, 1 in 20 served calls audited.\nIt is live right now at dreaming-demo.fly.dev.',
     css: `
 ${S} .kicker{font-size:30px}
 ${S} .title{margin:4px 0 26px}
@@ -37,7 +37,8 @@ ${S} .jar svg{width:150px;height:250px;overflow:visible}
 ${S} .fill{transform-origin:50% 100%;transform-box:fill-box;transition:transform .12s linear}
 ${S} .dial{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:8px 30px}
 ${S} .dial label{font-size:22px;color:var(--muted);grid-column:1/-1}
-${S} .runs{width:220px;font-size:72px;line-height:1;color:var(--ours)}
+${S} .runs{width:280px;font-size:72px;line-height:1;color:var(--ours)}
+${S} .runs b{display:inline-block;width:200px;text-align:right} /* proportional digits: a fixed box keeps /mo still */
 ${S} .runs small{font-size:26px;color:var(--muted);margin-left:6px}
 ${S} input{width:100%;margin:0;height:44px;background:none;cursor:pointer;-webkit-appearance:none;appearance:none}
 ${S} input::-webkit-slider-runnable-track{height:14px;border:2.5px solid var(--ink);border-radius:9px;background:linear-gradient(90deg,var(--lilac),var(--lav))}
@@ -83,13 +84,15 @@ ${S} .url b{display:block;font-size:35px;color:var(--ours);line-height:1.1;white
   <div class="card url"><span>live right now</span><b>dreaming-demo.fly.dev</b></div>
 </div>`;
       els = { runs: el.querySelector('.runs b'), out: [...el.querySelectorAll('output')], fill: el.querySelector('.fill'), range: el.querySelector('input') };
-      els.range.addEventListener('input', () => show(+els.range.value));
+      els.range.addEventListener('pointerdown', () => (els.grab = true)); // the arrival sweep yields to the judge's hand
+      els.range.addEventListener('input', () => { els.grab = true; show(+els.range.value); });
       els.range.addEventListener('change', () => els.range.blur()); // give the arrow keys back to the deck after a drag
       show(0);
     },
     enter(el, run) {
       this.leave(el);
-      run.after(300, () => run.tween(2200, (t) => show(Math.round(t * 200)))); // sweep 100k -> 10M a month
+      els.grab = false;
+      run.after(300, () => run.tween(2200, (t) => els.grab || show(Math.round(t * 200)))); // sweep 100k -> 10M a month
       el.querySelectorAll('.proof,.url').forEach((n, i) => run.after(2700 + i * 350, () => n.classList.add('in')));
     },
     leave(el) {
@@ -98,6 +101,7 @@ ${S} .url b{display:block;font-size:35px;color:var(--ours);line-height:1.1;white
     },
     key(e) { // up/down nudge the dial a tenth of a decade; left/right stay deck navigation
       if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') return false;
+      els.grab = true;
       show(Math.max(0, Math.min(STEPS, +els.range.value + (e.key === 'ArrowUp' ? 10 : -10))));
       return true;
     },

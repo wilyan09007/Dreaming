@@ -35,6 +35,7 @@ p{text-wrap:pretty}
 /* the 1600x900 stage; deck.js scales it to the window */
 #stage{position:absolute;left:0;top:0;width:1600px;height:900px;transform-origin:0 0;overflow:hidden}
 .blobs{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.blobs{--e:linear-gradient(transparent,#000 70px,#000 calc(100% - 70px),transparent);mask-image:var(--e),linear-gradient(90deg,transparent,#000 70px,#000 calc(100% - 70px),transparent);mask-composite:intersect} /* blobs fade out at the stage edge, so 16:10 letterbox bars show no hard line */
 .blobs i{position:absolute;filter:blur(18px)}
 .screen{position:absolute;inset:0;padding:96px 72px 64px;opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .45s ease,transform .45s ease,visibility 0s .45s}
 .screen.on{opacity:1;visibility:visible;transform:none;transition:opacity .45s ease,transform .45s ease,visibility 0s}

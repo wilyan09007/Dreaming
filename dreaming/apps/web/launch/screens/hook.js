@@ -8,7 +8,7 @@
     ['audit', 'no proof the answer was right, only a log that it was given', 'var(--sky)', 3],
   ];
   const tiles = [ // [to, prefix, suffix, label, caption, color]
-    [H.cheaper, '', '%', 'cheaper', 'same answers, a fraction of the model bill', 'var(--ours)'],
+    [H.cheaper, '', '%', 'cheaper, best step', 'same answers, a fraction of the model bill', 'var(--ours)'],
     [H.faster, '~', '×', 'faster per call', 'milliseconds per step instead of seconds', 'var(--ours)'],
     [H.tokenFree, '', '%', 'of calls, 0 LLM tokens', 'answered from memory, the big model never wakes', 'var(--ours)'],
     [H.bound, '≤', '%', 'error, certified', 'a stand-in is only served once it proves the bound', 'var(--green)'],

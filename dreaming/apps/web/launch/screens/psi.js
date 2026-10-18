@@ -204,7 +204,7 @@
 #s-psi .note{position:absolute;left:700px;top:478px;width:430px;display:flex;flex-direction:column;gap:4px;transform:rotate(-2deg);transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
 #s-psi .note b{font-size:24px;line-height:1.05}
 #s-psi .note span{font-size:17px}
-#s-psi .note.on{transform:rotate(-2deg) scale(1.06)}
+#s-psi .note.on{transform:rotate(-2deg) scale(1.02)}
 #s-psi .wires{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
 #s-psi .arrows path{fill:none;stroke:var(--ink);stroke-width:2.5;stroke-linecap:round}
 #s-psi .br{opacity:.25;transition:opacity .4s}
@@ -234,7 +234,7 @@
       (async () => {
         await run.wait(300);
         await pass(el, run, 0);
-        await run.wait(1400); // let call 1 sink in
+        await run.wait(2200); // let call 1 sink in: the served box stays lit long enough to point at
         clear(el);
         await run.wait(450);
         await pass(el, run, 1);
