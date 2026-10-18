@@ -223,6 +223,15 @@ def test_batch_is_not_labelled_recorded_when_the_teacher_is_live(client: TestCli
     assert s.batch.recorded is False and s.batch.done == 600
 
 
+@pytest.mark.parametrize(("recorded", "answers"), [(True, None), (False, None), (False, "offline rule teacher answers")])
+def test_batch_started_says_whose_answers(rt: Runtime, client: TestClient, recorded: bool, answers: str | None) -> None:
+    if answers:
+        rt.teacher.answers = answers  # type: ignore[attr-defined]  # what offline.RuleTeacher declares; a live teacher declares nothing
+    batch(client, 20)
+    want = "pre-recorded teacher answers" if recorded else answers or "live teacher answers"
+    assert [e.message for e in events(client, limit=1000) if e.kind == EventKind.batch_started] == [f"fast-forward bookkeeper: {want}, virtual clock"]
+
+
 # ------------------------------------------------------------------ POST /batch, /batch/pause, /batch/resume
 
 

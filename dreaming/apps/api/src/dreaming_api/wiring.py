@@ -2,8 +2,8 @@
 
     DATABASE_URL        Supabase session-pooler URL (IPv4). Unset: MemoryStore (tests, `just dev`)
     TEACHER             openrouter (default) | asi1 | stepfun | rule: which TeacherSpec the bookkeeper workflow pins (workflow._teachers).
-                        `rule` is the offline rule teacher from agents/bookkeeper/offline.py, labelled provider="rule" in every row:
-                        for `just dev` and tests, never for a recording
+                        `rule` is the offline rule teacher from agents/bookkeeper/offline.py, labelled provider="rule" in every row and
+                        in the sites' TeacherSpec (so /state says so too): for `just dev` and tests, never for a recording
     OPENROUTERKEY, ASI1KEY, STEPFUNKEY, GEMINIKEY
                         one key per provider row (teachers.PROVIDERS); every key that is set is usable, the site's spec picks the row.
                         OPENROUTERKEY is also the upstream of the OpenAI-compatible proxy at /v1 (mounted only when set)

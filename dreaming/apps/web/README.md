@@ -62,7 +62,7 @@ const stop = subscribe(supabaseUrl, publishableKey, '', (m) => apply(m)); // m.t
 | `S.saved` ("saved so far") | `Metrics.saved_usd` |
 | `S.runs`, `S.target`, `S.running` | no cumulative counter (`Metrics.runs` is the total number of runs so far (the x of every series point); the other fields average the last 100 finished runs. `POST /batch/pause` and `/batch/resume` drive the run button.
 | `sample(r)`, `S.samples` (receipts) | `State.runs`: `Run.input.descriptor` and `.amount`, `Run.replayable`, `Run.stuck_at`; the trace card reads `GET /runs/{id}` |
-| `steps[].by` | `TraceRow.decision` + `kind`: `predicted` = dream; `called` or `audited` (both ran) = the real call: big model (model, router) or vendor API (tool); `fallback` = snapshot; effects = ledger / bookkeeper |
+| `steps[].by` | `TraceRow.decision` + `kind`: `predicted` = dream; `called` or `audited` (both ran) = the real call: big model (model, router; "rule teacher" when `teacher.provider` is `rule`) or vendor API (tool); `fallback` = snapshot; effects = ledger / bookkeeper |
 | "voted:" line under a dream's answer (no demo counterpart) | `TraceRow.prediction.evidence` (the memory candidate's top 3 rows: `row_id`, `label`, `weight` = share of the vote) with each row's text from `RunView.evidence_texts[row_id]` (first line, its `Field: ` prefix dropped); `seed:` ids read "seed example", an id with no text shows its label only; weights under 0.005 are left out, rows that read the same merge into "2× ..." with weights summed |
 | `steps[].ans`, `.hash`, "same bytes" | `TraceRow.response`; `ReplayStep.output_sha.slice(0, 6)`, `same_bytes`, `re_executed`. The 0.5 s row stepping animates a reply already in hand |
 | stuck run | `Run.stuck_at` (a site id); rows after it do not exist: "never ran" |
@@ -73,6 +73,9 @@ const stop = subscribe(supabaseUrl, publishableKey, '', (m) => apply(m)); // m.t
 - `State.batch.recorded === true`: the batch narration says **"pre-recorded teacher answers"** ("fast-forwarding 2,000 transactions · pre-recorded teacher answers ·
   every call is logged"), as the server's `batch.started` message does. Never a bare "fast-forwarding". Seconds per run are virtual-clock time; say so in that sentence.
 - `TeacherAnswer.recorded` marks each row: the trace card shows "recorded answer" on those rows. Live moments (ASI:One chat, audit calls) have `recorded: false`.
+- `TEACHER=rule` (`site.teacher.provider === 'rule'`): the answering side is "rule teacher" on every surface (flows sublabels, the promise card's legend,
+  cost line and fine print, the trace), never "big model". Its answers cost a flat stand-in (`offline.RuleTeacher`: 1¢, 0.8 s), so the charts' caption,
+  the "saved" sticky and each rule site's cost line say the ¢ and s are rule-teacher prices; `batch.started` says "offline rule teacher answers".
 - No simulated constant survives (cover tables, 89%, 10.7%, 60%); a number with no field in (d) is not shown.
 
 ## (f) Types
