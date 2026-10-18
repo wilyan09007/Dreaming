@@ -71,7 +71,7 @@ def write(site: CallSite, ask: Callable[[str], str], example: str | None = None,
         out += [{"key": _key(site), "id": f"seed:{lab}:{i}", "label": lab, "text": str(t), "model": model}
                 for lab in chunk for i, t in enumerate((got.get(lab) or [])[:PER_LABEL])]
     root.mkdir(parents=True, exist_ok=True)
-    (root / f"{site.id}.jsonl").write_text("".join(json.dumps(d) + "\n" for d in out), encoding="utf-8")
+    (root / f"{site.id}.jsonl").write_text("".join(json.dumps(d) + "\n" for d in out), encoding="utf-8", newline="\n")  # LF on Windows too
     return rows(site, root)
 
 
