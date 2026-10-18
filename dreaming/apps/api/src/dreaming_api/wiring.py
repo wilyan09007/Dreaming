@@ -94,7 +94,8 @@ def build_runtime(component: Component) -> Runtime:
     return rt
 
 
-RECORDED_SEEDS = (0, 1, 2)  # `just record` records these; wiring cycles through them
+RECORDED_SEEDS = tuple(int(x) for x in os.environ.get("RECORDED_SEEDS", "0,1,2").split(","))  # the seeds `just record` has on file;
+# fly.toml sets it to what is recorded (seed 0 at 06:00 on 2026-10-18, seed 1 later): a batch on an unrecorded seed sends every call live
 
 
 def ledger_inputs() -> Iterator[Json]:
