@@ -103,7 +103,10 @@ const nameOf = (/** @type {string} */ id) => NAME[short(id)] ?? short(id).replac
 const sites = () => (st ? st.sites.filter((v) => v.site.kind !== 'effect') : []);
 const byName = (/** @type {string} */ n) => sites().find((v) => v.site.name === n);
 const vendor = () => byName('vendor_lookup');
-const teacherOf = (/** @type {SiteView} */ v) => (v.site.teacher.provider === 'tool' ? 'vendor API' : 'big model');
+// README (e): the answering side has one name everywhere, the one the trace card reads off each row's teacher.provider
+const teacherOf = (/** @type {SiteView} */ v) => ({ tool: 'vendor API', rule: 'rule teacher' })[v.site.teacher.provider] ?? 'big model';
+// the offline rule teacher bills a flat stand-in per answer (offline.RuleTeacher), so every ¢ and s on the page is its constant times a count
+const ruled = () => sites().some((v) => v.site.teacher.provider === 'rule');
 const lastRun = () => (st && st.runs.length ? st.runs[st.runs.length - 1] : null);
 const stuckNow = () => S.unplugged && !!lastRun()?.stuck_at; // runs are stuck only when the newest one says so
 
@@ -375,8 +378,8 @@ function whoText(v, ph, down, rc) {
   if (down) return ph.p === 'dreaming' ? 'API down · dream + snapshot' : stuckNow() ? 'API down · stuck' : 'API down · snapshot';
   if (ph.p === 'watching') return router ? 'thinking off on trial' : 'dream shadowing';
   if (ph.p === 'testing') return rc ? 're-checking…' : router ? 'checking thinking off' : 'checking the dream';
-  if (ph.p === 'dreaming') return router ? (ph.cov >= 100 ? 'big model, thinking off' : `thinking off ${ph.cov}%`) : `dream answers ${ph.cov}%`;
-  return router ? 'big model, thinking' : teacherOf(v);
+  if (ph.p === 'dreaming') return router ? (ph.cov >= 100 ? `${teacherOf(v)}, thinking off` : `thinking off ${ph.cov}%`) : `dream answers ${ph.cov}%`;
+  return router ? `${teacherOf(v)}, thinking` : teacherOf(v);
 }
 function renderStage() {
   for (const n of NODES) {
@@ -442,7 +445,7 @@ function renderCharts() {
   // x is Metrics.runs; the axis reaches the end of the batch that is running (Metrics.runs counts the run in flight, Batch.done not)
   const xmax = Math.max(BATCH, Math.ceil((cur.runs + (b.running ? b.target - b.done - 1 : 0)) / BATCH) * BATCH);
   const down = S.unplugged || !!vendor()?.policy.outage;
-  setText($('#xr'), `0 → ${int(xmax)} runs`);
+  setText($('#xr'), `0 → ${int(xmax)} runs${ruled() ? " — ¢ and s use the rule teacher's flat stand-in, not a model's price" : ''}`);
   for (const m of METRICS) {
     if (!m.val || !m.was || !m.svg || !m.line || !m.ref) continue;
     const alarm = m.k === 'failed_pct' && down;
@@ -558,9 +561,10 @@ function certHTML(name) {
   } else {
     const c = ph.c, every = Math.round(1 / th.audit_rate), cert = `<span class="nw">cert ${c.id.slice(5, 11)}</span>`;
     const fine = !s.replayable
-      ? `1 in ${every} still double-checked with thinking on · ${cert} · not replayable: it is still the big model`
+      ? `1 in ${every} still double-checked with thinking on · ${cert} · not replayable: it is still the ${teacherOf(v)}`
       : `1 in ${every} still double-checked · ${cert} · <span class="nw">weights <code>${(p.weights_sha ?? c.weights_sha).slice(0, 6)}</code></span>`;
-    const cost = p.predicted_rows ? `<p class="ccost"><s>${cents(v.cost_awake_usd)}</s> → <em>${cents(v.cost_dream_usd)}</em> per call</p>` : `<p class="ccost">${cents(v.cost_awake_usd)} per call</p>`;
+    const unit = s.teacher.provider === 'rule' ? 'per call at rule-teacher prices' : 'per call'; // a tool site bills its own price_call
+    const cost = p.predicted_rows ? `<p class="ccost"><s>${cents(v.cost_awake_usd)}</s> → <em>${cents(v.cost_dream_usd)}</em> ${unit}</p>` : `<p class="ccost">${cents(v.cost_awake_usd)} ${unit}</p>`;
     body = promise(`wrong ≤ ${pf(c.budget)}`) + sheep + `<p class="cline">checked against ${int(c.n_calib)} ${real} · ${router ? 'disagreed' : 'wrong'} on ${pf(c.emp_error)}${router ? `, could be ${pf(c.bound)}` : ''}.</p>` +
       (down ? `<p class="cline">API down: calls the dream is unsure about use the last snapshot.</p>` : '') + split(ph.cov, teacher) + cost + `<p class="fine">${fine}</p>`;
   }
@@ -846,8 +850,10 @@ function renderTop(/** @type {number} */ dt) {
   const m = st?.metrics, b = st?.batch;
   if (m) { S.saved = glide(S.saved, m.saved_usd, dt); S.runs = glide(S.runs, m.runs, dt); }
   const saved = money(Math.max(0, S.saved));
+  const what = ruled() ? 'saved at rule-teacher prices' : 'saved so far';
   setText($('#saved'), saved);
-  setAttr($('#savedbox'), 'aria-label', `${saved} saved so far`);
+  setText($('#savedbox small'), what);
+  setAttr($('#savedbox'), 'aria-label', `${saved} ${what}`);
   setText($('#count'), `${int(S.runs)} runs`);
   const rb = $('#run'), running = !!b?.running && !b.paused;
   const label = b?.running ? (b.paused ? 'resume' : 'pause') : m?.runs ? `run ${int(BATCH)} more` : `run ${int(BATCH)}`;

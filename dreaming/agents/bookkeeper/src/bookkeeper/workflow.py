@@ -21,6 +21,10 @@ W = "bookkeeper"
 
 def _teachers() -> tuple[TeacherSpec, TeacherSpec | None]:
     """(the teacher, the cheaper configuration on trial for mission 1) for the provider TEACHER names."""
+    if os.environ.get("TEACHER") == "rule":
+        # offline.RuleTeacher answers (wiring.build_teacher): declare it, so /state and every certificate name the rule, not a model.
+        # It answers both configurations with the same rule; the params only tell the two specs apart.
+        return TeacherSpec(provider="rule", model="rule", params={"thinking": "on"}), TeacherSpec(provider="rule", model="rule", params={"thinking": "off"})
     if os.environ.get("TEACHER") == "asi1":
         # The sponsor's model: no provider pin (one provider), no thinking toggle (so no router step), unknown body fields rejected.
         return TeacherSpec(provider="asi1", model="asi1-mini", price_in=0.18, price_out=0.45), None  # $/M per docs.asi1.ai; not in usage

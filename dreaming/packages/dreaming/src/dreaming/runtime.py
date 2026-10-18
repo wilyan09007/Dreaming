@@ -247,8 +247,8 @@ class Runtime:
                      on_progress: Callable[[Metrics], None] | None = None) -> Metrics:
         """Run many inputs against recorded teachers and in-process tools; learning becomes visible in seconds."""
         self.batch = Batch(running=True, recorded=self.recorded)
-        emit(self.store, self.component, EventKind.batch_started,
-             f"fast-forward {workflow}: {'pre-recorded' if self.recorded else 'live'} teacher answers, virtual clock")
+        words = "pre-recorded teacher answers" if self.recorded else getattr(self.teacher, "answers", "live teacher answers")  # RuleTeacher names itself
+        emit(self.store, self.component, EventKind.batch_started, f"fast-forward {workflow}: {words}, virtual clock")
         n = 0
         try:
             items = list(inputs)

@@ -52,6 +52,8 @@ class RuleTeacher:
     """Deterministic 'frontier model' for the three typed sites. The router site's cheap configuration is answered by the
     same rule (ConfigPredictor calls ask() with the same site id and the CHEAP spec), so the cheap config always agrees."""
 
+    answers = "offline rule teacher answers"  # what Runtime.fast_forward's batch.started message says instead of "live teacher answers"
+
     def ask(self, site: CallSite, rendered: str) -> TeacherAnswer:
         label = RULES[site.name](rendered)
         return TeacherAnswer(text=label, label=label, provider="rule", model="rule", cost_usd=0.01, latency_ms=800)
