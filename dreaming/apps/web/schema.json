@@ -1174,6 +1174,13 @@
      },
      "title": "Spare Certificates",
      "type": "object"
+    },
+    "unplugged": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Unplugged",
+     "type": "array"
     }
    },
    "required": [

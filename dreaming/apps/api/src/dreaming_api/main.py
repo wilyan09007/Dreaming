@@ -4,7 +4,7 @@ Routes (bodies and replies are contracts.py models, so the OpenAPI schema is the
 
     GET  /healthz                      Health: db probed ("ok" or the error); trainer, teacher, realtime reported as configured
     GET  /state                        State: sites (policy, certificate, cost awake vs dreaming), budget, metrics, series, runs, batch, config,
-                                       and the spares' certificates
+                                       the spares' certificates and the tools whose fault switch is off
     POST /batch {n}                    start fast-forward of n transactions (409 while one runs)
     POST /batch/pause · /batch/resume  the run button's pause and resume
     POST /budget {budget}              re-certify every site at the new budget (pure gate, milliseconds); 422 below the teacher's measured floor
@@ -80,6 +80,7 @@ def create_app(runtime: Runtime | None = None, inputs: Iterable[Json] | None = N
     stream = iter(inputs) if inputs is not None else None
     app = FastAPI(title="dreaming", version=os.environ.get("DREAMING_VERSION", "dev"))
     lock = threading.Lock()
+    unplugged: set[str] = set()  # the fault switch as the presenter left it; Policy.outage is what the runtime detected
 
     @app.middleware("http")
     async def trace(request: Request, call_next: Callable[[Request], Awaitable[Response]]) -> Response:
@@ -102,15 +103,15 @@ def create_app(runtime: Runtime | None = None, inputs: Iterable[Json] | None = N
     def state() -> State:
         views: list[SiteView] = []
         for s in rt.sites.values():
-            p = rt.policies[s.id]
-            ca, cd, sa, sd = rt.costs(s.id)
-            views.append(SiteView(site=s, policy=p, certificate=rt.store.certificate(p.cert_id) if p.cert_id else None,
-                                  cost_awake_usd=ca, cost_dream_usd=cd, sec_awake=sa, sec_dream=sd))
+            p = rt.policies[s.id].model_copy(deep=True)  # a snapshot: a tick in the batch thread must not change the phase after the certificate is read
+            cert = rt.store.certificate(p.cert_id) if p.cert_id else None
+            ca, cd, sa, sd = rt.costs(s.id, cert.coverage if cert else None)
+            views.append(SiteView(site=s, policy=p, certificate=cert, cost_awake_usd=ca, cost_dream_usd=cd, sec_awake=sa, sec_dream=sd))
         series = [Metrics.model_validate(e.data["metrics"]) for e in rt.store.events(limit=2000) if e.kind == "batch.progress"]
         config = {k: os.environ[v] for k, v in (("supabase_url", "SUPABASE_URL"), ("supabase_publishable_key", "SUPABASE_PUBLISHABLE_KEY")) if os.environ.get(v)}
         spares = {s.cert_id: rt.store.certificate(s.cert_id) for v in views for s in v.policy.shadow.values() if s.cert_id}
         return State(sites=views, budget=rt.budget, metrics=rt.metrics(), series=series, runs=rt.store.runs(limit=50),
-                         first_run=rt.store.first_run(), batch=rt.batch, config=config, spare_certificates=spares)
+                         first_run=rt.store.first_run(), batch=rt.batch, config=config, spare_certificates=spares, unplugged=sorted(unplugged))
 
     @app.post("/batch")
     def batch(body: BatchIn) -> dict[str, str]:
@@ -156,6 +157,10 @@ def create_app(runtime: Runtime | None = None, inputs: Iterable[Json] | None = N
         if inject is None:
             raise HTTPException(503, "this API has no fault switch for its tools")
         inject(site, body.down)
+        if body.down:
+            unplugged.add(site)
+        else:
+            unplugged.discard(site)
         return rt.policies[site]
 
     @app.post("/run")

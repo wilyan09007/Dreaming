@@ -221,6 +221,11 @@ button.node:hover{box-shadow:5px 7px 0 rgba(43,43,51,.2)}
 .errs{font-family:var(--hand);font-weight:700;font-size:18px;line-height:1.25;color:var(--red);white-space:pre-line}
 /* the candidate rows under a journal row: which family answers, and its spares */
 .jcand{display:flex;flex-direction:column;margin-top:3px;font-family:var(--hand);font-weight:700;font-size:16px;line-height:1.1;color:var(--muted)}
+.jcand span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* the candidate lines are a second grid row under the name and the cost, so they may run under the cost column. The paper's rules are
+   48px apart: text and cost hang from the row top, and every row plus its 12px gap is a multiple of 48 (96, 144, 192) */
+.jrow{align-items:start;align-content:start;row-gap:0}.jicon{grid-row:1/span 2;align-self:center}.jcand{grid-column:2/-1}.jcost{align-self:end;margin-bottom:-3px}
+.jrow:has(.jcand>:nth-child(2)){min-height:132px}.jrow:has(.jcand>:nth-child(4)){min-height:180px}
 .tans small{display:block;font-size:13px;font-weight:400;color:var(--muted)}
 .tres .bad{color:var(--red);white-space:nowrap}
 /* the memory's voting rows under a dream's answer: a second line inside the row's 58px, so the card keeps its height */
@@ -250,7 +255,7 @@ button.node:hover{box-shadow:5px 7px 0 rgba(43,43,51,.2)}
 /* recording at 1920x1080: the flows graph scales itself; scale the other two tabs to match */
 @media (min-width:1700px) and (min-height:1000px){#v-dreams,#v-replay,#v-scores{zoom:1.18}}
 /* short screens (1280x720): tighten the dreams column so the promise card fits without scrolling */
-@media (max-height:780px){.side{gap:14px}.budget{padding:12px 20px}.bnote,.bnow{margin-top:6px}.bnow{padding-top:6px}.cert{padding:14px 20px 12px}.promise{margin-top:6px}.sheep{margin-top:8px}.cline{margin-top:6px}.split{margin-top:10px}.ccost{margin-top:8px}.fine{margin-top:6px;padding-top:6px}
+@media (max-height:780px){.journal{padding-bottom:8px}.jfoot{margin-top:0}.side{gap:14px}.budget{padding:12px 20px}.bnote,.bnow{margin-top:6px}.bnow{padding-top:6px}.cert{padding:14px 20px 12px}.promise{margin-top:6px}.sheep{margin-top:8px}.cline{margin-top:6px}.split{margin-top:10px}.ccost{margin-top:8px}.fine{margin-top:6px;padding-top:6px}
 .receipts{gap:9px;margin-top:12px}.receipt{padding:6px 12px}}
 @media (max-width:1000px){
   .dreams,.replay{grid-template-columns:minmax(0,1fr)}
@@ -263,7 +268,7 @@ button.node:hover{box-shadow:5px 7px 0 rgba(43,43,51,.2)}
 @media (max-width:600px){
   .app{padding:14px 16px 20px}
   .journal{padding-left:56px}.journal::before{left:40px}.hole{left:12px}
-  .jrow{grid-template-columns:44px minmax(0,1fr);gap:12px}.jcost{grid-column:2;align-items:flex-start}
+  .jrow{grid-template-columns:44px minmax(0,1fr);gap:0 12px}.jicon{grid-row:1/span 3}.jcost{grid-column:2;grid-row:2;align-items:flex-start;margin:4px 0 0}.jcand{grid-column:2;grid-row:3}.jcand span{white-space:normal}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.dots{display:none}}
 </style>

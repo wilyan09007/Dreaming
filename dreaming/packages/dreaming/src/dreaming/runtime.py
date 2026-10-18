@@ -38,7 +38,7 @@ from .contracts import (
     TraceRow,
 )
 from .hashing import canonical
-from .learning import Learner
+from .learning import Learner, prediction_of
 from .predictors import Loader, Predictor
 from .predictors.train import Trainer
 from .router import Answer, Call, Stuck, route
@@ -67,6 +67,7 @@ class Runtime:
         self._runs: list[Run] = []
         self._lock = threading.Lock()  # the buffers and run_count: a live /run may land during a batch
         self._recent: deque[Run] = deque(maxlen=100)  # the metrics window
+        self._priced: dict[str, Run] = {}  # run id -> that run re-priced under the promises in force after the last budget change
         self._baseline: dict[str, tuple[float, int]] = {}  # site -> (sum of teacher cost, n): what a call costs when awake
         self._by_hash: dict[str, Predictor] = {}  # weights_sha -> predictor, for replay of rows answered by earlier weights
         self._reported: set[str] = set()  # predictor failures already turned into an event
@@ -299,10 +300,47 @@ class Runtime:
 
     def set_budget(self, budget: float) -> None:
         self.learner.set_budget(budget)
+        self._reprice(budget)
+
+    def _reprice(self, budget: float) -> None:
+        """A budget change re-prices the metrics window, so "right now" and the chart move at once instead of 100 runs later.
+        Each logged call whose decision the new cutoff flips is charged the other path: newly sure, its prediction (and its share of
+        audits); newly unsure, the site's mean real call. Every other call keeps what it cost. One batch.progress point at the
+        current x carries the result: the step a budget change draws on the chart."""
+        self.flush()  # the window's rows must be in the store
+        with self._lock:
+            window = {r.id: r for r in self._recent if r.finished_at}
+        if not window:
+            return
+        moved: dict[str, list[float]] = {}  # run id -> [cost, ms, replayable] deltas
+        for site in self.sites.values():
+            p, audit = self.policies[site.id], site.thresholds.audit_rate
+            if site.kind == Kind.effect or not p.weights_sha:
+                continue
+            rows = self.store.rows(site.id, limit=500)
+            awake, awake_ms = _real(rows)
+            for r in rows:
+                if r.run_id not in window or r.error or r.phase == Phase.down or r.kept is False:
+                    continue  # an outage decided these, not the cutoff
+                q = prediction_of(r, p.weights_sha)
+                sure = q is not None and p.phase == Phase.dreaming and p.cutoff is not None and q.confidence >= p.cutoff
+                if r.decision == Decision.predicted and not sure:
+                    cost, ms, rep = awake, awake_ms, -1
+                elif r.decision == Decision.called and q is not None and sure:
+                    cost, ms, rep = (1 - audit) * q.cost_usd + audit * r.cost_usd, (1 - audit) * q.latency_ms + audit * r.latency_ms, 1
+                else:
+                    continue
+                d = moved.setdefault(r.run_id, [0.0, 0.0, 0])
+                d[0], d[1], d[2] = d[0] + cost - r.cost_usd, d[1] + ms - r.latency_ms, d[2] + (rep if site.replayable else 0)
+        self._priced = {i: window[i].model_copy(update={"cost_usd": window[i].cost_usd + c, "latency_ms": round(window[i].latency_ms + ms),
+                                                         "replayable": window[i].replayable + int(rep)}) for i, (c, ms, rep) in moved.items()}
+        m = self.metrics()
+        emit(self.store, self.component, EventKind.batch_progress, f"mistakes allowed {budget:.0%}: the last {len(window)} runs re-priced",
+             data={"metrics": m.model_dump()})
 
     # ------------------------------------------------------------------ what the page shows
     def metrics(self) -> Metrics:
-        runs = [r for r in list(self._recent) if r.finished_at]
+        runs = [self._priced.get(r.id, r) for r in list(self._recent) if r.finished_at]
         if not runs:
             return Metrics(runs=self.run_count, cost_per_run=0.0, sec_per_run=0.0, failed_pct=0.0, replayable_pct=0.0, saved_usd=self.saved_usd)
         decisions = sum(r.decisions for r in runs) or 1
@@ -312,19 +350,31 @@ class Runtime:
             saved_usd=self.saved_usd,
         )
 
-    def costs(self, site_id: str, window: int = 500) -> tuple[float, float, float, float]:
-        """(cost awake, cost dreaming, seconds awake, seconds dreaming) per call, from the last rows: the page's "2.1¢ → 0.33¢"."""
+    def costs(self, site_id: str, coverage: float | None = None, window: int = 500) -> tuple[float, float, float, float]:
+        """(cost awake, cost dreaming, seconds awake, seconds dreaming) per call: the page's "1.0¢ → 0.69¢". Awake is the mean real
+        call of the last rows. Dreaming is the blend the promise in force certifies (`coverage`), so it moves with the budget: the
+        unsure share pays the real call, the covered share the prediction, 1 in N of it audited. No promise: the real call."""
         rows = self.store.rows(site_id, limit=window)
-        real = [r for r in rows if r.decision in (Decision.called, Decision.audited)]
-        # "dreaming" is the blended price of a call once promoted: predicted rows (free), the real calls the dream was unsure
-        # about and the audits; predicted rows alone would print "-100%" for every student site (web review, 2026-10-18)
-        dream = [r for r in rows if r.phase == Phase.dreaming] or [r for r in rows if r.decision == Decision.predicted]
-        return (_mean([r.cost_usd for r in real]), _mean([r.cost_usd for r in dream]),
-                _mean([r.latency_ms for r in real]) / 1000, _mean([r.latency_ms for r in dream]) / 1000)
+        awake, awake_ms = _real(rows)
+        if coverage is None:
+            return awake, awake, awake_ms / 1000, awake_ms / 1000
+        w, audit = self.policies[site_id].weights_sha, self.sites[site_id].thresholds.audit_rate
+        preds = [q for r in rows if w and (q := prediction_of(r, w)) is not None]
+
+        def blend(real: float, pred: float) -> float:
+            return (1 - coverage) * real + coverage * ((1 - audit) * pred + audit * real)
+
+        return awake, blend(awake, _mean([q.cost_usd for q in preds])), awake_ms / 1000, blend(awake_ms, _mean([q.latency_ms for q in preds])) / 1000
 
 
 def _mean(xs: list[float]) -> float:
     return sum(xs) / len(xs) if xs else 0.0
+
+
+def _real(rows: list[TraceRow]) -> tuple[float, float]:
+    """(cost, ms) of the mean real call among these rows: what a call costs when nothing answers for it."""
+    real = [r for r in rows if r.decision in (Decision.called, Decision.audited) and r.error is None]
+    return _mean([r.cost_usd for r in real]), _mean([r.latency_ms for r in real])
 
 
 def _timed(fn: Callable[[], Any], site: CallSite, label: Callable[[Any], str] = lambda v: str(v)) -> Answer:
