@@ -1,0 +1,100 @@
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Software:0", "label": "Software", "text": "Transaction: ADOBE *WEB, $60.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Software:1", "label": "Software", "text": "Transaction: SLACK TECHNOLOGIES, $15.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Software:2", "label": "Software", "text": "Transaction: APPLE.COM/BILL, $29.99", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Software:3", "label": "Software", "text": "Transaction: MICROSOFT OFFICE 365, $12.99", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Software:4", "label": "Software", "text": "Transaction: FIGMA INC, $45.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Software:5", "label": "Software", "text": "Transaction: AUTOMATTIC WORDPRESS, $8.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Software:6", "label": "Software", "text": "Transaction: CANVA PRO SUBSCRIPTION, $14.99", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Software:7", "label": "Software", "text": "Transaction: NOTION LABS, $10.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Software:8", "label": "Software", "text": "Transaction: ZOOM VIDEO COMMUNICATIONS, $14.99", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Software:9", "label": "Software", "text": "Transaction: GOOGLE PLAY STORE, $9.99", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Meals:0", "label": "Meals", "text": "Transaction: STARBUCKS #1234, $12.50", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Meals:1", "label": "Meals", "text": "Transaction: DOORDASH DELIVERY, $25.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Meals:2", "label": "Meals", "text": "Transaction: UBERR EATS, $18.75", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Meals:3", "label": "Meals", "text": "Transaction: THE MCDONALD'S CORP, $9.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Meals:4", "label": "Meals", "text": "Transaction: GRUBHUB RESTAURANT PAY, $45.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Meals:5", "label": "Meals", "text": "Transaction: SEPT-IBARAKI JAPANESE REST, $32.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Meals:6", "label": "Meals", "text": "Transaction: CHICK-FIL-A #5678, $11.20", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Meals:7", "label": "Meals", "text": "Transaction: INSTACART GROCERY DELIV, $65.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Meals:8", "label": "Meals", "text": "Transaction: PANERA BREAD #9012, $15.50", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Meals:9", "label": "Meals", "text": "Transaction: PIZZA HUT FRANCHISE, $22.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Travel:0", "label": "Travel", "text": "Transaction: UNITED AIRLINES, $350.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Travel:1", "label": "Travel", "text": "Transaction: HILTON HOTELS RESERVATION, $180.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Travel:2", "label": "Travel", "text": "Transaction: LYFT RIDE SHARE, $24.50", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Travel:3", "label": "Travel", "text": "Transaction: UBER TRIP TO AIRPORT, $45.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Travel:4", "label": "Travel", "text": "Transaction: DELTA AIR LINES INC, $420.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Travel:5", "label": "Travel", "text": "Transaction: MARriott INTERNATIONAL, $210.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Travel:6", "label": "Travel", "text": "Transaction: NATIONAL CAR RENTAL, $85.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Travel:7", "label": "Travel", "text": "Transaction: AMTRAK PASSENGER RAIL, $65.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Travel:8", "label": "Travel", "text": "Transaction: EXPEDIA BOOKINGS LLC, $550.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Travel:9", "label": "Travel", "text": "Transaction: TOLLGATE EXPRESSWAY, $12.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Hosting:0", "label": "Hosting", "text": "Transaction: AMAZON WEB SERVICES, $120.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Hosting:1", "label": "Hosting", "text": "Transaction: DIGITALOCEAN CLOUD HOSTING, $45.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Hosting:2", "label": "Hosting", "text": "Transaction: GOOGLE CLOUD PLATFORM, $85.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Hosting:3", "label": "Hosting", "text": "Transaction: VERCEL WEB HOSTING, $20.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Hosting:4", "label": "Hosting", "text": "Transaction: NETLIFY PREMIUM PLAN, $19.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Hosting:5", "label": "Hosting", "text": "Transaction: HEROKU PLATFORM SERVICES, $35.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Hosting:6", "label": "Hosting", "text": "Transaction: AWS LIGHTSAW INSTANCE, $55.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Hosting:7", "label": "Hosting", "text": "Transaction: LINODE SERVER HOSTING, $30.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Hosting:8", "label": "Hosting", "text": "Transaction: CLOUDFLARE ENTERPRISE, $150.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Hosting:9", "label": "Hosting", "text": "Transaction: OVH CLOUD SERVER RENT, $25.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Office supplies:0", "label": "Office supplies", "text": "Transaction: STAPLES OFFICE SUPPLIES, $45.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Office supplies:1", "label": "Office supplies", "text": "Transaction: OFFICE DEPOT #4567, $22.50", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Office supplies:2", "label": "Office supplies", "text": "Transaction: AMAZON PRIME OFFICE, $15.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Office supplies:3", "label": "Office supplies", "text": "Transaction: HP INKJET PRINTER CARTRIDGE, $30.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Office supplies:4", "label": "Office supplies", "text": "Transaction: POST-IT NOTES PACK, $8.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Office supplies:5", "label": "Office supplies", "text": "Transaction: ERASER AND PENCIL SET, $5.50", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Office supplies:6", "label": "Office supplies", "text": "Transaction: DESK ORGANIZER PLASTIC, $12.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Office supplies:7", "label": "Office supplies", "text": "Transaction: COPY PAPER REAM BOX, $25.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Office supplies:8", "label": "Office supplies", "text": "Transaction: PEN REFILLS BLUE, $6.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Office supplies:9", "label": "Office supplies", "text": "Transaction: WHITEBOARD MARKERS SET, $10.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Equipment:0", "label": "Equipment", "text": "Transaction: APPLE STORE MACBOOK PRO, $2400.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Equipment:1", "label": "Equipment", "text": "Transaction: BEST BUY ELECTRONICS, $800.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Equipment:2", "label": "Equipment", "text": "Transaction: LOGITECH WIRELESS MOUSE, $25.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Equipment:3", "label": "Equipment", "text": "Transaction: DELL MONITOR 27INCH, $250.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Equipment:4", "label": "Equipment", "text": "Transaction: KEYBOARD MECHANICAL RGB, $100.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Equipment:5", "label": "Equipment", "text": "Transaction: HEADPHONES NOISE CANCEL, $150.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Equipment:6", "label": "Equipment", "text": "Transaction: USB-C HUB ADAPTER, $35.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Equipment:7", "label": "Equipment", "text": "Transaction: WEBCAM HD 1080P, $60.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Equipment:8", "label": "Equipment", "text": "Transaction: EXTERNAL SSD DRIVE 1TB, $90.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Equipment:9", "label": "Equipment", "text": "Transaction: ERGONOMIC OFFICE CHAIR, $300.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Payroll:0", "label": "Payroll", "text": "Transaction: ADP PAYROLL SERVICES, $5000.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Payroll:1", "label": "Payroll", "text": "Transaction: GUSTO PAYROLL SOLUTIONS, $2500.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Payroll:2", "label": "Payroll", "text": "Transaction: DIRECT DEPOSIT SALARY JOHN D, $3200.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Payroll:3", "label": "Payroll", "text": "Transaction: FREELANCER INVOICE #101, $1500.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Payroll:4", "label": "Payroll", "text": "Transaction: CONTRACTOR PAYMENT JANE S, $800.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Payroll:5", "label": "Payroll", "text": "Transaction: BENEFITS ADMINISTRATION FEE, $150.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Payroll:6", "label": "Payroll", "text": "Transaction: TAX WITHHOLDING PAYMENT, $400.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Payroll:7", "label": "Payroll", "text": "Transaction: OVERTIME PAYROLL EXTRA, $200.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Payroll:8", "label": "Payroll", "text": "Transaction: 1099 CONTRACTOR REMITTANCE, $600.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Payroll:9", "label": "Payroll", "text": "Transaction: EMPLOYEE REIMBURSEMENT, $120.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Utilities:0", "label": "Utilities", "text": "Transaction: COMCAST XFINITY INTERNET, $79.99", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Utilities:1", "label": "Utilities", "text": "Transaction: AT&T BUSINESS PHONE, $120.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Utilities:2", "label": "Utilities", "text": "Transaction: CITY WATER DEPARTMENT, $45.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Utilities:3", "label": "Utilities", "text": "Transaction: PG&E ELECTRIC BILL, $150.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Utilities:4", "label": "Utilities", "text": "Transaction: CON EDISON POWER UTILITY, $180.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Utilities:5", "label": "Utilities", "text": "Transaction: VERIZON BUSINESS MOBILE, $90.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Utilities:6", "label": "Utilities", "text": "Transaction: NATURAL GAS COMPANY, $60.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Utilities:7", "label": "Utilities", "text": "Transaction: WASTE MANAGEMENT TRASH, $35.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Utilities:8", "label": "Utilities", "text": "Transaction: FIBER OPTIC INTERNET SERVICE, $85.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Utilities:9", "label": "Utilities", "text": "Transaction: MUNICIPAL SEWER CHARGE, $28.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Advertising:0", "label": "Advertising", "text": "Transaction: FACEBOOK ADS MANAGER, $500.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Advertising:1", "label": "Advertising", "text": "Transaction: GOOGLE ADS CAMPAIGN, $750.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Advertising:2", "label": "Advertising", "text": "Transaction: LINKEDIN SPONSORED CONTENT, $200.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Advertising:3", "label": "Advertising", "text": "Transaction: TWITTER/X PROMOTED TWEETS, $150.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Advertising:4", "label": "Advertising", "text": "Transaction: PRINT MAGAZINE AD SPACE, $1000.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Advertising:5", "label": "Advertising", "text": "Transaction: RADIO STATION SPOT BUY, $300.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Advertising:6", "label": "Advertising", "text": "Transaction: BILLBOARD NETWORK RENTAL, $2500.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Advertising:7", "label": "Advertising", "text": "Transaction: EMAIL MARKETING TOOL SUB, $50.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Advertising:8", "label": "Advertising", "text": "Transaction: SEO CONSULTING SERVICES, $400.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Advertising:9", "label": "Advertising", "text": "Transaction: INFLUENCER COLLAB PAYMENT, $600.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Other:0", "label": "Other", "text": "Transaction: LEGAL SERVICES ATTORNEY FEES, $1200.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Other:1", "label": "Other", "text": "Transaction: INSURANCE PREMIUM QUARTERLY, $800.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Other:2", "label": "Other", "text": "Transaction: BANK SERVICE CHARGES, $15.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Other:3", "label": "Other", "text": "Transaction: PROFESSIONAL MEMBERSHIP DUES, $150.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Other:4", "label": "Other", "text": "Transaction: SHIPPING POSTAGE OVERAGE, $25.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Other:5", "label": "Other", "text": "Transaction: SOFTWARE DEVELOPMENT OUTSOURCE, $3000.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Other:6", "label": "Other", "text": "Transaction: CLIENT EVENT TICKETS, $200.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Other:7", "label": "Other", "text": "Transaction: DONATION CHARITY NONPROFIT, $100.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Other:8", "label": "Other", "text": "Transaction: EQUIPMENT LEASE RENTAL, $450.00", "model": "asi1-mini"}
+{"key": "710438b91d26a35e036633c42c3793d3a63279ddb10b73233cf893ca0884a81f", "id": "seed:Other:9", "label": "Other", "text": "Transaction: MISCELLANEOUS EXPENSE VOUCHER, $35.00", "model": "asi1-mini"}

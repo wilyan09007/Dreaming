@@ -22,7 +22,10 @@ from uagents import Protocol
 from uagents_core.contrib.protocols.chat import ChatAcknowledgement, ChatMessage, EndSessionContent, TextContent
 from uagents_core.models import Model
 
-LINE = "AIRBNB *WEB 583.24"  # in the recorded world's mix: some steps dream, some still call (the guard below says so)
+# A known merchant the tool memory never saw: vendor_lookup calls and the router clears it (anything_odd dreams), so the run shows
+# both reply branches whichever model candidate wins categorize. AIRBNB was chosen for a head-only world; once `memory` joined
+# the model default it certified more and dreamed all four of that line's steps (the guard below caught it).
+LINE = "ADOBE *WEB 61.00"
 API = "http://api.test"
 
 
@@ -104,7 +107,7 @@ def test_a_chat_line_is_acked_relayed_to_the_api_and_answered_in_words() -> None
     assert request.method == "POST" and str(request.url) == f"{API}/run"
     txn = json.loads(request.content)["input"]
     assert json.loads(request.content).keys() == {"input"}
-    assert (txn["descriptor"], txn["amount"], txn["merchant"], txn["date"]) == ("AIRBNB *WEB", 583.24, "", date.today().isoformat())
+    assert (txn["descriptor"], txn["amount"], txn["merchant"], txn["date"]) == ("ADOBE *WEB", 61.0, "", date.today().isoformat())
     assert txn["id"].startswith("chat-")
 
     posted = view.rows[-1]  # the last effect row is what was posted
