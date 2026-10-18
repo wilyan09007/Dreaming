@@ -19,6 +19,11 @@ vendor, match an invoice, flag anything odd, post to the books or wake a human. 
 - **replay**: pick a past run and re-run it. Steps a hosted dream answered come back with the same bytes; the rest are read from the log.
 - **scores**: the benchmark table, read from `GET /benchmark` (`/benchmark.md` for the Markdown form).
 
+The judges' walk-through is a separate scripted deck at `/launch/` (`dreaming/apps/web/launch/`, spec in its `VISUAL_INTENT.md`):
+hook, teacher vs Dreaming race, benchmark charts, the Psi diagram, the training campaign, build-your-own workflow, savings
+at scale. Right arrow / clicker to advance, R replays a screen, F goes fullscreen, and `/launch/?presenter` in a second
+window drives the big monitor and shows the speaker notes.
+
 ## Fetch.ai agent
 
 ![tag:innovationlab](https://img.shields.io/badge/innovationlab-3D8BD3)
@@ -154,4 +159,5 @@ The dashboard's dreams tab was rebuilt in Paper from `demo/index.html` by the te
 - A certificate holds on rows like the ones it was calibrated on. On held-out companies the memory candidate's realized error at the 5% budget was 8.4% (`bill_account`) and 8.7% (`invoice_paid`) in the 06:48 table; the head's was 1.8% and 4.9%. Every row of that table came from checkpoint summaries and was not recomputed.
 - "Byte for byte" means the same label and quantized confidence under the same weights and environment hashes: CPU, batch 1, one thread. A different thread count or a GPU changes the bytes (S29). A promoted "anything odd?" with thinking off is still a frontier call, so replay reads it from the log.
 - Budgets below the teacher's self-disagreement (3.5% for StepFun) cannot be measured, and the API refuses them.
+- The `/launch/` deck is choreographed: fixed timings and one figure per site from `launch/numbers.js` (the better of the two measured slices, e.g. match invoice on repeat traffic); `anything odd?` stand-in cost and coverage are set inside the measured range rather than taken from one run. The live tabs are the real system.
 - Not claimed here: the LLM-alone and Jev baselines, and Gemini, Snowflake, Tiger Data, Solana, GoDaddy and Browser Use. Hypernetworks and several exotic heads were rejected with numbers (`training-plan.md` section 1). Speculation (running predicted values ahead of the real call) sits behind `speculate=False` and is not part of the demo.

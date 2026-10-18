@@ -48,6 +48,15 @@ def test_the_scripts_and_types_the_page_imports_are_served(client: TestClient, n
         assert "javascript" in r.headers["content-type"]  # a module script with another MIME type does not run
 
 
+def test_the_launch_deck_and_every_script_it_loads_are_served(client: TestClient) -> None:
+    page = served(client, "/launch/")
+    scripts = re.findall(r'<script src="([^"]+)"', page)
+    assert "deck.js" in scripts and len(scripts) >= 9  # numbers, deck, seven screens
+    for src in scripts:
+        r = client.get(f"/launch/{src}")
+        assert r.status_code == 200 and r.content == (WEB / "launch" / src).read_bytes(), src
+
+
 def test_the_api_routes_still_win_over_the_mount(client: TestClient) -> None:
     health = client.get("/healthz")
     assert health.headers["content-type"].startswith("application/json") and health.json()["component"] == "api"
