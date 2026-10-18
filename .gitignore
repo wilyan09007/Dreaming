@@ -1,0 +1,44 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python environments and caches
+.venv/
+.venv*/
+*_venv/
+__pycache__/
+*.pyc
+
+# Downloaded data, model files, embedding caches
+.data/
+.cache/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.npy
+*.npz
+*.pkl
+*.arrow
+
+# Node
+node_modules/
+.next/
+
+# Local tool state
+.claude/scheduled_tasks.lock
+.claude/settings.local.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Binaries
+*.exe
+
+# agent seed phrases (secret)
+smokes/s11_asi_one/seeds.txt
+seeds.txt
+smokes/s27_hybrid_embedder_memory/.lfm_patched/
