@@ -1,0 +1,28 @@
+export const meta = {
+  name: 'dreaming-s25-exotic',
+  description: 'Smoke exotic student families under the shared few-shot protocol: hyperdimensional computing, Tsetlin machine, gzip-NCD kNN, product-key memory head, spiking head, NTK kernel, SAE concept-bottleneck, JEPA-style predictor on the unlabelled stream; one pod, no critic',
+  phases: [{ title: 'Build' }],
+}
+const ROOT = 'C:\\Users\\<user>\\Desktop\\personalprojects\\Dreaming'
+const COMMON = `
+ENVIRONMENT AND RULES (trimmed round; realistic numbers fast):
+- Project root: ${ROOT}. Laptop stays idle: local python ("${ROOT}\\.venv\\Scripts\\python.exe") only for writing code, syntax checks and ONE --tiny check under 60 s. All compute through ${ROOT}\\smokes\\pod.py (read it): python smokes/pod.py --tag s25 --bundle smokes/common.py smokes/s25_exotic --cmd "python smokes/s25_exotic/run.py" [--pip "..."] --max-min 55 --gpu "NVIDIA GeForce RTX 4090". Pod boot ~10 min: launch ONCE after the local --tiny check; at most 2 launches; assert torch.cuda.is_available() at start (relaunch once on "NVIDIA RTX A5000" if not). Write results.json incrementally after every (arm, task, k); run the cheapest arms first so a timeout still leaves most of the table.
+- Reuse ${ROOT}\\smokes\\.cache (label_descriptions.json, synth_examples.json) and the task construction in ${ROOT}\\smokes\\s2_hypernet\\run2.py. Keys in ${ROOT}\\.env (read with python/re; never print or write them). No LLM spend needed; append "s25_exotic,0.00,<note>" to ${ROOT}\\smokes\\COSTS.md.
+- Read first: ${ROOT}\\smokes\\FINDINGS.md (S1, S2/S2b, S8, S15 sections). Do NOT modify common.py or pod.py. Never use mcp__claude-in-chrome tools.
+- Shared protocol: new-step tasks = held-out CLINC150 domains "travel" and "work" (15 labels) and three 12-label Banking77 sub-tasks (seed 0); k real rows per label in {1, 3, 10}; 3 draws; metrics = accuracy and certified coverage at a 5% budget (common.certify on a fixed 300-row calibration set per task, separate from training rows, applied to the rest); confidence = each model's own score gap (state it per arm). Baseline row in every table: frozen bge-small + LogisticRegression on the k rows (confidence = top-2 gap). Report parameters, fit seconds, predict ms per 1000 rows, and whether predictions are bit-exact across two runs with the same seed (determinism matters for Dreaming's replay).
+- RESULTS.md (Write tool) must START with "## In plain words" (4-8 short sentences a non-expert can follow), then Setup, Results tables, Interpretation, Caveats, Time and cost. Report failures as failures. Final text return: 10-15 lines of key numbers and blockers.
+`
+const SPEC = `
+SMOKE S25 - exotic student families, folder ${ROOT}\\smokes\\s25_exotic. Arms, cheapest first:
+ 1. Hyperdimensional computing / vector-symbolic (pip torchhd, or a 40-line numpy version): project bge-small embeddings to 10k-d bipolar hypervectors with a fixed random projection, bundle per class, classify by cosine; one-shot by construction; confidence = top-2 cosine gap. Also the "online" variant that adds each new labelled row to its class bundle (no retraining).
+ 2. Compression-based: gzip normalized compression distance on raw text + kNN vote (ACL 2023 "parameter-free"), confidence = vote margin; parameter-free and deterministic.
+ 3. Tsetlin machine (pip tmu or pyTsetlinMachine; if neither installs in 5 pod-minutes, log and skip): boolean bag-of-words (top-2000 tokens) input, 100-300 clauses per class; confidence = normalized clause-vote margin; report interpretability (clauses) and determinism.
+ 4. NTK / infinite-width kernel: arc-cosine (ReLU NTK) kernel SVM or kernel ridge on the embeddings vs the LR baseline; confidence = decision-margin gap.
+ 5. Product-key memory head (Lample 2019; Meta "Memory layers" 2024, hand-written ~60 lines): a learned sparse memory with 1024 keys over frozen embeddings, trained on the k rows with a fixed step budget; confidence = top-2 gap; report whether rapid memorization helps at k=1-3 vs LR.
+ 6. Spiking head (pip snntorch): a 2-layer leaky-integrate-and-fire classifier with surrogate gradients on rate-coded embeddings, same step budget as LR; confidence = spike-count gap; mainly to report accuracy/latency honestly vs the LR baseline.
+ 7. SAE concept-bottleneck (only if it fits in the remaining pod time): load a small LM with a public sparse autoencoder via sae-lens (e.g. gemma-2-2b with Gemma Scope, layer ~12, or the smallest model with a released SAE that downloads without a token; if gated, log and skip), encode each input's last-token residual into sparse concept activations, train LR on the top-active concepts with the k rows; report accuracy, sparsity, and that each prediction comes with named concepts (auditable). This is the "learn from concepts, not tokens" idea behind CoCoMix.
+ 8. JEPA-style self-supervised predictor on the unlabelled stream (hand-written, ~80 lines): train a small MLP to predict the full-text embedding from the embedding of a corrupted view (word dropout 30%) on the task's unlabelled texts (labels removed, test rows excluded) for 2k steps, then use the predictor's hidden layer (concatenated with the raw embedding) as features for LR on the k rows; report the gain over raw embeddings at each k.
+Deliver tables per arm/task/k, "rows per label to reach 50% certified coverage at 5%" per arm, determinism check results, and a plain-language verdict: which exotic family (if any) is both data-efficient and cheap enough to be a Dreaming student, and which gives the cheapest certificate.`
+phase('Build')
+const out = await agent(`${COMMON}\n${SPEC}`, { label: 'build:s25', phase: 'Build', model: 'sonnet' })
+return { summary: out }
