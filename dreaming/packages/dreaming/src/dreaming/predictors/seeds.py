@@ -13,6 +13,7 @@ and descriptions, so a changed schema writes new rows. `ask` is prompt -> reply 
 from __future__ import annotations
 
 import json
+import logging
 import os
 import sys
 from collections.abc import Callable
@@ -23,6 +24,7 @@ from pathlib import Path
 from ..contracts import CallSite, Decision, TeacherAnswer, TraceRow
 from ..hashing import sha
 
+log = logging.getLogger(__name__)
 ROOT = Path("data/seeds")  # relative to the process's working directory, like data/embeddings.npz
 PER_LABEL, CHUNK = 10, 15  # S2b: 10 inputs per label, 15 labels per call
 
@@ -57,6 +59,7 @@ def write(site: CallSite, ask: Callable[[str], str], example: str | None = None,
                   f"varied, realistic inputs this step would receive that should get that label.{shape} Reply with a JSON object whose keys "
                   f"are exactly these label strings {json.dumps(chunk)} and whose values are lists of {PER_LABEL} strings, nothing else.\n"
                   "What each label means:\n" + "\n".join(f"{lab}: {site.descriptions.get(lab, lab)}" for lab in chunk))
+        by_lower = {lab.lower(): lab for lab in chunk}
         got: dict[str, list[str]] = {}
         for _ in range(3):
             text = ask(prompt)
@@ -64,12 +67,15 @@ def write(site: CallSite, ask: Callable[[str], str], example: str | None = None,
                 reply = json.loads(text[text.find("{") : text.rfind("}") + 1])
             except json.JSONDecodeError:
                 continue
-            by_lower = {lab.lower(): lab for lab in chunk}  # asi1-mini echoed "Label: description" as the key in 3 of 3 replies (measured)
-            got = {by_lower[k.split(":")[0].strip().lower()]: v for k, v in reply.items() if k.split(":")[0].strip().lower() in by_lower}
-            if all(isinstance(got.get(lab), list) for lab in chunk):
+            # asi1-mini echoed "Label: description" as the key in 3 of 3 replies (measured); a retry fills in what an earlier reply missed
+            got |= {lab: v for k, v in reply.items() if isinstance(v, list)
+                    and (lab := by_lower.get(k.strip().lower()) or by_lower.get(k.split(":")[0].strip().lower()))}
+            if len(got) == len(chunk):
                 break
+        if missing := [lab for lab in chunk if lab not in got]:
+            log.warning("%s: the model gave no usable inputs for %s after 3 tries; those labels have no seed rows", site.id, missing)
         out += [{"key": _key(site), "id": f"seed:{lab}:{i}", "label": lab, "text": str(t), "model": model}
-                for lab in chunk for i, t in enumerate((got.get(lab) or [])[:PER_LABEL])]
+                for lab in chunk for i, t in enumerate(got.get(lab, [])[:PER_LABEL])]
     root.mkdir(parents=True, exist_ok=True)
     (root / f"{site.id}.jsonl").write_text("".join(json.dumps(d) + "\n" for d in out), encoding="utf-8", newline="\n")  # LF on Windows too
     return rows(site, root)

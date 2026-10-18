@@ -6,7 +6,9 @@ from __future__ import annotations
 import json
 from datetime import UTC, datetime
 from pathlib import Path
+from typing import Any
 
+import numpy as np
 import pytest
 from conftest import LABELS, WORDS, CharEncoder, KeywordTeacher, transactions
 from dreaming.contracts import CallSite, Decision, Kind, TraceRow
@@ -59,7 +61,7 @@ def test_memory_reads_back_its_rows_byte_stably_and_refuses_a_foreign_encoder():
         CANDIDATES["memory"].load(SITE, f.data, other)
 
 
-def test_seed_rows_are_written_once_per_schema_and_seed_a_memory_with_no_real_rows(tmp_path: Path):
+def test_seed_rows_are_written_once_per_schema_and_seed_a_memory_with_no_real_rows(tmp_path: Path, caplog: pytest.LogCaptureFixture):
     prompts: list[str] = []
 
     def fake_llm(prompt: str) -> str:  # asi1-mini's real habit: keys echo "Label: description"; "Other" is left out
@@ -69,6 +71,7 @@ def test_seed_rows_are_written_once_per_schema_and_seed_a_memory_with_no_real_ro
 
     rows = seeds.write(SITE, fake_llm, "Transaction: ADOBE *WEB, $60.00", root=tmp_path)
     assert len(prompts) == 3  # "Other" was missing every time: three tries, then no rows for it rather than a placeholder
+    assert "no usable inputs for ['Other']" in caplog.text  # and it says so
     assert "Transaction: ADOBE *WEB, $60.00" in prompts[0] and '"Software", "Meals", "Travel", "Other"' in prompts[0]
     assert len(rows) == 30 and {r.teacher.label for r in rows if r.teacher} == set(LABELS)
     assert all(r.id.startswith("seed:") and r.run_id == "seed" and r.phase.value == "awake" for r in rows)  # trains, never calibrates
@@ -81,3 +84,22 @@ def test_seed_rows_are_written_once_per_schema_and_seed_a_memory_with_no_real_ro
     assert sum(day_zero.predict(str(r.request)).label == r.teacher.label for r in real if r.teacher) >= 54
     both = CANDIDATES["memory"].fit(SITE, [*rows, *real], enc)
     assert both.n_train == 90 and memory.load(SITE, both.data, enc).ids[:2] == ["r1", "r10"]  # sorted ids: "r..." < "seed:..."
+
+
+def test_a_retry_fills_in_what_an_earlier_reply_missed_and_a_string_is_not_split_into_rows(tmp_path: Path, caplog: pytest.LogCaptureFixture):
+    replies = iter([json.dumps({"Software": ["a1", "a2"], "Meals": "oops"}), "not json", json.dumps({"Meals": ["m1"], "Travel": ["t1"], "Other": ["o1"]})])
+    rows = seeds.write(SITE, lambda prompt: next(replies), root=tmp_path)
+    assert sorted(str(r.request) for r in rows) == ["a1", "a2", "m1", "o1", "t1"] and not caplog.records
+
+
+def test_predict_leaves_the_encoders_cached_vector_alone():
+    class Cached(CharEncoder):  # hands back the same float64 array every time, as a cache would
+        v = CharEncoder().embed("Transaction: ADOBE *WEB, $60.00").astype(np.float64) * 3.0
+
+        def embed(self, text: str, *, fresh: bool = False) -> Any:
+            return self.v
+
+    enc = Cached()
+    m = memory.load(SITE, memory.fit(SITE, make_rows(10), enc).data, enc)
+    m.predict("anything")
+    assert float(np.linalg.norm(Cached.v)) == pytest.approx(3.0)  # normalized a copy, not the cache

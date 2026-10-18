@@ -3,6 +3,8 @@
     student.py   encoder (33M bge-small, frozen or fine-tuned) + linear head, for typed model steps (missions 2a/2b)
     tool.py      tool-return predictors: exact memory and char n-gram head, for tools whose return is a function of input
     router.py    the cheaper frontier configuration as a predictor (mission 1)
+    memory.py    Hopfield read over stored (embedding, label) rows: no weights, forgets by refitting without a row
+    seeds.py     LLM-written example inputs per label, cached under data/seeds/: the day-zero rows for the head and the memory
     train.py     rows in, weights bytes out; shared by the local trainer and the Modal job
 
 Every predictor carries weights_sha and env_sha and runs at batch size one with a fixed input shape and a pinned

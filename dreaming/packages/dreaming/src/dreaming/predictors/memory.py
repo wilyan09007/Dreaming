@@ -99,7 +99,7 @@ class Memory:
 
     def predict(self, rendered: str, *, fresh: bool = False) -> Prediction:
         q = np.asarray(self.encoder.embed(rendered, fresh=fresh), dtype=np.float64)
-        q /= max(float(np.linalg.norm(q)), 1e-12)
+        q = q / max(float(np.linalg.norm(q)), 1e-12)  # not `/=`: asarray hands back the encoder's own cached array if it is already float64
         p = _read((self.X @ q)[None, :], self.Y, self.beta)[0]
         return Prediction(
             label=self.labels[int(np.argmax(p))],
