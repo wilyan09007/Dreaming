@@ -71,6 +71,7 @@ class Money(BaseModel):  # per 1,000 calls
 
 class Row(BaseModel):
     call_site: str
+    campaign: str  # the campaign this row was trained in: the site's latest unless `campaign=` pinned one
     provider: str  # the teacher that labelled the rows ("tool" or "human" when the books are the truth)
     floor: float | None  # TeacherSpec.floor: the provider's self-disagreement; no budget below it is measurable
     candidate: str  # a trained candidate, or a baseline: "rule", "exact", "teacher alone"
@@ -88,7 +89,7 @@ class Row(BaseModel):
 
 
 class Benchmark(BaseModel):
-    campaign: str | None
+    campaign: str | None  # the `campaign=` that pinned the table; None: each site's latest (see Row.campaign)
     rows: list[Row]
     notes: list[str]
 
@@ -208,21 +209,28 @@ class _Scorer:
 # ---------------------------------------------------------------- the table
 
 
-def _latest(runs: Sequence[TrainRun]) -> str | None:
-    started = [(r.started_at, r.campaign) for r in runs if r.started_at]
-    return max(started)[1] if started else (runs[-1].campaign if runs else None)
+def _latest(runs: Sequence[TrainRun]) -> dict[str, str]:
+    """site -> the campaign of its newest run (the runs given have a checkpoint); a run with no start time counts as oldest, ties go to the later name."""
+    newest: dict[str, tuple[float, str]] = {}
+    for r in runs:
+        newest[r.call_site] = max(newest.get(r.call_site, (0.0, "")), (r.started_at.timestamp() if r.started_at else 0.0, r.campaign))
+    return {site: c for site, (_, c) in newest.items()}
 
 
 def table(store: Store, scores: ScoresLoader, baselines: Baselines | None = quickbooks_baselines, campaign: str | None = None) -> Benchmark:
-    """`campaign` None: the one that started last. `baselines(site)` -> [{"name", "coverage", "error"}]; if it raises, its rows are skipped with a note."""
-    runs = store.train_runs()
-    campaign = campaign or _latest(runs)
+    """`campaign` None: each site's latest campaign (QuickBooks trains in its own campaign, the bookkeeper sites in another); a name pins them all. `baselines(site)` -> [{"name", "coverage", "error"}]; if it raises, its rows are skipped with a note."""
     by_run: dict[str, list[Checkpoint]] = defaultdict(list)
     for ck in store.checkpoints(campaign):
         by_run[ck.run_id].append(ck)
+    live = [r for r in store.train_runs(campaign) if by_run[r.id]]
+    pick = _latest(live)  # site -> campaign, when no campaign pins the table
+
+    def camp(site: str) -> str:
+        return campaign or pick[site]
+
     groups: dict[tuple[str, str, str], list[TrainRun]] = defaultdict(list)  # (site, candidate, variant) -> its cells
-    for r in runs:
-        if r.campaign == campaign and by_run[r.id]:
+    for r in live:
+        if r.campaign == camp(r.call_site):
             groups[r.call_site, r.candidate, r.variant].append(r)
     top = {k: max(c.rung for r in rs for c in by_run[r.id]) for k, rs in groups.items()}  # only the cells that reached the top rung are averaged
     sites = {s.id: s for s in store.sites()}
@@ -264,7 +272,7 @@ def table(store: Store, scores: ScoresLoader, baselines: Baselines | None = quic
             pred_ms = float(np.mean([(ck.embed_ms or (EMBED_MS if needs_embed else 0.0)) + ck.head_ms for ck in picked]))
             audit = sites[site].thresholds.audit_rate if site in sites else Thresholds().audit_rate
             alone, dreamed = _money(calls[site], cov5, audit, pred_ms)
-        rows.append(Row(call_site=site, provider=provider, floor=floor, candidate=cand, variant=variant, seeds=len(picked), rung=top[site, cand, variant],
+        rows.append(Row(call_site=site, campaign=camp(site), provider=provider, floor=floor, candidate=cand, variant=variant, seeds=len(picked), rung=top[site, cand, variant],
                         stable=all(ck.stable for ck in picked), source="scores" if all(ok for _, ok in scored) else "summary", cells=merged,
                         seed_cert_s=_mean(seed_s[site, cand]), without_dreaming=alone, with_dreaming=dreamed,
                         acc_test=_mean([ck.summary.get("acc_test") for ck in picked]), acc_forward=_mean([ck.summary.get("acc_forward") for ck in picked])))
@@ -290,7 +298,7 @@ def table(store: Store, scores: ScoresLoader, baselines: Baselines | None = quic
             notes.append(f"{site}: LLM-alone and Jev baselines pending (each needs its own labelling pass, docs/tracks.md section 4)")
         if floor:  # a teacher at its floor answers every call and disagrees with itself that often; the books (floor 0) are the truth, not a baseline
             extra.append({"name": "teacher alone", "coverage": 1.0, "error": floor})
-        rows += [Row(call_site=site, provider=provider, floor=floor, candidate=str(x["name"]), variant="-", seeds=0, rung=0, stable=True, source="baseline",
+        rows += [Row(call_site=site, campaign=camp(site), provider=provider, floor=floor, candidate=str(x["name"]), variant="-", seeds=0, rung=0, stable=True, source="baseline",
                      cells=_fixed_cells(float(x["coverage"]), float(x["error"])), seed_cert_s=None, with_dreaming=None,
                      without_dreaming=_money(calls[site], 0.0, 0.0, 0.0)[0] if x["name"] == "teacher alone" and calls.get(site) else None) for x in extra]
 
@@ -315,16 +323,16 @@ def _both(r: Row, field: str, fmt: Callable[[float], str]) -> str:
 
 
 def markdown(b: Benchmark) -> str:
-    head = ["site", "provider", "floor", "candidate", "seeds", "rows seen", "repeat cov 5%", "repeat err 5%", *(f"unseen cov {round(x * 100)}%" for x in BUDGETS),
+    head = ["site", "campaign", "provider", "floor", "candidate", "seeds", "rows seen", "repeat cov 5%", "repeat err 5%", *(f"unseen cov {round(x * 100)}%" for x in BUDGETS),
             "unseen err 5%", "seed-only cert s", "$/1k alone / with", "p50 ms alone / with", "p95 ms alone / with"]
-    title = (f"Provider benchmark, campaign `{b.campaign}`. cov = share of rows answered at a certified error budget (Clopper-Pearson, delta {DELTA}), err = realized error on those rows; "
+    title = (f"Provider benchmark, {f'campaign `{b.campaign}`' if b.campaign else 'latest campaign per site'}. cov = share of rows answered at a certified error budget (Clopper-Pearson, delta {DELTA}), err = realized error on those rows; "
              "repeat = the forward slice (last 20% by time, merchants recur: production-like traffic; cutoff certified on its first half, measured on its second), "
              "unseen = group-held-out test rows (merchants and companies never seen in training).")
     lines = [title, "", "| " + " | ".join(head) + " |", "|" + "---|" * len(head)]
     for r in b.rows:
         variant = "" if r.variant in ("seed+real", "-") else f" ({r.variant})"
         under = [r.source != "baseline" and c.budget < (r.floor or 0.0) for c in r.cells]  # a budget under the floor is not measurable
-        cells = [r.call_site, r.provider, _pct(r.floor), r.candidate + variant + (" †" if r.source == "summary" else ""), str(r.seeds or "-"), str(r.rung or "-"),
+        cells = [r.call_site, r.campaign, r.provider, _pct(r.floor), r.candidate + variant + (" †" if r.source == "summary" else ""), str(r.seeds or "-"), str(r.rung or "-"),
                  _pct(r.cells[HEAD].forward_coverage), _pct(r.cells[HEAD].forward_error),
                  *(_pct(c.test_coverage) + ("*" if u else "") for c, u in zip(r.cells, under, strict=True)), _pct(r.cells[HEAD].test_error), "-" if r.seed_cert_s is None else f"{r.seed_cert_s:.1f}",
                  _both(r, "usd", "{:.2f}".format), _both(r, "p50_ms", _ms), _both(r, "p95_ms", _ms)]
