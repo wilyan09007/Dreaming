@@ -12,7 +12,8 @@
     ENCODER             sentence (default: bge-small, torch) | char (the hashed-trigram fake for `just dev`; must match the trainer's)
     ENCODER_REV         the encoder's pinned revision; the same value must be set for the Modal trainer (predictors/student.py)
     LOGFIRE_TOKEN       optional
-    SENTRY_DSN          optional: errors and traces to Sentry (telemetry.configure; SENTRY_ENV, SENTRY_RELEASE, SENTRY_TRACES tune it)
+    SENTRY_DSN          optional: errors, traces (gen_ai spans per run and routed call) and logs to Sentry (telemetry.configure and
+                        telemetry.instrument; SENTRY_ENV, SENTRY_RELEASE tune it; SENTRY_TRACES is the sample rate, 1.0, 0.05 for batches)
 """
 
 from __future__ import annotations
@@ -33,7 +34,7 @@ from dreaming.store import MemoryStore, PostgresStore, Store
 from dreaming.teachers import Teacher
 from dreaming.teachers.openai_compat import OPENROUTER, PROVIDERS, OpenAICompatTeacher
 from dreaming.teachers.recorded import RecordedTeacher
-from dreaming.telemetry import configure
+from dreaming.telemetry import configure, instrument
 from starlette.routing import Mount
 
 
@@ -88,6 +89,7 @@ def build_runtime(component: Component) -> Runtime:
     import bookkeeper.workflow  # declares the call sites into the registry
 
     rt.bind()
+    instrument(rt)  # Sentry's gen_ai spans; a no-op without SENTRY_DSN
     rt.workflow = bookkeeper.workflow.run_transaction  # type: ignore[attr-defined]
     return rt
 
