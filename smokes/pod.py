@@ -6,7 +6,7 @@ Usage (from the project root):
       --cmd "cd smokes/s14_tool_traces && python run.py" [--pip "tabicl confseq"] [--max-min 60] [--gpu "NVIDIA GeForce RTX 4090"] [--cpu]
 Results: everything under the bundled smoke folders that changed on the pod is tarred back and extracted over the local copy
 (RESULTS.md, log.txt, responses.jsonl, results.json ...). Cost is appended to smokes/COSTS.md."""
-import argparse, base64, io, json, re, sys, tarfile, time, pathlib, requests
+import argparse, base64, io, json, os, re, sys, tarfile, time, pathlib, requests
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 p = argparse.ArgumentParser()
@@ -16,7 +16,8 @@ p.add_argument("--image", default="runpod/pytorch:1.4.1-cu1281-torch280-ubuntu22
 p.add_argument("--pull", nargs="*", default=[], help="project-relative files to fetch from the pod on every poll (partial results survive a vanished pod)")
 p.add_argument("--attach", default=None, help="existing pod id (already booted with this launcher's job script, waiting for a bundle): skip creation and upload to it")
 a = p.parse_args()
-KEY = re.search(r"RUNPODKEY=(\S+)", (ROOT / ".env").read_text()).group(1)
+ENVT = (ROOT / ".env").read_text() if (ROOT / ".env").exists() else ""  # a git worktree has no .env: key from the environment (runenv.py), nothing shipped
+KEY = os.environ.get("RUNPODKEY") or re.search(r"RUNPODKEY=(\S+)", ENVT).group(1)
 GQL = f"https://api.runpod.io/graphql?api_key={KEY}"
 def gql(q):
     r = requests.post(GQL, json={"query": q}, timeout=60).json()
@@ -66,7 +67,7 @@ curl -s -X POST "https://api.runpod.io/graphql?api_key=$RUNPOD_API_KEY" -H 'Cont
 sleep 300
 """
 b64 = lambda s: base64.b64encode(s.encode()).decode()
-env = {"JOB_B64": b64(job), "SERVER_B64": b64(SERVER), "ENV_B64": b64((ROOT / ".env").read_text()), "RUNPOD_API_KEY": KEY}
+env = {"JOB_B64": b64(job), "SERVER_B64": b64(SERVER), "ENV_B64": b64(ENVT), "RUNPOD_API_KEY": KEY}
 env_gql = ", ".join('{key: "%s", value: "%s"}' % (k, v) for k, v in env.items())
 cmd = "bash -c 'echo $JOB_B64 | base64 -d > /job.sh && bash /job.sh'"
 q = f"""mutation {{ podFindAndDeployOnDemand(input: {{ cloudType: COMMUNITY, gpuCount: 1, volumeInGb: 0, containerDiskInGb: 40,

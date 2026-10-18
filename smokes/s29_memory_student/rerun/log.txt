@@ -1,0 +1,13 @@
+[    162s] [embed] 33780 texts in 64.8s
+[    162s] embedded everything in 83s synthetic rows banking/clinc: 761 450 banking labels with synthetic rows: 77 clinc labels: 45
+[    162s] worlds {'banking77': {'K': 77, 'train': 9993, 'test': 3076, 'synthetic': 761, 'seeded_labels': 77}, 'clinc150': {'K': 150, 'train': 15000, 'test': 4500, 'synthetic': 450, 'seeded_labels': 45}, 'clinc45': {'K': 45, 'train': 4500, 'test': 1350, 'synthetic': 450, 'seeded_labels': 45}}
+[    166s] A banking77 k-exact n=77 done in 3s
+[    170s] A banking77 k-exact n=231 done in 4s
+[    175s] A banking77 k-exact n=770 done in 5s
+[    177s] A clinc45 k-exact n=45 done in 2s
+[    179s] A clinc45 k-exact n=135 done in 2s
+[    183s] A clinc45 k-exact n=450 done in 4s
+[    188s] A clinc150 k-exact n=150 done in 4s
+[    193s] A clinc150 k-exact n=450 done in 5s
+[    201s] A clinc150 k-exact n=1500 done in 9s
+[    201s] all sections finished; errors: 0

@@ -1,0 +1,101 @@
+✓ Initialized. View run at 
+https://modal.com/apps/aidenhongg/main/ap-5zF9Oyo2um1GagXLOCBy71
+Building image im-ynfigNwLBiOJ6t8KhM843S
+
+=> Step 0: FROM base
+
+=> Step 1: COPY --from=ghcr.io/astral-sh/uv:latest /uv /.uv/uv
+Getting image source signatures
+Copying blob sha256:cd39911837625b421ad90dd6a33b3ab56470794583bc57d1f665585f3153a159
+Copying blob sha256:f2eb7853ff114dc41ecf9800f9288774bd7d024b8866632399e08a9b8edad190
+Copying config sha256:f6e289b87a320629950d704181c971b5abb074bb26cfeca559d9deb871507007
+Writing manifest to image destination
+Unpacking OCI image
+   • unpacking rootfs ...     
+   • ... done                 
+   • unpacked image rootfs: /tmp/task-data/ta-01M57AZP9SY3X9QDCD5F3QA90B/registry-unpackhpmiX8
+
+=> Step 2: RUN /.uv/uv pip install --python $(command -v python) --compile-bytecode datasets==5.1.0 scikit-learn==1.9.1
+Using Python 3.12.10 environment at: /usr/local
+Resolved 38 packages in 320ms
+Downloading pyarrow (51.4MiB)
+Downloading aiohttp (1.8MiB)
+Downloading pandas (10.3MiB)
+ Downloaded aiohttp
+ Downloaded pandas
+ Downloaded pyarrow
+Prepared 17 packages in 425ms
+Uninstalled 1 package in 6ms
+Installed 17 packages in 150ms
+Bytecode compiled 1945 files in 623ms
+ + aiohappyeyeballs==2.7.1
+ + aiohttp==3.14.5
+ + aiosignal==1.4.0
+ + attrs==26.1.0
+ + datasets==5.1.0
+ + dill==0.4.1
+ + frozenlist==1.8.0
+ - fsspec==2026.9.0
+ + fsspec==2026.7.0
+ + multidict==7.1.0
+ + multiprocess==0.70.19
+ + pandas==3.0.6
+ + propcache==0.5.4
+ + pyarrow==26.0.0
+ + python-dateutil==2.9.0.post0
+ + six==1.17.0
+ + xxhash==4.0.1
+ + yarl==1.25.1
+Saving image...
+Image saved, took 1.96s
+
+Built image im-ynfigNwLBiOJ6t8KhM843S in 6.32s
+
+
+Building image im-EAjRS4mQn0STc9gv6ktGfn
+
+=> Step 0: FROM base
+
+=> Step 1: ENV HF_HUB_DISABLE_PROGRESS_BARS=1
+
+=> Step 2: ENV PYTHONUNBUFFERED=1
+Saving image...
+Image saved, took 941.99ms
+
+Built image im-EAjRS4mQn0STc9gv6ktGfn in 1.95s
+
+
+✓ Created objects.
+├── ✓ Uploaded 
+│   C:\Users\aiden\Desktop\personalprojects\Dreaming-final\.claude\worktrees\wf
+│   _cdcba394-63c-3\smokes\s29_memory_student\modal_ak.py
+└── ✓ Created Function run.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+[1AGenerating train split:   0%|          | 0/9993 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 9993/9993 [00:00<00:00, 883341.69 examples/s]
+
+[1AGenerating test split:   0%|          | 0/3076 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 3076/3076 [00:00<00:00, 690040.07 examples/s]
+
+[1AGenerating train split:   0%|          | 0/15250 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 15250/15250 [00:00<00:00, 1114825.90 examples/s]
+
+[1AGenerating validation split:   0%|          | 0/3100 [00:00<?, ? examples/s]Generating validation split: 100%|██████████| 3100/3100 [00:00<00:00, 582229.20 examples/s]
+
+[1AGenerating test split:   0%|          | 0/5500 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 5500/5500 [00:00<00:00, 856075.70 examples/s]
+[    162s] [embed] 33780 texts in 64.8s
+[    162s] embedded everything in 83s synthetic rows banking/clinc: 761 450 banking labels with synthetic rows: 77 clinc labels: 45
+[    162s] worlds {'banking77': {'K': 77, 'train': 9993, 'test': 3076, 'synthetic': 761, 'seeded_labels': 77}, 'clinc150': {'K': 150, 'train': 15000, 'test': 4500, 'synthetic': 450, 'seeded_labels': 45}, 'clinc45': {'K': 45, 'train': 4500, 'test': 1350, 'synthetic': 450, 'seeded_labels': 45}}
+[    166s] A banking77 k-exact n=77 done in 3s
+[    170s] A banking77 k-exact n=231 done in 4s
+[    175s] A banking77 k-exact n=770 done in 5s
+[    177s] A clinc45 k-exact n=45 done in 2s
+[    179s] A clinc45 k-exact n=135 done in 2s
+[    183s] A clinc45 k-exact n=450 done in 4s
+[    188s] A clinc150 k-exact n=150 done in 4s
+[    193s] A clinc150 k-exact n=450 done in 5s
+[    201s] A clinc150 k-exact n=1500 done in 9s
+[    201s] all sections finished; errors: 0
+wrote ['exit.txt', 'log.txt', 'results.json'] to C:\Users\aiden\Desktop\personalprojects\Dreaming-final\.claude\worktrees\wf_cdcba394-63c-3\smokes\s29_memory_student\rerun exit 0
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/aidenhongg/main/ap-5zF9Oyo2um1GagXLOCBy71
+exit=0
