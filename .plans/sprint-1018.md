@@ -8,9 +8,10 @@ Status: IN_PROGRESS (started 03:00 PDT). Goal text: the `/goal` of the 03:10 ses
 - [x] Review-and-fix workflow (15 agents, 0 errors): campaign, memory, quickbooks, systemone/campaign routes, Sentry, web rewire, speculation, veri, benchmark, S29 — all merged by 05:05
 - [x] Merged; ruff clean, pyright 0, 195 passed / 17 skipped (05:05)
 - [x] Campaign app deployed (v7); tier1-1018-rule-free: 31 cells incl. 4 T4 finetune, $0.06; memory seed+real best on categorize (0.90 unseen / 0.83 repeat); coverage@5% = 0 everywhere (calib ~95 rows) until seed 0 lands
-- [ ] 07:15 seed 0 complete -> upload recorded.jsonl + seeds to the Volume, prepare_site --force, final tier 1 (+ QuickBooks sites), benchmark
+- [x] 06:56 seed 0 complete (8,219 answers, $6.88; 42/2000 transactions with one unparsed step); uploaded; tier1-1018-final (45 cells) done 07:20: memory(seed) 89% unseen coverage on categorize, memory 78% repeat coverage on match_invoice; qb-1018b: bill_account head 93-97% at 5%; tier1-1018-final2 (deduped rows) running 07:30
 - [x] Deploy #2 05:00: designed page live at https://dreaming-demo.fly.dev (TEACHER=rule for QA); demo tables reset
-- [ ] Final deploy: TEACHER=stepfun, RECORDED_SEEDS=0 (or 0,1), full recorded.jsonl + embeddings.npz; demo-reset; replay check
+- [x] Deploy #3 07:31: TEACHER=stepfun (RecordedTeacher), RECORDED_SEEDS=0, recorded.jsonl + embeddings.npz, scores tab, evidence rows, quickbooks in the image; demo-reset 07:33; verification batch of 2,000 running
+- [x] Fetch round trip on the deployed stack passes 07:40 (planner quoted the agent's receipt verbatim)
 - [ ] Visual QA loop round 1 running (05:04): 4 lenses offline + 1 live; fixers in worktrees
 - [x] Benchmark: GET /benchmark(.md) with repeat/unseen columns + accuracy; scores tab merged 05:29 (needs deploy #3); README/Devpost evidence later
 
