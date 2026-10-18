@@ -13,7 +13,7 @@ Status: IN_PROGRESS (started 03:00 PDT). Goal text: the `/goal` of the 03:10 ses
 - [ ] Benchmark table from the campaign; README/Devpost evidence (user-facing text is the user's call)
 
 ## Side quests (parallel, scrap if they run long)
-- [ ] Devin on `hdc` (needs the GitHub app connected by the repo owner)
+- [ ] Devin on `hdc`: session https://app.devin.ai/sessions/a713adfe0fc64befb33e9b2c0f64439f started 04:07 from aidenhongg/dreaming `sprint-1018`; PR expected against that branch
 - [ ] CREAO benchmark-runner agent (after `/campaign/*` deploys)
 - [x] Paper: dreams tab + 3 variants built in Paper by a sibling session (Desktop\paper-variants, file 'Unique yonder'); user closed it 03:40 — claim 'designed in Paper', no more MCP calls
 - [ ] Speculation / DAG parallelism behind `speculate=False`
