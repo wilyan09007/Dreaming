@@ -120,7 +120,7 @@ def arrange(want: dict[str, bool], swap: bool) -> None:
     u.GetMonitorInfoW.argtypes = [H, ctypes.c_void_p]
     u.GetWindowTextLengthW.argtypes, u.IsWindowVisible.argtypes = [H], [H]
     u.GetWindowTextW.argtypes = [H, wintypes.LPWSTR, I]
-    u.ShowWindow.argtypes = [H, I]
+    u.ShowWindow.argtypes, u.SetForegroundWindow.argtypes = [H, I], [H]
     u.SetWindowPos.argtypes = [H, H, I, I, I, I, wintypes.UINT]
 
     class Info(ctypes.Structure):
@@ -164,6 +164,12 @@ def arrange(want: dict[str, bool], swap: bool) -> None:
         u.ShowWindow(hwnd, 9)  # restore, so it can move
         u.SetWindowPos(hwnd, 0, r.left, r.top, r.right - r.left, r.bottom - r.top, 0x0040)
         u.ShowWindow(hwnd, 3)  # maximize on that display
+        for z in (-1, -2):  # topmost, then not: raises it over the terminal, which HWND_TOP from a background process can't
+            u.SetWindowPos(hwnd, z, 0, 0, 0, 0, 0x0003)
+    if first := found.get(next(iter(want))):
+        u.keybd_event(0x12, 0, 0, 0)  # an Alt tap lets this process take the foreground (focus-stealing rule)
+        u.keybd_event(0x12, 0, 2, 0)
+        u.SetForegroundWindow(first)  # the clicker's keys go to the first module
     print(f"  windows   {len(found)}/{len(want)} placed ({len(displays)} display{'s' * (len(displays) > 1)})")
 
 
@@ -211,13 +217,16 @@ def main() -> int:
                 time.sleep(0.05)  # once the first browser owns the profile, the rest open as its windows and exit
             for url in list(urls.values())[1:]:
                 spawn([*flags, f"--app={url}"])
-        if live and api is not None and not up(f"{live}/healthz", 90):
-            print(f"  api       did not come up; log: {tmp / 'api.log'}")
+        api_down = bool(live and api is not None and not up(f"{live}/healthz", 90))
+        if api_down:
+            log = Path(tempfile.gettempdir()) / "dreaming-demo-api.log"  # tmp is removed on exit; keep the log readable
+            shutil.copyfile(tmp / "api.log", log)
+            print(f"  api       did not come up; log: {log} (first run downloads torch: rerun once uv has synced)")
             live = None
         elif live:
             print(f"  live app  {live}/  (up in {time.monotonic() - t0:.1f} s)")
         if a.check:
-            return 0 if check(base, live) else 1
+            return 0 if check(base, live) and not api_down else 1
         if not exe:
             print("  no Chrome or Edge found; open these yourself:", *urls.values(), live or "", sep="\n    ")
             input("  Enter stops the backends ")

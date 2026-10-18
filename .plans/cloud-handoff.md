@@ -20,8 +20,8 @@ Status: IN_PROGRESS. Moved from the laptop session so the team can work on the m
   - Closing the browser stops the API.
 
 ## Open items
-1. **Untested in the windowed run:** after the last two fixes (browser output to DEVNULL; module windows open before the API is up), only `--check` was rerun.
-2. **Windows may open behind other windows.** Windows blocks focus stealing, so the module windows land behind the user's terminal. A SetForegroundWindow/AllowSetForegroundWindow pass, or the `--start-maximized` / `--kiosk` flags, would fix it.
+1. **Windowed run on the laptop, still owed.** It needs a Windows display. Check: 8/8 placed, windows in front, the hook window focused (clicker keys work), and closing the windows stops the API.
+2. **Windows behind the terminal: fixed, untested.** `arrange()` now toggles each window topmost and back, which raises it, then sends an Alt tap and `SetForegroundWindow` to the first module. The Alt tap is the usual way around the focus-stealing rule. If the terminal shows a stray menu highlight, drop the two `keybd_event` lines.
 3. **Not deployed.** Fly (`dreaming-demo`) does not serve `/launch/` until a deploy. Ask the user first: a deploy restarts the live app.
 4. **Secrets.** Deploys (Fly), Modal, StepFun and Supabase need the `.env` names below in the cloud environment's variables. Names only; the user must add the values:
    - Deploy and run: FLY_API_TOKEN, STEPFUNKEY, DATABASE_URL, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, MODAL_TOKEN_ID, MODAL_TOKEN_SECRET, AGENTVERSEKEY, AGENT_SEED, ASI1KEY, OPENROUTERKEY.
@@ -29,3 +29,8 @@ Status: IN_PROGRESS. Moved from the laptop session so the team can work on the m
 
 ## How to run the demo (on the laptop)
 `git pull && python launch_demo.py`. A subset: `python launch_demo.py race bench`. The deployed live app: `--url https://dreaming-demo.fly.dev`.
+
+## Cloud session (2026-10-18)
+- First `--check` in a fresh container: the API missed its 90 s window because `uv` was downloading torch and the CUDA wheels (about 3 GB). `--check` still said OK. Fixed: `--check` now exits 1 when the API doesn't come up, and the API log is copied to `<tmp>/dreaming-demo-api.log` (it was deleted on exit). After `uv sync --all-packages`: 18/18 pages, API up in 6.4 s, exit 0.
+- Deck QA in headless Chromium at 1600x900 and 1280x720: all 7 `?only=` modules load with no console errors and no failed requests. Arrow keys walk hook → close. Build's Run it settles at 11.52 s / 138 ms and $3.38 / $0.67, the same as Race.
+- This container has no secrets and no `flyctl`, so a deploy (item 3) has to run from the laptop, or from here once the env vars are added.
