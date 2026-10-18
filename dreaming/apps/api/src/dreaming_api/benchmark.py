@@ -8,7 +8,10 @@
 A candidate row is its top rung, averaged over the seeds that reached it. Per budget the cutoff is certified with gate.certify on the calib
 split of the stored scores (delta = Thresholds().delta, per candidate: the runtime's delta/N applies when it chooses among N) and measured on
 the test split, held out by group: `coverage` is the certificate's (calib rows above the cutoff), `test_coverage` and `test_error` are what that
-cutoff does on rows it never saw, the numbers to quote. Correctness is `labels[pred] == the EvalSet label`, or the npz's `ok` array when the cell
+cutoff does on merchants or companies it never saw (the generalization case). The `forward` slice (the last 20% by time, repeat merchants allowed:
+the production-like case, "repeat traffic") gets its own cutoff, certified on its first half by time and measured on its second half
+(`forward_coverage`, `forward_error`); empty when the scores hold fewer than 2 forward rows or were not recomputed (a summary keeps only
+acc_forward), and the notes say so. Both are quoted: on a site whose group split is dominated by one merchant they differ a lot. Correctness is `labels[pred] == the EvalSet label`, or the npz's `ok` array when the cell
 wrote one. Scores that cannot be loaded or scored fall back to the checkpoint's own summary (`source="summary"`, no calib coverage) and say why in `notes`.
 Cost and latency are projections from the site's measured teacher calls (trace rows), the test coverage at the 5% budget and the audit rate, plus the
 checkpoint's measured head time and, where the cell read precomputed vectors, an estimated embedding time. Audits run off the critical path.
@@ -56,6 +59,8 @@ class Cell(BaseModel):
     coverage: float | None  # calib rows at or above the certified cutoff; 0 when nothing certifies; None from a summary
     test_coverage: float | None  # the same cutoff on the held-out test rows
     test_error: float | None  # realized error above it on test; None when nothing is above it
+    forward_coverage: float | None = None  # a cutoff certified on the first half of the forward slice, its coverage on the second half; None without forward scores
+    forward_error: float | None = None  # realized error above it on that second half; None when nothing is above it
 
 
 class Money(BaseModel):  # per 1,000 calls
@@ -129,12 +134,17 @@ def _scored_cells(z: Scores, sets: Sequence[EvalSet], labels: Sequence[str] | No
     else:  # the npz rows are calib, test, forward in the order of the EvalSets; zip(strict) is the check that these are the sets the cell scored
         truth = [t for es in sets for t in es.labels]
         ok = np.array([0 <= p < len(labels) and labels[p] == t for p, t in zip(np.asarray(z["pred"]).tolist(), truth, strict=True)], bool)
-    (cc, co), (tc, to) = ((conf[code == k], ok[code == k]) for k in (0, 1))
+    (cc, co), (tc, to), (fc, fo) = ((conf[code == k], ok[code == k]) for k in (0, 1, 2))
+    h = len(fc) // 2  # the forward rows are in time order (campaign.split): the first half certifies, the second is what the cutoff is measured on
     out: list[Cell] = []
     for b in BUDGETS:
         g = certify(cc, co, b, DELTA)
         cov, err = realized(tc, to, g.cutoff) if g.certified else (0.0, 0.0)
-        out.append(Cell(budget=b, coverage=g.coverage, test_coverage=cov, test_error=err if cov else None))
+        fcov = ferr = None
+        if h:
+            fg = certify(fc[:h], fo[:h], b, DELTA)
+            fcov, ferr = realized(fc[h:], fo[h:], fg.cutoff) if fg.certified else (0.0, 0.0)
+        out.append(Cell(budget=b, coverage=g.coverage, test_coverage=cov, test_error=err if cov else None, forward_coverage=fcov, forward_error=ferr if fcov else None))
     return out
 
 
@@ -238,7 +248,8 @@ def table(store: Store, scores: ScoresLoader, baselines: Baselines | None = quic
         scored = [scorer.cells(site, ck) for ck in picked]
         per_seed = [cells for cells, _ in scored]
         merged = [Cell(budget=b, coverage=_mean([c[i].coverage for c in per_seed]), test_coverage=_mean([c[i].test_coverage for c in per_seed]),
-                       test_error=_mean([c[i].test_error for c in per_seed])) for i, b in enumerate(BUDGETS)]
+                       test_error=_mean([c[i].test_error for c in per_seed]), forward_coverage=_mean([c[i].forward_coverage for c in per_seed]),
+                       forward_error=_mean([c[i].forward_error for c in per_seed])) for i, b in enumerate(BUDGETS)]
         alone = dreamed = None
         if site not in calls:
             calls[site] = [r.teacher for r in store.rows(site, limit=TRACE_ROWS) if r.teacher]
@@ -254,6 +265,9 @@ def table(store: Store, scores: ScoresLoader, baselines: Baselines | None = quic
         rows.append(Row(call_site=site, provider=provider, floor=floor, candidate=cand, variant=variant, seeds=len(picked), rung=top[site, cand, variant],
                         stable=all(ck.stable for ck in picked), source="scores" if all(ok for _, ok in scored) else "summary", cells=merged,
                         seed_cert_s=_mean(seed_s[site, cand]), without_dreaming=alone, with_dreaming=dreamed))
+    notes += [f"{r.call_site} {r.candidate} {r.variant}: no repeat-traffic (forward) numbers: "
+              + ("the scores were not recomputed and a checkpoint summary keeps only acc_forward" if r.source == "summary" else "the scores hold fewer than 2 forward rows")
+              for r in rows if r.cells[HEAD].forward_coverage is None]
     if embed_est:
         notes.append(f"latency with Dreaming adds est. {EMBED_MS} ms to embed (S7, a free core; Fly's shared CPU measured ~300 ms) for {', '.join(sorted(embed_est))}: "
                      "those cells read precomputed vectors")
@@ -298,15 +312,17 @@ def _both(r: Row, field: str, fmt: Callable[[float], str]) -> str:
 
 
 def markdown(b: Benchmark) -> str:
-    head = ["site", "provider", "floor", "candidate", "seeds", "rows seen", *(f"cov {round(x * 100)}%" for x in BUDGETS), "err 5%", "seed-only cert s",
-            "$/1k alone / with", "p50 ms alone / with", "p95 ms alone / with"]
-    title = (f"Provider benchmark, campaign `{b.campaign}`. cov = share of held-out test rows answered at a certified error budget (Clopper-Pearson, delta {DELTA}); "
-             "err = realized error on those rows.")
+    head = ["site", "provider", "floor", "candidate", "seeds", "rows seen", "repeat cov 5%", "repeat err 5%", *(f"unseen cov {round(x * 100)}%" for x in BUDGETS),
+            "unseen err 5%", "seed-only cert s", "$/1k alone / with", "p50 ms alone / with", "p95 ms alone / with"]
+    title = (f"Provider benchmark, campaign `{b.campaign}`. cov = share of rows answered at a certified error budget (Clopper-Pearson, delta {DELTA}), err = realized error on those rows; "
+             "repeat = the forward slice (last 20% by time, merchants recur: production-like traffic; cutoff certified on its first half, measured on its second), "
+             "unseen = group-held-out test rows (merchants and companies never seen in training).")
     lines = [title, "", "| " + " | ".join(head) + " |", "|" + "---|" * len(head)]
     for r in b.rows:
         variant = "" if r.variant in ("seed+real", "-") else f" ({r.variant})"
         under = [r.source != "baseline" and c.budget < (r.floor or 0.0) for c in r.cells]  # a budget under the floor is not measurable
         cells = [r.call_site, r.provider, _pct(r.floor), r.candidate + variant + (" †" if r.source == "summary" else ""), str(r.seeds or "-"), str(r.rung or "-"),
+                 _pct(r.cells[HEAD].forward_coverage), _pct(r.cells[HEAD].forward_error),
                  *(_pct(c.test_coverage) + ("*" if u else "") for c, u in zip(r.cells, under, strict=True)), _pct(r.cells[HEAD].test_error), "-" if r.seed_cert_s is None else f"{r.seed_cert_s:.1f}",
                  _both(r, "usd", "{:.2f}".format), _both(r, "p50_ms", _ms), _both(r, "p95_ms", _ms)]
         lines.append("| " + " | ".join(cells) + " |")

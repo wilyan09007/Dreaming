@@ -4,7 +4,7 @@ Routes (bodies and replies are contracts.py models, so the OpenAPI schema is the
 
     GET  /healthz                      Health: db probed ("ok" or the error); trainer, teacher, realtime reported as configured
     GET  /state                        State: sites (policy, certificate, cost awake vs dreaming), budget, metrics, series, runs, batch, config,
-                                       and the spares' certificates (PageState)
+                                       and the spares' certificates
     POST /batch {n}                    start fast-forward of n transactions (409 while one runs)
     POST /batch/pause · /batch/resume  the run button's pause and resume
     POST /budget {budget}              re-certify every site at the new budget (pure gate, milliseconds); 422 below the teacher's measured floor
@@ -32,7 +32,6 @@ from collections.abc import Awaitable, Callable, Iterable
 from pathlib import Path
 
 from dreaming.contracts import (
-    Certificate,
     Component,
     Event,
     EventKind,
@@ -51,7 +50,7 @@ from dreaming.runtime import Runtime
 from dreaming.telemetry import TRACE, emit
 from fastapi import FastAPI, HTTPException, Query, Request, Response
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 from .benchmark import benchmark_router, volume_scores
 from .campaign_routes import router as campaign_router
@@ -73,13 +72,6 @@ class OutageIn(BaseModel):
 
 class RunIn(BaseModel):
     input: Json
-
-
-class PageState(State):
-    """State plus the spares' certificates by id (Policy.shadow[name].cert_id): the dream journal's candidate rows print their bound.
-    shortcut: lives here, not in contracts.State, so the generated schema is untouched; move it there with the next `just schema`."""
-
-    spare_certificates: dict[str, Certificate] = Field(default_factory=dict)
 
 
 def create_app(runtime: Runtime | None = None, inputs: Iterable[Json] | None = None, inject: Callable[[str, bool], None] | None = None) -> FastAPI:
@@ -107,7 +99,7 @@ def create_app(runtime: Runtime | None = None, inputs: Iterable[Json] | None = N
                       profile={k: str(v) for k, v in env_profile().items()})
 
     @app.get("/state")
-    def state() -> PageState:
+    def state() -> State:
         views: list[SiteView] = []
         for s in rt.sites.values():
             p = rt.policies[s.id]
@@ -117,7 +109,7 @@ def create_app(runtime: Runtime | None = None, inputs: Iterable[Json] | None = N
         series = [Metrics.model_validate(e.data["metrics"]) for e in rt.store.events(limit=2000) if e.kind == "batch.progress"]
         config = {k: os.environ[v] for k, v in (("supabase_url", "SUPABASE_URL"), ("supabase_publishable_key", "SUPABASE_PUBLISHABLE_KEY")) if os.environ.get(v)}
         spares = {s.cert_id: rt.store.certificate(s.cert_id) for v in views for s in v.policy.shadow.values() if s.cert_id}
-        return PageState(sites=views, budget=rt.budget, metrics=rt.metrics(), series=series, runs=rt.store.runs(limit=50),
+        return State(sites=views, budget=rt.budget, metrics=rt.metrics(), series=series, runs=rt.store.runs(limit=50),
                          first_run=rt.store.first_run(), batch=rt.batch, config=config, spare_certificates=spares)
 
     @app.post("/batch")

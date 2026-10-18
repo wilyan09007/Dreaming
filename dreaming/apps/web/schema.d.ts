@@ -237,6 +237,7 @@ export interface State {
   first_run?: Run | null;
   batch: Batch;
   config?: Config;
+  spare_certificates?: SpareCertificates;
 }
 /**
  * One call site as the page shows it: the declaration, its state, its promise, and what a call costs awake vs dreaming.
@@ -407,6 +408,9 @@ export interface Batch {
 }
 export interface Config {
   [k: string]: string;
+}
+export interface SpareCertificates {
+  [k: string]: Certificate;
 }
 export interface RunView {
   run: Run;

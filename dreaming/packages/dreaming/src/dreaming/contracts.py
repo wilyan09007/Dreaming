@@ -324,6 +324,7 @@ class State(BaseModel):
     first_run: Run | None = None  # run 1, kept on the receipt list for contrast
     batch: Batch
     config: dict[str, str] = Field(default_factory=dict)  # supabase_url, supabase_publishable_key: what Realtime needs
+    spare_certificates: dict[str, Certificate] = Field(default_factory=dict)  # Policy.shadow[name].cert_id -> its certificate: the journal prints the spares' bounds
 
 
 class RunView(BaseModel):
