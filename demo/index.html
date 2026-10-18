@@ -1,0 +1,908 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dreaming</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,400..700&display=swap">
+<style>
+:root{
+  --ink:#2B2B33;--muted:#5C5A66;--faint:#8E8B98;--paper:#FFFEFB;--dot:#DCD8E4;
+  --purple:#6A4FD8;--green:#1E7A55;--red:#9A2F2F;--lav:#B39DFF;
+  --hand:'Gaegu','Comic Sans MS',cursive;
+  --body:'Bricolage Grotesque','Trebuchet MS',sans-serif;
+  --mono:ui-monospace,'Cascadia Mono',Consolas,monospace;
+  --lift:4px 5px 0 rgba(43,43,51,.13);
+}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background-color:var(--paper);background-image:radial-gradient(circle,var(--dot) 1.1px,transparent 1.4px);background-size:22px 22px;color:var(--ink);font-family:var(--body);overflow-x:hidden}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--purple);outline-offset:3px}
+[hidden]{display:none!important}
+h1,h2,b,output{font-family:var(--hand);font-weight:700}
+h1,h2,p{margin:0}
+p{text-wrap:pretty}
+.nw{white-space:nowrap}
+
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes rain{0%{transform:translateY(-2px);opacity:0}50%{opacity:1}100%{transform:translateY(4px);opacity:0}}
+@keyframes pulse{50%{transform:rotate(10deg) scale(1.14)}}
+@keyframes pop{0%,100%{transform:rotate(var(--rot)) scale(1)}35%{transform:rotate(var(--rot)) scale(1.1)}}
+@keyframes fadein{from{opacity:0;transform:translateY(4px)}}
+.bob{animation:bob 2.4s ease-in-out infinite;transform-box:fill-box}
+.drop{animation:rain 1.2s linear infinite;transform-box:fill-box}
+.d2{animation-delay:.4s}.d3{animation-delay:.8s}
+
+/* soft crayon clouds behind the page */
+.blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.blobs i{position:absolute;filter:blur(18px)}
+.app{position:relative;z-index:1;max-width:1640px;margin:0 auto;padding:18px 32px 16px;display:flex;flex-direction:column;gap:16px}
+
+/* header */
+.top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:18px}
+.top .saved{justify-self:end}
+.brand{justify-self:start;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand span{display:flex;flex-direction:column}
+.brand b{font-size:36px;line-height:.9}
+.tabs{display:flex;align-items:flex-end;gap:14px}
+.tab{position:relative;width:62px;height:62px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;text-decoration:none;color:var(--ink);font-family:var(--hand);font-size:15px;font-weight:700;box-shadow:2px 3px 0 rgba(43,43,51,.12)}
+.tab svg{width:28px;height:28px}
+.tab[aria-current=page]{width:74px;height:74px;font-size:16px;box-shadow:3px 5px 0 rgba(43,43,51,.14)}
+.tab[aria-current=page] svg{width:32px;height:32px}
+.tab[aria-current=page]::before{content:"";position:absolute;left:19px;top:-10px;width:36px;height:16px;background:var(--tape);transform:rotate(4deg)}
+.t-flows{background:#FFE58F;transform:rotate(-3deg);--tape:rgba(179,157,255,.55)}
+.t-dreams{background:#E2D9FF;transform:rotate(2.5deg);--tape:rgba(255,209,102,.6)}
+.t-replay{background:#CFE8FF;transform:rotate(-1.5deg);--tape:rgba(255,138,128,.5)}
+.saved{position:relative;display:flex;align-items:center;gap:12px;padding:10px 20px 10px 14px;background:#FFF3A8;box-shadow:3px 5px 0 rgba(43,43,51,.14);transform:rotate(2deg)}
+.saved::before{content:"";position:absolute;right:24px;top:-9px;width:44px;height:16px;background:rgba(127,183,255,.5);transform:rotate(-5deg)}
+.saved>span{display:flex;flex-direction:column;line-height:1}
+.saved small{font-family:var(--hand);font-weight:700;font-size:16px}
+.saved b{font-size:34px;min-width:5.2ch}
+
+/* flows: the canvas */
+.canvas{border:2.5px solid var(--ink);border-radius:22px 30px 24px 34px/30px 22px 34px 24px;background:rgba(255,254,251,.6);box-shadow:5px 6px 0 rgba(43,43,51,.1);padding:16px 24px 14px}
+.canvas-head{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:10px 24px}
+.canvas-head>div:first-child{flex:1 1 420px;min-width:0}
+.canvas h1{font-size:40px;line-height:1}
+.narrate{margin-top:4px;min-height:27px;font-family:var(--hand);font-weight:700;font-size:21px;line-height:1.25;color:var(--purple)}
+.narrate.idle{color:var(--muted)}
+.narrate span{display:inline-block;animation:fadein .35s ease-out}
+.narrate mark{color:inherit;background:linear-gradient(transparent 55%,#FFE58F 55% 92%,transparent 92%)}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:16px}
+.count{white-space:nowrap;font-family:var(--hand);font-weight:700;font-size:22px;color:var(--muted);min-width:7.5ch;text-align:right}
+.btn-run{display:flex;align-items:center;gap:9px;height:54px;padding:0 24px;border:2.5px solid var(--ink);border-radius:28px 34px 30px 26px/30px 26px 34px 28px;background:#FF8A80;font-family:var(--hand);font-size:26px;font-weight:700;box-shadow:3px 4px 0 var(--ink);cursor:pointer;white-space:nowrap}
+.btn-run:active{transform:translate(2px,3px);box-shadow:1px 1px 0 var(--ink)}
+.btn-run.on{background:#fff}
+.stage-wrap{position:relative;margin-top:10px}
+.stage{position:absolute;left:0;top:0;width:1200px;height:330px;transform-origin:0 0}
+.stage>svg{position:absolute;left:0;top:0;overflow:visible}
+.dots g.off{display:none}
+.blbl{position:absolute;font-family:var(--hand);font-weight:700;font-size:19px;color:var(--muted)}
+
+.node{position:absolute;height:84px;display:flex;align-items:center;gap:10px;padding:0 10px;background:#fff;border:2px solid var(--ink);border-radius:6px 12px 8px 14px/12px 6px 14px 8px;box-shadow:var(--lift);transform:rotate(var(--rot));text-align:left;transition:box-shadow .35s,background .35s}
+button.node{cursor:pointer}
+button.node:hover{box-shadow:5px 7px 0 rgba(43,43,51,.2)}
+.node .blob{flex:none;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:55% 45% 60% 40%/45% 55% 45% 55%}
+.node .txt{display:flex;flex-direction:column;min-width:0;line-height:1}
+.node b{font-size:22px;line-height:.95}
+.node .who{margin-top:3px;font-size:12px;line-height:1.2;color:var(--muted)}
+.node .badge{position:absolute;right:-15px;top:-17px;width:40px;height:40px;border-radius:50%;border:2px solid var(--ink);background:#fff;display:flex;align-items:center;justify-content:center;transform:rotate(10deg)}
+.node.round{width:96px;height:96px;padding:0;justify-content:center;border-radius:50% 46% 54% 48%/48% 54% 46% 50%;background:#FFE9D6}
+.node.round .badge{right:auto;left:-20px;top:-10px}
+.node .rlabel{position:absolute;left:50%;top:104px;width:170px;margin-left:-93px;display:flex;flex-direction:column;align-items:center;text-align:center;line-height:1}
+.node.dreaming,button.node.dreaming:hover{box-shadow:5px 6px 0 var(--lav)}
+.node.dreaming::after{content:"";position:absolute;left:50%;top:-11px;width:54px;height:18px;margin-left:-27px;background:rgba(255,209,102,.6);transform:rotate(-4deg)}
+.node.round.dreaming::after{width:44px;margin-left:-12px}
+.node.dreaming .badge{background:#F3EFFF}
+.node.testing .badge{animation:pulse 1s ease-in-out infinite}
+.node.down{border-style:dashed;background:#F3F3F6}
+.node.down .blob{filter:grayscale(1);opacity:.7}
+.node.down .badge{background:#DCE3F5}
+.node.pop{animation:pop .6s ease-out}
+.plug{position:absolute;display:flex;align-items:center;gap:6px;height:40px;padding:0 14px 0 9px;border:2px solid var(--ink);border-radius:20px 24px 22px 18px;background:#FFE58F;font-family:var(--hand);font-size:19px;font-weight:700;box-shadow:2px 3px 0 var(--ink);transform:rotate(-2deg);cursor:pointer;white-space:nowrap}
+.plug[aria-pressed=true]{background:#7BD8B4}
+.note{position:absolute;width:190px;font-family:var(--hand);font-weight:700;font-size:21px;line-height:1;color:var(--purple);pointer-events:none}
+.note span{display:block;transform:rotate(-3deg);text-wrap:balance}
+.note svg{position:absolute;overflow:visible}
+.note.fresh{animation:fadein .45s ease-out}
+
+/* flows: the four lines */
+.charts{border:2px solid var(--ink);border-radius:12px 18px 14px 20px/18px 12px 20px 14px;background:#fff;box-shadow:5px 6px 0 rgba(43,43,51,.1);padding:12px 22px 12px}
+.charts-head{display:flex;align-items:baseline;gap:12px}
+.charts h2{font-size:26px;line-height:1}
+.charts-head span{font-family:var(--hand);font-weight:700;font-size:17px;color:var(--muted)}
+.cells{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:6px}
+.cell{position:relative;min-width:0;display:flex;flex-direction:column;padding:0 20px;border-left:2px dashed #E3E0EA}
+.cell:first-child{border-left:0;padding-left:0}
+.cell:last-child{padding-right:0}
+.cell .lbl{display:block;margin-bottom:2px;font-family:var(--hand);font-weight:700;font-size:18px;line-height:1;color:var(--muted)}
+.cell .row{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 8px;margin-bottom:4px}
+.cell .val{font-size:32px;line-height:1.15;white-space:nowrap}
+.cell .was{font-family:var(--hand);font-weight:700;font-size:17px;color:var(--muted)}
+.cell .was.alarm{color:var(--red)}
+.cell svg{display:block;width:100%;height:56px;margin-top:auto;overflow:visible}
+
+/* dreams */
+.dreams{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(330px,1fr);gap:28px;align-items:start}
+.journal{position:relative;padding:22px 26px 20px 78px;background-color:#fff;background-image:repeating-linear-gradient(#fff 0 47px,#D7E6F7 47px 48px);border:2px solid var(--ink);border-radius:10px 18px 12px 20px/18px 10px 20px 12px;box-shadow:6px 7px 0 rgba(43,43,51,.1)}
+.journal::before{content:"";position:absolute;left:56px;top:0;bottom:0;width:2px;background:#FFB3AE}
+.hole{position:absolute;left:18px;width:18px;height:18px;border-radius:50%;border:2px solid #D9D5E2;background:var(--paper)}
+.jhead{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px}
+.journal h1{font-size:44px;line-height:1}
+.jhead span{padding-right:12px;font-size:13px;color:var(--muted)}
+.jrows{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.jrow{width:100%;min-height:84px;display:grid;grid-template-columns:54px minmax(0,1fr) auto;align-items:center;gap:18px;padding:6px 12px;border:0;border-radius:12px 18px 14px 20px;background:transparent;text-align:left;cursor:pointer}
+.jrow:hover{background:rgba(43,43,51,.035)}
+.jrow[aria-pressed=true]{background:rgba(226,217,255,.38)}
+.jicon{display:flex;align-items:center;justify-content:center;width:54px;height:54px}
+.jtext{display:flex;flex-direction:column;line-height:1;min-width:0}
+.jtext b{font-size:30px;align-self:flex-start}
+.jrow[aria-pressed=true] .jtext b{background:linear-gradient(transparent 55%,#FFE58F 55% 90%,transparent 90%)}
+.jstatus{margin-top:4px;font-size:14px;line-height:1.25;color:var(--muted)}
+.jcost{display:flex;align-items:center;gap:6px;font-family:var(--hand);font-weight:700;font-size:24px;line-height:1;white-space:nowrap}
+.jcost s{color:var(--faint)}
+.jcost em{font-style:normal;color:var(--green)}
+/* a crayon slash instead of line-through, which turns a Gaegu "1" into "+" */
+.jcost s,.ccost s{text-decoration:none;background:linear-gradient(to top right,transparent calc(50% - 1px),#8E8B98 calc(50% - 1px) calc(50% + 1px),transparent calc(50% + 1px))}
+.jcost.dim,.rc{opacity:.5}
+.jfoot{margin-top:12px;font-family:var(--hand);font-weight:700;font-size:19px;color:var(--muted)}
+.side{display:flex;flex-direction:column;gap:20px}
+.card{position:relative;background:#fff;border:2px solid var(--ink)}
+.budget{padding:18px 22px 18px;border-radius:12px 18px 14px 20px/18px 12px 20px 14px;box-shadow:5px 6px 0 rgba(43,43,51,.1);transform:rotate(-.6deg)}
+.bhead{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.budget h2{font-size:30px;line-height:1}
+.budget output{font-size:44px;line-height:1}
+.budget input{width:100%;height:28px;margin:6px 0 0;accent-color:var(--purple)}
+.ticks{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.bnote{margin-top:10px;font-size:14px;line-height:1.4}
+.bnow{margin-top:10px;padding-top:10px;border-top:2px dashed #E3E0EA;font-size:14px;color:var(--muted)}
+.bnow b{font-size:22px;color:var(--ink)}
+.cert{padding:20px 22px 16px;border-radius:16px 22px 14px 24px/22px 14px 24px 16px;box-shadow:6px 7px 0 #FFD166;transform:rotate(.5deg)}
+.cert::before{content:"";position:absolute;left:44%;top:-12px;width:70px;height:22px;background:rgba(179,157,255,.5);transform:rotate(-3deg)}
+.chead{display:flex;align-items:center;gap:12px;min-height:40px}
+.chead h2{font-size:30px;line-height:1}
+.promise{margin-top:10px;font-family:var(--hand);font-weight:700;font-size:40px;line-height:1}
+.promise.soft{color:var(--faint);font-size:32px;line-height:40px}
+.sheep{display:flex;align-items:center;gap:4px;margin-top:12px}
+.sheep svg{width:30px;height:27px}
+.sheep small{margin-left:8px;font-size:13px;color:var(--muted);white-space:nowrap}
+.cline{margin-top:8px;font-size:14px;line-height:1.4;text-wrap:balance}
+.split{display:flex;height:22px;margin-top:14px;border:2px solid var(--ink);border-radius:12px 16px 12px 16px;overflow:hidden;background:#FFF3A8}
+.split i{display:block;height:100%;background:repeating-linear-gradient(-45deg,#B39DFF 0 8px,#CDBEFF 8px 14px);transition:width .5s ease}
+.legend{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:6px;font-size:13px}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border:1.5px solid var(--ink);border-radius:50%}
+.ccost{margin-top:12px;font-family:var(--hand);font-weight:700;font-size:24px}
+.ccost s{color:var(--faint)}.ccost em{font-style:normal;color:var(--green)}
+.fine{margin-top:10px;padding-top:10px;border-top:2px dashed #E3E0EA;font-size:13px;line-height:1.5;color:var(--muted)}
+.fine code,.trow code{font-family:var(--mono);font-size:13px}
+.hint{margin-top:10px;font-family:var(--hand);font-weight:700;font-size:20px;color:var(--purple)}
+
+/* replay */
+.replay{display:grid;grid-template-columns:minmax(290px,.8fr) minmax(0,1.6fr);gap:30px;align-items:start}
+.runs h1{font-size:46px;line-height:1}
+.rsub{margin-top:6px;font-size:14px;line-height:1.4;color:var(--muted);max-width:36ch}
+.receipts{list-style:none;margin:20px 0 0;padding:0 6px 0 2px;display:flex;flex-direction:column;gap:14px}
+.receipt{position:relative;width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:2px 12px;padding:10px 14px;border:2px solid transparent;border-radius:4px 9px 6px 11px/9px 4px 11px 6px;background:#fff;box-shadow:var(--lift);text-align:left;cursor:pointer;transform:rotate(var(--rot))}
+.receipt:hover{box-shadow:5px 7px 0 rgba(43,43,51,.2)}
+.receipt[aria-pressed=true]{border-color:var(--ink);box-shadow:5px 6px 0 var(--lav)}
+.receipt .m{font-family:var(--mono);font-size:13px;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.receipt .a{font-family:var(--hand);font-weight:700;font-size:24px;line-height:1}
+.receipt .meta{grid-column:1/-1;font-size:13px;color:var(--muted)}
+.trace{padding:22px 26px 18px;border-radius:12px 20px 14px 22px/20px 12px 22px 14px;box-shadow:6px 7px 0 rgba(43,43,51,.1)}
+.trace::before{content:"";position:absolute;left:42%;top:-12px;width:70px;height:22px;background:rgba(127,183,255,.5);transform:rotate(2deg)}
+.trace-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+.trace h2{font-size:36px;line-height:1}
+.tsub{margin-top:4px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.pill{display:flex;align-items:center;gap:8px;height:50px;padding:0 22px;border:2.5px solid var(--ink);border-radius:26px 30px 28px 24px/28px 24px 30px 26px;background:#7BD8B4;font-family:var(--hand);font-size:24px;font-weight:700;box-shadow:3px 4px 0 var(--ink);cursor:pointer;white-space:nowrap;text-decoration:none;color:var(--ink)}
+.pill:active{transform:translate(2px,3px);box-shadow:1px 1px 0 var(--ink)}
+.pill:disabled{cursor:default;opacity:.65}
+#rbtn{min-width:230px;justify-content:center}
+.trows{list-style:none;margin:16px 0 0;padding:0}
+.trow{display:grid;grid-template-columns:140px minmax(0,1fr) 140px minmax(0,1.3fr);align-items:center;gap:12px;min-height:58px;margin:0 -10px;padding:0 10px;border-top:2px dashed #E3E0EA}
+.trow:first-child{border-top:0}
+.trow>b{font-size:22px;line-height:1}
+.tans{font-size:15px;font-weight:600}
+.tby{display:flex;align-items:center;gap:7px;font-family:var(--hand);font-weight:700;font-size:19px}
+.tres{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-family:var(--hand);font-weight:700;font-size:19px}
+.tres .ok{color:var(--green);white-space:nowrap}
+.tres .log{color:var(--muted);white-space:nowrap}
+.tres .busy{color:var(--purple)}
+.trow.busy{background:rgba(226,217,255,.25)}
+.tsum.pre{color:var(--muted)}
+.tsum{margin-top:12px;min-height:52px;line-height:26px;font-family:var(--hand);font-weight:700;font-size:21px;color:var(--purple)}
+.pinned{margin-top:8px;padding-top:10px;border-top:2px dashed #E3E0EA;font-size:13px;color:var(--muted)}
+.empty{display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:12px 0 6px}
+.empty p{font-size:15px;color:var(--muted)}
+
+@media (max-width:760px){.top{display:flex;flex-wrap:wrap;justify-content:space-between}.stage-wrap{overflow-x:auto;overflow-y:hidden}}
+/* recording at 1920x1080: the flows graph scales itself; scale the other two tabs to match */
+@media (min-width:1700px) and (min-height:1000px){#v-dreams,#v-replay{zoom:1.18}}
+/* short screens (1280x720): tighten the dreams column so the promise card fits without scrolling */
+@media (max-height:780px){.side{gap:14px}.budget{padding:12px 20px}.bnote,.bnow{margin-top:6px}.bnow{padding-top:6px}.cert{padding:14px 20px 12px}.promise{margin-top:6px}.sheep{margin-top:8px}.cline{margin-top:6px}.split{margin-top:10px}.ccost{margin-top:8px}.fine{margin-top:6px;padding-top:6px}
+.receipts{gap:9px;margin-top:12px}.receipt{padding:6px 12px}}
+@media (max-width:1000px){
+  .dreams,.replay{grid-template-columns:minmax(0,1fr)}
+  .cells{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:14px}
+  .cell:nth-child(3){border-left:0;padding-left:0}
+  .cell .lbl{min-height:36px}
+  .trow{grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding:8px 0}
+}
+@media (max-width:600px){
+  .app{padding:14px 16px 20px}
+  .journal{padding-left:56px}.journal::before{left:40px}.hole{left:12px}
+  .jrow{grid-template-columns:44px minmax(0,1fr);gap:12px}.jcost{grid-column:2;align-items:flex-start}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.dots{display:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="roughl" filterUnits="userSpaceOnUse" x="-20" y="-20" width="340" height="96"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="3.2"/></filter><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="3.2"/></filter></svg>
+
+<div class="blobs" aria-hidden="true">
+  <i style="left:-80px;top:380px;width:420px;height:300px;border-radius:58% 42% 63% 37%/45% 55% 45% 55%;background:#FFD6E0;opacity:.45"></i>
+  <i style="right:-60px;top:-40px;width:460px;height:280px;border-radius:40% 60% 45% 55%/60% 40% 60% 40%;background:#D4E6FF;opacity:.55"></i>
+  <i style="right:18%;bottom:-80px;width:520px;height:260px;border-radius:55% 45% 50% 50%/40% 60% 40% 60%;background:#DDF5E8;opacity:.55"></i>
+  <i style="left:30%;top:40px;width:300px;height:160px;border-radius:45% 55% 60% 40%/55% 45% 55% 45%;background:#FFF0C2;opacity:.5"></i>
+</div>
+
+<div class="app">
+<header class="top">
+  <a class="brand" href="#flows" aria-label="Dreaming home">
+    <svg width="58" height="46" viewBox="0 0 58 46" style="filter:url(#rough)" aria-hidden="true"><path d="M12 38h30a9 9 0 0 0 1.5-17.9A13 13 0 0 0 18.6 17 10 10 0 0 0 12 38z" fill="#EDE7FF" stroke="#2B2B33" stroke-width="2.2" stroke-linejoin="round"/><path d="M20 29q2.5 2.4 5 0M30 29q2.5 2.4 5 0" fill="none" stroke="#2B2B33" stroke-width="2" stroke-linecap="round"/><path class="bob" d="M44 4h6l-6 7h6M51 13h4l-4 5h4" fill="none" stroke="#6A4FD8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span><b>dreaming</b><svg width="128" height="8" viewBox="0 0 128 8" aria-hidden="true"><path d="M2 5 Q12 1 22 5" fill="none" stroke="#FF8A80" stroke-width="3" stroke-linecap="round"/><path d="M24 5 Q34 1 44 5" fill="none" stroke="#FFB84D" stroke-width="3" stroke-linecap="round"/><path d="M46 5 Q56 1 66 5" fill="none" stroke="#7BD8B4" stroke-width="3" stroke-linecap="round"/><path d="M68 5 Q78 1 88 5" fill="none" stroke="#7FB7FF" stroke-width="3" stroke-linecap="round"/><path d="M90 5 Q100 1 110 5" fill="none" stroke="#B39DFF" stroke-width="3" stroke-linecap="round"/></svg></span>
+  </a>
+  <nav class="tabs" aria-label="Main">
+    <a class="tab t-flows" data-v="flows" href="#flows"><svg viewBox="0 0 24 24" fill="none" stroke="#2B2B33" stroke-width="1.8" stroke-linecap="round" style="filter:url(#rough)" aria-hidden="true"><circle cx="5" cy="12" r="2.5"/><circle cx="19" cy="5.5" r="2.5"/><circle cx="19" cy="18.5" r="2.5"/><path d="M7.5 12c5 0 5.5-6.5 9-6.5M7.5 12c5 0 5.5 6.5 9 6.5"/></svg><span>flows</span></a>
+    <a class="tab t-dreams" data-v="dreams" href="#dreams"><svg viewBox="0 0 24 24" fill="none" stroke="#2B2B33" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="filter:url(#rough)" aria-hidden="true"><path d="M15.5 3.5a8.5 8.5 0 1 0 5 13.6A7 7 0 0 1 15.5 3.5z"/><path d="M19 3v3.5M17.25 4.75h3.5"/></svg><span>dreams</span></a>
+    <a class="tab t-replay" data-v="replay" href="#replay"><svg viewBox="0 0 24 24" fill="none" stroke="#2B2B33" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="filter:url(#rough)" aria-hidden="true"><path d="M4.6 13a7.5 7.5 0 1 0 2.1-6.2"/><path d="M4.5 3.5v4h4"/><path d="M10.5 9.6v5.2l4.2-2.6z" fill="#2B2B33"/></svg><span>replay</span></a>
+  </nav>
+  <div class="saved" id="savedbox" role="status" aria-label="0 dollars saved so far">
+    <svg width="40" height="44" viewBox="0 0 40 44" style="filter:url(#rough)" aria-hidden="true"><path d="M10 8h20M11 8V4h18v4M9 10c-3 2-4 5-4 9v15a6 6 0 0 0 6 6h18a6 6 0 0 0 6-6V19c0-4-1-7-4-9" fill="#fff" stroke="#2B2B33" stroke-width="2" stroke-linejoin="round"/><path d="M14 26l1.6 3.2 3.4.5-2.5 2.4.6 3.4-3.1-1.6-3.1 1.6.6-3.4-2.5-2.4 3.4-.5z" fill="#FFB84D"/><path d="M26 20l1.2 2.4 2.6.4-1.9 1.8.4 2.6-2.3-1.2-2.3 1.2.4-2.6-1.9-1.8 2.6-.4z" fill="#B39DFF"/><path d="M27 31l1 2 2.2.3-1.6 1.5.4 2.2-2-1-2 1 .4-2.2-1.6-1.5 2.2-.3z" fill="#7BD8B4"/></svg>
+    <span><small>saved so far</small><b id="saved">$0.00</b></span>
+  </div>
+</header>
+
+<main>
+<section id="v-flows" aria-label="Flows">
+  <div class="canvas">
+    <div class="canvas-head">
+      <div><h1>nightly books</h1><p id="narrate" class="narrate idle" aria-live="polite"></p></div>
+      <div class="actions"><span id="count" class="count">0 runs</span><button id="run" class="btn-run" type="button"></button></div>
+    </div>
+    <div id="stage-wrap" class="stage-wrap"><div id="stage" class="stage"></div></div>
+  </div>
+  <section id="charts" class="charts" aria-label="What changes as it runs" style="margin-top:16px">
+    <div class="charts-head"><h2>the more it runs</h2><span id="xr"></span></div>
+    <div id="cells" class="cells"></div>
+  </section>
+</section>
+
+<section id="v-dreams" aria-label="Dreams" hidden>
+  <div class="dreams">
+    <section class="journal" aria-labelledby="jh">
+      <span class="hole" style="top:60px"></span><span class="hole" style="top:260px"></span><span class="hole" style="top:460px"></span>
+      <div class="jhead"><h1 id="jh">dream journal</h1><span>cost per call</span></div>
+      <ol id="jrows" class="jrows"></ol>
+      <p class="jfoot">post to books and wake a human never dream — they change the world.</p>
+    </section>
+    <div class="side">
+      <section class="budget card" aria-labelledby="bh">
+        <div class="bhead"><h2 id="bh"><label for="budget">mistakes allowed</label></h2><output id="bout" for="budget">5%</output></div>
+        <input id="budget" type="range" min="1" max="10" step="1" value="5">
+        <div class="ticks" aria-hidden="true"><span>1%</span><span>10%</span></div>
+        <p class="bnote">a dream answers only when it can prove it stays under this. unsure? it wakes up and makes the real call.</p>
+        <p id="bnow" class="bnow"></p>
+      </section>
+      <article id="cert" class="cert card" aria-live="polite"></article>
+    </div>
+  </div>
+</section>
+
+<section id="v-replay" aria-label="Replay" hidden>
+  <div class="replay">
+    <section class="runs" aria-labelledby="rh">
+      <h1 id="rh">replay</h1>
+      <p class="rsub">pick a past run. dreamed decisions re-run byte for byte; everything else comes back from the log.</p>
+      <ol id="receipts" class="receipts"></ol>
+    </section>
+    <section class="trace card" aria-label="Run trace">
+      <div id="tfull">
+        <div class="trace-head"><div><h2 id="ttitle"></h2><p id="tsub" class="tsub"></p></div><button id="rbtn" class="pill" type="button"></button></div>
+        <ol id="trows" class="trows"></ol>
+        <p id="tsum" class="tsum" aria-live="polite"></p>
+        <p class="pinned">pinned for replay: weights by hash · cpu · batch size 1 · 8 threads</p>
+      </div>
+      <div id="tempty" class="empty"><h2>nothing to replay yet</h2><p>run the flow first. every call it makes lands here.</p><a class="pill" href="#flows">go to flows</a></div>
+    </section>
+  </div>
+</section>
+</main>
+</div>
+
+<script>
+(() => {
+const $ = s => document.querySelector(s);
+const now = () => performance.now();
+const SPEED = Math.max(.1, +new URLSearchParams(location.search).get('speed') || 1);
+const BATCH = 2000, BATCH_SEC = 18, CHECK = 500, PER_SHEEP = 50, TEST = 40, AUDIT = 20, POST_SEC = .4;
+
+// One bookkeeping agent, four call sites. Numbers follow smokes/FINDINGS.md (S1, S4, S5, S13).
+const SITES = [
+  {id:'cat', name:'categorize', teacher:'big model', cost:2.1, sec:1.8, dcost:.01, dsec:.03, watchAt:60, replay:true, ratio:.62, weights:'9f3a1c',
+   cover:[[1,31],[2,52],[3,70],[4,81],[5,89],[6,93],[8,97],[10,99]]},
+  {id:'ven', name:'vendor lookup', teacher:'vendor API', tool:true, cost:1.0, sec:1.2, dcost:.01, dsec:.02, watchAt:200, replay:true, ratio:.12, weights:'51d0e8',
+   cover:[[1,70],[2,72],[3,73],[5,74],[10,76]]},
+  {id:'inv', name:'match invoice', teacher:'big model', cost:3.8, sec:2.4, dcost:.01, dsec:.03, watchAt:400, replay:true, ratio:.7, weights:'c27b44',
+   cover:[[1,18],[2,41],[3,60],[5,78],[8,90],[10,94]]},
+  {id:'odd', name:'anything odd?', teacher:'big model', router:true, cost:6.2, sec:3.8, dcost:1.1, dsec:.9, watchAt:660, measured:4.6, bound:6.4},
+];
+const BY = Object.fromEntries(SITES.map(s => [s.id, s]));
+const BASE = {cost: SITES.reduce((a, s) => a + s.cost, 0), sec: SITES.reduce((a, s) => a + s.sec, POST_SEC)};
+
+const TXNS = [
+  {d:'ADOBE *CREATIVE CLD', amt:54.99, cat:'Software', ven:'Adobe Inc.', inv:'INV-2291', odd:'no'},
+  {d:'UBER *TRIP 8XK2', amt:23.40, cat:'Travel', ven:'Uber', inv:'no invoice', odd:'no'},
+  {d:'AWS EMEA 4471', amt:1204.88, cat:'Hosting', ven:'Amazon Web Services', inv:'INV-2299', odd:'no'},
+  {d:'AMZN MKTP US*2K4', amt:112.06, cat:'Office supplies', ven:'Amazon', inv:'INV-2304', odd:'no'},
+  {d:'KLR*TOOLHAUS 21', amt:318.50, cat:'Equipment', ven:'Toolhaus GmbH', inv:'INV-2317', odd:'no', novel:true},
+  {d:'ADOBE *CREATIVE CLD', amt:5499.00, cat:'Software', ven:'Adobe Inc.', inv:'none found', odd:'yes'},
+  {d:'SQ *BLUE BOTTLE', amt:6.75, cat:'Meals', ven:'Blue Bottle Coffee', inv:'no invoice', odd:'no'},
+  {d:'DELTA AIR 0062', amt:612.30, cat:'Travel', ven:'Delta Air Lines', inv:'no invoice', odd:'no'},
+  {d:'NOTION LABS', amt:96.00, cat:'Software', ven:'Notion Labs', inv:'INV-2310', odd:'no'},
+  {d:'GUSTO PAYROLL', amt:18420.00, cat:'Payroll', ven:'Gusto', inv:'INV-2302', odd:'no'},
+  {d:'LYFT *RIDE 4410', amt:18.20, cat:'Travel', ven:'Lyft', inv:'no invoice', odd:'no'},
+  {d:'GOOGLE *WORKSPACE', amt:72.00, cat:'Software', ven:'Google', inv:'INV-2306', odd:'no'},
+  {d:'STAPLES 0391', amt:64.17, cat:'Office supplies', ven:'Staples', inv:'INV-2312', odd:'no'},
+  {d:'DOORDASH*SWEETGREEN', amt:41.35, cat:'Meals', ven:'DoorDash', inv:'no invoice', odd:'no'},
+  {d:'COMCAST BUSINESS', amt:189.99, cat:'Utilities', ven:'Comcast', inv:'INV-2308', odd:'no'},
+  {d:'FIGMA INC', amt:45.00, cat:'Software', ven:'Figma', inv:'INV-2315', odd:'no'},
+];
+
+const S = {
+  runs:0, target:0, running:false, budget:5, down:false, saved:0,
+  seen:{cat:0, ven:0, inv:0, odd:0}, series:[], lastRec:-1, samples:[], nextSample:7,
+  recheck:{}, cert:{cat:412, ven:388, inv:455, odd:301}, quietUntil:0, prev:{}, pop:{},
+  sel:'cat', selRun:null, rp:null, narr:'', narrIdle:true, view:'flows', note:null, lastGood:null, ver:0,
+};
+
+// ---------- formatting ----------
+const int = n => Math.round(n).toLocaleString('en-US');
+const cents = c => (c >= 1 ? c.toFixed(1) : c.toFixed(2)) + '¢';
+const pct = x => (x < 1 ? +x.toFixed(2) : +x.toFixed(1)) + '%';
+const money = d => '$' + d.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+const hex = str => { let h = 2166136261; for (const ch of str) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); } return (h >>> 0).toString(16).padStart(8, '0').slice(0, 6); };
+// deterministic per run; the salt just picks a typical mix of confident and unsure answers for the sample runs
+const roll = (r, id) => parseInt(hex(r + id + ':c'), 16) % 100;
+const setText = (el, t) => { if (el.textContent !== t) el.textContent = t; };
+const setHTML = (el, h) => { if (el._h !== h) { el._h = h; el.innerHTML = h; } };
+const setAttr = (el, k, v) => { if (el.getAttribute(k) !== v) el.setAttribute(k, v); };
+
+// ---------- icons ----------
+const R = 'style="filter:url(#rough)"';
+const PATHS = {
+  feed:'<path d="M14 3.5l1.9 3.9 4.3.6-3.1 3 .7 4.3-3.8-2-3.8 2 .7-4.3-3.1-3 4.3-.6z" fill="#FFE58F"/><path d="M3 21l5-5M3 16.5l2.5-2.5M7.5 21l2.5-2.5"/>',
+  tag:'<path d="M3.5 12.5V4h8.5l8.5 8.5-8.5 8.5z" fill="#fff"/><circle cx="8" cy="8.5" r="1.4"/>',
+  store:'<path d="M5 11v9h14v-9" fill="#fff"/><path d="M3.5 6.5h17l-1.2 4.5H4.7z" fill="#FFB3AE"/><path d="M10 20v-5h4v5"/>',
+  invoice:'<path d="M6 3h9l4 4v14H6z" fill="#fff"/><path d="M15 3v4h4M9 14l2 2 4-4"/>',
+  branch:'<path d="M12 3v18M12 5.5h6l2.2 2.25L18 10h-6M12 12.5H6l-2.2 2.25L6 17h6" fill="#fff"/>',
+  book:'<path d="M12 5C9.7 3.2 6.1 2.7 2 3.2v13c4.1-.5 7.7 0 10 1.8 2.3-1.8 5.9-2.3 10-1.8v-13c-4.1-.5-7.7 0-10 1.8z" fill="#fff"/><path d="M12 5v13M5 7h4.5M5 10h4.5M14.5 7H19M14.5 10H18"/>',
+  clock:'<circle cx="12" cy="13" r="7" fill="#fff"/><path d="M12 9.5V13l2.5 1.8M4.5 5.5l2.5-2M19.5 5.5l-2.5-2"/>',
+  plug:'<path d="M9 3v4M15 3v4"/><path d="M6.5 7h11v3.5a5.5 5.5 0 0 1-11 0z" fill="#fff"/><path d="M12 16v5"/>',
+  unplug:'<g transform="rotate(-24 12 12)"><path d="M9 5v4M15 5v4"/><path d="M6.5 9h11v3.5a5.5 5.5 0 0 1-11 0z" fill="#fff"/><path d="M12 18v4"/></g><path d="M2.5 6l2.2 1.2M2 11h2.6M5 2.5l1 2.2" stroke="#E5534B"/>',
+  camera:'<rect x="3" y="7" width="18" height="12" rx="2" fill="#fff"/><path d="M8 7l1.5-2.5h5L16 7"/><circle cx="12" cy="13" r="3.2"/>',
+  moon:'<circle cx="12" cy="12" r="8" fill="#FFF3A8"/><circle cx="9.5" cy="10" r="1.3"/><circle cx="14" cy="14.5" r="1.8"/>',
+  sheep:'<path d="M5 15c-1.6 0-2.5-1.9-1.4-3.1-.6-1.6.9-3.1 2.5-2.6.6-1.5 2.7-1.8 3.7-.6 1-1.2 3-1 3.6.4 1.6-.3 2.9 1.2 2.3 2.7 1 1.2.1 3.2-1.5 3.2z" fill="#CDBEFF"/><ellipse cx="18.4" cy="11" rx="2.4" ry="2.8" fill="#2B2B33"/><path d="M7 15v4M12 15v4"/>',
+  check:'<path d="M4 12.5l5 5L20 6" stroke="#1E7A55" stroke-width="2.6"/>',
+  play:'<path d="M7 4.5v15l13-7.5z" fill="#2B2B33" stroke="none"/>',
+  pause:'<path d="M6.5 5h4v14h-4zM13.5 5h4v14h-4z" fill="#2B2B33" stroke="none"/>',
+};
+const ico = (k, s = 24) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="#2B2B33" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" ${R} aria-hidden="true">${PATHS[k]}</svg>`;
+const STATUS = {
+  awake: s => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" ${R} aria-hidden="true"><circle cx="12" cy="12" r="5" fill="#FFD166" stroke="#2B2B33" stroke-width="1.3"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" stroke="#2B2B33" stroke-width="1.3" stroke-linecap="round"/></svg>`,
+  watching: s => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" ${R} aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="#2B2B33" stroke-width="1.4" stroke-dasharray="2.4 2.4"/><path d="M8 12.2q4-3.6 8 0q-4 3.6-8 0z" fill="none" stroke="#2B2B33" stroke-width="1.3"/><circle cx="12" cy="12.2" r="1.2" fill="#2B2B33"/></svg>`,
+  testing: s => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" ${R} aria-hidden="true"><circle cx="12" cy="12" r="8" fill="#fff" stroke="#2B2B33" stroke-width="1.4"/><path d="M12 4a8 8 0 0 1 0 16z" fill="#7FB7FF" stroke="#2B2B33" stroke-width="1.4"/></svg>`,
+  dreaming: s => `<svg width="${s}" height="${Math.round(s * 46 / 58)}" viewBox="0 0 58 46" ${R} aria-hidden="true"><path d="M12 38h30a9 9 0 0 0 1.5-17.9A13 13 0 0 0 18.6 17 10 10 0 0 0 12 38z" fill="#E2D9FF" stroke="#2B2B33" stroke-width="2.4" stroke-linejoin="round"/><path d="M20 29q2.5 2.4 5 0M30 29q2.5 2.4 5 0" fill="none" stroke="#2B2B33" stroke-width="2.2" stroke-linecap="round"/><path class="bob" d="M44 4h6l-6 7h6" fill="none" stroke="#6A4FD8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  down: s => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 14h11a3.6 3.6 0 0 0 .4-7.2A5.3 5.3 0 0 0 7.6 6 3.9 3.9 0 0 0 6.5 14z" fill="#B7BDD3" stroke="#2B2B33" stroke-width="1.1"/><g stroke="#3D63D6" stroke-width="1.6" stroke-linecap="round"><path class="drop" d="M8.5 16.5l-1 2.5"/><path class="drop d2" d="M12.5 16.5l-1 2.5"/><path class="drop d3" d="M16.5 16.5l-1 2.5"/></g></svg>`,
+};
+const sheepSVG = full => `<svg viewBox="0 0 24 20" aria-hidden="true"><path d="M5 14c-1.6 0-2.5-1.9-1.4-3.1-.6-1.6.9-3.1 2.5-2.6.6-1.5 2.7-1.8 3.7-.6 1-1.2 3-1 3.6.4 1.6-.3 2.9 1.2 2.3 2.7 1 1.2.1 3.2-1.5 3.2z" ${full ? 'fill="#B39DFF" stroke="#2B2B33"' : 'fill="none" stroke="#C9C5D3" stroke-dasharray="2 2"'} stroke-width="1.2"/>${full ? '<ellipse cx="18.4" cy="10" rx="2.4" ry="2.8" fill="#2B2B33"/>' : ''}</svg>`;
+
+// ---------- the model of the system ----------
+function cover(s, b) {
+  if (s.router) return b >= s.bound ? 100 : 0;
+  const p = s.cover;
+  if (b <= p[0][0]) return p[0][1];
+  for (let i = 1; i < p.length; i++) {
+    const [x1, y1] = p[i - 1], [x2, y2] = p[i];
+    if (b <= x2) return Math.round(y1 + (y2 - y1) * (b - x1) / (x2 - x1));
+  }
+  return p[p.length - 1][1];
+}
+const measured = (s, b) => s.router ? s.measured : b * s.ratio;
+const certified = s => S.seen[s.id] - s.watchAt >= CHECK + TEST;
+
+// visual=false ignores the brief "re-checking" animation, so numbers never flicker.
+// During a re-check a row keeps its old budget until its turn comes, then shows "re-checking…".
+// bo forces a budget (used to keep showing the old promise while a row re-checks).
+function phase(s, visual = true, bo) {
+  const k = S.seen[s.id] - s.watchAt;
+  if (k < 0) return {p:'awake'};
+  if (k < CHECK) return {p:'watching', counted:Math.floor(k)};
+  if (k < CHECK + TEST) return {p:'testing', counted:CHECK};
+  const rc = visual && bo === undefined && S.recheck[s.id], t = now();
+  if (rc && t >= rc.from && t < rc.to) return {p:'testing', counted:CHECK, recheck:true, old:rc.old};
+  const b = bo ?? (rc && t < rc.from ? rc.old : S.budget), c = cover(s, b);
+  return c ? {p:'dreaming', counted:CHECK, cov:c, b} : {p:'awake', counted:CHECK, cant:true, b};
+}
+function perCall(s, ph) {
+  if (ph.p !== 'dreaming') return [s.cost + (ph.p === 'awake' ? 0 : s.dcost), s.sec];
+  const c = ph.cov / 100;
+  return [(1 - c) * s.cost + c * (s.dcost + s.cost / AUDIT), (1 - c) * s.sec + c * s.dsec];
+}
+const venDreams = () => phase(BY.ven, false).p === 'dreaming';
+const stuck = () => S.down && !venDreams();
+function metrics() {
+  const v = phase(BY.ven, false);
+  // stuck runs never finish, so per-run numbers freeze at the last finished run
+  if (S.down && v.p !== 'dreaming') return {...(S.lastGood || {cost: BASE.cost, sec: BASE.sec, rep: 0}), fail: 100, brk: true};
+  let cost = 0, sec = POST_SEC, rep = 0;
+  for (const s of SITES) {
+    const ph = phase(s, false), [c, t] = perCall(s, ph);
+    cost += c; sec += t;
+    if (s.replay && ph.p === 'dreaming') rep += ph.cov;
+  }
+  const fail = S.down ? 10.7 : .8 + 1.6 * (1 - (v.p === 'dreaming' ? v.cov / 100 : 0));
+  return {cost, sec, fail, rep: rep / SITES.length, brk: S.down};
+}
+function record() {
+  const m = metrics(), p = {r: S.runs, ...m}, n = S.series.length;
+  // one run index keeps at most two points (before and after a change), so repeated tweaks draw one clean step
+  if (n > 1 && S.series[n - 1].r === p.r && S.series[n - 2].r === p.r) S.series[n - 1] = p; else S.series.push(p);
+  S.ver++;
+  if (!stuck()) S.lastGood = m;
+}
+
+function sample(r) {
+  const k = S.samples.length, t = TXNS[k % TXNS.length], st = stuck(), steps = [];
+  // repeat customers come back with a different amount; the odd one keeps its outlier amount
+  const amt = k < TXNS.length || t.odd === 'yes' ? t.amt : Math.round(t.amt * (80 + roll(r, 'amt') % 45)) / 100;
+  for (const s of SITES) {
+    if (st && s.id !== 'cat') { steps.push({name:s.name, ans: s.id === 'ven' ? 'no answer' : 'never ran', by: s.id === 'ven' ? 'stuck' : ''}); continue; }
+    const ph = phase(s, false);
+    let by = s.teacher;
+    if (ph.p === 'dreaming') {
+      const unsure = (t.novel && s.id !== 'cat') || (!s.router && roll(r, s.id) >= ph.cov);
+      if (!unsure) by = s.router ? 'thinking off' : 'dream';
+    }
+    if (s.id === 'ven' && S.down && by === 'vendor API') by = 'snapshot';
+    steps.push({name:s.name, ans:t[s.id], by, hash:hex(r + s.id + t.d)});
+  }
+  steps.push(st ? {name:'post to books', ans:'never ran', by:''} : t.odd === 'yes' ? {name:'wake a human', ans:'sent for review', by:'bookkeeper'} : {name:'post to books', ans:'posted', by:'ledger'});
+  S.samples.push({r: Math.round(r), t, amt, steps, down: S.down, stuck: st});
+}
+
+// ---------- narration ----------
+// Narration pacing: a verdict stays up at least 2 s so it can be read in a recording. Lesser lines wait
+// their turn and only the newest waiting line is kept. Lines from the presenter's own actions show at once.
+const HOLD = {1: 900, 2: 900, 3: 2000};
+function show(msg, rank, idle = false) { Object.assign(S, {narr: msg, narrIdle: idle, narrRank: rank, narrUntil: now() + (HOLD[rank] || 0), queued: null}); }
+function narrate(msg, idle = false) { show(msg, 2, idle); }
+function narrateEvent(msg, rank) {
+  if (now() >= S.narrUntil || rank > S.narrRank) show(msg, rank);
+  else if (!S.queued || rank >= S.queued.rank) S.queued = {msg, rank};
+}
+const nm = s => `<mark>${s.name}</mark>`;
+function eventMsg(s, ph) {
+  const b = S.budget;
+  if (ph.p === 'watching') return s.router ? `trying ${nm(s)} with thinking off, side by side` : `a dream is shadowing ${nm(s)} — same input, answers compared`;
+  if (ph.p === 'testing') return s.router ? `checking thinking off against ${CHECK} real answers` : `checking the ${nm(s)} dream against ${CHECK} real ${s.tool ? 'API returns' : 'answers'}`;
+  if (ph.p === 'dreaming') return s.router ? `${nm(s)} passed with thinking off — wrong ≤ ${s.bound}%, ${b}% allowed` : `${nm(s)} passed its check — wrong ${pct(measured(s, b))}, ${b}% allowed`;
+  if (ph.cant) return `${nm(s)} keeps thinking — thinking off could be wrong ${s.bound}%, only ${b}% allowed`;
+  return '';
+}
+// The handwritten note beside the graph points at whatever just changed, as on the design board.
+const NOTE_AT = {
+  cat:{x:178, y:208, a:'up', l:60}, ven:{x:420, y:68, a:'down', l:70},
+  inv:{x:646, y:212, a:'up', l:60}, odd:{x:846, y:30, a:'down', l:30, w:150},
+};
+const ARROWS = {
+  up: l => `<svg width="64" height="34" viewBox="0 0 64 34" style="left:${l}px;top:-34px" aria-hidden="true"><path d="M8 32 C12 18 24 9 46 5 M36 1 L47 5 L39 13" fill="none" stroke="#6A4FD8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  down: l => `<svg width="64" height="34" viewBox="0 0 64 34" style="left:${l}px;bottom:-36px" aria-hidden="true"><path d="M8 2 C12 16 24 25 46 29 M37 33 L47 29 L40 21" fill="none" stroke="#6A4FD8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+};
+function noteText(n) {
+  const s = BY[n.id], ph = phase(s, false);
+  if (n.kind === 'down') return !S.down ? null : ph.p === 'dreaming' ? 'API down, still answering!' : 'stuck! nothing learned yet';
+  if (ph.p !== 'dreaming' || (s.tool && S.down)) return null;
+  const save = Math.round((1 - perCall(s, ph)[0] / s.cost) * 100);
+  return s.router ? `thinks less now! −${save}% cost` : s.tool ? `knows what the API will say! −${save}% cost` : `learned to dream! −${save}% cost`;
+}
+function watchPhases() {
+  let best = null;
+  for (const s of SITES) {
+    const ph = phase(s, false), key = ph.p + (ph.cant ? '!' : '');
+    const was = S.prev[s.id];
+    if (was && was !== key) {
+      if (ph.p === 'dreaming') { S.pop[s.id] = now() + 650; if (!S.down) S.note = {id: s.id, kind: 'dream'}; }
+      // one line per frame: a verdict outranks a check starting, which outranks a dream starting to watch
+      const rank = ph.p === 'dreaming' || ph.cant ? 3 : ph.p === 'testing' ? 2 : 1;
+      if (!best || rank > best.rank) best = {rank, msg: eventMsg(s, ph)};
+    }
+    S.prev[s.id] = key;
+  }
+  // during an outage the outage message stays up; after a budget change one summary line is shown instead
+  if (best && !S.down && now() > S.quietUntil) narrateEvent(best.msg, best.rank);
+  if (S.queued && !S.down && now() >= S.narrUntil) show(S.queued.msg, S.queued.rank);
+}
+
+// ---------- the run loop ----------
+function step(dt) {
+  if (!S.running) return;
+  const dr = Math.min(S.target - S.runs, BATCH / BATCH_SEC * SPEED * dt);
+  const m = metrics(), st = stuck();
+  S.runs += dr;
+  S.seen.cat += dr;
+  if (!S.down) S.seen.ven += dr;
+  if (!st) { const pass = S.down ? .893 : 1; S.seen.inv += dr * pass; S.seen.odd += dr * pass; S.saved += (BASE.cost - m.cost) * dr / 100; }
+  while (S.runs >= S.nextSample) { sample(S.nextSample); S.nextSample = S.nextSample < 250 ? 250 : S.nextSample + 250; }
+  const bucket = Math.floor(S.runs / 20);
+  if (bucket !== S.lastRec) { S.lastRec = bucket; record(); }
+  if (S.runs >= S.target) {
+    S.running = false; record();
+    narrate(S.down ? (stuck() ? 'vendor API is still down · every run is stuck at <mark>vendor lookup</mark>' : 'vendor API is still down · the dream and the snapshot kept 89% of runs going') : `done · cost per run ${cents(BASE.cost)} → ${cents(metrics().cost)} · click a step to see the promise behind it`);
+  }
+}
+
+// ---------- flows stage ----------
+const NODES = [
+  {id:'feed', x:0, y:126, w:126, name:'bank feed', sub:'webhook', icon:'feed', blob:'#FFF0C2', rot:-2},
+  {id:'cat', x:168, y:86, w:192, icon:'tag', blob:'#FFD6E0', rot:1.5},
+  {id:'ven', x:402, y:148, w:192, icon:'store', blob:'#CFE8FF', rot:-1},
+  {id:'inv', x:636, y:90, w:192, icon:'invoice', blob:'#DDF5E8', rot:1.2},
+  {id:'odd', x:870, y:118, w:96, round:true, icon:'branch', blob:'#FFE9D6', rot:0},
+  {id:'post', x:1008, y:14, w:192, name:'post to books', sub:'ledger', icon:'book', blob:'#E2D9FF', rot:-1.5},
+  {id:'human', x:1008, y:236, w:192, name:'wake a human', sub:'bookkeeper', icon:'clock', blob:'#FFF0C2', rot:2},
+];
+const WIRES = [
+  {id:'w1', d:'M126 168 C147 168 147 128 168 128', c:'#FF8A80'},
+  {id:'w2', d:'M360 128 C381 128 381 190 402 190', c:'#B39DFF'},
+  {id:'w3', d:'M594 190 C615 190 615 132 636 132', c:'#7FB7FF', after:true},
+  {id:'w4', d:'M828 132 C849 132 849 166 870 166', c:'#5CC79F', after:true},
+  {id:'w5', d:'M960 142 C988 120 990 56 1008 56', c:'#F2B544', after:true},
+  {id:'w6', d:'M960 190 C988 212 990 278 1008 278', c:'#FF8A80', after:true, rare:true},
+];
+function buildStage() {
+  const arrow = w => { const [x, y] = w.d.split(' ').slice(-2).map(Number); return `<path d="M${x - 9} ${y - 6} L${x} ${y} L${x - 9} ${y + 6}" stroke="${w.c}"/>`; };
+  const dots = w => [0, 1].slice(0, w.rare ? 1 : 2).map(i => `<circle r="3.6" fill="#2B2B33"><animateMotion dur="${w.rare ? 2.4 : 1.1}s" begin="${-i * .55}s" repeatCount="indefinite"><mpath xlink:href="#${w.id}"/></animateMotion></circle>`).join('');
+  const node = n => {
+    const s = BY[n.id], tag = s ? 'button' : 'div', name = s ? s.name : n.name;
+    const style = `left:${n.x}px;top:${n.y}px;width:${n.w}px;--rot:${n.rot}deg${n.round ? `;background:${n.blob}` : ''}`;
+    const badge = s ? '<span class="badge"></span>' : '';
+    if (n.round) return `<${tag} type="button" class="node round" data-id="${n.id}" style="${style}">${ico(n.icon, 42)}<span class="rlabel"><b>${name}</b><span class="who"></span></span>${badge}</${tag}>`;
+    return `<${tag} ${s ? 'type="button"' : ''} class="node" data-id="${n.id}" style="${style}"><span class="blob" style="background:${n.blob}">${ico(n.icon, 30)}</span><span class="txt"><b>${name}</b><span class="who">${n.sub || ''}</span></span>${badge}</${tag}>`;
+  };
+  $('#stage').innerHTML =
+    `<svg width="1200" height="330" viewBox="0 0 1200 330" ${R} aria-hidden="true"><g fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">${WIRES.map(w => `<path id="${w.id}" d="${w.d}" stroke="${w.c}"/>${arrow(w)}`).join('')}</g></svg>` +
+    `<svg class="dots" width="1200" height="330" viewBox="0 0 1200 330" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true">${WIRES.map(w => `<g data-w="${w.id}" class="off">${dots(w)}</g>`).join('')}</svg>` +
+    `<span class="blbl" style="left:984px;top:124px">no</span><span class="blbl" style="left:982px;top:186px">yes</span>` +
+    NODES.map(node).join('') +
+    `<button id="plug" class="plug" type="button" aria-pressed="false" style="left:424px;top:248px"></button>` +
+    `<div id="note" class="note" hidden aria-hidden="true"><span></span><i></i></div>`;
+  for (const n of NODES) { n.el = $(`.node[data-id="${n.id}"]`); n.who = n.el.querySelector('.who'); n.badge = n.el.querySelector('.badge'); }
+  $('#stage').addEventListener('click', e => { const b = e.target.closest('button.node'); if (b) location.hash = '#dreams/' + b.dataset.id; });
+  $('#plug').addEventListener('click', togglePlug);
+}
+function whoText(s, ph, down) {
+  if (down) return ph.p === 'dreaming' ? 'API down · dream\u00a0+\u00a0snapshot' : 'API down · stuck';
+  if (ph.p === 'watching') return s.router ? 'thinking off on trial' : 'dream shadowing';
+  if (ph.p === 'testing') return ph.recheck ? 're-checking…' : s.router ? 'checking thinking off' : 'checking the dream';
+  if (ph.p === 'dreaming') return s.router ? 'big model, thinking off' : `dream answers ${ph.cov}%`;
+  return s.router ? 'big model, thinking' : s.teacher;
+}
+function renderStage() {
+  for (const n of NODES) {
+    const s = BY[n.id];
+    if (!s) continue;
+    const ph = phase(s), down = n.id === 'ven' && S.down, st = down ? 'down' : ph.p;
+    setAttr(n.el, 'class', `node${n.round ? ' round' : ''} ${st}${S.pop[n.id] > now() ? ' pop' : ''}`);
+    setHTML(n.badge, STATUS[st](st === 'dreaming' ? 30 : 26));
+    const who = whoText(s, ph, down);
+    setText(n.who, who);
+    setAttr(n.el, 'aria-label', `${s.name}: ${who}. Open its promise.`);
+  }
+  const flowing = S.running, blocked = stuck();
+  for (const w of WIRES) $(`.dots g[data-w="${w.id}"]`).classList.toggle('off', !flowing || !!(w.after && blocked));
+  const plug = $('#plug');
+  setAttr(plug, 'aria-pressed', String(S.down));
+  setAttr(plug, 'aria-label', S.down ? 'Plug the vendor API back in' : 'Unplug the vendor API');
+  setHTML(plug, S.down ? `${ico('unplug', 26)}plug it back in` : `${ico('plug', 26)}unplug the API`);
+  const note = $('#note'), text = S.note && noteText(S.note);
+  note.hidden = !text;
+  if (!text) return;
+  const at = NOTE_AT[S.note.id], key = S.note.id + S.note.kind;
+  if (note.dataset.k !== key) { note.dataset.k = key; note.classList.remove('fresh'); void note.offsetWidth; note.classList.add('fresh'); }
+  note.style.left = at.x + 'px'; note.style.top = at.y + 'px'; note.style.width = (at.w || 190) + 'px';
+  setText(note.firstChild, text);
+  setHTML(note.lastChild, ARROWS[at.a](at.l));
+}
+function togglePlug() {
+  S.down = !S.down;
+  record();
+  S.note = S.down ? {id: 'ven', kind: 'down'} : null;
+  if (!S.down) narrate('vendor API is back');
+  else if (venDreams()) narrate('vendor API is down · the dream and the last snapshot keep 89% of runs going');
+  else narrate('vendor API is down · nothing has learned it yet, so every run is stuck');
+}
+
+// ---------- flows charts ----------
+const METRICS = [
+  {k:'cost', lbl:'cost per run', c:'#FF8A80', f:cents},
+  {k:'sec', lbl:'seconds per run', c:'#7FB7FF', f:v => v.toFixed(1) + ' s'},
+  {k:'fail', lbl:'failed runs', c:'#F2B544', f:pct},
+  {k:'rep', lbl:'replayable decisions', c:'#5CC79F', f:v => Math.round(v) + '%'},
+];
+function buildCharts() {
+  // dashed line = where this metric started; crayon line = where it is now
+  $('#cells').innerHTML = METRICS.map(m => `<div class="cell" data-k="${m.k}"><span class="lbl">${m.lbl}</span><div class="row"><b class="val"></b><span class="was"></span></div>` +
+    `<svg viewBox="0 0 300 56" preserveAspectRatio="none" role="img"><path class="ref" fill="none" stroke="#C9C5D3" stroke-width="1.5" stroke-dasharray="4 5" vector-effect="non-scaling-stroke"/>` +
+    `<path d="M0 55H300" stroke="#2B2B33" stroke-width="2" vector-effect="non-scaling-stroke"/>` +
+    `<path class="line" fill="none" stroke="${m.c}" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" style="filter:url(#roughl)"/></svg></div>`).join('');
+  for (const m of METRICS) { const c = $(`.cell[data-k="${m.k}"]`); Object.assign(m, {val:c.querySelector('.val'), was:c.querySelector('.was'), svg:c.querySelector('svg'), line:c.querySelector('.line'), ref:c.querySelector('.ref')}); }
+}
+let drawnVer = -1, drawnX = -1;
+function renderCharts() {
+  const cur = metrics(), first = S.series[0] || cur, xmax = Math.max(BATCH, S.target);
+  setText($('#xr'), `0 → ${int(xmax)} runs`);
+  for (const m of METRICS) {
+    const alarm = m.k === 'fail' && S.down;
+    setText(m.val, m.f(cur[m.k]));
+    setText(m.was, alarm ? 'circuit breaker: 100%' : S.runs > 0 ? `was ${m.f(first[m.k])}` : '');
+    m.was.classList.toggle('alarm', alarm);
+    setAttr(m.svg, 'aria-label', `${m.lbl}: ${S.runs > 0 ? `was ${m.f(first[m.k])}, ` : ''}now ${m.f(cur[m.k])}${alarm ? ', a circuit breaker would fail 100%' : ''}`);
+  }
+  if (S.ver === drawnVer && xmax === drawnX) return;
+  drawnVer = S.ver; drawnX = xmax;
+  const pts = S.series, last = pts[pts.length - 1], X = r => r / xmax * 288;
+  for (const m of METRICS) {
+    // each line gets its own height, from zero, so a halving looks like a halving
+    const top = Math.max(...pts.map(p => p[m.k])) * 1.15 || 1;
+    const Y = v => (54 - v / top * 50).toFixed(1);
+    m.ref.setAttribute('d', `M0 ${Y(pts[0][m.k])}H300`);
+    // the short flat tail marks "now", so a change at the latest run reads as a step, not a clipped edge
+    m.line.setAttribute('d', pts.map((p, i) => `${i ? 'L' : 'M'}${X(p.r).toFixed(1)} ${Y(p[m.k])}`).join('') + `H${(X(last.r) + 10).toFixed(1)}`);
+  }
+}
+
+// ---------- dreams ----------
+function buildJournal() {
+  $('#jrows').innerHTML = SITES.map(s => `<li><button class="jrow" type="button" data-id="${s.id}" aria-pressed="false"><span class="jicon"></span><span class="jtext"><b>${s.name}</b><span class="jstatus"></span></span><span class="jcost"></span></button></li>`).join('');
+  for (const s of SITES) { const b = $(`.jrow[data-id="${s.id}"]`); s.row = {b, icon:b.querySelector('.jicon'), status:b.querySelector('.jstatus'), cost:b.querySelector('.jcost')}; }
+  $('#jrows').addEventListener('click', e => { const b = e.target.closest('.jrow'); if (b) { S.sel = b.dataset.id; history.replaceState(null, '', '#dreams/' + S.sel); } });
+}
+function statusLine(s, ph) {
+  const down = s.id === 'ven' && S.down;
+  if (ph.recheck) return 're-checking…';
+  if (down) return ph.p === 'dreaming' ? `API down · dream ${ph.cov}%, snapshot for the rest` : 'API down · nothing learned yet';
+  if (ph.p === 'watching') return `watching · counting sheep ${ph.counted}/${CHECK}`;
+  if (ph.p === 'testing') return ph.recheck ? 're-checking…' : `testing · checking ${CHECK} real answers`;
+  if (ph.p === 'dreaming') return s.router ? 'dreaming · thinking off on every call' : `dreaming · answers ${ph.cov}% of calls`;
+  return ph.cant ? `awake · no promise at ${ph.b}% yet` : 'awake · logging every call';
+}
+function costHTML(s, ph) {
+  if (ph.p !== 'dreaming') return `<span>${cents(s.cost)}</span>`;
+  return `<s>${cents(s.cost)}</s><svg width="30" height="16" viewBox="0 0 34 16" ${R} aria-hidden="true"><path d="M2 9 C10 3 20 13 30 7 M24 3 L31 7 L25 12" fill="none" stroke="#6A4FD8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><em>${cents(perCall(s, ph)[0])}</em>`;
+}
+function renderJournal() {
+  for (const s of SITES) {
+    const ph = phase(s), down = s.id === 'ven' && S.down;
+    setAttr(s.row.b, 'aria-pressed', String(S.sel === s.id));
+    setHTML(s.row.icon, STATUS[down ? 'down' : ph.p](ph.p === 'dreaming' && !down ? 50 : 46));
+    setText(s.row.status, statusLine(s, ph));
+    // while a row re-checks, its old saving stays visible (dimmed) rather than looking like it vanished
+    setHTML(s.row.cost, costHTML(s, ph.recheck ? phase(s, false, ph.old) : ph));
+    s.row.cost.classList.toggle('dim', pending(s));
+  }
+  const m = metrics(), busy = SITES.some(s => S.recheck[s.id] && now() < S.recheck[s.id].to);
+  setHTML($('#bnow'), busy ? 'right now: <b>re-checking…</b>' : `right now: <b>${cents(m.cost)}</b> per run · <b>${Math.round(m.rep)}%</b> replayable`);
+}
+function certHTML(s) {
+  // while this row waits for or sits in its re-check, the card keeps the old promise, dimmed
+  const live = phase(s), ph = live.recheck ? phase(s, false, live.old) : live;
+  const b = ph.b || S.budget, down = s.tool && S.down, real = s.tool ? 'real API returns' : 'real answers';
+  const icon = live.recheck ? 'testing' : down ? 'down' : ph.p;
+  const head = `<div class="chead">${STATUS[icon](icon === 'dreaming' ? 44 : 40)}<h2>${s.name}</h2></div>`;
+  const filled = Math.floor((ph.counted || 0) / PER_SHEEP);
+  const sheep = `<div class="sheep" role="img" aria-label="${filled * PER_SHEEP} of ${CHECK} ${real} checked">${Array.from({length: CHECK / PER_SHEEP}, (_, i) => sheepSVG(i < filled)).join('')}<small>1 sheep = ${PER_SHEEP}</small></div>`;
+  const helper = s.router ? 'thinking off' : 'dream', teacher = s.router ? 'thinking on' : down ? 'snapshot' : s.teacher;
+  const split = (dream, label) => `<div class="split" role="img" aria-label="${helper} answers ${dream}%"><i style="width:${dream}%"></i></div><div class="legend">${dream ? `<span><i style="background:#B39DFF"></i>${helper} ${dream}%</span>` : ''}${dream < 100 ? `<span><i style="background:#FFF3A8"></i>${label} ${100 - dream}%</span>` : ''}</div>`;
+  const promise = (text, soft) => `<p class="promise${soft || live.recheck ? ' soft' : ''}">${live.recheck ? 're-checking…' : text}</p>`;
+  let body;
+  if (down && ph.p !== 'dreaming')
+    body = promise('API down', true) + sheep + `<p class="cline">nothing has learned this API yet, so every run is stuck here.</p>`;
+  else if (ph.p === 'awake' && !ph.cant)
+    body = promise('no promise yet', true) + sheep + `<p class="cline">logging every call. a dream starts watching after ${s.watchAt} ${s.id === 'cat' ? 'runs' : 'calls'}.</p>${split(0, teacher)}`;
+  else if (ph.p === 'watching')
+    body = promise('counting sheep…', true) + sheep + `<p class="cline">${ph.counted} of ${CHECK} ${real} compared so far. the ${s.teacher} still answers every call.</p>${split(0, teacher)}`;
+  else if (ph.p === 'testing')
+    body = promise('checking…', true) + sheep + `<p class="cline">${s.router ? `measuring how often thinking off disagrees with thinking on, against a ${b}% limit.` : `sorting ${CHECK} ${real} by confidence to find where mistakes stay under ${b}%.`}</p>`;
+  else if (ph.cant)
+    body = promise(`no promise at ${b}%`, true) + sheep + `<p class="cline">thinking off disagreed on ${s.measured}% of ${CHECK} ${real} — it could be as high as ${s.bound}%.</p>${split(0, teacher)}<p class="hint">allow ${Math.ceil(s.bound)}% and it switches thinking off</p>`;
+  else {
+    const cert = `<span class="nw">cert c-0${S.cert[s.id]}</span>`;
+    const fine = s.router
+      ? `1 in ${AUDIT} still double-checked with thinking on · ${cert} · not replayable: it is still the big model`
+      : `1 in ${AUDIT} still double-checked · ${cert} · <span class="nw">weights <code>${s.weights}</code></span>`;
+    body = promise(`wrong ≤ ${b}%`) + sheep + `<p class="cline">checked against ${CHECK} ${real} · ${s.router ? 'disagreed' : 'wrong'} on ${pct(measured(s, b))}${s.router ? `, could be ${s.bound}%` : ''}.</p>` +
+      (down ? `<p class="cline">API down: calls the dream is unsure about use the last snapshot.</p>` : '') +
+      split(ph.cov, teacher) + `<p class="ccost"><s>${cents(s.cost)}</s> → <em>${cents(perCall(s, ph)[0])}</em> per call</p><p class="fine">${fine}</p>`;
+  }
+  return head + (pending(s) ? `<div class="rc">${body}</div>` : body);
+}
+// a row is "pending" from the slider release until its own re-check ends; its old numbers show dimmed
+const pending = s => !!S.recheck[s.id] && now() < S.recheck[s.id].to;
+function onBudget(commit) {
+  const b = +$('#budget').value;
+  setText($('#bout'), b + '%');
+  if (!commit || b === S.budget) return;
+  const done = SITES.filter(certified), t = now();
+  // a row whose previous re-check has not started yet still shows that change's old budget; keep showing it
+  const shown = s => { const r = S.recheck[s.id]; return r && t < r.from ? r.old : S.budget; };
+  const olds = done.map(shown);
+  S.budget = b;
+  // rows re-check one after another; each gets a new certificate number when its check finishes
+  done.forEach((s, i) => { S.recheck[s.id] = {from: t + i * 170, to: t + i * 170 + 450, old: olds[i]}; setTimeout(() => S.cert[s.id]++, i * 170 + 450); });
+  const end = done.length ? (done.length - 1) * 170 + 450 : 0;
+  S.quietUntil = t + end + 60;
+  clearTimeout(S.rcTimer);
+  S.rcTimer = setTimeout(() => {
+    record();
+    const held = done.filter(s => cover(s, b) > 0).length, n = done.length;
+    // during an outage the outage line stays up
+    if (n && !S.down) narrate(`re-checked at ${b}% · ${held} of ${n} step${n > 1 ? 's' : ''} hold${held === 1 && n === 1 ? 's' : ''} a promise · cost per run now ${cents(metrics().cost)}`);
+  }, end);
+}
+
+// ---------- replay ----------
+const BYICON = {dream:'sheep', 'big model':'moon', 'thinking off':'moon', 'vendor API':'plug', snapshot:'camera', ledger:'book', bookkeeper:'clock', stuck:'unplug'};
+function listedSamples() {
+  const newest = S.samples.slice(-6).reverse();
+  if (S.samples.length > 6) newest.push(S.samples[0]);
+  return newest;
+}
+const dreamed = sm => sm.steps.filter(x => x.by === 'dream').length;
+function currentSample() {
+  // the selection must be one of the receipts on screen; otherwise fall back to the newest
+  const list = listedSamples();
+  if (S.selRun != null && !list.some(x => x.r === S.selRun)) { S.selRun = null; S.rp = null; }
+  return list.find(x => x.r === S.selRun) || list[0] || null;
+}
+function renderReplay() {
+  const has = S.samples.length > 0;
+  $('#tfull').hidden = !has; $('#tempty').hidden = has; $('#receipts').hidden = !has; $('.rsub').hidden = !has;
+  if (!has) return;
+  const sm = currentSample();
+  setHTML($('#receipts'), listedSamples().map((x, i) => `<li><button class="receipt" type="button" data-r="${x.r}" aria-pressed="${x === sm}" style="--rot:${[-1, .8, -.5, 1.1, -.9, .6, -1.2][i]}deg"><span class="m">${x.t.d}</span><span class="a">${money(x.amt)}</span><span class="meta">run ${int(x.r)} · ${x.stuck ? 'stuck at vendor lookup' : `${dreamed(x)} of 4 replayable${x.down ? ' · API down' : ''}`}</span></button></li>`).join(''));
+  setText($('#ttitle'), `run ${int(sm.r)}`);
+  setText($('#tsub'), `${sm.t.d} · ${money(sm.amt)}`);
+  const rp = S.rp && S.rp.r === sm.r ? S.rp : null;
+  const rb = $('#rbtn');
+  rb.disabled = !!(rp && !rp.done);
+  setHTML(rb, `${ico('play', 18)}${rp ? (rp.done ? 'replay again' : 'replaying…') : 'replay this run'}`);
+  setHTML($('#trows'), sm.steps.map((x, i) => {
+    const ran = x.by !== '';
+    const done = rp && rp.i > i, busy = ran && rp && !rp.done && rp.i === i, re = x.by === 'dream';
+    let res = '';
+    if (done && ran) res = re ? `<span class="ok">${ico('check', 20)}</span><span class="ok">same bytes</span><code>${x.hash}</code>` : x.by === 'stuck' ? '<span class="log">API was down</span>' : `<span class="log">from the log${x.by === 'ledger' ? ', not re-posted' : ''}</span>`;
+    else if (busy) res = `<span class="busy">${re ? 're-running…' : 'reading the log…'}</span>`;
+    return `<li class="trow${busy ? ' busy' : ''}"><b>${x.name}</b><span class="tans">${x.ans}</span><span class="tby">${ran ? ico(BYICON[x.by], 22) + x.by : ''}</span><span class="tres">${res}</span></li>`;
+  }).join(''));
+  // no "·" or "—" here: Gaegu lacks them and the fallback glyphs shift this line between states
+  const k0 = dreamed(sm);
+  let sum = sm.stuck ? 'this run got stuck at vendor lookup' : k0 ? `${k0} of 4 decisions can re-run exactly, press replay` : 'none of these decisions can re-run: nothing had learned to dream yet';
+  if (rp && !rp.done) sum = k0 ? `re-running ${k0} of 4 decisions…` : 'reading the log…';
+  $('#tsum').classList.toggle('pre', !(rp && rp.done));
+  if (rp && rp.done) {
+    const k = dreamed(sm), logged = sm.steps.filter(x => x.by !== 'dream' && x.by !== '' && x.by !== 'stuck').length;
+    sum = sm.stuck ? (k ? 'categorize re-ran with the same bytes, then the run got stuck at vendor lookup' : 'stuck at vendor lookup: the API was down and nothing had learned it')
+      : k === 0 ? 'nothing re-ran: this run came before anything learned to dream'
+      : `${k} decision${k > 1 ? 's' : ''} re-ran with the same bytes, ${logged} came back from the log`;
+  }
+  setText($('#tsum'), sum);
+}
+function startReplay() {
+  const sm = currentSample();
+  if (!sm) return;
+  S.selRun = sm.r;
+  const rp = S.rp = {r: sm.r, i: 0, done: false};
+  const tick = () => {
+    if (S.rp !== rp) return;
+    rp.i++;
+    if (rp.i >= sm.steps.length) rp.done = true; else setTimeout(tick, 480);
+  };
+  setTimeout(tick, 480);
+}
+
+// ---------- routing, sizing, frame ----------
+function route() {
+  const [v, arg] = (location.hash.slice(1) || 'flows').split('/');
+  S.view = ['flows', 'dreams', 'replay'].includes(v) ? v : 'flows';
+  if (S.view === 'dreams' && BY[arg]) S.sel = arg;
+  for (const id of ['flows', 'dreams', 'replay']) $('#v-' + id).hidden = id !== S.view;
+  document.querySelectorAll('.tab').forEach(t => t.dataset.v === S.view ? t.setAttribute('aria-current', 'page') : t.removeAttribute('aria-current'));
+  if (S.view === 'flows') fit();
+}
+function fit() {
+  const wrap = $('#stage-wrap'), w = wrap.clientWidth;
+  if (!w || S.view !== 'flows') return;
+  const top = wrap.getBoundingClientRect().top + scrollY;
+  const below = $('#charts').offsetHeight + 16 + 14 + 19;
+  const avail = innerHeight - top - below;
+  // on a phone the graph stays readable and scrolls sideways inside the canvas instead
+  const s = Math.max(w < 700 ? .7 : .42, Math.min(w / 1200, avail / 330, 1.3));
+  // fill the canvas like the design board; nodes sit centred in the spare height
+  const h = Math.min(Math.max(330 * s, avail), 330 * s + 220);
+  const st = $('#stage');
+  st.style.transform = `scale(${s})`;
+  st.style.left = Math.max(0, (w - 1200 * s) / 2) + 'px';
+  st.style.top = (h - 330 * s) / 2 + 'px';
+  wrap.style.height = h + 'px';
+}
+function renderTop() {
+  const saved = money(Math.max(0, S.saved));
+  setText($('#saved'), saved);
+  setAttr($('#savedbox'), 'aria-label', `${saved} saved so far`);
+  setText($('#count'), `${int(S.runs)} runs`);
+  const rb = $('#run');
+  const label = S.running ? 'pause' : S.runs < S.target ? 'resume' : S.runs ? `run ${int(BATCH)} more` : `run ${int(BATCH)}`;
+  setHTML(rb, ico(S.running ? 'pause' : 'play', 20) + label);
+  rb.classList.toggle('on', S.running);
+  const n = $('#narrate');
+  n.classList.toggle('idle', S.narrIdle);
+  if (n.dataset.t !== S.narr) { n.dataset.t = S.narr; n.innerHTML = `<span>${S.narr}</span>`; }
+}
+
+let last = now();
+function frame(t) {
+  step(Math.min(.1, (t - last) / 1000));
+  last = t;
+  watchPhases();
+  renderTop();
+  if (S.view === 'flows') { renderStage(); renderCharts(); }
+  else if (S.view === 'dreams') { renderJournal(); setHTML($('#cert'), certHTML(BY[S.sel])); }
+  else renderReplay();
+  requestAnimationFrame(frame);
+}
+
+$('#run').addEventListener('click', () => {
+  // during an outage the outage line stays up: it is what explains the runs that keep going (or don't)
+  if (S.running) { S.running = false; if (!S.down) narrate(`paused at run ${int(S.runs)}`); return; }
+  if (S.runs >= S.target) {
+    S.target += BATCH;
+    if (!S.down) narrate(S.runs ? `fast-forwarding ${int(BATCH)} more transactions` : `fast-forwarding ${int(BATCH)} transactions · every call is logged`);
+  } else if (!S.down) narrate(`resuming at run ${int(S.runs)}`);
+  S.running = true;
+});
+$('#budget').addEventListener('input', () => onBudget(false));
+$('#budget').addEventListener('change', () => onBudget(true));
+const pickRun = e => { const b = e.target.closest('.receipt'); if (b && +b.dataset.r !== S.selRun) { S.selRun = +b.dataset.r; S.rp = null; } };
+$('#receipts').addEventListener('pointerdown', pickRun);
+$('#receipts').addEventListener('click', pickRun);
+$('#rbtn').addEventListener('click', startReplay);
+addEventListener('hashchange', route);
+addEventListener('resize', fit);
+document.fonts && document.fonts.ready.then(fit);
+// web fonts change text heights after load; re-fit whenever the pieces around the graph resize
+const ro = new ResizeObserver(() => fit());
+['.top', '.canvas-head', '#charts'].forEach(sel => ro.observe($(sel)));
+
+buildStage(); buildCharts(); buildJournal();
+record();
+narrate(`a bookkeeping agent, wrapped not rewritten · press run to fast-forward ${int(BATCH)} transactions`, true);
+route();
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
