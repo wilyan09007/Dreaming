@@ -29,7 +29,7 @@ Status: IN_PROGRESS (started 03:00 PDT). Goal text: the `/goal` of the 03:10 ses
 - Add-on in progress (05:31): memory evidence rows (top-3 voting rows) in the trace card
 
 ## 08:08 status
-- Deploy #4 (08:04): PostgresStore connection serialized (_Locked) after the 07:33 batch left the API's connection idle-in-transaction for 20 min (API saw 3,622 runs, Postgres 707); ModalTrainer hands the router's `config` candidate to LocalTrainer (anything_odd never left awake before). Validation batch running (reset, 2,000 runs, Postgres count check, replay).
+- Deploy #4 (08:04): PostgresStore connection serialized (_Locked) after the 07:33 batch left the API's connection idle-in-transaction for 20 min (API saw 3,622 runs, Postgres 707); ModalTrainer hands the router's `config` candidate to LocalTrainer (anything_odd never left awake before). Validation 08:07–08:17 PASSED: 2,000 runs / 643 s / 26 live calls / 0% failed; Postgres 2,000 runs + 10,000 rows, 0 idle-in-tx; anything_odd reached testing; replay 1/1 same bytes.
 - Committed, not yet deployed (deploy #5 with the QA fixes): BENCHMARK_CAMPAIGNS = tier1-1018-final,qb-1018b (final2 ran on the truncated table: 707 rows, nothing certified; excluded from the scores tab).
 - QA round 1: 47 findings reproduced; 4 fixers still working (since ~07:35).
 - Human: CREAO secret + re-run + share; Devpost draft.
