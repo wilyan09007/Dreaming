@@ -83,8 +83,8 @@ const CAPTURES = [
     run: async (c) => {
       const g0 = shot('budget').start;
       await c.click(921, 60, T('dreams') - g0 - 0.05);                             // dreams tab
-      await c.at(T('adjusting') - 0.1); await c.drag(1402, 207, 1640, 1300);        // fewer mistakes -> more
-      await c.at(T('coverage') + 0.2); await c.drag(1640, 207, 1300, 1200);         // and back down
+      await c.at(T('adjusting') - 0.1); await c.drag(1402, 207, 1640, 1000);        // fewer mistakes -> more
+      await c.at(T('coverage') - 0.2); await c.drag(1640, 207, 1300, 800);         // and back down
       await c.click(998, 60, T('compliance,') - g0);                                // replay tab
       await c.at(T('temperature') - 0.3); await c.move(1268, 254, 700);             // big model rows
       await c.at(T('different', 63) - 0.2); await c.move(1000, 392, 600);              // recorded answer
@@ -168,7 +168,7 @@ async function capture(browser, cap) {
     click: async (x, y, when, ms = 650) => { await c.at(g0 + when - ms / 1000); await c.move(x, y, ms); await page.evaluate(() => __ov.press()); await page.mouse.click(x, y); },
     drag: async (x0, y, x1, ms) => {
       await c.move(x0, y, 450); await page.evaluate(() => __ov.press()); await page.mouse.down();
-      const n = Math.round(ms / 33);
+      const n = Math.round(ms / 60); // each step is a round trip; fewer keeps the drag on time
       for (let k = 1; k <= n; k++) {
         const e = k / n < 0.5 ? 4 * (k / n) ** 3 : 1 - Math.pow(-2 * (k / n) + 2, 3) / 2, x = x0 + (x1 - x0) * e;
         await Promise.all([page.mouse.move(x, y), page.evaluate(([x, y]) => __ov.set(x, y), [x, y])]);
