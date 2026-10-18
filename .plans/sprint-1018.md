@@ -39,3 +39,9 @@ Status: DONE 09:05 PDT (wrap-up; demo recording from ~09:10). Goal text: the `/g
 - Recording script: demo/VISUAL_INTENT.md "Demo script"; a 2,000 batch takes ~11 min on Fly (12-26 live StepFun calls), so start it first. Reset again any time with the two commands above (needs .env).
 - Still human: CREAO Secrets DREAMING_API_KEY (scratchpad/creao/dreaming_api_key.env), re-run + share the CREAO run; Devpost project + tracks + video + repo link (repo is private; Devpost wants public).
 - Spend: StepFun $11.97, RunPod $4.30, Modal < $0.50, veri ~$0.20, OpenRouter $0. Revoke every key after Oct 24 (docs/README.md).
+
+## 09:10 close-out
+- QA round 2 (09:05, full scripted scenario offline on main, 1440x900): ERRORS none; only the allowed flag (outage sublabel wraps to two lines). Nothing new surfaced.
+- Live check after deploy #6 (08:58, Playwright): fresh state, four tabs, unplug/plug at idle, dreams, scores (six sites), replay, reload: 0 console errors, 0 failed requests. $/1k and p50 columns read "–" until the first batch logs teacher calls (by design).
+- Not possible from this session (the permission classifier refused the sign-in/secret steps for the subagent and for the main session: "Permission Grant", "Real-World Transactions", "Credential Leakage"): CREAO Secrets DREAMING_API_KEY + re-run + share link; the Devpost project. The CREAO tab is left open at the settings sheet.
+- Known, accepted: node sublabels render under 13px below 1440 wide (record at 1440 or 1920); the demo script's simulated figures differ from the measured ones the page shows.
