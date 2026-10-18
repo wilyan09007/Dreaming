@@ -142,18 +142,23 @@ it boots and bills). Minimum top-up otherwise $5 via Stripe.
 ```
 veri run-script ./experiments/veri_finetune \
   --entrypoint 'python train.py' --base-image veri/base --gpu-type L4-24GB --gpu-count 1 \
-  --requirements ./experiments/veri_finetune/requirements.txt --output-name dreaming-finetune-categorize
+  --output-name dreaming-finetune-categorize        # no requirements.txt: the image has torch, transformers, numpy
 veri jobs get <id> --format json      # status queued -> provisioning -> configuring -> running -> completed | failed
 veri jobs logs <id> -f                # no --follow on run-script itself
 veri jobs download <id> --output-dir ./checkpoints
 ```
-The code dir is tarred and uploaded (excludes `.git`, venvs, caches); bundle the rows as one JSONL and the 133 MB bge-small
-checkpoint inside it (outbound access to Hugging Face from a job is *unverified*). **The artifact contract**: `train.py` writes
+The code dir is tarred and uploaded (excludes `.git`, venvs, caches); bundle the rows as one JSONL (48 KB). **The code upload is
+capped at about 1 MB** (measured: a 1 MB random file uploads, 2 MB and up fail with `VeriRequestError: file: Error parsing
+multipart/form-data request`), so the 133 MB bge-small checkpoint cannot ride along; the job downloads it from the Hugging Face hub
+(reachable from the job, measured), pinned by `revision`. **The artifact contract**: `train.py` writes
 under `$VERI_OUTPUT_DIR` the fine-tuned encoder as `encoder/` in Hugging Face layout (`save_pretrained`) plus `head.npz` in
 `Head.to_bytes` layout (`W`, `b`, `labels`, `encoder_sha`); the `finetune` candidate's `load` reads exactly that, whether the job
-ran on Modal or on veri. It calls `veri_sdk.log_metrics(step=…, loss=…)` per epoch. The base image is Python 3.10, torch
+ran on Modal or on veri. **`veri jobs download` flattens the output to basenames** (measured: `encoder/config.json` and
+`1_Pooling/config.json` collided and the encoder's was lost), so `train.py` also writes `artifact.tar`, the same pair packed as
+`finetune.pack` does; download that one file and hand its bytes to the candidate's `load`. It calls
+`veri_sdk.log_metrics(step=…, loss=…)` per epoch. The base image is Python 3.10, torch
 2.8.0+cu128, transformers 4.56.2: do **not** import the `dreaming` package there; `train.py` is the S8 v2 `ft_encoder` recipe
-standalone, ~80 lines. Single quotes around the entrypoint. Test the download path on a tiny job before the real cell.
+standalone, ~135 lines. Single quotes around the entrypoint.
 **Fallback honest use** (if run-script artifacts cannot be downloaded, *unverified* for custom scripts): one managed `sft_text`
 job on `Qwen/Qwen3-0.6B` over one site's logged (prompt, label) rows exported as `{"prompt","completion"}` JSONL (`veri datasets
 upload`, `veri jobs estimate`, `veri jobs create configs/train.toml --follow`), 50 steps on an L4, with a before/after on our
@@ -163,6 +168,19 @@ reach a GPU are not billed; boots 5 min on AWS, 5–15 on vast; `CAPACITY_UNAVAI
 (28 read tools, 7 write) if an agent should watch the job.
 **Evidence:** job id and `dashboard_url`, `veri jobs get <id> --format json` pasted, the full log, the downloaded weights' sha in our
 `weights` table, the two certificates (frozen head vs fine-tuned) side by side, the `train.py` and the command line committed.
+**Measured 2026-10-18** (`experiments/veri_finetune/`: `rows.py` exports the rows, `train.py` is the job, `compare.py` the offline
+before/after, `results.json` its output). `veri login` was already done on this box and `veri whoami` showed `balance_usd` 20.0, so no
+login step. Rows: bookkeeper `categorize` over `ledger(2000, 0)`, joined on `prompt_sha` with 428 StepFun labels from
+`data/recorded.jsonl` (1,330-line snapshot taken during the record pass; 428 of the 2,000 prompts have a label), split by merchant
+token: 259 train, 73 calib, 96 test, 90 merchants. Two jobs on `L4-24GB` (NVIDIA L4, torch 2.8.0+cu128), 300 steps at batch 32:
+`f3fa8651ff45` (running at 03:44 PDT, completed 03:48; its download showed the flattening above) and
+`ad7dba4ee80c` (submitted 03:52:26, running by 03:56, completed 03:58, so about 6 min end to end; the training loop 33.0 s). Each was billed $0.34 (`veri billing transactions`; `jobs get`
+leaves `cost_usd` null; balance 20.00 to 19.32). Both produced the same `model.safetensors` (sha256 `f1ff361b…95fc`) and the same
+`head.npz` (`d981788e…a51b`): the L4 recipe is bit-repeatable on one SKU and seed. `artifact.tar` sha256 `a2c4acf6…9aed4`
+(134,440,960 bytes). On the held-out merchants, CPU batch 1: accuracy 26.0% (frozen bge-small + `fit_head`) to 37.9% (fine-tuned),
+the same 37.9% the job printed on the GPU; majority label 19.5%; **certified coverage at the 5% budget 0 for both** (73 calibration
+rows, and no budget up to 20% certifies either), so the certificate comparison needs a bigger labelled set or an in-distribution
+split. The recorded labels agree with the mock world's true category on 87.6% of rows.
 **Quit:** no credit code by late evening and no appetite for $5; a tiny job cannot reach `running` after two resubmits across
 providers; the artifact cannot be downloaded after one debugging pass. Confirm with @daniung that a run-script job counts.
 

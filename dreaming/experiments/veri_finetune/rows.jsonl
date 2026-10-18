@@ -1,0 +1,428 @@
+{"text": "Transaction: CON EDISON *POS, $193.64", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: STAPLES *RECUR, $66.89", "label": "Office supplies", "merchant": "STAPLES", "split": "train"}
+{"text": "Transaction: CON EDISON *ACH, $57.46", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: GRUBHUB *SQ, $15.61", "label": "Meals", "merchant": "GRUBHUB", "split": "train"}
+{"text": "Transaction: CON EDISON *SQ, $363.86", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: AIRBNB *RECUR, $402.16", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: 1PASSWORD *RECUR, $41.90", "label": "Software", "merchant": "1PASSWORD", "split": "test"}
+{"text": "Transaction: MAILCHIMP *WEB, $460.26", "label": "Software", "merchant": "MAILCHIMP", "split": "calib"}
+{"text": "Transaction: JETBRAINS *RECUR, $157.55", "label": "Software", "merchant": "JETBRAINS", "split": "train"}
+{"text": "Transaction: BANK FEE *ACH, $103.29", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: QUILL *WEB, $247.39", "label": "Office supplies", "merchant": "QUILL", "split": "calib"}
+{"text": "Transaction: BING ADS *RECUR, $378.84", "label": "Advertising", "merchant": "BING ADS", "split": "test"}
+{"text": "Transaction: GCP *RECUR, $109.88", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: CON EDISON *POS, $438.44", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: TRINET *RECUR, $3050.48", "label": "Payroll", "merchant": "TRINET", "split": "test"}
+{"text": "Transaction: QUILL *EMEA, $141.46", "label": "Office supplies", "merchant": "QUILL", "split": "calib"}
+{"text": "Transaction: MICHAELS *EMEA, $60.63", "label": "Other", "merchant": "MICHAELS", "split": "train"}
+{"text": "Transaction: GCP *ACH, $79.51", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: PANERA *POS, $18.68", "label": "Meals", "merchant": "PANERA", "split": "test"}
+{"text": "Transaction: CON EDISON *RECUR, $351.01", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: CON EDISON *SQ, $403.73", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: DELL *EMEA, $278.39", "label": "Equipment", "merchant": "DELL", "split": "calib"}
+{"text": "Transaction: CON EDISON *SQ, $236.25", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: GCP *EMEA, $40.90", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: PAPER SOURCE *EMEA, $74.45", "label": "Office supplies", "merchant": "PAPER SOURCE", "split": "train"}
+{"text": "Transaction: X ADS *RECUR, $34854.82", "label": "Advertising", "merchant": "X ADS", "split": "test"}
+{"text": "Transaction: HOME DEPOT *ACH, $477.14", "label": "Equipment", "merchant": "HOME DEPOT", "split": "train"}
+{"text": "Transaction: MICRO CENTER *WEB, $562.88", "label": "Equipment", "merchant": "MICRO CENTER", "split": "calib"}
+{"text": "Transaction: CON EDISON *RECUR, $90.21", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: MICRO CENTER *ACH, $619.85", "label": "Equipment", "merchant": "MICRO CENTER", "split": "calib"}
+{"text": "Transaction: QUILL *ACH, $169.20", "label": "Office supplies", "merchant": "QUILL", "split": "calib"}
+{"text": "Transaction: LINODE *WEB, $184.68", "label": "Hosting", "merchant": "LINODE", "split": "train"}
+{"text": "Transaction: CON EDISON *RECUR, $215.56", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: IKEA *WEB, $113.52", "label": "Other", "merchant": "IKEA", "split": "train"}
+{"text": "Transaction: USPS *RECUR, $140.59", "label": "Other", "merchant": "USPS", "split": "calib"}
+{"text": "Transaction: IKEA *SQ, $36.56", "label": "Equipment", "merchant": "IKEA", "split": "train"}
+{"text": "Transaction: LA TAQUERIA *EMEA, $32.18", "label": "Meals", "merchant": "LA TAQUERIA", "split": "train"}
+{"text": "Transaction: MAILCHIMP *POS, $183.20", "label": "Software", "merchant": "MAILCHIMP", "split": "calib"}
+{"text": "Transaction: CON EDISON *POS, $188.18", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: HETZNER *RECUR, $72.82", "label": "Hosting", "merchant": "HETZNER", "split": "train"}
+{"text": "Transaction: CON EDISON *SQ, $165.88", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: B AND H *RECUR, $350.20", "label": "Equipment", "merchant": "B AND H", "split": "train"}
+{"text": "Transaction: MAILCHIMP *POS, $303.97", "label": "Software", "merchant": "MAILCHIMP", "split": "calib"}
+{"text": "Transaction: CON EDISON *SQ, $159.49", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: BANK FEE *WEB, $71.45", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: UPS STORE *RECUR, $98.40", "label": "Office supplies", "merchant": "UPS STORE", "split": "calib"}
+{"text": "Transaction: STATE FILING *RECUR, $65.70", "label": "Other", "merchant": "STATE FILING", "split": "train"}
+{"text": "Transaction: CON EDISON *WEB, $196.65", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: B AND H *EMEA, $244.90", "label": "Equipment", "merchant": "B AND H", "split": "train"}
+{"text": "Transaction: NEWEGG *EMEA, $2035.88", "label": "Equipment", "merchant": "NEWEGG", "split": "test"}
+{"text": "Transaction: CON EDISON *WEB, $257.90", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: MAILCHIMP *POS, $304.29", "label": "Software", "merchant": "MAILCHIMP", "split": "calib"}
+{"text": "Transaction: CON EDISON *EMEA, $335.54", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: JOE JUICE *WEB, $23.10", "label": "Meals", "merchant": "JOE JUICE", "split": "calib"}
+{"text": "Transaction: UPS STORE *WEB, $57.49", "label": "Other", "merchant": "UPS STORE", "split": "calib"}
+{"text": "Transaction: AIRBNB *EMEA, $481.83", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: MICHAELS *SQ, $50.35", "label": "Other", "merchant": "MICHAELS", "split": "train"}
+{"text": "Transaction: PANERA *EMEA, $34.55", "label": "Meals", "merchant": "PANERA", "split": "test"}
+{"text": "Transaction: CON EDISON *RECUR, $593.75", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: AIRBNB *WEB, $581.53", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: CON EDISON *POS, $90.50", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: GCP *RECUR, $39.75", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: ULINE *POS, $58.77", "label": "Office supplies", "merchant": "ULINE", "split": "train"}
+{"text": "Transaction: BANK FEE *WEB, $81.04", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: AIRBNB *WEB, $341.49", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: UPS STORE *WEB, $33.36", "label": "Office supplies", "merchant": "UPS STORE", "split": "calib"}
+{"text": "Transaction: UPWORK *ACH, $2770.86", "label": "Payroll", "merchant": "UPWORK", "split": "train"}
+{"text": "Transaction: MICRO CENTER *ACH, $989.21", "label": "Equipment", "merchant": "MICRO CENTER", "split": "calib"}
+{"text": "Transaction: RENDER *RECUR, $44.61", "label": "Hosting", "merchant": "RENDER", "split": "test"}
+{"text": "Transaction: GCP *POS, $56.61", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: BANK FEE *EMEA, $71.78", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: GOOGLE ADS *EMEA, $316.40", "label": "Advertising", "merchant": "GOOGLE ADS", "split": "train"}
+{"text": "Transaction: CON EDISON *POS, $218.66", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: CON EDISON *WEB, $173.58", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: REMOTE COM *SQ, $1125.59", "label": "Other", "merchant": "REMOTE COM", "split": "calib"}
+{"text": "Transaction: CON EDISON *ACH, $219.83", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: PAPER SOURCE *ACH, $111.22", "label": "Office supplies", "merchant": "PAPER SOURCE", "split": "train"}
+{"text": "Transaction: CDW *POS, $408.10", "label": "Equipment", "merchant": "CDW", "split": "calib"}
+{"text": "Transaction: USPS *POS, $179.69", "label": "Other", "merchant": "USPS", "split": "calib"}
+{"text": "Transaction: BANK FEE *RECUR, $74.28", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: BANK FEE *ACH, $75.31", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: BLUE BOTTLE *SQ, $50.58", "label": "Meals", "merchant": "BLUE BOTTLE", "split": "train"}
+{"text": "Transaction: CON EDISON *WEB, $113.19", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: AIRBNB *ACH, $699.86", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: NEWEGG *SQ, $254.28", "label": "Equipment", "merchant": "NEWEGG", "split": "test"}
+{"text": "Transaction: AIRBNB *SQ, $1042.95", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: ADP *EMEA, $3591.11", "label": "Payroll", "merchant": "ADP", "split": "train"}
+{"text": "Transaction: CON EDISON *RECUR, $111.18", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: AIRBNB *WEB, $525.82", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: NEWEGG *EMEA, $254.15", "label": "Equipment", "merchant": "NEWEGG", "split": "test"}
+{"text": "Transaction: CON EDISON *RECUR, $246.00", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: MICRO CENTER *EMEA, $309.42", "label": "Equipment", "merchant": "MICRO CENTER", "split": "calib"}
+{"text": "Transaction: TIKTOK ADS *SQ, $488.36", "label": "Advertising", "merchant": "TIKTOK ADS", "split": "train"}
+{"text": "Transaction: LA TAQUERIA *WEB, $45.99", "label": "Meals", "merchant": "LA TAQUERIA", "split": "train"}
+{"text": "Transaction: TRINET *RECUR, $1283.61", "label": "Payroll", "merchant": "TRINET", "split": "test"}
+{"text": "Transaction: PAPER SOURCE *SQ, $105.47", "label": "Office supplies", "merchant": "PAPER SOURCE", "split": "train"}
+{"text": "Transaction: MAILCHIMP *ACH, $218.23", "label": "Software", "merchant": "MAILCHIMP", "split": "calib"}
+{"text": "Transaction: USPS *POS, $115.92", "label": "Office supplies", "merchant": "USPS", "split": "calib"}
+{"text": "Transaction: MAILCHIMP *EMEA, $661.40", "label": "Software", "merchant": "MAILCHIMP", "split": "calib"}
+{"text": "Transaction: CON EDISON *WEB, $267.24", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: AIRBNB *ACH, $1001.20", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: CON EDISON *ACH, $182.12", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: NEWEGG *SQ, $417.74", "label": "Equipment", "merchant": "NEWEGG", "split": "test"}
+{"text": "Transaction: CON EDISON *RECUR, $176.14", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: CON EDISON *SQ, $108.74", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: UPWORK *POS, $1959.24", "label": "Payroll", "merchant": "UPWORK", "split": "train"}
+{"text": "Transaction: AIRBNB *ACH, $379.80", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: TRINET *ACH, $1135.09", "label": "Payroll", "merchant": "TRINET", "split": "test"}
+{"text": "Transaction: UPS STORE *ACH, $39.82", "label": "Other", "merchant": "UPS STORE", "split": "calib"}
+{"text": "Transaction: PAPER SOURCE *POS, $64.33", "label": "Office supplies", "merchant": "PAPER SOURCE", "split": "train"}
+{"text": "Transaction: GCP *ACH, $65.29", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: BANK FEE *SQ, $100.90", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: PAYCHEX *WEB, $1957.04", "label": "Payroll", "merchant": "PAYCHEX", "split": "test"}
+{"text": "Transaction: UBER TRIP *EMEA, $292.48", "label": "Travel", "merchant": "UBER TRIP", "split": "train"}
+{"text": "Transaction: GCP *ACH, $90.07", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: MICRO CENTER *ACH, $468.75", "label": "Equipment", "merchant": "MICRO CENTER", "split": "calib"}
+{"text": "Transaction: GCP *POS, $6282.70", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: MICHAELS *ACH, $19.32", "label": "Other", "merchant": "MICHAELS", "split": "train"}
+{"text": "Transaction: CON EDISON *WEB, $126.85", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: CITY UTIL *ACH, $246.89", "label": "Utilities", "merchant": "CITY UTIL", "split": "train"}
+{"text": "Transaction: TARGET *SQ, $89.49", "label": "Other", "merchant": "TARGET", "split": "train"}
+{"text": "Transaction: XFINITY *POS, $61.26", "label": "Utilities", "merchant": "XFINITY", "split": "train"}
+{"text": "Transaction: CON EDISON *ACH, $159.81", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: TRINET *POS, $748.73", "label": "Payroll", "merchant": "TRINET", "split": "test"}
+{"text": "Transaction: CON EDISON *EMEA, $194.72", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: CON EDISON *SQ, $98.36", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: MICHAELS *POS, $38.78", "label": "Other", "merchant": "MICHAELS", "split": "train"}
+{"text": "Transaction: HETZNER *WEB, $125.99", "label": "Hosting", "merchant": "HETZNER", "split": "train"}
+{"text": "Transaction: VERCEL *POS, $184.57", "label": "Hosting", "merchant": "VERCEL", "split": "test"}
+{"text": "Transaction: LINKEDIN ADS *SQ, $415.71", "label": "Advertising", "merchant": "LINKEDIN ADS", "split": "train"}
+{"text": "Transaction: BANK FEE *EMEA, $61.28", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: ULINE *WEB, $60.41", "label": "Office supplies", "merchant": "ULINE", "split": "train"}
+{"text": "Transaction: TIKTOK ADS *ACH, $565.58", "label": "Advertising", "merchant": "TIKTOK ADS", "split": "train"}
+{"text": "Transaction: VERCEL *SQ, $87.06", "label": "Hosting", "merchant": "VERCEL", "split": "test"}
+{"text": "Transaction: TRINET *WEB, $1407.36", "label": "Payroll", "merchant": "TRINET", "split": "test"}
+{"text": "Transaction: CON EDISON *POS, $85.98", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: LYFT *RECUR, $106.71", "label": "Travel", "merchant": "LYFT", "split": "train"}
+{"text": "Transaction: GCP *SQ, $86.29", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: CON EDISON *POS, $93.88", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: BANK FEE *WEB, $64.87", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: BANK FEE *POS, $49.80", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: ULINE *ACH, $133.29", "label": "Office supplies", "merchant": "ULINE", "split": "train"}
+{"text": "Transaction: GCP *EMEA, $78.79", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: BANK FEE *ACH, $91.97", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: UPWORK *WEB, $3291.45", "label": "Payroll", "merchant": "UPWORK", "split": "train"}
+{"text": "Transaction: NEWEGG *EMEA, $334.48", "label": "Equipment", "merchant": "NEWEGG", "split": "test"}
+{"text": "Transaction: CON EDISON *WEB, $135.60", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: AIRBNB *WEB, $1204.21", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: JOE JUICE *RECUR, $49.14", "label": "Meals", "merchant": "JOE JUICE", "split": "calib"}
+{"text": "Transaction: NEWEGG *EMEA, $313.46", "label": "Equipment", "merchant": "NEWEGG", "split": "test"}
+{"text": "Transaction: LINKEDIN ADS *ACH, $934.78", "label": "Advertising", "merchant": "LINKEDIN ADS", "split": "train"}
+{"text": "Transaction: CON EDISON *POS, $328.35", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: FIGMA *EMEA, $73.46", "label": "Software", "merchant": "FIGMA", "split": "test"}
+{"text": "Transaction: VERIZON FIOS *SQ, $162.04", "label": "Utilities", "merchant": "VERIZON FIOS", "split": "calib"}
+{"text": "Transaction: GCP *WEB, $43.53", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: SLACK *WEB, $26.32", "label": "Software", "merchant": "SLACK", "split": "calib"}
+{"text": "Transaction: COMCAST BIZ *EMEA, $142.58", "label": "Utilities", "merchant": "COMCAST BIZ", "split": "train"}
+{"text": "Transaction: MICHAELS *ACH, $87.21", "label": "Other", "merchant": "MICHAELS", "split": "train"}
+{"text": "Transaction: TARGET *POS, $68.39", "label": "Other", "merchant": "TARGET", "split": "train"}
+{"text": "Transaction: CON EDISON *EMEA, $52.22", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: CON EDISON *ACH, $198.27", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: AIRBNB *EMEA, $484.27", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: MICRO CENTER *ACH, $196.30", "label": "Equipment", "merchant": "MICRO CENTER", "split": "calib"}
+{"text": "Transaction: CON EDISON *WEB, $229.04", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: 1PASSWORD *WEB, $125.76", "label": "Software", "merchant": "1PASSWORD", "split": "test"}
+{"text": "Transaction: CON EDISON *SQ, $113.69", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: LA TAQUERIA *EMEA, $42.93", "label": "Meals", "merchant": "LA TAQUERIA", "split": "train"}
+{"text": "Transaction: MICHAELS *EMEA, $25.15", "label": "Other", "merchant": "MICHAELS", "split": "train"}
+{"text": "Transaction: BANK FEE *POS, $116.73", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: HYATT *EMEA, $158.10", "label": "Travel", "merchant": "HYATT", "split": "test"}
+{"text": "Transaction: CON EDISON *ACH, $239.11", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: UPS STORE *ACH, $91.01", "label": "Office supplies", "merchant": "UPS STORE", "split": "calib"}
+{"text": "Transaction: NEWEGG *WEB, $303.83", "label": "Equipment", "merchant": "NEWEGG", "split": "test"}
+{"text": "Transaction: COMCAST BIZ *WEB, $4243.82", "label": "Utilities", "merchant": "COMCAST BIZ", "split": "train"}
+{"text": "Transaction: GRAINGER *ACH, $141.76", "label": "Equipment", "merchant": "GRAINGER", "split": "calib"}
+{"text": "Transaction: AIRBNB *WEB, $965.45", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: AIRBNB *RECUR, $395.30", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: JUSTWORKS *WEB, $1005.80", "label": "Payroll", "merchant": "JUSTWORKS", "split": "calib"}
+{"text": "Transaction: X ADS *ACH, $474.24", "label": "Advertising", "merchant": "X ADS", "split": "test"}
+{"text": "Transaction: 1PASSWORD *WEB, $98.90", "label": "Software", "merchant": "1PASSWORD", "split": "test"}
+{"text": "Transaction: CON EDISON *EMEA, $272.50", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: GCP *WEB, $81.64", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: BANK FEE *EMEA, $111.23", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: CON EDISON *ACH, $129.10", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: ATLASSIAN *POS, $178.31", "label": "Software", "merchant": "ATLASSIAN", "split": "train"}
+{"text": "Transaction: CON EDISON *SQ, $121.34", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: MICHAELS *RECUR, $24.17", "label": "Other", "merchant": "MICHAELS", "split": "train"}
+{"text": "Transaction: AMZN MKTP *POS, $50.90", "label": "Other", "merchant": "AMZN MKTP", "split": "test"}
+{"text": "Transaction: WEWORK *ACH, $66.25", "label": "Other", "merchant": "WEWORK", "split": "train"}
+{"text": "Transaction: JUSTWORKS *ACH, $2393.44", "label": "Payroll", "merchant": "JUSTWORKS", "split": "calib"}
+{"text": "Transaction: QUILL *WEB, $99.72", "label": "Office supplies", "merchant": "QUILL", "split": "calib"}
+{"text": "Transaction: CON EDISON *POS, $174.50", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: LYFT *ACH, $298.49", "label": "Travel", "merchant": "LYFT", "split": "train"}
+{"text": "Transaction: BANK FEE *RECUR, $85.06", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: ATLASSIAN *EMEA, $105.21", "label": "Software", "merchant": "ATLASSIAN", "split": "train"}
+{"text": "Transaction: LYFT *ACH, $138.57", "label": "Travel", "merchant": "LYFT", "split": "train"}
+{"text": "Transaction: MAILCHIMP *EMEA, $420.56", "label": "Software", "merchant": "MAILCHIMP", "split": "calib"}
+{"text": "Transaction: MAILCHIMP *EMEA, $304.70", "label": "Software", "merchant": "MAILCHIMP", "split": "calib"}
+{"text": "Transaction: MAILCHIMP *WEB, $175.52", "label": "Software", "merchant": "MAILCHIMP", "split": "calib"}
+{"text": "Transaction: TOPTAL *POS, $3780.09", "label": "Payroll", "merchant": "TOPTAL", "split": "test"}
+{"text": "Transaction: BANK FEE *ACH, $80.45", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: AIRBNB *RECUR, $528.68", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: NOTARY *ACH, $88.42", "label": "Other", "merchant": "NOTARY", "split": "calib"}
+{"text": "Transaction: GCP *WEB, $151.29", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: CON EDISON *WEB, $129.45", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: UNITED AIR *ACH, $49.38", "label": "Travel", "merchant": "UNITED AIR", "split": "train"}
+{"text": "Transaction: BANK FEE *EMEA, $158.35", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: CON EDISON *ACH, $137.83", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: LYFT *ACH, $133.26", "label": "Travel", "merchant": "LYFT", "split": "train"}
+{"text": "Transaction: JUSTWORKS *RECUR, $2761.47", "label": "Payroll", "merchant": "JUSTWORKS", "split": "calib"}
+{"text": "Transaction: CON EDISON *RECUR, $167.60", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: MICHAELS *SQ, $63.60", "label": "Other", "merchant": "MICHAELS", "split": "train"}
+{"text": "Transaction: DIGITALOCEAN *POS, $136.82", "label": "Hosting", "merchant": "DIGITALOCEAN", "split": "test"}
+{"text": "Transaction: MICRO CENTER *RECUR, $323.57", "label": "Equipment", "merchant": "MICRO CENTER", "split": "calib"}
+{"text": "Transaction: UPWORK *POS, $1473.38", "label": "Payroll", "merchant": "UPWORK", "split": "train"}
+{"text": "Transaction: COSTCO *EMEA, $94.42", "label": "Other", "merchant": "COSTCO", "split": "train"}
+{"text": "Transaction: VERCEL *SQ, $98.84", "label": "Hosting", "merchant": "VERCEL", "split": "test"}
+{"text": "Transaction: HEROKU *RECUR, $151.58", "label": "Hosting", "merchant": "HEROKU", "split": "calib"}
+{"text": "Transaction: PANERA *RECUR, $18.82", "label": "Meals", "merchant": "PANERA", "split": "test"}
+{"text": "Transaction: 1PASSWORD *SQ, $38.87", "label": "Software", "merchant": "1PASSWORD", "split": "test"}
+{"text": "Transaction: NETLIFY *RECUR, $55.22", "label": "Hosting", "merchant": "NETLIFY", "split": "test"}
+{"text": "Transaction: AIRBNB *SQ, $608.15", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: GCP *EMEA, $38.45", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: CON EDISON *EMEA, $210.52", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: NETLIFY *RECUR, $175.93", "label": "Hosting", "merchant": "NETLIFY", "split": "test"}
+{"text": "Transaction: CON EDISON *SQ, $470.93", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: MICRO CENTER *RECUR, $483.13", "label": "Equipment", "merchant": "MICRO CENTER", "split": "calib"}
+{"text": "Transaction: CON EDISON *EMEA, $92.80", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: BANK FEE *EMEA, $65.31", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: GCP *POS, $93.55", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: LOGITECH *POS, $258.70", "label": "Equipment", "merchant": "LOGITECH", "split": "train"}
+{"text": "Transaction: CON EDISON *ACH, $124.27", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: HEROKU *ACH, $97.83", "label": "Hosting", "merchant": "HEROKU", "split": "calib"}
+{"text": "Transaction: AMTRAK *WEB, $136.23", "label": "Travel", "merchant": "AMTRAK", "split": "test"}
+{"text": "Transaction: GUSTO *RECUR, $3117.14", "label": "Payroll", "merchant": "GUSTO", "split": "test"}
+{"text": "Transaction: HILTON *WEB, $212.87", "label": "Travel", "merchant": "HILTON", "split": "train"}
+{"text": "Transaction: VERIZON FIOS *EMEA, $167.33", "label": "Utilities", "merchant": "VERIZON FIOS", "split": "calib"}
+{"text": "Transaction: MAILCHIMP *EMEA, $239.41", "label": "Software", "merchant": "MAILCHIMP", "split": "calib"}
+{"text": "Transaction: UPS STORE *POS, $85.56", "label": "Other", "merchant": "UPS STORE", "split": "calib"}
+{"text": "Transaction: MICHAELS *SQ, $33.94", "label": "Other", "merchant": "MICHAELS", "split": "train"}
+{"text": "Transaction: FLY IO *WEB, $85.32", "label": "Hosting", "merchant": "FLY IO", "split": "test"}
+{"text": "Transaction: TOPTAL *SQ, $2780.11", "label": "Payroll", "merchant": "TOPTAL", "split": "test"}
+{"text": "Transaction: BANK FEE *SQ, $44.84", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: CON EDISON *WEB, $201.04", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: REDDIT ADS *RECUR, $787.30", "label": "Advertising", "merchant": "REDDIT ADS", "split": "train"}
+{"text": "Transaction: AIRBNB *WEB, $984.26", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: CON EDISON *RECUR, $763.78", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: MICHAELS *RECUR, $61.50", "label": "Other", "merchant": "MICHAELS", "split": "train"}
+{"text": "Transaction: LOGITECH *WEB, $494.03", "label": "Equipment", "merchant": "LOGITECH", "split": "train"}
+{"text": "Transaction: HYATT *ACH, $428.03", "label": "Travel", "merchant": "HYATT", "split": "test"}
+{"text": "Transaction: IRS EFTPS *RECUR, $66.03", "label": "Other", "merchant": "IRS EFTPS", "split": "train"}
+{"text": "Transaction: GUSTO *ACH, $1083.23", "label": "Payroll", "merchant": "GUSTO", "split": "test"}
+{"text": "Transaction: LOGITECH *SQ, $807.40", "label": "Equipment", "merchant": "LOGITECH", "split": "train"}
+{"text": "Transaction: COSTCO *RECUR, $117.44", "label": "Other", "merchant": "COSTCO", "split": "train"}
+{"text": "Transaction: COSTCO *RECUR, $59.47", "label": "Other", "merchant": "COSTCO", "split": "train"}
+{"text": "Transaction: NEWEGG *POS, $310.11", "label": "Equipment", "merchant": "NEWEGG", "split": "test"}
+{"text": "Transaction: WB MASON *ACH, $42.35", "label": "Office supplies", "merchant": "WB MASON", "split": "train"}
+{"text": "Transaction: USPS *EMEA, $281.31", "label": "Other", "merchant": "USPS", "split": "calib"}
+{"text": "Transaction: GCP *EMEA, $124.61", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: UNITED AIR *POS, $50.21", "label": "Travel", "merchant": "UNITED AIR", "split": "train"}
+{"text": "Transaction: 1PASSWORD *EMEA, $19.77", "label": "Software", "merchant": "1PASSWORD", "split": "test"}
+{"text": "Transaction: AIRBNB *EMEA, $787.42", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: PAPER SOURCE *SQ, $87.68", "label": "Office supplies", "merchant": "PAPER SOURCE", "split": "train"}
+{"text": "Transaction: CON EDISON *SQ, $255.42", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: CON EDISON *RECUR, $113.44", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: AIRBNB *RECUR, $492.57", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: PANERA *POS, $16.68", "label": "Meals", "merchant": "PANERA", "split": "test"}
+{"text": "Transaction: COSTCO *ACH, $106.38", "label": "Other", "merchant": "COSTCO", "split": "train"}
+{"text": "Transaction: NETLIFY *ACH, $71.28", "label": "Hosting", "merchant": "NETLIFY", "split": "test"}
+{"text": "Transaction: CON EDISON *WEB, $245.92", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: LYFT *POS, $108.76", "label": "Travel", "merchant": "LYFT", "split": "train"}
+{"text": "Transaction: BANK FEE *WEB, $47.99", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: LEGALZOOM *WEB, $75.32", "label": "Other", "merchant": "LEGALZOOM", "split": "train"}
+{"text": "Transaction: CON EDISON *WEB, $132.10", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: GCP *WEB, $102.17", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: CON EDISON *ACH, $211.79", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: CON EDISON *POS, $321.60", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: UBER EATS *SQ, $1016.00", "label": "Meals", "merchant": "UBER EATS", "split": "train"}
+{"text": "Transaction: BANK FEE *EMEA, $195.67", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: HEROKU *SQ, $59.49", "label": "Hosting", "merchant": "HEROKU", "split": "calib"}
+{"text": "Transaction: USPS *ACH, $179.63", "label": "Other", "merchant": "USPS", "split": "calib"}
+{"text": "Transaction: REDDIT ADS *ACH, $1096.48", "label": "Advertising", "merchant": "REDDIT ADS", "split": "train"}
+{"text": "Transaction: COSTCO *SQ, $80.64", "label": "Other", "merchant": "COSTCO", "split": "train"}
+{"text": "Transaction: HETZNER *SQ, $102.95", "label": "Hosting", "merchant": "HETZNER", "split": "train"}
+{"text": "Transaction: 1PASSWORD *ACH, $26.06", "label": "Software", "merchant": "1PASSWORD", "split": "test"}
+{"text": "Transaction: NEWEGG *WEB, $251.38", "label": "Equipment", "merchant": "NEWEGG", "split": "test"}
+{"text": "Transaction: LA TAQUERIA *SQ, $89.67", "label": "Meals", "merchant": "LA TAQUERIA", "split": "train"}
+{"text": "Transaction: AIRBNB *POS, $791.70", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: GCP *RECUR, $107.58", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: MAILCHIMP *EMEA, $19204.08", "label": "Software", "merchant": "MAILCHIMP", "split": "calib"}
+{"text": "Transaction: MICRO CENTER *EMEA, $816.70", "label": "Equipment", "merchant": "MICRO CENTER", "split": "calib"}
+{"text": "Transaction: BANK FEE *RECUR, $62.32", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: CON EDISON *SQ, $433.20", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: CON EDISON *ACH, $18228.28", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: COSTCO *POS, $116.68", "label": "Other", "merchant": "COSTCO", "split": "train"}
+{"text": "Transaction: AIRBNB *WEB, $583.77", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: AIRBNB *ACH, $337.21", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: CON EDISON *SQ, $15553.76", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: NETLIFY *POS, $168.85", "label": "Hosting", "merchant": "NETLIFY", "split": "test"}
+{"text": "Transaction: MAILCHIMP *SQ, $384.35", "label": "Software", "merchant": "MAILCHIMP", "split": "calib"}
+{"text": "Transaction: AIRBNB *WEB, $1113.29", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: CON EDISON *ACH, $278.25", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: CON EDISON *EMEA, $338.30", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: CON EDISON *SQ, $221.79", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: BANK FEE *WEB, $32.42", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: MICHAELS *POS, $27.36", "label": "Other", "merchant": "MICHAELS", "split": "train"}
+{"text": "Transaction: GCP *EMEA, $95.26", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: NOTION *RECUR, $40.86", "label": "Software", "merchant": "NOTION", "split": "test"}
+{"text": "Transaction: OFFICE DEPOT *EMEA, $149.15", "label": "Office supplies", "merchant": "OFFICE DEPOT", "split": "train"}
+{"text": "Transaction: ATLASSIAN *RECUR, $171.02", "label": "Software", "merchant": "ATLASSIAN", "split": "train"}
+{"text": "Transaction: LINEAR *POS, $77.51", "label": "Software", "merchant": "LINEAR", "split": "test"}
+{"text": "Transaction: CON EDISON *SQ, $96.67", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: ZOOM *ACH, $63.60", "label": "Software", "merchant": "ZOOM", "split": "calib"}
+{"text": "Transaction: ZOOM *WEB, $91.12", "label": "Software", "merchant": "ZOOM", "split": "calib"}
+{"text": "Transaction: RENDER *WEB, $250.37", "label": "Hosting", "merchant": "RENDER", "split": "test"}
+{"text": "Transaction: LYFT *WEB, $141.49", "label": "Travel", "merchant": "LYFT", "split": "train"}
+{"text": "Transaction: CON EDISON *EMEA, $235.29", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: DEEL *RECUR, $5203.24", "label": "Payroll", "merchant": "DEEL", "split": "train"}
+{"text": "Transaction: SWEETGREEN *SQ, $19.69", "label": "Meals", "merchant": "SWEETGREEN", "split": "train"}
+{"text": "Transaction: MICRO CENTER *ACH, $591.07", "label": "Equipment", "merchant": "MICRO CENTER", "split": "calib"}
+{"text": "Transaction: COSTCO *SQ, $66.67", "label": "Other", "merchant": "COSTCO", "split": "train"}
+{"text": "Transaction: CON EDISON *RECUR, $494.05", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: CON EDISON *WEB, $92.76", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: LOGITECH *SQ, $43919.22", "label": "Equipment", "merchant": "LOGITECH", "split": "train"}
+{"text": "Transaction: QUILL *SQ, $115.83", "label": "Office supplies", "merchant": "QUILL", "split": "calib"}
+{"text": "Transaction: BANK FEE *EMEA, $56.88", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: SAMSUNG *POS, $965.17", "label": "Equipment", "merchant": "SAMSUNG", "split": "train"}
+{"text": "Transaction: PANERA *EMEA, $13.36", "label": "Meals", "merchant": "PANERA", "split": "test"}
+{"text": "Transaction: NEWEGG *ACH, $506.23", "label": "Equipment", "merchant": "NEWEGG", "split": "test"}
+{"text": "Transaction: COSTCO *ACH, $29.63", "label": "Other", "merchant": "COSTCO", "split": "train"}
+{"text": "Transaction: LINEAR *RECUR, $46.39", "label": "Software", "merchant": "LINEAR", "split": "test"}
+{"text": "Transaction: STRIPE FEE *SQ, $97.53", "label": "Other", "merchant": "STRIPE FEE", "split": "train"}
+{"text": "Transaction: CON EDISON *WEB, $136.03", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: PANERA *RECUR, $12.99", "label": "Meals", "merchant": "PANERA", "split": "test"}
+{"text": "Transaction: 1PASSWORD *POS, $63.33", "label": "Software", "merchant": "1PASSWORD", "split": "test"}
+{"text": "Transaction: TRINET *SQ, $576.15", "label": "Payroll", "merchant": "TRINET", "split": "test"}
+{"text": "Transaction: MICRO CENTER *ACH, $634.25", "label": "Equipment", "merchant": "MICRO CENTER", "split": "calib"}
+{"text": "Transaction: APPLE STORE *ACH, $669.13", "label": "Equipment", "merchant": "APPLE STORE", "split": "calib"}
+{"text": "Transaction: CON EDISON *SQ, $136.91", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: BANK FEE *POS, $48.42", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: CON EDISON *RECUR, $151.42", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: META ADS *SQ, $653.01", "label": "Advertising", "merchant": "META ADS", "split": "train"}
+{"text": "Transaction: FIVERR *EMEA, $2240.14", "label": "Payroll", "merchant": "FIVERR", "split": "train"}
+{"text": "Transaction: 1PASSWORD *POS, $34.63", "label": "Software", "merchant": "1PASSWORD", "split": "test"}
+{"text": "Transaction: FEDEX *POS, $78.73", "label": "Other", "merchant": "FEDEX", "split": "calib"}
+{"text": "Transaction: ULINE *RECUR, $88.61", "label": "Office supplies", "merchant": "ULINE", "split": "train"}
+{"text": "Transaction: FIGMA *SQ, $136.81", "label": "Software", "merchant": "FIGMA", "split": "test"}
+{"text": "Transaction: AIRBNB *EMEA, $759.07", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: GCP *RECUR, $44.61", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: AIRBNB *RECUR, $655.83", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: BANK FEE *SQ, $50.83", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: CON EDISON *ACH, $167.47", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: BANK FEE *POS, $158.03", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: UPS STORE *WEB, $29.62", "label": "Office supplies", "merchant": "UPS STORE", "split": "calib"}
+{"text": "Transaction: FIGMA *RECUR, $75.88", "label": "Software", "merchant": "FIGMA", "split": "test"}
+{"text": "Transaction: GCP *WEB, $84.15", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: WEWORK *SQ, $98.46", "label": "Other", "merchant": "WEWORK", "split": "train"}
+{"text": "Transaction: MICHAELS *POS, $34.64", "label": "Other", "merchant": "MICHAELS", "split": "train"}
+{"text": "Transaction: MICHAELS *SQ, $101.19", "label": "Other", "merchant": "MICHAELS", "split": "train"}
+{"text": "Transaction: BANK FEE *RECUR, $99.13", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: AIRBNB *POS, $938.23", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: SWEETGREEN *EMEA, $10.90", "label": "Meals", "merchant": "SWEETGREEN", "split": "train"}
+{"text": "Transaction: AIRBNB *SQ, $306.71", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: CON EDISON *ACH, $119.09", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: NOTARY *EMEA, $80.51", "label": "Other", "merchant": "NOTARY", "split": "calib"}
+{"text": "Transaction: BANK FEE *POS, $141.74", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: TARGET *POS, $49.88", "label": "Other", "merchant": "TARGET", "split": "train"}
+{"text": "Transaction: TOPTAL *EMEA, $2562.77", "label": "Payroll", "merchant": "TOPTAL", "split": "test"}
+{"text": "Transaction: MICRO CENTER *POS, $799.56", "label": "Equipment", "merchant": "MICRO CENTER", "split": "calib"}
+{"text": "Transaction: HERTZ *SQ, $296.18", "label": "Travel", "merchant": "HERTZ", "split": "calib"}
+{"text": "Transaction: BANK FEE *ACH, $57.61", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: IKEA *SQ, $69.97", "label": "Other", "merchant": "IKEA", "split": "train"}
+{"text": "Transaction: MAILCHIMP *POS, $439.25", "label": "Software", "merchant": "MAILCHIMP", "split": "calib"}
+{"text": "Transaction: CON EDISON *ACH, $82.54", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: CON EDISON *RECUR, $127.67", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: COSTCO *WEB, $96.70", "label": "Other", "merchant": "COSTCO", "split": "train"}
+{"text": "Transaction: MICHAELS *WEB, $52.07", "label": "Other", "merchant": "MICHAELS", "split": "train"}
+{"text": "Transaction: UPS STORE *ACH, $65.36", "label": "Other", "merchant": "UPS STORE", "split": "calib"}
+{"text": "Transaction: ATT BUSINESS *SQ, $76.07", "label": "Utilities", "merchant": "ATT BUSINESS", "split": "test"}
+{"text": "Transaction: CON EDISON *ACH, $88.60", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: X ADS *EMEA, $480.93", "label": "Advertising", "merchant": "X ADS", "split": "test"}
+{"text": "Transaction: VERIZON FIOS *ACH, $73.76", "label": "Utilities", "merchant": "VERIZON FIOS", "split": "calib"}
+{"text": "Transaction: LINEAR *WEB, $46.33", "label": "Software", "merchant": "LINEAR", "split": "test"}
+{"text": "Transaction: CON EDISON *SQ, $107.21", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: BANK FEE *ACH, $209.64", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: BANK FEE *POS, $41.14", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: DOORDASH *POS, $49.07", "label": "Meals", "merchant": "DOORDASH", "split": "calib"}
+{"text": "Transaction: LINKEDIN ADS *WEB, $286.16", "label": "Advertising", "merchant": "LINKEDIN ADS", "split": "train"}
+{"text": "Transaction: VERCEL *EMEA, $170.83", "label": "Hosting", "merchant": "VERCEL", "split": "test"}
+{"text": "Transaction: BANK FEE *EMEA, $77.54", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: 1PASSWORD *WEB, $40.37", "label": "Software", "merchant": "1PASSWORD", "split": "test"}
+{"text": "Transaction: LOGITECH *ACH, $367.31", "label": "Equipment", "merchant": "LOGITECH", "split": "train"}
+{"text": "Transaction: CON EDISON *EMEA, $205.89", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: CON EDISON *ACH, $198.01", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: GCP *ACH, $30.73", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: MICHAELS *RECUR, $15.67", "label": "Other", "merchant": "MICHAELS", "split": "train"}
+{"text": "Transaction: BANK FEE *POS, $56.58", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: BANK FEE *SQ, $347.82", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: MICRO CENTER *RECUR, $286.66", "label": "Equipment", "merchant": "MICRO CENTER", "split": "calib"}
+{"text": "Transaction: IKEA *EMEA, $58.63", "label": "Other", "merchant": "IKEA", "split": "train"}
+{"text": "Transaction: CON EDISON *SQ, $138.58", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: CHIPOTLE *WEB, $37.58", "label": "Meals", "merchant": "CHIPOTLE", "split": "test"}
+{"text": "Transaction: AIRBNB *ACH, $26248.50", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: MICRO CENTER *SQ, $254.58", "label": "Equipment", "merchant": "MICRO CENTER", "split": "calib"}
+{"text": "Transaction: CON EDISON *EMEA, $160.23", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: TRINET *ACH, $2575.77", "label": "Payroll", "merchant": "TRINET", "split": "test"}
+{"text": "Transaction: CON EDISON *POS, $100.19", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: AIRBNB *EMEA, $557.09", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: LOGITECH *EMEA, $172.65", "label": "Equipment", "merchant": "LOGITECH", "split": "train"}
+{"text": "Transaction: CON EDISON *RECUR, $139.02", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: BANK FEE *POS, $164.33", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: CLOUDFLARE *ACH, $52.56", "label": "Hosting", "merchant": "CLOUDFLARE", "split": "train"}
+{"text": "Transaction: GCP *RECUR, $58.82", "label": "Hosting", "merchant": "GCP", "split": "train"}
+{"text": "Transaction: AIRBNB *EMEA, $928.21", "label": "Travel", "merchant": "AIRBNB", "split": "test"}
+{"text": "Transaction: CON EDISON *EMEA, $165.33", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: COSTCO *SQ, $94.05", "label": "Office supplies", "merchant": "COSTCO", "split": "train"}
+{"text": "Transaction: COSTCO *WEB, $212.54", "label": "Other", "merchant": "COSTCO", "split": "train"}
+{"text": "Transaction: QUILL *SQ, $115.65", "label": "Office supplies", "merchant": "QUILL", "split": "calib"}
+{"text": "Transaction: UPWORK *WEB, $1353.44", "label": "Payroll", "merchant": "UPWORK", "split": "train"}
+{"text": "Transaction: BANK FEE *EMEA, $65.14", "label": "Other", "merchant": "BANK FEE", "split": "train"}
+{"text": "Transaction: MICRO CENTER *POS, $649.97", "label": "Equipment", "merchant": "MICRO CENTER", "split": "calib"}
+{"text": "Transaction: CON EDISON *EMEA, $128.00", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: HEROKU *POS, $259.00", "label": "Hosting", "merchant": "HEROKU", "split": "calib"}
+{"text": "Transaction: CON EDISON *WEB, $276.90", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: CON EDISON *EMEA, $69.83", "label": "Utilities", "merchant": "CON EDISON", "split": "train"}
+{"text": "Transaction: CDW *SQ, $301.09", "label": "Equipment", "merchant": "CDW", "split": "calib"}
+{"text": "Transaction: COSTCO *EMEA, $80.74", "label": "Other", "merchant": "COSTCO", "split": "train"}
+{"text": "Transaction: ULINE *SQ, $78.49", "label": "Office supplies", "merchant": "ULINE", "split": "train"}
