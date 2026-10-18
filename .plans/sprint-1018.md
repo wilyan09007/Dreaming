@@ -1,6 +1,6 @@
 # Sprint 2026-10-18: finish Dreaming and its demo by 10:00 PDT
 
-Status: IN_PROGRESS (started 03:00 PDT). Goal text: the `/goal` of the 03:10 session. Design docs are frozen; build to them.
+Status: DONE 09:05 PDT (wrap-up; demo recording from ~09:10). Goal text: the `/goal` of the 03:10 session. Design docs are frozen; build to them.
 
 ## Critical path
 - [x] `mock-dir/` → `dreaming/`; venv resynced; docs repointed
@@ -12,7 +12,7 @@ Status: IN_PROGRESS (started 03:00 PDT). Goal text: the `/goal` of the 03:10 ses
 - [x] Deploy #2 05:00: designed page live at https://dreaming-demo.fly.dev (TEACHER=rule for QA); demo tables reset
 - [x] Deploy #3 07:31: TEACHER=stepfun (RecordedTeacher), RECORDED_SEEDS=0, recorded.jsonl + embeddings.npz, scores tab, evidence rows, quickbooks in the image; demo-reset 07:33; verification batch of 2,000 done 07:44: 11 min, 12 live StepFun calls, 0% failed, replayable 28%, cost/run 0.42c; replay 3/3 same bytes on the deployed encoder
 - [x] Fetch round trip on the deployed stack passes 07:40 (planner quoted the agent's receipt verbatim)
-- [ ] Visual QA loop round 1 running (05:04): 4 lenses offline + 1 live; fixers in worktrees
+- [x] Visual QA loop round 1 (05:04–08:35, 64 agents): 47 findings reproduced; fixers 59/60/61/62/64 merged (flows switch state, dreams budget re-pricing, gate zero-cutoff, replay card, naming); deploy #5 08:50, deploy #6 09:0x
 - [x] Benchmark: GET /benchmark(.md) with repeat/unseen columns + accuracy; scores tab merged 05:29 (needs deploy #3); README/Devpost evidence later
 
 ## Side quests (parallel, scrap if they run long)
@@ -33,3 +33,9 @@ Status: IN_PROGRESS (started 03:00 PDT). Goal text: the `/goal` of the 03:10 ses
 - Committed, not yet deployed (deploy #5 with the QA fixes): BENCHMARK_CAMPAIGNS = tier1-1018-final,qb-1018b (final2 ran on the truncated table: 707 rows, nothing certified; excluded from the scores tab).
 - QA round 1: 47 findings reproduced; 4 fixers still working (since ~07:35).
 - Human: CREAO secret + re-run + share; Devpost draft.
+
+## Hand-off 09:05
+- Live: https://dreaming-demo.fly.dev (deploy #6: everything on main at 0921923). Fresh state after the final `modal_db.py --demo-reset` + `fly machine restart 891ed4dae94e08`.
+- Recording script: demo/VISUAL_INTENT.md "Demo script"; a 2,000 batch takes ~11 min on Fly (12-26 live StepFun calls), so start it first. Reset again any time with the two commands above (needs .env).
+- Still human: CREAO Secrets DREAMING_API_KEY (scratchpad/creao/dreaming_api_key.env), re-run + share the CREAO run; Devpost project + tracks + video + repo link (repo is private; Devpost wants public).
+- Spend: StepFun $11.97, RunPod $4.30, Modal < $0.50, veri ~$0.20, OpenRouter $0. Revoke every key after Oct 24 (docs/README.md).
