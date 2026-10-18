@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import importlib
 import json
+import tarfile
 from collections import Counter
 from pathlib import Path
 from typing import Any
@@ -21,9 +22,9 @@ def bill(i: int, vendor: str, day: int, account: str | None = None, item: str | 
             "txn_sim_day": day, "txn_date": f"2026-01-{day:02d}", "item_lines": items, "account_lines": acct, "total_amount": "500.00", "memo": "m"}
 
 
-def inv(i: str, day: int, due: int, total: str = "100.00") -> dict[str, Any]:
+def inv(i: str, day: int, due: int, total: str = "100.00", deposit: str = "0.00", retainage: str = "0.00") -> dict[str, Any]:
     return {"id": i, "customer_id": "c1", "customer_name": "Acme", "txn_sim_day": day, "txn_date": f"d{day:03d}", "due_sim_day": due,
-            "due_date": f"d{due:03d}", "total_amount": total, "deposit_applied_amount": "0.00", "retainage_amount": "0.00"}
+            "due_date": f"d{due:03d}", "total_amount": total, "deposit_applied_amount": deposit, "retainage_amount": retainage}
 
 
 def pay(doc: str, day: int, amount: str) -> dict[str, Any]:
@@ -38,7 +39,7 @@ def bank(i: int, day: int, amount: str, doc: str, kind: str = "customer_payment"
 def root(tmp_path: Path) -> Path:
     files: dict[str, list[dict[str, Any]]] = {
         "customers": [{"id": "c1", "payment_terms": "Net 7"}],
-        "invoices": [inv("a", 1, 8), inv("b", 2, 9), inv("c", 20, 27), inv("d", 30, 37), inv("e", 200, 300)],
+        "invoices": [inv("a", 1, 8), inv("b", 2, 9), inv("f", 10, 17, deposit="60.00", retainage="40.00"), inv("c", 20, 27), inv("d", 30, 37), inv("e", 200, 300)],
         "customer_payments": [pay("a", 5, "60.00"), pay("a", 8, "40.00"), pay("b", 25, "100.00"), pay("c", 26, "100.00"), pay("x", 9, "1.00")],
         "accounts": [{"id": "acct-rent", "name": "Rent and Lease"}, {"id": "acct-inventory", "name": "Inventory Asset"}],
         "items": [{"id": "item-1", "purchase_account_id": "acct-inventory"}],
@@ -64,10 +65,33 @@ def test_download_is_idempotent_without_network(root: Path, monkeypatch: pytest.
     assert data.download(root.parent) == root
 
 
+def test_download_unpacks_whole_or_not_at_all(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    import huggingface_hub
+
+    src = tmp_path / "src" / "hackathon-100"
+    src.mkdir(parents=True)
+    (src / "index.json").write_text("[]")
+    tgz = tmp_path / "ok.tar.gz"
+    with tarfile.open(tgz, "w:gz") as t:
+        t.add(src, arcname="hackathon-100")
+    (bad := tmp_path / "bad.tar.gz").write_bytes(tgz.read_bytes()[:40])  # a download cut short
+    root = tmp_path / "root"
+
+    def serve(path: Path) -> None:
+        monkeypatch.setattr(huggingface_hub, "hf_hub_download", lambda *a, **k: str(path))  # pyright: ignore[reportUnknownLambdaType, reportUnknownArgumentType]
+
+    serve(bad)
+    with pytest.raises((tarfile.TarError, EOFError)):
+        data.download(root)
+    assert not (root / "hackathon-100").exists()  # a killed unpack never looks done
+    serve(tgz)
+    assert (data.download(root) / "index.json").is_file() and not (root / ".partial").exists()
+
+
 def test_invoice_labels_censoring_and_history_known_that_day(root: Path) -> None:
     rows = data.company_rows("invoice_paid", data.companies(root)[0])
     by_ts = {r["ts"]: r for r in rows}
-    assert [r["label"] for r in rows] == ["on_time", "late", "on_time", "never"]  # e (due day 300 > 365 - 90) is censored, whatever happens
+    assert [r["label"] for r in rows] == ["on_time", "late", "on_time", "never"]  # e (due day 300 > 365 - 90) is censored, whatever happens; f owes nothing: no row, no history
     assert by_ts["d020"]["rendered"].endswith("History: 1 paid on time, 1 open past due; last: open past due")  # b paid on day 25: unknown on day 20
     assert "1 paid on time, 2 paid late" not in by_ts["d030"]["rendered"] and "2 paid on time, 1 paid late" in by_ts["d030"]["rendered"]
     assert by_ts["d001"]["rendered"] == "Customer: Acme\nTerms: Net 7\nAmount: $100.00\nIssued d001, due d008\nHistory: none yet; last: none"

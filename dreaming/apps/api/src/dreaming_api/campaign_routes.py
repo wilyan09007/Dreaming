@@ -7,8 +7,8 @@
 `campaign_id` defaults to "<provider>-<site>"; launch_cells takes no provider, so the provider is recorded in the name and the cells train
 on the labels prepare_site wrote for the site (the books for QuickBooks, the pinned teacher's trace rows for the bookkeeper).
 POST spends Modal compute, so it needs `Authorization: Bearer $DREAMING_API_KEY` (401 otherwise; 503 while the API has no key set).
-Any failure of the Modal call (no token, app not deployed, the function raised) is a 503 carrying the error text. Both routes await
-`.remote.aio`, so a slow Modal call holds no worker thread.
+A ValueError from the function (an unknown site) is the caller's mistake: 422 with its text. Any other failure of the Modal call (no token,
+app not deployed, the function raised) is a 503 carrying the error text. Both routes await `.remote.aio`, so a slow Modal call holds no worker thread.
 """
 
 from __future__ import annotations
@@ -38,6 +38,8 @@ async def call(fn_name: str, *args: Json) -> Any:
     try:
         fn: Any = modal.Function.from_name("dreaming-campaign", fn_name)  # pyright: ignore[reportUnknownMemberType, reportUnknownVariableType]
         return await fn.remote.aio(*args)
+    except ValueError as e:  # launch_cells raises it for a site it does not know: the caller's mistake, and retrying will not help
+        raise HTTPException(422, str(e)) from e
     except Exception as e:  # whatever Modal raises (auth, NotFoundError when not deployed, a remote error) means the campaign is unavailable
         raise HTTPException(503, f"campaign {fn_name} failed: {type(e).__name__}: {e}") from e
 

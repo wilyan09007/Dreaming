@@ -9,6 +9,8 @@ invoice_paid: on_time (receivable paid in full by the due day), late (paid in fu
 books). Right-censoring: an invoice due within HORIZON days of the last day is dropped whatever its outcome, so `never` means at least 90
 days past due (measured 2026-10-18: 99.9% of paid invoices are paid within 87 days of the due day; the max is 170). The history line holds
 only what was known on the invoice's day: earlier invoices of the customer already paid (on time / late) or already past due and open.
+An invoice with nothing owed on its receivable (a deposit plus the withheld retainage cover the total; measured 82 of 53,644) has no
+outcome: it is neither a row nor part of any history.
 
 bill_account: the account the bill posts to, by name: account_lines[0] or, for a product bill, the item's purchase account (every bill in
 the set has exactly one line). The line's own account name is never rendered.
@@ -17,9 +19,10 @@ bank_match (tool-shaped: the label is the source_document_id of the bank line, o
 bank feed is clean by construction (DATA_README: "the feed matches the books exactly -- inject your own mess"), so bank_match rows carry
 three injected faults, drawn from random.Random(company id) in feed order (sim_day, id), deterministic: (1) amount noise: 10% of bank lines
 show the document amount minus a fee of $0.01-$25.00, capped at 3% of the amount (at least $0.01); (2) memo truncation: 30% of bank lines
-keep only the first 12 characters of the memo; (3) duplicates: 2% of bank lines are repeated once, same day, memo and amount, and the
+keep only the first 12 characters of the memo (a memo of 12 or fewer is unchanged); (3) duplicates: 2% of bank lines are repeated once, same day, memo and amount, and the
 repeat's correct answer is `none` because its document was already matched by the first copy. The open documents shown with a line are
-the book records (one per clean feed line: id, date, amount, kind) dated within 3 days of it and not yet matched, the 5 closest in amount.
+the book records (one per clean feed line: id, date, amount, kind) dated within 3 days of it and not yet matched, the 5 closest in amount
+(measured 2026-10-18: the correct document is among the five for 99.1% of the lines that have one, and first for 93.4%).
 Labels and every other file (invoices, bills, payments, journal entries) are unchanged.
 """
 
@@ -48,7 +51,7 @@ ACCOUNTS = ["Shipping and Delivery", "Work in Progress", "Operating Expense", "U
 
 Row = dict[str, str]
 Doc = dict[str, Any]
-_LOADER: Any = getattr(yaml, "CSafeLoader", yaml.SafeLoader)  # libyaml when the wheel has it: 401 MB of YAML
+_LOADER = yaml.CSafeLoader  # libyaml: 401 MB of YAML is minutes with it, far slower without; a wheel lacking it fails here instead of crawling
 
 
 def download(root: Path) -> Path:
@@ -99,8 +102,12 @@ def render_invoice(customer: str, terms: str, amount: str, date: str, due: str, 
     return f"Customer: {customer}\nTerms: {terms}\nAmount: ${amount}\nIssued {date}, due {due}\nHistory: {h}; last: {last or 'none'}"
 
 
+def _owed(inv: Doc) -> int:
+    return _cents(inv["total_amount"]) - _cents(inv["deposit_applied_amount"]) - _cents(inv["retainage_amount"])
+
+
 def _paid_day(inv: Doc, paid: Sequence[tuple[int, int]]) -> int | None:
-    owed, got = _cents(inv["total_amount"]) - _cents(inv["deposit_applied_amount"]) - _cents(inv["retainage_amount"]), 0
+    owed, got = _owed(inv), 0
     for day, c in sorted(paid):
         got += c
         if got >= owed:
@@ -120,6 +127,8 @@ def _invoice_rows(d: Path, group: str) -> list[Row]:
     seen: defaultdict[str, list[Doc]] = defaultdict(list)
     out: list[Row] = []
     for inv in invs:
+        if _owed(inv) <= 0:  # a deposit and the withheld retainage cover it: no receivable, so no outcome (82 of 147 "never" rows before this)
+            continue
         t, prior = inv["txn_sim_day"], seen[inv["customer_id"]]
         seen[inv["customer_id"]].append(inv)
         if inv["due_sim_day"] > LAST_DAY - HORIZON:

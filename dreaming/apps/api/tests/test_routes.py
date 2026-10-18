@@ -181,6 +181,12 @@ def test_campaign_undeployed_is_503_with_the_error(c: TestClient, modal_fn: Call
         assert r.status_code == 503 and "NotFoundError" in r.json()["detail"] and "dreaming-campaign" in r.json()["detail"]
 
 
+def test_campaign_unknown_site_is_422_not_503(c: TestClient, modal_fn: Callable[[Exception | None], Calls]) -> None:
+    modal_fn(ValueError("unknown campaign site 'nope'; choose from bookkeeper.categorize"))  # what launch_cells raises
+    r = c.post("/campaign/run", json={"provider": "stepfun", "site": "nope"}, headers=KEY)
+    assert r.status_code == 422 and "unknown campaign site 'nope'" in r.json()["detail"]
+
+
 # ------------------------------------------------------------------ POST /budget
 
 
