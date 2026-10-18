@@ -1,0 +1,79 @@
+records: 243; cells per arm (full = 27): {"1 baseline (frozen bge-small + LR)": 27, "2 synthetic prior (LLM examples + k rows)": 27, "3 hypernetwork (pool-trained, one forward pass)": 27, "4 encoder pretrained on pool (33M) + LR": 27, "4b encoder pretrained + synthetic prior": 27, "5 shared LoRA (pool-pretrained) + k rows": 27, "5c LoRA from base + k rows": 27, "5b shared LoRA + synthetic prior": 27, "5d LoRA from base + synthetic prior": 27}
+
+### Certified coverage at a 5% budget (share of test rows answered), by task; mean over draws
+
+| arm | amazon k=1 | amazon k=3 | amazon k=10 | bank_us k=1 | bank_us k=3 | bank_us k=10 | clinc_travel k=1 | clinc_travel k=3 | clinc_travel k=10 |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 baseline (frozen bge-small + LR) | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.401 | 0.985 | 0.996 |
+| 2 synthetic prior (LLM examples + k rows) | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.954 | 0.990 | 0.996 |
+| 3 hypernetwork (pool-trained, one forward pass) | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.209 | 0.648 | 0.705 |
+| 4 encoder pretrained on pool (33M) + LR | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.787 | 0.983 | 0.998 |
+| 4b encoder pretrained + synthetic prior | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.915 | 0.970 | 0.993 |
+| 5 shared LoRA (pool-pretrained) + k rows | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.330 | 0.927 |
+| 5c LoRA from base + k rows | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.733 |
+| 5b shared LoRA + synthetic prior | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.837 | 0.895 | 0.973 |
+| 5d LoRA from base + synthetic prior | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.386 | 0.250 | 0.851 |
+
+### Accuracy on the test rows, by task; mean over draws
+
+| arm | amazon k=1 | amazon k=3 | amazon k=10 | bank_us k=1 | bank_us k=3 | bank_us k=10 | clinc_travel k=1 | clinc_travel k=3 | clinc_travel k=10 |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 baseline (frozen bge-small + LR) | 0.335 | 0.469 | 0.607 | 0.335 | 0.443 | 0.573 | 0.870 | 0.975 | 0.993 |
+| 2 synthetic prior (LLM examples + k rows) | 0.573 | 0.583 | 0.646 | 0.510 | 0.560 | 0.627 | 0.967 | 0.984 | 0.998 |
+| 3 hypernetwork (pool-trained, one forward pass) | 0.483 | 0.518 | 0.530 | 0.400 | 0.462 | 0.468 | 0.839 | 0.866 | 0.878 |
+| 4 encoder pretrained on pool (33M) + LR | 0.405 | 0.537 | 0.648 | 0.340 | 0.443 | 0.571 | 0.925 | 0.981 | 0.987 |
+| 4b encoder pretrained + synthetic prior | 0.553 | 0.575 | 0.640 | 0.481 | 0.542 | 0.608 | 0.957 | 0.976 | 0.991 |
+| 5 shared LoRA (pool-pretrained) + k rows | 0.211 | 0.339 | 0.507 | 0.194 | 0.299 | 0.468 | 0.634 | 0.822 | 0.961 |
+| 5c LoRA from base + k rows | 0.158 | 0.280 | 0.386 | 0.133 | 0.244 | 0.374 | 0.442 | 0.651 | 0.920 |
+| 5b shared LoRA + synthetic prior | 0.515 | 0.551 | 0.606 | 0.441 | 0.506 | 0.557 | 0.925 | 0.948 | 0.979 |
+| 5d LoRA from base + synthetic prior | 0.431 | 0.478 | 0.495 | 0.361 | 0.371 | 0.445 | 0.829 | 0.835 | 0.960 |
+
+### Realized error on the answered rows (budget 5%), by task; mean over draws
+
+| arm | amazon k=1 | amazon k=3 | amazon k=10 | bank_us k=1 | bank_us k=3 | bank_us k=10 | clinc_travel k=1 | clinc_travel k=3 | clinc_travel k=10 |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 baseline (frozen bge-small + LR) | nan | nan | nan | nan | nan | nan | 0.007 | 0.019 | 0.006 |
+| 2 synthetic prior (LLM examples + k rows) | nan | nan | nan | nan | nan | nan | 0.007 | 0.011 | 0.000 |
+| 3 hypernetwork (pool-trained, one forward pass) | nan | nan | nan | nan | nan | nan | 0.011 | 0.014 | 0.017 |
+| 4 encoder pretrained on pool (33M) + LR | nan | nan | nan | nan | nan | nan | 0.004 | 0.010 | 0.012 |
+| 4b encoder pretrained + synthetic prior | nan | nan | nan | nan | nan | nan | 0.005 | 0.007 | 0.006 |
+| 5 shared LoRA (pool-pretrained) + k rows | nan | nan | nan | nan | nan | nan | nan | 0.004 | 0.009 |
+| 5c LoRA from base + k rows | nan | nan | nan | nan | nan | nan | nan | nan | 0.010 |
+| 5b shared LoRA + synthetic prior | nan | nan | nan | nan | nan | nan | 0.012 | 0.021 | 0.008 |
+| 5d LoRA from base + synthetic prior | nan | nan | nan | nan | nan | nan | 0.003 | 0.027 | 0.004 |
+
+### Mean over tasks (+- s.d. over draws of the task-averaged value)
+
+| arm | cov k=1 | cov k=3 | cov k=10 | acc k=1 | acc k=3 | acc k=10 | rows per label to 50% coverage (all tasks) | 50% rows amazon | 50% rows bank_us | 50% rows clinc_travel |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 baseline (frozen bge-small + LR) | 0.134 +- 0.116 | 0.328 +- 0.003 | 0.332 +- 0.003 | 0.513 +- 0.014 | 0.629 +- 0.005 | 0.724 +- 0.013 | >10 | >10 | >10 | 1.2 |
+| 2 synthetic prior (LLM examples + k rows) | 0.318 +- 0.004 | 0.330 +- 0.003 | 0.332 +- 0.000 | 0.683 +- 0.005 | 0.709 +- 0.004 | 0.757 +- 0.009 | >10 | >10 | >10 | <=1 |
+| 3 hypernetwork (pool-trained, one forward pass) | 0.070 +- 0.121 | 0.216 +- 0.050 | 0.235 +- 0.013 | 0.574 +- 0.031 | 0.616 +- 0.009 | 0.625 +- 0.009 | >10 | >10 | >10 | 2.1 |
+| 4 encoder pretrained on pool (33M) + LR | 0.262 +- 0.045 | 0.328 +- 0.004 | 0.333 +- 0.001 | 0.557 +- 0.016 | 0.654 +- 0.014 | 0.736 +- 0.009 | >10 | >10 | >10 | <=1 |
+| 4b encoder pretrained + synthetic prior | 0.305 +- 0.006 | 0.323 +- 0.010 | 0.331 +- 0.002 | 0.664 +- 0.004 | 0.697 +- 0.001 | 0.746 +- 0.005 | >10 | >10 | >10 | <=1 |
+| 5 shared LoRA (pool-pretrained) + k rows | 0.000 +- 0.000 | 0.110 +- 0.105 | 0.309 +- 0.013 | 0.346 +- 0.030 | 0.487 +- 0.031 | 0.645 +- 0.011 | >10 | >10 | >10 | 4.2 |
+| 5c LoRA from base + k rows | 0.000 +- 0.000 | 0.000 +- 0.000 | 0.244 +- 0.064 | 0.244 +- 0.050 | 0.392 +- 0.048 | 0.560 +- 0.052 | >10 | >10 | >10 | 6.8 |
+| 5b shared LoRA + synthetic prior | 0.279 +- 0.029 | 0.298 +- 0.006 | 0.324 +- 0.005 | 0.627 +- 0.008 | 0.668 +- 0.017 | 0.714 +- 0.015 | >10 | >10 | >10 | <=1 |
+| 5d LoRA from base + synthetic prior | 0.129 +- 0.119 | 0.083 +- 0.144 | 0.284 +- 0.052 | 0.540 +- 0.031 | 0.561 +- 0.041 | 0.633 +- 0.045 | >10 | >10 | >10 | 5.0 |
+
+Arm 6 (best combination = higher mean coverage over k, chosen on these same tasks so slightly optimistic): 4b encoder pretrained + synthetic prior ({"4b encoder pretrained + synthetic prior": 0.32, "5b shared LoRA + synthetic prior": 0.3})
+
+### Paired transfer gains (mean over tasks and draws of arm A minus arm B on the same task / k / draw; +- s.d. over the paired cells)
+
+| comparison | cov k=1 | cov k=3 | cov k=10 | acc k=1 | acc k=3 | acc k=10 | cells per k |
+|---|---|---|---|---|---|---|---|
+| encoder transfer (4 - 1) | +0.129 +- 0.223 | -0.001 +- 0.011 | +0.001 +- 0.005 | +0.043 +- 0.038 | +0.025 +- 0.036 | +0.012 +- 0.024 | 9 |
+| encoder transfer with synthetic prior (4b - 2) | -0.013 +- 0.020 | -0.007 +- 0.017 | -0.001 +- 0.004 | -0.020 +- 0.011 | -0.012 +- 0.010 | -0.011 +- 0.010 | 9 |
+| decoder transfer (5 - 5c) | +0.000 +- 0.000 | +0.110 +- 0.228 | +0.065 +- 0.125 | +0.102 +- 0.094 | +0.095 +- 0.070 | +0.085 +- 0.067 | 9 |
+| decoder transfer with synthetic prior (5b - 5d) | +0.150 +- 0.263 | +0.215 +- 0.393 | +0.040 +- 0.096 | +0.086 +- 0.042 | +0.107 +- 0.065 | +0.081 +- 0.064 | 9 |
+| hypernetwork vs baseline (3 - 1) | -0.064 +- 0.368 | -0.112 +- 0.185 | -0.097 +- 0.146 | +0.061 +- 0.089 | -0.013 +- 0.077 | -0.099 +- 0.024 | 9 |
+| hypernetwork vs synthetic prior (3 - 2) | -0.248 +- 0.416 | -0.114 +- 0.186 | -0.097 +- 0.147 | -0.109 +- 0.044 | -0.093 +- 0.034 | -0.132 +- 0.023 | 9 |
+| encoder-transfer vs decoder-transfer, absolute (4 - 5) | +0.262 +- 0.399 | +0.218 +- 0.363 | +0.024 +- 0.041 | +0.210 +- 0.076 | +0.167 +- 0.053 | +0.090 +- 0.056 | 9 |
+
+prep_info: {"datasets": {"dikshith": {"rows_loaded": 6830, "labels": 8, "rows_in_pool": 800, "val": false}, "sumeet": {"rows_loaded": 859, "labels": 21, "rows_in_pool": 859, "val": false}, "rajesh": {"rows_loaded": 230, "labels": 7, "rows_in_pool": 213, "val": false}, "tickets": {"rows_loaded": 11923, "labels": 10, "rows_in_pool": 1000, "val": false}, "lezh": {"rows_loaded": 22283, "labels": 33, "rows_in_pool": 2915, "val": false}, "flip": {"rows_loaded": 11628, "labels": 15, "rows_in_pool": 1500, "val": false}, "banking77": {"rows_loaded": 9993, "labels": 77, "rows_in_pool": 2923, "val": false}, "clinc_fin": {"rows_loaded": 3000, "labels": 30, "rows_in_pool": 3000, "val": false}, "bitext": {"rows_loaded": 24554, "labels": 27, "rows_in_pool": 2700, "val": true}}, "pool_rows_dropped_equal_to_eval_text": 0, "eval_tasks": {"bank_us": {"n_labels": 17, "n_groups": 1007, "groups_sup": 496, "groups_cal": 209, "groups_test": 302, "n_support_pool": 3254, "n_cal": 300, "n_test": 800, "cal_groups_overlap_support": 0, "test_groups_overlap_support": 0, "cal_groups_overlap_test": 0}, "amazon": {"n_labels": 14, "n_groups": 2186, "groups_sup": 1073, "groups_cal": 432, "groups_test": 681, "n_support_pool": 2790, "n_cal": 300, "n_test": 800, "cal_groups_overlap_support": 0, "test_groups_overlap_support": 0, "cal_groups_overlap_test": 0}, "clinc_travel": {"n_labels": 15, "n_support_pool": 1500, "n_cal": 300, "n_test": 450, "note": "official CLINC splits, no group field"}}, "pool_labels": {"banking77": 77, "bitext": 27, "clinc_fin": 30, "dikshith": 8, "flip": 15, "lezh": 33, "rajesh": 7, "sumeet": 21, "tickets": 10}, "pool_rows": 15910, "n_pool_train_labels": 201, "llm_spend_usd": 0.0065, "step_names": {"bank_us": "categorize US bank transaction", "amazon": "categorize product listing by department", "clinc_travel": "travel assistant request", "dikshith": "categorize bank transaction descriptor", "sumeet": "categorize Indian bank transaction narration", "rajesh": "categorize card merchant by spending", "tickets": "route customer support ticket to queue", "lezh": "categorize marketplace listing by product category", "flip": "categorize product name by department", "banking77": "classify banking support query", "clinc_fin": "classify banking or credit card request", "bitext": "classify customer support request intent"}}
+
+results_enc: {"n_labels": 201, "n_rows": 13210, "steps": 600, "batch": 32, "hist": [[0, 0.9379166666666667], [200, 0.9381944444444446], [400, 0.9355555555555556], [600, 0.9356944444444445]], "chosen_step": 200, "val_base": 0.9379166666666667, "seconds": 31.425461053848267, "params": 33360000, "final_loss": 1.1219628489017486}
+
+results_decpre: {"n_labels": 201, "n_rows": 13210, "steps": 600, "batch": 32, "hist": [[0, 0.7625], [200, 0.81], [400, 0.8275], [600, 0.8200000000000001]], "chosen_step": 400, "val_base": 0.7625, "seconds": 146.88769102096558, "last_losses": [1.1768884658813477, 0.9113571047782898, 0.39098113775253296]}
+
+results_hyper: {"n_tasks": 800, "n_labels": 201, "fit_datasets": ["banking77", "clinc_fin", "dikshith", "flip", "lezh", "rajesh", "sumeet", "tickets"], "val_dataset": "bitext", "best_val": 0.8680953768453766, "hist": [[100, 0.8680953768453766, {"1": 0.8305043660043658, "3": 0.8820060957560957, "10": 0.8917756687756687}], [200, 0.8572331742331741, {"1": 0.8380196285196285, "3": 0.8675674325674325, "10": 0.8661124616124616}], [300, 0.8383531160197828, {"1": 0.8254635549635552, "3": 0.84688061013061, "10": 0.8427151829651831}], [400, 0.8101913518580185, {"1": 0.8037605080105078, "3": 0.8081557331557332, "10": 0.8186578144078143}], [500, 0.7851879447712781, {"1": 0.7802071169571169, "3": 0.7882174954674954, "10": 0.7871392218892218}]], "val_desc_cos": {"1": 0.7858848466348468, "3": 0.790096866096866, "10": 0.7853555333555333}, "seconds": 22.686679124832153, "params": 1350530}

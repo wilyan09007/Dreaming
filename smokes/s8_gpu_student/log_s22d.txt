@@ -1,0 +1,24 @@
+name, memory.total [MiB], driver_version
+NVIDIA GeForce RTX 4090, 24564 MiB, 580.178.04
+cuda not available at first try; removing cuda compat libs
+/usr/local/cuda-12.8/compat
+/usr/local/cuda-12/compat
+/usr/local/cuda/compat
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:182: UserWarning: CUDA initialization: CUDA unknown error - this may be due to an incorrectly set up environment, e.g. changing env variable CUDA_VISIBLE_DEVICES after program start. Setting the available devices to be zero. (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:109.)
+  return torch._C._cuda_getDeviceCount() > 0
+cuda after compat removal: False
+numpy                     2.5.2
+peft                      0.21.2
+pyreft                    0.1.0
+pyvene                    0.1.8
+sentence-transformers     6.1.0
+torch                     2.8.0+cu128
+transformers              5.20.1
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:182: UserWarning: CUDA initialization: CUDA unknown error - this may be due to an incorrectly set up environment, e.g. changing env variable CUDA_VISIBLE_DEVICES after program start. Setting the available devices to be zero. (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:109.)
+  return torch._C._cuda_getDeviceCount() > 0
+Traceback (most recent call last):
+  File "/workspace/job/script.py", line 22, in <module>
+    assert dev == "cuda" or a.tiny, "no CUDA on this pod: abort instead of crawling on CPU"
+           ^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: no CUDA on this pod: abort instead of crawling on CPU
+exit=1

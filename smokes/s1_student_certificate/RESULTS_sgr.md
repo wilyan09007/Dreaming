@@ -1,0 +1,57 @@
+# S1 — student + certificate (frozen bge-small + logistic regression)
+
+
+## Banking77: 77 labels, train=9993, test=3076
+
+Day-zero label-name cosine accuracy (no rows): **0.680**
+
+| rows | acc | cert@5% cutoff | coverage | holdout err above cutoff | cert@2% coverage | holdout err | train s |
+|---|---|---|---|---|---|---|---|
+| 77 | 0.601 | - | 0.00 | - | 0.00 | - | 0.5 |
+| 154 | 0.465 | - | 0.00 | - | 0.00 | - | 2.1 |
+| 385 | 0.688 | - | 0.00 | - | 0.00 | - | 5.1 |
+| 770 | 0.821 | 0.289 | 0.55 | 0.029 | 0.20 | 0.003 | 12.4 |
+| 1540 | 0.885 | 0.288 | 0.75 | 0.030 | 0.00 | - | 17.3 |
+| 3080 | 0.910 | 0.278 | 0.85 | 0.025 | 0.00 | - | 36.7 |
+| 6000 | 0.923 | 0.375 | 0.85 | 0.021 | 0.45 | 0.003 | 53.7 |
+| 9993 | 0.933 | 0.474 | 0.85 | 0.012 | 0.50 | 0.004 | 112.2 |
+
+Calibration-set size vs certified coverage (full-train student, budget 5%, delta 5%), holdout = other half of test:
+
+| cal rows | cutoff | coverage | holdout err |
+|---|---|---|---|
+| 100 | - | 0.00 | - |
+| 200 | 0.741 | 0.70 | 0.004 |
+| 500 | 0.504 | 0.85 | 0.012 |
+| 1000 | 0.478 | 0.85 | 0.012 |
+| 1538 | 0.470 | 0.85 | 0.013 |
+
+Confidence = top-2 gap: coverage 0.85; confidence = max prob: coverage 0.90 (budget 5%).
+
+## CLINC150 (in-scope): 150 labels, train=15000, test=4500
+
+Day-zero label-name cosine accuracy (no rows): **0.695**
+
+| rows | acc | cert@5% cutoff | coverage | holdout err above cutoff | cert@2% coverage | holdout err | train s |
+|---|---|---|---|---|---|---|---|
+| 150 | 0.724 | 0.028 | 0.30 | 0.026 | 0.00 | - | 0.1 |
+| 300 | 0.542 | 0.161 | 0.20 | 0.017 | 0.00 | - | 0.2 |
+| 750 | 0.783 | 0.343 | 0.30 | 0.024 | 0.15 | 0.000 | 0.4 |
+| 1500 | 0.906 | 0.135 | 0.80 | 0.031 | 0.50 | 0.007 | 0.7 |
+| 3000 | 0.942 | 0.173 | 0.90 | 0.015 | 0.75 | 0.006 | 1.4 |
+| 7500 | 0.956 | 0.133 | 0.95 | 0.021 | 0.85 | 0.006 | 3.7 |
+| 15000 | 0.962 | 0.197 | 0.95 | 0.016 | 0.90 | 0.009 | 5.4 |
+
+Calibration-set size vs certified coverage (full-train student, budget 5%, delta 5%), holdout = other half of test:
+
+| cal rows | cutoff | coverage | holdout err |
+|---|---|---|---|
+| 100 | - | 0.00 | - |
+| 200 | 0.496 | 0.90 | 0.006 |
+| 500 | 0.217 | 0.95 | 0.015 |
+| 1000 | 0.211 | 0.95 | 0.015 |
+| 2250 | 0.197 | 0.95 | 0.016 |
+
+Confidence = top-2 gap: coverage 0.95; confidence = max prob: coverage 0.95 (budget 5%).
+
+Total wall time 434s on CPU, embedding model BAAI/bge-small-en-v1.5.

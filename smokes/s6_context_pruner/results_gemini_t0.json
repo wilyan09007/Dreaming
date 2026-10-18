@@ -1,0 +1,1105 @@
+{
+ "tag": "gemini_t0",
+ "model": "google/gemini-3.5-flash-lite",
+ "require_parameters": true,
+ "N": 250,
+ "ntrain": 150,
+ "nheld": 100,
+ "labels": {
+  "strict": {
+   "all": {
+    "n": 250,
+    "frac_matter": 0.2184,
+    "frac_matter_gold": 0.564,
+    "frac_matter_nongold": 0.132,
+    "q_zero_matter": 0.16,
+    "precision": 0.5164835164835165,
+    "recall": 0.564,
+    "mean_matter_per_q": 2.184
+   },
+   "train": {
+    "n": 150,
+    "frac_matter": 0.22466666666666665,
+    "frac_matter_gold": 0.5833333333333334,
+    "frac_matter_nongold": 0.135,
+    "q_zero_matter": 0.14,
+    "precision": 0.5192878338278932,
+    "recall": 0.5833333333333334,
+    "mean_matter_per_q": 2.2466666666666666
+   },
+   "heldout": {
+    "n": 100,
+    "frac_matter": 0.209,
+    "frac_matter_gold": 0.535,
+    "frac_matter_nongold": 0.1275,
+    "q_zero_matter": 0.19,
+    "precision": 0.5119617224880383,
+    "recall": 0.535,
+    "mean_matter_per_q": 2.09
+   }
+  },
+  "judge": {
+   "all": {
+    "n": 250,
+    "frac_matter": 0.1624,
+    "frac_matter_gold": 0.51,
+    "frac_matter_nongold": 0.0755,
+    "q_zero_matter": 0.2,
+    "precision": 0.6280788177339901,
+    "recall": 0.51,
+    "mean_matter_per_q": 1.624
+   },
+   "train": {
+    "n": 150,
+    "frac_matter": 0.17866666666666667,
+    "frac_matter_gold": 0.5366666666666666,
+    "frac_matter_nongold": 0.08916666666666667,
+    "q_zero_matter": 0.16666666666666666,
+    "precision": 0.6007462686567164,
+    "recall": 0.5366666666666666,
+    "mean_matter_per_q": 1.7866666666666666
+   },
+   "heldout": {
+    "n": 100,
+    "frac_matter": 0.138,
+    "frac_matter_gold": 0.47,
+    "frac_matter_nongold": 0.055,
+    "q_zero_matter": 0.25,
+    "precision": 0.6811594202898551,
+    "recall": 0.47,
+    "mean_matter_per_q": 1.38
+   }
+  }
+ },
+ "gold_acc_full": {
+  "all": {
+   "em": 0.616,
+   "contains": 0.716
+  },
+  "train": {
+   "em": 0.6533333333333333,
+   "contains": 0.7466666666666667
+  },
+  "heldout": {
+   "em": 0.56,
+   "contains": 0.67
+  }
+ },
+ "em_full_by_type": {
+  "comparison": 0.6666666666666666,
+  "bridge": 0.6030150753768844
+ },
+ "f1_full": 0.7656526885249091,
+ "replicate_disagree_strict": 0.072,
+ "replicate_disagree_judge": 0.048,
+ "determinism": {
+  "n": 40,
+  "mean_distinct_of5": 1.3,
+  "all5_identical": 0.8,
+  "all5_equivalent_judge": 0.85,
+  "seed0_pair_identical": 1.0,
+  "seed0_pair_equivalent_judge": 1.0
+ },
+ "legacy_check": {
+  "n_pairs": 384,
+  "judge_yes": 74,
+  "containment_only": 61,
+  "containment_judge_yes": 33,
+  "f1_only": 35,
+  "f1_only_judge_yes": 24,
+  "neither": 288,
+  "neither_judge_yes": 17
+ },
+ "auc": {
+  "learned": {
+   "heldout_vs_ablation": [
+    0.6806235217972526,
+    0.7704098854731766
+   ],
+   "heldout_vs_gold": [
+    0.8938500000000001,
+    0.8975
+   ],
+   "train_vs_ablation": [
+    0.6915477469248413,
+    0.795435238095238
+   ],
+   "heldout_vs_judge": [
+    0.7103550892767074,
+    0.7998253968253968
+   ]
+  },
+  "learned (gold-trained)": {
+   "heldout_vs_ablation": [
+    0.6776716529860451,
+    0.7737954591119148
+   ],
+   "heldout_vs_gold": [
+    0.89864375,
+    0.908125
+   ],
+   "train_vs_ablation": [
+    0.6836152281906763,
+    0.7956517460317459
+   ],
+   "heldout_vs_judge": [
+    0.7089512088503312,
+    0.800495238095238
+   ]
+  },
+  "learned+rel (extra)": {
+   "heldout_vs_ablation": [
+    0.67668568041181,
+    0.76361161342174
+   ],
+   "heldout_vs_gold": [
+    0.8997312500000001,
+    0.89625
+   ],
+   "train_vs_ablation": [
+    0.7010519708826298,
+    0.8005695238095237
+   ],
+   "heldout_vs_judge": [
+    0.71555869397088,
+    0.7960952380952381
+   ]
+  },
+  "cross-encoder": {
+   "heldout_vs_ablation": [
+    0.6406886080849752,
+    0.7379405264215391
+   ],
+   "heldout_vs_gold": [
+    0.827925,
+    0.850625
+   ],
+   "train_vs_ablation": [
+    0.6059153269325469,
+    0.7593025396825398
+   ],
+   "heldout_vs_judge": [
+    0.6622616765863008,
+    0.7592343915343915
+   ]
+  },
+  "oracle (gold paras)": {
+   "heldout_vs_ablation": [
+    0.6949352464024099,
+    0.8241350210970463
+   ],
+   "heldout_vs_gold": [
+    1.0,
+    1.0
+   ],
+   "train_vs_ablation": [
+    0.6948723117079282,
+    0.8564790476190476
+   ],
+   "heldout_vs_judge": [
+    0.772806752076398,
+    0.8656809523809522
+   ]
+  },
+  "random": {
+   "heldout_vs_ablation": [
+    0.49918037249197006,
+    0.5183845690174803
+   ],
+   "heldout_vs_gold": [
+    0.5129937499999999,
+    0.50875
+   ],
+   "train_vs_ablation": [
+    0.5087910882272646,
+    0.5072790476190476
+   ],
+   "heldout_vs_judge": [
+    0.49722586502572375,
+    0.4989571428571428
+   ]
+  }
+ },
+ "coef": {
+  "ablation": {
+   "cos": 0.697,
+   "position": -0.049,
+   "n_words": -0.059,
+   "q_overlap": -0.052,
+   "title_in_q": 0.388,
+   "title_tok_overlap": -0.4
+  },
+  "gold": {
+   "cos": 1.889,
+   "position": 0.023,
+   "n_words": -0.766,
+   "q_overlap": -0.038,
+   "title_in_q": 1.147,
+   "title_tok_overlap": -0.809
+  }
+ },
+ "results": {
+  "learned|2": {
+   "agree": 0.62,
+   "agree_judge": 0.71,
+   "agree_judge_hi": 0.71,
+   "n_truncated": 4,
+   "em_gold": 0.44,
+   "contains_gold": 0.52,
+   "tok_removed": 0.8060199445415901,
+   "both_gold_kept": 0.58,
+   "agree_given_both": 0.8448275862068966,
+   "agree_given_not_both": 0.30952380952380953,
+   "agree_stable": 0.6666666666666666,
+   "agree_unstable": 0.0,
+   "contains_gold_by_type": {
+    "bridge": [
+     0.5063291139240507,
+     79
+    ],
+    "comparison": [
+     0.5714285714285714,
+     21
+    ]
+   },
+   "disagree_ub95": 0.4667534799795746,
+   "disagree_judge_ub95": 0.3737283508457947
+  },
+  "learned|3": {
+   "agree": 0.72,
+   "agree_judge": 0.78,
+   "agree_judge_hi": 0.78,
+   "n_truncated": 3,
+   "em_gold": 0.49,
+   "contains_gold": 0.58,
+   "tok_removed": 0.7171694261737356,
+   "both_gold_kept": 0.74,
+   "agree_given_both": 0.8513513513513513,
+   "agree_given_not_both": 0.34615384615384615,
+   "agree_stable": 0.7634408602150538,
+   "agree_unstable": 0.14285714285714285,
+   "contains_gold_by_type": {
+    "bridge": [
+     0.5949367088607594,
+     79
+    ],
+    "comparison": [
+     0.5238095238095238,
+     21
+    ]
+   },
+   "disagree_ub95": 0.3631936862677718,
+   "disagree_judge_ub95": 0.299011795892878
+  },
+  "learned|4": {
+   "agree": 0.7,
+   "agree_judge": 0.79,
+   "agree_judge_hi": 0.79,
+   "n_truncated": 1,
+   "em_gold": 0.49,
+   "contains_gold": 0.6,
+   "tok_removed": 0.6240753883186152,
+   "both_gold_kept": 0.77,
+   "agree_given_both": 0.8181818181818182,
+   "agree_given_not_both": 0.30434782608695654,
+   "agree_stable": 0.7419354838709677,
+   "agree_unstable": 0.14285714285714285,
+   "contains_gold_by_type": {
+    "bridge": [
+     0.6075949367088608,
+     79
+    ],
+    "comparison": [
+     0.5714285714285714,
+     21
+    ]
+   },
+   "disagree_ub95": 0.3842206127942016,
+   "disagree_judge_ub95": 0.2881349155406023
+  },
+  "learned (gold-trained)|2": {
+   "agree": 0.63,
+   "agree_judge": 0.69,
+   "agree_judge_hi": 0.69,
+   "n_truncated": 3,
+   "em_gold": 0.43,
+   "contains_gold": 0.52,
+   "tok_removed": 0.812026719539944,
+   "both_gold_kept": 0.6,
+   "agree_given_both": 0.8333333333333334,
+   "agree_given_not_both": 0.325,
+   "agree_stable": 0.6774193548387096,
+   "agree_unstable": 0.0,
+   "contains_gold_by_type": {
+    "bridge": [
+     0.5189873417721519,
+     79
+    ],
+    "comparison": [
+     0.5238095238095238,
+     21
+    ]
+   },
+   "disagree_ub95": 0.4565659065200735,
+   "disagree_judge_ub95": 0.39467165402416765
+  },
+  "learned (gold-trained)|3": {
+   "agree": 0.74,
+   "agree_judge": 0.81,
+   "agree_judge_hi": 0.81,
+   "n_truncated": 3,
+   "em_gold": 0.49,
+   "contains_gold": 0.58,
+   "tok_removed": 0.7351239034526152,
+   "both_gold_kept": 0.73,
+   "agree_given_both": 0.8767123287671232,
+   "agree_given_not_both": 0.37037037037037035,
+   "agree_stable": 0.7849462365591398,
+   "agree_unstable": 0.14285714285714285,
+   "contains_gold_by_type": {
+    "bridge": [
+     0.5949367088607594,
+     79
+    ],
+    "comparison": [
+     0.5238095238095238,
+     21
+    ]
+   },
+   "disagree_ub95": 0.3419918018360242,
+   "disagree_judge_ub95": 0.2662047288865405
+  },
+  "learned (gold-trained)|4": {
+   "agree": 0.74,
+   "agree_judge": 0.82,
+   "agree_judge_hi": 0.82,
+   "n_truncated": 1,
+   "em_gold": 0.5,
+   "contains_gold": 0.61,
+   "tok_removed": 0.6564944139187439,
+   "both_gold_kept": 0.82,
+   "agree_given_both": 0.8170731707317073,
+   "agree_given_not_both": 0.3888888888888889,
+   "agree_stable": 0.7956989247311828,
+   "agree_unstable": 0.0,
+   "contains_gold_by_type": {
+    "bridge": [
+     0.620253164556962,
+     79
+    ],
+    "comparison": [
+     0.5714285714285714,
+     21
+    ]
+   },
+   "disagree_ub95": 0.3419918018360242,
+   "disagree_judge_ub95": 0.2551448808894621
+  },
+  "learned+rel (extra)|2": {
+   "agree": 0.62,
+   "agree_judge": 0.72,
+   "agree_judge_hi": 0.72,
+   "n_truncated": 3,
+   "em_gold": 0.44,
+   "contains_gold": 0.52,
+   "tok_removed": 0.8060272609544992,
+   "both_gold_kept": 0.59,
+   "agree_given_both": 0.8135593220338984,
+   "agree_given_not_both": 0.34146341463414637,
+   "agree_stable": 0.6666666666666666,
+   "agree_unstable": 0.0,
+   "contains_gold_by_type": {
+    "bridge": [
+     0.5063291139240507,
+     79
+    ],
+    "comparison": [
+     0.5714285714285714,
+     21
+    ]
+   },
+   "disagree_ub95": 0.4667534799795746,
+   "disagree_judge_ub95": 0.3631936862677718
+  },
+  "learned+rel (extra)|3": {
+   "agree": 0.71,
+   "agree_judge": 0.77,
+   "agree_judge_hi": 0.77,
+   "n_truncated": 5,
+   "em_gold": 0.46,
+   "contains_gold": 0.55,
+   "tok_removed": 0.7191155920075505,
+   "both_gold_kept": 0.7,
+   "agree_given_both": 0.8571428571428571,
+   "agree_given_not_both": 0.36666666666666664,
+   "agree_stable": 0.7526881720430108,
+   "agree_unstable": 0.14285714285714285,
+   "contains_gold_by_type": {
+    "bridge": [
+     0.5569620253164557,
+     79
+    ],
+    "comparison": [
+     0.5238095238095238,
+     21
+    ]
+   },
+   "disagree_ub95": 0.3737283508457947,
+   "disagree_judge_ub95": 0.30983361699732903
+  },
+  "learned+rel (extra)|4": {
+   "agree": 0.67,
+   "agree_judge": 0.78,
+   "agree_judge_hi": 0.78,
+   "n_truncated": 2,
+   "em_gold": 0.46,
+   "contains_gold": 0.57,
+   "tok_removed": 0.6278579737926089,
+   "both_gold_kept": 0.77,
+   "agree_given_both": 0.7922077922077922,
+   "agree_given_not_both": 0.2608695652173913,
+   "agree_stable": 0.7096774193548387,
+   "agree_unstable": 0.14285714285714285,
+   "contains_gold_by_type": {
+    "bridge": [
+     0.569620253164557,
+     79
+    ],
+    "comparison": [
+     0.5714285714285714,
+     21
+    ]
+   },
+   "disagree_ub95": 0.41545426701352445,
+   "disagree_judge_ub95": 0.299011795892878
+  },
+  "cross-encoder|2": {
+   "agree": 0.58,
+   "agree_judge": 0.69,
+   "agree_judge_hi": 0.69,
+   "n_truncated": 2,
+   "em_gold": 0.4,
+   "contains_gold": 0.47,
+   "tok_removed": 0.7993546923814192,
+   "both_gold_kept": 0.48,
+   "agree_given_both": 0.7708333333333334,
+   "agree_given_not_both": 0.40384615384615385,
+   "agree_stable": 0.6129032258064516,
+   "agree_unstable": 0.14285714285714285,
+   "contains_gold_by_type": {
+    "bridge": [
+     0.45569620253164556,
+     79
+    ],
+    "comparison": [
+     0.5238095238095238,
+     21
+    ]
+   },
+   "disagree_ub95": 0.5071585393398198,
+   "disagree_judge_ub95": 0.39467165402416765
+  },
+  "cross-encoder|3": {
+   "agree": 0.65,
+   "agree_judge": 0.75,
+   "agree_judge_hi": 0.75,
+   "n_truncated": 0,
+   "em_gold": 0.46,
+   "contains_gold": 0.53,
+   "tok_removed": 0.7147769591524668,
+   "both_gold_kept": 0.64,
+   "agree_given_both": 0.8125,
+   "agree_given_not_both": 0.3611111111111111,
+   "agree_stable": 0.6881720430107527,
+   "agree_unstable": 0.14285714285714285,
+   "contains_gold_by_type": {
+    "bridge": [
+     0.5189873417721519,
+     79
+    ],
+    "comparison": [
+     0.5714285714285714,
+     21
+    ]
+   },
+   "disagree_ub95": 0.4360836408199371,
+   "disagree_judge_ub95": 0.33132155374566175
+  },
+  "cross-encoder|4": {
+   "agree": 0.73,
+   "agree_judge": 0.82,
+   "agree_judge_hi": 0.82,
+   "n_truncated": 1,
+   "em_gold": 0.5,
+   "contains_gold": 0.58,
+   "tok_removed": 0.6231242546404349,
+   "both_gold_kept": 0.73,
+   "agree_given_both": 0.8493150684931506,
+   "agree_given_not_both": 0.4074074074074074,
+   "agree_stable": 0.7634408602150538,
+   "agree_unstable": 0.2857142857142857,
+   "contains_gold_by_type": {
+    "bridge": [
+     0.5949367088607594,
+     79
+    ],
+    "comparison": [
+     0.5238095238095238,
+     21
+    ]
+   },
+   "disagree_ub95": 0.3526153160168324,
+   "disagree_judge_ub95": 0.2551448808894621
+  },
+  "oracle (gold paras)|2": {
+   "agree": 0.81,
+   "agree_judge": 0.88,
+   "agree_judge_hi": 0.88,
+   "n_truncated": 1,
+   "em_gold": 0.6,
+   "contains_gold": 0.74,
+   "tok_removed": 0.8042201069659567,
+   "both_gold_kept": 1.0,
+   "agree_given_both": 0.81,
+   "agree_given_not_both": null,
+   "agree_stable": 0.8709677419354839,
+   "agree_unstable": 0.0,
+   "contains_gold_by_type": {
+    "bridge": [
+     0.7848101265822784,
+     79
+    ],
+    "comparison": [
+     0.5714285714285714,
+     21
+    ]
+   },
+   "disagree_ub95": 0.2662047288865405,
+   "disagree_judge_ub95": 0.18716610977885625
+  },
+  "oracle (gold paras)|3": {
+   "agree": 0.84,
+   "agree_judge": 0.89,
+   "agree_judge_hi": 0.89,
+   "n_truncated": 0,
+   "em_gold": 0.58,
+   "contains_gold": 0.73,
+   "tok_removed": 0.7074166477659334,
+   "both_gold_kept": 1.0,
+   "agree_given_both": 0.84,
+   "agree_given_not_both": null,
+   "agree_stable": 0.8924731182795699,
+   "agree_unstable": 0.14285714285714285,
+   "contains_gold_by_type": {
+    "bridge": [
+     0.7721518987341772,
+     79
+    ],
+    "comparison": [
+     0.5714285714285714,
+     21
+    ]
+   },
+   "disagree_ub95": 0.2328158350065193,
+   "disagree_judge_ub95": 0.1755028025794425
+  },
+  "oracle (gold paras)|4": {
+   "agree": 0.85,
+   "agree_judge": 0.9,
+   "agree_judge_hi": 0.9,
+   "n_truncated": 1,
+   "em_gold": 0.58,
+   "contains_gold": 0.72,
+   "tok_removed": 0.6027773103402864,
+   "both_gold_kept": 1.0,
+   "agree_given_both": 0.85,
+   "agree_given_not_both": null,
+   "agree_stable": 0.9032258064516129,
+   "agree_unstable": 0.14285714285714285,
+   "contains_gold_by_type": {
+    "bridge": [
+     0.759493670886076,
+     79
+    ],
+    "comparison": [
+     0.5714285714285714,
+     21
+    ]
+   },
+   "disagree_ub95": 0.22153690831851133,
+   "disagree_judge_ub95": 0.16371762327581477
+  },
+  "random|2": {
+   "agree": 0.21,
+   "agree_judge": 0.22,
+   "agree_judge_hi": 0.22,
+   "n_truncated": 7,
+   "em_gold": 0.16,
+   "contains_gold": 0.22,
+   "tok_removed": 0.7835439240848996,
+   "both_gold_kept": 0.01,
+   "agree_given_both": 1.0,
+   "agree_given_not_both": 0.20202020202020202,
+   "agree_stable": 0.21505376344086022,
+   "agree_unstable": 0.14285714285714285,
+   "contains_gold_by_type": {
+    "bridge": [
+     0.17721518987341772,
+     79
+    ],
+    "comparison": [
+     0.38095238095238093,
+     21
+    ]
+   },
+   "disagree_ub95": 0.8547551920219278,
+   "disagree_judge_ub95": 0.8461109931247742
+  },
+  "random|3": {
+   "agree": 0.25,
+   "agree_judge": 0.27,
+   "agree_judge_hi": 0.27,
+   "n_truncated": 6,
+   "em_gold": 0.18,
+   "contains_gold": 0.24,
+   "tok_removed": 0.6878818252986926,
+   "both_gold_kept": 0.04,
+   "agree_given_both": 1.0,
+   "agree_given_not_both": 0.21875,
+   "agree_stable": 0.25806451612903225,
+   "agree_unstable": 0.14285714285714285,
+   "contains_gold_by_type": {
+    "bridge": [
+     0.189873417721519,
+     79
+    ],
+    "comparison": [
+     0.42857142857142855,
+     21
+    ]
+   },
+   "disagree_ub95": 0.8198429532202954,
+   "disagree_judge_ub95": 0.8020750760125877
+  },
+  "random|4": {
+   "agree": 0.35,
+   "agree_judge": 0.38,
+   "agree_judge_hi": 0.38,
+   "n_truncated": 3,
+   "em_gold": 0.26,
+   "contains_gold": 0.32,
+   "tok_removed": 0.5914880852215776,
+   "both_gold_kept": 0.1,
+   "agree_given_both": 0.8,
+   "agree_given_not_both": 0.3,
+   "agree_stable": 0.3548387096774194,
+   "agree_unstable": 0.2857142857142857,
+   "contains_gold_by_type": {
+    "bridge": [
+     0.2911392405063291,
+     79
+    ],
+    "comparison": [
+     0.42857142857142855,
+     21
+    ]
+   },
+   "disagree_ub95": 0.7292455381884444,
+   "disagree_judge_ub95": 0.7012897297269307
+  },
+  "full-context re-ask (noise floor)|10": {
+   "agree": 0.93,
+   "agree_judge": 0.98,
+   "em_gold": 0.58,
+   "contains_gold": 0.68,
+   "tok_removed": 0.0,
+   "both_gold_kept": 1.0,
+   "agree_given_both": 0.93,
+   "agree_given_not_both": null,
+   "agree_stable": 1.0,
+   "agree_unstable": null,
+   "contains_gold_by_type": null,
+   "disagree_ub95": 0.12745801558297026,
+   "disagree_judge_ub95": 0.06161920039604069
+  }
+ },
+ "mcnemar": {
+  "cross-encoder vs learned|2|strict": [
+   8,
+   12,
+   0.5034446716308594
+  ],
+  "cross-encoder vs learned|2|judge": [
+   10,
+   12,
+   0.8318119049072266
+  ],
+  "cross-encoder vs learned|3|strict": [
+   9,
+   16,
+   0.2295229434967041
+  ],
+  "cross-encoder vs learned|3|judge": [
+   11,
+   14,
+   0.6900379657745361
+  ],
+  "cross-encoder vs learned|4|strict": [
+   10,
+   7,
+   0.629058837890625
+  ],
+  "cross-encoder vs learned|4|judge": [
+   9,
+   6,
+   0.6072387695312499
+  ],
+  "cross-encoder vs learned (gold-trained)|2|strict": [
+   6,
+   11,
+   0.332305908203125
+  ],
+  "cross-encoder vs learned (gold-trained)|2|judge": [
+   9,
+   9,
+   1.0
+  ],
+  "cross-encoder vs learned (gold-trained)|3|strict": [
+   6,
+   15,
+   0.0783538818359375
+  ],
+  "cross-encoder vs learned (gold-trained)|3|judge": [
+   7,
+   13,
+   0.26317596435546875
+  ],
+  "cross-encoder vs learned (gold-trained)|4|strict": [
+   8,
+   9,
+   1.0
+  ],
+  "cross-encoder vs learned (gold-trained)|4|judge": [
+   8,
+   8,
+   1.0
+  ],
+  "learned (gold-trained) vs learned|2|strict": [
+   3,
+   2,
+   1.0
+  ],
+  "learned (gold-trained) vs learned|2|judge": [
+   2,
+   4,
+   0.6875
+  ],
+  "learned (gold-trained) vs learned|3|strict": [
+   3,
+   1,
+   0.625
+  ],
+  "learned (gold-trained) vs learned|3|judge": [
+   5,
+   2,
+   0.453125
+  ],
+  "learned (gold-trained) vs learned|4|strict": [
+   7,
+   3,
+   0.34375
+  ],
+  "learned (gold-trained) vs learned|4|judge": [
+   6,
+   3,
+   0.5078125
+  ],
+  "cross-encoder vs learned+rel (extra)|2|strict": [
+   7,
+   11,
+   0.480682373046875
+  ],
+  "cross-encoder vs learned+rel (extra)|2|judge": [
+   9,
+   12,
+   0.6636238098144531
+  ],
+  "cross-encoder vs learned+rel (extra)|3|strict": [
+   8,
+   14,
+   0.28627872467041016
+  ],
+  "cross-encoder vs learned+rel (extra)|3|judge": [
+   10,
+   12,
+   0.8318119049072266
+  ],
+  "cross-encoder vs learned+rel (extra)|4|strict": [
+   12,
+   6,
+   0.237884521484375
+  ],
+  "cross-encoder vs learned+rel (extra)|4|judge": [
+   9,
+   5,
+   0.4239501953125
+  ],
+  "learned+rel (extra) vs learned|2|strict": [
+   2,
+   2,
+   1.0
+  ],
+  "learned+rel (extra) vs learned|2|judge": [
+   4,
+   3,
+   1.0
+  ],
+  "learned+rel (extra) vs learned|3|strict": [
+   2,
+   3,
+   1.0
+  ],
+  "learned+rel (extra) vs learned|3|judge": [
+   3,
+   4,
+   1.0
+  ],
+  "learned+rel (extra) vs learned|4|strict": [
+   1,
+   4,
+   0.375
+  ],
+  "learned+rel (extra) vs learned|4|judge": [
+   2,
+   3,
+   1.0
+  ],
+  "oracle (gold paras) vs cross-encoder|2|strict": [
+   26,
+   3,
+   1.5236437320709229e-05
+  ],
+  "oracle (gold paras) vs cross-encoder|2|judge": [
+   22,
+   3,
+   0.00015652179718017578
+  ],
+  "oracle (gold paras) vs cross-encoder|3|strict": [
+   21,
+   2,
+   6.604194641113281e-05
+  ],
+  "oracle (gold paras) vs cross-encoder|3|judge": [
+   16,
+   2,
+   0.001312255859375
+  ],
+  "oracle (gold paras) vs cross-encoder|4|strict": [
+   15,
+   3,
+   0.007537841796875
+  ],
+  "oracle (gold paras) vs cross-encoder|4|judge": [
+   11,
+   3,
+   0.057373046875
+  ],
+  "oracle (gold paras) vs noise floor|2|strict": [
+   0,
+   12,
+   0.00048828125
+  ],
+  "oracle (gold paras) vs noise floor|2|judge": [
+   0,
+   10,
+   0.001953125
+  ],
+  "oracle (gold paras) vs noise floor|3|strict": [
+   1,
+   10,
+   0.01171875
+  ],
+  "oracle (gold paras) vs noise floor|3|judge": [
+   0,
+   9,
+   0.00390625
+  ],
+  "oracle (gold paras) vs noise floor|4|strict": [
+   1,
+   9,
+   0.021484375
+  ],
+  "oracle (gold paras) vs noise floor|4|judge": [
+   1,
+   9,
+   0.021484375
+  ],
+  "learned vs noise floor|2|strict": [
+   0,
+   31,
+   9.313225746154785e-10
+  ],
+  "learned vs noise floor|2|judge": [
+   0,
+   27,
+   1.4901161193847656e-08
+  ],
+  "learned vs noise floor|3|strict": [
+   1,
+   22,
+   5.7220458984375e-06
+  ],
+  "learned vs noise floor|3|judge": [
+   0,
+   20,
+   1.9073486328125e-06
+  ],
+  "learned vs noise floor|4|strict": [
+   1,
+   24,
+   1.5497207641601562e-06
+  ],
+  "learned vs noise floor|4|judge": [
+   1,
+   20,
+   2.09808349609375e-05
+  ],
+  "learned (gold-trained) vs noise floor|2|strict": [
+   0,
+   30,
+   1.862645149230957e-09
+  ],
+  "learned (gold-trained) vs noise floor|2|judge": [
+   0,
+   29,
+   3.725290298461914e-09
+  ],
+  "learned (gold-trained) vs noise floor|3|strict": [
+   1,
+   20,
+   2.09808349609375e-05
+  ],
+  "learned (gold-trained) vs noise floor|3|judge": [
+   0,
+   17,
+   1.52587890625e-05
+  ],
+  "learned (gold-trained) vs noise floor|4|strict": [
+   0,
+   19,
+   3.814697265625e-06
+  ],
+  "learned (gold-trained) vs noise floor|4|judge": [
+   0,
+   16,
+   3.0517578125e-05
+  ],
+  "cross-encoder vs noise floor|2|strict": [
+   1,
+   36,
+   5.529727786779404e-10
+  ],
+  "cross-encoder vs noise floor|2|judge": [
+   0,
+   29,
+   3.725290298461914e-09
+  ],
+  "cross-encoder vs noise floor|3|strict": [
+   1,
+   29,
+   5.774199962615967e-08
+  ],
+  "cross-encoder vs noise floor|3|judge": [
+   0,
+   23,
+   2.384185791015625e-07
+  ],
+  "cross-encoder vs noise floor|4|strict": [
+   2,
+   22,
+   3.5881996154785156e-05
+  ],
+  "cross-encoder vs noise floor|4|judge": [
+   1,
+   17,
+   0.00014495849609375
+  ],
+  "oracle vs full, EM gold|2": [
+   7,
+   3,
+   0.34375
+  ],
+  "oracle vs full, contains gold|2": [
+   8,
+   1,
+   0.0390625
+  ],
+  "oracle vs full, EM gold|3": [
+   6,
+   4,
+   0.75390625
+  ],
+  "oracle vs full, contains gold|3": [
+   8,
+   2,
+   0.109375
+  ],
+  "oracle vs full, EM gold|4": [
+   5,
+   3,
+   0.7265625
+  ],
+  "oracle vs full, contains gold|4": [
+   7,
+   2,
+   0.1796875
+  ]
+ },
+ "closed_book": {
+  "contains_gold": 0.32,
+  "em_gold": 0.31,
+  "contains_gold_by_type": {
+   "bridge": [
+    0.25316455696202533,
+    79
+   ],
+   "comparison": [
+    0.5714285714285714,
+    21
+   ]
+  }
+ },
+ "full_te": {
+  "contains_gold": 0.67,
+  "contains_gold_by_type": {
+   "bridge": [
+    0.6962025316455697,
+    79
+   ],
+   "comparison": [
+    0.5714285714285714,
+    21
+   ]
+  },
+  "stable_frac": 0.93
+ },
+ "spend_usd": 1.4670028000000002,
+ "teacher_usd": 1.443696,
+ "judge_usd": 0.0233068,
+ "wall_s": 17.262967109680176,
+ "n_calls": 4428,
+ "n_judge": 630,
+ "providers": {
+  "Google AI Studio": 4428
+ },
+ "mean_full_prompt_tokens": 1383.752,
+ "mean_full_answer_tokens": 4.36,
+ "reasoning_tokens": 0,
+ "reasoning_missing": 0,
+ "nonstop_finish": 92,
+ "empty_answers": 0,
+ "judge_unparsed": 1,
+ "judge_nonstop": 0,
+ "mean_reasoning_tokens_per_call": 0.0,
+ "n_closed_nonstop": 3
+}

@@ -1,0 +1,311 @@
+bundle 0.03 MB
+community launch failed, trying ALL: [{'message': 'There are no longer any instances available with the requested specifications. Please refresh and try again.', 'path': ['podFindAndDeployOnDemand'], 'extensions': {'code': 'SUPPLY_CONSTR
+pod {'id': 'qrssm4dsryiuqw', 'machineId': 't7490p6ajlqg', 'costPerHr': 0.27}
+[188s] bundle uploaded
+name, memory.total [MiB]
+NVIDIA RTX A5000, 24564 MiB
+waiting for bundle
+bundle extracted 5 files
+[219s status=RUNNING log=97B]
+device cuda
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+Generating train split:   0%|          | 0/15250 [00:00<?, ? examples/s]
+Generating train split: 100%|ââââââââââ| 15250/15250 [00:00<00:00, 520313.15 examples/s]
+
+Generating validation split:   0%|          | 0/3100 [00:00<?, ? examples/s]
+Generating validation split: 100%|ââââââââââ| 3100/3100 [00:00<00:00, 291303.74 examples/s]
+
+Generating test split:   0%|          | 0/5500 [00:00<?, ? examples/s]
+Generating test split: 100%|ââââââââââ| 5500/5500 [00:00<00:00, 421854.14 examples/s]
+[251s status=RUNNING log=798B]
+
+Generating train split:   0%|          | 0/9993 [00:00<?, ? examples/s]
+Generating train split: 100%|ââââââââââ| 9993/9993 [00:00<00:00, 698572.97 examples/s]
+
+Generating test split:   0%|          | 0/3076 [00:00<?, ? examples/s]
+Generating test split: 100%|ââââââââââ| 3076/3076 [00:00<00:00, 394715.75 examples/s]
+held-out CLINC domains ['meta', 'work', 'small_talk']
+[283s status=RUNNING log=1210B]
+[314s status=RUNNING log=1210B]
+clinc [(4500, 384), (4500,), (1350, 384), (1350,)]
+b77 [(9993, 384), (9993,), (3076, 384), (3076,)]
+banking77 train rows 9993 test rows 1000 K 77
+b12_0 train rows 1412 test rows 479 K 12
+b12_1 train rows 1530 test rows 479 K 12
+b12_2 train rows 1624 test rows 479 K 12
+b12_3 train rows 1549 test rows 479 K 12
+b12_4 train rows 1624 test rows 480 K 12
+clinc_meta train rows 1500 test rows 450 K 15
+clinc_work train rows 1500 test rows 450 K 15
+clinc_small_talk train rows 1500 test rows 450 K 15
+[347s status=RUNNING log=1705B]
+[378s status=RUNNING log=1705B]
+[410s status=RUNNING log=1705B]
+baselines seed 0 done
+[442s status=RUNNING log=1727B]
+[474s status=RUNNING log=1727B]
+[506s status=RUNNING log=1727B]
+baselines seed 1 done
+[538s status=RUNNING log=1749B]
+[570s status=RUNNING log=1749B]
+baselines seed 2 done
+[602s status=RUNNING log=1771B]
+[634s status=RUNNING log=1771B]
+[666s status=RUNNING log=1771B]
+baselines seed 3 done
+[698s status=RUNNING log=1793B]
+[729s status=RUNNING log=1793B]
+[761s status=RUNNING log=1793B]
+baselines seed 4 done
+[793s status=RUNNING log=1815B]
+baselines 469s
+INFO: You are downloading 'tabicl-classifier-v2-20260212.ckpt', the latest best-performing version, used in our TabICLv2 paper.
+
+Checkpoint 'tabicl-classifier-v2-20260212.ckpt' not cached.
+ Downloading from Hugging Face Hub (jingang/TabICL).
+
+[1/1125 589s] {'method': 'tabicl-32', 'task': 'b12_0', 'k': 1, 'seed': 0, 'nctx': 12, 'ncomp': 11, 'fit_s': 4.048, 'pred_s': 0.525, 'acc': 0.8016701461377871}
+[2/1125 591s] {'method': 'tabicl-64', 'task': 'b12_0', 'k': 1, 'seed': 0, 'nctx': 12, 'ncomp': 11, 'fit_s': 1.414, 'pred_s': 0.358, 'acc': 0.8016701461377871}
+[3/1125 594s] {'method': 'tabpfn-32', 'task': 'b12_0', 'k': 1, 'seed': 0, 'nctx': 12, 'ncomp': 11, 'fit_s': 0.021, 'pred_s': 1.986, 'acc': 0.81419624217119}
+[4/1125 596s] {'method': 'tabpfn-64', 'task': 'b12_0', 'k': 1, 'seed': 0, 'nctx': 12, 'ncomp': 11, 'fit_s': 0.02, 'pred_s': 1.861, 'acc': 0.81419624217119}
+[5/1125 598s] {'method': 'tabicl_synth-64', 'task': 'b12_0', 'k': 1, 'seed': 0, 'nctx': 132, 'ncomp': 64, 'fit_s': 1.735, 'pred_s': 0.615, 'acc': 0.941544885177453}
+[6/1125 600s] {'method': 'tabicl-32', 'task': 'b12_1', 'k': 1, 'seed': 0, 'nctx': 12, 'ncomp': 11, 'fit_s': 1.252, 'pred_s': 0.342, 'acc': 0.7599164926931107}
+[825s status=RUNNING log=3028B]
+[7/1125 601s] {'method': 'tabicl-64', 'task': 'b12_1', 'k': 1, 'seed': 0, 'nctx': 12, 'ncomp': 11, 'fit_s': 1.208, 'pred_s': 0.381, 'acc': 0.7599164926931107}
+[8/1125 603s] {'method': 'tabpfn-32', 'task': 'b12_1', 'k': 1, 'seed': 0, 'nctx': 12, 'ncomp': 11, 'fit_s': 0.017, 'pred_s': 1.333, 'acc': 0.7682672233820459}
+[9/1125 604s] {'method': 'tabpfn-64', 'task': 'b12_1', 'k': 1, 'seed': 0, 'nctx': 12, 'ncomp': 11, 'fit_s': 0.017, 'pred_s': 1.577, 'acc': 0.7682672233820459}
+[10/1125 607s] {'method': 'tabicl_synth-64', 'task': 'b12_1', 'k': 1, 'seed': 0, 'nctx': 132, 'ncomp': 64, 'fit_s': 1.762, 'pred_s': 0.565, 'acc': 0.8810020876826722}
+[11/1125 608s] {'method': 'tabicl-32', 'task': 'b12_2', 'k': 1, 'seed': 0, 'nctx': 12, 'ncomp': 11, 'fit_s': 1.043, 'pred_s': 0.385, 'acc': 0.7473903966597077}
+[12/1125 610s] {'method': 'tabicl-64', 'task': 'b12_2', 'k': 1, 'seed': 0, 'nctx': 12, 'ncomp': 11, 'fit_s': 1.283, 'pred_s': 0.323, 'acc': 0.7473903966597077}
+[13/1125 611s] {'method': 'tabpfn-32', 'task': 'b12_2', 'k': 1, 'seed': 0, 'nctx': 12, 'ncomp': 11, 'fit_s': 0.017, 'pred_s': 1.385, 'acc': 0.8058455114822547}
+[14/1125 613s] {'method': 'tabpfn-64', 'task': 'b12_2', 'k': 1, 'seed': 0, 'nctx': 12, 'ncomp': 11, 'fit_s': 0.017, 'pred_s': 1.588, 'acc': 0.8058455114822547}
+[15/1125 615s] {'method': 'tabicl_synth-64', 'task': 'b12_2', 'k': 1, 'seed': 0, 'nctx': 132, 'ncomp': 64, 'fit_s': 1.773, 'pred_s': 0.554, 'acc': 0.9519832985386222}
+[16/1125 617s] {'method': 'tabicl-32', 'task': 'b12_3', 'k': 1, 'seed': 0, 'nctx': 12, 'ncomp': 11, 'fit_s': 1.133, 'pred_s': 0.337, 'acc': 0.7703549060542797}
+[17/1125 618s] {'method': 'tabicl-64', 'task': 'b12_3', 'k': 1, 'seed': 0, 'nctx': 12, 'ncomp': 11, 'fit_s': 1.176, 'pred_s': 0.33, 'acc': 0.7703549060542797}
+[18/1125 619s] {'method': 'tabpfn-32', 'task': 'b12_3', 'k': 1, 'seed': 0, 'nctx': 12, 'ncomp': 11, 'fit_s': 0.018, 'pred_s': 1.253, 'acc': 0.7453027139874739}
+[19/1125 621s] {'method': 'tabpfn-64', 'task': 'b12_3', 'k': 1, 'seed': 0, 'nctx': 12, 'ncomp': 11, 'fit_s': 0.017, 'pred_s': 1.582, 'acc': 0.7453027139874739}
+[20/1125 624s] {'method': 'tabicl_synth-64', 'task': 'b12_3', 'k': 1, 'seed': 0, 'nctx': 132, 'ncomp': 64, 'fit_s': 1.77, 'pred_s': 0.558, 'acc': 0.918580375782881}
+[21/1125 625s] {'method': 'tabicl-32', 'task': 'b12_4', 'k': 1, 'seed': 0, 'nctx': 12, 'ncomp': 11, 'fit_s': 1.086, 'pred_s': 0.377, 'acc': 0.7520833333333333}
+[22/1125 627s] {'method': 'tabicl-64', 'task': 'b12_4', 'k': 1, 'seed': 0, 'nctx': 12, 'ncomp': 11, 'fit_s': 1.171, 'pred_s': 0.35, 'acc': 0.7520833333333333}
+[23/1125 628s] {'method': 'tabpfn-32', 'task': 'b12_4', 'k': 1, 'seed': 0, 'nctx': 12, 'ncomp': 11, 'fit_s': 0.017, 'pred_s': 1.151, 'acc': 0.7625}
+[24/1125 629s] {'method': 'tabpfn-64', 'task': 'b12_4', 'k': 1, 'seed': 0, 'nctx': 12, 'ncomp': 11, 'fit_s': 0.016, 'pred_s': 1.491, 'acc': 0.7625}
+[25/1125 631s] {'method': 'tabicl_synth-64', 'task': 'b12_4', 'k': 1, 'seed': 0, 'nctx': 132, 'ncomp': 64, 'fit_s': 1.445, 'pred_s': 0.604, 'acc': 0.89375}
+[26/1125 633s] {'method': 'tabicl-32', 'task': 'clinc_meta', 'k': 1, 'seed': 0, 'nctx': 15, 'ncomp': 14, 'fit_s': 1.127, 'pred_s': 0.607, 'acc': 0.7}
+[860s status=RUNNING log=6204B]
+[27/1125 636s] {'method': 'tabicl-64', 'task': 'clinc_meta', 'k': 1, 'seed': 0, 'nctx': 15, 'ncomp': 14, 'fit_s': 1.615, 'pred_s': 0.831, 'acc': 0.7}
+[28/1125 637s] {'method': 'tabpfn-32', 'task': 'clinc_meta', 'k': 1, 'seed': 0, 'nctx': 15, 'ncomp': 14, 'fit_s': 0.02, 'pred_s': 1.643, 'acc': 0.7333333333333333}
+[29/1125 639s] {'method': 'tabpfn-64', 'task': 'clinc_meta', 'k': 1, 'seed': 0, 'nctx': 15, 'ncomp': 14, 'fit_s': 0.02, 'pred_s': 1.675, 'acc': 0.7333333333333333}
+[30/1125 642s] {'method': 'tabicl_synth-64', 'task': 'clinc_meta', 'k': 1, 'seed': 0, 'nctx': 165, 'ncomp': 64, 'fit_s': 1.731, 'pred_s': 0.697, 'acc': 0.8844444444444445}
+[31/1125 643s] {'method': 'tabicl-32', 'task': 'clinc_work', 'k': 1, 'seed': 0, 'nctx': 15, 'ncomp': 14, 'fit_s': 1.238, 'pred_s': 0.41, 'acc': 0.6866666666666666}
+[32/1125 645s] {'method': 'tabicl-64', 'task': 'clinc_work', 'k': 1, 'seed': 0, 'nctx': 15, 'ncomp': 14, 'fit_s': 1.205, 'pred_s': 0.333, 'acc': 0.6866666666666666}
+[33/1125 646s] {'method': 'tabpfn-32', 'task': 'clinc_work', 'k': 1, 'seed': 0, 'nctx': 15, 'ncomp': 14, 'fit_s': 0.017, 'pred_s': 1.348, 'acc': 0.5844444444444444}
+[34/1125 648s] {'method': 'tabpfn-64', 'task': 'clinc_work', 'k': 1, 'seed': 0, 'nctx': 15, 'ncomp': 14, 'fit_s': 0.017, 'pred_s': 1.687, 'acc': 0.5844444444444444}
+[35/1125 650s] {'method': 'tabicl_synth-64', 'task': 'clinc_work', 'k': 1, 'seed': 0, 'nctx': 165, 'ncomp': 64, 'fit_s': 1.872, 'pred_s': 0.631, 'acc': 0.8955555555555555}
+[36/1125 652s] {'method': 'tabicl-32', 'task': 'clinc_small_talk', 'k': 1, 'seed': 0, 'nctx': 15, 'ncomp': 14, 'fit_s': 1.181, 'pred_s': 0.353, 'acc': 0.6777777777777778}
+[37/1125 653s] {'method': 'tabicl-64', 'task': 'clinc_small_talk', 'k': 1, 'seed': 0, 'nctx': 15, 'ncomp': 14, 'fit_s': 1.149, 'pred_s': 0.33, 'acc': 0.6777777777777778}
+[38/1125 655s] {'method': 'tabpfn-32', 'task': 'clinc_small_talk', 'k': 1, 'seed': 0, 'nctx': 15, 'ncomp': 14, 'fit_s': 0.017, 'pred_s': 1.342, 'acc': 0.6511111111111111}
+[39/1125 656s] {'method': 'tabpfn-64', 'task': 'clinc_small_talk', 'k': 1, 'seed': 0, 'nctx': 15, 'ncomp': 14, 'fit_s': 0.017, 'pred_s': 1.481, 'acc': 0.6511111111111111}
+[40/1125 659s] {'method': 'tabicl_synth-64', 'task': 'clinc_small_talk', 'k': 1, 'seed': 0, 'nctx': 165, 'ncomp': 64, 'fit_s': 1.673, 'pred_s': 0.609, 'acc': 0.8622222222222222}
+[41/1125 661s] {'method': 'tabicl-32', 'task': 'b12_0', 'k': 3, 'seed': 0, 'nctx': 36, 'ncomp': 32, 'fit_s': 1.368, 'pred_s': 0.531, 'acc': 0.9227557411273486}
+[42/1125 662s] {'method': 'tabicl-64', 'task': 'b12_0', 'k': 3, 'seed': 0, 'nctx': 36, 'ncomp': 35, 'fit_s': 1.376, 'pred_s': 0.465, 'acc': 0.9206680584551148}
+[43/1125 667s] {'method': 'tabpfn-32', 'task': 'b12_0', 'k': 3, 'seed': 0, 'nctx': 36, 'ncomp': 32, 'fit_s': 0.028, 'pred_s': 4.68, 'acc': 0.8810020876826722}
+[893s status=RUNNING log=9025B]
+[44/1125 670s] {'method': 'tabpfn-64', 'task': 'b12_0', 'k': 3, 'seed': 0, 'nctx': 36, 'ncomp': 35, 'fit_s': 0.018, 'pred_s': 3.293, 'acc': 0.8893528183716075}
+[45/1125 673s] {'method': 'tabicl_synth-64', 'task': 'b12_0', 'k': 3, 'seed': 0, 'nctx': 156, 'ncomp': 64, 'fit_s': 1.666, 'pred_s': 0.611, 'acc': 0.9290187891440501}
+[46/1125 675s] {'method': 'tabicl-32', 'task': 'b12_1', 'k': 3, 'seed': 0, 'nctx': 36, 'ncomp': 32, 'fit_s': 1.261, 'pred_s': 0.525, 'acc': 0.8663883089770354}
+[47/1125 676s] {'method': 'tabicl-64', 'task': 'b12_1', 'k': 3, 'seed': 0, 'nctx': 36, 'ncomp': 35, 'fit_s': 1.288, 'pred_s': 0.503, 'acc': 0.8538622129436325}
+[48/1125 680s] {'method': 'tabpfn-32', 'task': 'b12_1', 'k': 3, 'seed': 0, 'nctx': 36, 'ncomp': 32, 'fit_s': 0.028, 'pred_s': 3.153, 'acc': 0.8580375782881002}
+[49/1125 683s] {'method': 'tabpfn-64', 'task': 'b12_1', 'k': 3, 'seed': 0, 'nctx': 36, 'ncomp': 35, 'fit_s': 0.056, 'pred_s': 3.231, 'acc': 0.8663883089770354}
+[50/1125 685s] {'method': 'tabicl_synth-64', 'task': 'b12_1', 'k': 3, 'seed': 0, 'nctx': 156, 'ncomp': 64, 'fit_s': 1.527, 'pred_s': 0.554, 'acc': 0.9164926931106472}
+[51/1125 687s] {'method': 'tabicl-32', 'task': 'b12_2', 'k': 3, 'seed': 0, 'nctx': 36, 'ncomp': 32, 'fit_s': 1.277, 'pred_s': 0.498, 'acc': 0.9206680584551148}
+[52/1125 689s] {'method': 'tabicl-64', 'task': 'b12_2', 'k': 3, 'seed': 0, 'nctx': 36, 'ncomp': 35, 'fit_s': 1.31, 'pred_s': 0.479, 'acc': 0.8997912317327766}
+[53/1125 692s] {'method': 'tabpfn-32', 'task': 'b12_2', 'k': 3, 'seed': 0, 'nctx': 36, 'ncomp': 32, 'fit_s': 0.017, 'pred_s': 3.273, 'acc': 0.9269311064718163}
+[54/1125 695s] {'method': 'tabpfn-64', 'task': 'b12_2', 'k': 3, 'seed': 0, 'nctx': 36, 'ncomp': 35, 'fit_s': 0.062, 'pred_s': 3.226, 'acc': 0.9164926931106472}
+[55/1125 698s] {'method': 'tabicl_synth-64', 'task': 'b12_2', 'k': 3, 'seed': 0, 'nctx': 156, 'ncomp': 64, 'fit_s': 1.626, 'pred_s': 0.608, 'acc': 0.9394572025052192}
+[56/1125 700s] {'method': 'tabicl-32', 'task': 'b12_3', 'k': 3, 'seed': 0, 'nctx': 36, 'ncomp': 32, 'fit_s': 1.388, 'pred_s': 0.52, 'acc': 0.8997912317327766}
+[925s status=RUNNING log=11124B]
+[57/1125 702s] {'method': 'tabicl-64', 'task': 'b12_3', 'k': 3, 'seed': 0, 'nctx': 36, 'ncomp': 35, 'fit_s': 1.479, 'pred_s': 0.524, 'acc': 0.8935281837160751}
+[58/1125 705s] {'method': 'tabpfn-32', 'task': 'b12_3', 'k': 3, 'seed': 0, 'nctx': 36, 'ncomp': 32, 'fit_s': 0.02, 'pred_s': 3.258, 'acc': 0.8392484342379958}
+[59/1125 709s] {'method': 'tabpfn-64', 'task': 'b12_3', 'k': 3, 'seed': 0, 'nctx': 36, 'ncomp': 35, 'fit_s': 0.02, 'pred_s': 3.319, 'acc': 0.8517745302713987}
+[60/1125 711s] {'method': 'tabicl_synth-64', 'task': 'b12_3', 'k': 3, 'seed': 0, 'nctx': 156, 'ncomp': 64, 'fit_s': 1.569, 'pred_s': 0.626, 'acc': 0.9498956158663883}
+[61/1125 713s] {'method': 'tabicl-32', 'task': 'b12_4', 'k': 3, 'seed': 0, 'nctx': 36, 'ncomp': 32, 'fit_s': 1.236, 'pred_s': 0.461, 'acc': 0.8895833333333333}
+[62/1125 714s] {'method': 'tabicl-64', 'task': 'b12_4', 'k': 3, 'seed': 0, 'nctx': 36, 'ncomp': 35, 'fit_s': 1.265, 'pred_s': 0.49, 'acc': 0.8708333333333333}
+[63/1125 717s] {'method': 'tabpfn-32', 'task': 'b12_4', 'k': 3, 'seed': 0, 'nctx': 36, 'ncomp': 32, 'fit_s': 0.017, 'pred_s': 2.884, 'acc': 0.9041666666666667}
+[64/1125 721s] {'method': 'tabpfn-64', 'task': 'b12_4', 'k': 3, 'seed': 0, 'nctx': 36, 'ncomp': 35, 'fit_s': 0.044, 'pred_s': 3.16, 'acc': 0.9041666666666667}
+[65/1125 723s] {'method': 'tabicl_synth-64', 'task': 'b12_4', 'k': 3, 'seed': 0, 'nctx': 156, 'ncomp': 64, 'fit_s': 1.487, 'pred_s': 0.551, 'acc': 0.9166666666666666}
+[66/1125 725s] {'method': 'tabicl-32', 'task': 'clinc_meta', 'k': 3, 'seed': 0, 'nctx': 45, 'ncomp': 32, 'fit_s': 1.493, 'pred_s': 0.476, 'acc': 0.8177777777777778}
+[67/1125 727s] {'method': 'tabicl-64', 'task': 'clinc_meta', 'k': 3, 'seed': 0, 'nctx': 45, 'ncomp': 44, 'fit_s': 1.393, 'pred_s': 0.588, 'acc': 0.78}
+[68/1125 730s] {'method': 'tabpfn-32', 'task': 'clinc_meta', 'k': 3, 'seed': 0, 'nctx': 45, 'ncomp': 32, 'fit_s': 0.094, 'pred_s': 2.943, 'acc': 0.8066666666666666}
+[957s status=RUNNING log=13055B]
+[69/1125 734s] {'method': 'tabpfn-64', 'task': 'clinc_meta', 'k': 3, 'seed': 0, 'nctx': 45, 'ncomp': 44, 'fit_s': 0.154, 'pred_s': 4.195, 'acc': 0.8066666666666666}
+[70/1125 737s] {'method': 'tabicl_synth-64', 'task': 'clinc_meta', 'k': 3, 'seed': 0, 'nctx': 195, 'ncomp': 64, 'fit_s': 1.597, 'pred_s': 0.595, 'acc': 0.8888888888888888}
+[71/1125 738s] {'method': 'tabicl-32', 'task': 'clinc_work', 'k': 3, 'seed': 0, 'nctx': 45, 'ncomp': 32, 'fit_s': 1.315, 'pred_s': 0.484, 'acc': 0.8555555555555555}
+[72/1125 740s] {'method': 'tabicl-64', 'task': 'clinc_work', 'k': 3, 'seed': 0, 'nctx': 45, 'ncomp': 44, 'fit_s': 1.395, 'pred_s': 0.524, 'acc': 0.8488888888888889}
+[73/1125 743s] {'method': 'tabpfn-32', 'task': 'clinc_work', 'k': 3, 'seed': 0, 'nctx': 45, 'ncomp': 32, 'fit_s': 0.168, 'pred_s': 2.902, 'acc': 0.8355555555555556}
+[74/1125 748s] {'method': 'tabpfn-64', 'task': 'clinc_work', 'k': 3, 'seed': 0, 'nctx': 45, 'ncomp': 44, 'fit_s': 0.095, 'pred_s': 4.305, 'acc': 0.8266666666666667}
+[75/1125 750s] {'method': 'tabicl_synth-64', 'task': 'clinc_work', 'k': 3, 'seed': 0, 'nctx': 195, 'ncomp': 64, 'fit_s': 1.637, 'pred_s': 0.638, 'acc': 0.8755555555555555}
+[76/1125 752s] {'method': 'tabicl-32', 'task': 'clinc_small_talk', 'k': 3, 'seed': 0, 'nctx': 45, 'ncomp': 32, 'fit_s': 1.382, 'pred_s': 0.464, 'acc': 0.86}
+[77/1125 754s] {'method': 'tabicl-64', 'task': 'clinc_small_talk', 'k': 3, 'seed': 0, 'nctx': 45, 'ncomp': 44, 'fit_s': 1.363, 'pred_s': 0.517, 'acc': 0.8311111111111111}
+[78/1125 757s] {'method': 'tabpfn-32', 'task': 'clinc_small_talk', 'k': 3, 'seed': 0, 'nctx': 45, 'ncomp': 32, 'fit_s': 0.075, 'pred_s': 3.165, 'acc': 0.7755555555555556}
+[79/1125 762s] {'method': 'tabpfn-64', 'task': 'clinc_small_talk', 'k': 3, 'seed': 0, 'nctx': 45, 'ncomp': 44, 'fit_s': 0.106, 'pred_s': 4.402, 'acc': 0.7755555555555556}
+[80/1125 764s] {'method': 'tabicl_synth-64', 'task': 'clinc_small_talk', 'k': 3, 'seed': 0, 'nctx': 195, 'ncomp': 64, 'fit_s': 1.472, 'pred_s': 0.619, 'acc': 0.8911111111111111}
+[989s status=RUNNING log=15072B]
+[81/1125 766s] {'method': 'tabicl-32', 'task': 'b12_0', 'k': 5, 'seed': 0, 'nctx': 60, 'ncomp': 32, 'fit_s': 1.252, 'pred_s': 0.537, 'acc': 0.9436325678496869}
+[82/1125 768s] {'method': 'tabicl-64', 'task': 'b12_0', 'k': 5, 'seed': 0, 'nctx': 60, 'ncomp': 59, 'fit_s': 1.513, 'pred_s': 0.655, 'acc': 0.941544885177453}
+[83/1125 771s] {'method': 'tabpfn-32', 'task': 'b12_0', 'k': 5, 'seed': 0, 'nctx': 60, 'ncomp': 32, 'fit_s': 0.029, 'pred_s': 3.159, 'acc': 0.9331941544885177}
+[84/1125 776s] {'method': 'tabpfn-64', 'task': 'b12_0', 'k': 5, 'seed': 0, 'nctx': 60, 'ncomp': 59, 'fit_s': 0.112, 'pred_s': 4.297, 'acc': 0.9248434237995825}
+[85/1125 778s] {'method': 'tabicl_synth-64', 'task': 'b12_0', 'k': 5, 'seed': 0, 'nctx': 180, 'ncomp': 64, 'fit_s': 1.486, 'pred_s': 0.623, 'acc': 0.9478079331941545}
+[86/1125 780s] {'method': 'tabicl-32', 'task': 'b12_1', 'k': 5, 'seed': 0, 'nctx': 60, 'ncomp': 32, 'fit_s': 1.434, 'pred_s': 0.509, 'acc': 0.9144050104384134}
+[87/1125 782s] {'method': 'tabicl-64', 'task': 'b12_1', 'k': 5, 'seed': 0, 'nctx': 60, 'ncomp': 59, 'fit_s': 1.495, 'pred_s': 0.627, 'acc': 0.918580375782881}
+[88/1125 785s] {'method': 'tabpfn-32', 'task': 'b12_1', 'k': 5, 'seed': 0, 'nctx': 60, 'ncomp': 32, 'fit_s': 0.106, 'pred_s': 2.943, 'acc': 0.9018789144050104}
+[89/1125 790s] {'method': 'tabpfn-64', 'task': 'b12_1', 'k': 5, 'seed': 0, 'nctx': 60, 'ncomp': 59, 'fit_s': 0.109, 'pred_s': 4.311, 'acc': 0.8997912317327766}
+[90/1125 792s] {'method': 'tabicl_synth-64', 'task': 'b12_1', 'k': 5, 'seed': 0, 'nctx': 180, 'ncomp': 64, 'fit_s': 1.575, 'pred_s': 0.603, 'acc': 0.906054279749478}
+[91/1125 794s] {'method': 'tabicl-32', 'task': 'b12_2', 'k': 5, 'seed': 0, 'nctx': 60, 'ncomp': 32, 'fit_s': 1.211, 'pred_s': 0.5, 'acc': 0.9561586638830898}
+[92/1125 796s] {'method': 'tabicl-64', 'task': 'b12_2', 'k': 5, 'seed': 0, 'nctx': 60, 'ncomp': 59, 'fit_s': 1.374, 'pred_s': 0.619, 'acc': 0.9624217118997912}
+[1021s status=RUNNING log=17001B]
+[93/1125 799s] {'method': 'tabpfn-32', 'task': 'b12_2', 'k': 5, 'seed': 0, 'nctx': 60, 'ncomp': 32, 'fit_s': 0.103, 'pred_s': 2.934, 'acc': 0.9603340292275574}
+[94/1125 803s] {'method': 'tabpfn-64', 'task': 'b12_2', 'k': 5, 'seed': 0, 'nctx': 60, 'ncomp': 59, 'fit_s': 0.152, 'pred_s': 4.398, 'acc': 0.9582463465553236}
+[95/1125 806s] {'method': 'tabicl_synth-64', 'task': 'b12_2', 'k': 5, 'seed': 0, 'nctx': 180, 'ncomp': 64, 'fit_s': 1.724, 'pred_s': 0.646, 'acc': 0.9603340292275574}
+[96/1125 808s] {'method': 'tabicl-32', 'task': 'b12_3', 'k': 5, 'seed': 0, 'nctx': 60, 'ncomp': 32, 'fit_s': 1.481, 'pred_s': 0.544, 'acc': 0.8872651356993737}
+[97/1125 810s] {'method': 'tabicl-64', 'task': 'b12_3', 'k': 5, 'seed': 0, 'nctx': 60, 'ncomp': 59, 'fit_s': 1.644, 'pred_s': 0.619, 'acc': 0.8872651356993737}
+[98/1125 813s] {'method': 'tabpfn-32', 'task': 'b12_3', 'k': 5, 'seed': 0, 'nctx': 60, 'ncomp': 32, 'fit_s': 0.021, 'pred_s': 3.092, 'acc': 0.8977035490605428}
+[99/1125 818s] {'method': 'tabpfn-64', 'task': 'b12_3', 'k': 5, 'seed': 0, 'nctx': 60, 'ncomp': 59, 'fit_s': 0.107, 'pred_s': 4.787, 'acc': 0.8997912317327766}
+[100/1125 821s] {'method': 'tabicl_synth-64', 'task': 'b12_3', 'k': 5, 'seed': 0, 'nctx': 180, 'ncomp': 64, 'fit_s': 1.577, 'pred_s': 0.623, 'acc': 0.9457202505219207}
+[101/1125 822s] {'method': 'tabicl-32', 'task': 'b12_4', 'k': 5, 'seed': 0, 'nctx': 60, 'ncomp': 32, 'fit_s': 1.45, 'pred_s': 0.509, 'acc': 0.925}
+[102/1125 825s] {'method': 'tabicl-64', 'task': 'b12_4', 'k': 5, 'seed': 0, 'nctx': 60, 'ncomp': 59, 'fit_s': 1.738, 'pred_s': 0.657, 'acc': 0.9291666666666667}
+[103/1125 828s] {'method': 'tabpfn-32', 'task': 'b12_4', 'k': 5, 'seed': 0, 'nctx': 60, 'ncomp': 32, 'fit_s': 0.121, 'pred_s': 3.045, 'acc': 0.9270833333333334}
+[1054s status=RUNNING log=18765B]
+[104/1125 833s] {'method': 'tabpfn-64', 'task': 'b12_4', 'k': 5, 'seed': 0, 'nctx': 60, 'ncomp': 59, 'fit_s': 0.16, 'pred_s': 4.491, 'acc': 0.9270833333333334}
+[105/1125 836s] {'method': 'tabicl_synth-64', 'task': 'b12_4', 'k': 5, 'seed': 0, 'nctx': 180, 'ncomp': 64, 'fit_s': 1.573, 'pred_s': 0.607, 'acc': 0.9416666666666667}
+[106/1125 837s] {'method': 'tabicl-32', 'task': 'clinc_meta', 'k': 5, 'seed': 0, 'nctx': 75, 'ncomp': 32, 'fit_s': 1.327, 'pred_s': 0.547, 'acc': 0.8866666666666667}
+[107/1125 840s] {'method': 'tabicl-64', 'task': 'clinc_meta', 'k': 5, 'seed': 0, 'nctx': 75, 'ncomp': 64, 'fit_s': 1.67, 'pred_s': 0.621, 'acc': 0.9133333333333333}
+[108/1125 843s] {'method': 'tabpfn-32', 'task': 'clinc_meta', 'k': 5, 'seed': 0, 'nctx': 75, 'ncomp': 32, 'fit_s': 0.13, 'pred_s': 2.944, 'acc': 0.8777777777777778}
+[109/1125 848s] {'method': 'tabpfn-64', 'task': 'clinc_meta', 'k': 5, 'seed': 0, 'nctx': 75, 'ncomp': 64, 'fit_s': 0.017, 'pred_s': 4.787, 'acc': 0.8733333333333333}
+[110/1125 851s] {'method': 'tabicl_synth-64', 'task': 'clinc_meta', 'k': 5, 'seed': 0, 'nctx': 225, 'ncomp': 64, 'fit_s': 1.905, 'pred_s': 0.798, 'acc': 0.9044444444444445}
+[111/1125 853s] {'method': 'tabicl-32', 'task': 'clinc_work', 'k': 5, 'seed': 0, 'nctx': 75, 'ncomp': 32, 'fit_s': 1.484, 'pred_s': 0.561, 'acc': 0.8911111111111111}
+[112/1125 855s] {'method': 'tabicl-64', 'task': 'clinc_work', 'k': 5, 'seed': 0, 'nctx': 75, 'ncomp': 64, 'fit_s': 1.669, 'pred_s': 0.614, 'acc': 0.8933333333333333}
+[113/1125 858s] {'method': 'tabpfn-32', 'task': 'clinc_work', 'k': 5, 'seed': 0, 'nctx': 75, 'ncomp': 32, 'fit_s': 0.139, 'pred_s': 3.108, 'acc': 0.8866666666666667}
+[1086s status=RUNNING log=20426B]
+[114/1125 863s] {'method': 'tabpfn-64', 'task': 'clinc_work', 'k': 5, 'seed': 0, 'nctx': 75, 'ncomp': 64, 'fit_s': 0.18, 'pred_s': 4.794, 'acc': 0.8866666666666667}
+[115/1125 866s] {'method': 'tabicl_synth-64', 'task': 'clinc_work', 'k': 5, 'seed': 0, 'nctx': 225, 'ncomp': 64, 'fit_s': 1.819, 'pred_s': 0.607, 'acc': 0.9355555555555556}
+[116/1125 868s] {'method': 'tabicl-32', 'task': 'clinc_small_talk', 'k': 5, 'seed': 0, 'nctx': 75, 'ncomp': 32, 'fit_s': 1.313, 'pred_s': 0.527, 'acc': 0.9244444444444444}
+[117/1125 870s] {'method': 'tabicl-64', 'task': 'clinc_small_talk', 'k': 5, 'seed': 0, 'nctx': 75, 'ncomp': 64, 'fit_s': 1.474, 'pred_s': 0.519, 'acc': 0.9488888888888889}
+[118/1125 873s] {'method': 'tabpfn-32', 'task': 'clinc_small_talk', 'k': 5, 'seed': 0, 'nctx': 75, 'ncomp': 32, 'fit_s': 0.106, 'pred_s': 2.956, 'acc': 0.9333333333333333}
+[119/1125 878s] {'method': 'tabpfn-64', 'task': 'clinc_small_talk', 'k': 5, 'seed': 0, 'nctx': 75, 'ncomp': 64, 'fit_s': 0.018, 'pred_s': 4.806, 'acc': 0.9333333333333333}
+[120/1125 880s] {'method': 'tabicl_synth-64', 'task': 'clinc_small_talk', 'k': 5, 'seed': 0, 'nctx': 225, 'ncomp': 64, 'fit_s': 1.665, 'pred_s': 0.63, 'acc': 0.9222222222222223}
+[121/1125 882s] {'method': 'tabicl-32', 'task': 'b12_0', 'k': 10, 'seed': 0, 'nctx': 120, 'ncomp': 32, 'fit_s': 1.333, 'pred_s': 0.524, 'acc': 0.9707724425887265}
+[122/1125 884s] {'method': 'tabicl-64', 'task': 'b12_0', 'k': 10, 'seed': 0, 'nctx': 120, 'ncomp': 64, 'fit_s': 1.479, 'pred_s': 0.59, 'acc': 0.9770354906054279}
+[123/1125 887s] {'method': 'tabpfn-32', 'task': 'b12_0', 'k': 10, 'seed': 0, 'nctx': 120, 'ncomp': 32, 'fit_s': 0.12, 'pred_s': 2.946, 'acc': 0.9728601252609603}
+[124/1125 892s] {'method': 'tabpfn-64', 'task': 'b12_0', 'k': 10, 'seed': 0, 'nctx': 120, 'ncomp': 64, 'fit_s': 0.109, 'pred_s': 5.099, 'acc': 0.9686847599164927}
+[1118s status=RUNNING log=22280B]
+[125/1125 895s] {'method': 'tabicl_synth-64', 'task': 'b12_0', 'k': 10, 'seed': 0, 'nctx': 240, 'ncomp': 64, 'fit_s': 1.479, 'pred_s': 0.613, 'acc': 0.9582463465553236}
+[126/1125 896s] {'method': 'tabicl-32', 'task': 'b12_1', 'k': 10, 'seed': 0, 'nctx': 120, 'ncomp': 32, 'fit_s': 1.243, 'pred_s': 0.511, 'acc': 0.9352818371607515}
+[127/1125 898s] {'method': 'tabicl-64', 'task': 'b12_1', 'k': 10, 'seed': 0, 'nctx': 120, 'ncomp': 64, 'fit_s': 1.489, 'pred_s': 0.573, 'acc': 0.941544885177453}
+[128/1125 902s] {'method': 'tabpfn-32', 'task': 'b12_1', 'k': 10, 'seed': 0, 'nctx': 120, 'ncomp': 32, 'fit_s': 0.143, 'pred_s': 3.035, 'acc': 0.9436325678496869}
+[129/1125 907s] {'method': 'tabpfn-64', 'task': 'b12_1', 'k': 10, 'seed': 0, 'nctx': 120, 'ncomp': 64, 'fit_s': 0.117, 'pred_s': 4.883, 'acc': 0.941544885177453}
+[130/1125 909s] {'method': 'tabicl_synth-64', 'task': 'b12_1', 'k': 10, 'seed': 0, 'nctx': 240, 'ncomp': 64, 'fit_s': 1.569, 'pred_s': 0.622, 'acc': 0.9394572025052192}
+[131/1125 911s] {'method': 'tabicl-32', 'task': 'b12_2', 'k': 10, 'seed': 0, 'nctx': 120, 'ncomp': 32, 'fit_s': 1.249, 'pred_s': 0.527, 'acc': 0.9519832985386222}
+[132/1125 913s] {'method': 'tabicl-64', 'task': 'b12_2', 'k': 10, 'seed': 0, 'nctx': 120, 'ncomp': 64, 'fit_s': 1.378, 'pred_s': 0.59, 'acc': 0.9498956158663883}
+[133/1125 916s] {'method': 'tabpfn-32', 'task': 'b12_2', 'k': 10, 'seed': 0, 'nctx': 120, 'ncomp': 32, 'fit_s': 0.018, 'pred_s': 3.069, 'acc': 0.9582463465553236}
+[134/1125 921s] {'method': 'tabpfn-64', 'task': 'b12_2', 'k': 10, 'seed': 0, 'nctx': 120, 'ncomp': 64, 'fit_s': 0.1, 'pred_s': 4.811, 'acc': 0.9519832985386222}
+[135/1125 923s] {'method': 'tabicl_synth-64', 'task': 'b12_2', 'k': 10, 'seed': 0, 'nctx': 240, 'ncomp': 64, 'fit_s': 1.483, 'pred_s': 0.638, 'acc': 0.9498956158663883}
+[136/1125 925s] {'method': 'tabicl-32', 'task': 'b12_3', 'k': 10, 'seed': 0, 'nctx': 120, 'ncomp': 32, 'fit_s': 1.311, 'pred_s': 0.552, 'acc': 0.9227557411273486}
+[1150s status=RUNNING log=24249B]
+[137/1125 927s] {'method': 'tabicl-64', 'task': 'b12_3', 'k': 10, 'seed': 0, 'nctx': 120, 'ncomp': 64, 'fit_s': 1.453, 'pred_s': 0.601, 'acc': 0.9206680584551148}
+[138/1125 930s] {'method': 'tabpfn-32', 'task': 'b12_3', 'k': 10, 'seed': 0, 'nctx': 120, 'ncomp': 32, 'fit_s': 0.112, 'pred_s': 3.049, 'acc': 0.9039665970772442}
+[139/1125 935s] {'method': 'tabpfn-64', 'task': 'b12_3', 'k': 10, 'seed': 0, 'nctx': 120, 'ncomp': 64, 'fit_s': 0.133, 'pred_s': 4.895, 'acc': 0.906054279749478}
+[140/1125 938s] {'method': 'tabicl_synth-64', 'task': 'b12_3', 'k': 10, 'seed': 0, 'nctx': 240, 'ncomp': 64, 'fit_s': 1.578, 'pred_s': 0.662, 'acc': 0.9457202505219207}
+[141/1125 939s] {'method': 'tabicl-32', 'task': 'b12_4', 'k': 10, 'seed': 0, 'nctx': 120, 'ncomp': 32, 'fit_s': 1.279, 'pred_s': 0.508, 'acc': 0.9354166666666667}
+[142/1125 941s] {'method': 'tabicl-64', 'task': 'b12_4', 'k': 10, 'seed': 0, 'nctx': 120, 'ncomp': 64, 'fit_s': 1.4, 'pred_s': 0.541, 'acc': 0.9291666666666667}
+[143/1125 944s] {'method': 'tabpfn-32', 'task': 'b12_4', 'k': 10, 'seed': 0, 'nctx': 120, 'ncomp': 32, 'fit_s': 0.167, 'pred_s': 2.967, 'acc': 0.91875}
+[144/1125 949s] {'method': 'tabpfn-64', 'task': 'b12_4', 'k': 10, 'seed': 0, 'nctx': 120, 'ncomp': 64, 'fit_s': 0.108, 'pred_s': 4.792, 'acc': 0.91875}
+[145/1125 952s] {'method': 'tabicl_synth-64', 'task': 'b12_4', 'k': 10, 'seed': 0, 'nctx': 240, 'ncomp': 64, 'fit_s': 1.663, 'pred_s': 0.646, 'acc': 0.9291666666666667}
+[146/1125 954s] {'method': 'tabicl-32', 'task': 'clinc_meta', 'k': 10, 'seed': 0, 'nctx': 150, 'ncomp': 32, 'fit_s': 1.249, 'pred_s': 0.579, 'acc': 0.8933333333333333}
+[147/1125 956s] {'method': 'tabicl-64', 'task': 'clinc_meta', 'k': 10, 'seed': 0, 'nctx': 150, 'ncomp': 64, 'fit_s': 1.391, 'pred_s': 0.576, 'acc': 0.8911111111111111}
+[1182s status=RUNNING log=26039B]
+[148/1125 959s] {'method': 'tabpfn-32', 'task': 'clinc_meta', 'k': 10, 'seed': 0, 'nctx': 150, 'ncomp': 32, 'fit_s': 0.105, 'pred_s': 3.18, 'acc': 0.8866666666666667}
+[149/1125 965s] {'method': 'tabpfn-64', 'task': 'clinc_meta', 'k': 10, 'seed': 0, 'nctx': 150, 'ncomp': 64, 'fit_s': 0.109, 'pred_s': 5.296, 'acc': 0.8933333333333333}
+[150/1125 967s] {'method': 'tabicl_synth-64', 'task': 'clinc_meta', 'k': 10, 'seed': 0, 'nctx': 300, 'ncomp': 64, 'fit_s': 1.775, 'pred_s': 0.662, 'acc': 0.9244444444444444}
+[151/1125 969s] {'method': 'tabicl-32', 'task': 'clinc_work', 'k': 10, 'seed': 0, 'nctx': 150, 'ncomp': 32, 'fit_s': 1.348, 'pred_s': 0.51, 'acc': 0.9577777777777777}
+[152/1125 972s] {'method': 'tabicl-64', 'task': 'clinc_work', 'k': 10, 'seed': 0, 'nctx': 150, 'ncomp': 64, 'fit_s': 1.478, 'pred_s': 0.541, 'acc': 0.94}
+[153/1125 975s] {'method': 'tabpfn-32', 'task': 'clinc_work', 'k': 10, 'seed': 0, 'nctx': 150, 'ncomp': 32, 'fit_s': 0.108, 'pred_s': 3.037, 'acc': 0.94}
+[154/1125 980s] {'method': 'tabpfn-64', 'task': 'clinc_work', 'k': 10, 'seed': 0, 'nctx': 150, 'ncomp': 64, 'fit_s': 0.017, 'pred_s': 4.887, 'acc': 0.9488888888888889}
+[155/1125 982s] {'method': 'tabicl_synth-64', 'task': 'clinc_work', 'k': 10, 'seed': 0, 'nctx': 300, 'ncomp': 64, 'fit_s': 1.687, 'pred_s': 0.643, 'acc': 0.9422222222222222}
+[156/1125 984s] {'method': 'tabicl-32', 'task': 'clinc_small_talk', 'k': 10, 'seed': 0, 'nctx': 150, 'ncomp': 32, 'fit_s': 1.254, 'pred_s': 0.527, 'acc': 0.9377777777777778}
+[157/1125 986s] {'method': 'tabicl-64', 'task': 'clinc_small_talk', 'k': 10, 'seed': 0, 'nctx': 150, 'ncomp': 64, 'fit_s': 1.473, 'pred_s': 0.585, 'acc': 0.9488888888888889}
+[1214s status=RUNNING log=27713B]
+[158/1125 989s] {'method': 'tabpfn-32', 'task': 'clinc_small_talk', 'k': 10, 'seed': 0, 'nctx': 150, 'ncomp': 32, 'fit_s': 0.106, 'pred_s': 3.045, 'acc': 0.9466666666666667}
+[159/1125 995s] {'method': 'tabpfn-64', 'task': 'clinc_small_talk', 'k': 10, 'seed': 0, 'nctx': 150, 'ncomp': 64, 'fit_s': 0.017, 'pred_s': 5.087, 'acc': 0.9466666666666667}
+[160/1125 997s] {'method': 'tabicl_synth-64', 'task': 'clinc_small_talk', 'k': 10, 'seed': 0, 'nctx': 300, 'ncomp': 64, 'fit_s': 1.578, 'pred_s': 0.66, 'acc': 0.94}
+[161/1125 999s] {'method': 'tabicl-32', 'task': 'b12_0', 'k': 20, 'seed': 0, 'nctx': 240, 'ncomp': 32, 'fit_s': 1.29, 'pred_s': 0.578, 'acc': 0.9561586638830898}
+[162/1125 1001s] {'method': 'tabicl-64', 'task': 'b12_0', 'k': 20, 'seed': 0, 'nctx': 240, 'ncomp': 64, 'fit_s': 1.533, 'pred_s': 0.64, 'acc': 0.9561586638830898}
+[163/1125 1006s] {'method': 'tabpfn-32', 'task': 'b12_0', 'k': 20, 'seed': 0, 'nctx': 240, 'ncomp': 32, 'fit_s': 0.169, 'pred_s': 4.699, 'acc': 0.954070981210856}
+[164/1125 1011s] {'method': 'tabpfn-64', 'task': 'b12_0', 'k': 20, 'seed': 0, 'nctx': 240, 'ncomp': 64, 'fit_s': 0.111, 'pred_s': 5.106, 'acc': 0.9478079331941545}
+[165/1125 1014s] {'method': 'tabicl_synth-64', 'task': 'b12_0', 'k': 20, 'seed': 0, 'nctx': 360, 'ncomp': 64, 'fit_s': 1.586, 'pred_s': 0.676, 'acc': 0.9561586638830898}
+[166/1125 1016s] {'method': 'tabicl-32', 'task': 'b12_1', 'k': 20, 'seed': 0, 'nctx': 240, 'ncomp': 32, 'fit_s': 1.264, 'pred_s': 0.58, 'acc': 0.964509394572025}
+[167/1125 1018s] {'method': 'tabicl-64', 'task': 'b12_1', 'k': 20, 'seed': 0, 'nctx': 240, 'ncomp': 64, 'fit_s': 1.449, 'pred_s': 0.609, 'acc': 0.964509394572025}
+[1246s status=RUNNING log=29373B]
+[168/1125 1023s] {'method': 'tabpfn-32', 'task': 'b12_1', 'k': 20, 'seed': 0, 'nctx': 240, 'ncomp': 32, 'fit_s': 0.089, 'pred_s': 4.793, 'acc': 0.964509394572025}
+[169/1125 1028s] {'method': 'tabpfn-64', 'task': 'b12_1', 'k': 20, 'seed': 0, 'nctx': 240, 'ncomp': 64, 'fit_s': 0.182, 'pred_s': 5.421, 'acc': 0.964509394572025}
+[170/1125 1031s] {'method': 'tabicl_synth-64', 'task': 'b12_1', 'k': 20, 'seed': 0, 'nctx': 360, 'ncomp': 64, 'fit_s': 1.678, 'pred_s': 0.652, 'acc': 0.9519832985386222}
+[171/1125 1033s] {'method': 'tabicl-32', 'task': 'b12_2', 'k': 20, 'seed': 0, 'nctx': 240, 'ncomp': 32, 'fit_s': 1.3, 'pred_s': 0.567, 'acc': 0.9603340292275574}
+[172/1125 1035s] {'method': 'tabicl-64', 'task': 'b12_2', 'k': 20, 'seed': 0, 'nctx': 240, 'ncomp': 64, 'fit_s': 1.44, 'pred_s': 0.626, 'acc': 0.9582463465553236}
+[173/1125 1040s] {'method': 'tabpfn-32', 'task': 'b12_2', 'k': 20, 'seed': 0, 'nctx': 240, 'ncomp': 32, 'fit_s': 0.084, 'pred_s': 4.793, 'acc': 0.954070981210856}
+[174/1125 1045s] {'method': 'tabpfn-64', 'task': 'b12_2', 'k': 20, 'seed': 0, 'nctx': 240, 'ncomp': 64, 'fit_s': 0.108, 'pred_s': 5.503, 'acc': 0.9603340292275574}
+[175/1125 1048s] {'method': 'tabicl_synth-64', 'task': 'b12_2', 'k': 20, 'seed': 0, 'nctx': 360, 'ncomp': 64, 'fit_s': 1.587, 'pred_s': 0.7, 'acc': 0.964509394572025}
+[176/1125 1050s] {'method': 'tabicl-32', 'task': 'b12_3', 'k': 20, 'seed': 0, 'nctx': 240, 'ncomp': 32, 'fit_s': 1.38, 'pred_s': 0.617, 'acc': 0.964509394572025}
+[177/1125 1052s] {'method': 'tabicl-64', 'task': 'b12_3', 'k': 20, 'seed': 0, 'nctx': 240, 'ncomp': 64, 'fit_s': 1.618, 'pred_s': 0.696, 'acc': 0.9665970772442589}
+[1278s status=RUNNING log=31014B]
+[178/1125 1057s] {'method': 'tabpfn-32', 'task': 'b12_3', 'k': 20, 'seed': 0, 'nctx': 240, 'ncomp': 32, 'fit_s': 0.15, 'pred_s': 4.903, 'acc': 0.964509394572025}
+[179/1125 1063s] {'method': 'tabpfn-64', 'task': 'b12_3', 'k': 20, 'seed': 0, 'nctx': 240, 'ncomp': 64, 'fit_s': 0.11, 'pred_s': 5.786, 'acc': 0.964509394572025}
+[180/1125 1066s] {'method': 'tabicl_synth-64', 'task': 'b12_3', 'k': 20, 'seed': 0, 'nctx': 360, 'ncomp': 64, 'fit_s': 1.492, 'pred_s': 0.676, 'acc': 0.9707724425887265}
+[181/1125 1068s] {'method': 'tabicl-32', 'task': 'b12_4', 'k': 20, 'seed': 0, 'nctx': 240, 'ncomp': 32, 'fit_s': 1.377, 'pred_s': 0.575, 'acc': 0.9520833333333333}
+[182/1125 1070s] {'method': 'tabicl-64', 'task': 'b12_4', 'k': 20, 'seed': 0, 'nctx': 240, 'ncomp': 64, 'fit_s': 1.516, 'pred_s': 0.604, 'acc': 0.9541666666666667}
+[183/1125 1075s] {'method': 'tabpfn-32', 'task': 'b12_4', 'k': 20, 'seed': 0, 'nctx': 240, 'ncomp': 32, 'fit_s': 0.111, 'pred_s': 4.697, 'acc': 0.95}
+[184/1125 1080s] {'method': 'tabpfn-64', 'task': 'b12_4', 'k': 20, 'seed': 0, 'nctx': 240, 'ncomp': 64, 'fit_s': 0.167, 'pred_s': 5.218, 'acc': 0.95}
+[185/1125 1083s] {'method': 'tabicl_synth-64', 'task': 'b12_4', 'k': 20, 'seed': 0, 'nctx': 360, 'ncomp': 64, 'fit_s': 1.784, 'pred_s': 0.694, 'acc': 0.9479166666666666}
+[186/1125 1085s] {'method': 'tabicl-32', 'task': 'clinc_meta', 'k': 20, 'seed': 0, 'nctx': 300, 'ncomp': 32, 'fit_s': 1.26, 'pred_s': 0.641, 'acc': 0.9333333333333333}
+[1310s status=RUNNING log=32474B]
+[187/1125 1087s] {'method': 'tabicl-64', 'task': 'clinc_meta', 'k': 20, 'seed': 0, 'nctx': 300, 'ncomp': 64, 'fit_s': 1.395, 'pred_s': 0.663, 'acc': 0.9333333333333333}
+[188/1125 1092s] {'method': 'tabpfn-32', 'task': 'clinc_meta', 'k': 20, 'seed': 0, 'nctx': 300, 'ncomp': 32, 'fit_s': 0.126, 'pred_s': 4.71, 'acc': 0.9333333333333333}
+[189/1125 1098s] {'method': 'tabpfn-64', 'task': 'clinc_meta', 'k': 20, 'seed': 0, 'nctx': 300, 'ncomp': 64, 'fit_s': 0.027, 'pred_s': 5.782, 'acc': 0.9311111111111111}
+[190/1125 1101s] {'method': 'tabicl_synth-64', 'task': 'clinc_meta', 'k': 20, 'seed': 0, 'nctx': 450, 'ncomp': 64, 'fit_s': 1.836, 'pred_s': 0.692, 'acc': 0.9288888888888889}
+[191/1125 1103s] {'method': 'tabicl-32', 'task': 'clinc_work', 'k': 20, 'seed': 0, 'nctx': 300, 'ncomp': 32, 'fit_s': 1.493, 'pred_s': 0.672, 'acc': 0.9622222222222222}
+[192/1125 1105s] {'method': 'tabicl-64', 'task': 'clinc_work', 'k': 20, 'seed': 0, 'nctx': 300, 'ncomp': 64, 'fit_s': 1.647, 'pred_s': 0.694, 'acc': 0.9622222222222222}
+[193/1125 1110s] {'method': 'tabpfn-32', 'task': 'clinc_work', 'k': 20, 'seed': 0, 'nctx': 300, 'ncomp': 32, 'fit_s': 0.145, 'pred_s': 4.892, 'acc': 0.9555555555555556}
+[194/1125 1117s] {'method': 'tabpfn-64', 'task': 'clinc_work', 'k': 20, 'seed': 0, 'nctx': 300, 'ncomp': 64, 'fit_s': 0.105, 'pred_s': 6.006, 'acc': 0.96}
+[1342s status=RUNNING log=33817B]
+[195/1125 1119s] {'method': 'tabicl_synth-64', 'task': 'clinc_work', 'k': 20, 'seed': 0, 'nctx': 450, 'ncomp': 64, 'fit_s': 1.584, 'pred_s': 0.73, 'acc': 0.9577777777777777}
+[196/1125 1121s] {'method': 'tabicl-32', 'task': 'clinc_small_talk', 'k': 20, 'seed': 0, 'nctx': 300, 'ncomp': 32, 'fit_s': 1.379, 'pred_s': 0.651, 'acc': 0.9644444444444444}
+[197/1125 1124s] {'method': 'tabicl-64', 'task': 'clinc_small_talk', 'k': 20, 'seed': 0, 'nctx': 300, 'ncomp': 64, 'fit_s': 1.605, 'pred_s': 0.71, 'acc': 0.9577777777777777}
+[198/1125 1129s] {'method': 'tabpfn-32', 'task': 'clinc_small_talk', 'k': 20, 'seed': 0, 'nctx': 300, 'ncomp': 32, 'fit_s': 0.116, 'pred_s': 5.093, 'acc': 0.9488888888888889}
+[199/1125 1135s] {'method': 'tabpfn-64', 'task': 'clinc_small_talk', 'k': 20, 'seed': 0, 'nctx': 300, 'ncomp': 64, 'fit_s': 0.017, 'pred_s': 6.291, 'acc': 0.9577777777777777}
+[200/1125 1138s] {'method': 'tabicl_synth-64', 'task': 'clinc_small_talk', 'k': 20, 'seed': 0, 'nctx': 450, 'ncomp': 64, 'fit_s': 1.597, 'pred_s': 0.721, 'acc': 0.9533333333333334}
+[201/1125 1140s] {'method': 'tabicl-32', 'task': 'b12_0', 'k': 1, 'seed': 1, 'nctx': 12, 'ncomp': 11, 'fit_s': 1.335, 'pred_s': 0.347, 'acc': 0.7536534446764092}
+[202/1125 1141s] {'method': 'tabicl-64', 'task': 'b12_0', 'k': 1, 'seed': 1, 'nctx': 12, 'ncomp': 11, 'fit_s': 1.257, 'pred_s': 0.379, 'acc': 0.7536534446764092}
+[203/1125 1143s] {'method': 'tabpfn-32', 'task': 'b12_0', 'k': 1, 'seed': 1, 'nctx': 12, 'ncomp': 11, 'fit_s': 0.017, 'pred_s': 1.316, 'acc': 0.8121085594989561}
+[204/1125 1144s] {'method': 'tabpfn-64', 'task': 'b12_0', 'k': 1, 'seed': 1, 'nctx': 12, 'ncomp': 11, 'fit_s': 0.017, 'pred_s': 1.488, 'acc': 0.8121085594989561}
+[205/1125 1147s] {'method': 'tabicl_synth-64', 'task': 'b12_0', 'k': 1, 'seed': 1, 'nctx': 132, 'ncomp': 64, 'fit_s': 1.775, 'pred_s': 0.602, 'acc': 0.9352818371607515}
+[206/1125 1148s] {'method': 'tabicl-32', 'task': 'b12_1', 'k': 1, 'seed': 1, 'nctx': 12, 'ncomp': 11, 'fit_s': 1.178, 'pred_s': 0.43, 'acc': 0.7118997912317327}
+[1374s status=RUNNING log=35849B]
+[207/1125 1150s] {'method': 'tabicl-64', 'task': 'b12_1', 'k': 1, 'seed': 1, 'nctx': 12, 'ncomp': 11, 'fit_s': 1.19, 'pred_s': 0.361, 'acc': 0.7118997912317327}
+[208/1125 1151s] {'method': 'tabpfn-32', 'task': 'b12_1', 'k': 1, 'seed': 1, 'nctx': 12, 'ncomp': 11, 'fit_s': 0.02, 'pred_s': 1.565, 'acc': 0.7682672233820459}
+[209/1125 1153s] {'method': 'tabpfn-64', 'task': 'b12_1', 'k': 1, 'seed': 1, 'nctx': 12, 'ncomp': 11, 'fit_s': 0.02, 'pred_s': 1.648, 'acc': 0.7682672233820459}
+[210/1125 1156s] {'method': 'tabicl_synth-64', 'task': 'b12_1', 'k': 1, 'seed': 1, 'nctx': 132, 'ncomp': 64, 'fit_s': 1.703, 'pred_s': 0.599, 'acc': 0.8789144050104384}
+[211/1125 1157s] {'method': 'tabicl-32', 'task': 'b12_2', 'k': 1, 'seed': 1, 'nctx': 12, 'ncomp': 11, 'fit_s': 1.116, 'pred_s': 0.341, 'acc': 0.8058455114822547}
+[212/1125 1158s] {'method': 'tabicl-64', 'task': 'b12_2', 'k': 1, 'seed': 1, 'nctx': 12, 'ncomp': 11, 'fit_s': 1.104, 'pred_s': 0.408, 'acc': 0.8058455114822547}
+[213/1125 1160s] {'method': 'tabpfn-32', 'task': 'b12_2', 'k': 1, 'seed': 1, 'nctx': 12, 'ncomp': 11, 'fit_s': 0.017, 'pred_s': 1.39, 'acc': 0.8037578288100209}
+[214/1125 1161s] {'method': 'tabpfn-64', 'task': 'b12_2', 'k': 1, 'seed': 1, 'nctx': 12, 'ncomp': 11, 'fit_s': 0.016, 'pred_s': 1.388, 'acc': 0.8037578288100209}
+[215/1125 1164s] {'method': 'tabicl_synth-64', 'task': 'b12_2', 'k': 1, 'seed': 1, 'nctx': 132, 'ncomp': 64, 'fit_s': 1.67, 'pred_s': 0.599, 'acc': 0.9394572025052192}
+[216/1125 1165s] {'method': 'tabicl-32', 'task': 'b12_3', 'k': 1, 'seed': 1, 'nctx': 12, 'ncomp': 11, 'fit_s': 1.101, 'pred_s': 0.344, 'acc': 0.6680584551148225}
+[217/1125 1167s] {'method': 'tabicl-64', 'task': 'b12_3', 'k': 1, 'seed': 1, 'nctx': 12, 'ncomp': 11, 'fit_s': 1.158, 'pred_s': 0.396, 'acc': 0.6680584551148225}
+[218/1125 1168s] {'method': 'tabpfn-32', 'task': 'b12_3', 'k': 1, 'seed': 1, 'nctx': 12, 'ncomp': 11, 'fit_s': 0.017, 'pred_s': 1.292, 'acc': 0.6576200417536534}
+[219/1125 1169s] {'method': 'tabpfn-64', 'task': 'b12_3', 'k': 1, 'seed': 1, 'nctx': 12, 'ncomp': 11, 'fit_s': 0.016, 'pred_s': 1.482, 'acc': 0.6576200417536534}
+[220/1125 1172s] {'method': 'tabicl_synth-64', 'task': 'b12_3', 'k': 1, 'seed': 1, 'nctx': 132, 'ncomp': 64, 'fit_s': 1.675, 'pred_s': 0.526, 'acc': 0.9039665970772442}
+[221/1125 1173s] {'method': 'tabicl-32', 'task': 'b12_4', 'k': 1, 'seed': 1, 'nctx': 12, 'ncomp': 11, 'fit_s': 1.165, 'pred_s': 0.386, 'acc': 0.6916666666666667}
+[222/1125 1175s] {'method': 'tabicl-64', 'task': 'b12_4', 'k': 1, 'seed': 1, 'nctx': 12, 'ncomp': 11, 'fit_s': 1.218, 'pred_s': 0.321, 'acc': 0.6916666666666667}
+[223/1125 1176s] {'method': 'tabpfn-32', 'task': 'b12_4', 'k': 1, 'seed': 1, 'nctx': 12, 'ncomp': 11, 'fit_s': 0.017, 'pred_s': 1.275, 'acc': 0.6395833333333333}
+[224/1125 1178s] {'method': 'tabpfn-64', 'task': 'b12_4', 'k': 1, 'seed': 1, 'nctx': 12, 'ncomp': 11, 'fit_s': 0.017, 'pred_s': 1.477, 'acc': 0.6395833333333333}
+[225/1125 1180s] {'method': 'tabicl_synth-64', 'task': 'b12_4', 'k': 1, 'seed': 1, 'nctx': 132, 'ncomp': 64, 'fit_s': 1.585, 'pred_s': 0.594, 'acc': 0.9166666666666666}
+[1406s status=RUNNING log=38950B]

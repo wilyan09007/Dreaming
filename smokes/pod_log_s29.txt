@@ -1,0 +1,22 @@
+name, memory.total [MiB]
+NVIDIA GeForce RTX 4090, 24564 MiB
+waiting for bundle
+bundle extracted 6 files
+[      2s] cuda ok on attempt 1
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Generating train split:   0%|          | 0/9993 [00:00<?, ? examples/s]Generating train split: 100%|ââââââââââ| 9993/9993 [00:00<00:00, 1348487.22 examples/s]
+Generating test split:   0%|          | 0/3076 [00:00<?, ? examples/s]Generating test split: 100%|ââââââââââ| 3076/3076 [00:00<00:00, 1040541.91 examples/s]
+Generating train split:   0%|          | 0/15250 [00:00<?, ? examples/s]Generating train split: 100%|ââââââââââ| 15250/15250 [00:00<00:00, 1418345.70 examples/s]
+Generating validation split:   0%|          | 0/3100 [00:00<?, ? examples/s]Generating validation split: 100%|ââââââââââ| 3100/3100 [00:00<00:00, 827647.51 examples/s]
+Generating test split:   0%|          | 0/5500 [00:00<?, ? examples/s]Generating test split: 100%|ââââââââââ| 5500/5500 [00:00<00:00, 1257628.09 examples/s]
+Traceback (most recent call last):
+  File "/workspace/job/proj/smokes/s29_memory_student/run.py", line 510, in <module>
+    main()
+  File "/workspace/job/proj/smokes/s29_memory_student/run.py", line 491, in main
+    W = build_worlds(); b, c, c45 = W["banking77"], W["clinc150"], W["clinc45"]; save()
+        ^^^^^^^^^^^^^^
+  File "/workspace/job/proj/smokes/s29_memory_student/run.py", line 98, in build_worlds
+    E = embed(btr + bte + ctr + cte + [s for _, s in syn_b] + [s for _, s in syn_c]); o = 0
+              ~~~~^~~~~
+TypeError: unsupported operand type(s) for +: 'Column' and 'Column'
+exit=1

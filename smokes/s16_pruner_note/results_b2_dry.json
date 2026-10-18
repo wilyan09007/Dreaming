@@ -1,0 +1,1142 @@
+{
+ "setup": {
+  "mode": "dry",
+  "n": 140,
+  "evidence": "core",
+  "folds": 5,
+  "prices": {
+   "teacher": 0.00014190086206896537,
+   "judge1": 0.001301325134027121,
+   "judge2": 0.000284080721003135,
+   "ledger_per_call": 0.0007351252390819255,
+   "ledger_total": 4.6121757500000005,
+   "calls": 6274,
+   "log_line": "log.txt: [spend] end: $4.560 ledger, 2112 new calls this run, 369s"
+  },
+  "stages": [
+   "cells",
+   "floor",
+   "relabel",
+   "typed"
+  ]
+ },
+ "extractor": {
+  "n": 140,
+  "stated": {
+   "flag": 140,
+   "tx_amt": 139,
+   "tx_date": 140,
+   "inv": 140,
+   "reason": 140
+  },
+  "correct": {
+   "flag": 140,
+   "tx_amt": 139,
+   "tx_date": 140,
+   "inv": 140,
+   "reason": 140
+  }
+ },
+ "relabel": {
+  "pairs": 799,
+  "answerable": 648,
+  "paths": {
+   "canon-conflict": 272,
+   "canon-identical": 305,
+   "judge-onesided": 94,
+   "canon-lost:tx_date": 37,
+   "canon-lost:inv": 25,
+   "note-missing": 57,
+   "canon-lost:reason": 2,
+   "canon-lost:tx_amt,tx_date": 5,
+   "canon-lost:flag,inv,reason": 2
+  },
+  "policy": "core",
+  "fail": 0,
+  "new_fixed": {
+   "tx": 1.0,
+   "inv": 0.7578125,
+   "flag": 0.753968253968254,
+   "bank": 0.0
+  },
+  "old_fixed": {
+   "tx": 0.6285714285714286,
+   "inv": 0.7785714285714286,
+   "flag": 0.95,
+   "bank": 0.17857142857142858
+  },
+  "h0_new": 0.09322033898305085,
+  "h0_n": 118,
+  "needs": {
+   "judge1": 193.53728813559323,
+   "judge2": 12.22000000000002,
+   "teacher": 62.53728813559322
+  },
+  "per_name": {
+   "tx": {
+    "pairs": 140,
+    "known": 140
+   },
+   "inv": {
+    "pairs": 140,
+    "known": 128
+   },
+   "flag": {
+    "pairs": 140,
+    "known": 126
+   },
+   "bank": {
+    "pairs": 140,
+    "known": 108
+   },
+   "H0": {
+    "pairs": 140,
+    "known": 118
+   },
+   "B0": {
+    "pairs": 33,
+    "known": 9
+   },
+   "B1": {
+    "pairs": 33,
+    "known": 11
+   },
+   "B2": {
+    "pairs": 33,
+    "known": 8
+   }
+  }
+ },
+ "scorers": {
+  "embedding": "STUB(dry: zero embeddings, cos feature = 0)",
+  "cross_encoder": "STUB(dry)",
+  "train_label_counts_per_rotation": {
+   "0": {
+    "rows": 1715,
+    "positives": 251
+   },
+   "1": {
+    "rows": 1763,
+    "positives": 291
+   },
+   "2": {
+    "rows": 1871,
+    "positives": 237
+   },
+   "3": {
+    "rows": 1803,
+    "positives": 233
+   },
+   "4": {
+    "rows": 1749,
+    "positives": 254
+   }
+  },
+  "diag": {
+   "learned": {
+    "within_auc": null,
+    "n_mixed": 0,
+    "n_withpos": 4
+   },
+   "cross-encoder": {
+    "within_auc": null,
+    "n_mixed": 0,
+    "n_withpos": 4
+   },
+   "recency": {
+    "within_auc": null,
+    "n_mixed": 0,
+    "n_withpos": 4
+   },
+   "random": {
+    "within_auc": null,
+    "n_mixed": 0,
+    "n_withpos": 4
+   }
+  },
+  "rotations": {
+   "calibration_folds": {
+    "0": [
+     1
+    ],
+    "1": [
+     2
+    ],
+    "2": [
+     3
+    ],
+    "3": [
+     4
+    ],
+    "4": [
+     0
+    ]
+   },
+   "scorer_train_folds": {
+    "0": [
+     2,
+     3,
+     4
+    ],
+    "1": [
+     0,
+     3,
+     4
+    ],
+    "2": [
+     0,
+     1,
+     4
+    ],
+    "3": [
+     0,
+     1,
+     2
+    ],
+    "4": [
+     1,
+     2,
+     3
+    ]
+   },
+   "note": "rotation f: test fold f, calibration CALF[f], scorer trained on TRF[f]; all vendor-disjoint"
+  }
+ },
+ "floor": {
+  "pool 140 (labelled)": {
+   "new": {
+    "n_rows": 140,
+    "n": 56,
+    "k": 0,
+    "rate": 0.0,
+    "ub": 0.05208952720877942,
+    "fail": 0,
+    "unknown": 84,
+    "policy": "core"
+   },
+   "strict_raw": {
+    "n_rows": 140,
+    "n": 65,
+    "k": 8,
+    "rate": 0.12307692307692308,
+    "ub": 0.21112976007033932,
+    "fail": 0,
+    "unknown": 75,
+    "policy": "core"
+   },
+   "strict_cons": {
+    "n_rows": 140,
+    "n": 65,
+    "k": 7,
+    "rate": 0.1076923076923077,
+    "ub": 0.1927780559692274,
+    "fail": 0,
+    "unknown": 75,
+    "policy": "core"
+   }
+  },
+  "original floor ids 200-299": {
+   "new": {
+    "n_rows": 100,
+    "n": 88,
+    "k": 0,
+    "rate": 0.0,
+    "ub": 0.03346948891663743,
+    "fail": 0,
+    "unknown": 12,
+    "policy": "core"
+   },
+   "strict_raw": {
+    "n_rows": 100,
+    "n": 98,
+    "k": 12,
+    "rate": 0.12244897959183673,
+    "ub": 0.19083397999138785,
+    "fail": 0,
+    "unknown": 2,
+    "policy": "core"
+   },
+   "strict_cons": {
+    "n_rows": 100,
+    "n": 98,
+    "k": 11,
+    "rate": 0.11224489795918367,
+    "ub": 0.1789472874708133,
+    "fail": 0,
+    "unknown": 2,
+    "policy": "core"
+   }
+  },
+  "all floor prompts": {
+   "new": {
+    "n_rows": 180,
+    "n": 93,
+    "k": 0,
+    "rate": 0.0,
+    "ub": 0.031698888991114844,
+    "fail": 0,
+    "unknown": 87,
+    "policy": "core"
+   },
+   "strict_raw": {
+    "n_rows": 180,
+    "n": 104,
+    "k": 12,
+    "rate": 0.11538461538461539,
+    "ub": 0.18023699135591573,
+    "fail": 0,
+    "unknown": 76,
+    "policy": "core"
+   },
+   "strict_cons": {
+    "n_rows": 180,
+    "n": 104,
+    "k": 11,
+    "rate": 0.10576923076923077,
+    "ub": 0.16899630947959415,
+    "fail": 0,
+    "unknown": 76,
+    "policy": "core"
+   }
+  }
+ },
+ "typed_floor": {
+  "rate": {
+   "n_rows": 140,
+   "n": 0,
+   "k": 0,
+   "rate": null,
+   "ub": null,
+   "fail": 0,
+   "unknown": 140,
+   "policy": "core"
+  },
+  "fields": {}
+ },
+ "typed_samples": {
+  "floor": [],
+  "learned m=0": [],
+  "learned m=5": [],
+  "learned m=2": [],
+  "rule (tx+inv+flag)": [],
+  "cross-encoder m=5": [],
+  "cross-encoder m=2": [],
+  "oracle m=5": [],
+  "random m=5": [],
+  "oracle m=2": [],
+  "random m=2": []
+ },
+ "cells": {
+  "learned m=0": {
+   "name": "learned m=0",
+   "arm": "text",
+   "n_rows": 140,
+   "n": 118,
+   "k": 11,
+   "rate": 0.09322033898305085,
+   "ub": 0.14958245898178063,
+   "fail": 0,
+   "unknown": 22,
+   "policy": "core",
+   "ci_vendor": [
+    0.04672897196261682,
+    0.14789384454877408
+   ],
+   "tokens_removed": 0.7777372509287404,
+   "hist_kept": 0.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 13,
+     "dis": 0.0
+    },
+    "first": {
+     "n": 26,
+     "dis": 0.11538461538461539
+    },
+    "noinv": {
+     "n": 27,
+     "dis": 0.07407407407407407
+    },
+    "normal": {
+     "n": 37,
+     "dis": 0.13513513513513514
+    },
+    "spike": {
+     "n": 15,
+     "dis": 0.06666666666666667
+    }
+   },
+   "strict_raw": {
+    "n_rows": 140,
+    "n": 139,
+    "k": 56,
+    "rate": 0.4028776978417266,
+    "ub": 0.4759816344137382,
+    "fail": 0,
+    "unknown": 1,
+    "policy": "core"
+   },
+   "strict_cons": {
+    "n_rows": 140,
+    "n": 135,
+    "k": 50,
+    "rate": 0.37037037037037035,
+    "ub": 0.4441016925626155,
+    "fail": 0,
+    "unknown": 5,
+    "policy": "core"
+   },
+   "vs_floor": {
+    "n": 51,
+    "floor_rate": 0.0,
+    "pruned_only": 3,
+    "floor_only": 0,
+    "p": 0.25
+   }
+  },
+  "learned m=5": {
+   "name": "learned m=5",
+   "arm": "text",
+   "n_rows": 140,
+   "n": 0,
+   "k": 0,
+   "rate": null,
+   "ub": null,
+   "fail": 0,
+   "unknown": 140,
+   "policy": "core",
+   "ci_vendor": null,
+   "tokens_removed": null,
+   "hist_kept": 5.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {}
+  },
+  "learned m=2": {
+   "name": "learned m=2",
+   "arm": "text",
+   "n_rows": 140,
+   "n": 2,
+   "k": 0,
+   "rate": 0.0,
+   "ub": 0.776393202250021,
+   "fail": 0,
+   "unknown": 138,
+   "policy": "core",
+   "ci_vendor": [
+    0.0,
+    0.0
+   ],
+   "tokens_removed": 0.6797814207650273,
+   "hist_kept": 2.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "first": {
+     "n": 2,
+     "dis": 0.0
+    }
+   },
+   "strict_raw": {
+    "n_rows": 140,
+    "n": 3,
+    "k": 1,
+    "rate": 0.3333333333333333,
+    "ub": 0.8646496378284161,
+    "fail": 0,
+    "unknown": 137,
+    "policy": "core"
+   },
+   "strict_cons": {
+    "n_rows": 140,
+    "n": 3,
+    "k": 1,
+    "rate": 0.3333333333333333,
+    "ub": 0.8646496378284161,
+    "fail": 0,
+    "unknown": 137,
+    "policy": "core"
+   },
+   "vs_floor": {
+    "n": 2,
+    "floor_rate": 0.0,
+    "pruned_only": 0,
+    "floor_only": 0,
+    "p": 1.0
+   }
+  },
+  "rule (tx+inv+flag)": {
+   "name": "rule (tx+inv+flag)",
+   "arm": "text",
+   "n_rows": 140,
+   "n": 56,
+   "k": 0,
+   "rate": 0.0,
+   "ub": 0.05208952720877942,
+   "fail": 0,
+   "unknown": 84,
+   "policy": "core",
+   "ci_vendor": [
+    0.0,
+    0.0
+   ],
+   "tokens_removed": 0.834700925542202,
+   "hist_kept": 0.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 1.0,
+   "by_scn": {
+    "dup": {
+     "n": 7,
+     "dis": 0.0
+    },
+    "first": {
+     "n": 10,
+     "dis": 0.0
+    },
+    "noinv": {
+     "n": 14,
+     "dis": 0.0
+    },
+    "normal": {
+     "n": 18,
+     "dis": 0.0
+    },
+    "spike": {
+     "n": 7,
+     "dis": 0.0
+    }
+   },
+   "vs_floor": {
+    "n": 47,
+    "floor_rate": 0.0,
+    "pruned_only": 0,
+    "floor_only": 0,
+    "p": 1.0
+   }
+  },
+  "cross-encoder m=5": {
+   "name": "cross-encoder m=5",
+   "arm": "text",
+   "n_rows": 140,
+   "n": 1,
+   "k": 0,
+   "rate": 0.0,
+   "ub": 0.95,
+   "fail": 0,
+   "unknown": 139,
+   "policy": "core",
+   "ci_vendor": [
+    NaN,
+    NaN
+   ],
+   "tokens_removed": 0.599750104123282,
+   "hist_kept": 5.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "first": {
+     "n": 1,
+     "dis": 0.0
+    }
+   }
+  },
+  "cross-encoder m=2": {
+   "name": "cross-encoder m=2",
+   "arm": "text",
+   "n_rows": 140,
+   "n": 7,
+   "k": 0,
+   "rate": 0.0,
+   "ub": 0.34816365513116077,
+   "fail": 0,
+   "unknown": 133,
+   "policy": "core",
+   "ci_vendor": [
+    0.0,
+    0.0
+   ],
+   "tokens_removed": 0.7056465085198798,
+   "hist_kept": 2.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "first": {
+     "n": 1,
+     "dis": 0.0
+    },
+    "noinv": {
+     "n": 1,
+     "dis": 0.0
+    },
+    "normal": {
+     "n": 5,
+     "dis": 0.0
+    }
+   },
+   "vs_floor": {
+    "n": 6,
+    "floor_rate": 0.0,
+    "pruned_only": 0,
+    "floor_only": 0,
+    "p": 1.0
+   }
+  },
+  "oracle m=5": {
+   "name": "oracle m=5",
+   "arm": "text",
+   "n_rows": 140,
+   "n": 1,
+   "k": 0,
+   "rate": 0.0,
+   "ub": 0.95,
+   "fail": 0,
+   "unknown": 139,
+   "policy": "core",
+   "ci_vendor": [
+    NaN,
+    NaN
+   ],
+   "tokens_removed": 0.599750104123282,
+   "hist_kept": 5.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "first": {
+     "n": 1,
+     "dis": 0.0
+    }
+   }
+  },
+  "random m=5": {
+   "name": "random m=5",
+   "arm": "text",
+   "n_rows": 140,
+   "n": 0,
+   "k": 0,
+   "rate": null,
+   "ub": null,
+   "fail": 0,
+   "unknown": 140,
+   "policy": "core",
+   "ci_vendor": null,
+   "tokens_removed": null,
+   "hist_kept": 5.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {}
+  },
+  "oracle m=2": {
+   "name": "oracle m=2",
+   "arm": "text",
+   "n_rows": 140,
+   "n": 7,
+   "k": 0,
+   "rate": 0.0,
+   "ub": 0.34816365513116077,
+   "fail": 0,
+   "unknown": 133,
+   "policy": "core",
+   "ci_vendor": [
+    0.0,
+    0.0
+   ],
+   "tokens_removed": 0.7056465085198798,
+   "hist_kept": 2.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "first": {
+     "n": 1,
+     "dis": 0.0
+    },
+    "noinv": {
+     "n": 1,
+     "dis": 0.0
+    },
+    "normal": {
+     "n": 5,
+     "dis": 0.0
+    }
+   },
+   "vs_floor": {
+    "n": 6,
+    "floor_rate": 0.0,
+    "pruned_only": 0,
+    "floor_only": 0,
+    "p": 1.0
+   }
+  },
+  "random m=2": {
+   "name": "random m=2",
+   "arm": "text",
+   "n_rows": 140,
+   "n": 0,
+   "k": 0,
+   "rate": null,
+   "ub": null,
+   "fail": 0,
+   "unknown": 140,
+   "policy": "core",
+   "ci_vendor": null,
+   "tokens_removed": null,
+   "hist_kept": 2.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {}
+  }
+ },
+ "cert": {},
+ "cells_typed": {
+  "learned m=0": {
+   "name": "learned m=0",
+   "arm": "typed",
+   "n_rows": 140,
+   "n": 0,
+   "k": 0,
+   "rate": null,
+   "ub": null,
+   "fail": 0,
+   "unknown": 140,
+   "policy": "core",
+   "ci_vendor": null,
+   "tokens_removed": null,
+   "hist_kept": 0.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {}
+  },
+  "learned m=5": {
+   "name": "learned m=5",
+   "arm": "typed",
+   "n_rows": 140,
+   "n": 0,
+   "k": 0,
+   "rate": null,
+   "ub": null,
+   "fail": 0,
+   "unknown": 140,
+   "policy": "core",
+   "ci_vendor": null,
+   "tokens_removed": null,
+   "hist_kept": 5.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {}
+  },
+  "learned m=2": {
+   "name": "learned m=2",
+   "arm": "typed",
+   "n_rows": 140,
+   "n": 0,
+   "k": 0,
+   "rate": null,
+   "ub": null,
+   "fail": 0,
+   "unknown": 140,
+   "policy": "core",
+   "ci_vendor": null,
+   "tokens_removed": null,
+   "hist_kept": 2.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {}
+  },
+  "rule (tx+inv+flag)": {
+   "name": "rule (tx+inv+flag)",
+   "arm": "typed",
+   "n_rows": 140,
+   "n": 0,
+   "k": 0,
+   "rate": null,
+   "ub": null,
+   "fail": 0,
+   "unknown": 140,
+   "policy": "core",
+   "ci_vendor": null,
+   "tokens_removed": null,
+   "hist_kept": 0.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 1.0,
+   "by_scn": {}
+  },
+  "cross-encoder m=5": {
+   "name": "cross-encoder m=5",
+   "arm": "typed",
+   "n_rows": 140,
+   "n": 0,
+   "k": 0,
+   "rate": null,
+   "ub": null,
+   "fail": 0,
+   "unknown": 140,
+   "policy": "core",
+   "ci_vendor": null,
+   "tokens_removed": null,
+   "hist_kept": 5.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {}
+  },
+  "cross-encoder m=2": {
+   "name": "cross-encoder m=2",
+   "arm": "typed",
+   "n_rows": 140,
+   "n": 0,
+   "k": 0,
+   "rate": null,
+   "ub": null,
+   "fail": 0,
+   "unknown": 140,
+   "policy": "core",
+   "ci_vendor": null,
+   "tokens_removed": null,
+   "hist_kept": 2.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {}
+  },
+  "oracle m=5": {
+   "name": "oracle m=5",
+   "arm": "typed",
+   "n_rows": 140,
+   "n": 0,
+   "k": 0,
+   "rate": null,
+   "ub": null,
+   "fail": 0,
+   "unknown": 140,
+   "policy": "core",
+   "ci_vendor": null,
+   "tokens_removed": null,
+   "hist_kept": 5.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {}
+  },
+  "random m=5": {
+   "name": "random m=5",
+   "arm": "typed",
+   "n_rows": 140,
+   "n": 0,
+   "k": 0,
+   "rate": null,
+   "ub": null,
+   "fail": 0,
+   "unknown": 140,
+   "policy": "core",
+   "ci_vendor": null,
+   "tokens_removed": null,
+   "hist_kept": 5.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {}
+  },
+  "oracle m=2": {
+   "name": "oracle m=2",
+   "arm": "typed",
+   "n_rows": 140,
+   "n": 0,
+   "k": 0,
+   "rate": null,
+   "ub": null,
+   "fail": 0,
+   "unknown": 140,
+   "policy": "core",
+   "ci_vendor": null,
+   "tokens_removed": null,
+   "hist_kept": 2.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {}
+  },
+  "random m=2": {
+   "name": "random m=2",
+   "arm": "typed",
+   "n_rows": 140,
+   "n": 0,
+   "k": 0,
+   "rate": null,
+   "ub": null,
+   "fail": 0,
+   "unknown": 140,
+   "policy": "core",
+   "ci_vendor": null,
+   "tokens_removed": null,
+   "hist_kept": 2.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {}
+  }
+ },
+ "cert_typed": {},
+ "plan": {
+  "relabel": {
+   "calls": {
+    "judge1": 193.53728813559323,
+    "judge2": 12.22000000000002,
+    "teacher": 62.53728813559322
+   },
+   "usd": 0.2642004989308507,
+   "covered": {
+    "pairs": 799,
+    "answerable": 648
+   }
+  },
+  "floor": {
+   "calls": {
+    "teacher": 74.0,
+    "judge1": 162.55094339622642,
+    "judge2": 2.8698113207547165
+   },
+   "usd": 0.2228475500635757,
+   "covered": {
+    "pairs": 180,
+    "answerable": 93
+   }
+  },
+  "typed_floor": {
+   "calls": {
+    "teacher": 280.0
+   },
+   "usd": 0.03973224137931031,
+   "covered": {
+    "pairs": 140,
+    "answerable": 0
+   }
+  },
+  "cell:learned m=0": {
+   "calls": {
+    "teacher": 0.0,
+    "judge1": 49.0,
+    "judge2": 2.8599999999999985
+   },
+   "usd": 0.0645774024293979,
+   "covered": {
+    "pairs": 140,
+    "answerable": 118
+   }
+  },
+  "typed:learned m=0": {
+   "calls": {
+    "teacher": 140.0
+   },
+   "usd": 0.019866120689655153,
+   "covered": {
+    "pairs": 140,
+    "answerable": 0
+   }
+  },
+  "cell:learned m=5": {
+   "calls": {
+    "teacher": 215.0,
+    "judge1": 398.4743935309973,
+    "judge2": 3.5408355795148245
+   },
+   "usd": 0.5500593120373105,
+   "covered": {
+    "pairs": 215,
+    "answerable": 0
+   }
+  },
+  "typed:learned m=5": {
+   "calls": {
+    "teacher": 215.0
+   },
+   "usd": 0.030508685344827556,
+   "covered": {
+    "pairs": 215,
+    "answerable": 0
+   }
+  },
+  "cell:learned m=2": {
+   "calls": {
+    "teacher": 189.0,
+    "judge1": 352.2867924528302,
+    "judge2": 3.242641509433962
+   },
+   "usd": 0.486180092273653,
+   "covered": {
+    "pairs": 192,
+    "answerable": 2
+   }
+  },
+  "typed:learned m=2": {
+   "calls": {
+    "teacher": 192.0
+   },
+   "usd": 0.02724496551724135,
+   "covered": {
+    "pairs": 192,
+    "answerable": 0
+   }
+  },
+  "cell:rule (tx+inv+flag)": {
+   "calls": {
+    "teacher": 74.0,
+    "judge1": 38.74932614555256,
+    "judge2": 2.518706199460916
+   },
+   "usd": 0.06164165170606317,
+   "covered": {
+    "pairs": 140,
+    "answerable": 56
+   }
+  },
+  "typed:rule (tx+inv+flag)": {
+   "calls": {
+    "teacher": 140.0
+   },
+   "usd": 0.019866120689655153,
+   "covered": {
+    "pairs": 140,
+    "answerable": 0
+   }
+  },
+  "cell:cross-encoder m=5": {
+   "calls": {
+    "teacher": 138.0,
+    "judge1": 36.96495956873315,
+    "judge2": 2.4027223719676547
+   },
+   "usd": 0.06836831703440494,
+   "covered": {
+    "pairs": 140,
+    "answerable": 1
+   }
+  },
+  "typed:cross-encoder m=5": {
+   "calls": {
+    "teacher": 140.0
+   },
+   "usd": 0.019866120689655153,
+   "covered": {
+    "pairs": 140,
+    "answerable": 0
+   }
+  },
+  "cell:cross-encoder m=2": {
+   "calls": {
+    "teacher": 132.0,
+    "judge1": 35.44474393530997,
+    "judge2": 2.3039083557951483
+   },
+   "usd": 0.06551054589211709,
+   "covered": {
+    "pairs": 140,
+    "answerable": 7
+   }
+  },
+  "typed:cross-encoder m=2": {
+   "calls": {
+    "teacher": 140.0
+   },
+   "usd": 0.019866120689655153,
+   "covered": {
+    "pairs": 140,
+    "answerable": 0
+   }
+  },
+  "cell:oracle m=5": {
+   "calls": {
+    "teacher": 138.0,
+    "judge1": 36.96495956873315,
+    "judge2": 2.4027223719676547
+   },
+   "usd": 0.06836831703440494,
+   "covered": {
+    "pairs": 140,
+    "answerable": 1
+   }
+  },
+  "typed:oracle m=5": {
+   "calls": {
+    "teacher": 140.0
+   },
+   "usd": 0.019866120689655153,
+   "covered": {
+    "pairs": 140,
+    "answerable": 0
+   }
+  },
+  "cell:random m=5": {
+   "calls": {
+    "teacher": 140.0,
+    "judge1": 35.471698113207545,
+    "judge2": 2.3056603773584903
+   },
+   "usd": 0.06668132665338289,
+   "covered": {
+    "pairs": 140,
+    "answerable": 0
+   }
+  },
+  "typed:random m=5": {
+   "calls": {
+    "teacher": 140.0
+   },
+   "usd": 0.019866120689655153,
+   "covered": {
+    "pairs": 140,
+    "answerable": 0
+   }
+  },
+  "cell:oracle m=2": {
+   "calls": {
+    "teacher": 132.0,
+    "judge1": 35.44474393530997,
+    "judge2": 2.3039083557951483
+   },
+   "usd": 0.06551054589211709,
+   "covered": {
+    "pairs": 140,
+    "answerable": 7
+   }
+  },
+  "typed:oracle m=2": {
+   "calls": {
+    "teacher": 140.0
+   },
+   "usd": 0.019866120689655153,
+   "covered": {
+    "pairs": 140,
+    "answerable": 0
+   }
+  },
+  "cell:random m=2": {
+   "calls": {
+    "teacher": 140.0,
+    "judge1": 35.471698113207545,
+    "judge2": 2.3056603773584903
+   },
+   "usd": 0.06668132665338289,
+   "covered": {
+    "pairs": 140,
+    "answerable": 0
+   }
+  },
+  "typed:random m=2": {
+   "calls": {
+    "teacher": 140.0
+   },
+   "usd": 0.019866120689655153,
+   "covered": {
+    "pairs": 140,
+    "answerable": 0
+   }
+  },
+  "TOTAL": {
+   "calls": {
+    "judge1": 1410.3615468957012,
+    "judge2": 41.27657681940703,
+    "teacher": 3241.5372881355934
+   },
+   "usd": 2.3070417443592817
+  }
+ },
+ "resid_share": {
+  "floor": 0.12264150943396226,
+  "abl": 0.12668463611859837
+ }
+}

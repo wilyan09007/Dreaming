@@ -1,0 +1,4 @@
+[2s] trained artifacts: hypernets ['100', '25', '3000', '800', 'clinc7'] encoders ['all', 'nosib'] reptile True
+[5s] eval trained: seed 0 done, 330 records
+[7s] eval trained: seed 1 done, 480 records
+[9s] eval trained: seed 2 done, 630 records

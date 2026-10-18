@@ -1,0 +1,182 @@
+bundle 0.03 MB
+community launch failed, trying ALL: [{'message': 'There are no longer any instances available with the requested specifications. Please refresh and try again.', 'path': ['podFindAndDeployOnDemand'], 'extensions': {'code': 'SUPPLY_CONSTR
+pod {'id': 'v6afea12hinimh', 'machineId': '2uv1z39ibves', 'costPerHr': 0.89}
+[125s] bundle uploaded
+name, memory.total [MiB]
+NVIDIA GeForce RTX 4090, 24564 MiB
+waiting for bundle
+bundle extracted 16 files
+[156s status=RUNNING log=105B]
+[22:20:30] cuda ok: NVIDIA GeForce RTX 4090 cpus 128
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[22:20:31] pip install snntorch: rc=0 1s 
+[22:20:33] pip install tmu: rc=0 1s 
+Generating train split:   0%|          | 0/15250 [00:00<?, ? examples/s]Generating train split: 100%|ââââââââââ| 15250/15250 [00:00<00:00, 1355093.77 examples/s]
+Generating validation split:   0%|          | 0/3100 [00:00<?, ? examples/s]Generating validation split: 100%|ââââââââââ| 3100/3100 [00:00<00:00, 971774.47 examples/s]
+Generating test split:   0%|          | 0/5500 [00:00<?, ? examples/s]Generating test split: 100%|ââââââââââ| 5500/5500 [00:00<00:00, 1374034.90 examples/s]
+[187s status=RUNNING log=928B]
+[219s status=RUNNING log=928B]
+Generating train split:   0%|          | 0/9993 [00:00<?, ? examples/s]Generating train split: 100%|ââââââââââ| 9993/9993 [00:00<00:00, 1321114.54 examples/s]
+Generating test split:   0%|          | 0/3076 [00:00<?, ? examples/s]Generating test split: 100%|ââââââââââ| 3076/3076 [00:00<00:00, 1266360.34 examples/s]
+[22:21:39] tasks (name, pool, calibration, test): [('clinc/travel', 1200, 300, 450), ('clinc/work', 1200, 300, 450), ('banking/sub0', 1415, 300, 480), ('banking/sub1', 1264, 300, 480), ('banking/sub2', 1285, 300, 479)] 69s
+2026-10-17 22:21:41,411 - tmu.util.cuda_profiler - WARNING - Could not import pycuda: No module named 'pycuda'
+2026-10-17 22:21:41,412 - tmu.clause_bank.clause_bank_cuda - ERROR - No module named 'pycuda'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/tmu/clause_bank/clause_bank_cuda.py", line 41, in <module>
+    from pycuda._driver import Device, Context
+ModuleNotFoundError: No module named 'pycuda'
+2026-10-17 22:21:41,412 - tmu.clause_bank.clause_bank_cuda - WARNING - Could not import pycuda. This indicates that it is not installed! A possible fix is to run 'pip install pycuda'. Fallback to CPU ClauseBanks.
+[22:21:43] fast: Baseline: bge-small + LR draw 0 done
+[22:21:43] fast: Baseline: bge-small + LR draw 1 done
+[22:21:43] fast: Baseline: bge-small + LR draw 2 done
+[22:21:43] fast: Baseline: bge-small + LR finished
+[22:21:47] fast: HDC bundle (one-shot) draw 0 done
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[22:21:47] fast: HDC bundle (one-shot) draw 1 done
+[22:21:47] fast: HDC bundle (one-shot) draw 2 done
+[22:21:47] fast: HDC bundle (one-shot) finished
+[22:21:51] ncd: gzip NCD + 3-NN draw 0 done
+[22:21:51] fast: HDC bundle, pool-centered draw 0 done
+[22:21:51] fast: HDC bundle, pool-centered draw 1 done
+[22:21:51] fast: HDC bundle, pool-centered draw 2 done
+[22:21:51] fast: HDC bundle, pool-centered finished
+[22:21:55] fast: HDC online (OnlineHD, 1 pass) draw 0 done
+[22:21:55] torch: Product-key memory head draw 0 done
+[22:21:55] fast: HDC online (OnlineHD, 1 pass) draw 1 done
+[22:21:55] fast: HDC online (OnlineHD, 1 pass) draw 2 done
+[22:21:55] fast: HDC online (OnlineHD, 1 pass) finished
+[22:21:55] fast: NTK kernel ridge draw 0 done
+[22:21:56] fast: NTK kernel ridge draw 1 done
+[22:21:56] fast: NTK kernel ridge draw 2 done
+[22:21:56] fast: NTK kernel ridge finished
+[22:21:56] fast: NTK kernel SVM (OvR) draw 0 done
+[22:21:57] fast: NTK kernel SVM (OvR) draw 1 done
+[22:21:57] fast: NTK kernel SVM (OvR) draw 2 done
+[22:21:57] fast: NTK kernel SVM (OvR) finished
+[22:21:58] ncd: gzip NCD + 3-NN draw 1 done
+[250s status=RUNNING log=3686B]
+[22:22:05] torch: Product-key memory head draw 1 done
+[22:22:06] ncd: gzip NCD + 3-NN draw 2 done
+[22:22:06] ncd: gzip NCD + 3-NN finished
+[22:22:14] torch: Product-key memory head draw 2 done
+[22:22:14] torch: Product-key memory head finished
+[282s status=RUNNING log=3930B]
+[22:22:35] gpu: LR on [embedding + JEPA hidden] draw 0 done
+[22:22:36] gpu: LR on [embedding + JEPA hidden] draw 1 done
+[22:22:36] gpu: LR on [embedding + JEPA hidden] draw 2 done
+[22:22:36] gpu: LR on [embedding + JEPA hidden] finished
+[22:22:57] ERROR SAE concepts, last token (GPT-2 L8) clinc/travel 1 TypeError('sparse array length is ambiguous; use getnnz() or shape[0]')
+[22:22:58] ERROR SAE concepts, last token (GPT-2 L8) clinc/travel 3 TypeError('sparse array length is ambiguous; use getnnz() or shape[0]')
+[22:22:59] ERROR SAE concepts, last token (GPT-2 L8) clinc/travel 10 TypeError('sparse array length is ambiguous; use getnnz() or shape[0]')
+[22:23:00] ERROR SAE concepts, last token (GPT-2 L8) clinc/work 1 TypeError('sparse array length is ambiguous; use getnnz() or shape[0]')
+[22:23:00] gpu: SAE concepts, last token (GPT-2 L8) draw 0 done
+[22:23:00] gpu: SAE concepts, last token (GPT-2 L8) draw 1 done
+[22:23:00] gpu: SAE concepts, last token (GPT-2 L8) draw 2 done
+[22:23:00] gpu: SAE concepts, last token (GPT-2 L8) finished
+[22:23:00] ERROR SAE concepts, mean over tokens clinc/travel 1 TypeError('sparse array length is ambiguous; use getnnz() or shape[0]')
+[22:23:01] ERROR SAE concepts, mean over tokens clinc/travel 3 TypeError('sparse array length is ambiguous; use getnnz() or shape[0]')
+[22:23:02] ERROR SAE concepts, mean over tokens clinc/travel 10 TypeError('sparse array length is ambiguous; use getnnz() or shape[0]')
+[22:23:02] ERROR SAE concepts, mean over tokens clinc/work 1 TypeError('sparse array length is ambiguous; use getnnz() or shape[0]')
+[22:23:02] gpu: SAE concepts, mean over tokens draw 0 done
+[22:23:02] gpu: SAE concepts, mean over tokens draw 1 done
+[22:23:02] gpu: SAE concepts, mean over tokens draw 2 done
+[22:23:02] gpu: SAE concepts, mean over tokens finished
+[314s status=RUNNING log=5751B]
+[22:23:16] gpu: GPT-2 L8 dense residual, last token (control) draw 0 done
+[22:23:16] gpu: GPT-2 L8 dense residual, last token (control) draw 1 done
+[22:23:17] gpu: GPT-2 L8 dense residual, last token (control) draw 2 done
+[22:23:17] gpu: GPT-2 L8 dense residual, last token (control) finished
+[22:23:18] gpu rc 0
+[22:23:18] fast rc 0
+[22:23:18] ncd rc 0
+[346s status=RUNNING log=6105B]
+[378s status=RUNNING log=6105B]
+[22:24:27] torch: Spiking head (2-layer LIF) draw 0 done
+[409s status=RUNNING log=6162B]
+[441s status=RUNNING log=6162B]
+[472s status=RUNNING log=6162B]
+[22:26:11] torch: Spiking head (2-layer LIF) draw 1 done
+[504s status=RUNNING log=6219B]
+[536s status=RUNNING log=6219B]
+[568s status=RUNNING log=6219B]
+[599s status=RUNNING log=6219B]
+[22:27:55] torch: Spiking head (2-layer LIF) draw 2 done
+[22:27:55] torch: Spiking head (2-layer LIF) finished
+[22:27:56] torch rc 0
+[631s status=RUNNING log=6352B]
+[663s status=RUNNING log=6352B]
+[694s status=RUNNING log=6352B]
+[726s status=RUNNING log=6352B]
+[759s status=RUNNING log=6352B]
+[790s status=RUNNING log=6352B]
+[822s status=RUNNING log=6352B]
+[854s status=RUNNING log=6352B]
+[886s status=RUNNING log=6352B]
+[917s status=RUNNING log=6352B]
+[949s status=RUNNING log=6352B]
+[981s status=RUNNING log=6352B]
+[1012s status=RUNNING log=6352B]
+[1044s status=RUNNING log=6352B]
+[1076s status=RUNNING log=6352B]
+[1107s status=RUNNING log=6352B]
+[1139s status=RUNNING log=6352B]
+[1171s status=RUNNING log=6352B]
+[1203s status=RUNNING log=6352B]
+[1234s status=RUNNING log=6352B]
+[1266s status=RUNNING log=6352B]
+[1298s status=RUNNING log=6352B]
+[1329s status=RUNNING log=6352B]
+[1361s status=RUNNING log=6352B]
+[1393s status=RUNNING log=6352B]
+[1424s status=RUNNING log=6352B]
+[1456s status=RUNNING log=6352B]
+[1488s status=RUNNING log=6352B]
+[1519s status=RUNNING log=6352B]
+[1551s status=RUNNING log=6352B]
+[1583s status=RUNNING log=6352B]
+[1614s status=RUNNING log=6352B]
+[1646s status=RUNNING log=6352B]
+[1678s status=RUNNING log=6352B]
+[1709s status=RUNNING log=6352B]
+[1741s status=RUNNING log=6352B]
+[1773s status=RUNNING log=6352B]
+[1805s status=RUNNING log=6352B]
+[1836s status=RUNNING log=6352B]
+[1868s status=RUNNING log=6352B]
+[1900s status=RUNNING log=6352B]
+[1931s status=RUNNING log=6352B]
+[1963s status=RUNNING log=6352B]
+[1995s status=RUNNING log=6352B]
+[2026s status=RUNNING log=6352B]
+[2058s status=RUNNING log=6352B]
+[2090s status=RUNNING log=6352B]
+[2121s status=RUNNING log=6352B]
+[2153s status=RUNNING log=6352B]
+[2185s status=RUNNING log=6352B]
+[22:54:28] tm past deadline, terminating
+[22:54:28] tm rc -15
+[22:54:31] bench Baseline: bge-small + LR fit 0.009s predict 0.0 ms/1000
+[22:54:32] bench HDC bundle (one-shot) fit 0.000s predict 0.2 ms/1000
+[22:54:32] bench HDC bundle, pool-centered fit 0.000s predict 0.2 ms/1000
+[22:54:33] bench HDC online (OnlineHD, 1 pass) fit 0.004s predict 0.2 ms/1000
+[22:54:33] bench NTK kernel ridge fit 0.000s predict 0.0 ms/1000
+[22:54:33] bench NTK kernel SVM (OvR) fit 0.014s predict 0.0 ms/1000
+[22:54:34] bench gzip NCD + 3-NN fit 0.000s predict 0.5 ms/1000
+2026-10-17 22:54:34,282 - tmu.util.cuda_profiler - WARNING - Could not import pycuda: No module named 'pycuda'
+2026-10-17 22:54:34,282 - tmu.clause_bank.clause_bank_cuda - ERROR - No module named 'pycuda'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/tmu/clause_bank/clause_bank_cuda.py", line 41, in <module>
+    from pycuda._driver import Device, Context
+ModuleNotFoundError: No module named 'pycuda'
+2026-10-17 22:54:34,283 - tmu.clause_bank.clause_bank_cuda - WARNING - Could not import pycuda. This indicates that it is not installed! A possible fix is to run 'pip install pycuda'. Fallback to CPU ClauseBanks.
+[2216s status=RUNNING log=7560B]
+[2248s status=RUNNING log=7560B]
+[2279s status=RUNNING log=7560B]
+[2312s status=RUNNING log=7560B]
+[2343s status=RUNNING log=7560B]
+[2375s status=RUNNING log=7560B]
+[2407s status=RUNNING log=7560B]
+[2439s status=RUNNING log=7560B]
+pod gone
+terminate failed (pod may have self-terminated): [{'message': 'pod not found to terminate', 'path': ['podTerminate'], 'extensions': {'code': 'POD_NOT_FOUND', 'userId': 'user_31zqpkFHJXKChEdBC7mMjcr2YHv', 'podId': 'v6afea12hinimh'}}]
+wall 41.2 min, est cost $0.611 at $0.89/h, ok=False

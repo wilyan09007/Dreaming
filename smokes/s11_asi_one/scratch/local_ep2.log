@@ -1,0 +1,16 @@
+INFO:     [dreaming-smoke-local]: Starting agent with address: agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq
+INFO:     [dreaming-smoke-local]: Agent inspector available at https://agentverse.ai/inspect/?uri=http%3A//127.0.0.1%3A8000&address=agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq
+INFO:     [dreaming-smoke-local]: Starting server on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     [dreaming-smoke-local]: Manifest published successfully: AgentChatProtocol
+INFO:     [dreaming-smoke-local]: Agent registration status updated to active
+INFO:     [uagents.registration]: Registration on Almanac API successful
+INFO:     [uagents.registration]: Registering on almanac contract...
+INFO:     [dreaming-smoke-local]: MODE=endpoint address=agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq tunnel=https://saints-price-jazz-lens.trycloudflare.com
+2026-10-17 03:34:25,558 uagents_core.utils.registration INFO registering to Agentverse...
+2026-10-17 03:34:26,358 uagents_core.utils.registration INFO successfully registered to Agentverse.
+2026-10-17 03:34:26,358 uagents_core.utils.registration INFO setting agent as active...
+2026-10-17 03:34:26,717 uagents_core.utils.registration INFO successfully set agent to active.
+INFO:     [dreaming-smoke-local]: register_chat_agent -> True
+INFO:     [uagents.registration]: Registering on almanac contract...complete
+INFO:     [dreaming-smoke-local]: CHAT from agent1q2d5t6nc83wzz96nnu0u0yssw0u52uyhlnxdajaasc8t9lp852u7652pmk9: 'llm what is 2+2? answer with one digit'
+INFO:     [dreaming-smoke-local]: ACK from agent1q2d5t6nc83wzz96nnu0u0yssw0u52uyhlnxdajaasc8t9lp852u7652pmk9

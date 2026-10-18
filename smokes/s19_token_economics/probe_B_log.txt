@@ -1,0 +1,8 @@
+77labels 0 {'tag': 'B:77labels', 'pt': 777, 'ct': 1, 'cached': 0, 'write': 764, 'cost': 9.73e-05, 'provider': 'Claude Platform on AWS', 'ms': 1179.9697875976562}
+77labels 1 {'tag': 'B:77labels', 'pt': 780, 'ct': 1, 'cached': 764, 'write': 0, 'cost': 9.74e-06, 'provider': 'Claude Platform on AWS', 'ms': 659.8837375640869}
+77labels 2 {'tag': 'B:77labels', 'pt': 779, 'ct': 1, 'cached': 764, 'write': 0, 'cost': 9.64e-06, 'provider': 'Claude Platform on AWS', 'ms': 639.2583847045898}
+12labels 0 {'tag': 'B:12labels', 'pt': 254, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 2.59e-05, 'provider': 'Claude Platform on AWS', 'ms': 699.9785900115967}
+12labels 1 {'tag': 'B:12labels', 'pt': 257, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 2.62e-05, 'provider': 'Claude Platform on AWS', 'ms': 649.5964527130127}
+12labels 2 {'tag': 'B:12labels', 'pt': 256, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 2.61e-05, 'provider': 'Claude Platform on AWS', 'ms': 676.8991947174072}
+nocache {'tag': 'B:nocache', 'pt': 777, 'ct': 1, 'cached': 0, 'write': 0, 'cost': 7.82e-05, 'provider': 'Claude Platform on AWS', 'ms': 804.2006492614746}
+[spent so far $0.00157]

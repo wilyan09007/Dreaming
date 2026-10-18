@@ -1,0 +1,10 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[data] 250 questions, skipped 3 non-10-paragraph items while sampling
+[probe] $0.00305/question (11 calls), mean full prompt tokens 1448, projected total $0.98
+[split] N=250 train=150 heldout=100
+[spend after labels] $0.769, reasoning tokens total 0, finish!=stop 7
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights:  20%|█▉        | 39/199 [00:00<00:00, 369.64it/s]Loading weights:  38%|███▊      | 76/199 [00:00<00:00, 348.63it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 680.21it/s]
+[embed] 250 texts in 25.5s (BAAI/bge-small-en-v1.5)
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights:  13%|█▎        | 26/199 [00:00<00:00, 257.22it/s]Loading weights:  26%|██▌       | 52/199 [00:00<00:00, 252.52it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 886.76it/s]
+[embed] 2500 texts in 696.7s (BAAI/bge-small-en-v1.5)
+Loading weights:   0%|          | 0/105 [00:00<?, ?it/s]Loading weights:  14%|█▍        | 15/105 [00:00<00:00, 142.57it/s]Loading weights: 100%|██████████| 105/105 [00:00<00:00, 549.39it/s]

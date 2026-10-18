@@ -1,0 +1,106 @@
+[
+ {
+  "model": "anthropic/claude-haiku-5.5",
+  "tag": "amazon-bedrock",
+  "provider": {
+   "Amazon Bedrock": 200
+  },
+  "cross": 0.045,
+  "within_pin": 0.02,
+  "acc": 0.74,
+  "p50": 1136.7129500140436,
+  "p95": 2487.935299970559,
+  "usd_call": 8.381e-05
+ },
+ {
+  "model": "anthropic/claude-haiku-5.5",
+  "tag": "anthropic",
+  "provider": {
+   "Anthropic": 200
+  },
+  "cross": 0.055,
+  "within_pin": 0.03,
+  "acc": 0.73,
+  "p50": 726.727800007211,
+  "p95": 1039.19281498529,
+  "usd_call": 8.3695e-05
+ },
+ {
+  "model": "openai/gpt-5.4-mini",
+  "tag": "azure",
+  "provider": {
+   "Azure": 200
+  },
+  "cross": 0.12,
+  "within_pin": 0.1,
+  "acc": 0.715,
+  "p50": 951.1123999836855,
+  "p95": 1901.6976200422478,
+  "usd_call": 0.0003656925
+ },
+ {
+  "model": "anthropic/claude-haiku-5.5",
+  "tag": "azure/global",
+  "provider": {
+   "Azure": 200
+  },
+  "cross": 0.068,
+  "within_pin": 0.02,
+  "acc": 0.75,
+  "p50": 762.2083500027657,
+  "p95": 1023.3348749810827,
+  "usd_call": 8.368250000000001e-05
+ },
+ {
+  "model": "google/gemini-3.5-flash-lite",
+  "tag": "google-ai-studio",
+  "provider": {
+   "Google AI Studio": 200
+  },
+  "cross": 0.103,
+  "within_pin": 0.05,
+  "acc": 0.74,
+  "p50": 434.5397500146646,
+  "p95": 608.5826549824558,
+  "usd_call": 0.000182907
+ },
+ {
+  "model": "anthropic/claude-haiku-5.5",
+  "tag": "google-vertex/global",
+  "provider": {
+   "Google": 200
+  },
+  "cross": 0.046,
+  "within_pin": 0.02,
+  "acc": 0.75,
+  "p50": 532.6696999836713,
+  "p95": 772.4806849961168,
+  "usd_call": 8.3705e-05
+ },
+ {
+  "model": "qwen/qwen3-32b",
+  "tag": "siliconflow/fp8",
+  "provider": {
+   "SiliconFlow": 200
+  },
+  "cross": 0.108,
+  "within_pin": 0.05,
+  "acc": 0.69,
+  "p50": 1210.8889000082854,
+  "p95": 1445.9383799781788,
+  "usd_call": 6.448085e-05
+ },
+ {
+  "model": "qwen/qwen3-32b",
+  "tag": "tenstorrent/fp8",
+  "provider": {
+   "Tenstorrent": 200
+  },
+  "cross": 0.114,
+  "within_pin": 0.0,
+  "acc": 0.67,
+  "p50": 596.7013499757741,
+  "p95": 902.7930199750685,
+  "usd_call": 4.54304e-05
+ }
+]

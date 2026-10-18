@@ -1,0 +1,1346 @@
+{
+ "cache": {
+  "entries": 6274,
+  "prompts": 180,
+  "missing_note_keys": {},
+  "floor_ids": "200-299 (n=100)",
+  "labelled_ids": "0-79,200-259 (n=140)"
+ },
+ "validation": {
+  "vendor name (fuzzy vs tx string)": {
+   "n": 640,
+   "stated": 0.978125,
+   "unclear": 0.021874999999999978,
+   "acc_stated": 1.0,
+   "acc_all": 0.978125
+  },
+  "transaction amount": {
+   "n": 640,
+   "stated": 0.996875,
+   "unclear": 0.0031250000000000444,
+   "acc_stated": 1.0,
+   "acc_all": 0.996875
+  },
+  "transaction date (first date)": {
+   "n": 640,
+   "stated": 1.0,
+   "unclear": 0.0,
+   "acc_stated": 1.0,
+   "acc_all": 1.0
+  },
+  "invoice outcome (id or NONE)": {
+   "n": 640,
+   "stated": 1.0,
+   "unclear": 0.0,
+   "acc_stated": 1.0,
+   "acc_all": 1.0
+  },
+  "invoice amount (prompts with invoice)": {
+   "n": 439,
+   "stated": 1.0,
+   "unclear": 0.0,
+   "acc_stated": 1.0,
+   "acc_all": 1.0
+  },
+  "invoice issue date (prompts w/ invoice)": {
+   "n": 439,
+   "stated": 0.6947608200455581,
+   "unclear": 0.30523917995444194,
+   "acc_stated": 1.0,
+   "acc_all": 0.6947608200455581
+  },
+  "bank amount, bank != tx (mismatch)": {
+   "n": 90,
+   "stated": 0.7333333333333333,
+   "unclear": 0.2666666666666667,
+   "acc_stated": 1.0,
+   "acc_all": 0.7333333333333333
+  },
+  "bank amount, bank == tx (no mismatch)": {
+   "n": 550,
+   "stated": 0.10909090909090909,
+   "unclear": 0.8909090909090909,
+   "acc_stated": 1.0,
+   "acc_all": 0.10909090909090909
+  },
+  "flag decision (flagged/not flagged)": {
+   "n": 640,
+   "stated": 1.0,
+   "unclear": 0.0,
+   "acc_stated": 1.0,
+   "acc_all": 1.0
+  },
+  "flag reason category (set)": {
+   "n": 640,
+   "stated": 1.0,
+   "unclear": 0.0,
+   "acc_stated": 0.9984375,
+   "acc_all": 0.9984375
+  },
+  "flag reason, flagged prompts only": {
+   "n": 429,
+   "stated": 1.0,
+   "unclear": 0.0,
+   "acc_stated": 0.9976689976689976,
+   "acc_all": 0.9976689976689976
+  },
+  "followup_requested_rate": 0.0,
+  "history_mention_rate": 0.3109375,
+  "bank_stated_when_mismatch": 0.7333333333333333,
+  "typed_fields_all_right": 0.9953125
+ },
+ "judge_cache": {
+  "have": {
+   "A0-A1|strict": 3,
+   "A0-A2|strict": 4,
+   "A0-A2|mini": 1,
+   "A0-A3|strict": 97,
+   "A0-A3|core": 12,
+   "A0-A3|swap": 12,
+   "A0-A3|mini": 52,
+   "A1-A3|strict": 17,
+   "A2-A3|strict": 6
+  },
+  "missing": {
+   "A0-A1|strict": 136,
+   "A0-A1|core": 139,
+   "A0-A1|swap": 139,
+   "A0-A1|mini": 139,
+   "A0-A2|strict": 134,
+   "A0-A2|core": 138,
+   "A0-A2|swap": 138,
+   "A0-A2|mini": 137,
+   "A1-A2|strict": 134,
+   "A1-A2|core": 134,
+   "A1-A2|swap": 134,
+   "A1-A2|mini": 134,
+   "A1-A3|strict": 82,
+   "A1-A3|core": 99,
+   "A1-A3|swap": 99,
+   "A1-A3|mini": 99,
+   "A2-A3|strict": 92,
+   "A2-A3|core": 98,
+   "A2-A3|swap": 98,
+   "A2-A3|mini": 98,
+   "A0-A3|core": 85,
+   "A0-A3|swap": 85,
+   "A0-A3|mini": 45
+  },
+  "floor_recomputed": {
+   "raw": 16,
+   "cons": 13
+  }
+ },
+ "e_canon_plus_core": {
+  "n_pairs": 100,
+  "canon_conflict": 0,
+  "core_cached_nonident": 12,
+  "ident": 3,
+  "residual": 42,
+  "unresolved": 36,
+  "lo": 0,
+  "hi": 36,
+  "on_core_subset": {
+   "n": 15,
+   "diff": 0
+  },
+  "core_alone": 0,
+  "strict_vs_core_on_core_cached": {
+   "n": 12,
+   "strict": 1,
+   "core": 0
+  },
+  "residual_tol": 40,
+  "residual_tol_strict_diff": 12
+ },
+ "e_rev": {
+  "residual": 42,
+  "residual_nonident": 42,
+  "residual_core_cached": 6,
+  "residual_core_ids": [
+   201,
+   239,
+   243,
+   258,
+   265,
+   273
+  ],
+  "residual_core_diff": 0,
+  "residual_core_ub": 0.39303776899708265,
+  "residual_strict_diff": 11,
+  "residual_strict_fail": 2,
+  "byte_identical": 3,
+  "identical_facts_other": 55,
+  "canonical_only_k": 0,
+  "canonical_only_ub": 0.029513049607039925,
+  "range_lo": 0,
+  "range_hi": 36
+ },
+ "floor_table": {
+  "(a) strict judge, raw (as cached) | A0-A3": {
+   "k": 16,
+   "n": 100,
+   "rate": 0.16,
+   "ub": 0.2328158350065193,
+   "ub_at": {
+    "100": 0.2328158350065193,
+    "300": 0.19897085751348442,
+    "1000": 0.18030845287063996
+   },
+   "n5": null,
+   "n10": null
+  },
+  "(b) strict judge, confirmed (as cached) | A0-A3": {
+   "k": 13,
+   "n": 100,
+   "rate": 0.13,
+   "ub": 0.19871979304248238,
+   "ub_at": {
+    "100": 0.19871979304248238,
+    "300": 0.1663564121261515,
+    "1000": 0.14880468100133887
+   },
+   "n5": null,
+   "n10": null
+  },
+  "(a') strict judge, raw, FAIL (cut-off answer) not counted as DIFFERENT | A0-A3": {
+   "k": 13,
+   "n": 100,
+   "rate": 0.13,
+   "ub": 0.19871979304248238,
+   "ub_at": {
+    "100": 0.19871979304248238,
+    "300": 0.1663564121261515,
+    "1000": 0.14880468100133887
+   },
+   "n5": null,
+   "n10": null
+  },
+  "(b') strict judge, confirmed, backed by >=1 real DIFFERENT vote | A0-A3": {
+   "k": 11,
+   "n": 100,
+   "rate": 0.11,
+   "ub": 0.1755028025794425,
+   "ub_at": {
+    "100": 0.1755028025794425,
+    "300": 0.1443169276704887,
+    "1000": 0.12763652546325086
+   },
+   "n5": null,
+   "n10": null
+  },
+  "(c) canonical-facts conflict (all fields) | A0-A1": {
+   "k": 0,
+   "n": 140,
+   "rate": 0.0,
+   "ub": 0.021170772844868804,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(c) canonical-facts conflict (all fields) | A0-A2": {
+   "k": 0,
+   "n": 140,
+   "rate": 0.0,
+   "ub": 0.021170772844868804,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(c) canonical-facts conflict (all fields) | A1-A2": {
+   "k": 0,
+   "n": 140,
+   "rate": 0.0,
+   "ub": 0.021170772844868804,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(c) canonical-facts conflict (all fields) | A0-A3": {
+   "k": 0,
+   "n": 100,
+   "rate": 0.0,
+   "ub": 0.029513049607039925,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(c) canonical-facts conflict (all fields) | pooled A0-A1,A0-A2,A1-A2": {
+   "k": 0,
+   "n": 420,
+   "rate": 0.0,
+   "ub": 0.007107318586130681,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(c) canonical-facts conflict (all fields) | pooled A0-A1,A0-A2,A1-A2,A0-A3": {
+   "k": 0,
+   "n": 520,
+   "rate": 0.0,
+   "ub": 0.005744460728146217,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(c') as (c) without the follow-up flag | A0-A1": {
+   "k": 0,
+   "n": 140,
+   "rate": 0.0,
+   "ub": 0.021170772844868804,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(c') as (c) without the follow-up flag | A0-A2": {
+   "k": 0,
+   "n": 140,
+   "rate": 0.0,
+   "ub": 0.021170772844868804,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(c') as (c) without the follow-up flag | A1-A2": {
+   "k": 0,
+   "n": 140,
+   "rate": 0.0,
+   "ub": 0.021170772844868804,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(c') as (c) without the follow-up flag | A0-A3": {
+   "k": 0,
+   "n": 100,
+   "rate": 0.0,
+   "ub": 0.029513049607039925,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(c') as (c) without the follow-up flag | pooled A0-A1,A0-A2,A1-A2": {
+   "k": 0,
+   "n": 420,
+   "rate": 0.0,
+   "ub": 0.007107318586130681,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(c') as (c) without the follow-up flag | pooled A0-A1,A0-A2,A1-A2,A0-A3": {
+   "k": 0,
+   "n": 520,
+   "rate": 0.0,
+   "ub": 0.005744460728146217,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(c+) (c) plus history/earlier-charge evidence (count, range, top, dates) | A0-A1": {
+   "k": 6,
+   "n": 140,
+   "rate": 0.04285714285714286,
+   "ub": 0.08283115853915518,
+   "ub_at": {
+    "100": 0.08919625015887987,
+    "300": 0.06801337884963037,
+    "1000": 0.055101726613460154
+   },
+   "n5": 2461,
+   "n10": 76
+  },
+  "(c+) (c) plus history/earlier-charge evidence (count, range, top, dates) | A0-A2": {
+   "k": 3,
+   "n": 140,
+   "rate": 0.02142857142857143,
+   "ub": 0.054449264970838164,
+   "ub_at": {
+    "100": 0.06161920039604069,
+    "300": 0.03909105868095858,
+    "1000": 0.0301004713288804
+   },
+   "n5": 153,
+   "n10": 46
+  },
+  "(c+) (c) plus history/earlier-charge evidence (count, range, top, dates) | A1-A2": {
+   "k": 6,
+   "n": 140,
+   "rate": 0.04285714285714286,
+   "ub": 0.08283115853915518,
+   "ub_at": {
+    "100": 0.08919625015887987,
+    "300": 0.06801337884963037,
+    "1000": 0.055101726613460154
+   },
+   "n5": 2461,
+   "n10": 76
+  },
+  "(c+) (c) plus history/earlier-charge evidence (count, range, top, dates) | A0-A3": {
+   "k": 5,
+   "n": 100,
+   "rate": 0.05,
+   "ub": 0.1022533776432745,
+   "ub_at": {
+    "100": 0.1022533776432745,
+    "300": 0.07594869829959539,
+    "1000": 0.06286340351237973
+   },
+   "n5": null,
+   "n10": 89
+  },
+  "(c+) (c) plus history/earlier-charge evidence (count, range, top, dates) | pooled A0-A1,A0-A2,A1-A2": {
+   "k": 15,
+   "n": 420,
+   "rate": 0.03571428571428571,
+   "ub": 0.05446208440774025,
+   "ub_at": {
+    "100": 0.08919625015887987,
+    "300": 0.059962371935227514,
+    "1000": 0.04726510664571574
+   },
+   "n5": 601,
+   "n10": 61
+  },
+  "(c+) (c) plus history/earlier-charge evidence (count, range, top, dates) | pooled A0-A1,A0-A2,A1-A2,A0-A3": {
+   "k": 20,
+   "n": 520,
+   "rate": 0.038461538461538464,
+   "ub": 0.055399956781932,
+   "ub_at": {
+    "100": 0.08919625015887987,
+    "300": 0.06400391537870745,
+    "1000": 0.04951287025592598
+   },
+   "n5": 945,
+   "n10": 61
+  },
+  "(c+tol) as (c+), numbers within max(1, 5%) count as equal | A0-A1": {
+   "k": 3,
+   "n": 140,
+   "rate": 0.02142857142857143,
+   "ub": 0.054449264970838164,
+   "ub_at": {
+    "100": 0.06161920039604069,
+    "300": 0.03909105868095858,
+    "1000": 0.0301004713288804
+   },
+   "n5": 153,
+   "n10": 46
+  },
+  "(c+tol) as (c+), numbers within max(1, 5%) count as equal | A0-A2": {
+   "k": 1,
+   "n": 140,
+   "rate": 0.007142857142857143,
+   "ub": 0.0334350304392175,
+   "ub_at": {
+    "100": 0.046559811453538935,
+    "300": 0.020836230527024657,
+    "1000": 0.013107715416593313
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(c+tol) as (c+), numbers within max(1, 5%) count as equal | A1-A2": {
+   "k": 2,
+   "n": 140,
+   "rate": 0.014285714285714285,
+   "ub": 0.04428496484428671,
+   "ub_at": {
+    "100": 0.046559811453538935,
+    "300": 0.030250395419737855,
+    "1000": 0.02180013152550217
+   },
+   "n5": 93,
+   "n10": 29
+  },
+  "(c+tol) as (c+), numbers within max(1, 5%) count as equal | A0-A3": {
+   "k": 2,
+   "n": 100,
+   "rate": 0.02,
+   "ub": 0.06161920039604069,
+   "ub_at": {
+    "100": 0.06161920039604069,
+    "300": 0.03909105868095858,
+    "1000": 0.028930122851398708
+   },
+   "n5": 124,
+   "n10": 46
+  },
+  "(c+tol) as (c+), numbers within max(1, 5%) count as equal | pooled A0-A1,A0-A2,A1-A2": {
+   "k": 6,
+   "n": 420,
+   "rate": 0.014285714285714285,
+   "ub": 0.028000355758723956,
+   "ub_at": {
+    "100": 0.046559811453538935,
+    "300": 0.030250395419737855,
+    "1000": 0.02180013152550217
+   },
+   "n5": 93,
+   "n10": 29
+  },
+  "(c+tol) as (c+), numbers within max(1, 5%) count as equal | pooled A0-A1,A0-A2,A1-A2,A0-A3": {
+   "k": 8,
+   "n": 520,
+   "rate": 0.015384615384615385,
+   "ub": 0.027587306789138677,
+   "ub_at": {
+    "100": 0.06161920039604069,
+    "300": 0.03472224430129498,
+    "1000": 0.0230035488509501
+   },
+   "n5": 93,
+   "n10": 29
+  },
+  "(d) canonical conflict, core fields only | A0-A1": {
+   "k": 0,
+   "n": 140,
+   "rate": 0.0,
+   "ub": 0.021170772844868804,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(d) canonical conflict, core fields only | A0-A2": {
+   "k": 0,
+   "n": 140,
+   "rate": 0.0,
+   "ub": 0.021170772844868804,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(d) canonical conflict, core fields only | A1-A2": {
+   "k": 0,
+   "n": 140,
+   "rate": 0.0,
+   "ub": 0.021170772844868804,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(d) canonical conflict, core fields only | A0-A3": {
+   "k": 0,
+   "n": 100,
+   "rate": 0.0,
+   "ub": 0.029513049607039925,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(d) canonical conflict, core fields only | pooled A0-A1,A0-A2,A1-A2": {
+   "k": 0,
+   "n": 420,
+   "rate": 0.0,
+   "ub": 0.007107318586130681,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(d) canonical conflict, core fields only | pooled A0-A1,A0-A2,A1-A2,A0-A3": {
+   "k": 0,
+   "n": 520,
+   "rate": 0.0,
+   "ub": 0.005744460728146217,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(f) exact match after normalisation | A0-A1": {
+   "k": 139,
+   "n": 140,
+   "rate": 0.9928571428571429,
+   "ub": 0.9996336864350064,
+   "ub_at": {
+    "100": 0.9994871985837377,
+    "300": 0.9988141858890657,
+    "1000": 0.9967102125993462
+   },
+   "n5": null,
+   "n10": null
+  },
+  "(f) exact match after normalisation | A0-A2": {
+   "k": 138,
+   "n": 140,
+   "rate": 0.9857142857142858,
+   "ub": 0.9974558292590231,
+   "ub_at": {
+    "100": 0.9994871985837377,
+    "300": 0.9954331380300033,
+    "1000": 0.9915167646852153
+   },
+   "n5": null,
+   "n10": null
+  },
+  "(f) exact match after normalisation | A1-A2": {
+   "k": 133,
+   "n": 140,
+   "rate": 0.95,
+   "ub": 0.9763013184865916,
+   "ub_at": {
+    "100": 0.9800944363378281,
+    "300": 0.9689300502551448,
+    "1000": 0.9608364640744107
+   },
+   "n5": null,
+   "n10": null
+  },
+  "(f) exact match after normalisation | A0-A3": {
+   "k": 95,
+   "n": 100,
+   "rate": 0.95,
+   "ub": 0.9800944363378281,
+   "ub_at": {
+    "100": 0.9800944363378281,
+    "300": 0.9689300502551448,
+    "1000": 0.9608364640744107
+   },
+   "n5": null,
+   "n10": null
+  },
+  "(f) exact match after normalisation | pooled A0-A1,A0-A2,A1-A2": {
+   "k": 410,
+   "n": 420,
+   "rate": 0.9761904761904762,
+   "ub": 0.9870268851352825,
+   "ub_at": {
+    "100": 0.9964348473967433,
+    "300": 0.9889989363689421,
+    "1000": 0.9833971235654894
+   },
+   "n5": null,
+   "n10": null
+  },
+  "(f) exact match after normalisation | pooled A0-A1,A0-A2,A1-A2,A0-A3": {
+   "k": 505,
+   "n": 520,
+   "rate": 0.9711538461538461,
+   "ub": 0.982136434656266,
+   "ub_at": {
+    "100": 0.9917741708923473,
+    "300": 0.9842620148493065,
+    "1000": 0.979178008305967
+   },
+   "n5": null,
+   "n10": null
+  }
+ },
+ "crosstab": {
+  "a03_all": {
+   "SAME|identical": 55,
+   "DIFFERENT|residual": 13,
+   "DIFFERENT|identical": 3,
+   "SAME|residual": 29
+  },
+  "a03_core": {
+   "SAME|no core conflict": 84,
+   "DIFFERENT|no core conflict": 16
+  },
+  "a03_a13_a23": {
+   "SAME|identical": 56,
+   "DIFFERENT|residual": 25,
+   "DIFFERENT|identical": 4,
+   "SAME|residual": 35
+  },
+  "a03_cplus": {
+   "SAME|identical": 55,
+   "DIFFERENT|conflict (c+)": 3,
+   "DIFFERENT|residual": 10,
+   "DIFFERENT|identical": 3,
+   "SAME|residual": 27,
+   "SAME|conflict (c+)": 2
+  },
+  "cat_counts": {
+   "judgeDIFF_noC": 29,
+   "judgeDIFF_identical": 4,
+   "judgeDIFF_no_cplus": 24,
+   "judgeSAME_C": 0,
+   "judgeSAME_evidence_only": 4,
+   "judgeSAME_weak": 11
+  }
+ },
+ "judge_diff_chains": {
+  "201": {
+   "chain": [
+    "DIFFERENT",
+    "DIFFERENT"
+   ],
+   "cons": "DIFFERENT",
+   "canon": "residual"
+  },
+  "205": {
+   "chain": [
+    "DIFFERENT",
+    "DIFFERENT"
+   ],
+   "cons": "DIFFERENT",
+   "canon": "residual"
+  },
+  "206": {
+   "chain": [
+    "DIFFERENT",
+    "DIFFERENT"
+   ],
+   "cons": "DIFFERENT",
+   "canon": "residual"
+  },
+  "207": {
+   "chain": [
+    "FAIL",
+    "SAME",
+    "SAME"
+   ],
+   "cons": "SAME",
+   "canon": "identical"
+  },
+  "222": {
+   "chain": [
+    "DIFFERENT",
+    "DIFFERENT"
+   ],
+   "cons": "DIFFERENT",
+   "canon": "residual"
+  },
+  "227": {
+   "chain": [
+    "DIFFERENT",
+    "SAME",
+    "SAME"
+   ],
+   "cons": "SAME",
+   "canon": "identical"
+  },
+  "240": {
+   "chain": [
+    "DIFFERENT",
+    "DIFFERENT"
+   ],
+   "cons": "DIFFERENT",
+   "canon": "identical"
+  },
+  "242": {
+   "chain": [
+    "DIFFERENT",
+    "DIFFERENT"
+   ],
+   "cons": "DIFFERENT",
+   "canon": "residual"
+  },
+  "246": {
+   "chain": [
+    "DIFFERENT",
+    "DIFFERENT"
+   ],
+   "cons": "DIFFERENT",
+   "canon": "residual"
+  },
+  "252": {
+   "chain": [
+    "DIFFERENT",
+    "SAME",
+    "SAME"
+   ],
+   "cons": "SAME",
+   "canon": "residual"
+  },
+  "276": {
+   "chain": [
+    "DIFFERENT",
+    "DIFFERENT"
+   ],
+   "cons": "DIFFERENT",
+   "canon": "residual"
+  },
+  "279": {
+   "chain": [
+    "DIFFERENT",
+    "DIFFERENT"
+   ],
+   "cons": "DIFFERENT",
+   "canon": "residual"
+  },
+  "284": {
+   "chain": [
+    "DIFFERENT",
+    "DIFFERENT"
+   ],
+   "cons": "DIFFERENT",
+   "canon": "residual"
+  },
+  "294": {
+   "chain": [
+    "DIFFERENT",
+    "SAME",
+    "DIFFERENT"
+   ],
+   "cons": "DIFFERENT",
+   "canon": "residual"
+  },
+  "295": {
+   "chain": [
+    "FAIL",
+    "FAIL"
+   ],
+   "cons": "DIFFERENT",
+   "canon": "residual"
+  },
+  "296": {
+   "chain": [
+    "FAIL",
+    "SAME",
+    "FAIL"
+   ],
+   "cons": "DIFFERENT",
+   "canon": "residual"
+  }
+ },
+ "hand_inspection_n": 10,
+ "hand_classes": {
+  "benign rounding (extractor over-strict)": 2,
+  "judge miss on a real numeric error": 1,
+  "loose characterisation (borderline)": 1,
+  "optional detail omitted (judge right)": 6
+ },
+ "hist_asym_a03": {
+  "(False, False)": 80,
+  "(False, True)": 9,
+  "(True, True)": 7,
+  "(True, False)": 4
+ },
+ "by_field": {
+  "vendor": {
+   "conflict": 0,
+   "one_sided": 7
+  },
+  "tx_amt": {
+   "conflict": 0,
+   "one_sided": 3
+  },
+  "tx_date": {
+   "conflict": 0,
+   "one_sided": 0
+  },
+  "inv": {
+   "conflict": 0,
+   "one_sided": 0
+  },
+  "inv_amt": {
+   "conflict": 0,
+   "one_sided": 1
+  },
+  "bank_amt": {
+   "conflict": 0,
+   "one_sided": 64
+  },
+  "flag": {
+   "conflict": 0,
+   "one_sided": 0
+  },
+  "reason": {
+   "conflict": 0,
+   "one_sided": 0
+  },
+  "followup": {
+   "conflict": 0,
+   "one_sided": 0
+  },
+  "history_one_note": 41
+ },
+ "bank_mismatch_one_sided": {
+  "pairs": 72,
+  "one_sided": 12
+ },
+ "cluster": {
+  "history mentioned": {
+   "rate": 0.3,
+   "observed": 0.8928571428571429,
+   "expected_global": 0.3699999999999999,
+   "expected_scn": 0.7341870081365879
+  },
+  "bank amount stated": {
+   "rate": 0.20238095238095238,
+   "observed": 0.8142857142857143,
+   "expected_global": 0.5157312925170069,
+   "expected_scn": 0.528315881908319
+  },
+  "history range stated": {
+   "rate": 0.04285714285714286,
+   "observed": 0.95,
+   "expected_global": 0.8769387755102042,
+   "expected_scn": 0.9168067226890756
+  },
+  "history count stated": {
+   "rate": 0.08095238095238096,
+   "observed": 0.8857142857142857,
+   "expected_global": 0.7768027210884353,
+   "expected_scn": 0.8436564625850341
+  },
+  "earlier-charge date stated": {
+   "rate": 0.1261904761904762,
+   "observed": 0.8071428571428572,
+   "expected_global": 0.6692006802721089,
+   "expected_scn": 0.7707832021697568
+  },
+  "cplus_pairs_per_prompt": [
+   131,
+   4,
+   4,
+   1
+  ],
+  "cplus_prompts_by_scn": {
+   "noinv": 5,
+   "spike": 3,
+   "dup": 1
+  }
+ },
+ "prompt_auc": {
+  "any_conflict_c": null,
+  "any_cplus": {
+   "n": 140,
+   "pos": 9,
+   "auc": 0.7418150975402884,
+   "sd": 0.020911720418507154,
+   "ci": [
+    0.6228220212804589,
+    0.8284163583562077
+   ],
+   "uni": {
+    "scn=noinv": 0.6823579304495336,
+    "scn=dup": 0.4830364715860899,
+    "scn=first": 0.3931297709923664,
+    "scn=spike": 0.6132315521628499,
+    "spike": 0.6132315521628499,
+    "has_inv": 0.25233248515691264,
+    "bank_mismatch": 0.4830364715860899,
+    "n_hist": 0.4631043256997455,
+    "flagged": 0.6717557251908397
+   }
+  },
+  "any_conflict_core": null,
+  "any_nonident": {
+   "n": 140,
+   "pos": 73,
+   "auc": 0.7112246984256798,
+   "sd": 0.015569235330524674,
+   "ci": [
+    0.6113816899565155,
+    0.7958118462032381
+   ],
+   "uni": {
+    "scn=noinv": 0.6339194438765079,
+    "scn=dup": 0.551114291555919,
+    "scn=first": 0.419852790840319,
+    "scn=spike": 0.5591903496217543,
+    "spike": 0.5591903496217543,
+    "has_inv": 0.3703741566141893,
+    "bank_mismatch": 0.5368022899202618,
+    "n_hist": 0.5481496626456758,
+    "flagged": 0.6640768758945002
+   }
+  },
+  "judge_a0a3": {
+   "n": 100,
+   "pos": 16,
+   "auc": 0.6874813988095239,
+   "sd": 0.03891171204880327,
+   "ci": [
+    0.5730860658988164,
+    0.8201303420416792
+   ],
+   "uni": {
+    "scn=noinv": 0.5238095238095238,
+    "scn=dup": 0.5029761904761905,
+    "scn=first": 0.4791666666666667,
+    "scn=spike": 0.6220238095238095,
+    "spike": 0.6220238095238095,
+    "has_inv": 0.43601190476190477,
+    "bank_mismatch": 0.6145833333333334,
+    "n_hist": 0.5993303571428571,
+    "flagged": 0.6279761904761905
+   }
+  },
+  "judge_cons_a0a3": {
+   "n": 100,
+   "pos": 13,
+   "auc": 0.6308134394341292,
+   "sd": 0.0368329818330542,
+   "ci": [
+    0.5119220219435737,
+    0.7898817051032367
+   ],
+   "uni": {
+    "scn=noinv": 0.4677276746242263,
+    "scn=dup": 0.5194518125552609,
+    "scn=first": 0.49646330680813433,
+    "scn=spike": 0.623342175066313,
+    "spike": 0.623342175066313,
+    "has_inv": 0.4686118479221928,
+    "bank_mismatch": 0.607869142351901,
+    "n_hist": 0.5596816976127321,
+    "flagged": 0.6069849690539346
+   }
+  },
+  "repro_60": {
+   "n_c|strict raw (FAIL=DIFFERENT)": 0.5,
+   "n_c|strict raw (FAIL prompts dropped)": 0.5,
+   "n_cplus|strict raw (FAIL=DIFFERENT)": 0.7,
+   "n_cplus|strict raw (FAIL prompts dropped)": 0.7222222222222222,
+   "n_nonident|strict raw (FAIL=DIFFERENT)": 0.878,
+   "n_nonident|strict raw (FAIL prompts dropped)": 0.94
+  },
+  "judge_a0a3_noFAIL": {
+   "n": 97,
+   "pos": 13,
+   "auc": 0.7071199633699634,
+   "sd": 0.045211642647537686,
+   "ci": [
+    0.5424878937845892,
+    0.8818587376933896
+   ],
+   "uni": {
+    "scn=noinv": 0.5141941391941393,
+    "scn=dup": 0.4789377289377289,
+    "scn=first": 0.49358974358974356,
+    "scn=spike": 0.6652930402930404,
+    "spike": 0.6652930402930404,
+    "has_inv": 0.4624542124542125,
+    "bank_mismatch": 0.5737179487179487,
+    "n_hist": 0.6501831501831502,
+    "flagged": 0.652014652014652
+   }
+  }
+ },
+ "relabel": {
+  "tx": {
+   "n": 140,
+   "strict": 88,
+   "canon": 140,
+   "both": 88,
+   "strict_only": 0,
+   "canon_only": 52,
+   "evidence": 36
+  },
+  "inv": {
+   "n": 140,
+   "strict": 109,
+   "canon": 97,
+   "both": 94,
+   "strict_only": 15,
+   "canon_only": 3,
+   "evidence": 45
+  },
+  "flag": {
+   "n": 140,
+   "strict": 133,
+   "canon": 95,
+   "both": 95,
+   "strict_only": 38,
+   "canon_only": 0,
+   "evidence": 47
+  },
+  "bank": {
+   "n": 140,
+   "strict": 25,
+   "canon": 1,
+   "both": 0,
+   "strict_only": 25,
+   "canon_only": 1,
+   "evidence": 41
+  },
+  "H0": {
+   "n": 140,
+   "strict": 57,
+   "canon": 9,
+   "both": 6,
+   "strict_only": 51,
+   "canon_only": 3,
+   "evidence": 46
+  },
+  "B0": {
+   "n": 57,
+   "strict": 31,
+   "canon": 1,
+   "both": 1,
+   "strict_only": 30,
+   "canon_only": 0,
+   "evidence": 38
+  },
+  "B1": {
+   "n": 57,
+   "strict": 15,
+   "canon": 0,
+   "both": 0,
+   "strict_only": 15,
+   "canon_only": 0,
+   "evidence": 30
+  },
+  "B2": {
+   "n": 57,
+   "strict": 19,
+   "canon": 0,
+   "both": 0,
+   "strict_only": 19,
+   "canon_only": 0,
+   "evidence": 37
+  },
+  "H0_by_scn": {
+   "normal": [
+    3,
+    2,
+    45
+   ],
+   "noinv": [
+    23,
+    2,
+    30
+   ],
+   "dup": [
+    20,
+    0,
+    20
+   ],
+   "first": [
+    3,
+    4,
+    28
+   ],
+   "spike": [
+    8,
+    1,
+    17
+   ]
+  }
+ },
+ "floor_routes": {
+  "(i) judge only: strict raw": {
+   "k": 16,
+   "n": 100,
+   "rate": 0.16,
+   "ub": 0.2328158350065193,
+   "ub_at": {
+    "100": 0.2328158350065193,
+    "300": 0.19897085751348442,
+    "1000": 0.18030845287063996
+   },
+   "n5": null,
+   "n10": null
+  },
+  "(i) judge only: strict raw, cut-off (FAIL) answers not counted": {
+   "k": 13,
+   "n": 100,
+   "rate": 0.13,
+   "ub": 0.19871979304248238,
+   "ub_at": {
+    "100": 0.19871979304248238,
+    "300": 0.1663564121261515,
+    "1000": 0.14880468100133887
+   },
+   "n5": null,
+   "n10": null
+  },
+  "(i) judge only: strict confirmed, needs >=1 real DIFFERENT vote": {
+   "k": 11,
+   "n": 100,
+   "rate": 0.11,
+   "ub": 0.1755028025794425,
+   "ub_at": {
+    "100": 0.1755028025794425,
+    "300": 0.1443169276704887,
+    "1000": 0.12763652546325086
+   },
+   "n5": null,
+   "n10": null
+  },
+  "(i) judge only: strict confirmed": {
+   "k": 13,
+   "n": 100,
+   "rate": 0.13,
+   "ub": 0.19871979304248238,
+   "ub_at": {
+    "100": 0.19871979304248238,
+    "300": 0.1663564121261515,
+    "1000": 0.14880468100133887
+   },
+   "n5": null,
+   "n10": null
+  },
+  "(ii) canonical conflict (c), residual counted SAME (lower end)": {
+   "k": 0,
+   "n": 100,
+   "rate": 0.0,
+   "ub": 0.029513049607039925,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(ii) canonical conflict incl. history evidence, numbers within 5% equal (c+tol)": {
+   "k": 2,
+   "n": 100,
+   "rate": 0.02,
+   "ub": 0.06161920039604069,
+   "ub_at": {
+    "100": 0.06161920039604069,
+    "300": 0.03909105868095858,
+    "1000": 0.028930122851398708
+   },
+   "n5": 124,
+   "n10": 46
+  },
+  "(ii) canonical conflict incl. history evidence, exact numbers (c+)": {
+   "k": 5,
+   "n": 100,
+   "rate": 0.05,
+   "ub": 0.1022533776432745,
+   "ub_at": {
+    "100": 0.1022533776432745,
+    "300": 0.07594869829959539,
+    "1000": 0.06286340351237973
+   },
+   "n5": null,
+   "n10": 89
+  },
+  "(ii) core-field conflict only": {
+   "k": 0,
+   "n": 100,
+   "rate": 0.0,
+   "ub": 0.029513049607039925,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(ii) canonical conflict, all fields": {
+   "k": 0,
+   "n": 420,
+   "rate": 0.0,
+   "ub": 0.007107318586130681,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(iii) typed: conflict on flag, reason, invoice outcome, tx amount": {
+   "k": 0,
+   "n": 140,
+   "rate": 0.0,
+   "ub": 0.021170772844868804,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  },
+  "(iii) typed, counting unstated required fields as disagreement": {
+   "k": 1,
+   "n": 100,
+   "rate": 0.01,
+   "ub": 0.046559811453538935,
+   "ub_at": {
+    "100": 0.046559811453538935,
+    "300": 0.025641393082609616,
+    "1000": 0.016903175120562504
+   },
+   "n5": 93,
+   "n10": 29
+  },
+  "(iii) typed, 3 pair types pooled": {
+   "k": 0,
+   "n": 420,
+   "rate": 0.0,
+   "ub": 0.007107318586130681,
+   "ub_at": {
+    "100": 0.029513049607039925,
+    "300": 0.009936081944457708,
+    "1000": 0.002991249545095295
+   },
+   "n5": 59,
+   "n10": 29
+  }
+ },
+ "typed_all_right_vs_gt": 0.9953125
+}

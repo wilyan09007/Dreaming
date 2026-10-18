@@ -1,0 +1,20 @@
+== flatten (run earlier, 4 processes): 2026-06-01 shards 112 calls 1635686 llm 1748037 batches 1488918 (1m57s); 2026-06-02 shards 121 calls 1674818 llm 1827928 batches 1524765 (about 2 min)
+== run.py
+[    17s] loaded 3310504 calls
+[    61s] F: causal history features ready
+[   194s] F done
+[   197s] E: fitting multiclass GBM
+[   243s] E done
+[run stopped here with a column-overlap bug in stage D (fixed in add_hist); stages D S T X re-run below, history features read from the cache written by stage F]
+[    18s] loaded 3310504 calls
+[    73s] D: fold 0 done
+[    99s] D: fold 1 done
+[   116s] D: fold 2 done
+[   134s] D: fold 3 done
+[   162s] D: fold 4 done
+[   477s] D done
+[   494s] S done
+[   572s] T 2026-06-01: {'llm': 0.39575347800741967, 'tool_batches': 0.3528744464097685, 'overlap_llm_tool': 0.0033497180319743422, 'gap_neither': 0.2547217936147862} bound 0.0291
+[   652s] T 2026-06-02: {'llm': 0.4082063913460631, 'tool_batches': 0.41870791681643516, 'overlap_llm_tool': 0.003878833506679563, 'gap_neither': 0.17696452534418128} bound 0.0391
+[   652s] T done
+[   720s] X done

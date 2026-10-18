@@ -1,0 +1,197 @@
+name, memory.total [MiB]
+NVIDIA GeForce RTX 4090, 24564 MiB
+waiting for bundle
+bundle extracted 16 files
+=== S16 run N_TR=80 N_OR=60 ledger at start $3.131
+[labels] 24 prompts labelled; $3.131
+[labels] 48 prompts labelled; $3.131
+[labels] 72 prompts labelled; $3.131
+[labels] 96 prompts labelled; $3.131
+[labels] 120 prompts labelled; $3.131
+[labels] 140 prompts labelled; $3.131
+[spend] labels: $3.131 ledger, 0 new calls this run, 0s
+[label stats] train: {"n": 80, "H0_cons": 0.375, "H0_raw": 0.4, "dist": 0.075, "tx": 0.625, "inv": 0.775, "flag": 0.963, "bank": 0.125, "hist_pos_share": 0.255, "hist_lit_share": 0.178, "trunc": 0.002, "calls_per_variant": 1.224, "variants_per_prompt": 6.125}
+[label stats] held-out subset: {"n": 60, "H0_cons": 0.45, "H0_raw": 0.45, "dist": 0.167, "tx": 0.633, "inv": 0.783, "flag": 0.933, "bank": 0.25, "hist_pos_share": 0.301, "hist_lit_share": 0.133, "trunc": 0.0, "calls_per_variant": 1.228, "variants_per_prompt": 6.35}
+[label stats] all labelled: {"n": 140, "H0_cons": 0.407, "H0_raw": 0.421, "dist": 0.114, "tx": 0.629, "inv": 0.779, "flag": 0.95, "bank": 0.179, "hist_pos_share": 0.276, "hist_lit_share": 0.158, "trunc": 0.001, "calls_per_variant": 1.226, "variants_per_prompt": 6.221}
+[label stats by scenario] dup     n= 20 H0 changes note 1.00 | tx 0.75 inv 0.80 flag 1.00 bank 0.25 | dist 0.00 | hist spans needed 0.44
+[label stats by scenario] first   n= 28 H0 changes note 0.11 | tx 0.50 inv 0.86 flag 1.00 bank 0.14 | dist 0.11 | hist spans needed 0.11
+[label stats by scenario] noinv   n= 30 H0 changes note 0.77 | tx 0.47 inv 0.37 flag 1.00 bank 0.30 | dist 0.30 | hist spans needed 0.60
+[label stats by scenario] normal  n= 45 H0 changes note 0.07 | tx 0.71 inv 0.96 flag 0.84 bank 0.07 | dist 0.07 | hist spans needed 0.07
+[label stats by scenario] spike   n= 17 H0 changes note 0.47 | tx 0.76 inv 0.88 flag 1.00 bank 0.24 | dist 0.06 | hist spans needed 0.28
+[floor] two independent full-prompt notes judged against each other (held-out n=100): raw DIFFERENT 0.160 (UB95 0.233); confirmed (majority of 3 refs) DIFFERENT 0.130 (UB95 0.199)
+[floor by scenario] dup     n= 12 raw 0.167 confirmed 0.167
+[floor by scenario] first   n= 16 raw 0.125 confirmed 0.125
+[floor by scenario] noinv   n= 21 raw 0.190 confirmed 0.095
+[floor by scenario] normal  n= 34 raw 0.059 confirmed 0.059
+[floor by scenario] spike   n= 17 raw 0.353 confirmed 0.294
+[spend] floor: $3.282 ledger, 215 new calls this run, 32s
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[embed] 7061 texts in 35.7s (BAAI/bge-small-en-v1.5)
+[learned coef (standardized)] base {'tx': 0.45, 'inv': 0.59, 'flag': 0.97, 'bank': -0.03, 'hist': -1.06, 'rel_amt': -0.07, 'dup': 0.47, 'same_day': 0.0, 'log_recency': -0.48, 'cos': 1.8}
+[learned coef (standardized)] +reason {'tx': 0.17, 'inv': 0.31, 'flag': 0.69, 'bank': -0.3, 'hist': -0.46, 'rel_amt': 0.02, 'dup': 0.4, 'same_day': 0.0, 'log_recency': -0.83, 'cos': 0.98, 'r_dup': 0.22, 'r_first': -0.58, 'r_high': -0.35, 'r_noinv': 0.69, 'r_none': -0.94}
+[scorer AUC vs history-span label] learned (OOF, train)               pooled 0.609 within-prompt 0.694 (n_prompts 20; positive rate 0.26)
+[scorer AUC vs history-span label] learned+reason (OOF, train)        pooled 0.806 within-prompt 0.744 (n_prompts 20; positive rate 0.26)
+[scorer AUC vs history-span label] learned (held-out labelled)        pooled 0.553 within-prompt 0.585 (n_prompts 15; positive rate 0.30)
+[scorer AUC vs history-span label] learned+reason (held-out labelled) pooled 0.753 within-prompt 0.563 (n_prompts 15; positive rate 0.30)
+[scorer AUC vs history-span label] cross-encoder (held-out labelled)  pooled 0.597 within-prompt 0.571 (n_prompts 15; positive rate 0.30)
+[scorer AUC vs history-span label] recency (held-out labelled)        pooled 0.532 within-prompt 0.569 (n_prompts 15; positive rate 0.30)
+[scorer AUC vs history-span label] amount closeness (held-out labelled) pooled 0.502 within-prompt 0.515 (n_prompts 15; positive rate 0.30)
+[scorer AUC vs history-span label] random (held-out labelled)         pooled 0.471 within-prompt 0.467 (n_prompts 15; positive rate 0.30)
+[fixed-field tx] label rate held-out 0.63; mean learned p 0.62
+[fixed-field inv] label rate held-out 0.78; mean learned p 0.77
+[fixed-field flag] label rate held-out 0.93; mean learned p 0.96
+[fixed-field bank] label rate held-out 0.25; mean learned p 0.13
+[theta grid base] 0.02: OOF prompts with every needed span kept 1.00, chars dropped 0.00
+[theta grid base] 0.03: OOF prompts with every needed span kept 1.00, chars dropped 0.00
+[theta grid base] 0.05: OOF prompts with every needed span kept 1.00, chars dropped 0.00
+[theta grid base] 0.08: OOF prompts with every needed span kept 0.91, chars dropped 0.03
+[theta grid base] 0.10: OOF prompts with every needed span kept 0.91, chars dropped 0.05
+[theta grid base] 0.15: OOF prompts with every needed span kept 0.81, chars dropped 0.20
+[theta grid base] 0.20: OOF prompts with every needed span kept 0.70, chars dropped 0.32
+[theta grid base] 0.25: OOF prompts with every needed span kept 0.62, chars dropped 0.47
+[theta grid base] 0.30: OOF prompts with every needed span kept 0.57, chars dropped 0.62
+[theta grid base] 0.40: OOF prompts with every needed span kept 0.57, chars dropped 0.80
+[theta grid base] 0.50: OOF prompts with every needed span kept 0.56, chars dropped 0.84
+[theta grid +reason] 0.02: OOF prompts with every needed span kept 0.96, chars dropped 0.13
+[theta grid +reason] 0.03: OOF prompts with every needed span kept 0.96, chars dropped 0.14
+[theta grid +reason] 0.05: OOF prompts with every needed span kept 0.96, chars dropped 0.27
+[theta grid +reason] 0.08: OOF prompts with every needed span kept 0.89, chars dropped 0.40
+[theta grid +reason] 0.10: OOF prompts with every needed span kept 0.89, chars dropped 0.43
+[theta grid +reason] 0.15: OOF prompts with every needed span kept 0.84, chars dropped 0.50
+[theta grid +reason] 0.20: OOF prompts with every needed span kept 0.82, chars dropped 0.52
+[theta grid +reason] 0.25: OOF prompts with every needed span kept 0.81, chars dropped 0.54
+[theta grid +reason] 0.30: OOF prompts with every needed span kept 0.79, chars dropped 0.55
+[theta grid +reason] 0.40: OOF prompts with every needed span kept 0.74, chars dropped 0.61
+[theta grid +reason] 0.50: OOF prompts with every needed span kept 0.69, chars dropped 0.66
+[theta] A (>=90% of OOF prompts keep every needed span): base 0.1, +reason 0.05; B (>=97%): base 0.05, +reason 0.02
+[policy] learned+reason A       n=100 tokens removed  28.6% | hist kept 14.4/22.8 | fixed dropped 0.00 | disagree raw 0.140 (UB 0.210) confirmed 0.120 (UB 0.187) | floor on same prompts raw 0.160 conf 0.130 | discordant vs floor raw 8/10 p=0.815, conf 6/7 p=1.000 | trunc 0.000
+    by scenario dup     n= 12 tokens removed   0.0% confirmed-disagree 0.000 raw 0.000
+    by scenario first   n= 16 tokens removed  54.6% confirmed-disagree 0.062 raw 0.062
+    by scenario noinv   n= 21 tokens removed   0.0% confirmed-disagree 0.238 raw 0.238
+    by scenario normal  n= 34 tokens removed  57.8% confirmed-disagree 0.029 raw 0.059
+    by scenario spike   n= 17 tokens removed   0.0% confirmed-disagree 0.294 raw 0.353
+[spend] learned+reason A: $3.427 ledger, 431 new calls this run, 123s
+[policy] rule(tx,inv,flag)      n=100 tokens removed  83.3% | hist kept 0.0/22.8 | fixed dropped 1.00 | disagree raw 0.480 (UB 0.567) confirmed 0.450 (UB 0.537) | floor on same prompts raw 0.160 conf 0.130 | discordant vs floor raw 36/4 p=0.000, conf 36/4 p=0.000 | trunc 0.000
+    by scenario dup     n= 12 tokens removed  84.3% confirmed-disagree 1.000 raw 1.000
+    by scenario first   n= 16 tokens removed  81.7% confirmed-disagree 0.312 raw 0.312
+    by scenario noinv   n= 21 tokens removed  86.2% confirmed-disagree 0.810 raw 0.905
+    by scenario normal  n= 34 tokens removed  82.7% confirmed-disagree 0.088 raw 0.088
+    by scenario spike   n= 17 tokens removed  81.5% confirmed-disagree 0.471 raw 0.529
+[spend] rule(tx,inv,flag): $3.594 ledger, 677 new calls this run, 151s
+[policy] cross-enc top-3        n=100 tokens removed  71.9% | hist kept 3.0/22.8 | fixed dropped 1.00 | disagree raw 0.370 (UB 0.457) confirmed 0.340 (UB 0.426) | floor on same prompts raw 0.160 conf 0.130 | discordant vs floor raw 24/3 p=0.000, conf 25/4 p=0.000 | trunc 0.000
+    by scenario dup     n= 12 tokens removed  72.8% confirmed-disagree 0.333 raw 0.333
+    by scenario first   n= 16 tokens removed  69.7% confirmed-disagree 0.375 raw 0.375
+    by scenario noinv   n= 21 tokens removed  74.9% confirmed-disagree 0.619 raw 0.667
+    by scenario normal  n= 34 tokens removed  71.8% confirmed-disagree 0.059 raw 0.088
+    by scenario spike   n= 17 tokens removed  69.9% confirmed-disagree 0.529 raw 0.588
+[spend] cross-enc top-3: $3.758 ledger, 913 new calls this run, 181s
+[policy] oracle (literal)       n= 60 tokens removed  73.2% | hist kept 3.1/23.0 | fixed dropped 1.40 | disagree raw 0.383 (UB 0.498) confirmed 0.367 (UB 0.481) | floor on same prompts raw 0.167 conf 0.117 | discordant vs floor raw 18/5 p=0.011, conf 18/3 p=0.001 | trunc 0.000
+    by scenario dup     n=  6 tokens removed  45.4% confirmed-disagree 0.000 raw 0.000
+    by scenario first   n= 12 tokens removed  81.5% confirmed-disagree 0.333 raw 0.333
+    by scenario noinv   n= 15 tokens removed  69.2% confirmed-disagree 0.867 raw 0.867
+    by scenario normal  n= 20 tokens removed  84.5% confirmed-disagree 0.150 raw 0.200
+    by scenario spike   n=  7 tokens removed  57.9% confirmed-disagree 0.286 raw 0.286
+[spend] oracle (literal): $3.828 ledger, 1006 new calls this run, 200s
+[policy] NOT EVALUATED learned A: removes only 3.2% of characters on 100 prompts, so it is the full prompt for practical purposes
+[policy] learned+reason A [oracle subset] n= 60 tokens removed  30.9% | hist kept 13.9/23.0 | fixed dropped 0.00 | disagree raw 0.150 (UB 0.247) confirmed 0.133 (UB 0.228) | floor on same prompts raw 0.167 conf 0.117 | discordant vs floor raw 6/7 p=1.000, conf 5/4 p=1.000 | trunc 0.000
+    by scenario dup     n=  6 tokens removed   0.0% confirmed-disagree 0.000 raw 0.000
+    by scenario first   n= 12 tokens removed  51.3% confirmed-disagree 0.083 raw 0.083
+    by scenario noinv   n= 15 tokens removed   0.0% confirmed-disagree 0.267 raw 0.267
+    by scenario normal  n= 20 tokens removed  60.7% confirmed-disagree 0.000 raw 0.050
+    by scenario spike   n=  7 tokens removed   0.0% confirmed-disagree 0.429 raw 0.429
+[policy] rule(tx,inv,flag) [oracle subset] n= 60 tokens removed  83.5% | hist kept 0.0/23.0 | fixed dropped 1.00 | disagree raw 0.467 (UB 0.580) confirmed 0.417 (UB 0.531) | floor on same prompts raw 0.167 conf 0.117 | discordant vs floor raw 20/2 p=0.000, conf 20/2 p=0.000 | trunc 0.000
+    by scenario dup     n=  6 tokens removed  83.3% confirmed-disagree 1.000 raw 1.000
+    by scenario first   n= 12 tokens removed  81.0% confirmed-disagree 0.250 raw 0.250
+    by scenario noinv   n= 15 tokens removed  86.2% confirmed-disagree 0.733 raw 0.867
+    by scenario normal  n= 20 tokens removed  83.2% confirmed-disagree 0.100 raw 0.100
+    by scenario spike   n=  7 tokens removed  82.6% confirmed-disagree 0.429 raw 0.571
+[policy] cross-enc top-3 [oracle subset] n= 60 tokens removed  72.2% | hist kept 3.0/23.0 | fixed dropped 1.00 | disagree raw 0.383 (UB 0.498) confirmed 0.350 (UB 0.464) | floor on same prompts raw 0.167 conf 0.117 | discordant vs floor raw 14/1 p=0.001, conf 16/2 p=0.001 | trunc 0.000
+    by scenario dup     n=  6 tokens removed  71.6% confirmed-disagree 0.500 raw 0.500
+    by scenario first   n= 12 tokens removed  68.2% confirmed-disagree 0.250 raw 0.250
+    by scenario noinv   n= 15 tokens removed  75.1% confirmed-disagree 0.600 raw 0.667
+    by scenario normal  n= 20 tokens removed  72.5% confirmed-disagree 0.050 raw 0.100
+    by scenario spike   n=  7 tokens removed  71.5% confirmed-disagree 0.714 raw 0.714
+[floor on oracle subset] raw 0.167 confirmed 0.117
+[validation] pool sizes {'floor': 97, 'abl': 871, 'pol': 335}; sample 150 (swap/core-rubric on 30); est $0.38, left $1.05
+[judge] n: 150
+[judge] sonnet_diff_rate: 0.347
+[judge] mini_diff_rate: 0.287
+[judge] kappa_sonnet_vs_mini: 0.678
+[judge] agree_sonnet_vs_mini: 0.86
+[judge] sonnet_self_agree: 0.993
+[judge] sonnet_self_kappa: 0.985
+[judge] sonnet_self_flips: {'first_D_n': 52, 'D_stays_D': 0.9807692307692307, 'first_S_n': 98, 'S_becomes_D': 0.0}
+[judge] mini_self_agree: 0.94
+[judge] mini_self_kappa: 0.852
+[judge] kappa_sonnet_rep_vs_mini: 0.691
+[judge] n_small: 30
+[judge] sonnet_diff_rate_small: 0.333
+[judge] sonnet_swap_agree: 0.867
+[judge] sonnet_swap_kappa: 0.714
+[judge] core_diff_rate_small: 0.1
+[judge] agree_strict_vs_core_rubric: 0.767
+[judge] kappa_strict_vs_core_rubric: 0.364
+[judge] by_floor: {'n': 50, 'sonnet_diff': 0.14, 'self_agree': 1.0, 'mini_agree': 0.88, 'mini_diff': 0.14}
+[judge] by_abl: {'n': 50, 'sonnet_diff': 0.54, 'self_agree': 1.0, 'mini_agree': 0.82, 'mini_diff': 0.36}
+[judge] by_pol: {'n': 50, 'sonnet_diff': 0.36, 'self_agree': 0.98, 'mini_agree': 0.88, 'mini_diff': 0.36}
+[judge] confusion_sonnet_mini: {'sonnet D / mini D': 37, 'sonnet D / mini S': 15, 'sonnet S / mini D': 6, 'sonnet S / mini S': 92}
+[judge] unparsed: 11
+[spend] validation: $4.151 ledger, 1521 new calls this run, 268s
+[spend] calibration learned+reason A: $4.255 ledger, 1667 new calls this run, 295s
+[policy] learned+reason A on calibration (train OOF) n= 80 tokens removed  26.2% | hist kept 14.2/21.5 | fixed dropped 0.00 | disagree raw 0.188 (UB 0.274) confirmed 0.113 (UB 0.188) | floor on same prompts raw nan conf nan | discordant vs floor raw None/None p=nan, conf None/None p=nan | trunc 0.000
+    by scenario dup     n= 14 tokens removed   0.0% confirmed-disagree 0.286 raw 0.357
+    by scenario first   n= 16 tokens removed  44.5% confirmed-disagree 0.062 raw 0.125
+    by scenario noinv   n= 15 tokens removed   0.0% confirmed-disagree 0.067 raw 0.200
+    by scenario normal  n= 25 tokens removed  45.3% confirmed-disagree 0.080 raw 0.080
+    by scenario spike   n= 10 tokens removed  27.9% confirmed-disagree 0.100 raw 0.300
+[certificate learned+reason A] metric=raw  budget 0.05: cal n=80 cutoff inf cov 0.000 err None bound None | held-out coverage 0.000 error None (n above 0) input tokens saved 0.0% | pooled n=180 cov 0.000 err None bound None tokens saved 0.0%
+[certificate learned+reason A] metric=raw  budget 0.10: cal n=80 cutoff inf cov 0.000 err None bound None | held-out coverage 0.000 error None (n above 0) input tokens saved 0.0% | pooled n=180 cov 0.000 err None bound None tokens saved 0.0%
+[certificate learned+reason A] metric=raw  budget 0.15: cal n=80 cutoff inf cov 0.000 err None bound None | held-out coverage 0.000 error None (n above 0) input tokens saved 0.0% | pooled n=180 cov 0.000 err None bound None tokens saved 0.0%
+[certificate learned+reason A] metric=raw  budget 0.20: cal n=80 cutoff inf cov 0.000 err None bound None | held-out coverage 0.000 error None (n above 0) input tokens saved 0.0% | pooled n=180 cov 0.000 err None bound None tokens saved 0.0%
+[calibration learned+reason A] pooled raw disagreement 0.161 on n=180 (floor on held-out 0.160); calibration rows needed to certify 5%/10% at that rate with zero slack: None/None
+[certificate learned+reason A] metric=cons budget 0.05: cal n=80 cutoff inf cov 0.000 err None bound None | held-out coverage 0.000 error None (n above 0) input tokens saved 0.0% | pooled n=180 cov 0.000 err None bound None tokens saved 0.0%
+[certificate learned+reason A] metric=cons budget 0.10: cal n=80 cutoff inf cov 0.000 err None bound None | held-out coverage 0.000 error None (n above 0) input tokens saved 0.0% | pooled n=180 cov 0.000 err None bound None tokens saved 0.0%
+[certificate learned+reason A] metric=cons budget 0.15: cal n=80 cutoff inf cov 0.000 err None bound None | held-out coverage 0.000 error None (n above 0) input tokens saved 0.0% | pooled n=180 cov 0.000 err None bound None tokens saved 0.0%
+[certificate learned+reason A] metric=cons budget 0.20: cal n=80 cutoff inf cov 0.000 err None bound None | held-out coverage 0.000 error None (n above 0) input tokens saved 0.0% | pooled n=180 cov 0.500 err 0.06666666666666667 bound 0.18457839241542714 tokens saved 26.8%
+[calibration learned+reason A] pooled cons disagreement 0.117 on n=180 (floor on held-out 0.130); calibration rows needed to certify 5%/10% at that rate with zero slack: None/None
+[spend] calibration learned+reason A: $4.323 ledger, 1762 new calls this run, 313s
+[policy] learned+reason A on calibration (train OOF + unlabelled train) n=120 tokens removed  24.3% | hist kept 15.1/21.9 | fixed dropped 0.00 | disagree raw 0.175 (UB 0.242) confirmed 0.100 (UB 0.157) | floor on same prompts raw nan conf nan | discordant vs floor raw None/None p=nan, conf None/None p=nan | trunc 0.000
+    by scenario dup     n= 19 tokens removed   0.0% confirmed-disagree 0.263 raw 0.316
+    by scenario first   n= 19 tokens removed  45.3% confirmed-disagree 0.053 raw 0.105
+    by scenario noinv   n= 24 tokens removed   0.0% confirmed-disagree 0.042 raw 0.208
+    by scenario normal  n= 38 tokens removed  48.1% confirmed-disagree 0.079 raw 0.079
+    by scenario spike   n= 20 tokens removed  13.5% confirmed-disagree 0.100 raw 0.250
+[certificate learned+reason A] metric=raw  budget 0.05: cal n=120 cutoff inf cov 0.000 err None bound None | held-out coverage 0.000 error None (n above 0) input tokens saved 0.0% | pooled n=220 cov 0.000 err None bound None tokens saved 0.0%
+[certificate learned+reason A] metric=raw  budget 0.10: cal n=120 cutoff inf cov 0.000 err None bound None | held-out coverage 0.000 error None (n above 0) input tokens saved 0.0% | pooled n=220 cov 0.000 err None bound None tokens saved 0.0%
+[certificate learned+reason A] metric=raw  budget 0.15: cal n=120 cutoff inf cov 0.000 err None bound None | held-out coverage 0.000 error None (n above 0) input tokens saved 0.0% | pooled n=220 cov 0.000 err None bound None tokens saved 0.0%
+[certificate learned+reason A] metric=raw  budget 0.20: cal n=120 cutoff inf cov 0.000 err None bound None | held-out coverage 0.000 error None (n above 0) input tokens saved 0.0% | pooled n=220 cov 0.450 err 0.08080808080808081 bound 0.1969136115963349 tokens saved 24.6%
+[calibration learned+reason A] pooled raw disagreement 0.159 on n=220 (floor on held-out 0.160); calibration rows needed to certify 5%/10% at that rate with zero slack: None/None
+[certificate learned+reason A] metric=cons budget 0.05: cal n=120 cutoff inf cov 0.000 err None bound None | held-out coverage 0.000 error None (n above 0) input tokens saved 0.0% | pooled n=220 cov 0.000 err None bound None tokens saved 0.0%
+[certificate learned+reason A] metric=cons budget 0.10: cal n=120 cutoff inf cov 0.000 err None bound None | held-out coverage 0.000 error None (n above 0) input tokens saved 0.0% | pooled n=220 cov 0.000 err None bound None tokens saved 0.0%
+[certificate learned+reason A] metric=cons budget 0.15: cal n=120 cutoff inf cov 0.000 err None bound None | held-out coverage 0.000 error None (n above 0) input tokens saved 0.0% | pooled n=220 cov 0.000 err None bound None tokens saved 0.0%
+[certificate learned+reason A] metric=cons budget 0.20: cal n=120 cutoff inf cov 0.000 err None bound None | held-out coverage 0.000 error None (n above 0) input tokens saved 0.0% | pooled n=220 cov 1.000 err 0.10909090909090909 bound 0.18645381546372455 tokens saved 26.3%
+[calibration learned+reason A] pooled cons disagreement 0.109 on n=220 (floor on held-out 0.130); calibration rows needed to certify 5%/10% at that rate with zero slack: None/None
+[policy] oracle+ (spread->all)  n= 60 tokens removed  60.1% | hist kept 6.9/23.0 | fixed dropped 1.40 | disagree raw 0.317 (UB 0.429) confirmed 0.317 (UB 0.429) | floor on same prompts raw 0.167 conf 0.117 | discordant vs floor raw 14/5 p=0.064, conf 15/3 p=0.008 | trunc 0.000
+    by scenario dup     n=  6 tokens removed  45.4% confirmed-disagree 0.000 raw 0.000
+    by scenario first   n= 12 tokens removed  69.7% confirmed-disagree 0.167 raw 0.167
+    by scenario noinv   n= 15 tokens removed  39.4% confirmed-disagree 0.800 raw 0.800
+    by scenario normal  n= 20 tokens removed  76.8% confirmed-disagree 0.200 raw 0.200
+    by scenario spike   n=  7 tokens removed  49.8% confirmed-disagree 0.143 raw 0.143
+[spend] oracle+ (spread->all): $4.337 ledger, 1781 new calls this run, 321s
+[policy] recent-3               n=100 tokens removed  72.0% | hist kept 3.0/22.8 | fixed dropped 1.00 | disagree raw 0.370 (UB 0.457) confirmed 0.340 (UB 0.426) | floor on same prompts raw 0.160 conf 0.130 | discordant vs floor raw 25/4 p=0.000, conf 23/2 p=0.000 | trunc 0.000
+    by scenario dup     n= 12 tokens removed  73.1% confirmed-disagree 0.083 raw 0.167
+    by scenario first   n= 16 tokens removed  69.1% confirmed-disagree 0.312 raw 0.312
+    by scenario noinv   n= 21 tokens removed  74.9% confirmed-disagree 0.571 raw 0.667
+    by scenario normal  n= 34 tokens removed  72.0% confirmed-disagree 0.088 raw 0.088
+    by scenario spike   n= 17 tokens removed  69.9% confirmed-disagree 0.765 raw 0.765
+[spend] recent-3: $4.500 ledger, 2017 new calls this run, 355s
+[policy] learned+reason B       n=100 tokens removed   0.4% | hist kept 22.7/22.8 | fixed dropped 0.00 | disagree raw 0.140 (UB 0.210) confirmed 0.110 (UB 0.176) | floor on same prompts raw 0.160 conf 0.130 | discordant vs floor raw 8/10 p=0.815, conf 5/7 p=0.774 | trunc 0.000
+    by scenario dup     n= 12 tokens removed   0.0% confirmed-disagree 0.000 raw 0.000
+    by scenario first   n= 16 tokens removed   0.0% confirmed-disagree 0.062 raw 0.062
+    by scenario noinv   n= 21 tokens removed   0.0% confirmed-disagree 0.238 raw 0.238
+    by scenario normal  n= 34 tokens removed   1.2% confirmed-disagree 0.000 raw 0.059
+    by scenario spike   n= 17 tokens removed   0.0% confirmed-disagree 0.294 raw 0.353
+[spend] learned+reason B: $4.560 ledger, 2112 new calls this run, 369s
+[spend] end: $4.560 ledger, 2112 new calls this run, 369s
+providers seen: [(('Claude Platform on AWS', 'anthropic/claude-sonnet-5.5'), 3122), (('Claude Platform on AWS', 'anthropic/claude-haiku-5.5'), 2748), (('OpenAI', 'openai/gpt-5.4-mini'), 319), (('Anthropic', 'anthropic/claude-sonnet-5.5'), 3)]
+exit=0

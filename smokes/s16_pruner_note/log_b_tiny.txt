@@ -1,0 +1,83 @@
+=== S16b TINY pool 12 labelled prompts, 11 vendors, 2 vendor-grouped folds sizes [6, 6]; S16 ledger +0.052 vs base
+[old split] cached S16 split was by prompt id: 24/60 labelled held-out prompts had their vendor in the scorer-training prompts
+[scorer vs history labels, vendor-OOF] learned        within_auc 0.053 n_mixed 2 recall@2 0.026 all_needed_kept@2 0.0 recall@5 0.064 all_needed_kept@5 0.0 (prompts with a needed record: 3)
+[scorer vs history labels, vendor-OOF] cross-encoder  within_auc 0.444 n_mixed 2 recall@2 0.116 all_needed_kept@2 0.0 recall@5 0.236 all_needed_kept@5 0.0 (prompts with a needed record: 3)
+[scorer vs history labels, vendor-OOF] recency        within_auc 0.5 n_mixed 2 recall@2 0.092 all_needed_kept@2 0.0 recall@5 0.231 all_needed_kept@5 0.0 (prompts with a needed record: 3)
+[scorer vs history labels, vendor-OOF] random         within_auc 0.318 n_mixed 2 recall@2 0.049 all_needed_kept@2 0.0 recall@5 0.145 all_needed_kept@5 0.0 (prompts with a needed record: 3)
+[spend] m=0 (4 fixed fields) (0 new notes): S16b has spent $0.052 of $1.6 (0 new calls this run, 22s)
+[floor] two independent full-prompt notes on the same 12 prompts: confirmed DIFFERENT 0.167 (CP UB 0.438, vendor-bootstrap 0.000-0.417); raw 0.167; by scenario {'dup': 0.0, 'first': 0.0, 'noinv': 0.6666666666666666, 'normal': 0.0}
+[spend] floor: S16b has spent $0.052 of $1.6 (0 new calls this run, 22s)
+[cell] m=0 (4 fixed fields)   n= 12 tokens removed  79.3% | hist kept 0.0/22.8 | equivalent 75.0% (disagree 0.250, CP UB 0.527, vendor-bootstrap 0.000-0.545; raw 0.250) | floor same rows 0.167 | discordant vs floor 2/1 p=1.000
+      dup     n=  1 tokens removed  84.3% disagree 1.000
+      first   n=  3 tokens removed  77.0% disagree 0.000
+      noinv   n=  3 tokens removed  81.4% disagree 0.667
+      normal  n=  5 tokens removed  78.2% disagree 0.000
+[certificate] learned m=0                       budget  5%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] learned m=0                       budget 10%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] learned m=0                       budget 15%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] learned m=0            (vs floor) budget  5%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] learned m=0            (vs floor) budget 10%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] learned m=0            (vs floor) budget 15%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] cross-encoder m=0                 budget  5%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] cross-encoder m=0                 budget 10%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] cross-encoder m=0                 budget 15%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] cross-encoder m=0      (vs floor) budget  5%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] cross-encoder m=0      (vs floor) budget 10%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] cross-encoder m=0      (vs floor) budget 15%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] oracle m=0                        budget  5%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] oracle m=0                        budget 10%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] oracle m=0                        budget 15%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] oracle m=0             (vs floor) budget  5%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] oracle m=0             (vs floor) budget 10%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] oracle m=0             (vs floor) budget 15%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] random m=0                        budget  5%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] random m=0                        budget 10%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] random m=0                        budget 15%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] random m=0             (vs floor) budget  5%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] random m=0             (vs floor) budget 10%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] random m=0             (vs floor) budget 15%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[spend] learned m=2 (0 new notes): S16b has spent $0.052 of $1.6 (0 new calls this run, 22s)
+[cell] learned m=2            n= 12 tokens removed  71.0% | hist kept 2.0/22.8 | equivalent 75.0% (disagree 0.250, CP UB 0.527, vendor-bootstrap 0.000-0.545; raw 0.333) | floor same rows 0.167 | discordant vs floor 2/1 p=1.000
+      dup     n=  1 tokens removed  77.5% disagree 1.000
+      first   n=  3 tokens removed  66.7% disagree 0.000
+      noinv   n=  3 tokens removed  72.9% disagree 0.667
+      normal  n=  5 tokens removed  70.6% disagree 0.000
+[certificate] learned m=2                       budget  5%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] learned m=2                       budget 10%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] learned m=2                       budget 15%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] learned m=2            (vs floor) budget  5%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] learned m=2            (vs floor) budget 10%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] learned m=2            (vs floor) budget 15%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[spend] cross-encoder m=2 (0 new notes): S16b has spent $0.052 of $1.6 (0 new calls this run, 22s)
+[cell] cross-encoder m=2      n= 12 tokens removed  71.4% | hist kept 2.0/22.8 | equivalent 83.3% (disagree 0.167, CP UB 0.438, vendor-bootstrap 0.000-0.417; raw 0.167) | floor same rows 0.167 | discordant vs floor 1/1 p=1.000
+      dup     n=  1 tokens removed  77.6% disagree 0.000
+      first   n=  3 tokens removed  67.1% disagree 0.333
+      noinv   n=  3 tokens removed  73.9% disagree 0.333
+      normal  n=  5 tokens removed  70.6% disagree 0.000
+[certificate] cross-encoder m=2                 budget  5%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] cross-encoder m=2                 budget 10%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] cross-encoder m=2                 budget 15%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] cross-encoder m=2      (vs floor) budget  5%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] cross-encoder m=2      (vs floor) budget 10%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] cross-encoder m=2      (vs floor) budget 15%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[spend] rule (tx+inv+flag) (0 new notes): S16b has spent $0.052 of $1.6 (0 new calls this run, 22s)
+[cell] rule (tx+inv+flag)     n= 12 tokens removed  84.1% | hist kept 0.0/22.8 | equivalent 75.0% (disagree 0.250, CP UB 0.527, vendor-bootstrap 0.000-0.545; raw 0.250) | floor same rows 0.167 | discordant vs floor 2/1 p=1.000
+      dup     n=  1 tokens removed  88.4% disagree 1.000
+      first   n=  3 tokens removed  82.4% disagree 0.000
+      noinv   n=  3 tokens removed  86.3% disagree 0.667
+      normal  n=  5 tokens removed  82.7% disagree 0.000
+[certificate] rule (tx+inv+flag)                budget  5%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] rule (tx+inv+flag)                budget 10%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] rule (tx+inv+flag)                budget 15%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] rule (tx+inv+flag)     (vs floor) budget  5%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] rule (tx+inv+flag)     (vs floor) budget 10%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+[certificate] rule (tx+inv+flag)     (vs floor) budget 15%: covered   0/12 ( 0.0%) error among covered None CP UB None | input tokens saved  0.0% | folds with a cutoff 0/2 | in-sample (all rows as calibration) coverage  0.0% bound None tokens  0.0%
+=== headline: share of draft_note input tokens removable at each budget (cross-fitted, vendor-disjoint calibration/held-out, low-confidence prompts fall back to the full prompt)
+  budget 5%         learned m=0: tokens saved 0.0% coverage 0% error None (UB None) | cross-encoder m=0: tokens saved 0.0% coverage 0% error None (UB None) | oracle m=0: tokens saved 0.0% coverage 0% error None (UB None)
+  budget 10%        learned m=0: tokens saved 0.0% coverage 0% error None (UB None) | cross-encoder m=0: tokens saved 0.0% coverage 0% error None (UB None) | oracle m=0: tokens saved 0.0% coverage 0% error None (UB None)
+  budget 15%        learned m=0: tokens saved 0.0% coverage 0% error None (UB None) | cross-encoder m=0: tokens saved 0.0% coverage 0% error None (UB None) | oracle m=0: tokens saved 0.0% coverage 0% error None (UB None)
+  budget excess@5%  learned m=0: tokens saved 0.0% coverage 0% error None (UB None) | cross-encoder m=0: tokens saved 0.0% coverage 0% error None (UB None) | oracle m=0: tokens saved 0.0% coverage 0% error None (UB None)
+  budget excess@10% learned m=0: tokens saved 0.0% coverage 0% error None (UB None) | cross-encoder m=0: tokens saved 0.0% coverage 0% error None (UB None) | oracle m=0: tokens saved 0.0% coverage 0% error None (UB None)
+  budget excess@15% learned m=0: tokens saved 0.0% coverage 0% error None (UB None) | cross-encoder m=0: tokens saved 0.0% coverage 0% error None (UB None) | oracle m=0: tokens saved 0.0% coverage 0% error None (UB None)
+[spend] end: S16b has spent $0.052 of $1.6 (0 new calls this run, 22s)
+providers seen: [(('Claude Platform on AWS', 'anthropic/claude-sonnet-5.5'), 3168), (('Claude Platform on AWS', 'anthropic/claude-haiku-5.5'), 2784), (('OpenAI', 'openai/gpt-5.4-mini'), 319), (('Anthropic', 'anthropic/claude-sonnet-5.5'), 3)]

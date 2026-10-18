@@ -1,0 +1,56 @@
+[B] total spend $1.9543; error rows per cfg: {'E1': 0, 'C1': 0, 'C2': 0, 'C2b': 0, 'E1b': 0, 'C1b': 0, 'E2b': 0, 'C3': 0, 'Ton': 0, 'E2': 0, 'C4': 0}
+| cfg | model | setting | n | gold acc | parse fails | match vs E1 | mean ms | p50 ms | prompt tok | compl tok | reasoning tok | $/1000 calls |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| E1 | openai/gpt-5.4 | {"reasoning": {"effort": "low"}} | 200 | 0.870 | 0 | - | 2311 | 2229 | 439 | 41.4 | 31.4 | 1.719 |
+| C1 | openai/gpt-5.4-nano | {"reasoning": {"effort": "none"}} | 200 | 0.760 | 0 | 0.815 | 843 | 834 | 439 | 8.0 | 0.0 | 0.098 |
+| C2 | openai/gpt-5.4-mini | {"reasoning": {"effort": "none"}} | 200 | 0.770 | 1 | 0.805 | 866 | 822 | 439 | 8.0 | 0.0 | 0.366 |
+| C2b | openai/gpt-5.4-mini | {"reasoning": {"effort": "none"}} | 200 | 0.775 | 1 | 0.805 | 830 | 810 | 439 | 8.0 | 0.0 | 0.366 |
+| E1b | openai/gpt-5.4 | {"reasoning": {"effort": "low"}} | 200 | 0.895 | 0 | 0.940 | 2186 | 2118 | 439 | 42.6 | 32.6 | 1.737 |
+| C1b | openai/gpt-5.4-nano | {"reasoning": {"effort": "none"}} | 200 | 0.755 | 0 | 0.805 | 798 | 787 | 439 | 8.0 | 0.0 | 0.098 |
+| E2b | anthropic/claude-sonnet-4.6 | {"reasoning": {"enabled": false}} | 200 | 0.815 | 0 | 0.855 | 902 | 876 | 568 | 8.5 | 0.0 | 1.831 |
+| C3 | qwen/qwen3-32b | {"reasoning": {"enabled": false}} | 200 | 0.690 | 1 | 0.770 | 572 | 454 | 434 | 7.8 | 1.0 | 0.037 |
+| Ton | openai/gpt-5.4-mini | {"reasoning": {"effort": "high"}} | 200 | 0.840 | 0 | 0.890 | 2665 | 2125 | 439 | 166.5 | 156.5 | 1.079 |
+| E2 | anthropic/claude-sonnet-4.6 | {"reasoning": {"enabled": false}} | 200 | 0.815 | 0 | 0.860 | 945 | 872 | 568 | 8.5 | 0.0 | 1.831 |
+| C4 | anthropic/claude-haiku-4.5 | {"reasoning": {"enabled": false}} | 200 | 0.770 | 2 | 0.800 | 806 | 769 | 567 | 8.7 | 0.0 | 0.611 |
+
+[B] pairwise agreement (same-label rate):
+   C2   vs C2b : match=0.910 (n=200) disagreements=18; gold acc C2=0.770 C2b=0.775
+   E1   vs E1b : match=0.940 (n=200) disagreements=12; gold acc E1=0.870 E1b=0.895
+   C1   vs C1b : match=0.905 (n=200) disagreements=19; gold acc C1=0.760 C1b=0.755
+   E2   vs E2b : match=0.990 (n=200) disagreements=2; gold acc E2=0.815 E2b=0.815
+   C1   vs E1b : match=0.825 (n=200) disagreements=35; gold acc C1=0.760 E1b=0.895
+   Ton  vs C2  : match=0.835 (n=200) disagreements=33; gold acc Ton=0.840 C2=0.770
+   Ton  vs E1  : match=0.890 (n=200) disagreements=22; gold acc Ton=0.840 E1=0.870
+   C4   vs E2  : match=0.825 (n=200) disagreements=35; gold acc C4=0.770 E2=0.815
+   E2   vs E1  : match=0.860 (n=200) disagreements=28; gold acc E2=0.815 E1=0.870
+   C1   vs E1  : match=0.815 (n=200) disagreements=37; gold acc C1=0.760 E1=0.870
+   C2   vs E1  : match=0.805 (n=200) disagreements=39; gold acc C2=0.770 E1=0.870
+   C3   vs E1  : match=0.770 (n=200) disagreements=46; gold acc C3=0.690 E1=0.870
+   C4   vs E1  : match=0.800 (n=200) disagreements=40; gold acc C4=0.770 E1=0.870
+   C1 vs E1 disagreements=37: E1 right only=25, cheap right only=3, both wrong=9; E1 wrong overall=26, cheap wrong where E1 wrong=23
+   C2 vs E1 disagreements=39: E1 right only=24, cheap right only=4, both wrong=11; E1 wrong overall=26, cheap wrong where E1 wrong=22
+   C3 vs E1 disagreements=46: E1 right only=37, cheap right only=1, both wrong=8; E1 wrong overall=26, cheap wrong where E1 wrong=25
+   C4 vs E1 disagreements=40: E1 right only=25, cheap right only=5, both wrong=10; E1 wrong overall=26, cheap wrong where E1 wrong=21
+   Ton vs E1 disagreements=22: E1 right only=11, cheap right only=5, both wrong=6; E1 wrong overall=26, cheap wrong where E1 wrong=21
+   most frequent E1 -> C1 label swaps: {'exchange_via_app <> exchange_rate': 3, 'getting_virtual_card <> get_disposable_virtual_card': 2, 'transfer_into_account <> transfer_timing': 2, 'unable_to_verify_identity <> why_verify_identity': 2, 'change_pin <> passcode_forgotten': 2}
+   Ton finish reasons: {'stop': 200}; reasoning tok mean=156 max=1577
+
+[B] router, label = (cheap != E1), 5-fold LR on bge-small embeddings (AUC of predicting disagreement):
+   C1: disagreements=37/200 (0.185) AUC=0.598
+   C2: disagreements=39/200 (0.195) AUC=0.564
+   C3: disagreements=46/200 (0.230) AUC=0.577
+   C4: disagreements=40/200 (0.200) AUC=0.598
+[B] best cheap config by match vs E1 (ties -> cheaper): C1 (match 0.815, $0.098 vs E1 $1.719 per 1000)
+   min zero-error rows to certify budget 0.02: 258 (delta/m=0.0056); we have n=200
+   min zero-error rows to certify budget 0.05: 102 (delta/m=0.0056); we have n=200
+   min zero-error rows to certify budget 0.1: 50 (delta/m=0.0056); we have n=200
+   certify budget=0.02: nothing certifiable on 100 calibration rows; no-guarantee version below
+   certify budget=0.05: nothing certifiable on 100 calibration rows; no-guarantee version below
+   certify budget=0.1: nothing certifiable on 100 calibration rows; no-guarantee version below
+   certify budget=0.2: nothing certifiable on 100 calibration rows; no-guarantee version below
+   empirical budget=0.02: none
+   empirical budget=0.05: none
+   empirical budget=0.1: none
+   empirical (no guarantee) budget=0.15: cutoff=0.831 cal cov=0.470 | holdout share-cheap=0.450 disagree=0.06666666666666667 n_above=45 blended $/1000=0.990
+   descriptive (all 200, OOF conf; no guarantee): share routed -> disagreement vs E1 in routed set: 10%->0.250; 20%->0.150; 30%->0.150; 40%->0.113; 50%->0.120; 60%->0.133; 80%->0.169; 100%->0.185
+   always-cheap C1: disagree vs E1 = 0.185, $/1000=0.098

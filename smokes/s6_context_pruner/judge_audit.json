@@ -1,0 +1,263 @@
+{
+ "per_teacher": {
+  "nano_t1": {
+   "n": 80,
+   "agree": 0.8875,
+   "kappa": 0.7749999999999999,
+   "primary_yes": 40,
+   "second_yes": 35,
+   "unparsed_second": 0
+  },
+  "qwen_t0": {
+   "n": 80,
+   "agree": 0.875,
+   "kappa": 0.75,
+   "primary_yes": 40,
+   "second_yes": 42,
+   "unparsed_second": 0
+  },
+  "gemini_t0": {
+   "n": 80,
+   "agree": 0.875,
+   "kappa": 0.75,
+   "primary_yes": 40,
+   "second_yes": 38,
+   "unparsed_second": 0
+  }
+ },
+ "usd": 0.035551,
+ "disagreements": [
+  {
+   "tag": "nano_t1",
+   "q": "Do Czes\u0142aw Mi\u0142osz and Nathalie Sarraute have the same nationality?",
+   "a": "No. Czes\u0142aw Mi\u0142osz was Polish; Nathalie Sarraute was French.",
+   "b": "No.",
+   "primary": "YES",
+   "second": "NO"
+  },
+  {
+   "tag": "nano_t1",
+   "q": "Are Anja Salomonowitz and Rod Lurie both directors?",
+   "a": "Yes.",
+   "b": "No. Rod Lurie is a director; Anja Salomonowitz is a film director and screenwriter.",
+   "primary": "YES",
+   "second": "NO"
+  },
+  {
+   "tag": "nano_t1",
+   "q": "What job do both Alfred Santell and David Fincher have in common?",
+   "a": "film director and film producer",
+   "b": "Film director/producer and screenwriter",
+   "primary": "YES",
+   "second": "NO"
+  },
+  {
+   "tag": "nano_t1",
+   "q": "Marwan Hage played for a college team that sponsors how many varsity sports teams?",
+   "a": "12 for men and 13 for women",
+   "b": "17",
+   "primary": "YES",
+   "second": "NO"
+  },
+  {
+   "tag": "nano_t1",
+   "q": "Did Ed Sullivan ever work anywhere other than the New York Daily News?",
+   "a": "Yes\u2014he was also a sports and entertainment reporter and columnist for the Chicago Tribune New York News Syndicate.",
+   "b": "Yes\u2014he was a columnist for the Chicago Tribune.",
+   "primary": "YES",
+   "second": "NO"
+  },
+  {
+   "tag": "nano_t1",
+   "q": "SkyJump Las Vegas is located at a hotel on what street?",
+   "a": "Stratosphere Las Vegas",
+   "b": "Stratosphere Las Vegas on Las Vegas Boulevard",
+   "primary": "YES",
+   "second": "NO"
+  },
+  {
+   "tag": "nano_t1",
+   "q": "Ronald Reagan and George H. W. Bush both held which position in office?",
+   "a": "Vice President",
+   "b": "Vice President (George H. W. Bush was Vice President; Reagan was President).",
+   "primary": "YES",
+   "second": "NO"
+  },
+  {
+   "tag": "nano_t1",
+   "q": "Is The Stuff of Legend and Babes in Toyland both entertainment? ",
+   "a": "Yes.",
+   "b": "Yes\u2014both are entertainment (The Stuff of Legend is a comic book metaseries; Babes in Toyland is a film/operetta musical).",
+   "primary": "NO",
+   "second": "YES"
+  },
+  {
+   "tag": "nano_t1",
+   "q": "What is the English translation of the name of the novel series which the Four III is the final installment of?",
+   "a": "**Si Da Ming Bu**",
+   "b": "**The Four Great Constables**",
+   "primary": "NO",
+   "second": "YES"
+  },
+  {
+   "tag": "qwen_t0",
+   "q": "Who aided the Colorado forces in the Uruguayan war?",
+   "a": "The Colorado forces in the Uruguayan War were aided by the Empire of Brazil and covertly by Argentina, under President Bartolom\u00e9 Mitre.",
+   "b": "The Colorado forces in the Uruguayan War were aided by the Empire of Brazil and covertly by Argentina.",
+   "primary": "YES",
+   "second": "NO"
+  },
+  {
+   "tag": "qwen_t0",
+   "q": "Who is older, Jed Hoyer or John William Henry II?",
+   "a": "John William Henry II is older.",
+   "b": "John William Henry II",
+   "primary": "YES",
+   "second": "NO"
+  },
+  {
+   "tag": "qwen_t0",
+   "q": "What was triggered by the resignation of Conservative MP Stephen Phillips on 4 November 2016 and was when Caroline Johnson became a Member of Parliament?",
+   "a": "The Sleaford and North Hykeham by-election was triggered by the resignation of Conservative MP Stephen Phillips on 4 November 2016, when Caroline Johnson became a Member",
+   "b": "The Sleaford and North Hykeham by-election was triggered by the resignation of Conservative MP Stephen Phillips on 4 November 2016, and it was when Caroline Johnson",
+   "primary": "YES",
+   "second": "NO"
+  },
+  {
+   "tag": "qwen_t0",
+   "q": "What stone cube, meaning \"stumbling stone\", was designed by an American public affairs campaigner?",
+   "a": "The stone cube, meaning \"stumbling stone\", was designed by Terry Swartzberg, an American PA (public affairs) campaigner and journalist, for the holocaust memorial project St",
+   "b": "The stone cube meaning \"stumbling stone\" was designed by Terry Swartzberg, an American public affairs campaigner, for the holocaust memorial project Stolpersteine.",
+   "primary": "YES",
+   "second": "NO"
+  },
+  {
+   "tag": "qwen_t0",
+   "q": "Of these two publication--B\u00e1iki and Sick--what type of publication is the one that was published most frequently? ",
+   "a": "B\u00e1iki is a biannual publication, and Sick was published for 134 issues over 20 years. The one published most frequently is Sick.",
+   "b": "Sick",
+   "primary": "NO",
+   "second": "YES"
+  },
+  {
+   "tag": "qwen_t0",
+   "q": "To what sport does the Atomweight class belong?",
+   "a": "The Atomweight class belongs to **mixed martial arts (MMA)**.",
+   "b": "combat sports",
+   "primary": "NO",
+   "second": "YES"
+  },
+  {
+   "tag": "qwen_t0",
+   "q": "What role was played in \"Who Framed Roger Rabbit\" by the actor who played an Addams Family character played by Jackie Coogan in the original television series?",
+   "a": "Uncle Fester",
+   "b": "Christopher Lloyd played Judge Doom in \"Who Framed Roger Rabbit,\" and he also played Uncle Fester in \"The Addams Family\" films, a character originally played by Jackie Coogan",
+   "primary": "NO",
+   "second": "YES"
+  },
+  {
+   "tag": "qwen_t0",
+   "q": "In which county does the  8th Military Police Brigade  of the United States Army's Barracks located?",
+   "a": "Schofield Barracks is located in the City and County of Honolulu, Hawai\u02bbi. Therefore, the 8th Military Police Brigade is in the **County of Honolulu**.",
+   "b": "The context does not mention the 8th Military Police Brigade.",
+   "primary": "NO",
+   "second": "YES"
+  },
+  {
+   "tag": "qwen_t0",
+   "q": "Georges-Henri Bousquet translated the work of a historian who is of what heritage?",
+   "a": "North African Arab",
+   "b": "Georges-Henri Bousquet translated the work of Tunisian historian Ibn Khaldun.",
+   "primary": "NO",
+   "second": "YES"
+  },
+  {
+   "tag": "qwen_t0",
+   "q": "When was the Western Germanic language spoken from which the small settlement situated on the river Leda opposite Leer derives its name?",
+   "a": "The small settlement situated on the river Leda opposite Leer derives its name from Old Frisian. Old Frisian is a West Germanic language spoken between the 8th and",
+   "b": "The small settlement opposite Leer derives its name from Old Frisian, as mentioned in the context: \"Muhde\" comes from the Old Frisian \"mutha.\"",
+   "primary": "NO",
+   "second": "YES"
+  },
+  {
+   "tag": "gemini_t0",
+   "q": "Peter Shand Kydd was related to which early member of the Clermont Club?",
+   "a": "John \"Johnnie\" Shand Kydd",
+   "b": "John Shand Kydd",
+   "primary": "YES",
+   "second": "NO"
+  },
+  {
+   "tag": "gemini_t0",
+   "q": "Which musician or band is from further north, Matthew Good or Modern Baseball?",
+   "a": "Based on the provided context, there is no mention of the specific northern latitude or location of Matthew Good (other than being Canadian), so the context does not contain enough information to answer",
+   "b": "Based on the provided context, there is no mention of the specific geographical location (or northern latitude) of Matthew Good's birthplace or residence to compare with Philadelphia, Pennsylvania (where",
+   "primary": "YES",
+   "second": "NO"
+  },
+  {
+   "tag": "gemini_t0",
+   "q": "What do Susan Stafford and Vanna White have in common?",
+   "a": "Wheel of Fortune",
+   "b": "hostess of \"Wheel of Fortune\"",
+   "primary": "YES",
+   "second": "NO"
+  },
+  {
+   "tag": "gemini_t0",
+   "q": "Which Roman Emperor was grandfather to the children of Mark Antony?",
+   "a": "None",
+   "b": "Based on the provided context, there is no mention of a Roman Emperor who was a grandfather to the children of Mark Antony (Augustus, who is mentioned, was their uncle,",
+   "primary": "YES",
+   "second": "NO"
+  },
+  {
+   "tag": "gemini_t0",
+   "q": "Which American artist, who also illustrated works by Bill Nye and George W. Peck, illustrated an 1876 novel by Mark Twain about a young boy growing up along the Mississippi River?",
+   "a": "True Williams",
+   "b": "None",
+   "primary": "YES",
+   "second": "NO"
+  },
+  {
+   "tag": "gemini_t0",
+   "q": "Which musician or band is from further north, Matthew Good or Modern Baseball?",
+   "a": "Based on the provided context, there is no mention of the specific northern latitude or location of Matthew Good (other than being Canadian), so the context does not contain enough information to answer",
+   "b": "Based on the provided context, there is no mention of the specific geographical location (such as city or province/state) for Matthew Good, only that he is Canadian. Therefore,",
+   "primary": "YES",
+   "second": "NO"
+  },
+  {
+   "tag": "gemini_t0",
+   "q": "Who starred in more films Margaret Landon or Elizabeth Taylor?",
+   "a": "Based on the provided context, there is no mention of Margaret Landon starring in any films, while Elizabeth Taylor's acting career and film roles are extensively discussed (e.g.,",
+   "b": "Based on the provided context, there is no mention of Margaret Landon starring in any films. Elizabeth Taylor starred in films (such as *These Old Broads*), but a comparison",
+   "primary": "NO",
+   "second": "YES"
+  },
+  {
+   "tag": "gemini_t0",
+   "q": "Who starred in more films Margaret Landon or Elizabeth Taylor?",
+   "a": "Based on the provided context, there is no mention of Margaret Landon starring in any films, while Elizabeth Taylor's acting career and film roles are extensively discussed (e.g.,",
+   "b": "Based on the provided context, there is no mention of Margaret Landon starring in any films, whereas Elizabeth Taylor starred in films (e.g., *These Old Broads*, and",
+   "primary": "NO",
+   "second": "YES"
+  },
+  {
+   "tag": "gemini_t0",
+   "q": "Which sports station was the host of The Late Show, prior to Damien Fahey, an anchor for?",
+   "a": "ESPN",
+   "b": "ESPN's \"SportsCenter\"",
+   "primary": "NO",
+   "second": "YES"
+  },
+  {
+   "tag": "gemini_t0",
+   "q": "Who starred in more films Margaret Landon or Elizabeth Taylor?",
+   "a": "Based on the provided context, there is no mention of Margaret Landon starring in any films.",
+   "b": "Based on the provided context, there is no mention of Margaret Landon starring in any films, while Elizabeth Taylor's acting career and film roles are extensively discussed (e.g.,",
+   "primary": "NO",
+   "second": "YES"
+  }
+ ]
+}

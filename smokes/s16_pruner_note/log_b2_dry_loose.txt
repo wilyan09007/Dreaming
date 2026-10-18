@@ -1,0 +1,113 @@
+=== S16b v2 DRY (cache-only, scorer embedding + cross-encoder are STUBS) | pool 140 prompts, 84 vendors, 5 vendor-grouped folds | evidence=loose | stages ['cells', 'floor', 'relabel', 'typed'] | cap $3.0
+[prices] observed $/call from the response ledger: teacher 0.00014, judge1 judge 0.00130, judge2 judge 0.00028; overall 0.00074/call over 6274 calls ($4.61); log.txt: [spend] end: $4.560 ledger, 2112 new calls this run, 369s
+[extractor on the 140 A0 notes] stated / correct-among-stated: flag 140/140 / 140/140, tx_amt 139/140 / 139/139, tx_date 140/140 / 140/140, inv 140/140 / 140/140, reason 140/140 / 140/140
+
+=== stage relabel: 140 prompts, 946 ablation pairs (variant note vs A0), evidence=loose
+[relabel paths] {'canon-conflict': 273, 'canon-identical': 207, 'judge-onesided': 104, 'judge-evidence': 195, 'canon-lost:tx_date': 37, 'canon-lost:inv': 25, 'note-missing': 96, 'canon-lost:reason': 2, 'canon-lost:tx_amt,tx_date': 5, 'canon-lost:flag,inv,reason': 2} ; answerable now 551/946 ; FAIL 0 (excluded)
+   tx    pairs 140 answerable 140 new DIFFERENT 140 (1.00) | old strict-confirmed DIFFERENT on the same answerable pairs 88/140 | by canon: canon-conflict 105, canon-lost:tx_amt,tx_date 5, canon-lost:tx_date 30
+   inv   pairs 140 answerable 112 new DIFFERENT  97 (0.87) | old strict-confirmed DIFFERENT on the same answerable pairs 98/112 | by canon: canon-conflict 70, canon-identical 15, canon-lost:flag,inv,reason 2, canon-lost:inv 25, judge-evidence 16, judge-onesided 12
+   flag  pairs 140 answerable 120 new DIFFERENT  95 (0.79) | old strict-confirmed DIFFERENT on the same answerable pairs 115/120 | by canon: canon-conflict 93, canon-identical 25, canon-lost:reason 2, judge-evidence 6, judge-onesided 14
+   bank  pairs 140 answerable  72 new DIFFERENT   0 (0.00) | old strict-confirmed DIFFERENT on the same answerable pairs 2/72 | by canon: canon-identical 72, judge-evidence 36, judge-onesided 32
+   H0    pairs 140 answerable  69 new DIFFERENT  11 (0.16) | old strict-confirmed DIFFERENT on the same answerable pairs 13/69 | by canon: canon-conflict 4, canon-identical 58, canon-lost:tx_date 7, judge-evidence 49, judge-onesided 22
+   B0    pairs  82 answerable   8 new DIFFERENT   1 (0.12) | old strict-confirmed DIFFERENT on the same answerable pairs 2/8 | by canon: canon-conflict 1, canon-identical 7, judge-evidence 35, judge-onesided 7, note-missing 32
+   B1    pairs  82 answerable  19 new DIFFERENT   0 (0.00) | old strict-confirmed DIFFERENT on the same answerable pairs 3/19 | by canon: canon-identical 19, judge-evidence 25, judge-onesided 6, note-missing 32
+   B2    pairs  82 answerable  11 new DIFFERENT   0 (0.00) | old strict-confirmed DIFFERENT on the same answerable pairs 0/11 | by canon: canon-identical 11, judge-evidence 28, judge-onesided 11, note-missing 32
+[new span labels] tx 1.00 (n=140; old 0.63), inv 0.87 (n=112; old 0.78), flag 0.79 (n=120; old 0.95), bank 0.00 (n=72; old 0.18) | H0 changes note 0.16 (n=69; old 0.41) | history-record positives 0.035 over 1302 labelled records (old 0.276) | prompts needing history (new / old): 11 / 57; prompts with H0 not answerable 71; H0-changed prompts whose blocks are not answerable 9
+[spend] relabel: 1s
+[scorer vs NEW history labels, vendor-OOF] learned        within_auc None n_mixed 0 n_withpos 2
+[scorer vs NEW history labels, vendor-OOF] cross-encoder  within_auc None n_mixed 0 n_withpos 2  <- STUB scores
+[scorer vs NEW history labels, vendor-OOF] recency        within_auc None n_mixed 0 n_withpos 2
+[scorer vs NEW history labels, vendor-OOF] random         within_auc None n_mixed 0 n_withpos 2
+[scorers] embedding: STUB(dry: zero embeddings, cos feature = 0); cross-encoder: STUB(dry); masked-label training rows per rotation (rows, positives): {0: (930, 236), 1: (1127, 246), 2: (1112, 207), 3: (1043, 203), 4: (1026, 239)}; rotation f = test fold f, calibration fold(s) {0: [1], 1: [2], 2: [3], 3: [4], 4: [0]}, scorer trained on folds {0: [2, 3, 4], 1: [0, 3, 4], 2: [0, 1, 4], 3: [0, 1, 2], 4: [1, 2, 3]}
+
+=== stage floor: A0 vs A3 (independent full-prompt notes), 180 prompts (106 with both notes cached; 74 need the rep-3 note), evidence=loose
+[floor paths] {'judge-onesided': 13, 'canon-identical': 62, 'judge-evidence': 28, 'note-missing': 74, 'exact-text': 3}
+[floor pool 140 (labelled)] NEW equivalence DIFFERENT 0/38 = 0.000 (CP UB 0.076) | FAIL 0 (excluded) | not answerable 102 | policy loose
+      strict rubric (secondary, same pairs): raw 8/65 = 0.123 (CP UB 0.211) | FAIL 0 (excluded) | not answerable 75 | policy loose | confirmed 7/65 = 0.108 (CP UB 0.193) | FAIL 0 (excluded) | not answerable 75 | policy loose
+[floor original floor ids 200-299] NEW equivalence DIFFERENT 0/61 = 0.000 (CP UB 0.048) | FAIL 0 (excluded) | not answerable 39 | policy loose
+      strict rubric (secondary, same pairs): raw 12/98 = 0.122 (CP UB 0.191) | FAIL 0 (excluded) | not answerable 2 | policy loose | confirmed 11/98 = 0.112 (CP UB 0.179) | FAIL 0 (excluded) | not answerable 2 | policy loose
+[floor all floor prompts] NEW equivalence DIFFERENT 0/65 = 0.000 (CP UB 0.045) | FAIL 0 (excluded) | not answerable 115 | policy loose
+      strict rubric (secondary, same pairs): raw 12/104 = 0.115 (CP UB 0.180) | FAIL 0 (excluded) | not answerable 76 | policy loose | confirmed 11/104 = 0.106 (CP UB 0.169) | FAIL 0 (excluded) | not answerable 76 | policy loose
+      by scenario dup     n_rows= 20 0/4 = 0.000 (CP UB 0.527) | FAIL 0 (excluded) | not answerable 16 | policy loose
+      by scenario first   n_rows= 28 0/9 = 0.000 (CP UB 0.283) | FAIL 0 (excluded) | not answerable 19 | policy loose
+      by scenario noinv   n_rows= 30 0/4 = 0.000 (CP UB 0.527) | FAIL 0 (excluded) | not answerable 26 | policy loose
+      by scenario normal  n_rows= 45 0/20 = 0.000 (CP UB 0.139) | FAIL 0 (excluded) | not answerable 25 | policy loose
+      by scenario spike   n_rows= 17 0/1 = 0.000 (CP UB 0.950) | FAIL 0 (excluded) | not answerable 16 | policy loose
+
+=== typed arm floor (two independent typed full-prompt records, field equality on normalised fields; template-rendered note) 140 prompts
+[typed floor] DIFFERENT n/a | FAIL 0 (excluded) | not answerable 140 | policy loose
+      differing fields: {}
+[cell/text] learned m=0              rows 140 | tokens removed  77.8% (free-text full-prompt denominator) | hist kept 0.0/22.2 | DIFFERENT 11/69 = 0.159 (CP UB 0.250) | FAIL 0 (excluded) | not answerable 71 | policy loose | vendor-bootstrap 0.088-0.250 | floor same rows 0.000, discordant 3/0 p=0.250
+      strict rubric (secondary, same rows): raw 56/139 = 0.403 (CP UB 0.476) | FAIL 0 (excluded) | not answerable 1 | policy loose | confirmed 50/135 = 0.370 (CP UB 0.444) | FAIL 0 (excluded) | not answerable 5 | policy loose
+[certificate/text] learned m=0: skipped (69/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+[cell/typed] learned m=0              rows 140 | tokens removed n/a (typed full-prompt denominator) | hist kept 0.0/22.2 | DIFFERENT n/a | FAIL 0 (excluded) | not answerable 140 | policy loose
+[certificate/typed] learned m=0: skipped (0/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+[certificate/text] cross-encoder m=0: skipped (69/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+[certificate/text] oracle m=0: skipped (69/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+[certificate/text] random m=0: skipped (69/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+[cell/text] learned m=5              rows 140 | tokens removed n/a (free-text full-prompt denominator) | hist kept 5.0/22.2 | DIFFERENT n/a | FAIL 0 (excluded) | not answerable 140 | policy loose
+[certificate/text] learned m=5: skipped (0/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+[cell/typed] learned m=5              rows 140 | tokens removed n/a (typed full-prompt denominator) | hist kept 5.0/22.2 | DIFFERENT n/a | FAIL 0 (excluded) | not answerable 140 | policy loose
+[certificate/typed] learned m=5: skipped (0/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+[cell/text] learned m=2              rows 140 | tokens removed  72.8% (free-text full-prompt denominator) | hist kept 2.0/22.2 | DIFFERENT 0/2 = 0.000 (CP UB 0.776) | FAIL 0 (excluded) | not answerable 138 | policy loose | vendor-bootstrap 0.000-0.000 | floor same rows 0.000, discordant 0/0 p=1.000
+      strict rubric (secondary, same rows): raw 0/4 = 0.000 (CP UB 0.527) | FAIL 0 (excluded) | not answerable 136 | policy loose | confirmed 0/4 = 0.000 (CP UB 0.527) | FAIL 0 (excluded) | not answerable 136 | policy loose
+[certificate/text] learned m=2: skipped (2/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+[cell/typed] learned m=2              rows 140 | tokens removed n/a (typed full-prompt denominator) | hist kept 2.0/22.2 | DIFFERENT n/a | FAIL 0 (excluded) | not answerable 140 | policy loose
+[certificate/typed] learned m=2: skipped (0/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+[cell/text] rule (tx+inv+flag)       rows 140 | tokens removed  83.5% (free-text full-prompt denominator) | hist kept 0.0/22.2 | DIFFERENT 0/29 = 0.000 (CP UB 0.098) | FAIL 0 (excluded) | not answerable 111 | policy loose | vendor-bootstrap 0.000-0.000 | floor same rows 0.000, discordant 0/0 p=1.000
+[certificate/text] rule (tx+inv+flag): skipped (29/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+[cell/typed] rule (tx+inv+flag)       rows 140 | tokens removed n/a (typed full-prompt denominator) | hist kept 0.0/22.2 | DIFFERENT n/a | FAIL 0 (excluded) | not answerable 140 | policy loose
+[certificate/typed] rule (tx+inv+flag): skipped (0/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+[cell/text] cross-encoder m=5        rows 140 | tokens removed  60.0% (free-text full-prompt denominator) | hist kept 5.0/22.2 | DIFFERENT 0/1 = 0.000 (CP UB 0.950) | FAIL 0 (excluded) | not answerable 139 | policy loose | vendor-bootstrap nan-nan
+[certificate/text] cross-encoder m=5: skipped (1/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+[cell/typed] cross-encoder m=5        rows 140 | tokens removed n/a (typed full-prompt denominator) | hist kept 5.0/22.2 | DIFFERENT n/a | FAIL 0 (excluded) | not answerable 140 | policy loose
+[certificate/typed] cross-encoder m=5: skipped (0/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+[cell/text] cross-encoder m=2        rows 140 | tokens removed  70.6% (free-text full-prompt denominator) | hist kept 2.0/22.2 | DIFFERENT 0/6 = 0.000 (CP UB 0.393) | FAIL 0 (excluded) | not answerable 134 | policy loose | vendor-bootstrap 0.000-0.000 | floor same rows 0.000, discordant 0/0 p=1.000
+[certificate/text] cross-encoder m=2: skipped (6/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+[cell/typed] cross-encoder m=2        rows 140 | tokens removed n/a (typed full-prompt denominator) | hist kept 2.0/22.2 | DIFFERENT n/a | FAIL 0 (excluded) | not answerable 140 | policy loose
+[certificate/typed] cross-encoder m=2: skipped (0/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+[cell/text] oracle m=5               rows 140 | tokens removed  60.0% (free-text full-prompt denominator) | hist kept 5.0/22.2 | DIFFERENT 0/1 = 0.000 (CP UB 0.950) | FAIL 0 (excluded) | not answerable 139 | policy loose | vendor-bootstrap nan-nan
+[certificate/text] oracle m=5: skipped (1/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+[cell/typed] oracle m=5               rows 140 | tokens removed n/a (typed full-prompt denominator) | hist kept 5.0/22.2 | DIFFERENT n/a | FAIL 0 (excluded) | not answerable 140 | policy loose
+[certificate/typed] oracle m=5: skipped (0/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+[cell/text] random m=5               rows 140 | tokens removed n/a (free-text full-prompt denominator) | hist kept 5.0/22.2 | DIFFERENT n/a | FAIL 0 (excluded) | not answerable 140 | policy loose
+[certificate/text] random m=5: skipped (0/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+[cell/typed] random m=5               rows 140 | tokens removed n/a (typed full-prompt denominator) | hist kept 5.0/22.2 | DIFFERENT n/a | FAIL 0 (excluded) | not answerable 140 | policy loose
+[certificate/typed] random m=5: skipped (0/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+[cell/text] oracle m=2               rows 140 | tokens removed  70.6% (free-text full-prompt denominator) | hist kept 2.0/22.2 | DIFFERENT 0/6 = 0.000 (CP UB 0.393) | FAIL 0 (excluded) | not answerable 134 | policy loose | vendor-bootstrap 0.000-0.000 | floor same rows 0.000, discordant 0/0 p=1.000
+[certificate/text] oracle m=2: skipped (6/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+[cell/typed] oracle m=2               rows 140 | tokens removed n/a (typed full-prompt denominator) | hist kept 2.0/22.2 | DIFFERENT n/a | FAIL 0 (excluded) | not answerable 140 | policy loose
+[certificate/typed] oracle m=2: skipped (0/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+[cell/text] random m=2               rows 140 | tokens removed n/a (free-text full-prompt denominator) | hist kept 2.0/22.2 | DIFFERENT n/a | FAIL 0 (excluded) | not answerable 140 | policy loose
+[certificate/text] random m=2: skipped (0/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+[cell/typed] random m=2               rows 140 | tokens removed n/a (typed full-prompt denominator) | hist kept 2.0/22.2 | DIFFERENT n/a | FAIL 0 (excluded) | not answerable 140 | policy loose
+[certificate/typed] random m=2: skipped (0/140 rows answerable; a partial cache is biased toward canon-decided pairs, so no certificate is computed)
+
+=== COST / COVERAGE PLAN (calls still to be made = misses against the cache; teacher = teacher note or typed record, judge1/judge2 = judge calls incl. expected extras for pairs whose notes do not exist yet)
+stage                             answerable/pairs teacher   judge1  judge2    est $
+relabel                               551/946          127      624    38.9    0.840
+floor                                  65/180           74      255     9.1    0.344
+typed_floor                             0/140          280        0     0.0    0.040
+cell:learned m=0                       69/140            0      146     9.2    0.193
+typed:learned m=0                       0/140          140        0     0.0    0.020
+cell:learned m=5                        0/212          212      488     9.7    0.668
+typed:learned m=5                       0/212          212        0     0.0    0.030
+cell:learned m=2                        2/207          203      472     9.5    0.645
+typed:learned m=2                       0/207          207        0     0.0    0.029
+cell:rule (tx+inv+flag)                29/140           74      124     8.2    0.174
+typed:rule (tx+inv+flag)                0/140          140        0     0.0    0.020
+cell:cross-encoder m=5                  1/140          138       99     6.4    0.150
+typed:cross-encoder m=5                 0/140          140        0     0.0    0.020
+cell:cross-encoder m=2                  6/140          132       97     6.3    0.147
+typed:cross-encoder m=2                 0/140          140        0     0.0    0.020
+cell:oracle m=5                         1/140          138       99     6.4    0.150
+typed:oracle m=5                        0/140          140        0     0.0    0.020
+cell:random m=5                         0/140          140       98     6.4    0.150
+typed:random m=5                        0/140          140        0     0.0    0.020
+cell:oracle m=2                         6/140          132       97     6.3    0.147
+typed:oracle m=2                        0/140          140        0     0.0    0.020
+cell:random m=2                         0/140          140       98     6.4    0.150
+typed:random m=2                        0/140          140        0     0.0    0.020
+TOTAL                                                 3329     2697   122.9    4.017   (cap $3.0; policy evidence=loose; relabel row is spent only with --live)
+[dry] network calls made: 0. Cache hits 728. Calls still needed in total: teacher/typed 3329, judge1 2697, judge2 122.9 (needs totals; the shim's miss log is empty because note_c / J2 check the cache before calling it). Scorer embedding STUB(dry: zero embeddings, cos feature = 0), cross-encoder STUB(dry).
+[time] 4s

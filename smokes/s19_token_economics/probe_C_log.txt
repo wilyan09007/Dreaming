@@ -1,0 +1,5 @@
+439tok 0 {'tag': 'C:439tok', 'pt': 434, 'ct': 9, 'cached': 0, 'write': 0, 'cost': 9.805e-05, 'provider': 'OpenAI', 'ms': 1409.4171524047852}
+439tok 1 {'tag': 'C:439tok', 'pt': 433, 'ct': 7, 'cached': 0, 'write': 0, 'cost': 9.535e-05, 'provider': 'OpenAI', 'ms': 926.5620708465576}
+1300tok 0 {'tag': 'C:1300tok', 'pt': 1270, 'ct': 8, 'cached': 0, 'write': 0, 'cost': 0.000264, 'provider': 'OpenAI', 'ms': 870.0225353240967}
+1300tok 1 {'tag': 'C:1300tok', 'pt': 1269, 'ct': 7, 'cached': 0, 'write': 0, 'cost': 0.00026255, 'provider': 'OpenAI', 'ms': 756.2119960784912}
+[spent so far $0.00229]

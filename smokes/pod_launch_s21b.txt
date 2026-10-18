@@ -1,0 +1,283 @@
+bundle 0.95 MB
+community launch failed, trying ALL: [{'message': 'There are no longer any instances available with the requested specifications. Please refresh and try again.', 'path': ['podFindAndDeployOnDemand'], 'extensions': {'code': 'SUPPLY_CONSTR
+pod {'id': 'nl8raicn266204', 'machineId': 'duj0yq21hlkq', 'costPerHr': 0.27}
+[125s] bundle uploaded
+name, memory.total [MiB]
+NVIDIA RTX A5000, 24564 MiB
+waiting for bundle
+bundle extracted 8 files
+96
+[156s status=RUNNING log=100B]
+device=cuda dtype=torch.bfloat16 torch=2.8.0+cu128
+transformers 5.20.1
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[Qwen/Qwen2.5-0.5B-Instruct] layers=24 hidden=896 saved layers [6, 10, 13, 17, 20, 24]
+  [Qwen2.5-0.5B-Instruct] b200 32/200 2s
+[Qwen/Qwen2.5-0.5B-Instruct] b200: n=200 10.4s (19.2 prompts/s) mean prompt tokens 429
+  [Qwen2.5-0.5B-Instruct] b1000tr 32/1000 2s
+[187s status=RUNNING log=569B]
+  [Qwen2.5-0.5B-Instruct] b1000tr 352/1000 16s
+  [Qwen2.5-0.5B-Instruct] b1000tr 672/1000 30s
+[218s status=RUNNING log=663B]
+  [Qwen2.5-0.5B-Instruct] b1000tr 992/1000 45s
+[Qwen/Qwen2.5-0.5B-Instruct] b1000tr: n=1000 45.8s (21.9 prompts/s) mean prompt tokens 431
+  [Qwen2.5-0.5B-Instruct] b1000new 32/1000 1s
+  [Qwen2.5-0.5B-Instruct] b1000new 352/1000 17s
+[249s status=RUNNING log=895B]
+  [Qwen2.5-0.5B-Instruct] b1000new 672/1000 31s
+  [Qwen2.5-0.5B-Instruct] b1000new 992/1000 46s
+[Qwen/Qwen2.5-0.5B-Instruct] b1000new: n=1000 46.7s (21.4 prompts/s) mean prompt tokens 430
+  [Qwen2.5-0.5B-Instruct] rb2000 32/2000 0s
+  [Qwen2.5-0.5B-Instruct] rb2000 352/2000 3s
+  [Qwen2.5-0.5B-Instruct] rb2000 672/2000 5s
+  [Qwen2.5-0.5B-Instruct] rb2000 992/2000 6s
+  [Qwen2.5-0.5B-Instruct] rb2000 1312/2000 8s
+  [Qwen2.5-0.5B-Instruct] rb2000 1632/2000 9s
+[281s status=RUNNING log=1354B]
+  [Qwen2.5-0.5B-Instruct] rb2000 1952/2000 9s
+[Qwen/Qwen2.5-0.5B-Instruct] rb2000: n=2000 9.4s (212.3 prompts/s) mean prompt tokens 218
+wrote results_gpu.json
+
+==================== Qwen2.5-0.5B-Instruct: Banking77 ====================
+saved layers [6, 10, 13, 17, 20, 24] of 24; batch-1 latency 69.01073455810547 ms; throughput b200 19.2/s, b1000tr 21.9/s, b1000new 21.4/s, rb2000 212.3/s
+[b200] cheap non-exact-label rate 0.170 (counted as wrong/mismatch), exact-label accuracy vs gold 0.205 (fuzzy-matched 0.230), self-consistency 3-of-3 0.325, agree with E1 0.230 (fuzzy 0.270; E1 gold acc 0.870; noise floor: E1 vs E1b match 0.940, cheap vs E1b 0.225)
+[b1000tr] cheap non-exact-label rate 0.195 (counted as wrong/mismatch), exact-label accuracy vs gold 0.208 (fuzzy-matched 0.254), self-consistency 3-of-3 0.305
+[b1000new] cheap non-exact-label rate 0.216 (counted as wrong/mismatch), exact-label accuracy vs gold 0.233 (fuzzy-matched 0.279), self-consistency 3-of-3 0.307
+targets: cheap==E1 on 200: 0.230; cheap==E1b 0.225; cheap==gold on 200 0.205, 1000train 0.208, 1000new 0.233
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[embed] 200 texts in 6.6s (BAAI/bge-small-en-v1.5)
+[embed] 1000 texts in 9.2s (BAAI/bge-small-en-v1.5)
+[312s status=RUNNING log=2681B]
+[embed] 1000 texts in 7.9s (BAAI/bge-small-en-v1.5)
+
+[last] proxy probe: inner AUC 0.810 layer 20 C 0.01 (2s)
+[last] CV-on-200 chosen (layer, C) per fold: [(24, 1.0), (24, 0.1), (24, 1.0), (24, 0.01), (24, 1.0)]
+[344s status=RUNNING log=2893B]
+
+[last] AUROC for cheap==E1 (REAL target), n=200, base rate 0.230; bootstrap 95% CI; diff vs the embedding LR trained the same way (paired)
+| score | AUROC [95% CI] | diff vs embedding LR [95% CI] |
+|---|---|---|
+| probe (proxy-trained on 1000 train) | 0.811 [0.746, 0.877] | +0.126 [+0.042, +0.213] |
+| probe (5-fold on the 200) | 0.717 [0.616, 0.802] | +0.101 [-0.001, +0.201] |
+| embedding LR (proxy-trained) | 0.685 [0.591, 0.782] | - |
+| embedding LR (5-fold on the 200) | 0.616 [0.512, 0.711] | - |
+| signals LR (proxy-trained) | 0.797 [0.725, 0.864] | +0.113 [-0.011, +0.224] |
+| signals LR (5-fold on the 200) | 0.785 [0.712, 0.860] | +0.169 [+0.056, +0.289] |
+| probe+signals stack (proxy) | 0.869 [0.815, 0.916] | +0.185 [+0.085, +0.274] |
+| logprob: sequence | 0.754 [0.675, 0.833] | +0.070 [-0.048, +0.186] |
+| logprob: mean token | 0.724 [0.637, 0.808] | +0.039 [-0.079, +0.165] |
+| logprob: first-token gap | 0.560 [0.468, 0.656] | -0.125 [-0.236, +0.008] |
+| logprob: min token gap | 0.669 [0.586, 0.751] | -0.015 [-0.139, +0.113] |
+| self-consistency (3 votes) | 0.695 [0.618, 0.770] | +0.011 [-0.116, +0.131] |
+| self-consistency + logprob tiebreak | 0.747 [0.670, 0.818] | +0.062 [-0.060, +0.183] |
+| random (random mixing) | 0.496 [0.397, 0.604] | -0.189 [-0.332, -0.041] |
+[375s status=RUNNING log=4186B]
+
+[last] AUROC for cheap==E1b (second E1 draw: target-noise check), n=200, base rate 0.225; bootstrap 95% CI; diff vs the embedding LR trained the same way (paired)
+| score | AUROC [95% CI] | diff vs embedding LR [95% CI] |
+|---|---|---|
+| probe (proxy-trained on 1000 train) | 0.835 [0.779, 0.890] | +0.131 [+0.043, +0.220] |
+| probe (5-fold on the 200) | 0.735 [0.635, 0.820] | +0.106 [+0.007, +0.206] |
+| embedding LR (proxy-trained) | 0.704 [0.607, 0.800] | - |
+| embedding LR (5-fold on the 200) | 0.629 [0.532, 0.726] | - |
+| signals LR (proxy-trained) | 0.806 [0.735, 0.872] | +0.102 [-0.015, +0.222] |
+| signals LR (5-fold on the 200) | 0.787 [0.714, 0.861] | +0.158 [+0.054, +0.267] |
+| probe+signals stack (proxy) | 0.886 [0.838, 0.930] | +0.182 [+0.089, +0.282] |
+| logprob: sequence | 0.767 [0.688, 0.840] | +0.063 [-0.046, +0.181] |
+| logprob: mean token | 0.733 [0.650, 0.816] | +0.029 [-0.087, +0.158] |
+| logprob: first-token gap | 0.586 [0.494, 0.679] | -0.118 [-0.231, +0.009] |
+| logprob: min token gap | 0.692 [0.604, 0.773] | -0.013 [-0.132, +0.120] |
+| self-consistency (3 votes) | 0.707 [0.632, 0.779] | +0.003 [-0.118, +0.129] |
+| self-consistency + logprob tiebreak | 0.761 [0.687, 0.829] | +0.057 [-0.055, +0.182] |
+| random (random mixing) | 0.486 [0.387, 0.599] | -0.218 [-0.366, -0.074] |
+[406s status=RUNNING log=5503B]
+
+[last] AUROC for cheap==gold (200), n=200, base rate 0.205; bootstrap 95% CI; diff vs the embedding LR trained the same way (paired)
+| score | AUROC [95% CI] | diff vs embedding LR [95% CI] |
+|---|---|---|
+| probe (proxy-trained on 1000 train) | 0.838 [0.782, 0.891] | +0.121 [+0.032, +0.214] |
+| probe (5-fold on the 200) | 0.750 [0.642, 0.831] | +0.090 [-0.013, +0.190] |
+| embedding LR (proxy-trained) | 0.716 [0.617, 0.813] | - |
+| embedding LR (5-fold on the 200) | 0.659 [0.556, 0.753] | - |
+| signals LR (proxy-trained) | 0.790 [0.716, 0.859] | +0.073 [-0.036, +0.196] |
+| signals LR (5-fold on the 200) | 0.775 [0.697, 0.855] | +0.115 [+0.009, +0.238] |
+| probe+signals stack (proxy) | 0.878 [0.825, 0.927] | +0.162 [+0.066, +0.261] |
+| logprob: sequence | 0.755 [0.673, 0.829] | +0.039 [-0.067, +0.163] |
+| logprob: mean token | 0.721 [0.634, 0.807] | +0.005 [-0.103, +0.135] |
+| logprob: first-token gap | 0.570 [0.470, 0.663] | -0.146 [-0.258, -0.030] |
+| logprob: min token gap | 0.672 [0.584, 0.753] | -0.044 [-0.163, +0.079] |
+| self-consistency (3 votes) | 0.690 [0.612, 0.765] | -0.027 [-0.138, +0.095] |
+| self-consistency + logprob tiebreak | 0.742 [0.662, 0.815] | +0.025 [-0.082, +0.146] |
+| random (random mixing) | 0.495 [0.391, 0.611] | -0.221 [-0.363, -0.061] |
+
+[last] CLEAN certificate vs E1 (cheap==E1), 300 random 100/100 splits of the 200 (100 calibration rows cannot certify a <=5% budget with the 40-level grid: need ~134 clean rows)
+cell = mean realised coverage % / share of splits that certified / pooled realised error % / share of certified splits whose holdout error exceeded the budget
+| score | budget 2% | budget 5% | budget 10% | budget 20% |
+|---|---|---|---|---|
+| probe (proxy-trained) | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| embedding LR (proxy-trained) | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| signals LR (proxy-trained) | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| probe+signals stack (proxy) | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| logprob: sequence | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| logprob: min token gap | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| self-consistency (3 votes) | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| self-consistency + logprob tiebreak | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| random | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+[last] DESCRIPTIVE (no holdout; cutoff chosen on all 200 rows; OOF scores) certified coverage % at budgets [2, 5, 10, 20]: probe (5-fold on the 200): 0/0/0/0; embedding LR (5-fold on the 200): 0/0/0/0; signals LR (5-fold on the 200): 0/0/0/0; random: 0/0/0/0; self-consistency: 0/0/0/0; logprob: sequence: 0/0/0/0
+[438s status=RUNNING log=8641B]
+
+[last] AUROC for cheap==gold on 1200 rows (200 + 1000 new test rows; probe never saw them), base rate 0.228
+| score | AUROC [95% CI] | diff vs embedding LR [95% CI] |
+|---|---|---|
+| probe (proxy-trained) | 0.805 [0.775, 0.831] | +0.057 [+0.026, +0.089] |
+| embedding LR (proxy-trained) | 0.748 [0.713, 0.779] | - |
+| signals LR (proxy-trained) | 0.789 [0.761, 0.816] | +0.042 [+0.002, +0.083] |
+| probe+signals stack | 0.846 [0.817, 0.870] | +0.098 [+0.064, +0.132] |
+| logprob: sequence | 0.779 [0.750, 0.806] | +0.031 [-0.005, +0.071] |
+| logprob: min token gap | 0.709 [0.675, 0.745] | -0.039 [-0.081, +0.003] |
+| self-consistency (3 votes) | 0.711 [0.681, 0.744] | -0.036 [-0.074, +0.007] |
+| self-consistency + logprob tiebreak | 0.767 [0.737, 0.798] | +0.020 [-0.017, +0.060] |
+| random | 0.546 [0.509, 0.583] | -0.202 [-0.254, -0.151] |
+[469s status=RUNNING log=9487B]
+
+[last] CLEAN certificate vs GOLD (cheap==gold) on 1200 rows, 200 random half/half splits
+cell = mean realised coverage % / share of splits that certified / pooled realised error % / share of certified splits whose holdout error exceeded the budget
+| score | budget 2% | budget 5% | budget 10% | budget 20% |
+|---|---|---|---|---|
+| probe (proxy-trained) | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| embedding LR (proxy-trained) | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| signals LR (proxy-trained) | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| probe+signals stack | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.2 / 0.04 / 13.4 / 0.00 |
+| logprob: sequence | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| logprob: min token gap | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| self-consistency (3 votes) | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| self-consistency + logprob tiebreak | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| random | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+
+[mean] proxy probe: inner AUC 0.770 layer 13 C 0.01 (1s)
+[mean] CV-on-200 chosen (layer, C) per fold: [(6, 1.0), (13, 1.0), (24, 0.001), (10, 1.0), (20, 1.0)]
+[500s status=RUNNING log=11090B]
+
+[mean] AUROC for cheap==E1 (REAL target), n=200, base rate 0.230; bootstrap 95% CI; diff vs the embedding LR trained the same way (paired)
+| score | AUROC [95% CI] | diff vs embedding LR [95% CI] |
+|---|---|---|
+| probe (proxy-trained on 1000 train) | 0.764 [0.680, 0.839] | +0.079 [-0.030, +0.186] |
+| probe (5-fold on the 200) | 0.579 [0.479, 0.682] | -0.037 [-0.150, +0.066] |
+| embedding LR (proxy-trained) | 0.685 [0.591, 0.782] | - |
+| embedding LR (5-fold on the 200) | 0.616 [0.512, 0.711] | - |
+| signals LR (proxy-trained) | 0.797 [0.725, 0.864] | +0.113 [-0.011, +0.224] |
+| signals LR (5-fold on the 200) | 0.785 [0.712, 0.860] | +0.169 [+0.056, +0.289] |
+| probe+signals stack (proxy) | 0.853 [0.790, 0.903] | +0.168 [+0.065, +0.264] |
+| logprob: sequence | 0.754 [0.675, 0.833] | +0.070 [-0.048, +0.186] |
+| logprob: mean token | 0.724 [0.637, 0.808] | +0.039 [-0.079, +0.165] |
+| logprob: first-token gap | 0.560 [0.468, 0.656] | -0.125 [-0.236, +0.008] |
+| logprob: min token gap | 0.669 [0.586, 0.751] | -0.015 [-0.139, +0.113] |
+| self-consistency (3 votes) | 0.695 [0.618, 0.770] | +0.011 [-0.116, +0.131] |
+| self-consistency + logprob tiebreak | 0.747 [0.670, 0.818] | +0.062 [-0.060, +0.183] |
+| random (random mixing) | 0.496 [0.397, 0.604] | -0.189 [-0.332, -0.041] |
+[531s status=RUNNING log=12383B]
+
+[mean] AUROC for cheap==E1b (second E1 draw: target-noise check), n=200, base rate 0.225; bootstrap 95% CI; diff vs the embedding LR trained the same way (paired)
+| score | AUROC [95% CI] | diff vs embedding LR [95% CI] |
+|---|---|---|
+| probe (proxy-trained on 1000 train) | 0.779 [0.695, 0.852] | +0.075 [-0.035, +0.182] |
+| probe (5-fold on the 200) | 0.578 [0.478, 0.684] | -0.051 [-0.163, +0.053] |
+| embedding LR (proxy-trained) | 0.704 [0.607, 0.800] | - |
+| embedding LR (5-fold on the 200) | 0.629 [0.532, 0.726] | - |
+| signals LR (proxy-trained) | 0.806 [0.735, 0.872] | +0.102 [-0.015, +0.222] |
+| signals LR (5-fold on the 200) | 0.787 [0.714, 0.861] | +0.158 [+0.054, +0.267] |
+| probe+signals stack (proxy) | 0.863 [0.798, 0.914] | +0.158 [+0.057, +0.261] |
+| logprob: sequence | 0.767 [0.688, 0.840] | +0.063 [-0.046, +0.181] |
+| logprob: mean token | 0.733 [0.650, 0.816] | +0.029 [-0.087, +0.158] |
+| logprob: first-token gap | 0.586 [0.494, 0.679] | -0.118 [-0.231, +0.009] |
+| logprob: min token gap | 0.692 [0.604, 0.773] | -0.013 [-0.132, +0.120] |
+| self-consistency (3 votes) | 0.707 [0.632, 0.779] | +0.003 [-0.118, +0.129] |
+| self-consistency + logprob tiebreak | 0.761 [0.687, 0.829] | +0.057 [-0.055, +0.182] |
+| random (random mixing) | 0.486 [0.387, 0.599] | -0.218 [-0.366, -0.074] |
+[562s status=RUNNING log=13700B]
+
+[mean] AUROC for cheap==gold (200), n=200, base rate 0.205; bootstrap 95% CI; diff vs the embedding LR trained the same way (paired)
+| score | AUROC [95% CI] | diff vs embedding LR [95% CI] |
+|---|---|---|
+| probe (proxy-trained on 1000 train) | 0.770 [0.681, 0.846] | +0.053 [-0.053, +0.161] |
+| probe (5-fold on the 200) | 0.600 [0.495, 0.709] | -0.060 [-0.170, +0.047] |
+| embedding LR (proxy-trained) | 0.716 [0.617, 0.813] | - |
+| embedding LR (5-fold on the 200) | 0.659 [0.556, 0.753] | - |
+| signals LR (proxy-trained) | 0.790 [0.716, 0.859] | +0.073 [-0.036, +0.196] |
+| signals LR (5-fold on the 200) | 0.775 [0.697, 0.855] | +0.115 [+0.009, +0.238] |
+| probe+signals stack (proxy) | 0.846 [0.779, 0.906] | +0.130 [+0.032, +0.239] |
+| logprob: sequence | 0.755 [0.673, 0.829] | +0.039 [-0.067, +0.163] |
+| logprob: mean token | 0.721 [0.634, 0.807] | +0.005 [-0.103, +0.135] |
+| logprob: first-token gap | 0.570 [0.470, 0.663] | -0.146 [-0.258, -0.030] |
+| logprob: min token gap | 0.672 [0.584, 0.753] | -0.044 [-0.163, +0.079] |
+| self-consistency (3 votes) | 0.690 [0.612, 0.765] | -0.027 [-0.138, +0.095] |
+| self-consistency + logprob tiebreak | 0.742 [0.662, 0.815] | +0.025 [-0.082, +0.146] |
+| random (random mixing) | 0.495 [0.391, 0.611] | -0.221 [-0.363, -0.061] |
+
+[mean] CLEAN certificate vs E1 (cheap==E1), 300 random 100/100 splits of the 200 (100 calibration rows cannot certify a <=5% budget with the 40-level grid: need ~134 clean rows)
+cell = mean realised coverage % / share of splits that certified / pooled realised error % / share of certified splits whose holdout error exceeded the budget
+| score | budget 2% | budget 5% | budget 10% | budget 20% |
+|---|---|---|---|---|
+| probe (proxy-trained) | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| embedding LR (proxy-trained) | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| signals LR (proxy-trained) | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| probe+signals stack (proxy) | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| logprob: sequence | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| logprob: min token gap | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| self-consistency (3 votes) | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| self-consistency + logprob tiebreak | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| random | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+[mean] DESCRIPTIVE (no holdout; cutoff chosen on all 200 rows; OOF scores) certified coverage % at budgets [2, 5, 10, 20]: probe (5-fold on the 200): 0/0/0/0; embedding LR (5-fold on the 200): 0/0/0/0; signals LR (5-fold on the 200): 0/0/0/0; random: 0/0/0/0; self-consistency: 0/0/0/0; logprob: sequence: 0/0/0/0
+[593s status=RUNNING log=16838B]
+
+[mean] AUROC for cheap==gold on 1200 rows (200 + 1000 new test rows; probe never saw them), base rate 0.228
+| score | AUROC [95% CI] | diff vs embedding LR [95% CI] |
+|---|---|---|
+| probe (proxy-trained) | 0.766 [0.734, 0.797] | +0.019 [-0.016, +0.055] |
+| embedding LR (proxy-trained) | 0.748 [0.713, 0.779] | - |
+| signals LR (proxy-trained) | 0.789 [0.761, 0.816] | +0.042 [+0.002, +0.083] |
+| probe+signals stack | 0.836 [0.810, 0.862] | +0.089 [+0.055, +0.126] |
+| logprob: sequence | 0.779 [0.750, 0.806] | +0.031 [-0.005, +0.071] |
+| logprob: min token gap | 0.709 [0.675, 0.745] | -0.039 [-0.081, +0.003] |
+| self-consistency (3 votes) | 0.711 [0.681, 0.744] | -0.036 [-0.074, +0.007] |
+| self-consistency + logprob tiebreak | 0.767 [0.737, 0.798] | +0.020 [-0.017, +0.060] |
+| random | 0.546 [0.509, 0.583] | -0.202 [-0.254, -0.151] |
+[624s status=RUNNING log=17684B]
+
+[mean] CLEAN certificate vs GOLD (cheap==gold) on 1200 rows, 200 random half/half splits
+cell = mean realised coverage % / share of splits that certified / pooled realised error % / share of certified splits whose holdout error exceeded the budget
+| score | budget 2% | budget 5% | budget 10% | budget 20% |
+|---|---|---|---|---|
+| probe (proxy-trained) | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| embedding LR (proxy-trained) | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| signals LR (proxy-trained) | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| probe+signals stack | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.01 / 20.4 / 0.50 |
+| logprob: sequence | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| logprob: min token gap | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| self-consistency (3 votes) | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| self-consistency + logprob tiebreak | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+| random | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 | 0.0 / 0.00 / - / 0.00 |
+
+==== STAGE-2 BAR (last-token probe, target cheap==E1; fixed before the run) ====
+A. proxy-trained probe minus embedding LR AUROC +0.126 [+0.042, +0.213]  -> PASS (need >= +0.05 and CI above 0)
+B. 5-fold probe minus 5-fold embedding LR AUROC +0.101 [-0.001, +0.201]  -> PASS (need point estimate > 0)
+R. proxy-trained probe AUROC 0.811 [0.746, 0.877] vs random mixing 0.5 -> PASS (need CI lower end > 0.5)
+C (informational only): clean certified coverage at 10% budget: probe 0.0% vs embedding 0.0% vs random 0.0%
+STAGE-2 BAR (A and B and R): MET
+[time] s1 349s
+
+==================== Qwen2.5-0.5B-Instruct: RouterBench gpt-3.5 vs gpt-4, n=2000 ====================
+base rates: gpt-3.5 correct (y2) 0.686; cheap>=gpt-4 (y1) 0.756; mean acc gpt-4 0.789 gpt-3.5 0.635
+[655s status=RUNNING log=19892B]
+[686s status=RUNNING log=19892B]
+[717s status=RUNNING log=19892B]
+[748s status=RUNNING log=19892B]
+[780s status=RUNNING log=19892B]
+[811s status=RUNNING log=19892B]
+[842s status=RUNNING log=19892B]
+[embed] 2000 texts in 222.1s (BAAI/bge-small-en-v1.5)
+[873s status=RUNNING log=19946B]
+[904s status=RUNNING log=19946B]
+pod gone
+terminate failed (pod may have self-terminated): [{'message': 'pod not found to terminate', 'path': ['podTerminate'], 'extensions': {'code': 'POD_NOT_FOUND', 'userId': 'user_31zqpkFHJXKChEdBC7mMjcr2YHv', 'podId': 'nl8raicn266204'}}]
+wall 15.6 min, est cost $0.070 at $0.27/h, ok=False

@@ -1,0 +1,10 @@
+[build] world 12: 17655 calls, test 12949, novel share 0.199; S4 check (errors/skipped in first 1200 txns, grid-20 @1%): LR (0, 767) NN (0, 435); 57s
+[build] world 11: 17658 calls, test 12949, novel share 0.193; S4 check (errors/skipped in first 1200 txns, grid-20 @1%): LR (13, 889) NN (3, 638); 58s
+[build] world 4: 17665 calls, test 12958, novel share 0.198; S4 check (errors/skipped in first 1200 txns, grid-20 @1%): LR (1, 792) NN (0, 436); 58s
+[build] world 13: 17633 calls, test 12945, novel share 0.198; S4 check (errors/skipped in first 1200 txns, grid-20 @1%): LR (5, 759) NN (27, 792); 58s
+[build] world 14: 17634 calls, test 12938, novel share 0.199; S4 check (errors/skipped in first 1200 txns, grid-20 @1%): LR (0, 854) NN (0, 665); 55s
+[build] world 15: 17655 calls, test 12953, novel share 0.202; S4 check (errors/skipped in first 1200 txns, grid-20 @1%): LR (2, 882) NN (0, 710); 92s
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[build] banking77 student 770 rows: acc on pool 0.832, pool 12299
+[build] banking77 student 3080 rows: acc on pool 0.910, pool 9989
+[build] done 125s

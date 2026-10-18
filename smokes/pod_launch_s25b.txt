@@ -1,0 +1,3 @@
+bundle 0.03 MB
+community launch failed, trying ALL: [{'message': 'There are no longer any instances available with the requested specifications. Please refresh and try again.', 'path': ['podFindAndDeployOnDemand'], 'extensions': {'code': 'SUPPLY_CONSTR
+pod {'id': 'lzpc3witb7kgsq', 'machineId': 'ofy9oext1mp2', 'costPerHr': 0.89}

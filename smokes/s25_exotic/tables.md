@@ -1,0 +1,182 @@
+### Macro average over 5 tasks x 3 draws (acc = test accuracy, cov = certified coverage at 5% budget on test, err = realized error above the cutoff)
+| method | acc k=1 | cov k=1 | acc k=3 | cov k=3 | acc k=10 | cov k=10 | realized err k=1/3/10 | runs |
+|---|---|---|---|---|---|---|---|---|
+| Baseline: bge-small + LR | 0.811 | 0.13 | 0.925 | 0.64 | 0.962 | 0.87 | 0.005/0.011/0.008 | 15 |
+| HDC bundle (one-shot) | 0.794 | 0.12 | 0.918 | 0.64 | 0.955 | 0.76 | 0.008/0.011/0.009 | 15 |
+| HDC bundle, pool-centered | 0.814 | 0.13 | 0.913 | 0.58 | 0.953 | 0.73 | 0.008/0.012/0.013 | 15 |
+| HDC online (OnlineHD, 1 pass) | 0.794 | 0.12 | 0.876 | 0.40 | 0.954 | 0.75 | 0.008/0.010/0.010 | 15 |
+| NTK kernel ridge | 0.811 | 0.17 | 0.924 | 0.68 | 0.964 | 0.89 | 0.010/0.010/0.007 | 15 |
+| NTK kernel SVM (OvR) | 0.812 | 0.16 | 0.924 | 0.65 | 0.965 | 0.88 | 0.009/0.011/0.007 | 15 |
+| gzip NCD + 3-NN [vote margin] | 0.363 | 0.00 | 0.536 | 0.00 | 0.721 | 0.00 | -/-/- | 15 |
+| gzip NCD + 3-NN [NCD gap] | 0.363 | 0.00 | 0.542 | 0.00 | 0.721 | 0.02 | -/-/0.006 | 15 |
+| Product-key memory head | 0.421 | 0.00 | 0.611 | 0.00 | 0.743 | 0.11 | -/-/0.025 | 15 |
+| Spiking head (2-layer LIF) [spike-count gap] | 0.778 | 0.05 | 0.913 | 0.46 | 0.959 | 0.76 | 0.007/0.009/0.009 | 15 |
+| Spiking head (2-layer LIF) [membrane gap] | 0.778 | 0.06 | 0.913 | 0.58 | 0.959 | 0.83 | 0.006/0.012/0.010 | 15 |
+| LR on [embedding + JEPA hidden] | 0.831 | 0.19 | 0.930 | 0.68 | 0.966 | 0.89 | 0.019/0.013/0.009 | 15 |
+| GPT-2 L8 dense residual, last token (control) | 0.253 | 0.00 | 0.404 | 0.00 | 0.619 | 0.00 | -/-/- | 15 |
+
+### clinc/travel
+| method | acc k=1 | cov k=1 | acc k=3 | cov k=3 | acc k=10 | cov k=10 | realized err k=1/3/10 | runs |
+|---|---|---|---|---|---|---|---|---|
+| Baseline: bge-small + LR | 0.875 | 0.49 | 0.972 | 0.96 | 0.980 | 0.98 | 0.003/0.011/0.007 | 3 |
+| HDC bundle (one-shot) | 0.841 | 0.34 | 0.968 | 0.95 | 0.976 | 0.98 | 0.010/0.008/0.012 | 3 |
+| HDC bundle, pool-centered | 0.884 | 0.48 | 0.967 | 0.95 | 0.972 | 0.98 | 0.002/0.014/0.020 | 3 |
+| HDC online (OnlineHD, 1 pass) | 0.841 | 0.34 | 0.929 | 0.82 | 0.976 | 0.97 | 0.010/0.006/0.008 | 3 |
+| NTK kernel ridge | 0.874 | 0.50 | 0.970 | 0.97 | 0.979 | 0.98 | 0.007/0.011/0.006 | 3 |
+| NTK kernel SVM (OvR) | 0.871 | 0.50 | 0.970 | 0.97 | 0.979 | 0.97 | 0.007/0.014/0.003 | 3 |
+| gzip NCD + 3-NN [vote margin] | 0.390 | 0.00 | 0.524 | 0.00 | 0.720 | 0.00 | -/-/- | 3 |
+| gzip NCD + 3-NN [NCD gap] | 0.390 | 0.00 | 0.535 | 0.00 | 0.712 | 0.12 | -/-/0.006 | 3 |
+| Product-key memory head | 0.468 | 0.00 | 0.541 | 0.00 | 0.833 | 0.55 | -/-/0.025 | 3 |
+| Spiking head (2-layer LIF) [spike-count gap] | 0.832 | 0.23 | 0.964 | 0.93 | 0.976 | 0.98 | 0.007/0.007/0.011 | 3 |
+| Spiking head (2-layer LIF) [membrane gap] | 0.832 | 0.19 | 0.964 | 0.87 | 0.976 | 0.98 | 0.012/0.008/0.016 | 3 |
+| LR on [embedding + JEPA hidden] | 0.876 | 0.41 | 0.970 | 0.94 | 0.981 | 0.97 | 0.011/0.007/0.002 | 3 |
+| GPT-2 L8 dense residual, last token (control) | 0.219 | 0.00 | 0.396 | 0.00 | 0.539 | 0.00 | -/-/- | 3 |
+
+### clinc/work
+| method | acc k=1 | cov k=1 | acc k=3 | cov k=3 | acc k=10 | cov k=10 | realized err k=1/3/10 | runs |
+|---|---|---|---|---|---|---|---|---|
+| Baseline: bge-small + LR | 0.767 | 0.00 | 0.896 | 0.49 | 0.946 | 0.75 | -/0.013/0.008 | 3 |
+| HDC bundle (one-shot) | 0.766 | 0.00 | 0.887 | 0.43 | 0.930 | 0.32 | -/0.015/0.000 | 3 |
+| HDC bundle, pool-centered | 0.764 | 0.00 | 0.876 | 0.21 | 0.927 | 0.18 | -/0.028/0.004 | 3 |
+| HDC online (OnlineHD, 1 pass) | 0.766 | 0.00 | 0.824 | 0.00 | 0.933 | 0.22 | -/-/0.003 | 3 |
+| NTK kernel ridge | 0.767 | 0.00 | 0.896 | 0.50 | 0.954 | 0.76 | -/0.010/0.001 | 3 |
+| NTK kernel SVM (OvR) | 0.769 | 0.00 | 0.896 | 0.48 | 0.954 | 0.75 | -/0.007/0.001 | 3 |
+| gzip NCD + 3-NN [vote margin] | 0.385 | 0.00 | 0.602 | 0.00 | 0.742 | 0.00 | -/-/- | 3 |
+| gzip NCD + 3-NN [NCD gap] | 0.385 | 0.00 | 0.599 | 0.00 | 0.739 | 0.00 | -/-/- | 3 |
+| Product-key memory head | 0.430 | 0.00 | 0.683 | 0.00 | 0.782 | 0.00 | -/-/- | 3 |
+| Spiking head (2-layer LIF) [spike-count gap] | 0.770 | 0.00 | 0.886 | 0.17 | 0.947 | 0.45 | -/0.017/0.000 | 3 |
+| Spiking head (2-layer LIF) [membrane gap] | 0.770 | 0.00 | 0.886 | 0.14 | 0.947 | 0.63 | -/0.027/0.001 | 3 |
+| LR on [embedding + JEPA hidden] | 0.780 | 0.00 | 0.906 | 0.41 | 0.953 | 0.75 | -/0.019/0.003 | 3 |
+| GPT-2 L8 dense residual, last token (control) | 0.396 | 0.00 | 0.534 | 0.00 | 0.717 | 0.00 | -/-/- | 3 |
+
+### banking/sub0
+| method | acc k=1 | cov k=1 | acc k=3 | cov k=3 | acc k=10 | cov k=10 | realized err k=1/3/10 | runs |
+|---|---|---|---|---|---|---|---|---|
+| Baseline: bge-small + LR | 0.794 | 0.00 | 0.897 | 0.45 | 0.956 | 0.81 | -/0.012/0.007 | 3 |
+| HDC bundle (one-shot) | 0.777 | 0.00 | 0.903 | 0.61 | 0.956 | 0.78 | -/0.011/0.007 | 3 |
+| HDC bundle, pool-centered | 0.812 | 0.00 | 0.900 | 0.62 | 0.954 | 0.79 | -/0.014/0.008 | 3 |
+| HDC online (OnlineHD, 1 pass) | 0.777 | 0.00 | 0.861 | 0.23 | 0.952 | 0.80 | -/0.012/0.006 | 3 |
+| NTK kernel ridge | 0.791 | 0.00 | 0.892 | 0.63 | 0.953 | 0.87 | -/0.008/0.009 | 3 |
+| NTK kernel SVM (OvR) | 0.794 | 0.00 | 0.894 | 0.47 | 0.956 | 0.87 | -/0.012/0.009 | 3 |
+| gzip NCD + 3-NN [vote margin] | 0.322 | 0.00 | 0.493 | 0.00 | 0.640 | 0.00 | -/-/- | 3 |
+| gzip NCD + 3-NN [NCD gap] | 0.322 | 0.00 | 0.486 | 0.00 | 0.654 | 0.00 | -/-/- | 3 |
+| Product-key memory head | 0.388 | 0.00 | 0.504 | 0.00 | 0.702 | 0.00 | -/-/- | 3 |
+| Spiking head (2-layer LIF) [spike-count gap] | 0.732 | 0.00 | 0.889 | 0.00 | 0.949 | 0.80 | -/-/0.007 | 3 |
+| Spiking head (2-layer LIF) [membrane gap] | 0.732 | 0.00 | 0.889 | 0.59 | 0.949 | 0.80 | -/0.007/0.009 | 3 |
+| LR on [embedding + JEPA hidden] | 0.824 | 0.15 | 0.903 | 0.68 | 0.961 | 0.85 | 0.014/0.012/0.006 | 3 |
+| GPT-2 L8 dense residual, last token (control) | 0.196 | 0.00 | 0.324 | 0.00 | 0.610 | 0.00 | -/-/- | 3 |
+
+### banking/sub1
+| method | acc k=1 | cov k=1 | acc k=3 | cov k=3 | acc k=10 | cov k=10 | realized err k=1/3/10 | runs |
+|---|---|---|---|---|---|---|---|---|
+| Baseline: bge-small + LR | 0.792 | 0.15 | 0.917 | 0.80 | 0.967 | 0.97 | 0.009/0.012/0.019 | 3 |
+| HDC bundle (one-shot) | 0.776 | 0.28 | 0.904 | 0.75 | 0.961 | 0.95 | 0.007/0.014/0.021 | 3 |
+| HDC bundle, pool-centered | 0.797 | 0.17 | 0.899 | 0.65 | 0.958 | 0.96 | 0.021/0.006/0.024 | 3 |
+| HDC online (OnlineHD, 1 pass) | 0.776 | 0.28 | 0.883 | 0.69 | 0.960 | 0.96 | 0.007/0.013/0.024 | 3 |
+| NTK kernel ridge | 0.792 | 0.33 | 0.916 | 0.77 | 0.969 | 0.97 | 0.013/0.010/0.016 | 3 |
+| NTK kernel SVM (OvR) | 0.796 | 0.33 | 0.915 | 0.78 | 0.970 | 0.97 | 0.011/0.008/0.016 | 3 |
+| gzip NCD + 3-NN [vote margin] | 0.347 | 0.00 | 0.503 | 0.00 | 0.763 | 0.00 | -/-/- | 3 |
+| gzip NCD + 3-NN [NCD gap] | 0.347 | 0.00 | 0.524 | 0.00 | 0.753 | 0.00 | -/-/- | 3 |
+| Product-key memory head | 0.431 | 0.00 | 0.704 | 0.00 | 0.687 | 0.00 | -/-/- | 3 |
+| Spiking head (2-layer LIF) [spike-count gap] | 0.756 | 0.00 | 0.905 | 0.71 | 0.963 | 0.94 | -/0.006/0.012 | 3 |
+| Spiking head (2-layer LIF) [membrane gap] | 0.756 | 0.13 | 0.905 | 0.67 | 0.963 | 0.95 | 0.000/0.013/0.017 | 3 |
+| LR on [embedding + JEPA hidden] | 0.829 | 0.37 | 0.919 | 0.84 | 0.969 | 1.00 | 0.029/0.018/0.030 | 3 |
+| GPT-2 L8 dense residual, last token (control) | 0.215 | 0.00 | 0.359 | 0.00 | 0.588 | 0.00 | -/-/- | 3 |
+
+### banking/sub2
+| method | acc k=1 | cov k=1 | acc k=3 | cov k=3 | acc k=10 | cov k=10 | realized err k=1/3/10 | runs |
+|---|---|---|---|---|---|---|---|---|
+| Baseline: bge-small + LR | 0.825 | 0.00 | 0.941 | 0.47 | 0.962 | 0.83 | -/0.006/0.003 | 3 |
+| HDC bundle (one-shot) | 0.811 | 0.00 | 0.926 | 0.47 | 0.950 | 0.79 | -/0.005/0.003 | 3 |
+| HDC bundle, pool-centered | 0.812 | 0.00 | 0.923 | 0.47 | 0.952 | 0.73 | -/0.009/0.003 | 3 |
+| HDC online (OnlineHD, 1 pass) | 0.811 | 0.00 | 0.883 | 0.27 | 0.949 | 0.82 | -/0.013/0.005 | 3 |
+| NTK kernel ridge | 0.830 | 0.00 | 0.944 | 0.53 | 0.965 | 0.85 | -/0.014/0.004 | 3 |
+| NTK kernel SVM (OvR) | 0.827 | 0.00 | 0.946 | 0.53 | 0.965 | 0.85 | -/0.012/0.005 | 3 |
+| gzip NCD + 3-NN [vote margin] | 0.372 | 0.00 | 0.556 | 0.00 | 0.740 | 0.00 | -/-/- | 3 |
+| gzip NCD + 3-NN [NCD gap] | 0.372 | 0.00 | 0.565 | 0.00 | 0.747 | 0.00 | -/-/- | 3 |
+| Product-key memory head | 0.387 | 0.00 | 0.621 | 0.00 | 0.708 | 0.00 | -/-/- | 3 |
+| Spiking head (2-layer LIF) [spike-count gap] | 0.801 | 0.00 | 0.919 | 0.48 | 0.960 | 0.61 | -/0.010/0.011 | 3 |
+| Spiking head (2-layer LIF) [membrane gap] | 0.801 | 0.00 | 0.919 | 0.66 | 0.960 | 0.81 | -/0.012/0.008 | 3 |
+| LR on [embedding + JEPA hidden] | 0.848 | 0.00 | 0.949 | 0.52 | 0.966 | 0.86 | -/0.006/0.005 | 3 |
+| GPT-2 L8 dense residual, last token (control) | 0.239 | 0.00 | 0.409 | 0.00 | 0.641 | 0.00 | -/-/- | 3 |
+
+### Rows per label to reach 50% certified coverage
+| method | macro cov k=1 / k=3 / k=10 | first k on grid | interpolated k (log-linear) | first k per task: travel, work, sub0, sub1, sub2 |
+|---|---|---|---|---|
+| Baseline: bge-small + LR | 0.13 / 0.64 / 0.87 | 3 | ~2.2 | 3, 10, 10, 3, 10 |
+| HDC bundle (one-shot) | 0.12 / 0.64 / 0.76 | 3 | ~2.2 | 3, >10, 3, 3, 10 |
+| HDC bundle, pool-centered | 0.13 / 0.58 / 0.73 | 3 | ~2.5 | 3, >10, 3, 3, 10 |
+| HDC online (OnlineHD, 1 pass) | 0.12 / 0.40 / 0.75 | 10 | ~4.2 | 3, >10, 10, 3, 10 |
+| NTK kernel ridge | 0.17 / 0.68 / 0.89 | 3 | ~2.0 | 1, 10, 3, 3, 3 |
+| NTK kernel SVM (OvR) | 0.16 / 0.65 / 0.88 | 3 | ~2.1 | 3, 10, 10, 3, 3 |
+| gzip NCD + 3-NN [vote margin] | 0.00 / 0.00 / 0.00 | >10 | >10 | >10, >10, >10, >10, >10 |
+| gzip NCD + 3-NN [NCD gap] | 0.00 / 0.00 / 0.02 | >10 | >10 | >10, >10, >10, >10, >10 |
+| Product-key memory head | 0.00 / 0.00 / 0.11 | >10 | >10 | 10, >10, >10, >10, >10 |
+| Spiking head (2-layer LIF) [spike-count gap] | 0.05 / 0.46 / 0.76 | 10 | ~3.5 | 3, >10, 10, 3, 10 |
+| Spiking head (2-layer LIF) [membrane gap] | 0.06 / 0.58 / 0.83 | 3 | ~2.5 | 3, 10, 3, 3, 3 |
+| LR on [embedding + JEPA hidden] | 0.19 / 0.68 / 0.89 | 3 | ~2.0 | 3, 10, 3, 3, 3 |
+| GPT-2 L8 dense residual, last token (control) | 0.00 / 0.00 / 0.00 | >10 | >10 | >10, >10, >10, >10, >10 |
+
+### Paired difference to the LR baseline (same task, draw, k)
+| method | d acc k=1 | d cov k=1 | d acc k=3 | d cov k=3 | d acc k=10 | d cov k=10 |
+|---|---|---|---|---|---|---|
+| HDC bundle (one-shot) | -0.017 | -0.00 | -0.007 | +0.01 | -0.008 | -0.11 |
+| HDC bundle, pool-centered | +0.003 | +0.00 | -0.012 | -0.05 | -0.010 | -0.14 |
+| HDC online (OnlineHD, 1 pass) | -0.017 | -0.00 | -0.049 | -0.23 | -0.009 | -0.12 |
+| NTK kernel ridge | -0.000 | +0.04 | -0.001 | +0.04 | +0.002 | +0.02 |
+| NTK kernel SVM (OvR) | +0.001 | +0.04 | -0.001 | +0.01 | +0.002 | +0.01 |
+| gzip NCD + 3-NN [vote margin] | -0.447 | -0.13 | -0.389 | -0.64 | -0.241 | -0.87 |
+| gzip NCD + 3-NN [NCD gap] | -0.447 | -0.13 | -0.383 | -0.64 | -0.241 | -0.84 |
+| Product-key memory head | -0.390 | -0.13 | -0.314 | -0.64 | -0.220 | -0.76 |
+| Spiking head (2-layer LIF) [spike-count gap] | -0.033 | -0.08 | -0.012 | -0.18 | -0.003 | -0.11 |
+| Spiking head (2-layer LIF) [membrane gap] | -0.033 | -0.06 | -0.012 | -0.05 | -0.003 | -0.03 |
+| LR on [embedding + JEPA hidden] | +0.020 | +0.06 | +0.005 | +0.05 | +0.004 | +0.02 |
+| GPT-2 L8 dense residual, last token (control) | -0.558 | -0.13 | -0.520 | -0.64 | -0.343 | -0.87 |
+
+### Determinism (same seed, features and pretraining recomputed, k=3 draw 0, one check per task)
+| method | predictions identical (tasks) | predictions + confidence bit-identical (tasks) |
+|---|---|---|
+| Baseline: bge-small + LR | 5/5 | 5/5 |
+| HDC bundle (one-shot) | 5/5 | 5/5 |
+| HDC bundle, pool-centered | 5/5 | 5/5 |
+| HDC online (OnlineHD, 1 pass) | 5/5 | 5/5 |
+| NTK kernel ridge | 5/5 | 5/5 |
+| NTK kernel SVM (OvR) | 5/5 | 5/5 |
+| gzip NCD + 3-NN [vote margin] | 5/5 | 5/5 |
+| gzip NCD + 3-NN [NCD gap] | 5/5 | 5/5 |
+| Product-key memory head | 5/5 | 5/5 |
+| Spiking head (2-layer LIF) [spike-count gap] | 5/5 | 5/5 |
+| Spiking head (2-layer LIF) [membrane gap] | 5/5 | 5/5 |
+| LR on [embedding + JEPA hidden] | 5/5 | 5/5 |
+| GPT-2 L8 dense residual, last token (control) | 5/5 | 5/5 |
+
+### Cost (single-thread CPU unless noted; task clinc/travel, k=3)
+| method | params at inference | fit s (k=3) | predict ms / 1000 rows | one-off prep s | device |
+|---|---|---|---|---|---|
+| Baseline: bge-small + LR | 5082 | 0.009 | 0.0 | 0.0 | cpu 1 thread |
+| HDC bundle (one-shot) | 132000 | 0.000 | 0.2 | 0.4 | cpu 1 thread |
+| HDC bundle, pool-centered | 132000 | 0.000 | 0.2 | 0.3 | cpu 1 thread |
+| HDC online (OnlineHD, 1 pass) | 132000 | 0.004 | 0.2 | 0.3 | cpu 1 thread |
+| NTK kernel ridge | 529 | 0.000 | 0.0 | 0.0 | cpu 1 thread |
+| NTK kernel SVM (OvR) | 529 | 0.014 | 0.0 | 0.0 | cpu 1 thread |
+| gzip NCD + 3-NN [vote margin] | 0 | 0.000 | 0.5 | 0.0 | cpu 1 thread |
+| gzip NCD + 3-NN [NCD gap] | 0 | 0.000 | 0.5 | 0.0 | cpu 1 thread |
+| Product-key memory head | 119770 | - | - | - | - |
+| Spiking head (2-layer LIF) [spike-count gap] | 101952 | - | - | - | - |
+| Spiking head (2-layer LIF) [membrane gap] | 101952 | - | - | - | - |
+| LR on [embedding + JEPA hidden] | 412839 | - | - | - | - |
+| GPT-2 L8 dense residual, last token (control) | 10151 | - | - | - | - |
+
+### Skipped / failed
+- SAE concepts, last token (GPT-2 L8) (clinc/work, k=1): error: TypeError: sparse array length is ambiguous; use getnnz() or shape[0] | classes_] = clf.predict_proba(X); return p
+                  ^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/scipy/sparse/_base.py", line 468, in __len__
+    raise TypeError("sparse array length is ambiguous; use getnnz()"
+TypeError: sparse array length is ambiguous; use getnnz() or shape[0]
+
+- SAE concepts, mean over tokens (clinc/work, k=1): error: TypeError: sparse array length is ambiguous; use getnnz() or shape[0] | classes_] = clf.predict_proba(X); return p
+                  ^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/scipy/sparse/_base.py", line 468, in __len__
+    raise TypeError("sparse array length is ambiguous; use getnnz()"
+TypeError: sparse array length is ambiguous; use getnnz() or shape[0]
+

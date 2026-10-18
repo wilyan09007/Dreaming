@@ -1,0 +1,13 @@
+{
+ "build_secs": 68.85389804840088,
+ "gpu_done_secs": 170.3421754837036,
+ "fast_done_secs": 170.3423352241516,
+ "ncd_done_secs": 170.34240293502808,
+ "torch_done_secs": 447.75692868232727,
+ "tm_done_secs": 2040.0646724700928,
+ "total_secs": 2280.0639050006866,
+ "pip": {
+  "snntorch": 0,
+  "tmu": 0
+ }
+}

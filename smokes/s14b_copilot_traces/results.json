@@ -1,0 +1,1406 @@
+{
+ "F": {
+  "ts_check": {
+   "batch_start_after_issuing_llm_end": 1.0,
+   "next_llm_start_after_batch_end_end_hyp": 0.9873026828301603,
+   "next_llm_end_after_batch_end_start_hyp": 0.9874543864204787,
+   "median_gap_ms_batch_end_to_next_llm_start": 228.7923583984375
+  },
+  "lat_stats": {
+   "2026-06-01": {
+    "n": 1635686,
+    "median": 167.23165,
+    "p90": 4923.028700000001,
+    "s1": 0.23660348013004942,
+    "s10": 0.05964103134709229,
+    "t1": 0.9907437269007984,
+    "t10": 0.9523601474606376
+   },
+   "2026-06-02": {
+    "n": 1674818,
+    "median": 171.49515000000002,
+    "p90": 4968.896230000003,
+    "s1": 0.23845635764602482,
+    "s10": 0.06057673132244817,
+    "t1": 0.9888845743594538,
+    "t10": 0.9434231156672597
+   },
+   "pooled": {
+    "n": 3310504,
+    "median": 169.202,
+    "p90": 4946.046330000006,
+    "s1": 0.2375408699098385,
+    "s10": 0.060114411582043094,
+    "t1": 0.9898823809451962,
+    "t10": 0.9482196178273081
+   }
+  },
+  "batch_lat": {
+   "n": 3013683,
+   "median": 174.052,
+   "p90": 5164.013960000004,
+   "s1": 0.24844816126978186,
+   "s10": 0.06465643533178506,
+   "t1": 0.990913155449502,
+   "t10": 0.9509764177183887
+  },
+  "per_tool": {
+   "get_file": [
+    1158566,
+    "68",
+    "439",
+    "4.8",
+    "0.43",
+    "85.6",
+    "2.0"
+   ],
+   "run_command_in_terminal": [
+    549188,
+    "379",
+    "20219",
+    "40.4",
+    "15.82",
+    "99.7",
+    "56.3"
+   ],
+   "replace_string_in_file": [
+    328188,
+    "258",
+    "1077",
+    "10.9",
+    "0.89",
+    "89.6",
+    "1.7"
+   ],
+   "code_search": [
+    266614,
+    "1759",
+    "5665",
+    "73.2",
+    "4.61",
+    "94.0",
+    "1.8"
+   ],
+   "run_build": [
+    163196,
+    "5040",
+    "45633",
+    "77.0",
+    "33.85",
+    "100.0",
+    "28.5"
+   ],
+   "file_search": [
+    152659,
+    "58",
+    "173",
+    "1.0",
+    "0.07",
+    "54.6",
+    "0.1"
+   ],
+   "apply_patch": [
+    112276,
+    "295",
+    "3171",
+    "18.7",
+    "5.64",
+    "92.3",
+    "0.7"
+   ],
+   "create_file": [
+    97891,
+    "582",
+    "2847",
+    "31.0",
+    "2.19",
+    "92.1",
+    "0.8"
+   ],
+   "update_plan_progress": [
+    81443,
+    "18",
+    "187",
+    "1.0",
+    "0.06",
+    "36.7",
+    "0.0"
+   ],
+   "multi_replace_string_in_file": [
+    68949,
+    "360",
+    "1669",
+    "18.2",
+    "1.07",
+    "87.6",
+    "0.3"
+   ],
+   "get_errors": [
+    63992,
+    "63",
+    "233",
+    "1.6",
+    "0.08",
+    "53.0",
+    "0.0"
+   ],
+   "edit_file": [
+    39002,
+    "4931",
+    "27277",
+    "91.9",
+    "28.17",
+    "99.8",
+    "1.1"
+   ],
+   "get_files_in_project": [
+    28087,
+    "66",
+    "234",
+    "1.2",
+    "0.12",
+    "48.5",
+    "0.0"
+   ],
+   "get_projects_in_solution": [
+    25469,
+    "95",
+    "274",
+    "1.6",
+    "0.07",
+    "29.2",
+    "0.0"
+   ],
+   "find_symbol": [
+    25123,
+    "219",
+    "1534",
+    "18.7",
+    "0.98",
+    "91.7",
+    "0.1"
+   ]
+  },
+  "ladder": {
+   "global median": {
+    "mae": 13029.64020540805,
+    "mae_clip": 6775.9622374019755,
+    "p90": 4801.664580000003,
+    "med": 134.40225,
+    "logerr": 1.6002501247741348
+   },
+   "per-tool median (day 1)": {
+    "mae": 12790.081288693578,
+    "mae_clip": 6536.403320687502,
+    "p90": 4233.7936500000005,
+    "med": 124.97145,
+    "logerr": 1.1034500224744686
+   },
+   "per-tool EWMA over the stream (alpha 0.1)": {
+    "mae": 12832.026007848279,
+    "mae_clip": 6578.348039842202,
+    "p90": 3808.3465634193435,
+    "med": 154.75753551180196,
+    "logerr": 1.1536788742089363
+   },
+   "per-session same-tool EWMA (0.5)": {
+    "mae": 16340.629843642886,
+    "mae_clip": 7087.5994780607925,
+    "p90": 4143.168408194463,
+    "med": 91.5310888748904,
+    "logerr": 0.8511697211396848
+   },
+   "GBM, call-time features only": {
+    "mae": 12752.929647753577,
+    "mae_clip": 6499.251679747502,
+    "p90": 4041.5750902958953,
+    "med": 110.87482260478292,
+    "logerr": 1.0277122180949183
+   },
+   "GBM + session history": {
+    "mae": 12422.426009502755,
+    "mae_clip": 6168.7480414966785,
+    "p90": 3491.14126696803,
+    "med": 71.07192527427472,
+    "logerr": 0.7518890215328647
+   }
+  },
+  "slow_base_rate": 0.23845635764602482,
+  "slow_clf": {
+   "per-tool slow rate": {
+    "auc": 0.8726648925519516,
+    "prec": 0.6407200322507143
+   },
+   "GBM call-time features": {
+    "auc": 0.8844534367431846,
+    "prec": 0.6743128569675815
+   },
+   "GBM + session history": {
+    "auc": 0.9419057743097228,
+    "prec": 0.7886100893655273
+   }
+  },
+  "logerr_gain_hist_vs_tool_median": {
+   "mean": 0.3515610009416037,
+   "ci": [
+    0.3468918282383418,
+    0.35637468727438903
+   ]
+  },
+  "drift_day1_holdout": {
+   "tool_median": {
+    "mae": 15419.56834209725,
+    "mae_clip": 6222.400980752657,
+    "p90": 3903.8637550000008,
+    "med": 124.2003,
+    "logerr": 1.0916343454977673
+   },
+   "gbm_static": {
+    "mae": 15393.077763744272,
+    "mae_clip": 6195.910402399681,
+    "p90": 3744.8493782953756,
+    "med": 110.35065944625275,
+    "logerr": 1.019977062355575
+   },
+   "gbm_hist": {
+    "mae": 15095.298324744297,
+    "mae_clip": 5898.130963399706,
+    "p90": 3246.019719066608,
+    "med": 68.56273675947878,
+    "logerr": 0.7452059676389071
+   }
+  }
+ },
+ "E": {
+  "n_train_pos": 1598165,
+  "n_test_pos": 1634662,
+  "tail_share": 0.011535718087286546,
+  "gbm_fit_s": 27.408222198486328,
+  "train_sample_gbm": 200000,
+  "acc": {
+   "all positions": {
+    "n": 1634662,
+    "(a) most common next tool overall": [
+     0.3495627842330708,
+     0.6165610994811159
+    ],
+    "(b) bigram (last tool)": [
+     0.4532924849296062,
+     0.7309560019135455
+    ],
+    "(b) trigram (last 2 tools, backoff to bigram if < 5 seen)": [
+     0.4775653927233887,
+     0.7720232072440664
+    ],
+    "(b) 4-gram (last 3 tools, backoff trigram then bigram)": [
+     0.4900964236031669,
+     0.7896794566705533
+    ],
+    "(c) GBM (last 3 tools, status, position, turn, model, batch size)": [
+     0.4812952157693762,
+     0.794682325765204
+    ]
+   },
+   "next call opens a new turn (after a user message)": {
+    "n": 123904,
+    "(a) most common next tool overall": [
+     0.376315534607438,
+     0.604831159607438
+    ],
+    "(b) bigram (last tool)": [
+     0.37829287190082644,
+     0.6048230888429752
+    ],
+    "(b) trigram (last 2 tools, backoff to bigram if < 5 seen)": [
+     0.37827673037190085,
+     0.668985666322314
+    ],
+    "(b) 4-gram (last 3 tools, backoff trigram then bigram)": [
+     0.3710291838842975,
+     0.6840860666322314
+    ],
+    "(c) GBM (last 3 tools, status, position, turn, model, batch size)": [
+     0.3633458161157025,
+     0.6857889979338843
+    ]
+   },
+   "inside a turn, current call in the first batch": {
+    "n": 172330,
+    "(a) most common next tool overall": [
+     0.38814483839145825,
+     0.5937213485754077
+    ],
+    "(b) bigram (last tool)": [
+     0.46644229095340334,
+     0.7611211048569605
+    ],
+    "(b) trigram (last 2 tools, backoff to bigram if < 5 seen)": [
+     0.47875007253525215,
+     0.7798351999071549
+    ],
+    "(b) 4-gram (last 3 tools, backoff trigram then bigram)": [
+     0.48139615853304707,
+     0.7939418557418906
+    ],
+    "(c) GBM (last 3 tools, status, position, turn, model, batch size)": [
+     0.4645505715777868,
+     0.7981256890848952
+    ]
+   },
+   "inside a turn, later batch": {
+    "n": 1338428,
+    "(a) most common next tool overall": [
+     0.3421185151535981,
+     0.6205877342673644
+    ],
+    "(b) bigram (last tool)": [
+     0.45854240945347824,
+     0.7387487410604082
+    ],
+    "(b) trigram (last 2 tools, backoff to bigram if < 5 seen)": [
+     0.4866044344559438,
+     0.7805559955410377
+    ],
+    "(b) 4-gram (last 3 tools, backoff trigram then bigram)": [
+     0.5022391940395747,
+     0.7989058806301124
+    ],
+    "(c) GBM (last 3 tools, status, position, turn, model, batch size)": [
+     0.49437026123183314,
+     0.804319694447516
+    ]
+   },
+   "next call in the same batch (parallel)": {
+    "n": 166488,
+    "(a) most common next tool overall": [
+     0.6493621161885541,
+     0.7155290471385325
+    ],
+    "(b) bigram (last tool)": [
+     0.7363233386189996,
+     0.8936980443034933
+    ],
+    "(b) trigram (last 2 tools, backoff to bigram if < 5 seen)": [
+     0.724995194848878,
+     0.9060352698092355
+    ],
+    "(b) 4-gram (last 3 tools, backoff trigram then bigram)": [
+     0.7208447455672481,
+     0.9076449954351065
+    ],
+    "(c) GBM (last 3 tools, status, position, turn, model, batch size)": [
+     0.7272055643649993,
+     0.9120477151506415
+    ]
+   },
+   "model Model A": {
+    "n": 467659,
+    "(a) most common next tool overall": [
+     0.35418114480850366,
+     0.6955345668531986
+    ],
+    "(b) bigram (last tool)": [
+     0.48622393667180575,
+     0.7520736262960832
+    ],
+    "(b) trigram (last 2 tools, backoff to bigram if < 5 seen)": [
+     0.508853673296141,
+     0.7926395087018533
+    ],
+    "(b) 4-gram (last 3 tools, backoff trigram then bigram)": [
+     0.5196500013899016,
+     0.8095214675650421
+    ],
+    "(c) GBM (last 3 tools, status, position, turn, model, batch size)": [
+     0.5105301084764754,
+     0.8107681023993979
+    ]
+   },
+   "model Model B": {
+    "n": 212280,
+    "(a) most common next tool overall": [
+     0.34148294705106463,
+     0.640536084416808
+    ],
+    "(b) bigram (last tool)": [
+     0.42361032598454873,
+     0.751168268324854
+    ],
+    "(b) trigram (last 2 tools, backoff to bigram if < 5 seen)": [
+     0.4519172790653853,
+     0.7757584322592802
+    ],
+    "(b) 4-gram (last 3 tools, backoff trigram then bigram)": [
+     0.4648200489918975,
+     0.7876860749952892
+    ],
+    "(c) GBM (last 3 tools, status, position, turn, model, batch size)": [
+     0.45301488599962314,
+     0.7873516110797061
+    ]
+   },
+   "model Model C": {
+    "n": 174823,
+    "(a) most common next tool overall": [
+     0.35485033433815916,
+     0.6813119555207267
+    ],
+    "(b) bigram (last tool)": [
+     0.4694977205516437,
+     0.7543115036351052
+    ],
+    "(b) trigram (last 2 tools, backoff to bigram if < 5 seen)": [
+     0.49301865315204524,
+     0.7861379795564657
+    ],
+    "(b) 4-gram (last 3 tools, backoff trigram then bigram)": [
+     0.5008265502822855,
+     0.8035727564450902
+    ],
+    "(c) GBM (last 3 tools, status, position, turn, model, batch size)": [
+     0.4913312321605281,
+     0.8012103670569662
+    ]
+   },
+   "model Model D": {
+    "n": 148442,
+    "(a) most common next tool overall": [
+     0.37591786691098206,
+     0.5047628029802886
+    ],
+    "(b) bigram (last tool)": [
+     0.4701836407485752,
+     0.6996739467266676
+    ],
+    "(b) trigram (last 2 tools, backoff to bigram if < 5 seen)": [
+     0.4889182306894275,
+     0.7459277024022851
+    ],
+    "(b) 4-gram (last 3 tools, backoff trigram then bigram)": [
+     0.499333072850002,
+     0.7641839910537449
+    ],
+    "(c) GBM (last 3 tools, status, position, turn, model, batch size)": [
+     0.48843319276215624,
+     0.7641300979507147
+    ]
+   },
+   "model Model E": {
+    "n": 132518,
+    "(a) most common next tool overall": [
+     0.3358864456149353,
+     0.6278694215125492
+    ],
+    "(b) bigram (last tool)": [
+     0.42455364554249236,
+     0.7527203851552242
+    ],
+    "(b) trigram (last 2 tools, backoff to bigram if < 5 seen)": [
+     0.4589263345356857,
+     0.7811467121447653
+    ],
+    "(b) 4-gram (last 3 tools, backoff trigram then bigram)": [
+     0.47195098024419324,
+     0.7961182631793416
+    ],
+    "(c) GBM (last 3 tools, status, position, turn, model, batch size)": [
+     0.4616203081845485,
+     0.7928885132585762
+    ]
+   }
+  },
+  "gate": {
+   "(b) bigram (last tool)|0.5": {
+    "launched": 0.5726670100607955,
+    "precision": 0.5307744651576672,
+    "hits_per_position": 0.30395702597845914
+   },
+   "(b) bigram (last tool)|0.7": {
+    "launched": 0.0,
+    "precision": null,
+    "hits_per_position": 0.0
+   },
+   "(b) bigram (last tool)|0.9": {
+    "launched": 0.0,
+    "precision": null,
+    "hits_per_position": 0.0
+   },
+   "(b) trigram (last 2 tools, backoff to bigram if < 5 seen)|0.5": {
+    "launched": 0.5031015586096698,
+    "precision": 0.5847281314103461,
+    "hits_per_position": 0.2941776342754649
+   },
+   "(b) trigram (last 2 tools, backoff to bigram if < 5 seen)|0.7": {
+    "launched": 0.10481004635820738,
+    "precision": 0.710953778986628,
+    "hits_per_position": 0.07451509853413121
+   },
+   "(b) trigram (last 2 tools, backoff to bigram if < 5 seen)|0.9": {
+    "launched": 4.282230822029264e-06,
+    "precision": 0.2857142857142857,
+    "hits_per_position": 1.2234945205797896e-06
+   },
+   "(b) 4-gram (last 3 tools, backoff trigram then bigram)|0.5": {
+    "launched": 0.48667063894554347,
+    "precision": 0.6020411241644061,
+    "hits_per_position": 0.2929957385685848
+   },
+   "(b) 4-gram (last 3 tools, backoff trigram then bigram)|0.7": {
+    "launched": 0.09544786628673084,
+    "precision": 0.7563467393045986,
+    "hits_per_position": 0.0721916824395502
+   },
+   "(b) 4-gram (last 3 tools, backoff trigram then bigram)|0.9": {
+    "launched": 0.0008460464609809245,
+    "precision": 0.8915401301518439,
+    "hits_per_position": 0.0007542843719374403
+   },
+   "(c) GBM (last 3 tools, status, position, turn, model, batch size)|0.5": {
+    "launched": 0.40510454148931097,
+    "precision": 0.6244388101037588,
+    "hits_per_position": 0.2529629978552141
+   },
+   "(c) GBM (last 3 tools, status, position, turn, model, batch size)|0.7": {
+    "launched": 0.16100576143569742,
+    "precision": 0.6974011170637182,
+    "hits_per_position": 0.1122855978789499
+   },
+   "(c) GBM (last 3 tools, status, position, turn, model, batch size)|0.9": {
+    "launched": 0.04299604444221496,
+    "precision": 0.504254168800865,
+    "hits_per_position": 0.021680934651934162
+   },
+   "trigram0.7|all positions": {
+    "launched": 0.10481004635820738,
+    "precision": 0.710953778986628
+   },
+   "trigram0.7|next call opens a new turn (after a user message)": {
+    "launched": 0.08567923553719008,
+    "precision": 0.49698568198944987
+   },
+   "trigram0.7|inside a turn, current call in the first batch": {
+    "launched": 0.048743689433064466,
+    "precision": 0.7440476190476191
+   },
+   "trigram0.7|inside a turn, later batch": {
+    "launched": 0.11379992050375515,
+    "precision": 0.7240419399525976
+   }
+  },
+  "batch": {
+   "unconditional (mode of non-first slots)": [
+    "64.9 / 80.2",
+    "51.6 / 77.7",
+    "76.9 / 85.5",
+    "71.9 / 73.0"
+   ],
+   "P(tool given previous tool in the batch)": [
+    "76.4 / 92.9",
+    "59.9 / 87.8",
+    "87.0 / 96.7",
+    "96.2 / 97.6"
+   ],
+   "P(tool given first tool and slot index)": [
+    "75.6 / 92.5",
+    "60.1 / 87.8",
+    "85.4 / 95.9",
+    "94.8 / 97.2"
+   ],
+   "rest identical to the first tool": [
+    "71.8 / 71.8",
+    "56.0 / 56.0",
+    "80.8 / 80.8",
+    "93.5 / 93.5"
+   ]
+  },
+  "batch_frac_multi": 0.07140612465441913,
+  "batch_homog": 0.6217967763499963,
+  "batch_exact_rest": 0.6611453613607665,
+  "batch_exact_rest_same_as_first": 0.6217967763499963
+ },
+ "D": {
+  "status_share": {
+   "1": 0.9184078919705277,
+   "2": 0.04543688815962766,
+   "0": 0.036155219869844595
+  },
+  "fail_rate": {
+   "2026-06-01": 0.047324212782365156,
+   "2026-06-02": 0.04696315953889884
+  },
+  "fail_conc_top5pct_sessions": 0.43826845637583894,
+  "fail_by_lastfail": {
+   "-1.0": [
+    0.04412956352248089,
+    45661
+   ],
+   "0.0": [
+    0.04157488326110639,
+    1458597
+   ],
+   "1.0": [
+    0.16922659275028934,
+    69989
+   ]
+  },
+  "cv5_day1": {
+   "per-tool base rate": {
+    "auc": 0.7978975029672007,
+    "auc_ci": [
+     0.7948264524126825,
+     0.8010641426156813
+    ],
+    "prec": 0.1571261144231044,
+    "prec_ci": [
+     0.15426733622264602,
+     0.16059708474301054
+    ],
+    "rec": 0.6640402684563759,
+    "rec_ci": [
+     0.6565644089718764,
+     0.6710236518568096
+    ],
+    "dauc": 0.0,
+    "dauc_ci": null
+   },
+   "LR call-time features": {
+    "auc": 0.8144892727163919,
+    "auc_ci": [
+     0.8120010981307699,
+     0.8176228061734564
+    ],
+    "prec": 0.15778674856836133,
+    "prec_ci": [
+     0.15487802561144576,
+     0.1613506404319755
+    ],
+    "rec": 0.6668322147651007,
+    "rec_ci": [
+     0.6594530252365026,
+     0.6739900556653822
+    ],
+    "dauc": 0.016591769749191188,
+    "dauc_ci": [
+     0.014703264369065754,
+     0.018305560503065876
+    ]
+   },
+   "LR + session context": {
+    "auc": 0.8593003983897901,
+    "auc_ci": [
+     0.8570671490033982,
+     0.8617058647454509
+    ],
+    "prec": 0.17358162166625907,
+    "prec_ci": [
+     0.17069669511369778,
+     0.17676835425580248
+    ],
+    "rec": 0.7335838926174497,
+    "rec_ci": [
+     0.7256672733404309,
+     0.7401940933408784
+    ],
+    "dauc": 0.061402895422589365,
+    "dauc_ci": [
+     0.05890824345272477,
+     0.0640798029093828
+    ]
+   },
+   "GBM call-time features": {
+    "auc": 0.830724114738046,
+    "auc_ci": [
+     0.8280425448467853,
+     0.8338911751593618
+    ],
+    "prec": 0.16136941835610086,
+    "prec_ci": [
+     0.15881624010736625,
+     0.16453867306350758
+    ],
+    "rec": 0.6819731543624161,
+    "rec_ci": [
+     0.6747490417868856,
+     0.689744007730973
+    ],
+    "dauc": 0.032826611770845227,
+    "dauc_ci": [
+     0.030756748382534775,
+     0.03484940879889858
+    ]
+   },
+   "GBM + session context": {
+    "auc": 0.8782453390046732,
+    "auc_ci": [
+     0.8763426529173406,
+     0.8801377345737922
+    ],
+    "prec": 0.18181096335068556,
+    "prec_ci": [
+     0.17881385426915056,
+     0.18495379811700907
+    ],
+    "rec": 0.7683624161073825,
+    "rec_ci": [
+     0.7623264467660776,
+     0.7736171421165114
+    ],
+    "dauc": 0.08034783603747242,
+    "dauc_ci": [
+     0.07765198178045025,
+     0.08341156242026421
+    ]
+   }
+  },
+  "chrono_day2": {
+   "per-tool base rate": {
+    "auc": 0.7987433023146131,
+    "auc_ci": [
+     0.795710791927377,
+     0.8023921681394859
+    ],
+    "prec": 0.1574109299656989,
+    "prec_ci": [
+     0.1547472519725197,
+     0.16041951712508096
+    ],
+    "rec": 0.6703591986195814,
+    "rec_ci": [
+     0.6621613683581377,
+     0.6778029326350715
+    ],
+    "dauc": 0.0,
+    "dauc_ci": null
+   },
+   "LR call-time features": {
+    "auc": 0.8145970175016698,
+    "auc_ci": [
+     0.811288408841236,
+     0.8179800805471246
+    ],
+    "prec": 0.15706760940636472,
+    "prec_ci": [
+     0.154559751245072,
+     0.16003501776277812
+    ],
+    "rec": 0.6688971140294261,
+    "rec_ci": [
+     0.6614626976610232,
+     0.6754703218450027
+    ],
+    "dauc": 0.015853715187056694,
+    "dauc_ci": [
+     0.014410213099996313,
+     0.01744358597651379
+    ]
+   },
+   "LR + session context": {
+    "auc": 0.859236964771844,
+    "auc_ci": [
+     0.8570791566037655,
+     0.86130221170364
+    ],
+    "prec": 0.1721458772149589,
+    "prec_ci": [
+     0.16971625524752587,
+     0.17476857181917713
+    ],
+    "rec": 0.7331102885970574,
+    "rec_ci": [
+     0.7275381721944967,
+     0.7379037762813041
+    ],
+    "dauc": 0.06049366245723087,
+    "dauc_ci": [
+     0.05767129869236569,
+     0.06265006990378498
+    ]
+   },
+   "GBM call-time features": {
+    "auc": 0.8318371178840931,
+    "auc_ci": [
+     0.8284635306115471,
+     0.8346486539382755
+    ],
+    "prec": 0.160952389789461,
+    "prec_ci": [
+     0.15827016132777366,
+     0.16401503968896702
+    ],
+    "rec": 0.6854410621846968,
+    "rec_ci": [
+     0.6785669174377835,
+     0.6917438159120654
+    ],
+    "dauc": 0.03309381556947999,
+    "dauc_ci": [
+     0.031042169530393057,
+     0.03495186308056647
+    ]
+   },
+   "GBM + session context": {
+    "auc": 0.87845428759082,
+    "auc_ci": [
+     0.8766425342418045,
+     0.8802163152307018
+    ],
+    "prec": 0.18038557063897834,
+    "prec_ci": [
+     0.1779665668920357,
+     0.18326196345261273
+    ],
+    "rec": 0.7682003187607845,
+    "rec_ci": [
+     0.7628338389591914,
+     0.773173602047141
+    ],
+    "dauc": 0.0797109852762069,
+    "dauc_ci": [
+     0.07673019265677485,
+     0.08204978095004638
+    ]
+   }
+  },
+  "per_tool": {
+   "get_file": [
+    1155368,
+    "2.46%",
+    28411,
+    "68",
+    "80",
+    "0.3%"
+   ],
+   "run_command_in_terminal": [
+    472549,
+    "13.09%",
+    61839,
+    "529",
+    "4967",
+    "14.0%"
+   ],
+   "replace_string_in_file": [
+    324689,
+    "0.86%",
+    2802,
+    "261",
+    "101",
+    "1.1%"
+   ],
+   "code_search": [
+    266614,
+    "0.67%",
+    1776,
+    "1764",
+    "943",
+    "0.0%"
+   ],
+   "file_search": [
+    152659,
+    "1.94%",
+    2961,
+    "59",
+    "36",
+    "0.0%"
+   ],
+   "run_build": [
+    134888,
+    "25.54%",
+    34447,
+    "5303",
+    "11360",
+    "17.3%"
+   ],
+   "apply_patch": [
+    111685,
+    "2.40%",
+    2680,
+    "299",
+    "64",
+    "0.5%"
+   ],
+   "create_file": [
+    96787,
+    "5.17%",
+    5004,
+    "619",
+    "64",
+    "1.1%"
+   ],
+   "update_plan_progress": [
+    81443,
+    "0.07%",
+    61,
+    "18",
+    "43",
+    "0.0%"
+   ],
+   "multi_replace_string_in_file": [
+    68219,
+    "2.03%",
+    1383,
+    "373",
+    "34",
+    "1.1%"
+   ],
+   "get_errors": [
+    63992,
+    "1.52%",
+    975,
+    "63",
+    "52",
+    "0.0%"
+   ],
+   "edit_file": [
+    38478,
+    "11.73%",
+    4515,
+    "5299",
+    "2083",
+    "1.3%"
+   ],
+   "get_files_in_project": [
+    28087,
+    "0.22%",
+    61,
+    "66",
+    "18",
+    "0.0%"
+   ],
+   "get_projects_in_solution": [
+    25469,
+    "0.16%",
+    41,
+    "95",
+    "108",
+    "0.0%"
+   ],
+   "find_symbol": [
+    25123,
+    "0.42%",
+    105,
+    "219",
+    "14703",
+    "0.0%"
+   ]
+  }
+ },
+ "S": {
+  "2026-06-01": {
+   "repeat_prev": 0.38579370715789674,
+   "repeat_prev_within_batch": 0.7507402752659167,
+   "repeat_prev_across_batch": 0.34431204487648515,
+   "share_pairs_in_same_batch": 0.1020639295692247,
+   "run_len_mean": 1.604992130496387,
+   "run_len_median": 1.0,
+   "run_len_p90": 3.0,
+   "run_len_max": 1757,
+   "calls_in_runs_ge3": 0.3610723574084512,
+   "calls_in_runs_ge10": 0.07948347054385745,
+   "batches": 1472571,
+   "batch_size_mean": 1.110768852571455,
+   "batch_size_dist": {
+    "1": 0.9298322457796602,
+    "2": 0.04742046393688318,
+    "3": 0.013891350569853678,
+    "4": 0.005646586819922435,
+    "5": 0.0032093528936805085
+   },
+   "calls_per_session_mean": 43.59388076010767,
+   "calls_per_session_median": 22.0,
+   "calls_per_session_p90": 103.0,
+   "calls_per_turn_mean": 10.495662328995662,
+   "calls_per_turn_median": 6.0,
+   "calls_per_turn_p90": 26.0,
+   "turns": 222774,
+   "llm_calls_per_turn_mean": 7.846683185650031,
+   "llm_calls_per_turn_median": 4.0,
+   "turns_with_zero_tool_calls": 0.3004390099383232,
+   "turns_per_session_mean": 3.9873635224628603,
+   "llm_calls": 1748037,
+   "llm_result": {
+    "Success": 0.9875700571555408,
+    "UserCancel": 0.007301332866523992,
+    "Failure": 0.004358603393406432,
+    "UserFault": 0.0007700065845288172
+   },
+   "token_rows_share": 0.9730451929793248,
+   "cache_hit_token_weighted": 0.8499595994553358,
+   "cache_hit_agent_calls": 0.8989787858794105,
+   "cache_hit_user_calls": 0.47441443752527845,
+   "calls_with_any_cache_hit_agent": 0.975493297052783,
+   "prompt_tokens_median": 56910.0,
+   "completion_tokens_median": 170.0,
+   "agent_initiated_llm_share": 0.8774963001355235,
+   "n_models": 26,
+   "model_mix_top": {
+    "Model A": 0.2953185511123148,
+    "Model B": 0.12693937038596648,
+    "Model C": 0.11656225865114861,
+    "Model D": 0.09066894713312347,
+    "Model E": 0.07965246383747843,
+    "Model F": 0.0651416974758427,
+    "Model I": 0.06366260968715932,
+    "Model G": 0.04111394108259085
+   },
+   "model_top5_share": 0.7091415911200318,
+   "top3_time_tools": [
+    "run_command_in_terminal",
+    "run_build",
+    "get_file"
+   ],
+   "top3_time_share": 0.8880776615588434,
+   "top3_call_tools": [
+    "get_file",
+    "run_command_in_terminal",
+    "replace_string_in_file"
+   ],
+   "top3_call_share": 0.6184872891251744,
+   "top10_call_share": 0.9007321698663435,
+   "n_tools": 855,
+   "sessions_with_calls": 37521,
+   "calls": 1635686
+  },
+  "2026-06-02": {
+   "repeat_prev": 0.3787859508571191,
+   "repeat_prev_within_batch": 0.7417291336312527,
+   "repeat_prev_across_batch": 0.3376289186431581,
+   "share_pairs_in_same_batch": 0.101848577871144,
+   "run_len_mean": 1.5865562871874737,
+   "run_len_median": 1.0,
+   "run_len_p90": 3.0,
+   "run_len_max": 158,
+   "calls_in_runs_ge3": 0.3532431583610876,
+   "calls_in_runs_ge10": 0.07401341518899367,
+   "batches": 1508330,
+   "batch_size_mean": 1.1103790284619413,
+   "batch_size_dist": {
+    "1": 0.9285938753455809,
+    "2": 0.048863312405110285,
+    "3": 0.013651521881816314,
+    "4": 0.005771946457340237,
+    "5": 0.0031193439101522874
+   },
+   "calls_per_session_mean": 41.70778962048013,
+   "calls_per_session_median": 21.0,
+   "calls_per_session_p90": 99.0,
+   "calls_per_turn_mean": 10.210001402122693,
+   "calls_per_turn_median": 6.0,
+   "calls_per_turn_p90": 26.0,
+   "turns": 235008,
+   "llm_calls_per_turn_mean": 7.778152233115469,
+   "llm_calls_per_turn_median": 4.0,
+   "turns_with_zero_tool_calls": 0.30199397467320266,
+   "turns_per_session_mean": 3.907357220051542,
+   "llm_calls": 1827928,
+   "llm_result": {
+    "Success": 0.9868944509849403,
+    "UserCancel": 0.007638703493791878,
+    "Failure": 0.004495253642375411,
+    "UserFault": 0.0009715918788923852
+   },
+   "token_rows_share": 0.9727915979185175,
+   "cache_hit_token_weighted": 0.8545154535499344,
+   "cache_hit_agent_calls": 0.9044293580956965,
+   "cache_hit_user_calls": 0.4773311841509426,
+   "calls_with_any_cache_hit_agent": 0.9765881932386886,
+   "prompt_tokens_median": 55596.0,
+   "completion_tokens_median": 172.0,
+   "agent_initiated_llm_share": 0.8757604238241331,
+   "n_models": 28,
+   "model_mix_top": {
+    "Model A": 0.28846829148208797,
+    "Model B": 0.1314781540481411,
+    "Model C": 0.10820947303511932,
+    "Model D": 0.09187765253309746,
+    "Model E": 0.08171883541352666,
+    "Model F": 0.07084141336496563,
+    "Model I": 0.055899137070722554,
+    "Model G": 0.0445058399471937
+   },
+   "model_top5_share": 0.7017524065119725,
+   "top3_time_tools": [
+    "run_command_in_terminal",
+    "run_build",
+    "tool_960e73fa6c1c"
+   ],
+   "top3_time_share": 0.8610435657120957,
+   "top3_call_tools": [
+    "get_file",
+    "run_command_in_terminal",
+    "replace_string_in_file"
+   ],
+   "top3_call_share": 0.6115834675767755,
+   "top10_call_share": 0.898996189436703,
+   "n_tools": 872,
+   "sessions_with_calls": 40156,
+   "calls": 1674818
+  },
+  "pooled": {
+   "repeat_prev": 0.3822502719755805,
+   "repeat_prev_within_batch": 0.7461885965843758,
+   "repeat_prev_across_batch": 0.340932356580133,
+   "share_pairs_in_same_batch": 0.10195503811370049,
+   "run_len_mean": 1.5956120120206965,
+   "run_len_median": 1.0,
+   "run_len_p90": 3.0,
+   "run_len_max": 1757,
+   "calls_in_runs_ge3": 0.35711148513942287,
+   "calls_in_runs_ge10": 0.07671611331688467,
+   "batches": 2980901,
+   "batch_size_mean": 1.110571602344392,
+   "batch_size_dist": {
+    "1": 0.9292056327935748,
+    "2": 0.04815054240311906,
+    "3": 0.013769997728874592,
+    "4": 0.005710018548083281,
+    "5": 0.0031638085263482416
+   },
+   "calls_per_session_mean": 42.61884470306526,
+   "calls_per_session_median": 21.0,
+   "calls_per_session_p90": 101.0,
+   "calls_per_turn_mean": 10.349173598932103,
+   "calls_per_turn_median": 6.0,
+   "calls_per_turn_p90": 26.0,
+   "turns": 457782,
+   "llm_calls_per_turn_mean": 7.811501981292405,
+   "llm_calls_per_turn_median": 4.0,
+   "turns_with_zero_tool_calls": null,
+   "turns_per_session_mean": 3.9458863078050253,
+   "llm_calls": 3575965,
+   "llm_result": {
+    "Success": 0.9872247071769439,
+    "UserCancel": 0.007473786796011706,
+    "Failure": 0.004428454976488864,
+    "UserFault": 0.0008730510505555843
+   },
+   "token_rows_share": 0.972915562652319,
+   "cache_hit_token_weighted": 0.8522603532057972,
+   "cache_hit_agent_calls": 0.9017291568011525,
+   "cache_hit_user_calls": 0.47589667264597074,
+   "calls_with_any_cache_hit_agent": 0.976052598198532,
+   "prompt_tokens_median": 56232.0,
+   "completion_tokens_median": 171.0,
+   "agent_initiated_llm_share": 0.8766089712846742,
+   "n_models": 29,
+   "model_mix_top": {
+    "Model A": 0.29185140984019076,
+    "Model B": 0.12923659779190744,
+    "Model C": 0.11233463965423468,
+    "Model D": 0.09128071261418602,
+    "Model E": 0.08069832232483384,
+    "Model F": 0.06802651079172942,
+    "Model I": 0.05973326134469923,
+    "Model G": 0.042830692443728086
+   },
+   "model_top5_share": 0.7054016822253527,
+   "top3_time_tools": [
+    "run_command_in_terminal",
+    "run_build",
+    "get_file"
+   ],
+   "top3_time_share": 0.8675775604136207,
+   "top3_call_tools": [
+    "get_file",
+    "run_command_in_terminal",
+    "replace_string_in_file"
+   ],
+   "top3_call_share": 0.614994574844193,
+   "top10_call_share": 0.8998539195240363,
+   "n_tools": 1360,
+   "sessions_with_calls": 77677,
+   "calls": 3310504
+  }
+ },
+ "T": {
+  "2026-06-01": {
+   "turns": 222774,
+   "sessions": 55870,
+   "active_time_h": 16888.952177749634,
+   "shares_of_active_turn_time": {
+    "llm": 0.39575347800741967,
+    "tool_batches": 0.3528744464097685,
+    "overlap_llm_tool": 0.0033497180319743422,
+    "gap_neither": 0.2547217936147862
+   },
+   "exclusive": {
+    "llm_only": 0.3924037599754453,
+    "tool_only": 0.34952472837779414
+   },
+   "session_wall_incl_user_idle_h": 64282.733133210786,
+   "idle_between_turns_share_of_session_wall": 0.7375967331210926,
+   "per_session_share_median": {
+    "llm": 0.8682696539892871,
+    "tool": 0.03715218660942255,
+    "gap": 0.01855812678247871
+   },
+   "per_session_share_p10_p90_tool": [
+    0.0,
+    0.4725360598081172
+   ],
+   "upper_bound_save_S19_rule_of_active_time": 0.029133713808647984,
+   "upper_bound_save_S19_rule_of_session_wall": 0.007654277833129272,
+   "upper_bound_save_loose_of_active_time": 0.2699118533178172,
+   "upper_bound_per_session_S19_median_p90": [
+    0.02558624695900323,
+    0.12606461489614623
+   ],
+   "batches_with_next_llm": 1461840,
+   "upper_bound_save_S19_batches_under_1h_of_active_time": 0.029069442821503172,
+   "robust_excl_turns_with_batch_over_1h": {
+    "turns_kept": 0.9983032131218186,
+    "time_kept": 0.7927166919197677,
+    "llm": 0.4975576934952383,
+    "tool": 0.18549432332324678,
+    "gap": 0.32116687330748783,
+    "save19": 0.03641314251306395,
+    "save_loose": 0.283302554567736
+   }
+  },
+  "2026-06-02": {
+   "turns": 235007,
+   "sessions": 60144,
+   "active_time_h": 13038.232832326117,
+   "shares_of_active_turn_time": {
+    "llm": 0.4082063913460631,
+    "tool_batches": 0.41870791681643516,
+    "overlap_llm_tool": 0.003878833506679563,
+    "gap_neither": 0.17696452534418128
+   },
+   "exclusive": {
+    "llm_only": 0.40432755783938357,
+    "tool_only": 0.4148290833097556
+   },
+   "session_wall_incl_user_idle_h": 64805.71757339152,
+   "idle_between_turns_share_of_session_wall": 0.7989668338424503,
+   "per_session_share_median": {
+    "llm": 0.8664717327261916,
+    "tool": 0.037283018396129824,
+    "gap": 0.01867987608709669
+   },
+   "per_session_share_p10_p90_tool": [
+    0.0,
+    0.47570310303405167
+   ],
+   "upper_bound_save_S19_rule_of_active_time": 0.039056225774741195,
+   "upper_bound_save_S19_rule_of_session_wall": 0.007857704293240536,
+   "upper_bound_save_loose_of_active_time": 0.3524659408135591,
+   "upper_bound_per_session_S19_median_p90": [
+    0.025365829916846664,
+    0.12508679816313784
+   ],
+   "batches_with_next_llm": 1497814,
+   "upper_bound_save_S19_batches_under_1h_of_active_time": 0.03898392836948184,
+   "robust_excl_turns_with_batch_over_1h": {
+    "turns_kept": 0.998246860731808,
+    "time_kept": 0.7788570401288993,
+    "llm": 0.5224541397604532,
+    "tool": 0.2555777960516272,
+    "gap": 0.22694802044806284,
+    "save19": 0.049754711141839054,
+    "save_loose": 0.3914819165150504
+   }
+  }
+ },
+ "X": {
+  "n": {
+   "tracelab_calls": 743819,
+   "tracelab_with_latency": 743050,
+   "tracelab_train": 546549,
+   "tracelab_test": 196501,
+   "copilot_train": 1635686,
+   "copilot_test": 1674818
+  },
+  "table": {
+   "Copilot day 2": {
+    "own global median": {
+     "mae": 13029.64020540805,
+     "mae_clip": 6775.9622374019755,
+     "p90": 4801.664580000003,
+     "med": 134.40225,
+     "logerr": 1.6002501247741348,
+     "auc": 0.5
+    },
+    "own per-tool median": {
+     "mae": 12790.081288693578,
+     "mae_clip": 6536.403320687502,
+     "p90": 4233.7936500000005,
+     "med": 124.97145,
+     "logerr": 1.1034500224744686,
+     "auc": 0.8638822133814484
+    },
+    "history-only GBM, trained on the same dataset": {
+     "mae": 12993.046891382683,
+     "mae_clip": 6739.368923376606,
+     "p90": 4577.6771334622445,
+     "med": 139.24813929029267,
+     "logerr": 1.4749765562073682,
+     "auc": 0.633671530378298,
+     "logerr_gain_vs_own_tool_median": -0.3715265337328997,
+     "gain_ci": [
+      -0.3784296504859846,
+      -0.3647619729125616
+     ]
+    },
+    "history-only GBM, trained on TraceLab": {
+     "mae": 13031.277377234937,
+     "mae_clip": 6777.599409228866,
+     "p90": 4491.948012134597,
+     "med": 211.31698353646158,
+     "logerr": 1.5397368518827639,
+     "auc": 0.6328104271466966,
+     "logerr_gain_vs_own_tool_median": -0.4362868294082951,
+     "gain_ci": [
+      -0.44437816770770205,
+      -0.4291992405499109
+     ]
+    },
+    "base_rate_slow": 0.23845635764602482
+   },
+   "TraceLab test sessions": {
+    "own global median": {
+     "mae": 14381.569422038565,
+     "mae_clip": 9111.541625742362,
+     "p90": 11154.0,
+     "med": 190.0,
+     "logerr": 2.0408981571537907,
+     "auc": 0.5
+    },
+    "own per-tool median": {
+     "mae": 14274.58456699966,
+     "mae_clip": 9004.556770703457,
+     "p90": 12091.0,
+     "med": 357.0,
+     "logerr": 1.4773928893426258,
+     "auc": 0.7336290731607685
+    },
+    "history-only GBM, trained on the same dataset": {
+     "mae": 13695.062007604605,
+     "mae_clip": 8425.034211308404,
+     "p90": 9422.194657555257,
+     "med": 297.8308543004696,
+     "logerr": 1.4439282755994483,
+     "auc": 0.7980250440121355,
+     "logerr_gain_vs_own_tool_median": 0.03346461374317777,
+     "gain_ci": [
+      -0.0836643045629837,
+      0.1382426769230839
+     ]
+    },
+    "history-only GBM, trained on Copilot day 1": {
+     "mae": 14147.855439295132,
+     "mae_clip": 8877.82764299893,
+     "p90": 10666.059360577425,
+     "med": 226.8235273564262,
+     "logerr": 1.6101122931462706,
+     "auc": 0.7584609720327942,
+     "logerr_gain_vs_own_tool_median": -0.13271940380364466,
+     "gain_ci": [
+      -0.17766552393609453,
+      -0.08787752721325033
+     ]
+    },
+    "base_rate_slow": 0.3814586185312034
+   }
+  }
+ }
+}

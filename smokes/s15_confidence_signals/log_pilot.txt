@@ -1,0 +1,14 @@
+[calls] jobs=55 cached=0 to_run=55 spent_so_far=$0.0000
+[calls] done 55 calls, 0 errors, spent=$0.0039
+nano_A   n=  5 $/1k=0.0961 served_by={'OpenAI': 5} mean_ms=1225 ntok_mean=3.0 no_lp=0
+nano_Ab  n=  5 $/1k=0.0961 served_by={'OpenAI': 5} mean_ms=1169 ntok_mean=3.0 no_lp=0
+nano_S   n=  5 $/1k=0.0959 served_by={'OpenAI': 5} mean_ms=807 ntok_mean=2.8 no_lp=0
+nano_V   n=  5 $/1k=0.1077 served_by={'OpenAI': 5} mean_ms=996 ntok_mean=6.0 no_lp=0
+nano_Vb  n=  5 $/1k=0.1077 served_by={'OpenAI': 5} mean_ms=848 ntok_mean=6.0 no_lp=0
+g41_A    n=  5 $/1k=0.0454 served_by={'OpenAI': 5} mean_ms=670 ntok_mean=3.0 no_lp=0
+g41_Ab   n=  5 $/1k=0.0454 served_by={'OpenAI': 5} mean_ms=575 ntok_mean=3.0 no_lp=0
+g41_S    n=  5 $/1k=0.0454 served_by={'OpenAI': 5} mean_ms=636 ntok_mean=3.0 no_lp=0
+qnx_A    n=  5 $/1k=0.0467 served_by={'Parasail': 5} mean_ms=538 ntok_mean=2.6 no_lp=0
+qnx_Ab   n=  5 $/1k=0.0467 served_by={'Parasail': 5} mean_ms=363 ntok_mean=2.6 no_lp=0
+qnx_S    n=  5 $/1k=0.0467 served_by={'Parasail': 5} mean_ms=535 ntok_mean=2.6 no_lp=0
+[summary] total spent=$0.0039

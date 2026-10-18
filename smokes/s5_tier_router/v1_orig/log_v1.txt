@@ -1,0 +1,226 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[probe] done calls=24 total_spent=$0.0200
+E1   i=0 gold=activate_my_card                   -> 'activate_my_card'                           parse_fail=False ms=2328 pt=434 ct=7 rt=0 usd=0.00119 rep=0.00119 fin=stop err=None
+E1   i=1 gold=age_limit                          -> 'age_limit'                                  parse_fail=False ms=2066 pt=437 ct=6 rt=0 usd=0.00118 rep=0.0011825 fin=stop err=None
+E1   i=2 gold=apple_pay_or_google_pay            -> 'top_up_failed'                              parse_fail=False ms=5053 pt=442 ct=110 rt=101 usd=0.00276 rep=0.002755 fin=stop err=None
+C1   i=0 gold=activate_my_card                   -> 'activate_my_card'                           parse_fail=False ms=2212 pt=434 ct=7 rt=0 usd=0.00010 rep=9.555e-05 fin=stop err=None
+C1   i=1 gold=age_limit                          -> 'age_limit'                                  parse_fail=False ms=1662 pt=437 ct=6 rt=0 usd=0.00009 rep=9.49e-05 fin=stop err=None
+C1   i=2 gold=apple_pay_or_google_pay            -> 'topping_up_by_card'                         parse_fail=False ms=2111 pt=442 ct=9 rt=0 usd=0.00010 rep=9.965e-05 fin=stop err=None
+C2   i=0 gold=activate_my_card                   -> 'activate_my_card'                           parse_fail=False ms=2415 pt=434 ct=7 rt=0 usd=0.00036 rep=0.000357 fin=stop err=None
+C2   i=1 gold=age_limit                          -> 'age_limit'                                  parse_fail=False ms=2372 pt=437 ct=6 rt=0 usd=0.00035 rep=0.00035475 fin=stop err=None
+C2   i=2 gold=apple_pay_or_google_pay            -> 'apple_pay_or_google_pay'                    parse_fail=False ms=789 pt=442 ct=9 rt=0 usd=0.00037 rep=0.000372 fin=stop err=None
+C2b  i=0 gold=activate_my_card                   -> 'activate_my_card'                           parse_fail=False ms=745 pt=434 ct=7 rt=0 usd=0.00036 rep=0.000357 fin=stop err=None
+C2b  i=1 gold=age_limit                          -> 'age_limit'                                  parse_fail=False ms=777 pt=437 ct=6 rt=0 usd=0.00035 rep=0.00035475 fin=stop err=None
+C2b  i=2 gold=apple_pay_or_google_pay            -> 'apple_pay_or_google_pay'                    parse_fail=False ms=789 pt=442 ct=9 rt=0 usd=0.00037 rep=0.000372 fin=stop err=None
+C3   i=0 gold=activate_my_card                   -> 'None'                                       parse_fail=True ms=1956 pt=425 ct=60 rt=67 usd=0.00005 rep=5.08e-05 fin=length err=None
+C3   i=1 gold=age_limit                          -> 'None'                                       parse_fail=True ms=2484 pt=428 ct=60 rt=73 usd=0.00005 rep=5.104e-05 fin=length err=None
+C3   i=2 gold=apple_pay_or_google_pay            -> 'None'                                       parse_fail=True ms=1908 pt=434 ct=60 rt=72 usd=0.00005 rep=5.152e-05 fin=length err=None
+Ton  i=0 gold=activate_my_card                   -> 'activate_my_card'                           parse_fail=False ms=1887 pt=434 ct=42 rt=33 usd=0.00051 rep=0.0005145 fin=stop err=None
+Ton  i=1 gold=age_limit                          -> 'age_limit'                                  parse_fail=False ms=1739 pt=437 ct=39 rt=31 usd=0.00050 rep=0.00050325 fin=stop err=None
+Ton  i=2 gold=apple_pay_or_google_pay            -> 'apple_pay_or_google_pay'                    parse_fail=False ms=7225 pt=442 ct=804 rt=793 usd=0.00395 rep=0.0039495 fin=stop err=None
+E2   i=0 gold=activate_my_card                   -> 'activate_my_card'                           parse_fail=False ms=780 pt=562 ct=8 rt=0 usd=0.00181 rep=0.001806 fin=stop err=None
+E2   i=1 gold=age_limit                          -> 'age_limit'                                  parse_fail=False ms=753 pt=565 ct=6 rt=0 usd=0.00178 rep=0.001785 fin=stop err=None
+E2   i=2 gold=apple_pay_or_google_pay            -> 'top_up_by_card_charge'                      parse_fail=False ms=834 pt=573 ct=12 rt=0 usd=0.00190 rep=0.001899 fin=stop err=None
+C4   i=0 gold=activate_my_card                   -> 'activate_my_card'                           parse_fail=False ms=1153 pt=561 ct=8 rt=0 usd=0.00060 rep=0.000601 fin=stop err=None
+C4   i=1 gold=age_limit                          -> 'age_limit'                                  parse_fail=False ms=829 pt=564 ct=6 rt=0 usd=0.00059 rep=0.000594 fin=stop err=None
+C4   i=2 gold=apple_pay_or_google_pay            -> 'top_up_failed'                              parse_fail=False ms=946 pt=572 ct=8 rt=0 usd=0.00061 rep=0.000612 fin=stop err=None
+          usd          ct          rt          pt  proj_200
+cfg                                                        
+C1   0.000097    7.333333    0.000000  437.666667  0.019340
+C2   0.000361    7.333333    0.000000  437.666667  0.072250
+C2b  0.000361    7.333333    0.000000  437.666667  0.072250
+C3   0.000051   60.000000   70.666667  429.000000  0.010224
+C4   0.000602    7.333333    0.000000  565.666667  0.120467
+E1   0.001709   41.000000   33.666667  437.666667  0.341833
+E2   0.001830    8.666667    0.000000  566.666667  0.366000
+Ton  0.001656  295.000000  285.666667  437.666667  0.331150
+projected total for 200 each: $1.33 (cap 7.0)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[live] jobs=1579 already_spent=$0.0198
+[live] done calls=1579 total_spent=$1.2211
+[A] rows=36497 models=11
+[A] rows per family: {'mmlu': 14042, 'hellaswag': 10042, 'gsm8k': 7450, 'other': 1719, 'arc': 1470, 'winogrande': 1267, 'mbpp': 427, 'mtbench': 80}
+[A] per-family score values: {'arc': [np.float64(0.0), np.float64(1.0)], 'gsm8k': [np.float64(0.0), np.float64(0.25), np.float64(0.5), np.float64(0.75), np.float64(1.0)], 'hellaswag': [np.float64(0.0), np.float64(1.0)], 'mbpp': [np.float64(0.0), np.float64(1.0)], 'mmlu': [np.float64(0.0), np.float64(1.0)], 'mtbench': [np.float64(0.1), np.float64(0.2), np.float64(0.3), np.float64(0.4), np.float64(0.5), np.float64(0.6), '...'], 'other': [np.float64(0.0), np.float64(0.25), np.float64(0.5), np.float64(0.75), np.float64(1.0)], 'winogrande': [np.float64(0.0), np.float64(1.0)]}
+[A] mean score / total cost per model:
+   WizardLM/WizardLM-13B-V1.2               acc=0.4311 cost_per_1k=$0.073
+   claude-instant-v1                        acc=0.5984 cost_per_1k=$0.233
+   claude-v1                                acc=0.6301 cost_per_1k=$2.145
+   claude-v2                                acc=0.6358 cost_per_1k=$2.419
+   gpt-3.5-turbo-1106                       acc=0.6193 cost_per_1k=$0.243
+   gpt-4-1106-preview                       acc=0.7814 cost_per_1k=$3.293
+   meta/code-llama-instruct-34b-chat        acc=0.2022 cost_per_1k=$0.172
+   meta/llama-2-70b-chat                    acc=0.3287 cost_per_1k=$0.203
+   mistralai/mistral-7b-chat                acc=0.3061 cost_per_1k=$0.046
+   mistralai/mixtral-8x7b-chat              acc=0.5471 cost_per_1k=$0.135
+   zero-one-ai/Yi-34B-Chat                  acc=0.6475 cost_per_1k=$0.186
+| family | n | exp | cheap | acc_exp | acc_cheap | ok-agree | P(cheap ok given exp ok) | oracle acc | oracle cost saving | cheap/exp cost |
+|---|---|---|---|---|---|---|---|---|---|---|
+| ALL | 36497 | gpt-4-1106-preview | gpt-3.5-turbo-1106 | 0.781 | 0.619 | 0.730 | 0.734 | 0.833 | 67.3% | 0.074 |
+| arc | 1470 | gpt-4-1106-preview | gpt-3.5-turbo-1106 | 0.962 | 0.831 | 0.850 | 0.854 | 0.971 | 77.0% | 0.099 |
+| gsm8k | 7450 | gpt-4-1106-preview | gpt-3.5-turbo-1106 | 0.659 | 0.605 | 0.841 | 0.847 | 0.699 | 67.1% | 0.062 |
+| hellaswag | 10042 | gpt-4-1106-preview | gpt-3.5-turbo-1106 | 0.840 | 0.587 | 0.620 | 0.623 | 0.903 | 58.7% | 0.100 |
+| mbpp | 427 | gpt-4-1106-preview | gpt-3.5-turbo-1106 | 0.686 | 0.653 | 0.813 | 0.840 | 0.763 | 85.0% | 0.036 |
+| mmlu | 14042 | gpt-4-1106-preview | gpt-3.5-turbo-1106 | 0.812 | 0.647 | 0.738 | 0.737 | 0.860 | 69.7% | 0.099 |
+| mtbench | 80 | gpt-4-1106-preview | gpt-3.5-turbo-1106 | 0.806 | 0.689 | 0.800 | 0.800 | 0.860 | 50.1% | 0.035 |
+| other | 1719 | gpt-4-1106-preview | gpt-3.5-turbo-1106 | 0.564 | 0.484 | 0.768 | 0.741 | 0.637 | 81.0% | 0.059 |
+| winogrande | 1267 | gpt-4-1106-preview | gpt-3.5-turbo-1106 | 0.819 | 0.579 | 0.621 | 0.622 | 0.889 | 62.5% | 0.098 |
+| ALL | 36497 | gpt-4-1106-preview | mistralai/mixtral-8x7b-chat | 0.781 | 0.547 | 0.654 | 0.632 | 0.821 | 58.1% | 0.041 |
+| arc | 1470 | gpt-4-1106-preview | mistralai/mixtral-8x7b-chat | 0.962 | 0.832 | 0.851 | 0.855 | 0.971 | 80.5% | 0.059 |
+| gsm8k | 7450 | gpt-4-1106-preview | mistralai/mixtral-8x7b-chat | 0.659 | 0.519 | 0.636 | 0.629 | 0.693 | 52.8% | 0.031 |
+| hellaswag | 10042 | gpt-4-1106-preview | mistralai/mixtral-8x7b-chat | 0.840 | 0.417 | 0.510 | 0.457 | 0.873 | 48.0% | 0.059 |
+| mbpp | 427 | gpt-4-1106-preview | mistralai/mixtral-8x7b-chat | 0.686 | 0.541 | 0.710 | 0.683 | 0.759 | 74.5% | 0.019 |
+| mmlu | 14042 | gpt-4-1106-preview | mistralai/mixtral-8x7b-chat | 0.812 | 0.635 | 0.745 | 0.734 | 0.851 | 73.3% | 0.059 |
+| mtbench | 80 | gpt-4-1106-preview | mistralai/mixtral-8x7b-chat | 0.806 | 0.647 | 0.800 | 0.769 | 0.825 | 56.5% | 0.017 |
+| other | 1719 | gpt-4-1106-preview | mistralai/mixtral-8x7b-chat | 0.564 | 0.460 | 0.722 | 0.689 | 0.648 | 81.6% | 0.035 |
+| winogrande | 1267 | gpt-4-1106-preview | mistralai/mixtral-8x7b-chat | 0.819 | 0.552 | 0.553 | 0.565 | 0.909 | 60.9% | 0.057 |
+| ALL | 36497 | gpt-4-1106-preview | meta/llama-2-70b-chat | 0.781 | 0.329 | 0.471 | 0.394 | 0.804 | 49.3% | 0.062 |
+| arc | 1470 | gpt-4-1106-preview | meta/llama-2-70b-chat | 0.962 | 0.734 | 0.754 | 0.754 | 0.971 | 69.6% | 0.088 |
+| gsm8k | 7450 | gpt-4-1106-preview | meta/llama-2-70b-chat | 0.659 | 0.523 | 0.653 | 0.644 | 0.689 | 51.8% | 0.046 |
+| hellaswag | 10042 | gpt-4-1106-preview | meta/llama-2-70b-chat | 0.840 | 0.526 | 0.606 | 0.578 | 0.880 | 58.9% | 0.089 |
+| mbpp | 427 | gpt-4-1106-preview | meta/llama-2-70b-chat | 0.686 | 0.330 | 0.564 | 0.423 | 0.726 | 55.5% | 0.032 |
+| mmlu | 14042 | gpt-4-1106-preview | meta/llama-2-70b-chat | 0.812 | 0.027 | 0.214 | 0.033 | 0.812 | 20.3% | 0.089 |
+| mtbench | 80 | gpt-4-1106-preview | meta/llama-2-70b-chat | 0.806 | 0.586 | 0.762 | 0.708 | 0.816 | 39.9% | 0.030 |
+| other | 1719 | gpt-4-1106-preview | meta/llama-2-70b-chat | 0.564 | 0.329 | 0.672 | 0.534 | 0.609 | 75.7% | 0.061 |
+| winogrande | 1267 | gpt-4-1106-preview | meta/llama-2-70b-chat | 0.819 | 0.482 | 0.526 | 0.505 | 0.888 | 53.9% | 0.085 |
+| ALL | 36497 | gpt-4-1106-preview | mistralai/mistral-7b-chat | 0.781 | 0.306 | 0.396 | 0.319 | 0.814 | 39.1% | 0.014 |
+| arc | 1470 | gpt-4-1106-preview | mistralai/mistral-7b-chat | 0.962 | 0.388 | 0.411 | 0.395 | 0.969 | 41.4% | 0.020 |
+| gsm8k | 7450 | gpt-4-1106-preview | mistralai/mistral-7b-chat | 0.659 | 0.412 | 0.403 | 0.380 | 0.679 | 33.7% | 0.011 |
+| hellaswag | 10042 | gpt-4-1106-preview | mistralai/mistral-7b-chat | 0.840 | 0.255 | 0.360 | 0.271 | 0.867 | 37.5% | 0.020 |
+| mbpp | 427 | gpt-4-1106-preview | mistralai/mistral-7b-chat | 0.686 | 0.344 | 0.593 | 0.454 | 0.719 | 59.6% | 0.005 |
+| mmlu | 14042 | gpt-4-1106-preview | mistralai/mistral-7b-chat | 0.812 | 0.254 | 0.366 | 0.266 | 0.850 | 41.6% | 0.020 |
+| mtbench | 80 | gpt-4-1106-preview | mistralai/mistral-7b-chat | 0.806 | 0.524 | 0.675 | 0.615 | 0.824 | 27.5% | 0.004 |
+| other | 1719 | gpt-4-1106-preview | mistralai/mistral-7b-chat | 0.564 | 0.322 | 0.674 | 0.527 | 0.604 | 76.3% | 0.012 |
+| winogrande | 1267 | gpt-4-1106-preview | mistralai/mistral-7b-chat | 0.819 | 0.524 | 0.485 | 0.506 | 0.929 | 58.7% | 0.019 |
+| ALL | 36497 | claude-v2 | claude-instant-v1 | 0.636 | 0.598 | 0.779 | 0.802 | 0.723 | 74.2% | 0.096 |
+| arc | 1470 | claude-v2 | claude-instant-v1 | 0.869 | 0.803 | 0.855 | 0.879 | 0.908 | 80.7% | 0.100 |
+| gsm8k | 7450 | claude-v2 | claude-instant-v1 | 0.663 | 0.627 | 0.831 | 0.852 | 0.704 | 72.0% | 0.096 |
+| hellaswag | 10042 | claude-v2 | claude-instant-v1 | 0.624 | 0.585 | 0.693 | 0.723 | 0.758 | 73.1% | 0.100 |
+| mbpp | 427 | claude-v2 | claude-instant-v1 | 0.642 | 0.604 | 0.794 | 0.810 | 0.726 | 80.3% | 0.082 |
+| mmlu | 14042 | claude-v2 | claude-instant-v1 | 0.628 | 0.596 | 0.805 | 0.820 | 0.710 | 80.0% | 0.100 |
+| mtbench | 80 | claude-v2 | claude-instant-v1 | 0.675 | 0.629 | 0.825 | 0.821 | 0.741 | 53.0% | 0.102 |
+| other | 1719 | claude-v2 | claude-instant-v1 | 0.430 | 0.374 | 0.809 | 0.722 | 0.501 | 78.3% | 0.074 |
+| winogrande | 1267 | claude-v2 | claude-instant-v1 | 0.661 | 0.620 | 0.725 | 0.761 | 0.777 | 75.8% | 0.100 |
+[embed] 5000 texts in 1346.2s (BAAI/bge-small-en-v1.5)
+[A] embed 5000 subsampled prompts (400 chars) done 1383s
+
+[A] ROUTER [bge-small emb-LR] gpt-3.5-turbo-1106 vs gpt-4-1106-preview: n=5000 base rate cheap>=exp = 0.752; AUC router=0.6305 family-prior=0.5588
+| policy | share to cheap | accuracy | $ per 1k calls |
+|---|---|---|---|
+| always-expensive | 0% | 0.7865 | 3.28 |
+| always-cheap | 100% | 0.6320 | 0.24 |
+| oracle (cheap iff cheap>=exp) | 75% | 0.8392 | 1.09 |
+| router top 10% | 10% | 0.7786 | 3.12 |
+| router top 20% | 20% | 0.7667 | 2.98 |
+| router top 30% | 30% | 0.7546 | 2.83 |
+| router top 40% | 40% | 0.7438 | 2.63 |
+| router top 50% | 50% | 0.7293 | 2.45 |
+| router top 60% | 64% | 0.7119 | 1.67 |
+| router top 70% | 73% | 0.7035 | 1.00 |
+| router top 80% | 80% | 0.6962 | 0.63 |
+| router top 90% | 90% | 0.6698 | 0.44 |
+| family-prior top 30% | 33% | 0.7396 | 2.66 |
+| random 30% | 30% | 0.7424 | 2.39 |
+| family-prior top 60% | 62% | 0.7048 | 1.43 |
+| random 60% | 60% | 0.7000 | 1.43 |
+[A] [bge-small emb-LR] max cost saving vs always-exp (router): loss<=0.0pt: 0.0%; loss<=0.5pt: 3.1%; loss<=1.0pt: 5.4%; loss<=2.0pt: 9.4%; loss<=5.0pt: 22.0%
+[A] [bge-small emb-LR] max cost saving vs always-exp (family-prior): loss<=0.0pt: 0.0%; loss<=0.5pt: 4.0%; loss<=1.0pt: 9.9%; loss<=2.0pt: 9.9%; loss<=5.0pt: 19.0%
+[A] [bge-small emb-LR] certify budget=0.01: nothing certifiable
+[A] [bge-small emb-LR] certify budget=0.02: nothing certifiable
+[A] [bge-small emb-LR] certify budget=0.05: nothing certifiable
+[A] [bge-small emb-LR] within-family AUC: {'arc': 0.542, 'gsm8k': 0.461, 'hellaswag': 0.635, 'mbpp': 0.356, 'mmlu': 0.637, 'mtbench': 0.179, 'other': 0.609, 'winogrande': 0.525}
+
+[A] ROUTER [tfidf-LR (all 36.5k)] gpt-3.5-turbo-1106 vs gpt-4-1106-preview: n=36497 base rate cheap>=exp = 0.749; AUC router=0.6441 family-prior=0.5750
+[A] [tfidf-LR (all 36.5k)] max cost saving vs always-exp (router): loss<=0.0pt: 0.0%; loss<=0.5pt: 3.7%; loss<=1.0pt: 5.8%; loss<=2.0pt: 11.2%; loss<=5.0pt: 33.7%
+[A] [tfidf-LR (all 36.5k)] max cost saving vs always-exp (family-prior): loss<=0.0pt: 0.0%; loss<=0.5pt: 4.0%; loss<=1.0pt: 9.6%; loss<=2.0pt: 9.6%; loss<=5.0pt: 18.7%
+[A] [tfidf-LR (all 36.5k)] certify budget=0.01: nothing certifiable
+[A] [tfidf-LR (all 36.5k)] certify budget=0.02: nothing certifiable
+[A] [tfidf-LR (all 36.5k)] certify budget=0.05: nothing certifiable
+
+[A] ROUTER [bge-small emb-LR] mistralai/mixtral-8x7b-chat vs gpt-4-1106-preview: n=5000 base rate cheap>=exp = 0.671; AUC router=0.6679 family-prior=0.6249
+| policy | share to cheap | accuracy | $ per 1k calls |
+|---|---|---|---|
+| always-expensive | 0% | 0.7865 | 3.28 |
+| always-cheap | 100% | 0.5496 | 0.13 |
+| oracle (cheap iff cheap>=exp) | 67% | 0.8231 | 1.38 |
+| router top 10% | 10% | 0.7762 | 3.15 |
+| router top 20% | 20% | 0.7641 | 2.98 |
+| router top 30% | 30% | 0.7487 | 2.80 |
+| router top 40% | 40% | 0.7297 | 2.65 |
+| router top 50% | 50% | 0.7047 | 2.46 |
+| router top 60% | 60% | 0.6690 | 2.27 |
+| router top 70% | 72% | 0.6427 | 1.50 |
+| router top 80% | 80% | 0.6294 | 0.84 |
+| router top 90% | 90% | 0.5975 | 0.37 |
+| family-prior top 30% | 30% | 0.7300 | 2.82 |
+| random 30% | 30% | 0.7108 | 2.35 |
+| family-prior top 60% | 61% | 0.6808 | 1.71 |
+| random 60% | 60% | 0.6473 | 1.36 |
+[A] [bge-small emb-LR] max cost saving vs always-exp (router): loss<=0.0pt: 0.0%; loss<=0.5pt: 2.0%; loss<=1.0pt: 3.6%; loss<=2.0pt: 8.3%; loss<=5.0pt: 17.6%
+[A] [bge-small emb-LR] max cost saving vs always-exp (family-prior): loss<=0.0pt: 0.0%; loss<=0.5pt: 0.7%; loss<=1.0pt: 3.2%; loss<=2.0pt: 3.2%; loss<=5.0pt: 10.7%
+[A] [bge-small emb-LR] certify budget=0.01: nothing certifiable
+[A] [bge-small emb-LR] certify budget=0.02: nothing certifiable
+[A] [bge-small emb-LR] certify budget=0.05: nothing certifiable
+[A] [bge-small emb-LR] within-family AUC: {'arc': 0.638, 'gsm8k': 0.489, 'hellaswag': 0.604, 'mbpp': 0.496, 'mmlu': 0.648, 'mtbench': 0.536, 'other': 0.613, 'winogrande': 0.442}
+
+[A] ROUTER [tfidf-LR (all 36.5k)] mistralai/mixtral-8x7b-chat vs gpt-4-1106-preview: n=36497 base rate cheap>=exp = 0.670; AUC router=0.6879 family-prior=0.6369
+[A] [tfidf-LR (all 36.5k)] max cost saving vs always-exp (router): loss<=0.0pt: 0.0%; loss<=0.5pt: 2.6%; loss<=1.0pt: 4.3%; loss<=2.0pt: 8.4%; loss<=5.0pt: 19.8%
+[A] [tfidf-LR (all 36.5k)] max cost saving vs always-exp (family-prior): loss<=0.0pt: 0.0%; loss<=0.5pt: 0.8%; loss<=1.0pt: 2.9%; loss<=2.0pt: 2.9%; loss<=5.0pt: 10.8%
+[A] [tfidf-LR (all 36.5k)] certify budget=0.01: nothing certifiable
+[A] [tfidf-LR (all 36.5k)] certify budget=0.02: nothing certifiable
+[A] [tfidf-LR (all 36.5k)] certify budget=0.05: nothing certifiable
+[B] total spend $1.9543; error rows per cfg: {'E1': 0, 'C1': 0, 'C2': 0, 'C2b': 0, 'E1b': 0, 'C1b': 0, 'E2b': 0, 'C3': 0, 'Ton': 0, 'E2': 0, 'C4': 0}
+| cfg | model | setting | n | gold acc | parse fails | match vs E1 | mean ms | p50 ms | prompt tok | compl tok | reasoning tok | $/1000 calls |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| E1 | openai/gpt-5.4 | {"reasoning": {"effort": "low"}} | 200 | 0.870 | 0 | - | 2311 | 2229 | 439 | 41.4 | 31.4 | 1.719 |
+| C1 | openai/gpt-5.4-nano | {"reasoning": {"effort": "none"}} | 200 | 0.760 | 0 | 0.815 | 843 | 834 | 439 | 8.0 | 0.0 | 0.098 |
+| C2 | openai/gpt-5.4-mini | {"reasoning": {"effort": "none"}} | 200 | 0.770 | 1 | 0.805 | 866 | 822 | 439 | 8.0 | 0.0 | 0.366 |
+| C2b | openai/gpt-5.4-mini | {"reasoning": {"effort": "none"}} | 200 | 0.775 | 1 | 0.805 | 830 | 810 | 439 | 8.0 | 0.0 | 0.366 |
+| E1b | openai/gpt-5.4 | {"reasoning": {"effort": "low"}} | 200 | 0.895 | 0 | 0.940 | 2186 | 2118 | 439 | 42.6 | 32.6 | 1.737 |
+| C1b | openai/gpt-5.4-nano | {"reasoning": {"effort": "none"}} | 200 | 0.755 | 0 | 0.805 | 798 | 787 | 439 | 8.0 | 0.0 | 0.098 |
+| E2b | anthropic/claude-sonnet-4.6 | {"reasoning": {"enabled": false}} | 200 | 0.815 | 0 | 0.855 | 902 | 876 | 568 | 8.5 | 0.0 | 1.831 |
+| C3 | qwen/qwen3-32b | {"reasoning": {"enabled": false}} | 200 | 0.690 | 1 | 0.770 | 572 | 454 | 434 | 7.8 | 1.0 | 0.037 |
+| Ton | openai/gpt-5.4-mini | {"reasoning": {"effort": "high"}} | 200 | 0.840 | 0 | 0.890 | 2665 | 2125 | 439 | 166.5 | 156.5 | 1.079 |
+| E2 | anthropic/claude-sonnet-4.6 | {"reasoning": {"enabled": false}} | 200 | 0.815 | 0 | 0.860 | 945 | 872 | 568 | 8.5 | 0.0 | 1.831 |
+| C4 | anthropic/claude-haiku-4.5 | {"reasoning": {"enabled": false}} | 200 | 0.770 | 2 | 0.800 | 806 | 769 | 567 | 8.7 | 0.0 | 0.611 |
+
+[B] pairwise agreement (same-label rate):
+   C2   vs C2b : match=0.910 (n=200) disagreements=18; gold acc C2=0.770 C2b=0.775
+   E1   vs E1b : match=0.940 (n=200) disagreements=12; gold acc E1=0.870 E1b=0.895
+   C1   vs C1b : match=0.905 (n=200) disagreements=19; gold acc C1=0.760 C1b=0.755
+   E2   vs E2b : match=0.990 (n=200) disagreements=2; gold acc E2=0.815 E2b=0.815
+   C1   vs E1b : match=0.825 (n=200) disagreements=35; gold acc C1=0.760 E1b=0.895
+   Ton  vs C2  : match=0.835 (n=200) disagreements=33; gold acc Ton=0.840 C2=0.770
+   Ton  vs E1  : match=0.890 (n=200) disagreements=22; gold acc Ton=0.840 E1=0.870
+   C4   vs E2  : match=0.825 (n=200) disagreements=35; gold acc C4=0.770 E2=0.815
+   E2   vs E1  : match=0.860 (n=200) disagreements=28; gold acc E2=0.815 E1=0.870
+   C1   vs E1  : match=0.815 (n=200) disagreements=37; gold acc C1=0.760 E1=0.870
+   C2   vs E1  : match=0.805 (n=200) disagreements=39; gold acc C2=0.770 E1=0.870
+   C3   vs E1  : match=0.770 (n=200) disagreements=46; gold acc C3=0.690 E1=0.870
+   C4   vs E1  : match=0.800 (n=200) disagreements=40; gold acc C4=0.770 E1=0.870
+   C1 vs E1 disagreements=37: E1 right only=25, cheap right only=3, both wrong=9; E1 wrong overall=26, cheap wrong where E1 wrong=23
+   C2 vs E1 disagreements=39: E1 right only=24, cheap right only=4, both wrong=11; E1 wrong overall=26, cheap wrong where E1 wrong=22
+   C3 vs E1 disagreements=46: E1 right only=37, cheap right only=1, both wrong=8; E1 wrong overall=26, cheap wrong where E1 wrong=25
+   C4 vs E1 disagreements=40: E1 right only=25, cheap right only=5, both wrong=10; E1 wrong overall=26, cheap wrong where E1 wrong=21
+   Ton vs E1 disagreements=22: E1 right only=11, cheap right only=5, both wrong=6; E1 wrong overall=26, cheap wrong where E1 wrong=21
+   most frequent E1 -> C1 label swaps: {'exchange_via_app <> exchange_rate': 3, 'getting_virtual_card <> get_disposable_virtual_card': 2, 'transfer_into_account <> transfer_timing': 2, 'unable_to_verify_identity <> why_verify_identity': 2, 'change_pin <> passcode_forgotten': 2}
+   Ton finish reasons: {'stop': 200}; reasoning tok mean=156 max=1577
+
+[B] router, label = (cheap != E1), 5-fold LR on bge-small embeddings (AUC of predicting disagreement):
+   C1: disagreements=37/200 (0.185) AUC=0.598
+   C2: disagreements=39/200 (0.195) AUC=0.564
+   C3: disagreements=46/200 (0.230) AUC=0.577
+   C4: disagreements=40/200 (0.200) AUC=0.598
+[B] best cheap config by match vs E1 (ties -> cheaper): C1 (match 0.815, $0.098 vs E1 $1.719 per 1000)
+   min zero-error rows to certify budget 0.02: 258 (delta/m=0.0056); we have n=200
+   min zero-error rows to certify budget 0.05: 102 (delta/m=0.0056); we have n=200
+   min zero-error rows to certify budget 0.1: 50 (delta/m=0.0056); we have n=200
+   certify budget=0.02: nothing certifiable on 100 calibration rows; no-guarantee version below
+   certify budget=0.05: nothing certifiable on 100 calibration rows; no-guarantee version below
+   certify budget=0.1: nothing certifiable on 100 calibration rows; no-guarantee version below
+   certify budget=0.2: nothing certifiable on 100 calibration rows; no-guarantee version below
+   empirical budget=0.02: none
+   empirical budget=0.05: none
+   empirical budget=0.1: none
+   empirical (no guarantee) budget=0.15: cutoff=0.831 cal cov=0.470 | holdout share-cheap=0.450 disagree=0.06666666666666667 n_above=45 blended $/1000=0.990
+   descriptive (all 200, OOF conf; no guarantee): share routed -> disagreement vs E1 in routed set: 10%->0.250; 20%->0.150; 30%->0.150; 40%->0.113; 50%->0.120; 60%->0.133; 80%->0.169; 100%->0.185
+   always-cheap C1: disagree vs E1 = 0.185, $/1000=0.098

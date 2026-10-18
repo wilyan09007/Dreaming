@@ -1,0 +1,21 @@
+bundle 0.03 MB
+community launch failed, trying ALL: [{'message': 'There are no longer any instances available with the requested specifications. Please refresh and try again.', 'path': ['podFindAndDeployOnDemand'], 'extensions': {'code': 'SUPPLY_CONSTR
+Traceback (most recent call last):
+  File "C:\Users\<user>\Desktop\personalprojects\Dreaming\smokes\pod.py", line 74, in <module>
+    pod = gql(q)["podFindAndDeployOnDemand"]
+          ^^^^^^
+  File "C:\Users\<user>\Desktop\personalprojects\Dreaming\smokes\pod.py", line 21, in gql
+    if "errors" in r: raise RuntimeError(r["errors"])
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: [{'message': 'There are no longer any instances available with the requested specifications. Please refresh and try again.', 'path': ['podFindAndDeployOnDemand'], 'extensions': {'code': 'SUPPLY_CONSTRAINT', 'userId': 'user_31zqpkFHJXKChEdBC7mMjcr2YHv'}}]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\<user>\Desktop\personalprojects\Dreaming\smokes\pod.py", line 76, in <module>
+    print("community launch failed, trying ALL:", str(e)[:200]); pod = gql(q.replace("cloudType: COMMUNITY", "cloudType: ALL"))["podFindAndDeployOnDemand"]
+                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\<user>\Desktop\personalprojects\Dreaming\smokes\pod.py", line 21, in gql
+    if "errors" in r: raise RuntimeError(r["errors"])
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: [{'message': 'There are no longer any instances available with the requested specifications. Please refresh and try again.', 'path': ['podFindAndDeployOnDemand'], 'extensions': {'code': 'SUPPLY_CONSTRAINT', 'userId': 'user_31zqpkFHJXKChEdBC7mMjcr2YHv'}}]

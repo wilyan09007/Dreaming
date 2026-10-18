@@ -1,0 +1,228 @@
+pod {'id': 'gq36dw1i9bxe5b', 'machineId': 'm7cb6fl6ccve', 'costPerHr': 0.89}
+[40s status=RUNNING uptime=None log=0B]
+[81s status=RUNNING uptime=None log=0B]
+name, memory.total [MiB], driver_version
+NVIDIA GeForce RTX 4090, 24564 MiB, 595.91.07
+[122s status=RUNNING uptime=None log=87B]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Generating train split:   0%|          | 0/9993 [00:00<?, ? examples/s]Generating train split: 100%|ââââââââââ| 9993/9993 [00:00<00:00, 989253.46 examples/s]
+Generating test split:   0%|          | 0/3076 [00:00<?, ? examples/s]Generating test split: 100%|ââââââââââ| 3076/3076 [00:00<00:00, 905317.46 examples/s]
+Generating train split:   0%|          | 0/15250 [00:00<?, ? examples/s]Generating train split: 100%|ââââââââââ| 15250/15250 [00:00<00:00, 1792889.79 examples/s]
+Generating validation split:   0%|          | 0/3100 [00:00<?, ? examples/s]Generating validation split: 100%|ââââââââââ| 3100/3100 [00:00<00:00, 910082.06 examples/s]
+Generating test split:   0%|          | 0/5500 [00:00<?, ? examples/s]Generating test split: 100%|ââââââââââ| 5500/5500 [00:00<00:00, 1519174.98 examples/s]
+Generating train split:   0%|          | 0/15000 [00:00<?, ? examples/s]Generating train split: 100%|ââââââââââ| 15000/15000 [00:00<00:00, 2343273.86 examples/s]
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+A {'rows': 770, 'epochs': 3, 'train_s': 9.4, 'samples_per_s': 245.1, 'steps': 75, 'peak_mem_gb': 5.65, 'acc': 0.3709, 'cert5_cutoff': None, 'cert5_coverage': 0.0, 'holdout_err_above': None}
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[163s status=RUNNING uptime=56 log=2181B]
+A {'rows': 3080, 'epochs': 3, 'train_s': 33.9, 'samples_per_s': 272.8, 'steps': 291, 'peak_mem_gb': 7.63, 'acc': 0.8485, 'cert5_cutoff': 0.8387094736099243, 'cert5_coverage': 0.633, 'holdout_err_above': 0.0269}
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[204s status=RUNNING uptime=90 log=2695B]
+[245s status=RUNNING uptime=113 log=2695B]
+[286s status=RUNNING uptime=169 log=2695B]
+A {'rows': 9993, 'epochs': 3, 'train_s': 110.1, 'samples_per_s': 272.2, 'steps': 939, 'peak_mem_gb': 7.63, 'acc': 0.9161, 'cert5_cutoff': 0.8408753275871277, 'cert5_coverage': 0.828, 'holdout_err_above': 0.0269}
+batch-1 latency ms 33.68
+[327s status=RUNNING uptime=202 log=2932B]
+determinism distinct outputs: batch1-concurrent 1 random-batch 12 random-batch-fixed-shape 8
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[368s status=RUNNING uptime=255 log=3328B]
+[409s status=RUNNING uptime=290 log=3328B]
+B shared {'train_s': 88.1, 'samples_per_s': 272.4, 'steps': 750, 'peak_mem_gb': 4.8} labels 120
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[450s status=RUNNING uptime=324 log=3727B]
+B {'step': 'travel', 'rows': 15, 'init': 'base', 'train_s': 6.9, 'samples_per_s': 130.7, 'steps': 60, 'peak_mem_gb': 5.65, 'acc': 0.5578, 'cert5_cutoff': None, 'cert5_coverage': 0.0, 'holdout_err_above': None}
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+B {'step': 'travel', 'rows': 15, 'init': 'shared', 'train_s': 7.1, 'samples_per_s': 126.9, 'steps': 60, 'peak_mem_gb': 5.65, 'acc': 0.5533, 'cert5_cutoff': None, 'cert5_coverage': 0.0, 'holdout_err_above': None}
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+B {'step': 'travel', 'rows': 45, 'init': 'base', 'train_s': 7.0, 'samples_per_s': 192.8, 'steps': 60, 'peak_mem_gb': 6.57, 'acc': 0.6044, 'cert5_cutoff': None, 'cert5_coverage': 0.0, 'holdout_err_above': None}
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+B {'step': 'travel', 'rows': 45, 'init': 'shared', 'train_s': 7.1, 'samples_per_s': 191.1, 'steps': 60, 'peak_mem_gb': 6.57, 'acc': 0.8356, 'cert5_cutoff': 0.9064600467681885, 'cert5_coverage': 0.604, 'holdout_err_above': 0.0073}
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+B {'step': 'travel', 'rows': 150, 'init': 'base', 'train_s': 7.2, 'samples_per_s': 248.6, 'steps': 60, 'peak_mem_gb': 6.57, 'acc': 0.9667, 'cert5_cutoff': 0.6079972982406616, 'cert5_coverage': 0.924, 'holdout_err_above': 0.0}
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[491s status=RUNNING uptime=359 log=6330B]
+B {'step': 'travel', 'rows': 150, 'init': 'shared', 'train_s': 6.9, 'samples_per_s': 259.4, 'steps': 60, 'peak_mem_gb': 6.57, 'acc': 0.9533, 'cert5_cutoff': 0.6806082725524902, 'cert5_coverage': 0.893, 'holdout_err_above': 0.0}
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+B {'step': 'travel', 'rows': 450, 'init': 'base', 'train_s': 6.9, 'samples_per_s': 261.6, 'steps': 60, 'peak_mem_gb': 6.99, 'acc': 0.9711, 'cert5_cutoff': 0.20625820755958557, 'cert5_coverage': 0.969, 'holdout_err_above': 0.018}
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+B {'step': 'travel', 'rows': 450, 'init': 'shared', 'train_s': 7.6, 'samples_per_s': 238.0, 'steps': 60, 'peak_mem_gb': 6.99, 'acc': 0.9911, 'cert5_cutoff': 0.0904521644115448, 'cert5_coverage': 1.0, 'holdout_err_above': 0.0089}
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+B {'step': 'travel', 'rows': 1500, 'init': 'base', 'train_s': 16.9, 'samples_per_s': 266.7, 'steps': 141, 'peak_mem_gb': 6.99, 'acc': 0.9978, 'cert5_cutoff': 0.3064248561859131, 'cert5_coverage': 1.0, 'holdout_err_above': 0.0045}
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[532s status=RUNNING uptime=415 log=8458B]
+B {'step': 'travel', 'rows': 1500, 'init': 'shared', 'train_s': 16.7, 'samples_per_s': 270.3, 'steps': 141, 'peak_mem_gb': 6.99, 'acc': 0.9933, 'cert5_cutoff': 0.13759750127792358, 'cert5_coverage': 1.0, 'holdout_err_above': 0.0045}
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+B {'step': 'work', 'rows': 15, 'init': 'base', 'train_s': 6.9, 'samples_per_s': 131.1, 'steps': 60, 'peak_mem_gb': 5.42, 'acc': 0.4378, 'cert5_cutoff': None, 'cert5_coverage': 0.0, 'holdout_err_above': None}
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+B {'step': 'work', 'rows': 15, 'init': 'shared', 'train_s': 7.3, 'samples_per_s': 124.1, 'steps': 60, 'peak_mem_gb': 5.42, 'acc': 0.4667, 'cert5_cutoff': None, 'cert5_coverage': 0.0, 'holdout_err_above': None}
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+B {'step': 'work', 'rows': 45, 'init': 'base', 'train_s': 7.6, 'samples_per_s': 177.9, 'steps': 60, 'peak_mem_gb': 6.15, 'acc': 0.6511, 'cert5_cutoff': None, 'cert5_coverage': 0.0, 'holdout_err_above': None}
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[573s status=RUNNING uptime=444 log=10529B]
+B {'step': 'work', 'rows': 45, 'init': 'shared', 'train_s': 7.2, 'samples_per_s': 187.5, 'steps': 60, 'peak_mem_gb': 6.15, 'acc': 0.78, 'cert5_cutoff': None, 'cert5_coverage': 0.0, 'holdout_err_above': None}
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+B {'step': 'work', 'rows': 150, 'init': 'base', 'train_s': 7.3, 'samples_per_s': 245.2, 'steps': 60, 'peak_mem_gb': 6.43, 'acc': 0.9067, 'cert5_cutoff': 0.8918496370315552, 'cert5_coverage': 0.711, 'holdout_err_above': 0.0135}
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+B {'step': 'work', 'rows': 150, 'init': 'shared', 'train_s': 6.9, 'samples_per_s': 262.4, 'steps': 60, 'peak_mem_gb': 6.43, 'acc': 0.9178, 'cert5_cutoff': 0.9334855675697327, 'cert5_coverage': 0.689, 'holdout_err_above': 0.0125}
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+B {'step': 'work', 'rows': 450, 'init': 'base', 'train_s': 7.0, 'samples_per_s': 256.5, 'steps': 60, 'peak_mem_gb': 6.43, 'acc': 0.9467, 'cert5_cutoff': 0.7551206946372986, 'cert5_coverage': 0.844, 'holdout_err_above': 0.0266}
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+B {'step': 'work', 'rows': 450, 'init': 'shared', 'train_s': 7.1, 'samples_per_s': 254.3, 'steps': 60, 'peak_mem_gb': 6.43, 'acc': 0.96, 'cert5_cutoff': 0.6139260530471802, 'cert5_coverage': 0.933, 'holdout_err_above': 0.019}
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[614s status=RUNNING uptime=502 log=13161B]
+B {'step': 'work', 'rows': 1500, 'init': 'base', 'train_s': 16.9, 'samples_per_s': 266.4, 'steps': 141, 'peak_mem_gb': 6.5, 'acc': 0.9711, 'cert5_cutoff': 0.33353084325790405, 'cert5_coverage': 0.978, 'holdout_err_above': 0.0183}
+[transformers] [1mQwen2ForSequenceClassification LOAD REPORT[0m from: Qwen/Qwen2.5-0.5B
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+B {'step': 'work', 'rows': 1500, 'init': 'shared', 'train_s': 16.8, 'samples_per_s': 267.3, 'steps': 141, 'peak_mem_gb': 6.5, 'acc': 0.9778, 'cert5_cutoff': 0.3339802622795105, 'cert5_coverage': 0.991, 'holdout_err_above': 0.018}
+wrote results.json
+exit=0
+[655s status=RUNNING uptime=534 log=13950B]
+downloaded results.json
+downloaded log.txt
+terminate: {'podTerminate': None}
+wall 11.0 min, est cost $0.162 at $0.89/h
+LAUNCH exit 0

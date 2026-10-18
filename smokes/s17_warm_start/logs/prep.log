@@ -1,0 +1,47 @@
+[2s] LLM ping {'ok': 1}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Generating train split:   0%|          | 0/15250 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 15250/15250 [00:00<00:00, 970314.56 examples/s]
+Generating validation split:   0%|          | 0/3100 [00:00<?, ? examples/s]Generating validation split: 100%|██████████| 3100/3100 [00:00<00:00, 506302.03 examples/s]
+Generating test split:   0%|          | 0/5500 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 5500/5500 [00:00<00:00, 849487.11 examples/s]
+Generating train split:   0%|          | 0/9993 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 9993/9993 [00:00<00:00, 1204623.78 examples/s]
+Generating test split:   0%|          | 0/3076 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 3076/3076 [00:00<00:00, 674421.28 examples/s]
+[embed] 15000 texts in 2.6s
+[embed] 3000 texts in 0.4s
+[embed] 4500 texts in 0.7s
+[embed] 9993 texts in 1.7s
+[embed] 3076 texts in 0.6s
+[embed] 15 texts in 0.0s
+[embed] 150 texts in 0.0s
+[embed] 15 texts in 0.0s
+[embed] 150 texts in 0.0s
+[embed] 12 texts in 0.0s
+[embed] 120 texts in 0.0s
+[embed] 12 texts in 0.0s
+[embed] 120 texts in 0.0s
+[embed] 12 texts in 0.0s
+[embed] 111 texts in 0.0s
+[72s] eval tasks [('clinc/travel', 15, 1500, 300, 450), ('clinc/work', 15, 1500, 300, 450), ('banking/sub0', 12, 1415, 300, 480), ('banking/sub1', 12, 1264, 300, 480), ('banking/sub2', 12, 1285, 300, 479)]
+Generating train split: 0 examples [00:00, ? examples/s]Generating train split: 11514 examples [00:00, 394021.26 examples/s]
+Generating test split: 0 examples [00:00, ? examples/s]Generating test split: 2974 examples [00:00, 305126.10 examples/s]
+Generating validation split: 0 examples [00:00, ? examples/s]Generating validation split: 2033 examples [00:00, 291701.56 examples/s]
+[embed] 5099 texts in 0.7s
+Repo card metadata block was not found. Setting CardData to empty.
+Generating train split:   0%|          | 0/16000 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 16000/16000 [00:00<00:00, 632726.44 examples/s]
+Generating validation split:   0%|          | 0/2000 [00:00<?, ? examples/s]Generating validation split: 100%|██████████| 2000/2000 [00:00<00:00, 422280.80 examples/s]
+Generating test split:   0%|          | 0/2000 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 2000/2000 [00:00<00:00, 442764.07 examples/s]
+[embed] 600 texts in 0.2s
+Generating train split:   0%|          | 0/120000 [00:00<?, ? examples/s]Generating train split:  62%|██████▏   | 73949/120000 [00:00<00:00, 483372.38 examples/s]Generating train split: 100%|██████████| 120000/120000 [00:00<00:00, 545292.56 examples/s]
+Generating test split:   0%|          | 0/7600 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 7600/7600 [00:00<00:00, 674140.01 examples/s]
+[embed] 400 texts in 0.2s
+Repo card metadata block was not found. Setting CardData to empty.
+Generating train split:   0%|          | 0/11314 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 11314/11314 [00:00<00:00, 255526.60 examples/s]
+Generating test split:   0%|          | 0/7532 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 7532/7532 [00:00<00:00, 295095.96 examples/s]
+[embed] 2000 texts in 2.3s
+Repo card metadata block was not found. Setting CardData to empty.
+Generating train split:   0%|          | 0/5452 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 5452/5452 [00:00<00:00, 462733.12 examples/s]
+Generating test split:   0%|          | 0/500 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 500/500 [00:00<00:00, 186878.63 examples/s]
+[embed] 2513 texts in 0.4s
+[embed] 283 texts in 0.1s
+[embed] 283 texts in 0.1s
+[95s] pool {'eval_labels': {'clinc/travel': ['exchange_rate', 'car_rental', 'vaccines', 'international_visa', 'translate', 'carry_on', 'book_flight', 'timezone', 'flight_status', 'lost_luggage', 'book_hotel', 'plug_type', 'travel_alert', 'travel_notification', 'travel_suggestion'], 'clinc/work': ['schedule_meeting', 'meeting_schedule', 'insurance_change', 'insurance', 'payday', 'income', 'taxes', 'pto_request', 'rollover_401k', 'pto_request_status', 'direct_deposit', 'w2', 'pto_balance', 'next_holiday', 'pto_used'], 'banking/sub0': ['balance_not_updated_after_bank_transfer', 'cancel_transfer', 'card_payment_not_recognised', 'edit_personal_details', 'failed_transfer', 'getting_spare_card', 'pending_card_payment', 'pending_top_up', 'receiving_money', 'top_up_reverted', 'transfer_fee_charged', 'transfer_into_account'], 'banking/sub1': ['automatic_top_up', 'cash_withdrawal_charge', 'cash_withdrawal_not_recognised', 'contactless_not_working', 'declined_transfer', 'extra_charge_on_statement', 'lost_or_stolen_phone', 'order_physical_card', 'Refund_not_showing_up', 'topping_up_by_card', 'verify_top_up', 'visa_or_mastercard'], 'banking/sub2': ['apple_pay_or_google_pay', 'card_acceptance', 'card_arrival', 'card_linking', 'card_payment_wrong_exchange_rate', 'direct_debit_payment_not_recognised', 'fiat_currency_support', 'reverted_card_payment?', 'top_up_limits', 'transfer_not_received_by_recipient', 'virtual_card_not_working', 'wrong_exchange_rate_for_cash_withdrawal']}, 'dups_removed': 0, 'name_overlaps': ['exchange rate'], 'pool_labels': {'20ng': 20, 'ag_news': 4, 'banking': 41, 'clinc': 120, 'emotion': 6, 'massive': 57, 'trec': 35}, 'pool_rows': 26622, 'desc_fallback': 0, 'n_labels': 283}
+[95s] LLM spend (all cached calls) $0.0041

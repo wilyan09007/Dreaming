@@ -1,0 +1,1542 @@
+{
+ "$defs": {
+  "Attempt": {
+   "description": "What the gate found when nothing certified at the current budget: the page's \"no promise at 5%\" numbers.",
+   "properties": {
+    "budget": {
+     "title": "Budget",
+     "type": "number"
+    },
+    "n": {
+     "title": "N",
+     "type": "integer"
+    },
+    "emp_error": {
+     "title": "Emp Error",
+     "type": "number"
+    },
+    "bound": {
+     "title": "Bound",
+     "type": "number"
+    },
+    "min_budget": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "title": "Min Budget"
+    }
+   },
+   "required": [
+    "budget",
+    "n",
+    "emp_error",
+    "bound",
+    "min_budget"
+   ],
+   "title": "Attempt",
+   "type": "object"
+  },
+  "Batch": {
+   "description": "Fast-forward status, for the run button and the counter.",
+   "properties": {
+    "running": {
+     "default": false,
+     "title": "Running",
+     "type": "boolean"
+    },
+    "paused": {
+     "default": false,
+     "title": "Paused",
+     "type": "boolean"
+    },
+    "target": {
+     "default": 0,
+     "title": "Target",
+     "type": "integer"
+    },
+    "done": {
+     "default": 0,
+     "title": "Done",
+     "type": "integer"
+    },
+    "recorded": {
+     "default": false,
+     "title": "Recorded",
+     "type": "boolean"
+    },
+    "live_calls": {
+     "default": 0,
+     "title": "Live Calls",
+     "type": "integer"
+    }
+   },
+   "title": "Batch",
+   "type": "object"
+  },
+  "CallSite": {
+   "description": "One place in a workflow where a call is made. The unit everything is keyed on.",
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "workflow": {
+     "title": "Workflow",
+     "type": "string"
+    },
+    "name": {
+     "title": "Name",
+     "type": "string"
+    },
+    "kind": {
+     "$ref": "#/$defs/Kind"
+    },
+    "labels": {
+     "anyOf": [
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Labels"
+    },
+    "descriptions": {
+     "additionalProperties": {
+      "type": "string"
+     },
+     "title": "Descriptions",
+     "type": "object"
+    },
+    "teacher": {
+     "$ref": "#/$defs/TeacherSpec"
+    },
+    "cheap": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/TeacherSpec"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "fallback": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Fallback"
+    },
+    "replayable": {
+     "default": true,
+     "title": "Replayable",
+     "type": "boolean"
+    },
+    "thresholds": {
+     "$ref": "#/$defs/Thresholds"
+    },
+    "candidates": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Candidates",
+     "type": "array"
+    }
+   },
+   "required": [
+    "id",
+    "workflow",
+    "name",
+    "kind"
+   ],
+   "title": "CallSite",
+   "type": "object"
+  },
+  "Certificate": {
+   "description": "Above `cutoff`, this predictor's error rate against the teacher stays under `budget`,\nwith probability 1 - delta, computed on exactly the rows `calib_sha` names (fixed-grid Clopper-Pearson, gate.py).",
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "call_site": {
+     "title": "Call Site",
+     "type": "string"
+    },
+    "candidate": {
+     "default": "",
+     "title": "Candidate",
+     "type": "string"
+    },
+    "weights_sha": {
+     "title": "Weights Sha",
+     "type": "string"
+    },
+    "env_sha": {
+     "title": "Env Sha",
+     "type": "string"
+    },
+    "teacher_sha": {
+     "title": "Teacher Sha",
+     "type": "string"
+    },
+    "budget": {
+     "title": "Budget",
+     "type": "number"
+    },
+    "delta": {
+     "title": "Delta",
+     "type": "number"
+    },
+    "cutoff": {
+     "title": "Cutoff",
+     "type": "number"
+    },
+    "coverage": {
+     "title": "Coverage",
+     "type": "number"
+    },
+    "emp_error": {
+     "title": "Emp Error",
+     "type": "number"
+    },
+    "bound": {
+     "title": "Bound",
+     "type": "number"
+    },
+    "n_calib": {
+     "title": "N Calib",
+     "type": "integer"
+    },
+    "n_above": {
+     "title": "N Above",
+     "type": "integer"
+    },
+    "n_errors": {
+     "title": "N Errors",
+     "type": "integer"
+    },
+    "calib_sha": {
+     "title": "Calib Sha",
+     "type": "string"
+    },
+    "created_at": {
+     "format": "date-time",
+     "title": "Created At",
+     "type": "string"
+    },
+    "status": {
+     "default": "active",
+     "enum": [
+      "active",
+      "superseded",
+      "revoked"
+     ],
+     "title": "Status",
+     "type": "string"
+    }
+   },
+   "required": [
+    "id",
+    "call_site",
+    "weights_sha",
+    "env_sha",
+    "teacher_sha",
+    "budget",
+    "delta",
+    "cutoff",
+    "coverage",
+    "emp_error",
+    "bound",
+    "n_calib",
+    "n_above",
+    "n_errors",
+    "calib_sha",
+    "created_at"
+   ],
+   "title": "Certificate",
+   "type": "object"
+  },
+  "Component": {
+   "description": "Who emitted an event or log line. The first field to read when something breaks.",
+   "enum": [
+    "lib",
+    "api",
+    "agent",
+    "trainer"
+   ],
+   "title": "Component",
+   "type": "string"
+  },
+  "Decision": {
+   "description": "Who answered one call.",
+   "enum": [
+    "called",
+    "predicted",
+    "audited",
+    "fallback"
+   ],
+   "title": "Decision",
+   "type": "string"
+  },
+  "Event": {
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "ts": {
+     "format": "date-time",
+     "title": "Ts",
+     "type": "string"
+    },
+    "component": {
+     "$ref": "#/$defs/Component"
+    },
+    "kind": {
+     "$ref": "#/$defs/EventKind"
+    },
+    "message": {
+     "title": "Message",
+     "type": "string"
+    },
+    "run_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Run Id"
+    },
+    "call_site": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Call Site"
+    },
+    "data": {
+     "additionalProperties": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "items": {},
+        "type": "array"
+       },
+       {
+        "type": "string"
+       },
+       {
+        "type": "integer"
+       },
+       {
+        "type": "number"
+       },
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "title": "Data",
+     "type": "object"
+    },
+    "error": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Error"
+    },
+    "trace_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Trace Id"
+    }
+   },
+   "required": [
+    "id",
+    "ts",
+    "component",
+    "kind",
+    "message"
+   ],
+   "title": "Event",
+   "type": "object"
+  },
+  "EventKind": {
+   "enum": [
+    "batch.started",
+    "batch.progress",
+    "batch.finished",
+    "site.phase",
+    "cert.issued",
+    "cert.revoked",
+    "train.started",
+    "train.finished",
+    "train.failed",
+    "tool.outage",
+    "tool.recovered",
+    "budget.changed",
+    "replay.finished",
+    "candidate.promoted",
+    "campaign.progress",
+    "component.error"
+   ],
+   "title": "EventKind",
+   "type": "string"
+  },
+  "Hashes": {
+   "description": "What makes a prediction re-executable byte for byte (missions.md \u203a Hashing for replayability).",
+   "properties": {
+    "prompt": {
+     "title": "Prompt",
+     "type": "string"
+    },
+    "weights": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Weights"
+    },
+    "env": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Env"
+    }
+   },
+   "required": [
+    "prompt"
+   ],
+   "title": "Hashes",
+   "type": "object"
+  },
+  "Health": {
+   "additionalProperties": false,
+   "description": "What /healthz returns. `checks` names each dependency and its state, so a red dashboard says who is red.",
+   "properties": {
+    "component": {
+     "$ref": "#/$defs/Component"
+    },
+    "ok": {
+     "title": "Ok",
+     "type": "boolean"
+    },
+    "checks": {
+     "additionalProperties": {
+      "type": "string"
+     },
+     "title": "Checks",
+     "type": "object"
+    },
+    "version": {
+     "title": "Version",
+     "type": "string"
+    },
+    "env_sha": {
+     "title": "Env Sha",
+     "type": "string"
+    },
+    "profile": {
+     "additionalProperties": {
+      "type": "string"
+     },
+     "title": "Profile",
+     "type": "object"
+    }
+   },
+   "required": [
+    "component",
+    "ok",
+    "checks",
+    "version",
+    "env_sha"
+   ],
+   "title": "Health",
+   "type": "object"
+  },
+  "Kind": {
+   "description": "What a call site calls. The kind picks the predictor family and what 'skip' means.",
+   "enum": [
+    "model",
+    "tool",
+    "router",
+    "a2a",
+    "effect"
+   ],
+   "title": "Kind",
+   "type": "string"
+  },
+  "Metrics": {
+   "description": "One point of the 'the more it runs' chart: `runs` is the x (total so far), the rest averages over the last window.",
+   "properties": {
+    "runs": {
+     "title": "Runs",
+     "type": "integer"
+    },
+    "cost_per_run": {
+     "title": "Cost Per Run",
+     "type": "number"
+    },
+    "sec_per_run": {
+     "title": "Sec Per Run",
+     "type": "number"
+    },
+    "failed_pct": {
+     "title": "Failed Pct",
+     "type": "number"
+    },
+    "replayable_pct": {
+     "title": "Replayable Pct",
+     "type": "number"
+    },
+    "saved_usd": {
+     "title": "Saved Usd",
+     "type": "number"
+    }
+   },
+   "required": [
+    "runs",
+    "cost_per_run",
+    "sec_per_run",
+    "failed_pct",
+    "replayable_pct",
+    "saved_usd"
+   ],
+   "title": "Metrics",
+   "type": "object"
+  },
+  "Phase": {
+   "description": "The state machine of one call site. The dashboard's five stickers are exactly these.",
+   "enum": [
+    "awake",
+    "watching",
+    "testing",
+    "dreaming",
+    "down"
+   ],
+   "title": "Phase",
+   "type": "string"
+  },
+  "Policy": {
+   "description": "Per-site state the router reads on every call. One row per call site; every change emits site.phase.",
+   "properties": {
+    "call_site": {
+     "title": "Call Site",
+     "type": "string"
+    },
+    "phase": {
+     "$ref": "#/$defs/Phase",
+     "default": "awake"
+    },
+    "cert_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Cert Id"
+    },
+    "cutoff": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Cutoff"
+    },
+    "weights_sha": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Weights Sha"
+    },
+    "candidate": {
+     "default": "",
+     "title": "Candidate",
+     "type": "string"
+    },
+    "shadow": {
+     "additionalProperties": {
+      "$ref": "#/$defs/Spare"
+     },
+     "title": "Shadow",
+     "type": "object"
+    },
+    "rows": {
+     "default": 0,
+     "title": "Rows",
+     "type": "integer"
+    },
+    "shadow_rows": {
+     "default": 0,
+     "title": "Shadow Rows",
+     "type": "integer"
+    },
+    "predicted_rows": {
+     "default": 0,
+     "title": "Predicted Rows",
+     "type": "integer"
+    },
+    "audit_rows": {
+     "default": 0,
+     "title": "Audit Rows",
+     "type": "integer"
+    },
+    "audit_errors": {
+     "default": 0,
+     "title": "Audit Errors",
+     "type": "integer"
+    },
+    "attempt": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Attempt"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "outage": {
+     "default": false,
+     "title": "Outage",
+     "type": "boolean"
+    },
+    "updated_at": {
+     "format": "date-time",
+     "title": "Updated At",
+     "type": "string"
+    }
+   },
+   "required": [
+    "call_site",
+    "updated_at"
+   ],
+   "title": "Policy",
+   "type": "object"
+  },
+  "Prediction": {
+   "properties": {
+    "label": {
+     "title": "Label",
+     "type": "string"
+    },
+    "confidence": {
+     "title": "Confidence",
+     "type": "number"
+    },
+    "scores": {
+     "additionalProperties": {
+      "type": "number"
+     },
+     "title": "Scores",
+     "type": "object"
+    },
+    "hashes": {
+     "$ref": "#/$defs/Hashes"
+    },
+    "cert_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Cert Id"
+    },
+    "cost_usd": {
+     "default": 0.0,
+     "title": "Cost Usd",
+     "type": "number"
+    },
+    "latency_ms": {
+     "default": 0,
+     "title": "Latency Ms",
+     "type": "integer"
+    },
+    "candidate": {
+     "default": "",
+     "title": "Candidate",
+     "type": "string"
+    }
+   },
+   "required": [
+    "label",
+    "confidence",
+    "hashes"
+   ],
+   "title": "Prediction",
+   "type": "object"
+  },
+  "ReplayReport": {
+   "properties": {
+    "run_id": {
+     "title": "Run Id",
+     "type": "string"
+    },
+    "steps": {
+     "items": {
+      "$ref": "#/$defs/ReplayStep"
+     },
+     "title": "Steps",
+     "type": "array"
+    },
+    "re_executed": {
+     "title": "Re Executed",
+     "type": "integer"
+    },
+    "same": {
+     "title": "Same",
+     "type": "integer"
+    },
+    "from_log": {
+     "title": "From Log",
+     "type": "integer"
+    }
+   },
+   "required": [
+    "run_id",
+    "steps",
+    "re_executed",
+    "same",
+    "from_log"
+   ],
+   "title": "ReplayReport",
+   "type": "object"
+  },
+  "ReplayStep": {
+   "properties": {
+    "i": {
+     "title": "I",
+     "type": "integer"
+    },
+    "call_site": {
+     "title": "Call Site",
+     "type": "string"
+    },
+    "decision": {
+     "$ref": "#/$defs/Decision"
+    },
+    "re_executed": {
+     "title": "Re Executed",
+     "type": "boolean"
+    },
+    "same_bytes": {
+     "anyOf": [
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Same Bytes"
+    },
+    "output_sha": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Output Sha"
+    }
+   },
+   "required": [
+    "i",
+    "call_site",
+    "decision",
+    "re_executed"
+   ],
+   "title": "ReplayStep",
+   "type": "object"
+  },
+  "Run": {
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "n": {
+     "default": 0,
+     "title": "N",
+     "type": "integer"
+    },
+    "workflow": {
+     "title": "Workflow",
+     "type": "string"
+    },
+    "mode": {
+     "enum": [
+      "live",
+      "fast_forward"
+     ],
+     "title": "Mode",
+     "type": "string"
+    },
+    "input": {
+     "anyOf": [
+      {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      {
+       "items": {},
+       "type": "array"
+      },
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "number"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "title": "Input"
+    },
+    "started_at": {
+     "format": "date-time",
+     "title": "Started At",
+     "type": "string"
+    },
+    "finished_at": {
+     "anyOf": [
+      {
+       "format": "date-time",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Finished At"
+    },
+    "calls": {
+     "default": 0,
+     "title": "Calls",
+     "type": "integer"
+    },
+    "decisions": {
+     "default": 0,
+     "title": "Decisions",
+     "type": "integer"
+    },
+    "cost_usd": {
+     "default": 0.0,
+     "title": "Cost Usd",
+     "type": "number"
+    },
+    "latency_ms": {
+     "default": 0,
+     "title": "Latency Ms",
+     "type": "integer"
+    },
+    "failed": {
+     "default": false,
+     "title": "Failed",
+     "type": "boolean"
+    },
+    "stuck_at": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Stuck At"
+    },
+    "replayable": {
+     "default": 0,
+     "title": "Replayable",
+     "type": "integer"
+    },
+    "down": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Down",
+     "type": "array"
+    },
+    "critical_ms": {
+     "default": 0,
+     "title": "Critical Ms",
+     "type": "integer"
+    }
+   },
+   "required": [
+    "id",
+    "workflow",
+    "mode",
+    "input",
+    "started_at"
+   ],
+   "title": "Run",
+   "type": "object"
+  },
+  "RunView": {
+   "properties": {
+    "run": {
+     "$ref": "#/$defs/Run"
+    },
+    "rows": {
+     "items": {
+      "$ref": "#/$defs/TraceRow"
+     },
+     "title": "Rows",
+     "type": "array"
+    }
+   },
+   "required": [
+    "run",
+    "rows"
+   ],
+   "title": "RunView",
+   "type": "object"
+  },
+  "SiteView": {
+   "description": "One call site as the page shows it: the declaration, its state, its promise, and what a call costs awake vs dreaming.",
+   "properties": {
+    "site": {
+     "$ref": "#/$defs/CallSite"
+    },
+    "policy": {
+     "$ref": "#/$defs/Policy"
+    },
+    "certificate": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Certificate"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "cost_awake_usd": {
+     "default": 0.0,
+     "title": "Cost Awake Usd",
+     "type": "number"
+    },
+    "cost_dream_usd": {
+     "default": 0.0,
+     "title": "Cost Dream Usd",
+     "type": "number"
+    },
+    "sec_awake": {
+     "default": 0.0,
+     "title": "Sec Awake",
+     "type": "number"
+    },
+    "sec_dream": {
+     "default": 0.0,
+     "title": "Sec Dream",
+     "type": "number"
+    }
+   },
+   "required": [
+    "site",
+    "policy"
+   ],
+   "title": "SiteView",
+   "type": "object"
+  },
+  "Spare": {
+   "description": "A candidate that is not promoted: its latest weights and, if it certified, its certificate and coverage. The hot spare.",
+   "properties": {
+    "weights_sha": {
+     "title": "Weights Sha",
+     "type": "string"
+    },
+    "cert_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Cert Id"
+    },
+    "coverage": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Coverage"
+    }
+   },
+   "required": [
+    "weights_sha"
+   ],
+   "title": "Spare",
+   "type": "object"
+  },
+  "State": {
+   "description": "GET /state: everything the page needs on load. Live changes arrive through Realtime (events, policies, certificates).",
+   "properties": {
+    "sites": {
+     "items": {
+      "$ref": "#/$defs/SiteView"
+     },
+     "title": "Sites",
+     "type": "array"
+    },
+    "budget": {
+     "title": "Budget",
+     "type": "number"
+    },
+    "metrics": {
+     "$ref": "#/$defs/Metrics"
+    },
+    "series": {
+     "items": {
+      "$ref": "#/$defs/Metrics"
+     },
+     "title": "Series",
+     "type": "array"
+    },
+    "runs": {
+     "items": {
+      "$ref": "#/$defs/Run"
+     },
+     "title": "Runs",
+     "type": "array"
+    },
+    "first_run": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Run"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "batch": {
+     "$ref": "#/$defs/Batch"
+    },
+    "config": {
+     "additionalProperties": {
+      "type": "string"
+     },
+     "title": "Config",
+     "type": "object"
+    }
+   },
+   "required": [
+    "sites",
+    "budget",
+    "metrics",
+    "series",
+    "runs",
+    "batch"
+   ],
+   "title": "State",
+   "type": "object"
+  },
+  "TeacherAnswer": {
+   "properties": {
+    "text": {
+     "title": "Text",
+     "type": "string"
+    },
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "provider": {
+     "title": "Provider",
+     "type": "string"
+    },
+    "model": {
+     "title": "Model",
+     "type": "string"
+    },
+    "cost_usd": {
+     "default": 0.0,
+     "title": "Cost Usd",
+     "type": "number"
+    },
+    "latency_ms": {
+     "default": 0,
+     "title": "Latency Ms",
+     "type": "integer"
+    },
+    "usage": {
+     "additionalProperties": {
+      "type": "integer"
+     },
+     "title": "Usage",
+     "type": "object"
+    },
+    "recorded": {
+     "default": false,
+     "title": "Recorded",
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "text",
+    "provider",
+    "model"
+   ],
+   "title": "TeacherAnswer",
+   "type": "object"
+  },
+  "TeacherSpec": {
+   "description": "The real call, pinned. Provider pinning is part of what a certificate means (S13).",
+   "properties": {
+    "provider": {
+     "default": "openrouter",
+     "title": "Provider",
+     "type": "string"
+    },
+    "model": {
+     "default": "",
+     "title": "Model",
+     "type": "string"
+    },
+    "params": {
+     "additionalProperties": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "items": {},
+        "type": "array"
+       },
+       {
+        "type": "string"
+       },
+       {
+        "type": "integer"
+       },
+       {
+        "type": "number"
+       },
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "title": "Params",
+     "type": "object"
+    },
+    "price_in": {
+     "default": 0.0,
+     "title": "Price In",
+     "type": "number"
+    },
+    "price_out": {
+     "default": 0.0,
+     "title": "Price Out",
+     "type": "number"
+    },
+    "price_call": {
+     "default": 0.0,
+     "title": "Price Call",
+     "type": "number"
+    },
+    "floor": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Floor"
+    }
+   },
+   "title": "TeacherSpec",
+   "type": "object"
+  },
+  "Thresholds": {
+   "properties": {
+    "watch_after": {
+     "default": 60,
+     "title": "Watch After",
+     "type": "integer"
+    },
+    "calibrate_after": {
+     "default": 500,
+     "title": "Calibrate After",
+     "type": "integer"
+    },
+    "audit_rate": {
+     "default": 0.05,
+     "title": "Audit Rate",
+     "type": "number"
+    },
+    "delta": {
+     "default": 0.05,
+     "title": "Delta",
+     "type": "number"
+    },
+    "speculate_at": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Speculate At"
+    }
+   },
+   "title": "Thresholds",
+   "type": "object"
+  },
+  "TraceRow": {
+   "description": "The record of one call. Replay serves a run's rows in `i` order.",
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "run_id": {
+     "title": "Run Id",
+     "type": "string"
+    },
+    "i": {
+     "title": "I",
+     "type": "integer"
+    },
+    "call_site": {
+     "title": "Call Site",
+     "type": "string"
+    },
+    "kind": {
+     "$ref": "#/$defs/Kind"
+    },
+    "phase": {
+     "$ref": "#/$defs/Phase",
+     "default": "awake"
+    },
+    "request": {
+     "anyOf": [
+      {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      {
+       "items": {},
+       "type": "array"
+      },
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "number"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "title": "Request"
+    },
+    "request_sha": {
+     "title": "Request Sha",
+     "type": "string"
+    },
+    "response": {
+     "anyOf": [
+      {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      {
+       "items": {},
+       "type": "array"
+      },
+      {
+       "type": "string"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "number"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "title": "Response"
+    },
+    "decision": {
+     "$ref": "#/$defs/Decision"
+    },
+    "prediction": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Prediction"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "shadow": {
+     "additionalProperties": {
+      "$ref": "#/$defs/Prediction"
+     },
+     "title": "Shadow",
+     "type": "object"
+    },
+    "teacher": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/TeacherAnswer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "agree": {
+     "anyOf": [
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Agree"
+    },
+    "speculated": {
+     "default": false,
+     "title": "Speculated",
+     "type": "boolean"
+    },
+    "kept": {
+     "anyOf": [
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Kept"
+    },
+    "latency_ms": {
+     "title": "Latency Ms",
+     "type": "integer"
+    },
+    "cost_usd": {
+     "title": "Cost Usd",
+     "type": "number"
+    },
+    "error": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Error"
+    },
+    "ts": {
+     "format": "date-time",
+     "title": "Ts",
+     "type": "string"
+    }
+   },
+   "required": [
+    "id",
+    "run_id",
+    "i",
+    "call_site",
+    "kind",
+    "request",
+    "request_sha",
+    "response",
+    "decision",
+    "latency_ms",
+    "cost_usd",
+    "ts"
+   ],
+   "title": "TraceRow",
+   "type": "object"
+  }
+ },
+ "anyOf": [
+  {
+   "$ref": "#/$defs/State"
+  },
+  {
+   "$ref": "#/$defs/SiteView"
+  },
+  {
+   "$ref": "#/$defs/Batch"
+  },
+  {
+   "$ref": "#/$defs/Attempt"
+  },
+  {
+   "$ref": "#/$defs/RunView"
+  },
+  {
+   "$ref": "#/$defs/Event"
+  },
+  {
+   "$ref": "#/$defs/Policy"
+  },
+  {
+   "$ref": "#/$defs/Run"
+  },
+  {
+   "$ref": "#/$defs/Certificate"
+  },
+  {
+   "$ref": "#/$defs/Metrics"
+  },
+  {
+   "$ref": "#/$defs/CallSite"
+  },
+  {
+   "$ref": "#/$defs/TraceRow"
+  },
+  {
+   "$ref": "#/$defs/ReplayReport"
+  },
+  {
+   "$ref": "#/$defs/Health"
+  }
+ ]
+}

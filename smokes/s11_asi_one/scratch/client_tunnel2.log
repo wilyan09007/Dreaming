@@ -1,0 +1,8 @@
+INFO:     [dreaming-smoke-client]: Starting agent with address: agent1q2d5t6nc83wzz96nnu0u0yssw0u52uyhlnxdajaasc8t9lp852u7652pmk9
+INFO:     [dreaming-smoke-client]: Starting server on http://0.0.0.0:8001 (Press CTRL+C to quit)
+INFO:     [dreaming-smoke-client]: Agent registration status updated to active
+INFO:     [uagents.registration]: Registration on Almanac API successful
+INFO:     [uagents.registration]: Almanac contract registration is up to date!
+INFO:     [dreaming-smoke-client]: sending to agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq
+INFO:     [dreaming-smoke-client]: ACK received
+INFO:     [dreaming-smoke-client]: REPLY: 'dreaming: llm what is 2+2? answer with one digit | asi1-mini [200] 4\ncertificate: demo-sha256:b5339d3a9e3034dd'

@@ -1,0 +1,76 @@
+{
+ "device": "cuda",
+ "gpu": "NVIDIA GeForce RTX 4090",
+ "runs": [
+  {
+   "method": "finetune-bge-small",
+   "rows": 770,
+   "steps": 300,
+   "train_s": 17.2,
+   "acc": 0.8254,
+   "cert5_coverage": 0.587,
+   "holdout_err_above": 0.0274
+  },
+  {
+   "method": "finetune-bge-small",
+   "rows": 3080,
+   "steps": 776,
+   "train_s": 43.1,
+   "acc": 0.9197,
+   "cert5_coverage": 0.888,
+   "holdout_err_above": 0.0331
+  },
+  {
+   "method": "finetune-bge-small",
+   "rows": 9993,
+   "steps": 2504,
+   "train_s": 130.6,
+   "acc": 0.9412,
+   "cert5_coverage": 0.938,
+   "holdout_err_above": 0.0288
+  },
+  {
+   "method": "setfit-bge-small",
+   "rows": 770,
+   "train_s": 51.6,
+   "acc": 0.6401,
+   "cert5_coverage": 0.0,
+   "holdout_err_above": null
+  },
+  {
+   "method": "setfit-bge-small",
+   "rows": 3080,
+   "train_s": 75.3,
+   "acc": 0.8414,
+   "cert5_coverage": 0.47,
+   "holdout_err_above": 0.0275
+  },
+  {
+   "method": "lora-qwen2.5-0.5b-tuned",
+   "rows": 770,
+   "steps": 600,
+   "train_s": 114.4,
+   "acc": 0.7802,
+   "cert5_coverage": 0.492,
+   "holdout_err_above": 0.0419
+  },
+  {
+   "method": "lora-qwen2.5-0.5b-tuned",
+   "rows": 3080,
+   "steps": 600,
+   "train_s": 114.5,
+   "acc": 0.9112,
+   "cert5_coverage": 0.827,
+   "holdout_err_above": 0.0212
+  },
+  {
+   "method": "lora-qwen2.5-0.5b-tuned",
+   "rows": 9993,
+   "steps": 1878,
+   "train_s": 351.9,
+   "acc": 0.936,
+   "cert5_coverage": 0.925,
+   "holdout_err_above": 0.0273
+  }
+ ]
+}

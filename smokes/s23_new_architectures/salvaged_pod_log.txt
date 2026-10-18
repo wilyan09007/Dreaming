@@ -1,0 +1,439 @@
+name, memory.total [MiB]
+NVIDIA RTX A5000, 24564 MiB
+waiting for bundle
+bundle extracted 11 files
+[18:50:22] cuda ok: NVIDIA RTX A5000 cpus 96
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Generating train split:   0%|          | 0/15250 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 15250/15250 [00:00<00:00, 1439962.54 examples/s]
+Generating validation split:   0%|          | 0/3100 [00:00<?, ? examples/s]Generating validation split: 100%|██████████| 3100/3100 [00:00<00:00, 1085518.65 examples/s]
+Generating test split:   0%|          | 0/5500 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 5500/5500 [00:00<00:00, 1800270.95 examples/s]
+Generating train split:   0%|          | 0/9993 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 9993/9993 [00:00<00:00, 604309.23 examples/s]
+Generating test split:   0%|          | 0/3076 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 3076/3076 [00:00<00:00, 376240.97 examples/s]
+[18:51:29] tasks (name, pool rows, calibration rows, test rows): [('clinc/travel', 1200, 300, 450), ('clinc/work', 1200, 300, 450), ('banking/sub0', 1415, 300, 480), ('banking/sub1', 1264, 300, 480), ('banking/sub2', 1285, 300, 479)] 66s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:32] banking/sub0 draw0 k1 1.3s
+[18:51:32] banking/sub1 draw0 k1 1.2s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:32] clinc/travel draw0 k1 1.3s
+[18:51:32] clinc/work draw0 k1 1.4s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:33] banking/sub1 draw0 k3 1.2s
+[18:51:33] banking/sub0 draw0 k3 1.3s
+[18:51:33] clinc/travel draw0 k3 1.2s
+[18:51:33] clinc/work draw0 k3 1.4s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:35] banking/sub1 draw0 k10 2.0s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:35] banking/sub0 draw0 k10 2.1s
+[18:51:35] clinc/travel draw0 k10 2.1s
+[18:51:36] clinc/work draw0 k10 2.6s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:36] banking/sub2 draw0 k1 1.3s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:37] clinc/work draw1 k1 1.4s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:37] clinc/travel draw1 k1 1.4s
+[18:51:37] device cuda [('clinc/travel', 1200), ('clinc/work', 1200), ('banking/sub0', 1415), ('banking/sub1', 1264), ('banking/sub2', 1285)]
+[18:51:37] banking/sub0 draw1 k1 1.2s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:38] banking/sub2 draw0 k3 1.2s
+[18:51:38] clinc/travel draw1 k3 1.1s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:38] clinc/work draw1 k3 1.3s
+[18:51:38] banking/sub0 draw1 k3 1.1s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:39] banking/sub2 draw0 k10 1.3s
+[18:51:39] clinc/travel draw1 k10 1.3s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:39] banking/sub0 draw1 k10 1.3s
+[18:51:40] clinc/work draw1 k10 1.6s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:40] banking/sub1 draw1 k1 1.2s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:40] banking/sub2 draw1 k1 1.2s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:41] clinc/travel draw2 k1 1.1s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:41] clinc/work draw2 k1 1.4s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:41] banking/sub1 draw1 k3 1.2s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:41] banking/sub2 draw1 k3 1.2s
+[transformers] This checkpoint seem corrupted. The tied weights mapping for this model specifies to tie cls.predictions.bias to cls.predictions.decoder.bias, but both are absent from the checkpoint, and we could not find another related tied weight for those keys
+[transformers] [1mBertLMHeadModel LOAD REPORT[0m from: BAAI/bge-small-en-v1.5
+Key                                                                | Status     | 
+-------------------------------------------------------------------+------------+-
+pooler.dense.weight                                                | UNEXPECTED | 
+pooler.dense.bias                                                  | UNEXPECTED | 
+bert.encoder.layer.{0...11}.crossattention.self.query.bias         | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.output.LayerNorm.weight | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.query.weight       | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.output.dense.bias       | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.value.weight       | MISSING    | 
+cls.predictions.transform.LayerNorm.weight                         | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.output.LayerNorm.bias   | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.key.weight         | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.key.bias           | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.value.bias         | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.output.dense.weight     | MISSING    | 
+cls.predictions.transform.dense.bias                               | MISSING    | 
+cls.predictions.transform.dense.weight                             | MISSING    | 
+cls.predictions.bias                                               | MISSING    | 
+cls.predictions.decoder.bias                                       | MISSING    | 
+cls.predictions.transform.LayerNorm.bias                           | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[18:51:42] clinc/travel draw2 k3 1.1s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+The `tokenize` method is deprecated, please use `preprocess` instead.
+[18:51:42] clinc/work draw2 k3 1.4s
+[18:51:42] banking/sub1 draw1 k10 1.2s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:43] banking/sub2 draw1 k10 1.4s
+[18:51:43] clinc/travel draw2 k10 1.3s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:44] banking/sub0 draw2 k1 1.4s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:44] banking/sub1 draw2 k1 1.1s
+[18:51:44] clinc/work draw2 k10 1.7s
+[18:51:44] banking/sub2 draw2 k1 1.1s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:45] banking/sub0 draw2 k3 0.9s
+[18:51:45] banking/sub1 draw2 k3 0.8s
+[18:51:45] banking/sub2 draw2 k3 0.9s
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+/usr/local/lib/python3.12/dist-packages/sklearn/semi_supervised/_label_propagation.py:232: RuntimeWarning: invalid value encountered in divide
+  probabilities /= normalizer
+[18:51:46] banking/sub1 draw2 k10 1.0s
+[18:51:46] banking/sub0 draw2 k10 1.0s
+[18:51:46] banking/sub2 draw2 k10 1.0s
+[18:51:46] arm12 done 17s
+[18:52:01] STATUS checkpoint programasweights/paw-4b-qwen3-0.6b@20260407 rank=64 alpha=16.0 prefix=64 ready at t=31s
+[18:52:05] STATUS specs 55 specs, max tokens 3178, examples/label in k=10 specs: [10]
+[18:52:08] clinc/travel TSDAE 250 loss 2.311 train 25s
+[18:52:36] pseudo-programs 8 / 55 19s
+[18:52:36] clinc/travel TSDAE 500 loss 1.544 train 52s
+[18:53:06] pseudo-programs 16 / 55 50s
+[18:53:33] clinc/travel TSDAE 1000 loss 0.932 train 108s
+[18:53:35] pseudo-programs 24 / 55 79s
+[transformers] This checkpoint seem corrupted. The tied weights mapping for this model specifies to tie cls.predictions.bias to cls.predictions.decoder.bias, but both are absent from the checkpoint, and we could not find another related tied weight for those keys
+[transformers] [1mBertLMHeadModel LOAD REPORT[0m from: BAAI/bge-small-en-v1.5
+Key                                                                | Status     | 
+-------------------------------------------------------------------+------------+-
+pooler.dense.weight                                                | UNEXPECTED | 
+pooler.dense.bias                                                  | UNEXPECTED | 
+bert.encoder.layer.{0...11}.crossattention.self.query.bias         | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.output.LayerNorm.weight | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.query.weight       | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.output.dense.bias       | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.value.weight       | MISSING    | 
+cls.predictions.transform.LayerNorm.weight                         | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.output.LayerNorm.bias   | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.key.weight         | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.key.bias           | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.value.bias         | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.output.dense.weight     | MISSING    | 
+cls.predictions.transform.dense.bias                               | MISSING    | 
+cls.predictions.transform.dense.weight                             | MISSING    | 
+cls.predictions.bias                                               | MISSING    | 
+cls.predictions.decoder.bias                                       | MISSING    | 
+cls.predictions.transform.LayerNorm.bias                           | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[18:54:04] clinc/work TSDAE 250 loss 1.930 train 26s
+[18:54:09] pseudo-programs 32 / 55 113s
+[18:54:31] clinc/work TSDAE 500 loss 1.315 train 52s
+[18:55:01] pseudo-programs 40 / 55 165s
+[18:55:25] clinc/work TSDAE 1000 loss 0.874 train 105s
+[transformers] This checkpoint seem corrupted. The tied weights mapping for this model specifies to tie cls.predictions.bias to cls.predictions.decoder.bias, but both are absent from the checkpoint, and we could not find another related tied weight for those keys
+[transformers] [1mBertLMHeadModel LOAD REPORT[0m from: BAAI/bge-small-en-v1.5
+Key                                                                | Status     | 
+-------------------------------------------------------------------+------------+-
+pooler.dense.weight                                                | UNEXPECTED | 
+pooler.dense.bias                                                  | UNEXPECTED | 
+bert.encoder.layer.{0...11}.crossattention.self.query.bias         | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.output.LayerNorm.weight | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.query.weight       | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.output.dense.bias       | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.value.weight       | MISSING    | 
+cls.predictions.transform.LayerNorm.weight                         | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.output.LayerNorm.bias   | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.key.weight         | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.key.bias           | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.value.bias         | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.output.dense.weight     | MISSING    | 
+cls.predictions.transform.dense.bias                               | MISSING    | 
+cls.predictions.transform.dense.weight                             | MISSING    | 
+cls.predictions.bias                                               | MISSING    | 
+cls.predictions.decoder.bias                                       | MISSING    | 
+cls.predictions.transform.LayerNorm.bias                           | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[18:55:47] pseudo-programs 45 / 55 211s
+[18:56:11] banking/sub0 TSDAE 250 loss 2.506 train 40s
+[18:56:29] pseudo-programs 49 / 55 253s
+[18:56:53] banking/sub0 TSDAE 500 loss 1.888 train 81s
+[18:57:09] pseudo-programs 53 / 55 292s
+[18:57:29] pseudo-programs 57 / 55 312s
+[18:57:29] STATUS pseudo 55 pseudo-programs in 324s; empty=0; with closing marker=55
+[18:57:55] STATUS compiler 55 encoded in 26s, 0 failed []
+[18:58:11] banking/sub0 TSDAE 1000 loss 1.289 train 158s
+[transformers] This checkpoint seem corrupted. The tied weights mapping for this model specifies to tie cls.predictions.bias to cls.predictions.decoder.bias, but both are absent from the checkpoint, and we could not find another related tied weight for those keys
+[transformers] [1mBertLMHeadModel LOAD REPORT[0m from: BAAI/bge-small-en-v1.5
+Key                                                                | Status     | 
+-------------------------------------------------------------------+------------+-
+pooler.dense.weight                                                | UNEXPECTED | 
+pooler.dense.bias                                                  | UNEXPECTED | 
+bert.encoder.layer.{0...11}.crossattention.self.query.bias         | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.output.LayerNorm.weight | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.query.weight       | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.output.dense.bias       | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.value.weight       | MISSING    | 
+cls.predictions.transform.LayerNorm.weight                         | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.output.LayerNorm.bias   | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.key.weight         | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.key.bias           | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.value.bias         | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.output.dense.weight     | MISSING    | 
+cls.predictions.transform.dense.bias                               | MISSING    | 
+cls.predictions.transform.dense.weight                             | MISSING    | 
+cls.predictions.bias                                               | MISSING    | 
+cls.predictions.decoder.bias                                       | MISSING    | 
+cls.predictions.transform.LayerNorm.bias                           | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[18:58:36] banking/sub1 TSDAE 250 loss 2.405 train 20s
+[18:58:55] banking/sub1 TSDAE 500 loss 1.757 train 39s
+[18:58:56] STATUS interpreter loaded, trainable LoRA params 40370176, templates 55, bad 0, ready at t=445s
+[18:59:34] zero-shot clinc/travel t=484s
+[19:00:15] zero-shot clinc/work t=524s
+[19:00:16] banking/sub1 TSDAE 1000 loss 1.154 train 118s
+[transformers] This checkpoint seem corrupted. The tied weights mapping for this model specifies to tie cls.predictions.bias to cls.predictions.decoder.bias, but both are absent from the checkpoint, and we could not find another related tied weight for those keys
+[transformers] [1mBertLMHeadModel LOAD REPORT[0m from: BAAI/bge-small-en-v1.5
+Key                                                                | Status     | 
+-------------------------------------------------------------------+------------+-
+pooler.dense.weight                                                | UNEXPECTED | 
+pooler.dense.bias                                                  | UNEXPECTED | 
+bert.encoder.layer.{0...11}.crossattention.self.query.bias         | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.output.LayerNorm.weight | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.query.weight       | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.output.dense.bias       | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.value.weight       | MISSING    | 
+cls.predictions.transform.LayerNorm.weight                         | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.output.LayerNorm.bias   | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.key.weight         | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.key.bias           | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.self.value.bias         | MISSING    | 
+bert.encoder.layer.{0...11}.crossattention.output.dense.weight     | MISSING    | 
+cls.predictions.transform.dense.bias                               | MISSING    | 
+cls.predictions.transform.dense.weight                             | MISSING    | 
+cls.predictions.bias                                               | MISSING    | 
+cls.predictions.decoder.bias                                       | MISSING    | 
+cls.predictions.transform.LayerNorm.bias                           | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[19:01:02] banking/sub2 TSDAE 250 loss 2.406 train 40s
+[19:01:02] zero-shot banking/sub0 t=572s
+[19:01:45] banking/sub2 TSDAE 500 loss 1.729 train 81s
+[19:01:47] zero-shot banking/sub1 t=617s
+[19:02:29] zero-shot banking/sub2 t=659s
+[19:03:08] banking/sub2 TSDAE 1000 loss 1.146 train 163s
+[19:03:08] tsdae done 691s
+[19:03:09] tsdae rc 0
+[19:04:01] cell clinc/travel|letters|1|0 91s t=750s
+[19:05:48] cell clinc/travel|letters|3|0 107s t=857s
+[19:06:55] cell clinc/travel|letters|10|0 67s t=925s
+[19:08:32] cell clinc/work|letters|1|0 97s t=1022s
+[19:09:58] cell clinc/work|letters|3|0 86s t=1108s
+[19:11:22] cell clinc/work|letters|10|0 84s t=1191s
+[19:12:56] cell banking/sub0|letters|1|0 94s t=1286s

@@ -1,0 +1,6 @@
+1300tok-identical 0 {'tag': 'C2:1300tok', 'pt': 1270, 'ct': 7, 'cached': 0, 'write': 0, 'cost': 0.00026275, 'provider': 'OpenAI', 'ms': 2786.1032485961914}
+1300tok-identical 1 {'tag': 'C2:1300tok', 'pt': 1270, 'ct': 7, 'cached': 0, 'write': 0, 'cost': 0.00026275, 'provider': 'OpenAI', 'ms': 537.0943546295166}
+1300tok-identical 2 {'tag': 'C2:1300tok', 'pt': 1270, 'ct': 7, 'cached': 0, 'write': 0, 'cost': 0.00026275, 'provider': 'OpenAI', 'ms': 610.5642318725586}
+1300tok-identical 3 {'tag': 'C2:1300tok', 'pt': 1270, 'ct': 8, 'cached': 0, 'write': 0, 'cost': 0.000264, 'provider': 'OpenAI', 'ms': 547.128438949585}
+1300tok-identical 4 {'tag': 'C2:1300tok', 'pt': 1270, 'ct': 8, 'cached': 0, 'write': 0, 'cost': 0.000264, 'provider': 'OpenAI', 'ms': 855.5753231048584}
+[spent so far $0.00361]

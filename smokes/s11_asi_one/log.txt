@@ -1,0 +1,260 @@
+AV GET /v1/hosting/agents -> 200 {"items": [], "next_cursor": null}
+ASI GET /models -> 200 {"object": "list", "data": [{"id": "asi1-mini", "object": "model", "created": 0, "owned_by": "asi1"}, {"id": "asi1", "object": "model", "created": 0, "owned_by": "asi1"}, {"id": "asi1-ultra", "object": "model", "created": 0, "owned_by": "asi1"}]}
+AV POST /v1/hosting/agents -> 200 {"name": "dreaming-smoke-hosted", "address": "agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e", "domain": null, "prefix": "agent", "running": false, "compiled": false, "code_digest": null, "wallet_address": "fetch13xkn2wpt0jzl98gau3e30jllcpc2c93lyw7hqn", "code_update_timestamp": "2026-10-17T09:55:52.826736Z", "creation_timestamp": "2026-10-17T09:55:52.826736Z", "avatar_url": null, "maintainer_id": null, "revision": 0, "readme": null, "short_description": null, "metadata": null}
+AV POST /v1/hosting/secrets -> 200 {"name": "ASI1KEY", "secret": "<key>", "timestamp": "2026-10-17T09:55:53.415497Z"}
+AV GET /v1/hosting/secrets?address=agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e -> 200 {"secrets": [{"name": "ASI1KEY", "secret": "***", "timestamp": "2026-10-17T09:55:53.415000"}]}
+AV PUT /v1/hosting/agents/agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e/code -> 422 {"detail": [{"type": "string_type", "loc": ["body", "code"], "msg": "Input should be a valid string", "input": [{"id": 0, "name": "agent.py", "value": "# Uploaded verbatim to Agentverse as agent.py (hosted). Echo + optional asi1-mini call.\nimport os\nfrom datetime import datetime, timezone\nfrom uuid import uuid4\nimport requests\nfrom uagents import Agent, Context, Protocol\nfrom uagents_core.contrib.protocols.chat import (\n    ChatAcknowledgement, ChatMessage, EndSessionContent, TextContent, chat_protocol_spec)\n\nagent = Agent()\nproto = Protocol(spec=chat_protocol_spec)\n\n\ndef asi(text
+AV GET /v1/hosting/agents/agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e -> 200 {"name": "dreaming-smoke-hosted", "address": "agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e", "domain": null, "prefix": "agent", "running": false, "compiled": null, "code_digest": null, "wallet_address": "fetch13xkn2wpt0jzl98gau3e30jllcpc2c93lyw7hqn", "code_update_timestamp": "2026-10-17T09:55:52.826000", "creation_timestamp": "2026-10-17T09:55:52.826000", "avatar_url": null, "maintainer_id": null, "revision": 0, "readme": "", "short_description": null, "metadata": null}
+AV PUT /v1/hosting/agents/agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e/code -> 200 {"digest": "92b70c8abd4bcacf535797476f1d6edbb59d60b150a10a0ca09bd86dc3ec50ea"}
+AV POST /v1/hosting/agents/agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e/start -> 200 {"name": "dreaming-smoke-hosted", "address": "agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e", "domain": null, "prefix": "agent", "running": true, "compiled": null, "code_digest": "92b70c8abd4bcacf535797476f1d6edbb59d60b150a10a0ca09bd86dc3ec50ea", "wallet_address": "fetch13xkn2wpt0jzl98gau3e30jllcpc2c93lyw7hqn", "code_update_timestamp": "2026-10-17T09:56:02.044000", "creation_timestamp": "2026-10-17T09:55:52.826000", "avatar_url": null, "maintainer_id": null, "revision": 1, "readme": "", "short_description": null, "metadata": null}
+AV GET /v1/hosting/agents/agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e/logs/latest -> 200 [{"log_timestamp": "2026-10-17T09:56:02.437000", "log_entry": "Starting agent...", "log_type": "system", "log_level": "debg"}]
+AV GET /v1/hosting/agents/agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e -> 200 {"name": "dreaming-smoke-hosted", "address": "agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e", "domain": null, "prefix": "agent", "running": true, "compiled": null, "code_digest": "92b70c8abd4bcacf535797476f1d6edbb59d60b150a10a0ca09bd86dc3ec50ea", "wallet_address": "fetch13xkn2wpt0jzl98gau3e30jllcpc2c93lyw7hqn", "code_update_timestamp": "2026-10-17T09:56:02.044000", "creation_timestamp": "2026-10-17T09:55:52.826000", "avatar_url": null, "maintainer_id": null, "revision": 1, "readme": "", "short_description": null, "metadata": null}
+AV GET /v1/hosting/agents/agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e/logs/latest -> 200 [{"log_timestamp": "2026-10-17T09:56:02.437000", "log_entry": "Starting agent...", "log_type": "system", "log_level": "debg"}]
+AV GET /v1/hosting/agents/agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e -> 200 {"name": "dreaming-smoke-hosted", "address": "agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e", "domain": null, "prefix": "agent", "running": true, "compiled": null, "code_digest": "92b70c8abd4bcacf535797476f1d6edbb59d60b150a10a0ca09bd86dc3ec50ea", "wallet_address": "fetch13xkn2wpt0jzl98gau3e30jllcpc2c93lyw7hqn", "code_update_timestamp": "2026-10-17T09:56:02.044000", "creation_timestamp": "2026-10-17T09:55:52.826000", "avatar_url": null, "maintainer_id": null, "revision": 1, "readme": "", "short_description": null, "metadata": null}
+AV GET /v1/hosting/agents/agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e/logs/latest -> 200 [{"log_timestamp": "2026-10-17T09:56:16.575000", "log_entry": "Almanac contract registration queued for processing", "log_type": "system", "log_level": "debg"}, {"log_timestamp": "2026-10-17T09:56:16.546000", "log_entry": "Successfully started agent", "log_type": "system", "log_level": "debg"}, {"log_timestamp": "2026-10-17T09:56:16.520000", "log_entry": "Registered to Almanac fast track", "log_type": "system", "log_level": "debg"}, {"log_timestamp": "2026-10-17T09:56:15.884000", "log_entry": "dreaming hosted up; ASI1KEY present=True", "log_type": "execution", "log_level": "info"}, {"log_times
+AV GET /v1/hosting/agents/agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e -> 200 {"name": "dreaming-smoke-hosted", "address": "agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e", "domain": null, "prefix": "agent", "running": true, "compiled": true, "code_digest": "92b70c8abd4bcacf535797476f1d6edbb59d60b150a10a0ca09bd86dc3ec50ea", "wallet_address": "fetch13xkn2wpt0jzl98gau3e30jllcpc2c93lyw7hqn", "code_update_timestamp": "2026-10-17T09:56:02.044000", "creation_timestamp": "2026-10-17T09:55:52.826000", "avatar_url": null, "maintainer_id": null, "revision": 1, "readme": "", "short_description": null, "metadata": null}
+AV PUT /v1/hosting/agents/agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e -> 200 {}
+AV GET /v1/hosting/agents/agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e/logs/latest -> 200 [{"log_timestamp": "2026-10-17T09:59:06.966000", "log_entry": "Successfully processed envelope from agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq", "log_type": "system", "log_level": "trce"}, {"log_timestamp": "2026-10-17T09:59:00.999000", "log_entry": "ack from agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq", "log_type": "execution", "log_level": "info"}, {"log_timestamp": "2026-10-17T09:58:57.370000", "log_entry": "Processing envelope from agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq...", "log_type": "system", "log_level": "debg"}, 
+AV GET /v1/almanac/agents/agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq -> 200 {"status": "active", "type": "proxy", "address": "agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq", "domain_name": null, "endpoints": [{"url": "https://agentverse.ai/v2/agents/proxy/submit", "weight": 1}], "metadata": null, "protocols": ["30a801ed3a83f9a0ff0a9f1e6fe958cb91da1fc2218b153df7b6cbf87bd33d62"], "expiry": "2026-11-16T09:45:55.472350Z"}
+AV GET /v1/almanac/agents/agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e -> 200 {"status": "active", "type": "hosted", "address": "agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e", "domain_name": null, "endpoints": [{"url": "https://agentverse.ai/v1/hosting/submit", "weight": 1}], "metadata": null, "protocols": ["30a801ed3a83f9a0ff0a9f1e6fe958cb91da1fc2218b153df7b6cbf87bd33d62", "b5165e616e3f21427502f7ec0e79754ff5a76c0b13ac89e335e92ae854b1ff90"], "expiry": "2026-11-16T09:45:55.472350Z"}
+AV GET /v1/agents/agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq -> 200 {"address": "agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq", "name": "dreaming-smoke-local", "pending_messages": 0, "bytes_transferred": 0, "previous_bytes_transferred": 0, "readme": "# dreaming-smoke-local\nDreaming runtime smoke agent. Echoes text as `dreaming: <text>` and appends a demo certificate line. Prefix a message with `llm ` to also ask asi1-mini.\nKeywords: dreaming, workflow, certificate, echo.", "avatar_url": "", "short_description": "Dreaming runtime smoke agent (local, tunnel).", "agent_type": "uagent"}
+AV GET /v1/agents -> 200 {"items": [{"address": "agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq", "name": "dreaming-smoke-local", "pending_messages": 0, "bytes_transferred": 0, "previous_bytes_transferred": 0, "readme": "# dreaming-smoke-local\nDreaming runtime smoke agent. Echoes text as `dreaming: <text>` and appends a demo certificate line. Prefix a message with `llm ` to also ask asi1-mini.\nKeywords: dreaming, workflow, certificate, echo.", "avatar_url": "", "short_description": "Dreaming runtime smoke agent (local, tunnel).", "agent_type": "custom"}, {"address": "agent1qgulmx22hrwhmnzrt28cwfdx
+ASI POST /chat/completions -> 200 {"id": "b31a1423-a7ec-4ccd-bb90-e5dd5f166673", "choices": [{"finish_reason": "stop", "index": 0, "message": {"content": "I sent the message \"planner hello 42\" to the **dreaming-smoke-local** agent, and here is its exact reply:\n\n```\ndreaming: planner hello 42\ncertificate: demo-sha256:77e514a2fe71a06e\n```\n\nSo the agent echoed back \"planner hello 42\" as expected, along with a certificate line: `demo-sha256:77e514a2fe71a06e`.", "role": "assistant"}, "type": "text"}], "created": 1792231243, "model": "asi1-mini", "object": "chat.completion", "usage": {"completion_tokens": 342, "prompt_tokens": 27103, "total_tokens": 27445}, "executable_data": []}
+elapsed 22s usage={'completion_tokens': 342, 'prompt_tokens': 27103, 'total_tokens': 27445}
+ASI POST /chat/completions -> 200 {"id": "7a62314a-267d-4d34-bf85-8e7a80fa5823", "choices": [{"finish_reason": "stop", "index": 0, "message": {"content": "I sent \"llm say yes\" to the **dreaming-smoke-hosted** agent, and it replied exactly:\n\n> `dreaming: llm say yes | asi1-mini [200] yes`\n\nSo the agent responded with \"yes\", along with the echoed input and a status of `[200]`.", "role": "assistant"}, "type": "text"}], "created": 1792231277, "model": "asi1-mini", "object": "chat.completion", "usage": {"completion_tokens": 291, "prompt_tokens": 27044, "total_tokens": 27335}, "executable_data": []}
+elapsed 21s usage={'completion_tokens': 291, 'prompt_tokens': 27044, 'total_tokens': 27335}
+ASI POST /chat/completions -> 200 {"id": "0ce9f7b8-5519-4ddb-82a1-31b7aa833fa9", "choices": [{"finish_reason": "stop", "index": 0, "message": {"content": "I found the **dreaming-smoke-local** agent on Agentverse and sent it \"discovery test 7\". Here's its exact reply:\n\n```\ndreaming: discovery test 7\ncertificate: demo-sha256:4610b1a6066a7386\n```\n\nAs expected, it echoed the text back prefixed with `dreaming:` and appended its demo certificate line. \u2705", "role": "assistant"}, "type": "text"}], "created": 1792231313, "model": "asi1-mini", "object": "chat.completion", "usage": {"completion_tokens": 495, "prompt_tokens": 43994, "total_tokens": 44489}, "executable_data": []}
+elapsed 34s usage={'completion_tokens': 495, 'prompt_tokens': 43994, 'total_tokens': 44489}
+ASI POST /chat/completions -> 200 {"id": "chatcmpl-5e5863bc-f00f-4627-bcf5-8a15b3e9fd13", "choices": [{"finish_reason": "stop", "index": 0, "logprobs": null, "message": {"content": "mention-test-9", "refusal": null, "role": "assistant", "annotations": null, "audio": null, "function_call": null, "tool_calls": null, "reasoning_content": null}}], "created": 1792231316, "model": "asi1-mini", "object": "chat.completion", "moderation": null, "service_tier": null, "system_fingerprint": null, "usage": {"completion_tokens": 5, "prompt_tokens": 285, "total_tokens": 290, "completion_tokens_details": {"accepted_prediction_tokens": null, "audio_tokens": null, "reasoning_tokens": 0, "rejected_prediction_tokens": null}, "prompt_tokens_details": {"audio_tokens": null, "cached_tokens": 0, "created_cache_tokens": 0, "multimodal_tokens": nul
+ASI tiny call 200 {}
+ASI GET /usage 200 {"model":"asi1-mini","exceeded_token_limits":false,"exceeded_image_limits":false,"exceeded_limits":false,"usage":[{"timestamp":"2026-10-17T09:45:00Z",
+ASI GET /balance 404 404 page not found 
+ASI GET /credits 404 404 page not found 
+ASI GET /account 404 404 page not found 
+ASI GET /me 404 404 page not found 
+ASI GET /user/balance 404 404 page not found 
+ASI GET /billing/usage 404 404 page not found 
+AV GET /v1/agents/usage -> 404 {"detail": "Agent usage not found"}
+AV GET /v1/users/me -> 200 null
+AV GET /v1/user -> 404 {"detail": "Not Found"}
+AV GET /v1/users/usage -> 200 null
+keys: ['model', 'exceeded_token_limits', 'exceeded_image_limits', 'exceeded_limits', 'usage', 'daily_usage', 'eon_resets_at', 'daily_resets_at']
+model "asi1-mini"
+exceeded_token_limits false
+exceeded_image_limits false
+exceeded_limits false
+daily_usage [{"timestamp": "2026-10-17T00:00:00Z", "tokens": 102700, "prompt_tokens": 101374, "completion_tokens": 1326, "cached_tokens": 0, "requests": 12}]
+eon_resets_at "2026-10-17T10:15:00Z"
+daily_resets_at "2026-10-18T00:00:00Z"
+usage rows: 2 [{"timestamp": "2026-10-17T09:45:00Z", "tokens": 2407, "prompt_tokens": 2223, "completion_tokens": 184, "cached_tokens": 0, "requests": 5}, {"timestamp": "2026-10-17T10:00:00Z", "tokens": 100293, "prompt_tokens": 99151, "completion_tokens": 1142, "cached_tokens": 0, "requests": 7}]
+=== local_agent endpoint-mode run ===
+INFO:     [dreaming-smoke-local]: Starting agent with address: agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq
+INFO:     [dreaming-smoke-local]: Agent inspector available at https://agentverse.ai/inspect/?uri=http%3A//127.0.0.1%3A8000&address=agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq
+INFO:     [dreaming-smoke-local]: Starting server on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     [dreaming-smoke-local]: Manifest published successfully: AgentChatProtocol
+INFO:     [dreaming-smoke-local]: Agent registration status updated to active
+INFO:     [uagents.registration]: Registration on Almanac API successful
+WARNING:  [uagents.registration]: I do not have enough funds to register on Almanac contract
+INFO:     [uagents.registration]: Adding testnet funds to fetch19w8ds0uafhzcrsaxgke7pujr86he9zv705t6kf
+INFO:     [dreaming-smoke-local]: MODE=endpoint address=agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq tunnel=https://accessories-resistant-concerts-fundamental.trycloudflare.com
+2026-10-17 02:58:22,939 uagents_core.utils.registration INFO registering to Agentverse...
+2026-10-17 02:58:24,586 uagents_core.utils.registration INFO successfully registered to Agentverse.
+2026-10-17 02:58:24,586 uagents_core.utils.registration INFO setting agent as active...
+2026-10-17 02:58:24,915 uagents_core.utils.registration INFO successfully set agent to active.
+INFO:     [dreaming-smoke-local]: register_chat_agent -> True
+INFO:     [dreaming-smoke-local]: sending to agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e
+INFO:     [dreaming-smoke-local]: ACK from agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e
+INFO:     [dreaming-smoke-local]: CHAT from agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e: 'dreaming: llm say hi in 3 words | asi1-mini [200] Hi there!'
+INFO:     [dreaming-smoke-local]: CHAT from agent1q2d5t6nc83wzz96nnu0u0yssw0u52uyhlnxdajaasc8t9lp852u7652pmk9: 'llm what is 2+2? answer with one digit'
+INFO:     [dreaming-smoke-local]: ACK from agent1q2d5t6nc83wzz96nnu0u0yssw0u52uyhlnxdajaasc8t9lp852u7652pmk9
+INFO:     [dreaming-smoke-local]: CHAT from agent1q0upkvglmcayp2sdt9eymxy26vuc2rggaua32rfgkenjgk7ns87hcalccns: 'planner hello 42'
+INFO:     [dreaming-smoke-local]: CHAT from agent1q0upkvglmcayp2sdt9eymxy26vuc2rggaua32rfgkenjgk7ns87hcalccns: 'discovery test 7'
+AV GET /v1/almanac/agents/agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq -> 200 {"status": "active", "type": "mailbox", "address": "agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq", "domain_name": null, "endpoints": [{"url": "https://agentverse.ai/v2/agents/mailbox/submit", "weight": 1}], "metadata": null, "protocols": ["30a801ed3a83f9a0ff0a9f1e6fe958cb91da1fc2218b153df7b6cbf87bd33d62", "b5165e616e3f21427502f7ec0e79754ff5a76c0b13ac89e335e92ae854b1ff90"], "expiry": "2026-11-16T09:45:55.472350Z"}
+local /agent_info 200 {"address": "agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq", "endpoints": [{"url": "https://agentverse.ai/v2/agents/mailbox/submit", "weight": 1}], "protocols": ["proto:30a801ed3a83f9a0ff0a9f1e6fe958cb91da1fc2218b153df7b6cbf87bd33d62", "proto:b5165e616e3f21427502f7ec0e79754ff5a76c0b13ac89e335e92ae854b1ff90"], "agent_type": "mailbox", "metadata": {}, "prefix": "test-agent", "por
+local POST /connect 200 {"success": true, "detail": null}
+AV GET /v1/almanac/agents/agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq -> 200 {"status": "active", "type": "mailbox", "address": "agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq", "domain_name": null, "endpoints": [{"url": "https://agentverse.ai/v2/agents/mailbox/submit", "weight": 1}], "metadata": {"geolocation": null}, "protocols": ["30a801ed3a83f9a0ff0a9f1e6fe958cb91da1fc2218b153df7b6cbf87bd33d62", "b5165e616e3f21427502f7ec0e79754ff5a76c0b13ac89e335e92ae854b1ff90"], "expiry": "2026-11-16T09:45:55.472350Z"}
+AV GET /v1/agents/agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq -> 200 {"address": "agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq", "name": "dreaming-smoke-local", "pending_messages": 0, "bytes_transferred": 0, "previous_bytes_transferred": 0, "readme": "# dreaming-smoke-local\nDreaming runtime smoke agent. Echoes text as `dreaming: <text>` and appends a demo certificate line. Prefix a message with `llm ` to also ask asi1-mini.\nKeywords: dreaming, workflow, certificate, echo.\n", "avatar_url": "", "short_description": "Dreaming runtime smoke agent (local).", "agent_type": "uagent"}
+INFO:     [dreaming-smoke-client]: sending to agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq
+INFO:     [dreaming-smoke-client]: ACK received
+INFO:     [dreaming-smoke-client]: REPLY: 'dreaming: mailbox hello\ncertificate: demo-sha256:7bf24890513f6153'
+ASI POST /chat/completions -> 200 {"id": "f1238a80-ac77-4ca5-907a-2b56ef96af72", "choices": [{"finish_reason": "stop", "index": 0, "message": {"content": "I sent the message \"mailbox planner 5\" to the agent **dreaming-smoke-local**, and here is its exact reply:\n\n```\ndreaming: mailbox planner 5\ncertificate: demo-sha256:9d76f35851ae407a\n```\n\nSo the agent echoed the text as requested, along with a certificate line: `demo-sha256:9d76f35851ae407a`.", "role": "assistant"}, "type": "text"}], "created": 1792231451, "model": "asi1-mini", "object": "chat.completion", "usage": {"completion_tokens": 321, "prompt_tokens": 27092, "total_tokens": 27413}, "executable_data": []}
+elapsed 22s usage={'completion_tokens': 321, 'prompt_tokens': 27092, 'total_tokens': 27413}
+AV GET /v1/hosting/agents/agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e/logs/latest -> 200 [{"log_timestamp": "2026-10-17T10:01:11.413000", "log_entry": "Successfully processed envelope from agent1q0upkvglmcayp2sdt9eymxy26vuc2rggaua32rfgkenjgk7ns87hcalccns", "log_type": "system", "log_level": "trce"}, {"log_timestamp": "2026-10-17T10:01:11.385000", "log_entry": "Envelope sent to agent1q0upkvglmcayp2sdt9eymxy26vuc2rggaua32rfgkenjgk7ns87hcalccns", "log_type": "system", "log_level": "debg"}, {"log_timestamp": "2026-10-17T10:01:11.136000", "log_entry": "Envelope sent to agent1q0upkvglmcayp2sdt9eymxy26vuc2rggaua32rfgkenjgk7ns87hcalccns", "log_type": "system", "log_level": "debg"}, {"log_
+HOSTED-LOG 2026-10-17T10:01:04.084000 got chat from agent1q0upkvglmcayp2sdt9eymxy26vuc2rggaua32rfgkenjgk7ns87hcalccns: 'llm say yes'
+HOSTED-LOG 2026-10-17T09:59:00.999000 ack from agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq
+HOSTED-LOG 2026-10-17T09:58:49.837000 got chat from agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq: 'llm say hi in 3 words'
+HOSTED-LOG 2026-10-17T09:56:15.884000 dreaming hosted up; ASI1KEY present=True
+AV POST /v1/hosting/agents/agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e/stop -> 200 {"name": "dreaming-smoke-hosted", "address": "agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e", "domain": null, "prefix": "agent", "running": false, "compiled": true, "code_digest": "92b70c8abd4bcacf535797476f1d6edbb59d60b150a10a0ca09bd86dc3ec50ea", "wallet_address": "fetch13xkn2wpt0jzl98gau3e30jllcpc2c93lyw7hqn", "code_update_timestamp": "2026-10-17T09:56:02.044000", "creation_timestamp": "2026-10-17T09:55:52.826000", "avatar_url": null, "maintainer_id": null, "revision": 1, "readme": "# Dreaming smoke (hosted)\nEcho agent for the Dreaming runtime. Replies `dreaming: <your t
+AV GET /v1/hosting/agents/agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e -> 200 {"name": "dreaming-smoke-hosted", "address": "agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e", "domain": null, "prefix": "agent", "running": false, "compiled": true, "code_digest": "92b70c8abd4bcacf535797476f1d6edbb59d60b150a10a0ca09bd86dc3ec50ea", "wallet_address": "fetch13xkn2wpt0jzl98gau3e30jllcpc2c93lyw7hqn", "code_update_timestamp": "2026-10-17T09:56:02.044000", "creation_timestamp": "2026-10-17T09:55:52.826000", "avatar_url": null, "maintainer_id": null, "revision": 1, "readme": "# Dreaming smoke (hosted)\nEcho agent for the Dreaming runtime. Replies `dreaming: <your t
+ASI usage today [{"timestamp": "2026-10-17T00:00:00Z", "tokens": 130113, "prompt_tokens": 128466, "completion_tokens": 1647, "cached_tokens": 0, "requests": 13}] exceeded_limits= False
+=== local_agent mailbox-mode run ===
+INFO:     [dreaming-smoke-local]: Starting agent with address: agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq
+INFO:     [dreaming-smoke-local]: Agent inspector available at https://agentverse.ai/inspect/?uri=http%3A//127.0.0.1%3A8000&address=agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq
+INFO:     [dreaming-smoke-local]: Starting server on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     [dreaming-smoke-local]: Starting mailbox client for https://agentverse.ai
+INFO:     [dreaming-smoke-local]: Agent registration status updated to active
+INFO:     [dreaming-smoke-local]: Manifest published successfully: AgentChatProtocol
+INFO:     [uagents.registration]: Registration on Almanac API successful
+INFO:     [uagents.registration]: Registering on almanac contract...
+INFO:     [dreaming-smoke-local]: MODE=mailbox address=agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq tunnel=-
+INFO:     [uagents.registration]: Registering on almanac contract...complete
+INFO:     [mailbox]: Successfully registered as mailbox agent in Agentverse
+INFO:     [dreaming-smoke-local]: CHAT from agent1q2d5t6nc83wzz96nnu0u0yssw0u52uyhlnxdajaasc8t9lp852u7652pmk9: 'mailbox hello'
+INFO:     [dreaming-smoke-local]: ACK from agent1q2d5t6nc83wzz96nnu0u0yssw0u52uyhlnxdajaasc8t9lp852u7652pmk9
+INFO:     [dreaming-smoke-local]: CHAT from agent1q0upkvglmcayp2sdt9eymxy26vuc2rggaua32rfgkenjgk7ns87hcalccns: 'mailbox planner 5'
+=== cloudflared (url line only) ===
+https://accessories-resistant-concerts-fundamental.trycloudflare.com
+mark local agent inactive -> True
+leak scan done
+=== REVISION: mailbox restart WITHOUT /connect (10:15:53Z)
+--- local (mailbox, no /connect) head
+INFO:     [dreaming-smoke-local]: Starting agent with address: agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq
+INFO:     [dreaming-smoke-local]: Agent inspector available at https://agentverse.ai/inspect/?uri=http%3A//127.0.0.1%3A8000&address=agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq
+INFO:     [dreaming-smoke-local]: Starting server on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     [dreaming-smoke-local]: Starting mailbox client for https://agentverse.ai
+INFO:     [dreaming-smoke-local]: Manifest published successfully: AgentChatProtocol
+INFO:     [uagents.registration]: Registration on Almanac API successful
+INFO:     [uagents.registration]: Almanac contract registration is up to date!
+INFO:     [dreaming-smoke-local]: Agent registration status updated to active
+INFO:     [dreaming-smoke-local]: MODE=mailbox address=agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq tunnel=-
+INFO:     [dreaming-smoke-local]: CHAT from agent1q2d5t6nc83wzz96nnu0u0yssw0u52uyhlnxdajaasc8t9lp852u7652pmk9: 'noconnect hello'
+INFO:     [dreaming-smoke-local]: ACK from agent1q2d5t6nc83wzz96nnu0u0yssw0u52uyhlnxdajaasc8t9lp852u7652pmk9
+--- client
+INFO:     [dreaming-smoke-client]: sending to agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq
+INFO:     [dreaming-smoke-client]: ACK received
+INFO:     [dreaming-smoke-client]: REPLY: 'dreaming: noconnect hello\ncertificate: demo-sha256:64ffac6d46a7a0fb'
+--- local CHAT line
+INFO:     [dreaming-smoke-local]: CHAT from agent1q2d5t6nc83wzz96nnu0u0yssw0u52uyhlnxdajaasc8t9lp852u7652pmk9: 'noconnect hello'
+=== REVISION: Agentverse search API (free) 10:17:18Z
+SEARCH 'run a workflow step and return a verifiable certificate' -> 200, 30 results, total=10000
+  top3: [('Marz Greta-Lock EQ Scoring', 'agent1qgk2rk'), ('Send Your Agent Staging', 'agent1qds439'), ('relic-verification-agent', 'agent1q2nkm6')]
+SEARCH 'echo my text back with a certificate' -> 200, 30 results, total=10000
+  OURS LOCAL rank 1 name=dreaming-smoke-local status=active type=mailbox last_updated=2026-10-17T10:03:26Z
+  OURS HOSTED rank 3 name=dreaming-smoke-hosted status=inactive type=hosted last_updated=2026-10-17T09:56:50Z
+  top3: [('dreaming-smoke-local', 'agent1qtz8j3'), ('simple-chat-echo', 'agent1qd5sva'), ('dreaming-smoke-hosted', 'agent1qgulmx')]
+SEARCH 'workflow certificate' -> 200, 30 results, total=6233
+  OURS LOCAL rank 1 name=dreaming-smoke-local status=active type=mailbox last_updated=2026-10-17T10:03:26Z
+  OURS HOSTED rank 2 name=dreaming-smoke-hosted status=inactive type=hosted last_updated=2026-10-17T09:56:50Z
+  top3: [('dreaming-smoke-local', 'agent1qtz8j3'), ('dreaming-smoke-hosted', 'agent1qgulmx'), ('n8n workflow news agent', 'agent1q09nsl')]
+=== REVISION: cold-prompt discovery D1 (mailbox mode, no agents list, no name) 10:17:38Z
+PROMPT 10:17:40Z model=asi1-mini agents=none planner_mode=True: "I need an agent that can run a workflow step for me and give back a verifiable certificate. Send it the text 'vague cold one' and show me its reply."
+ASI POST /chat/completions -> 200 {"id": "efa5e839-8703-4ee4-95fa-fe2d4d7ab55f", "choices": [{"finish_reason": "stop", "index": 0, "message": {"content": "Done! I found **dreaming-smoke-local** on the Agentverse \u2014 a runtime smoke agent that echoes text and appends a demo certificate line, which matches exactly what you were looking for.\n\nI sent it your text, and here is its verbatim reply:\n\n> **dreaming-smoke-local:** dreaming: vague cold one\n> certificate: demo-sha256:040a8db1f0dfa3fa\n\nThe certificate line includes a SHA-256-based hash (`demo-sha256:040a8db1f0dfa3fa`) that serves as the verifiable receipt for this workflow step. Let me know if you'd like to send more text through it or try one of the other certificate-capable agents I found (like Spartan Proof Agent, which produces full machine-readable capabi
+elapsed 25s usage={'completion_tokens': 607, 'prompt_tokens': 50925, 'total_tokens': 51532}
+--- local agent saw:
+INFO:     [dreaming-smoke-local]: CHAT from agent1q2d5t6nc83wzz96nnu0u0yssw0u52uyhlnxdajaasc8t9lp852u7652pmk9: 'noconnect hello'
+INFO:     [dreaming-smoke-local]: CHAT from agent1q0upkvglmcayp2sdt9eymxy26vuc2rggaua32rfgkenjgk7ns87hcalccns: 'vague cold one'
+=== REVISION: cold-prompt discovery D2 (different wording: auditable receipt, no keywords from README) 10:18:14Z
+PROMPT 10:18:16Z model=asi1-mini agents=none planner_mode=True: 'Hand this job to whichever agent can give me an auditable receipt of what was executed, and show me the receipt. The job text is: vague cold two'
+ASI POST /chat/completions -> 200 {"id": "bae41960-e3d0-4148-957b-409da0c730bb", "choices": [{"finish_reason": "stop", "index": 0, "message": {"content": "I have reviewed your request to hand off the job associated with \"vague cold two\" and retrieve an auditable receipt. However, the current context is too vague to identify the specific job or the system where it was executed. I cannot yet determine which agent or platform holds the relevant execution logs or records.\n\nTo proceed, please clarify the following:\n\n1. What does 'vague cold two' refer to? Is it a job ID, order number, task name, or something else?\n2. Which system or service should I look up the receipt in? For example, is there a specific agent, platform, or tool you'd like me to query?\n3. What type of auditable receipt are you looking for \u2014 e.g., 
+elapsed 4s usage={'completion_tokens': 385, 'prompt_tokens': 10707, 'total_tokens': 11092}
+--- local agent saw:
+INFO:     [dreaming-smoke-local]: CHAT from agent1q2d5t6nc83wzz96nnu0u0yssw0u52uyhlnxdajaasc8t9lp852u7652pmk9: 'noconnect hello'
+INFO:     [dreaming-smoke-local]: CHAT from agent1q0upkvglmcayp2sdt9eymxy26vuc2rggaua32rfgkenjgk7ns87hcalccns: 'vague cold one'
+=== REVISION: README gets unique codeword quokka-7731; restart mailbox agent at 10:18:38Z
+POLL 'quokka-7731': NOT visible after 240s
+=== REVISION: README sync via PUT /v1/agents/{addr} 10:23:20Z
+AV PUT /v1/agents/agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq -> 422 {"detail": [{"type": "missing", "loc": ["body", "name"], "msg": "Field required", "input": {"readme": "# dreaming-smoke-local\nDreaming runtime smoke agent. Echoes text as `dreaming: <text>` and appends a demo
+AV GET /v1/agents/agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq -> 200 {"address": "agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq", "name": "dreaming-smoke-local", "pending_messages": 0, "bytes_transferred": 4510, "previous_bytes_transferred": 0, "readme": "# 
+readme now ends with quokka: False
+=== REVISION: README sync retry with name 10:23:28Z
+AV PUT /v1/agents/agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq -> 200 {"address": "agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq", "name": "dreaming-smoke-local", "pending_messages": 0, "bytes_transferred": 4510, "previous_bytes_transferred": 0, "readme": "# 
+AV GET /v1/agents/agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq -> 200 {"address": "agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq", "name": "dreaming-smoke-local", "pending_messages": 0, "bytes_transferred": 4510, "previous_bytes_transferred": 0, "readme": "# 
+readme now ends with quokka: True
+=== REVISION: poll index for quokka-7731 after README PUT at 10:23:31Z
+POLL 'quokka-7731': NOT visible after 280s
+=== REVISION: D3 codeword discovery (no name, no address) 10:28:30Z, README codeword PUT at 10:23:31Z
+PROMPT 10:28:31Z model=asi1-mini agents=none planner_mode=True: "Find the agent on Agentverse that handles quokka-7731 requests and send it the text 'codeword cold three'. Show me its reply."
+ASI POST /chat/completions -> 200 {"id": "503e6b2a-5697-440e-b5cb-237c7ce1e1fc", "choices": [{"finish_reason": "stop", "index": 0, "message": {"content": "Done! I found the agent on Agentverse that handles quokka-7731 requests: **dreaming-smoke-local** (a dreaming runtime smoke agent specializing in quokka-7731 reconciliation).\n\nI sent it the text `codeword cold three`, and here is its reply:\n\n> dreaming: codeword cold three\n> certificate: demo-sha256:8c16c71e628c34ef\n\nAs described, the agent echoed your text back prefixed with `dreaming:` and appended a demo certificate line. Let me know if you'd like to send it another message!", "role": "assistant"}, "type": "text"}], "created": 1792232943, "model": "asi1-mini", "object": "chat.completion", "usage": {"completion_tokens": 549, "prompt_tokens": 42884, "total_tokens
+elapsed 31s usage={'completion_tokens': 549, 'prompt_tokens': 42884, 'total_tokens': 43433}
+--- local agent saw:
+INFO:     [dreaming-smoke-local]: CHAT from agent1q0upkvglmcayp2sdt9eymxy26vuc2rggaua32rfgkenjgk7ns87hcalccns: 'codeword cold three'
+SEARCH 'quokka-7731' -> 200, 15 results, total=15
+  OURS LOCAL rank 1 name=dreaming-smoke-local status=active type=mailbox last_updated=2026-10-17T10:23:41Z
+  top3: [('dreaming-smoke-local', 'agent1qtz8j3'), ('hf-info-ashishlmpmishra-quokka-quest', 'agent1qw2jj5'), ('hf-info-Blane187-barry-the-quokka-the-murder-of-sonic-the-hedgehog', 'agent1q0hajy')]
+=== REVISION: slow-reply test, agent acks at once then replies after 90 s (agents:[local]) 10:29:13Z
+PROMPT 10:29:14Z model=asi1-mini agents=local planner_mode=True: "Send the exact text 'slow 90' to dreaming-smoke-local and show me its exact reply."
+ASI POST /chat/completions -> 200 {"id": "def3ff9b-a843-4838-b7cf-60ca33f67dc0", "choices": [{"finish_reason": "stop", "index": 0, "message": {"content": "I sent the exact text \"slow 90\" to the dreaming-smoke-local agent, but unfortunately it did not respond \u2014 the result came back as **[NO RESPONSE RECEIVED]**.\n\nSo there's no reply to show you at the moment. This could mean the agent is offline or temporarily unavailable. Feel free to ask me to try again, and I'll reach out to it once more!", "role": "assistant"}, "type": "text"}], "created": 1792233009, "model": "asi1-mini", "object": "chat.completion", "usage": {"completion_tokens": 485, "prompt_tokens": 41910, "total_tokens": 42395}, "executable_data": []}
+elapsed 54s usage={'completion_tokens': 485, 'prompt_tokens': 41910, 'total_tokens': 42395}
+--- local agent saw:
+INFO:     [dreaming-smoke-local]: CHAT from agent1q0upkvglmcayp2sdt9eymxy26vuc2rggaua32rfgkenjgk7ns87hcalccns: 'codeword cold three'
+INFO:     [dreaming-smoke-local]: CHAT from agent1q0upkvglmcayp2sdt9eymxy26vuc2rggaua32rfgkenjgk7ns87hcalccns: 'slow 90'
+=== REVISION: slow 25 (ack at once, final after 25 s) 10:30:53Z
+PROMPT 10:30:54Z model=asi1-mini agents=local planner_mode=True: "Send the exact text 'slow 25' to dreaming-smoke-local and show me its exact reply."
+ASI POST /chat/completions -> 200 {"id": "0a0c515e-6700-4629-9c17-b890ba0585bd", "choices": [{"finish_reason": "stop", "index": 0, "message": {"content": "I sent the exact text 'slow 25' to dreaming-smoke-local. Here is its exact reply:\n\n```\ndreaming: slow 25\ncertificate: demo-sha256:e81d0575f375091d\n```", "role": "assistant"}, "type": "text"}], "created": 1792233090, "model": "asi1-mini", "object": "chat.completion", "usage": {"completion_tokens": 303, "prompt_tokens": 27160, "total_tokens": 27463}, "executable_data": []}
+elapsed 35s usage={'completion_tokens': 303, 'prompt_tokens': 27160, 'total_tokens': 27463}
+INFO:     [dreaming-smoke-local]: CHAT from agent1q0upkvglmcayp2sdt9eymxy26vuc2rggaua32rfgkenjgk7ns87hcalccns: 'slow 25'
+=== REVISION: interim 60 (ack, then progress ChatMessage at once, final after 60 s) 10:31:29Z
+PROMPT 10:31:30Z model=asi1-mini agents=local planner_mode=True: "Send the exact text 'interim 60' to dreaming-smoke-local and show me its exact reply."
+ASI POST /chat/completions -> 200 {"id": "f8d82df3-9949-447c-994d-46cfd616acf2", "choices": [{"finish_reason": "stop", "index": 0, "message": {"content": "Done! I sent the exact text `interim 60` to dreaming-smoke-local, and here is its exact reply:\n\n> dreaming: step running, final result follows\n\nThat's the complete, unmodified response from the agent.", "role": "assistant"}, "type": "text"}], "created": 1792233111, "model": "asi1-mini", "object": "chat.completion", "usage": {"completion_tokens": 296, "prompt_tokens": 27132, "total_tokens": 27428}, "executable_data": []}
+elapsed 21s usage={'completion_tokens': 296, 'prompt_tokens': 27132, 'total_tokens': 27428}
+INFO:     [dreaming-smoke-local]: CHAT from agent1q0upkvglmcayp2sdt9eymxy26vuc2rggaua32rfgkenjgk7ns87hcalccns: 'interim 60'
+=== REVISION: mailbox-mode agent-to-agent, local(mailbox) -> hosted 10:32:10Z
+AV POST /v1/hosting/agents/agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e/start -> 200 
+AV GET /v1/hosting/agents/agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e -> 200 
+hosted running=True compiled=None
+INFO:     [dreaming-smoke-local]: MODE=mailbox address=agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq tunnel=-
+INFO:     [dreaming-smoke-local]: sending to agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e
+INFO:     [dreaming-smoke-local]: CHAT from agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e: 'dreaming: llm say hi in 3 words | asi1-mini [200] Hello, how can I help?'
+INFO:     [dreaming-smoke-local]: ACK from agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e
+HOSTED-LOG 2026-10-17T10:33:00.035000 Processing envelope from agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq...
+HOSTED-LOG 2026-10-17T10:33:04.058000 got chat from agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq: 'llm say hi in 3 words'
+HOSTED-LOG 2026-10-17T10:33:11.908000 Envelope sent to agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq
+HOSTED-LOG 2026-10-17T10:33:12.141000 Envelope sent to agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq
+HOSTED-LOG 2026-10-17T10:33:12.186000 Successfully processed envelope from agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq
+HOSTED-LOG 2026-10-17T10:33:12.827000 Processing envelope from agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq...
+HOSTED-LOG 2026-10-17T10:33:16.230000 ack from agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq
+HOSTED-LOG 2026-10-17T10:33:22.177000 Successfully processed envelope from agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq
+=== REVISION: stop hosted, delete the ASI1KEY hosted secret 10:33:34Z
+AV POST /v1/hosting/agents/agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e/stop -> 200 
+AV GET /v1/hosting/agents/agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e -> 200 
+hosted running=False compiled=True
+AV GET /v1/hosting/secrets?address=agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e -> 200 {"secrets": [{"name": "ASI1KEY", "secret": "***", "timestamp": "2026-10-17T09:55:53.415000"}]}
+AV DELETE /v1/hosting/secrets?address=agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e&name=ASI1KEY -> 405 {"detail": "Method Not Allowed"}
+AV GET /v1/hosting/secrets?address=agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e -> 200 {"secrets": [{"name": "ASI1KEY", "secret": "***", "timestamp": "2026-10-17T09:55:53.415000"}]}
+=== REVISION: secret delete probes 10:33:57Z
+AV DELETE /v1/hosting/secrets -> 405 {"detail": "Method Not Allowed"}
+AV DELETE /v1/hosting/secrets/ASI1KEY?address=agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e -> 404 {"detail": "Not Found"}
+AV GET /v1/hosting/secrets?address=agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e -> 200 {"secrets": [{"name": "ASI1KEY", "secret": "***", "timestamp": "2026-10-17T09:55:53.415000"}]}
+=== REVISION: overwrite hosted ASI1KEY secret with a placeholder (no DELETE endpoint: 405) 10:34:05Z
+AV POST /v1/hosting/secrets -> 200 {"name": "ASI1KEY", "secret": "REVOKED-PLACEHOLDER", "timestamp": "2026-10-17T10:34:07.641435Z"}
+AV GET /v1/hosting/secrets?address=agent1qgulmx22hrwhmnzrt28cwfdx48kn8qv50fe35tp9ywn8k44d2tqkvt2ef7e -> 200 {"secrets": [{"name": "ASI1KEY", "secret": "***", "timestamp": "2026-10-17T10:34:07.641000"}]}
+=== REVISION: tunnel-mode re-run (cloudflared + register_chat_agent) to put the client reply in log.txt 10:34:15Z
+--- client (tunnel mode, via Agentverse proxy -> cloudflared)
+INFO:     [dreaming-smoke-client]: sending to agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq
+INFO:     [dreaming-smoke-client]: ACK received
+INFO:     [dreaming-smoke-client]: REPLY: 'dreaming: llm what is 2+2? answer with one digit | asi1-mini [200] 4\ncertificate: demo-sha256:b5339d3a9e3034dd'
+--- local agent
+INFO:     [dreaming-smoke-local]: CHAT from agent1q2d5t6nc83wzz96nnu0u0yssw0u52uyhlnxdajaasc8t9lp852u7652pmk9: 'llm what is 2+2? answer with one digit'
+INFO:     [dreaming-smoke-local]: ACK from agent1q2d5t6nc83wzz96nnu0u0yssw0u52uyhlnxdajaasc8t9lp852u7652pmk9
+=== REVISION: back to mailbox mode so the record ends as mailbox 10:35:30Z
+INFO:     [dreaming-smoke-local]: Starting mailbox client for https://agentverse.ai
+INFO:     [uagents.registration]: Registration on Almanac API successful
+INFO:     [dreaming-smoke-local]: MODE=mailbox address=agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq tunnel=-
+AV GET /v1/almanac/agents/agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq -> 200 {"status": "active", "type": "mailbox", "address": "agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq", "domain_name": null, "endpoints": [{"url"
+SEARCH 'dreaming-smoke-local' -> 200, 5 results, total=6114
+  OURS LOCAL rank 1 name=dreaming-smoke-local status=active type=mailbox last_updated=2026-10-17T10:34:26Z
+  OURS HOSTED rank 2 name=dreaming-smoke-hosted status=inactive type=hosted last_updated=2026-10-17T10:32:22Z
+  top3: [('dreaming-smoke-local', 'agent1qtz8j3'), ('dreaming-smoke-hosted', 'agent1qgulmx'), ('Smoke King', 'agent1qgs4yj')]
+=== REVISION: mark agents inactive and read the status back 10:36:13Z
+update_agent_status(local, active=False) -> OK (no exception, HTTP 2xx)
+AV GET /v1/almanac/agents/agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq -> 200 
+almanac GET local: HTTP 200 status=active type=mailbox expiry=2026-11-16T09:45:55.472350Z endpoints=[{'url': 'https://agentverse.ai/v2/agents/mailbox/submit', 'weight': 1}]
+update_agent_status(client, active=False) -> OK (no exception, HTTP 2xx)
+AV GET /v1/almanac/agents/agent1q2d5t6nc83wzz96nnu0u0yssw0u52uyhlnxdajaasc8t9lp852u7652pmk9 -> 200 
+almanac GET client: HTTP 200 status=active type=local expiry=2026-10-24T10:35:02.053975Z endpoints=[{'url': 'http://127.0.0.1:8001/submit', 'weight': 1}]
+SEARCH 'dreaming-smoke-local' -> 200, 5 results, total=6114
+  OURS LOCAL rank 1 name=dreaming-smoke-local status=active type=mailbox last_updated=2026-10-17T10:34:26Z
+  OURS HOSTED rank 2 name=dreaming-smoke-hosted status=inactive type=hosted last_updated=2026-10-17T10:32:22Z
+  top3: [('dreaming-smoke-local', 'agent1qtz8j3'), ('dreaming-smoke-hosted', 'agent1qgulmx'), ('Smoke King', 'agent1qgs4yj')]
+AV GET /v1/almanac/agents/agent1qtz8j3j97yxgeaktlvdhaff2sy89ux3nyhpxeacxtg0fezzhmpypxcaywnq -> 200 {"status": "active", 
+=== REVISION: usage after revision tests 10:36:37Z
+ASI GET /usage -> 200 exceeded_limits=False exceeded_token_limits=False daily=[{"timestamp": "2026-10-17T00:00:00Z", "tokens": 353186, "prompt_tokens": 335064, "completion_tokens": 18122, "cached_tokens": 0, "requests": 34}] 15min_windows=[{"timestamp": "2026-10-17T09:45:00Z", "tokens": 2407, "prompt_tokens": 2223, "completion_tokens": 184, "cached_tokens": 0, "requests": 5}, {"timestamp": "2026-10-17T10:00:00Z", "tokens": 127706, "prompt_tokens": 126243, "completion_tokens": 1463, "cached_tokens": 0, "requests": 8}, {"timestamp": "2026-10-17T10:15:00Z", "tokens": 148452, "prompt_tokens": 146426, "completion_tokens": 2026, "cached_tokens": 0, "requests": 4}, {"timestamp": "2026-10-17T10:30:00Z", "tokens": 74621, "prompt_tokens": 60172, "completion_tokens": 14449, "cached_tokens": 0, "requests": 17}] eon_resets_at=2026-10-17T10:45:00Z
+almanac GET local: HTTP 200 status=active type=mailbox expiry=2026-11-16T09:45:55.472350Z endpoints=[{'url': 'https://agentverse.ai/v2/agents/mailbox/submit', 'weight': 1}]
+=== REVISION: final status read-back 10:38:06Z
+SEARCH 'dreaming-smoke-local' -> 200, 5 results, total=6114
+  OURS LOCAL rank 1 name=dreaming-smoke-local status=active type=mailbox last_updated=2026-10-17T10:34:26Z
+  OURS HOSTED rank 2 name=dreaming-smoke-hosted status=inactive type=hosted last_updated=2026-10-17T10:32:22Z
+  top3: [('dreaming-smoke-local', 'agent1qtz8j3'), ('dreaming-smoke-hosted', 'agent1qgulmx'), ('Smoke King', 'agent1qgs4yj')]
+almanac GET local: HTTP 200 status=active type=mailbox expiry=2026-11-16T09:45:55.472350Z endpoints=[{'url': 'https://agentverse.ai/v2/agents/mailbox/submit', 'weight': 1}]
+hosted running=False compiled=True
+=== REVISION: final checks done 10:41:14Z: hosted stopped, no listeners, no cloudflared

@@ -1,0 +1,44 @@
+bundle 0.94 MB
+pod {'id': 'eqyxwcnsvhncbd', 'costPerHr': 0.27, 'attached': True}
+[31s] bundle uploaded
+name, memory.total [MiB]
+NVIDIA RTX A5000, 24564 MiB
+waiting for bundle
+bundle extracted 8 files
+[62s status=RUNNING log=97B]
+device=cuda dtype=torch.bfloat16 torch=2.8.0+cu128
+transformers 5.20.1
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[Qwen/Qwen2.5-0.5B-Instruct] layers=24 hidden=896 saved layers [6, 10, 13, 17, 20, 24]
+  [Qwen2.5-0.5B-Instruct] b200 32/200 2s
+[Qwen/Qwen2.5-0.5B-Instruct] b200: n=200 10.6s (18.8 prompts/s) mean prompt tokens 429
+  [Qwen2.5-0.5B-Instruct] b1000tr 32/1000 2s
+[94s status=RUNNING log=566B]
+  [Qwen2.5-0.5B-Instruct] b1000tr 352/1000 16s
+  [Qwen2.5-0.5B-Instruct] b1000tr 672/1000 30s
+[125s status=RUNNING log=660B]
+  [Qwen2.5-0.5B-Instruct] b1000tr 992/1000 45s
+[Qwen/Qwen2.5-0.5B-Instruct] b1000tr: n=1000 45.8s (21.8 prompts/s) mean prompt tokens 431
+  [Qwen2.5-0.5B-Instruct] b1000new 32/1000 1s
+  [Qwen2.5-0.5B-Instruct] b1000new 352/1000 17s
+[157s status=RUNNING log=892B]
+  [Qwen2.5-0.5B-Instruct] b1000new 672/1000 31s
+  [Qwen2.5-0.5B-Instruct] b1000new 992/1000 46s
+[Qwen/Qwen2.5-0.5B-Instruct] b1000new: n=1000 46.7s (21.4 prompts/s) mean prompt tokens 430
+  [Qwen2.5-0.5B-Instruct] rb2000 32/2000 0s
+  [Qwen2.5-0.5B-Instruct] rb2000 352/2000 3s
+  [Qwen2.5-0.5B-Instruct] rb2000 672/2000 5s
+  [Qwen2.5-0.5B-Instruct] rb2000 992/2000 7s
+  [Qwen2.5-0.5B-Instruct] rb2000 1312/2000 8s
+[188s status=RUNNING log=1305B]
+  [Qwen2.5-0.5B-Instruct] rb2000 1632/2000 9s
+  [Qwen2.5-0.5B-Instruct] rb2000 1952/2000 10s
+[Qwen/Qwen2.5-0.5B-Instruct] rb2000: n=2000 9.7s (205.4 prompts/s) mean prompt tokens 218
+wrote results.json
+exit=0
+[220s status=RUNNING log=1514B]
+smokes/pod.py:105: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
+  with tarfile.open(fileobj=io.BytesIO(r.content), mode="r:gz") as tar: tar.extractall(ROOT)
+results extracted (79.99 MB) into ['smokes/s21_hidden_state_probe']
+terminate: {'podTerminate': None}
+wall 3.7 min, est cost $0.017 at $0.27/h, ok=True

@@ -1,0 +1,2 @@
+bundle 0.03 MB
+pod {'id': 's77399qy9h1kon', 'machineId': 'g1u1092cqu3r', 'costPerHr': 1.19}

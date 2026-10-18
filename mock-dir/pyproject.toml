@@ -1,0 +1,35 @@
+# uv workspace root. Members are the library, the deployable apps and the demo agents.
+# `uv sync` installs everything into one .venv; `just check` runs ruff + pyright + pytest.
+[project]
+name = "dreaming-workspace"
+version = "0.0.0"
+requires-python = ">=3.12,<3.14"  # uagents 0.26 breaks on 3.14
+# the dev venv: library + api + agents. The trainer (torch) is synced only on its Modal image: `uv sync --package dreaming-trainer`.
+dependencies = ["dreaming[postgres,openai]", "dreaming-api", "bookkeeper", "quickbooks"]
+
+[tool.uv.workspace]
+members = ["packages/dreaming", "apps/api", "apps/trainer", "agents/bookkeeper", "agents/langgraph_bookkeeper", "agents/quickbooks"]  # apps/web is not Python
+
+[tool.uv.sources]
+dreaming = { workspace = true }
+dreaming-api = { workspace = true }
+bookkeeper = { workspace = true }
+quickbooks = { workspace = true }
+
+[dependency-groups]
+dev = ["pytest>=8.3", "pyright>=1.1.400", "ruff>=0.8"]
+
+[tool.pyright]
+include = ["packages", "apps", "agents"]
+exclude = ["**/.venv", "**/node_modules"]
+typeCheckingMode = "strict"
+pythonVersion = "3.12"
+reportMissingTypeStubs = false
+reportMissingImports = "warning"  # optional extras (torch, sentence-transformers, sklearn, logfire) are not in the dev venv
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.pytest.ini_options]
+testpaths = ["packages/dreaming/tests", "apps", "agents"]

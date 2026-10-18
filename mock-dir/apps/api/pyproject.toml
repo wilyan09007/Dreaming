@@ -1,0 +1,23 @@
+[project]
+name = "dreaming-api"
+version = "0.0.0"
+description = "FastAPI: model proxy, control + read endpoints, event stream, serves the dashboard"
+requires-python = ">=3.12"
+dependencies = [
+  "dreaming[postgres,openai,api]",
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.30",
+  "modal>=1.6",  # the caller side of apps/trainer (light client)
+  "logfire[fastapi,httpx,psycopg]>=5.2,<6",  # telemetry export; active only when LOGFIRE_TOKEN is set
+  "sentry-sdk[fastapi]>=2.0",  # errors + traces to Sentry; active only when SENTRY_DSN is set
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/dreaming_api"]
+
+[dependency-groups]
+dev = ["httpx>=0.27"]  # fastapi.testclient.TestClient drives the app through httpx

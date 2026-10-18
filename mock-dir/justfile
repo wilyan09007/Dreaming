@@ -1,0 +1,61 @@
+# Short commands. `just` lists them.
+set dotenv-load
+
+default:
+    @just --list
+
+# install everything the dev venv needs (the trainer's torch stack is synced only on Modal)
+sync:
+    uv sync
+
+# ruff + pyright strict + pytest
+check:
+    uv run ruff check packages apps agents
+    uv run pyright
+    uv run pytest -q
+
+# the API offline: memory store, the rule teacher (labelled "rule" in every row), hashed-trigram encoder; no accounts
+dev:
+    DATABASE_URL= TEACHER=rule ENCODER=char TRAINER=local uv run uvicorn dreaming_api.wiring:app --factory --reload --port 8080
+
+# apply every migration, in order, to $DATABASE_URL (idempotent). The laptop's network blocks 5432: `modal run smokes/modal_db.py` does the same from Modal
+migrate:
+    for f in db/migrations/*.sql; do psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f "$f"; done
+
+# JSON Schema + .d.ts for the page, from contracts.py
+schema:
+    uv run python -c "import json, dreaming.contracts as c; from pydantic import TypeAdapter; print(json.dumps(TypeAdapter(c.State | c.SiteView | c.Batch | c.Attempt | c.RunView | c.Event | c.Policy | c.Run | c.Certificate | c.Metrics | c.CallSite | c.TraceRow | c.ReplayReport | c.Health).json_schema(), indent=1))" > apps/web/schema.json
+    npx --yes json-schema-to-typescript@16 -i apps/web/schema.json -o apps/web/schema.d.ts --no-additionalProperties
+
+# record the ledger's teacher answers for seeds 0,1,2 with the pinned live teacher (fills $RECORDED_ANSWERS and the embedding cache)
+record n="2000":
+    uv run python -m bookkeeper.record {{n}}
+
+# fast-forward offline: the whole loop with recorded answers, no network
+fast-forward n="2000":
+    DATABASE_URL= uv run python -m bookkeeper.fast_forward {{n}}
+
+# replay one run byte for byte against the API
+replay run_id:
+    curl -sS -X POST "${DREAMING_API:-http://127.0.0.1:8080}/replay/{{run_id}}" | python -m json.tool
+
+# the campaign: deploy once (functions + the 10-minute monitor cron), then spawn cells by name; they outlive the laptop (docs/training-plan.md sections 3-4)
+deploy-campaign:
+    uv run modal deploy apps/trainer/src/dreaming_trainer/campaign.py
+
+campaign name="night-1017" sites="" limit="0":
+    uv run modal run apps/trainer/src/dreaming_trainer/campaign.py --campaign {{name}} --sites "{{sites}}" --limit {{limit}}
+
+# the monitor's table once, in the terminal (the deployed cron prints and prunes every 10 minutes on its own)
+monitor name="night-1017":
+    uv run modal run apps/trainer/src/dreaming_trainer/campaign.py::monitor
+
+deploy-trainer:
+    uv run modal deploy apps/trainer/src/dreaming_trainer/modal_app.py
+
+deploy-api:
+    fly deploy -c infra/fly.toml --ha=false -y
+
+# end-to-end checks against the deployed services (needs the keys in .env)
+smoke:
+    uv run python smokes/smoke_supabase.py && uv run python smokes/smoke_modal.py && uv run python smokes/smoke_api.py && uv run python smokes/smoke_asi.py

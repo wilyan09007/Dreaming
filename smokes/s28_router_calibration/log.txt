@@ -1,0 +1,101 @@
+# S28 run: 1129 rows (200 reused from S5/S15, 929 new). Parse fallbacks: E1 1, cheap 3. Cheap rows with logprob gap: 1129/1129.
+match rate (cheap == E1): 0.815 [Wilson 95% 0.791, 0.836]; old-200 0.800, new-1000 0.818
+gold accuracy: E1 0.857 (old 0.870, new 0.854); cheap 0.762; student 0.929; student==E1 0.849; student==cheap 0.764
+cost per 1k calls (observed usage.cost): E1 $1.732 (new rows $1.735), cheap $0.098 (new rows $0.098); ratio 17.7x. Self-disagreement floor of E1 (S15): 6% -> achievable mismatch cannot go reliably below ~6%.
+
+## AUROC for 'cheap == E1' on all rows (95% bootstrap CI, 1000 resamples)
+| signal | AUROC [CI] | old 200 | new 1000 |
+|---|---|---|---|
+| f1 student==cheap | 0.875 [0.849, 0.901] | 0.900 | 0.869 |
+| b2 cheap logprob gap | 0.895 [0.874, 0.913] | 0.892 | 0.896 |
+| f3 f1 then b2 | 0.946 [0.931, 0.960] | 0.958 | 0.944 |
+| e student top-2 gap | 0.692 [0.652, 0.732] | 0.671 | 0.698 |
+paired f3 f1 then b2 minus b2 cheap logprob gap: +0.051 [+0.035, +0.068]
+paired f3 f1 then b2 minus f1 student==cheap: +0.071 [+0.054, +0.090]
+paired f1 student==cheap minus b2 cheap logprob gap: -0.020 [-0.051, +0.008]
+
+## Calibration-size sweep (200 random splits per size; calibration = n rows, holdout = the other rows; certificate = common.certify, 40-level grid, delta 5%)
+cert% = share of splits where anything certified; cov = certified share of the holdout routed to the cheap model (0 when nothing certified; mean [5th pct]); err = realized holdout mismatch among routed rows (mean over certifying splits, max); viol% = share of certifying splits whose realized holdout error exceeded the budget; saving = 1 - blended $/1k / E1 $/1k at mean cov (f1/b2/f3 need the cheap call first, so blended = cheap + (1-cov) x E1; student gap decides first, blended = cov x cheap + (1-cov) x E1).
+
+### f1 student==cheap
+| cal n (holdout) | 5%: cert% / cov [p5] / err (max) / viol% / saving | 10%: cert% / cov [p5] / err (max) / viol% / saving | 15%: cert% / cov [p5] / err (max) / viol% / saving | 20%: cert% / cov [p5] / err (max) / viol% / saving |
+|---|---|---|---|---|
+| 100 (1029) | 0 / 0.00 [0.00] / - / - / -6% | 3 / 0.02 [0.00] / 0.041 (0.041) / 0 / -3% | 42 / 0.32 [0.00] / 0.039 (0.041) / 0 / 26% | 93 / 0.71 [0.00] / 0.037 (0.041) / 0 / 65% |
+| 200 (929) | 0 / 0.00 [0.00] / - / - / -6% | 38 / 0.29 [0.00] / 0.040 (0.044) / 0 / 24% | 98 / 0.75 [0.75] / 0.038 (0.044) / 0 / 69% | 100 / 0.76 [0.75] / 0.037 (0.044) / 0 / 71% |
+| 300 (829) | 1 / 0.01 [0.00] / 0.047 (0.047) / 0 / -5% | 76 / 0.58 [0.00] / 0.039 (0.047) / 0 / 52% | 100 / 0.76 [0.75] / 0.037 (0.047) / 0 / 71% | 100 / 0.76 [0.75] / 0.037 (0.047) / 0 / 71% |
+| 500 (629) | 0 / 0.00 [0.00] / - / - / -6% | 99 / 0.76 [0.74] / 0.037 (0.051) / 0 / 70% | 100 / 0.76 [0.75] / 0.037 (0.051) / 0 / 71% | 100 / 0.76 [0.75] / 0.037 (0.051) / 0 / 71% |
+| 1000 (129) | 0 / 0.00 [0.00] / - / - / -6% | 100 / 0.76 [0.71] / 0.035 (0.083) / 0 / 71% | 100 / 0.76 [0.71] / 0.035 (0.083) / 0 / 71% | 100 / 0.76 [0.71] / 0.035 (0.083) / 0 / 71% |
+
+### b2 cheap logprob gap
+| cal n (holdout) | 5%: cert% / cov [p5] / err (max) / viol% / saving | 10%: cert% / cov [p5] / err (max) / viol% / saving | 15%: cert% / cov [p5] / err (max) / viol% / saving | 20%: cert% / cov [p5] / err (max) / viol% / saving |
+|---|---|---|---|---|
+| 100 (1029) | 0 / 0.00 [0.00] / - / - / -6% | 12 / 0.08 [0.00] / 0.048 (0.079) / 0 / 2% | 76 / 0.48 [0.00] / 0.040 (0.120) / 0 / 43% | 100 / 0.75 [0.59] / 0.067 (0.176) / 0 / 69% |
+| 200 (929) | 1 / 0.01 [0.00] / 0.052 (0.058) / 50 / -5% | 94 / 0.55 [0.00] / 0.028 (0.091) / 0 / 49% | 100 / 0.74 [0.62] / 0.061 (0.138) / 0 / 68% | 100 / 0.84 [0.77] / 0.104 (0.176) / 0 / 78% |
+| 300 (829) | 44 / 0.21 [0.00] / 0.012 (0.035) / 0 / 15% | 100 / 0.65 [0.56] / 0.040 (0.090) / 0 / 60% | 100 / 0.78 [0.70] / 0.075 (0.140) / 0 / 72% | 100 / 0.88 [0.80] / 0.122 (0.191) / 0 / 82% |
+| 500 (629) | 97 / 0.48 [0.29] / 0.014 (0.057) / 1 / 43% | 100 / 0.71 [0.64] / 0.051 (0.103) / 0 / 65% | 100 / 0.82 [0.77] / 0.093 (0.154) / 2 / 76% | 100 / 0.91 [0.87] / 0.139 (0.204) / 0 / 86% |
+| 1000 (129) | 100 / 0.58 [0.51] / 0.021 (0.076) / 10 / 52% | 100 / 0.75 [0.71] / 0.059 (0.130) / 6 / 70% | 100 / 0.84 [0.79] / 0.106 (0.198) / 7 / 79% | 100 / 0.95 [0.91] / 0.156 (0.246) / 10 / 89% |
+
+### f3 f1 then b2
+| cal n (holdout) | 5%: cert% / cov [p5] / err (max) / viol% / saving | 10%: cert% / cov [p5] / err (max) / viol% / saving | 15%: cert% / cov [p5] / err (max) / viol% / saving | 20%: cert% / cov [p5] / err (max) / viol% / saving |
+|---|---|---|---|---|
+| 100 (1029) | 0 / 0.00 [0.00] / - / - / -6% | 28 / 0.20 [0.00] / 0.026 (0.076) / 0 / 14% | 92 / 0.68 [0.00] / 0.037 (0.109) / 0 / 63% | 100 / 0.83 [0.73] / 0.067 (0.159) / 0 / 77% |
+| 200 (929) | 6 / 0.04 [0.00] / 0.020 (0.026) / 0 / -2% | 100 / 0.72 [0.57] / 0.032 (0.088) / 0 / 66% | 100 / 0.83 [0.77] / 0.064 (0.132) / 0 / 77% | 100 / 0.89 [0.84] / 0.103 (0.167) / 0 / 83% |
+| 300 (829) | 56 / 0.32 [0.00] / 0.015 (0.049) / 0 / 26% | 100 / 0.78 [0.72] / 0.042 (0.083) / 0 / 72% | 100 / 0.85 [0.81] / 0.078 (0.141) / 0 / 79% | 100 / 0.91 [0.86] / 0.120 (0.191) / 0 / 85% |
+| 500 (629) | 100 / 0.62 [0.44] / 0.016 (0.048) / 0 / 57% | 100 / 0.80 [0.77] / 0.051 (0.098) / 0 / 75% | 100 / 0.87 [0.84] / 0.090 (0.154) / 0 / 81% | 100 / 0.93 [0.90] / 0.137 (0.204) / 0 / 88% |
+| 1000 (129) | 100 / 0.71 [0.64] / 0.023 (0.075) / 6 / 65% | 100 / 0.83 [0.76] / 0.060 (0.128) / 5 / 77% | 100 / 0.89 [0.84] / 0.102 (0.186) / 8 / 83% | 100 / 0.96 [0.92] / 0.153 (0.234) / 14 / 90% |
+
+### e student top-2 gap
+| cal n (holdout) | 5%: cert% / cov [p5] / err (max) / viol% / saving | 10%: cert% / cov [p5] / err (max) / viol% / saving | 15%: cert% / cov [p5] / err (max) / viol% / saving | 20%: cert% / cov [p5] / err (max) / viol% / saving |
+|---|---|---|---|---|
+| 100 (1029) | 0 / 0.00 [0.00] / - / - / 0% | 0 / 0.00 [0.00] / - / - / 0% | 4 / 0.02 [0.00] / 0.103 (0.116) / 0 / 2% | 21 / 0.12 [0.00] / 0.113 (0.162) / 0 / 11% |
+| 200 (929) | 0 / 0.00 [0.00] / - / - / 0% | 0 / 0.00 [0.00] / - / - / 0% | 13 / 0.06 [0.00] / 0.102 (0.136) / 0 / 5% | 58 / 0.34 [0.00] / 0.116 (0.172) / 0 / 33% |
+| 300 (829) | 0 / 0.00 [0.00] / - / - / 0% | 0 / 0.00 [0.00] / - / - / 0% | 20 / 0.10 [0.00] / 0.109 (0.145) / 0 / 9% | 86 / 0.56 [0.00] / 0.121 (0.190) / 0 / 53% |
+| 500 (629) | 0 / 0.00 [0.00] / - / - / 0% | 1 / 0.00 [0.00] / 0.112 (0.116) / 100 / 0% | 48 / 0.23 [0.00] / 0.107 (0.170) / 4 / 22% | 100 / 0.74 [0.64] / 0.134 (0.209) / 0 / 70% |
+| 1000 (129) | 0 / 0.00 [0.00] / - / - / 0% | 0 / 0.00 [0.00] / - / - / 0% | 100 / 0.59 [0.43] / 0.107 (0.204) / 13 / 56% | 100 / 0.85 [0.77] / 0.155 (0.239) / 16 / 80% |
+
+## Recommended calibration size per budget (signal f3): smallest n where >=95% of splits certify and mean coverage >= 90% of the n=1000 coverage
+budget 5%: n = 1000  (coverage at n=1000: 0.71; at pick: 0.71)
+budget 10%: n = 300  (coverage at n=1000: 0.83; at pick: 0.78)
+budget 15%: n = 200  (coverage at n=1000: 0.89; at pick: 0.83)
+budget 20%: n = 200  (coverage at n=1000: 0.96; at pick: 0.89)
+
+## In-sample descriptive ceiling (all rows, no guarantee): largest routed share (ties closed) with mismatch <= budget, f3
+budget 5%: 0.80
+budget 10%: 0.88
+budget 15%: 0.95
+budget 20%: 1.00
+
+## Revision check 1: f3 at n=929 (holdout exactly 200 rows; n=1000 leaves only 129)
+budget 5%: cert 100% cov 0.700 [p5 0.65] mismatch 0.023 (0.077) viol 3.5% saving 64%
+budget 10%: cert 100% cov 0.824 [p5 0.78] mismatch 0.061 (0.136) viol 6.5% saving 77%
+budget 15%: cert 100% cov 0.880 [p5 0.84] mismatch 0.101 (0.218) viol 5.0% saving 82%
+budget 20%: cert 100% cov 0.955 [p5 0.93] mismatch 0.153 (0.246) viol 8.0% saving 90%
+rule re-applied with the n=929 coverage as the reference instead of n=1000:
+budget 5%: n = 1000 (0.9 x cov at 929 = 0.630; 0.9 x cov at 1000 = 0.637)
+budget 10%: n = 300 (0.9 x cov at 929 = 0.741; 0.9 x cov at 1000 = 0.744)
+budget 15%: n = 200 (0.9 x cov at 929 = 0.792; 0.9 x cov at 1000 = 0.797)
+budget 20%: n = 200 (0.9 x cov at 929 = 0.859; 0.9 x cov at 1000 = 0.861)
+
+## Revision check 2: are the holdout violations at n=500 / 929 / 1000 certificate failures? (f3; each certified cutoff also scored on all 1129 rows)
+n=500 budget 5%: pool-level violations 0/200; holdout violations 0/200; routed holdout rows 256-475 (mean 392); sd of one holdout's mismatch: binomial 0.6 pts, across splits 1.0 pts
+n=500 budget 10%: pool-level violations 0/200; holdout violations 0/200; routed holdout rows 467-542 (mean 506); sd of one holdout's mismatch: binomial 1.0 pts, across splits 1.5 pts
+n=500 budget 15%: pool-level violations 0/200; holdout violations 1/200; routed holdout rows 517-583 (mean 546); sd of one holdout's mismatch: binomial 1.2 pts, across splits 2.1 pts
+n=500 budget 20%: pool-level violations 0/200; holdout violations 1/200; routed holdout rows 551-623 (mean 587); sd of one holdout's mismatch: binomial 1.4 pts, across splits 2.3 pts
+n=929 budget 5%: pool-level violations 0/200; holdout violations 7/200; routed holdout rows 126-158 (mean 140); sd of one holdout's mismatch: binomial 1.3 pts, across splits 1.4 pts
+n=929 budget 10%: pool-level violations 0/200; holdout violations 13/200; routed holdout rows 151-175 (mean 165); sd of one holdout's mismatch: binomial 1.9 pts, across splits 2.2 pts
+n=929 budget 15%: pool-level violations 0/200; holdout violations 10/200; routed holdout rows 164-188 (mean 176); sd of one holdout's mismatch: binomial 2.3 pts, across splits 2.9 pts
+n=929 budget 20%: pool-level violations 0/200; holdout violations 16/200; routed holdout rows 180-199 (mean 191); sd of one holdout's mismatch: binomial 2.6 pts, across splits 2.9 pts
+n=1000 budget 5%: pool-level violations 0/200; holdout violations 12/200; routed holdout rows 79-105 (mean 91); sd of one holdout's mismatch: binomial 1.6 pts, across splits 1.6 pts
+n=1000 budget 10%: pool-level violations 0/200; holdout violations 10/200; routed holdout rows 96-117 (mean 107); sd of one holdout's mismatch: binomial 2.3 pts, across splits 2.3 pts
+n=1000 budget 15%: pool-level violations 0/200; holdout violations 15/200; routed holdout rows 105-122 (mean 114); sd of one holdout's mismatch: binomial 2.8 pts, across splits 3.3 pts
+n=1000 budget 20%: pool-level violations 0/200; holdout violations 29/200; routed holdout rows 115-129 (mean 123); sd of one holdout's mismatch: binomial 3.2 pts, across splits 3.5 pts
+
+## Revision check 3: cheap answers with no rival label in the top-5 alternatives (b2 uses the 12-nat floor for them)
+no rival listed: 765 of 1129 (68%), mismatch with E1 34 rows (4.4%)
+rival listed: 364 rows, mismatch 175 rows (48.1%) = 175 of the 209 mismatches (84%)
+distinct b2 values: 560 among the no-rival rows, 917 over all rows (no-rival rows are not tied: b2 = 12 + label logprob)
+subset with b2 >= 11.999 (no rival and label logprob above -0.001): 538 rows, mismatch 6 (1.1%); the other 591 rows mismatch 34.3%
+
+exact-text duplicates of a Banking77 training input among the 1129 rows: 3 (old 1, new 2); the split is disjoint by index
+
+wall time 47s

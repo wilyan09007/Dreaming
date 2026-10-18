@@ -1,0 +1,4305 @@
+{
+ "setup": {
+  "mode": "full",
+  "n": 140,
+  "evidence": "core",
+  "folds": 5,
+  "prices": {
+   "teacher": 0.00014109006622516535,
+   "judge1": 0.0012980950605778207,
+   "judge2": 0.0002839462616822432,
+   "ledger_per_call": 0.000729365290997036,
+   "ledger_total": 4.674502150000004,
+   "calls": 6409,
+   "log_line": "log.txt: [spend] end: $4.560 ledger, 2112 new calls this run, 369s"
+  },
+  "stages": [
+   "cells",
+   "floor",
+   "relabel",
+   "typed"
+  ]
+ },
+ "extractor": {
+  "n": 140,
+  "stated": {
+   "flag": 140,
+   "tx_amt": 139,
+   "tx_date": 140,
+   "inv": 140,
+   "reason": 140
+  },
+  "correct": {
+   "flag": 140,
+   "tx_amt": 139,
+   "tx_date": 140,
+   "inv": 140,
+   "reason": 140
+  }
+ },
+ "relabel": {
+  "pairs": 748,
+  "answerable": 748,
+  "paths": {
+   "canon-conflict": 272,
+   "canon-identical": 309,
+   "judge-onesided": 96,
+   "canon-lost:tx_date": 37,
+   "canon-lost:inv": 25,
+   "canon-lost:reason": 2,
+   "canon-lost:tx_amt,tx_date": 5,
+   "canon-lost:flag,inv,reason": 2
+  },
+  "policy": "core",
+  "fail": 0,
+  "new_fixed": {
+   "tx": 1.0,
+   "inv": 0.6928571428571428,
+   "flag": 0.7,
+   "bank": 0.06428571428571428
+  },
+  "old_fixed": {
+   "tx": 0.6285714285714286,
+   "inv": 0.7785714285714286,
+   "flag": 0.95,
+   "bank": 0.17857142857142858
+  },
+  "h0_new": 0.11428571428571428,
+  "h0_n": 140,
+  "needs": {
+   "judge1": 0.0,
+   "judge2": 0.0,
+   "teacher": 0.0
+  },
+  "per_name": {
+   "tx": {
+    "pairs": 140,
+    "known": 140
+   },
+   "inv": {
+    "pairs": 140,
+    "known": 140
+   },
+   "flag": {
+    "pairs": 140,
+    "known": 140
+   },
+   "bank": {
+    "pairs": 140,
+    "known": 140
+   },
+   "H0": {
+    "pairs": 140,
+    "known": 140
+   },
+   "B0": {
+    "pairs": 16,
+    "known": 16
+   },
+   "B1": {
+    "pairs": 16,
+    "known": 16
+   },
+   "B2": {
+    "pairs": 16,
+    "known": 16
+   }
+  }
+ },
+ "scorers": {
+  "embedding": "bge-small-en-v1.5",
+  "cross_encoder": "ms-marco-MiniLM-L-6-v2",
+  "train_label_counts_per_rotation": {
+   "0": {
+    "rows": 2135,
+    "positives": 348
+   },
+   "1": {
+    "rows": 2202,
+    "positives": 459
+   },
+   "2": {
+    "rows": 2259,
+    "positives": 400
+   },
+   "3": {
+    "rows": 2240,
+    "positives": 403
+   },
+   "4": {
+    "rows": 2150,
+    "positives": 397
+   }
+  },
+  "diag": {
+   "learned": {
+    "within_auc": 0.4461394356131198,
+    "n_mixed": 3,
+    "n_withpos": 16
+   },
+   "cross-encoder": {
+    "within_auc": 0.5037235668814617,
+    "n_mixed": 3,
+    "n_withpos": 16
+   },
+   "recency": {
+    "within_auc": 0.30536130536130535,
+    "n_mixed": 3,
+    "n_withpos": 16
+   },
+   "random": {
+    "within_auc": 0.5260731471257787,
+    "n_mixed": 3,
+    "n_withpos": 16
+   }
+  },
+  "rotations": {
+   "calibration_folds": {
+    "0": [
+     1
+    ],
+    "1": [
+     2
+    ],
+    "2": [
+     3
+    ],
+    "3": [
+     4
+    ],
+    "4": [
+     0
+    ]
+   },
+   "scorer_train_folds": {
+    "0": [
+     2,
+     3,
+     4
+    ],
+    "1": [
+     0,
+     3,
+     4
+    ],
+    "2": [
+     0,
+     1,
+     4
+    ],
+    "3": [
+     0,
+     1,
+     2
+    ],
+    "4": [
+     1,
+     2,
+     3
+    ]
+   },
+   "note": "rotation f: test fold f, calibration CALF[f], scorer trained on TRF[f]; all vendor-disjoint"
+  }
+ },
+ "floor": {
+  "pool 140 (labelled)": {
+   "new": {
+    "n_rows": 140,
+    "n": 140,
+    "k": 3,
+    "rate": 0.02142857142857143,
+    "ub": 0.054449264970838164,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "strict_raw": {
+    "n_rows": 140,
+    "n": 140,
+    "k": 17,
+    "rate": 0.12142857142857143,
+    "ub": 0.1765603808859462,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "strict_cons": {
+    "n_rows": 140,
+    "n": 140,
+    "k": 10,
+    "rate": 0.07142857142857142,
+    "ub": 0.11814651709717545,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   }
+  },
+  "original floor ids 200-299": {
+   "new": {
+    "n_rows": 100,
+    "n": 100,
+    "k": 1,
+    "rate": 0.01,
+    "ub": 0.046559811453538935,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "strict_raw": {
+    "n_rows": 100,
+    "n": 100,
+    "k": 13,
+    "rate": 0.13,
+    "ub": 0.19871979304248238,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "strict_cons": {
+    "n_rows": 100,
+    "n": 100,
+    "k": 11,
+    "rate": 0.11,
+    "ub": 0.1755028025794425,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   }
+  },
+  "all floor prompts": {
+   "new": {
+    "n_rows": 180,
+    "n": 180,
+    "k": 4,
+    "rate": 0.022222222222222223,
+    "ub": 0.05012830728666798,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "strict_raw": {
+    "n_rows": 180,
+    "n": 180,
+    "k": 21,
+    "rate": 0.11666666666666667,
+    "ub": 0.16364305359356104,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "strict_cons": {
+    "n_rows": 180,
+    "n": 180,
+    "k": 14,
+    "rate": 0.07777777777777778,
+    "ub": 0.11891838268421694,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   }
+  }
+ },
+ "typed_floor": {
+  "rate": {
+   "n_rows": 140,
+   "n": 140,
+   "k": 5,
+   "rate": 0.03571428571428571,
+   "ub": 0.07362225468184112,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core"
+  },
+  "fields": {
+   "bank_mismatch": 1,
+   "reasons": 4
+  }
+ },
+ "typed_samples": {
+  "floor": [
+   {
+    "i": 0,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted.",
+    "note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted."
+   },
+   {
+    "i": 1,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted.",
+    "note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted."
+   },
+   {
+    "i": 2,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted.",
+    "note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted."
+   }
+  ],
+  "learned m=0": [
+   {
+    "i": 0,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted.",
+    "note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted."
+   },
+   {
+    "i": 1,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted.",
+    "note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted."
+   },
+   {
+    "i": 2,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted.",
+    "note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted."
+   }
+  ],
+  "learned m=5": [
+   {
+    "i": 0,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted.",
+    "note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted."
+   },
+   {
+    "i": 1,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted.",
+    "note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted."
+   },
+   {
+    "i": 2,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted.",
+    "note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted."
+   }
+  ],
+  "learned m=2": [
+   {
+    "i": 0,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted.",
+    "note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted."
+   },
+   {
+    "i": 1,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted.",
+    "note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted."
+   },
+   {
+    "i": 2,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted.",
+    "note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted."
+   }
+  ],
+  "rule (tx+inv+flag)": [
+   {
+    "i": 0,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted.",
+    "note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted."
+   },
+   {
+    "i": 1,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted.",
+    "note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted."
+   },
+   {
+    "i": 2,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted.",
+    "note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted."
+   }
+  ],
+  "cross-encoder m=5": [
+   {
+    "i": 0,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted.",
+    "note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted."
+   },
+   {
+    "i": 1,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted.",
+    "note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted."
+   },
+   {
+    "i": 2,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted.",
+    "note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted."
+   }
+  ],
+  "cross-encoder m=2": [
+   {
+    "i": 0,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted.",
+    "note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted."
+   },
+   {
+    "i": 1,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted.",
+    "note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted."
+   },
+   {
+    "i": 2,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted.",
+    "note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted."
+   }
+  ],
+  "oracle m=5": [
+   {
+    "i": 0,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted.",
+    "note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted."
+   },
+   {
+    "i": 1,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted.",
+    "note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted."
+   },
+   {
+    "i": 2,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted.",
+    "note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted."
+   }
+  ],
+  "random m=5": [
+   {
+    "i": 0,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted.",
+    "note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted."
+   },
+   {
+    "i": 1,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted.",
+    "note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted."
+   },
+   {
+    "i": 2,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted.",
+    "note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted."
+   }
+  ],
+  "oracle m=2": [
+   {
+    "i": 0,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted.",
+    "note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted."
+   },
+   {
+    "i": 1,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted.",
+    "note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted."
+   },
+   {
+    "i": 2,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted.",
+    "note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted."
+   }
+  ],
+  "random m=2": [
+   {
+    "i": 0,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted.",
+    "note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted."
+   },
+   {
+    "i": 1,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted.",
+    "note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted."
+   },
+   {
+    "i": 2,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted.",
+    "note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted."
+   }
+  ]
+ },
+ "typed_gt_accuracy": {
+  "n": 140,
+  "flag": 140,
+  "reasons": 131,
+  "invoice_outcome": 140,
+  "invoice_id": 140,
+  "invoice_amount": 140,
+  "tx_amount": 140,
+  "tx_date": 140,
+  "bank_mismatch": 139
+ },
+ "cells": {
+  "learned m=0": {
+   "name": "learned m=0",
+   "arm": "text",
+   "n_rows": 140,
+   "n": 140,
+   "k": 16,
+   "rate": 0.11428571428571428,
+   "ub": 0.16839579248083958,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.06451036866359447,
+    0.16666666666666666
+   ],
+   "tokens_removed": 0.7777372509287404,
+   "hist_kept": 0.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 20,
+     "dis": 0.15
+    },
+    "first": {
+     "n": 28,
+     "dis": 0.10714285714285714
+    },
+    "noinv": {
+     "n": 30,
+     "dis": 0.06666666666666667
+    },
+    "normal": {
+     "n": 45,
+     "dis": 0.1111111111111111
+    },
+    "spike": {
+     "n": 17,
+     "dis": 0.17647058823529413
+    }
+   },
+   "strict_raw": {
+    "n_rows": 140,
+    "n": 140,
+    "k": 56,
+    "rate": 0.4,
+    "ub": 0.4727946477258687,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "strict_cons": {
+    "n_rows": 140,
+    "n": 140,
+    "k": 52,
+    "rate": 0.37142857142857144,
+    "ub": 0.44376596356707443,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "vs_floor": {
+    "n": 140,
+    "floor_rate": 0.02142857142857143,
+    "pruned_only": 15,
+    "floor_only": 2,
+    "p": 0.002349853515625
+   }
+  },
+  "learned m=5": {
+   "name": "learned m=5",
+   "arm": "text",
+   "n_rows": 140,
+   "n": 140,
+   "k": 4,
+   "rate": 0.02857142857142857,
+   "ub": 0.06418609935058187,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.006172839506172839,
+    0.05848813209494319
+   ],
+   "tokens_removed": 0.5941979061127998,
+   "hist_kept": 5.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 20,
+     "dis": 0.05
+    },
+    "first": {
+     "n": 28,
+     "dis": 0.0
+    },
+    "noinv": {
+     "n": 30,
+     "dis": 0.0
+    },
+    "normal": {
+     "n": 45,
+     "dis": 0.022222222222222223
+    },
+    "spike": {
+     "n": 17,
+     "dis": 0.11764705882352941
+    }
+   },
+   "strict_raw": {
+    "n_rows": 140,
+    "n": 140,
+    "k": 34,
+    "rate": 0.24285714285714285,
+    "ub": 0.30985328662142675,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "strict_cons": {
+    "n_rows": 140,
+    "n": 140,
+    "k": 31,
+    "rate": 0.22142857142857142,
+    "ub": 0.2869215395651894,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "vs_floor": {
+    "n": 140,
+    "floor_rate": 0.02142857142857143,
+    "pruned_only": 3,
+    "floor_only": 2,
+    "p": 1.0
+   }
+  },
+  "learned m=2": {
+   "name": "learned m=2",
+   "arm": "text",
+   "n_rows": 140,
+   "n": 140,
+   "k": 4,
+   "rate": 0.02857142857142857,
+   "ub": 0.06418609935058187,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.006210221608772333,
+    0.06201684041700079
+   ],
+   "tokens_removed": 0.6971901384667343,
+   "hist_kept": 2.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 20,
+     "dis": 0.05
+    },
+    "first": {
+     "n": 28,
+     "dis": 0.0
+    },
+    "noinv": {
+     "n": 30,
+     "dis": 0.0
+    },
+    "normal": {
+     "n": 45,
+     "dis": 0.044444444444444446
+    },
+    "spike": {
+     "n": 17,
+     "dis": 0.058823529411764705
+    }
+   },
+   "strict_raw": {
+    "n_rows": 140,
+    "n": 140,
+    "k": 42,
+    "rate": 0.3,
+    "ub": 0.37008533184096926,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "strict_cons": {
+    "n_rows": 140,
+    "n": 140,
+    "k": 40,
+    "rate": 0.2857142857142857,
+    "ub": 0.35514330527217125,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "vs_floor": {
+    "n": 140,
+    "floor_rate": 0.02142857142857143,
+    "pruned_only": 3,
+    "floor_only": 2,
+    "p": 1.0
+   }
+  },
+  "rule (tx+inv+flag)": {
+   "name": "rule (tx+inv+flag)",
+   "arm": "text",
+   "n_rows": 140,
+   "n": 140,
+   "k": 9,
+   "rate": 0.06428571428571428,
+   "ub": 0.10949711194499077,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.02484343719521585,
+    0.11194179104477611
+   ],
+   "tokens_removed": 0.8271732522796352,
+   "hist_kept": 0.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 1.0,
+   "by_scn": {
+    "dup": {
+     "n": 20,
+     "dis": 0.0
+    },
+    "first": {
+     "n": 28,
+     "dis": 0.03571428571428571
+    },
+    "noinv": {
+     "n": 30,
+     "dis": 0.03333333333333333
+    },
+    "normal": {
+     "n": 45,
+     "dis": 0.1111111111111111
+    },
+    "spike": {
+     "n": 17,
+     "dis": 0.11764705882352941
+    }
+   },
+   "vs_floor": {
+    "n": 140,
+    "floor_rate": 0.02142857142857143,
+    "pruned_only": 8,
+    "floor_only": 2,
+    "p": 0.109375
+   }
+  },
+  "cross-encoder m=5": {
+   "name": "cross-encoder m=5",
+   "arm": "text",
+   "n_rows": 140,
+   "n": 140,
+   "k": 5,
+   "rate": 0.03571428571428571,
+   "ub": 0.07362225468184112,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.007194244604316547,
+    0.07201451612903217
+   ],
+   "tokens_removed": 0.5928807835190815,
+   "hist_kept": 5.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 20,
+     "dis": 0.0
+    },
+    "first": {
+     "n": 28,
+     "dis": 0.03571428571428571
+    },
+    "noinv": {
+     "n": 30,
+     "dis": 0.0
+    },
+    "normal": {
+     "n": 45,
+     "dis": 0.044444444444444446
+    },
+    "spike": {
+     "n": 17,
+     "dis": 0.11764705882352941
+    }
+   },
+   "vs_floor": {
+    "n": 140,
+    "floor_rate": 0.02142857142857143,
+    "pruned_only": 3,
+    "floor_only": 1,
+    "p": 0.625
+   }
+  },
+  "cross-encoder m=2": {
+   "name": "cross-encoder m=2",
+   "arm": "text",
+   "n_rows": 140,
+   "n": 140,
+   "k": 4,
+   "rate": 0.02857142857142857,
+   "ub": 0.06418609935058187,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.0064516129032258064,
+    0.061068702290076333
+   ],
+   "tokens_removed": 0.6961837217156366,
+   "hist_kept": 2.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 20,
+     "dis": 0.0
+    },
+    "first": {
+     "n": 28,
+     "dis": 0.0
+    },
+    "noinv": {
+     "n": 30,
+     "dis": 0.0
+    },
+    "normal": {
+     "n": 45,
+     "dis": 0.06666666666666667
+    },
+    "spike": {
+     "n": 17,
+     "dis": 0.058823529411764705
+    }
+   },
+   "vs_floor": {
+    "n": 140,
+    "floor_rate": 0.02142857142857143,
+    "pruned_only": 3,
+    "floor_only": 2,
+    "p": 1.0
+   }
+  },
+  "oracle m=5": {
+   "name": "oracle m=5",
+   "arm": "text",
+   "n_rows": 140,
+   "n": 140,
+   "k": 5,
+   "rate": 0.03571428571428571,
+   "ub": 0.07362225468184112,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.007351599398883641,
+    0.07185844139060008
+   ],
+   "tokens_removed": 0.5922863897331982,
+   "hist_kept": 5.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 20,
+     "dis": 0.0
+    },
+    "first": {
+     "n": 28,
+     "dis": 0.0
+    },
+    "noinv": {
+     "n": 30,
+     "dis": 0.0
+    },
+    "normal": {
+     "n": 45,
+     "dis": 0.044444444444444446
+    },
+    "spike": {
+     "n": 17,
+     "dis": 0.17647058823529413
+    }
+   },
+   "vs_floor": {
+    "n": 140,
+    "floor_rate": 0.02142857142857143,
+    "pruned_only": 3,
+    "floor_only": 1,
+    "p": 0.625
+   }
+  },
+  "random m=5": {
+   "name": "random m=5",
+   "arm": "text",
+   "n_rows": 140,
+   "n": 140,
+   "k": 10,
+   "rate": 0.07142857142857142,
+   "ub": 0.11814651709717545,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.027210884353741496,
+    0.11950344593831203
+   ],
+   "tokens_removed": 0.5927456940222897,
+   "hist_kept": 5.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 20,
+     "dis": 0.35
+    },
+    "first": {
+     "n": 28,
+     "dis": 0.0
+    },
+    "noinv": {
+     "n": 30,
+     "dis": 0.0
+    },
+    "normal": {
+     "n": 45,
+     "dis": 0.0
+    },
+    "spike": {
+     "n": 17,
+     "dis": 0.17647058823529413
+    }
+   },
+   "vs_floor": {
+    "n": 140,
+    "floor_rate": 0.02142857142857143,
+    "pruned_only": 10,
+    "floor_only": 3,
+    "p": 0.09228515625
+   }
+  },
+  "oracle m=2": {
+   "name": "oracle m=2",
+   "arm": "text",
+   "n_rows": 140,
+   "n": 140,
+   "k": 4,
+   "rate": 0.02857142857142857,
+   "ub": 0.06418609935058187,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.00641025641025641,
+    0.06000862068965512
+   ],
+   "tokens_removed": 0.6965889902060115,
+   "hist_kept": 2.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 20,
+     "dis": 0.0
+    },
+    "first": {
+     "n": 28,
+     "dis": 0.0
+    },
+    "noinv": {
+     "n": 30,
+     "dis": 0.0
+    },
+    "normal": {
+     "n": 45,
+     "dis": 0.044444444444444446
+    },
+    "spike": {
+     "n": 17,
+     "dis": 0.11764705882352941
+    }
+   },
+   "vs_floor": {
+    "n": 140,
+    "floor_rate": 0.02142857142857143,
+    "pruned_only": 3,
+    "floor_only": 2,
+    "p": 1.0
+   }
+  },
+  "random m=2": {
+   "name": "random m=2",
+   "arm": "text",
+   "n_rows": 140,
+   "n": 140,
+   "k": 13,
+   "rate": 0.09285714285714286,
+   "ub": 0.14357530312538555,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.04486940298507463,
+    0.15287523114855142
+   ],
+   "tokens_removed": 0.6962377575143532,
+   "hist_kept": 2.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 20,
+     "dis": 0.4
+    },
+    "first": {
+     "n": 28,
+     "dis": 0.0
+    },
+    "noinv": {
+     "n": 30,
+     "dis": 0.0
+    },
+    "normal": {
+     "n": 45,
+     "dis": 0.044444444444444446
+    },
+    "spike": {
+     "n": 17,
+     "dis": 0.17647058823529413
+    }
+   },
+   "vs_floor": {
+    "n": 140,
+    "floor_rate": 0.02142857142857143,
+    "pruned_only": 12,
+    "floor_only": 2,
+    "p": 0.012939453125
+   }
+  }
+ },
+ "cert": {
+  "learned m=0": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "cross-encoder m=0": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "oracle m=0": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.8857142857142857,
+     "emp_error": 0.0,
+     "bound": 0.05248087647945863,
+     "tokens_saved": 0.6914353259034111
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.8857142857142857,
+     "emp_error": 0.0,
+     "bound": 0.05248087647945863,
+     "tokens_saved": 0.6914353259034111
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.8857142857142857,
+     "emp_error": 0.0,
+     "bound": 0.05248087647945863,
+     "tokens_saved": 0.6914353259034111
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.8857142857142857,
+     "emp_error": 0.0,
+     "bound": 0.05248087647945863,
+     "tokens_saved": 0.6914353259034111
+    }
+   }
+  },
+  "random m=0": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "learned m=5": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.02857142857142857,
+     "bound": 0.09972994867253032,
+     "tokens_saved": 0.5941979061127998
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.02857142857142857,
+     "bound": 0.09972994867253032,
+     "tokens_saved": 0.5941979061127998
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.02142857142857143,
+     "bound": 0.08814587708936615,
+     "tokens_saved": 0.5941979061127998
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.02142857142857143,
+     "bound": 0.08814587708936615,
+     "tokens_saved": 0.5941979061127998
+    }
+   }
+  },
+  "learned m=2": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.02857142857142857,
+     "bound": 0.09972994867253032,
+     "tokens_saved": 0.6971901384667342
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.02857142857142857,
+     "bound": 0.09972994867253032,
+     "tokens_saved": 0.6971901384667342
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.02142857142857143,
+     "bound": 0.08814587708936615,
+     "tokens_saved": 0.6971901384667342
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.02142857142857143,
+     "bound": 0.08814587708936615,
+     "tokens_saved": 0.6971901384667342
+    }
+   }
+  },
+  "rule (tx+inv+flag)": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.05714285714285714,
+     "bound": 0.14195027091052873,
+     "tokens_saved": 0.8271732522796352
+    }
+   }
+  },
+  "cross-encoder m=5": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.9285714285714286,
+     "emp_error": 0.023076923076923078,
+     "bound": 0.09467209214445824,
+     "tokens_saved": 0.5533603512326917
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.03571428571428571,
+     "bound": 0.11079946467928282,
+     "tokens_saved": 0.5928807835190814
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.02142857142857143,
+     "bound": 0.08814587708936615,
+     "tokens_saved": 0.5928807835190814
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.02142857142857143,
+     "bound": 0.08814587708936615,
+     "tokens_saved": 0.5928807835190814
+    }
+   }
+  },
+  "cross-encoder m=2": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.02857142857142857,
+     "bound": 0.09972994867253032,
+     "tokens_saved": 0.6961837217156366
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.02857142857142857,
+     "bound": 0.09972994867253032,
+     "tokens_saved": 0.6961837217156366
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.02142857142857143,
+     "bound": 0.08814587708936615,
+     "tokens_saved": 0.6961837217156366
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.02142857142857143,
+     "bound": 0.08814587708936615,
+     "tokens_saved": 0.6961837217156366
+    }
+   }
+  },
+  "oracle m=5": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.9285714285714286,
+     "emp_error": 0.023076923076923078,
+     "bound": 0.09467209214445824,
+     "tokens_saved": 0.5438365417088822
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.03571428571428571,
+     "bound": 0.11079946467928282,
+     "tokens_saved": 0.5922863897331982
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.02142857142857143,
+     "bound": 0.08814587708936615,
+     "tokens_saved": 0.5922863897331982
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.02142857142857143,
+     "bound": 0.08814587708936615,
+     "tokens_saved": 0.5922863897331982
+    }
+   }
+  },
+  "random m=5": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "oracle m=2": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.02857142857142857,
+     "bound": 0.09972994867253032,
+     "tokens_saved": 0.6965889902060115
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.02857142857142857,
+     "bound": 0.09972994867253032,
+     "tokens_saved": 0.6965889902060115
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.02142857142857143,
+     "bound": 0.08814587708936615,
+     "tokens_saved": 0.6965889902060115
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 1.0,
+     "emp_error": 0.02142857142857143,
+     "bound": 0.08814587708936615,
+     "tokens_saved": 0.6965889902060115
+    }
+   }
+  },
+  "random m=2": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  }
+ },
+ "cells_typed": {
+  "learned m=0": {
+   "name": "learned m=0",
+   "arm": "typed",
+   "n_rows": 140,
+   "n": 140,
+   "k": 12,
+   "rate": 0.08571428571428572,
+   "ub": 0.13517588584536622,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.03968253968253968,
+    0.1338042031717866
+   ],
+   "tokens_removed": 0.6722167085060424,
+   "hist_kept": 0.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 20,
+     "dis": 0.0
+    },
+    "first": {
+     "n": 28,
+     "dis": 0.14285714285714285
+    },
+    "noinv": {
+     "n": 30,
+     "dis": 0.2
+    },
+    "normal": {
+     "n": 45,
+     "dis": 0.0
+    },
+    "spike": {
+     "n": 17,
+     "dis": 0.11764705882352941
+    }
+   },
+   "vs_floor": {
+    "n": 140,
+    "floor_rate": 0.03571428571428571,
+    "pruned_only": 9,
+    "floor_only": 2,
+    "p": 0.0654296875
+   }
+  },
+  "learned m=5": {
+   "name": "learned m=5",
+   "arm": "typed",
+   "n_rows": 140,
+   "n": 140,
+   "k": 15,
+   "rate": 0.10714285714285714,
+   "ub": 0.1601797464589716,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.058823529411764705,
+    0.15873015873015872
+   ],
+   "tokens_removed": 0.5135793099422032,
+   "hist_kept": 5.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 20,
+     "dis": 0.0
+    },
+    "first": {
+     "n": 28,
+     "dis": 0.14285714285714285
+    },
+    "noinv": {
+     "n": 30,
+     "dis": 0.3
+    },
+    "normal": {
+     "n": 45,
+     "dis": 0.0
+    },
+    "spike": {
+     "n": 17,
+     "dis": 0.11764705882352941
+    }
+   },
+   "vs_floor": {
+    "n": 140,
+    "floor_rate": 0.03571428571428571,
+    "pruned_only": 12,
+    "floor_only": 2,
+    "p": 0.012939453125
+   }
+  },
+  "learned m=2": {
+   "name": "learned m=2",
+   "arm": "typed",
+   "n_rows": 140,
+   "n": 140,
+   "k": 16,
+   "rate": 0.11428571428571428,
+   "ub": 0.16839579248083958,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.0573711943793911,
+    0.17461765728189077
+   ],
+   "tokens_removed": 0.6025979333294413,
+   "hist_kept": 2.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 20,
+     "dis": 0.0
+    },
+    "first": {
+     "n": 28,
+     "dis": 0.14285714285714285
+    },
+    "noinv": {
+     "n": 30,
+     "dis": 0.3333333333333333
+    },
+    "normal": {
+     "n": 45,
+     "dis": 0.0
+    },
+    "spike": {
+     "n": 17,
+     "dis": 0.11764705882352941
+    }
+   },
+   "vs_floor": {
+    "n": 140,
+    "floor_rate": 0.03571428571428571,
+    "pruned_only": 13,
+    "floor_only": 2,
+    "p": 0.00738525390625
+   }
+  },
+  "rule (tx+inv+flag)": {
+   "name": "rule (tx+inv+flag)",
+   "arm": "typed",
+   "n_rows": 140,
+   "n": 140,
+   "k": 29,
+   "rate": 0.20714285714285716,
+   "ub": 0.27151533175500614,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.13835960774577954,
+    0.27693277310924364
+   ],
+   "tokens_removed": 0.7149454142098196,
+   "hist_kept": 0.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 1.0,
+   "by_scn": {
+    "dup": {
+     "n": 20,
+     "dis": 0.15
+    },
+    "first": {
+     "n": 28,
+     "dis": 0.21428571428571427
+    },
+    "noinv": {
+     "n": 30,
+     "dis": 0.3
+    },
+    "normal": {
+     "n": 45,
+     "dis": 0.13333333333333333
+    },
+    "spike": {
+     "n": 17,
+     "dis": 0.29411764705882354
+    }
+   },
+   "vs_floor": {
+    "n": 140,
+    "floor_rate": 0.03571428571428571,
+    "pruned_only": 26,
+    "floor_only": 2,
+    "p": 3.032386302947998e-06
+   }
+  },
+  "cross-encoder m=5": {
+   "name": "cross-encoder m=5",
+   "arm": "typed",
+   "n_rows": 140,
+   "n": 140,
+   "k": 12,
+   "rate": 0.08571428571428572,
+   "ub": 0.13517588584536622,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.03759398496240601,
+    0.13815923192126658
+   ],
+   "tokens_removed": 0.5124408897191897,
+   "hist_kept": 5.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 20,
+     "dis": 0.0
+    },
+    "first": {
+     "n": 28,
+     "dis": 0.10714285714285714
+    },
+    "noinv": {
+     "n": 30,
+     "dis": 0.23333333333333334
+    },
+    "normal": {
+     "n": 45,
+     "dis": 0.0
+    },
+    "spike": {
+     "n": 17,
+     "dis": 0.11764705882352941
+    }
+   },
+   "vs_floor": {
+    "n": 140,
+    "floor_rate": 0.03571428571428571,
+    "pruned_only": 9,
+    "floor_only": 2,
+    "p": 0.0654296875
+   }
+  },
+  "cross-encoder m=2": {
+   "name": "cross-encoder m=2",
+   "arm": "typed",
+   "n_rows": 140,
+   "n": 140,
+   "k": 15,
+   "rate": 0.10714285714285714,
+   "ub": 0.1601797464589716,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.05737574396992795,
+    0.1589584840558739
+   ],
+   "tokens_removed": 0.6017280635180104,
+   "hist_kept": 2.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 20,
+     "dis": 0.0
+    },
+    "first": {
+     "n": 28,
+     "dis": 0.14285714285714285
+    },
+    "noinv": {
+     "n": 30,
+     "dis": 0.3
+    },
+    "normal": {
+     "n": 45,
+     "dis": 0.0
+    },
+    "spike": {
+     "n": 17,
+     "dis": 0.11764705882352941
+    }
+   },
+   "vs_floor": {
+    "n": 140,
+    "floor_rate": 0.03571428571428571,
+    "pruned_only": 12,
+    "floor_only": 2,
+    "p": 0.012939453125
+   }
+  },
+  "oracle m=5": {
+   "name": "oracle m=5",
+   "arm": "typed",
+   "n_rows": 140,
+   "n": 140,
+   "k": 12,
+   "rate": 0.08571428571428572,
+   "ub": 0.13517588584536622,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.036231884057971016,
+    0.13907963304744322
+   ],
+   "tokens_removed": 0.5119271411057271,
+   "hist_kept": 5.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 20,
+     "dis": 0.0
+    },
+    "first": {
+     "n": 28,
+     "dis": 0.10714285714285714
+    },
+    "noinv": {
+     "n": 30,
+     "dis": 0.26666666666666666
+    },
+    "normal": {
+     "n": 45,
+     "dis": 0.0
+    },
+    "spike": {
+     "n": 17,
+     "dis": 0.058823529411764705
+    }
+   },
+   "vs_floor": {
+    "n": 140,
+    "floor_rate": 0.03571428571428571,
+    "pruned_only": 10,
+    "floor_only": 3,
+    "p": 0.09228515625
+   }
+  },
+  "random m=5": {
+   "name": "random m=5",
+   "arm": "typed",
+   "n_rows": 140,
+   "n": 140,
+   "k": 15,
+   "rate": 0.10714285714285714,
+   "ub": 0.1601797464589716,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.050724637681159424,
+    0.1760014084507042
+   ],
+   "tokens_removed": 0.5123241286706754,
+   "hist_kept": 5.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 20,
+     "dis": 0.0
+    },
+    "first": {
+     "n": 28,
+     "dis": 0.14285714285714285
+    },
+    "noinv": {
+     "n": 30,
+     "dis": 0.26666666666666666
+    },
+    "normal": {
+     "n": 45,
+     "dis": 0.022222222222222223
+    },
+    "spike": {
+     "n": 17,
+     "dis": 0.11764705882352941
+    }
+   },
+   "vs_floor": {
+    "n": 140,
+    "floor_rate": 0.03571428571428571,
+    "pruned_only": 13,
+    "floor_only": 3,
+    "p": 0.021270751953125
+   }
+  },
+  "oracle m=2": {
+   "name": "oracle m=2",
+   "arm": "typed",
+   "n_rows": 140,
+   "n": 140,
+   "k": 15,
+   "rate": 0.10714285714285714,
+   "ub": 0.1601797464589716,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.05555555555555555,
+    0.16440620400769826
+   ],
+   "tokens_removed": 0.6020783466635531,
+   "hist_kept": 2.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 20,
+     "dis": 0.0
+    },
+    "first": {
+     "n": 28,
+     "dis": 0.10714285714285714
+    },
+    "noinv": {
+     "n": 30,
+     "dis": 0.3333333333333333
+    },
+    "normal": {
+     "n": 45,
+     "dis": 0.0
+    },
+    "spike": {
+     "n": 17,
+     "dis": 0.11764705882352941
+    }
+   },
+   "vs_floor": {
+    "n": 140,
+    "floor_rate": 0.03571428571428571,
+    "pruned_only": 13,
+    "floor_only": 3,
+    "p": 0.021270751953125
+   }
+  },
+  "random m=2": {
+   "name": "random m=2",
+   "arm": "typed",
+   "n_rows": 140,
+   "n": 140,
+   "k": 18,
+   "rate": 0.12857142857142856,
+   "ub": 0.1846772279774195,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.07228048886192251,
+    0.1870616007194244
+   ],
+   "tokens_removed": 0.6017747679374161,
+   "hist_kept": 2.0,
+   "hist_total": 22.15714285714286,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 20,
+     "dis": 0.0
+    },
+    "first": {
+     "n": 28,
+     "dis": 0.14285714285714285
+    },
+    "noinv": {
+     "n": 30,
+     "dis": 0.4
+    },
+    "normal": {
+     "n": 45,
+     "dis": 0.0
+    },
+    "spike": {
+     "n": 17,
+     "dis": 0.11764705882352941
+    }
+   },
+   "vs_floor": {
+    "n": 140,
+    "floor_rate": 0.03571428571428571,
+    "pruned_only": 15,
+    "floor_only": 2,
+    "p": 0.002349853515625
+   }
+  }
+ },
+ "cert_typed": {
+  "learned m=0": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "learned m=5": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "learned m=2": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "rule (tx+inv+flag)": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "cross-encoder m=5": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "cross-encoder m=2": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "oracle m=5": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "random m=5": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "oracle m=2": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "random m=2": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 140,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 28,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  }
+ },
+ "plan": {},
+ "resid_share": {
+  "floor": 0.14444444444444443,
+  "abl": 0.12834224598930483
+ }
+}

@@ -1,0 +1,69 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/272 [00:00<?, ?it/s]Loading weights:   2%|1         | 5/272 [00:00<00:10, 25.79it/s]Loading weights:   5%|4         | 13/272 [00:00<00:07, 35.81it/s]Loading weights:   6%|6         | 17/272 [00:00<00:07, 34.90it/s]Loading weights:   8%|8         | 22/272 [00:00<00:07, 31.84it/s]Loading weights:  10%|9         | 26/272 [00:00<00:08, 29.61it/s]Loading weights:  11%|#1        | 31/272 [00:01<00:08, 29.66it/s]Loading weights:  13%|#3        | 36/272 [00:01<00:08, 26.95it/s]Loading weights:  16%|#6        | 44/272 [00:01<00:06, 37.34it/s]Loading weights:  18%|#8        | 49/272 [00:01<00:05, 37.52it/s]Loading weights:  20%|#9        | 54/272 [00:01<00:06, 35.63it/s]Loading weights:  22%|##1       | 59/272 [00:01<00:05, 37.60it/s]Loading weights:  25%|##4       | 67/272 [00:01<00:04, 42.41it/s]Loading weights:  26%|##6       | 72/272 [00:02<00:04, 41.29it/s]Loading weights:  28%|##8       | 77/272 [00:02<00:05, 35.42it/s]Loading weights:  30%|##9       | 81/272 [00:02<00:06, 29.56it/s]Loading weights:  32%|###2      | 88/272 [00:02<00:05, 32.11it/s]Loading weights:  35%|###4      | 94/272 [00:02<00:05, 32.24it/s]Loading weights:  36%|###6      | 98/272 [00:02<00:05, 33.74it/s]Loading weights:  38%|###7      | 102/272 [00:02<00:04, 34.73it/s]Loading weights:  39%|###8      | 106/272 [00:03<00:05, 30.64it/s]Loading weights:  40%|####      | 110/272 [00:03<00:05, 31.29it/s]Loading weights:  42%|####1     | 114/272 [00:03<00:07, 20.85it/s]Loading weights:  46%|####6     | 126/272 [00:03<00:04, 34.54it/s]Loading weights:  49%|####9     | 134/272 [00:03<00:03, 41.75it/s]Loading weights:  52%|#####2    | 142/272 [00:04<00:02, 45.79it/s]Loading weights:  55%|#####4    | 149/272 [00:04<00:02, 43.20it/s]Loading weights:  58%|#####7    | 157/272 [00:04<00:02, 39.69it/s]Loading weights:  60%|#####9    | 163/272 [00:04<00:03, 36.15it/s]Loading weights:  63%|######2   | 171/272 [00:04<00:02, 36.25it/s]Loading weights:  66%|######5   | 179/272 [00:05<00:02, 37.67it/s]Loading weights:  70%|######9   | 190/272 [00:05<00:01, 49.40it/s]Loading weights:  72%|#######2  | 196/272 [00:05<00:01, 51.35it/s]Loading weights:  74%|#######4  | 202/272 [00:05<00:01, 44.69it/s]Loading weights:  77%|#######7  | 210/272 [00:05<00:01, 50.55it/s]Loading weights:  80%|#######9  | 217/272 [00:05<00:01, 45.90it/s]Loading weights:  83%|########2 | 225/272 [00:05<00:00, 47.66it/s]Loading weights:  86%|########5 | 233/272 [00:06<00:00, 44.06it/s]Loading weights:  89%|########8 | 241/272 [00:06<00:00, 46.25it/s]Loading weights:  91%|#########1| 248/272 [00:06<00:00, 45.27it/s]Loading weights:  94%|#########4| 256/272 [00:06<00:00, 42.80it/s]Loading weights:  97%|#########7| 264/272 [00:06<00:00, 43.63it/s]Loading weights: 100%|#########9| 271/272 [00:07<00:00, 42.16it/s]Loading weights: 100%|##########| 272/272 [00:07<00:00, 38.57it/s]
+[transformers] [1mLlamaForSequenceClassification LOAD REPORT[0m from: HuggingFaceTB/SmolLM2-135M
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+A {'rows': 77, 'epochs': 1, 'train_s': 2574.3, 'samples_per_s': 0.2, 'steps': 60, 'peak_mem_gb': None, 'acc': 0.025, 'cert5_cutoff': None, 'cert5_coverage': 0.0, 'holdout_err_above': None}
+Loading weights:   0%|          | 0/272 [00:00<?, ?it/s]Loading weights:  19%|#9        | 53/272 [00:00<00:00, 497.66it/s]Loading weights:  40%|###9      | 108/272 [00:00<00:00, 519.88it/s]Loading weights:  60%|#####9    | 162/272 [00:00<00:00, 522.24it/s]Loading weights:  81%|########  | 219/272 [00:00<00:00, 539.35it/s]Loading weights: 100%|##########| 272/272 [00:00<00:00, 545.17it/s]
+[transformers] [1mLlamaForSequenceClassification LOAD REPORT[0m from: HuggingFaceTB/SmolLM2-135M
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+A {'rows': 770, 'epochs': 1, 'train_s': 342.7, 'samples_per_s': 2.2, 'steps': 97, 'peak_mem_gb': None, 'acc': 0.175, 'cert5_cutoff': None, 'cert5_coverage': 0.0, 'holdout_err_above': None}
+batch-1 latency ms 111.37
+determinism distinct outputs: batch1-concurrent 1 random-batch 7 random-batch-fixed-shape 2
+Loading weights:   0%|          | 0/272 [00:00<?, ?it/s]Loading weights:  25%|##5       | 68/272 [00:00<00:00, 677.52it/s]Loading weights:  50%|#####     | 136/272 [00:00<00:00, 669.86it/s]Loading weights:  75%|#######4  | 203/272 [00:00<00:00, 641.72it/s]Loading weights:  99%|#########8| 268/272 [00:00<00:00, 641.33it/s]Loading weights: 100%|##########| 272/272 [00:00<00:00, 654.88it/s]
+[transformers] [1mLlamaForSequenceClassification LOAD REPORT[0m from: HuggingFaceTB/SmolLM2-135M
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+B shared {'train_s': 61.9, 'samples_per_s': 3.9, 'steps': 30, 'peak_mem_gb': None} labels 120
+Loading weights:   0%|          | 0/272 [00:00<?, ?it/s]Loading weights:  26%|##6       | 72/272 [00:00<00:00, 708.37it/s]Loading weights:  53%|#####3    | 145/272 [00:00<00:00, 708.44it/s]Loading weights:  79%|#######9  | 216/272 [00:00<00:00, 632.16it/s]Loading weights: 100%|##########| 272/272 [00:00<00:00, 674.96it/s]
+[transformers] [1mLlamaForSequenceClassification LOAD REPORT[0m from: HuggingFaceTB/SmolLM2-135M
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+B {'step': 'travel', 'rows': 15, 'init': 'base', 'train_s': 147.2, 'samples_per_s': 3.1, 'steps': 60, 'peak_mem_gb': None, 'acc': 0.2311, 'cert5_cutoff': None, 'cert5_coverage': 0.0, 'holdout_err_above': None}
+Loading weights:   0%|          | 0/272 [00:00<?, ?it/s]Loading weights:  20%|#9        | 54/272 [00:00<00:00, 533.62it/s]Loading weights:  43%|####2     | 116/272 [00:00<00:00, 566.13it/s]Loading weights:  66%|######6   | 180/272 [00:00<00:00, 581.46it/s]Loading weights:  89%|########8 | 242/272 [00:00<00:00, 580.11it/s]Loading weights: 100%|##########| 272/272 [00:00<00:00, 578.48it/s]
+[transformers] [1mLlamaForSequenceClassification LOAD REPORT[0m from: HuggingFaceTB/SmolLM2-135M
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+B {'step': 'travel', 'rows': 15, 'init': 'shared', 'train_s': 469.9, 'samples_per_s': 1.0, 'steps': 60, 'peak_mem_gb': None, 'acc': 0.1889, 'cert5_cutoff': None, 'cert5_coverage': 0.0, 'holdout_err_above': None}
+Loading weights:   0%|          | 0/272 [00:00<?, ?it/s]Loading weights:  25%|##5       | 68/272 [00:00<00:00, 679.79it/s]Loading weights:  50%|#####     | 136/272 [00:00<00:00, 645.93it/s]Loading weights:  74%|#######3  | 201/272 [00:00<00:00, 639.96it/s]Loading weights: 100%|#########9| 271/272 [00:00<00:00, 662.10it/s]Loading weights: 100%|##########| 272/272 [00:00<00:00, 660.03it/s]
+[transformers] [1mLlamaForSequenceClassification LOAD REPORT[0m from: HuggingFaceTB/SmolLM2-135M
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+B {'step': 'travel', 'rows': 45, 'init': 'base', 'train_s': 172.8, 'samples_per_s': 2.6, 'steps': 60, 'peak_mem_gb': None, 'acc': 0.5311, 'cert5_cutoff': None, 'cert5_coverage': 0.0, 'holdout_err_above': None}
+Loading weights:   0%|          | 0/272 [00:00<?, ?it/s]Loading weights:  25%|##5       | 68/272 [00:00<00:00, 677.98it/s]Loading weights:  53%|#####2    | 144/272 [00:00<00:00, 720.99it/s]Loading weights:  81%|########  | 220/272 [00:00<00:00, 738.38it/s]Loading weights: 100%|##########| 272/272 [00:00<00:00, 747.05it/s]
+[transformers] [1mLlamaForSequenceClassification LOAD REPORT[0m from: HuggingFaceTB/SmolLM2-135M
+Key          | Status  | 
+-------------+---------+-
+score.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+B {'step': 'travel', 'rows': 45, 'init': 'shared', 'train_s': 99.3, 'samples_per_s': 4.5, 'steps': 60, 'peak_mem_gb': None, 'acc': 0.3133, 'cert5_cutoff': None, 'cert5_coverage': 0.0, 'holdout_err_above': None}
+wrote tiny_cpu_results.json
+TINY exit 0

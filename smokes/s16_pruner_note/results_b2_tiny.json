@@ -1,0 +1,1778 @@
+{
+ "setup": {
+  "mode": "tiny",
+  "n": 12,
+  "evidence": "core",
+  "folds": 3,
+  "prices": {
+   "teacher": 0.00014190086206896537,
+   "judge1": 0.001301325134027121,
+   "judge2": 0.000284080721003135,
+   "ledger_per_call": 0.0007351252390819255,
+   "ledger_total": 4.6121757500000005,
+   "calls": 6274,
+   "log_line": "log.txt: [spend] end: $4.560 ledger, 2112 new calls this run, 369s"
+  },
+  "stages": [
+   "cells",
+   "floor",
+   "relabel",
+   "typed"
+  ]
+ },
+ "extractor": {
+  "n": 12,
+  "stated": {
+   "flag": 12,
+   "tx_amt": 12,
+   "tx_date": 12,
+   "inv": 12,
+   "reason": 12
+  },
+  "correct": {
+   "flag": 12,
+   "tx_amt": 12,
+   "tx_date": 12,
+   "inv": 12,
+   "reason": 12
+  }
+ },
+ "relabel": {
+  "pairs": 63,
+  "answerable": 63,
+  "paths": {
+   "canon-conflict": 19,
+   "canon-identical": 27,
+   "judge-onesided": 10,
+   "canon-lost:tx_date": 4,
+   "canon-lost:inv": 3
+  },
+  "policy": "core",
+  "fail": 0,
+  "new_fixed": {
+   "tx": 1.0,
+   "inv": 0.5,
+   "flag": 0.6666666666666666,
+   "bank": 0.0
+  },
+  "old_fixed": {
+   "tx": 0.75,
+   "inv": 0.5833333333333334,
+   "flag": 0.9166666666666666,
+   "bank": 0.25
+  },
+  "h0_new": 0.08333333333333333,
+  "h0_n": 12,
+  "needs": {
+   "judge1": 0.0,
+   "judge2": 0.0,
+   "teacher": 0.0
+  },
+  "per_name": {
+   "tx": {
+    "pairs": 12,
+    "known": 12
+   },
+   "inv": {
+    "pairs": 12,
+    "known": 12
+   },
+   "flag": {
+    "pairs": 12,
+    "known": 12
+   },
+   "bank": {
+    "pairs": 12,
+    "known": 12
+   },
+   "H0": {
+    "pairs": 12,
+    "known": 12
+   },
+   "B0": {
+    "pairs": 1,
+    "known": 1
+   },
+   "B1": {
+    "pairs": 1,
+    "known": 1
+   },
+   "B2": {
+    "pairs": 1,
+    "known": 1
+   }
+  }
+ },
+ "scorers": {
+  "embedding": "bge-small-en-v1.5",
+  "cross_encoder": "ms-marco-MiniLM-L-6-v2",
+  "train_label_counts_per_rotation": {
+   "0": {
+    "rows": 103,
+    "positives": 8
+   },
+   "1": {
+    "rows": 115,
+    "positives": 10
+   },
+   "2": {
+    "rows": 103,
+    "positives": 38
+   }
+  },
+  "diag": {
+   "learned": {
+    "within_auc": null,
+    "n_mixed": 0,
+    "n_withpos": 1
+   },
+   "cross-encoder": {
+    "within_auc": null,
+    "n_mixed": 0,
+    "n_withpos": 1
+   },
+   "recency": {
+    "within_auc": null,
+    "n_mixed": 0,
+    "n_withpos": 1
+   },
+   "random": {
+    "within_auc": null,
+    "n_mixed": 0,
+    "n_withpos": 1
+   }
+  },
+  "rotations": {
+   "calibration_folds": {
+    "0": [
+     1
+    ],
+    "1": [
+     2
+    ],
+    "2": [
+     0
+    ]
+   },
+   "scorer_train_folds": {
+    "0": [
+     2
+    ],
+    "1": [
+     0
+    ],
+    "2": [
+     1
+    ]
+   },
+   "note": "rotation f: test fold f, calibration CALF[f], scorer trained on TRF[f]; all vendor-disjoint"
+  }
+ },
+ "floor": {
+  "pool 140 (labelled)": {
+   "new": {
+    "n_rows": 12,
+    "n": 12,
+    "k": 0,
+    "rate": 0.0,
+    "ub": 0.22092219194555585,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "strict_raw": {
+    "n_rows": 12,
+    "n": 12,
+    "k": 2,
+    "rate": 0.16666666666666666,
+    "ub": 0.43810543511531136,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "strict_cons": {
+    "n_rows": 12,
+    "n": 12,
+    "k": 2,
+    "rate": 0.16666666666666666,
+    "ub": 0.43810543511531136,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   }
+  },
+  "original floor ids 200-299": {
+   "new": {
+    "n_rows": 6,
+    "n": 6,
+    "k": 0,
+    "rate": 0.0,
+    "ub": 0.39303776899708265,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "strict_raw": {
+    "n_rows": 6,
+    "n": 6,
+    "k": 2,
+    "rate": 0.3333333333333333,
+    "ub": 0.7286616274802475,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "strict_cons": {
+    "n_rows": 6,
+    "n": 6,
+    "k": 2,
+    "rate": 0.3333333333333333,
+    "ub": 0.7286616274802475,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   }
+  },
+  "all floor prompts": {
+   "new": {
+    "n_rows": 12,
+    "n": 12,
+    "k": 0,
+    "rate": 0.0,
+    "ub": 0.22092219194555585,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "strict_raw": {
+    "n_rows": 12,
+    "n": 12,
+    "k": 2,
+    "rate": 0.16666666666666666,
+    "ub": 0.43810543511531136,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "strict_cons": {
+    "n_rows": 12,
+    "n": 12,
+    "k": 2,
+    "rate": 0.16666666666666666,
+    "ub": 0.43810543511531136,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   }
+  }
+ },
+ "typed_floor": {
+  "rate": {
+   "n_rows": 12,
+   "n": 12,
+   "k": 1,
+   "rate": 0.08333333333333333,
+   "ub": 0.3386806684340324,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core"
+  },
+  "fields": {
+   "reasons": 1
+  }
+ },
+ "typed_samples": {
+  "floor": [
+   {
+    "i": 0,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted.",
+    "note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted."
+   },
+   {
+    "i": 1,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted.",
+    "note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted."
+   },
+   {
+    "i": 2,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted.",
+    "note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted."
+   }
+  ],
+  "learned m=0": [
+   {
+    "i": 0,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted.",
+    "note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted."
+   },
+   {
+    "i": 1,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted.",
+    "note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted."
+   },
+   {
+    "i": 2,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted.",
+    "note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted."
+   }
+  ],
+  "learned m=2": [
+   {
+    "i": 0,
+    "v": "DIFFERENT",
+    "diff": [
+     "bank_mismatch"
+    ],
+    "ref_note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted.",
+    "note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. Bank feed amount differs from the transaction."
+   },
+   {
+    "i": 1,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted.",
+    "note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted."
+   },
+   {
+    "i": 2,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted.",
+    "note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted."
+   }
+  ],
+  "rule (tx+inv+flag)": [
+   {
+    "i": 0,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted.",
+    "note": "Transaction of $45.30 on 2025-11-14. Matched invoice INV-000002 ($45.69). Not flagged. No bank-feed mismatch noted."
+   },
+   {
+    "i": 1,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted.",
+    "note": "Transaction of $51.16 on 2026-04-29. No matching invoice. Flagged: duplicate. No bank-feed mismatch noted."
+   },
+   {
+    "i": 2,
+    "v": "SAME",
+    "diff": [],
+    "ref_note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted.",
+    "note": "Transaction of $115.03 on 2026-01-30. No matching invoice. Flagged: no invoice. No bank-feed mismatch noted."
+   }
+  ]
+ },
+ "typed_gt_accuracy": {
+  "n": 12,
+  "flag": 12,
+  "reasons": 12,
+  "invoice_outcome": 12,
+  "invoice_id": 12,
+  "invoice_amount": 12,
+  "tx_amount": 12,
+  "tx_date": 12,
+  "bank_mismatch": 12
+ },
+ "cells": {
+  "learned m=0": {
+   "name": "learned m=0",
+   "arm": "text",
+   "n_rows": 12,
+   "n": 12,
+   "k": 1,
+   "rate": 0.08333333333333333,
+   "ub": 0.3386806684340324,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.0,
+    0.2727272727272727
+   ],
+   "tokens_removed": 0.793463458919655,
+   "hist_kept": 0.0,
+   "hist_total": 22.75,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 1,
+     "dis": 0.0
+    },
+    "first": {
+     "n": 3,
+     "dis": 0.0
+    },
+    "noinv": {
+     "n": 3,
+     "dis": 0.0
+    },
+    "normal": {
+     "n": 5,
+     "dis": 0.2
+    }
+   },
+   "strict_raw": {
+    "n_rows": 12,
+    "n": 12,
+    "k": 2,
+    "rate": 0.16666666666666666,
+    "ub": 0.43810543511531136,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "strict_cons": {
+    "n_rows": 12,
+    "n": 12,
+    "k": 2,
+    "rate": 0.16666666666666666,
+    "ub": 0.43810543511531136,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "vs_floor": {
+    "n": 12,
+    "floor_rate": 0.0,
+    "pruned_only": 1,
+    "floor_only": 0,
+    "p": 1.0
+   }
+  },
+  "learned m=2": {
+   "name": "learned m=2",
+   "arm": "text",
+   "n_rows": 12,
+   "n": 12,
+   "k": 1,
+   "rate": 0.08333333333333333,
+   "ub": 0.3386806684340324,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.0,
+    0.2727272727272727
+   ],
+   "tokens_removed": 0.7092600998638221,
+   "hist_kept": 2.0,
+   "hist_total": 22.75,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 1,
+     "dis": 1.0
+    },
+    "first": {
+     "n": 3,
+     "dis": 0.0
+    },
+    "noinv": {
+     "n": 3,
+     "dis": 0.0
+    },
+    "normal": {
+     "n": 5,
+     "dis": 0.0
+    }
+   },
+   "strict_raw": {
+    "n_rows": 12,
+    "n": 12,
+    "k": 4,
+    "rate": 0.3333333333333333,
+    "ub": 0.6091376982290366,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "strict_cons": {
+    "n_rows": 12,
+    "n": 12,
+    "k": 4,
+    "rate": 0.3333333333333333,
+    "ub": 0.6091376982290366,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "vs_floor": {
+    "n": 12,
+    "floor_rate": 0.0,
+    "pruned_only": 1,
+    "floor_only": 0,
+    "p": 1.0
+   }
+  },
+  "rule (tx+inv+flag)": {
+   "name": "rule (tx+inv+flag)",
+   "arm": "text",
+   "n_rows": 12,
+   "n": 12,
+   "k": 0,
+   "rate": 0.0,
+   "ub": 0.22092219194555585,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.0,
+    0.0
+   ],
+   "tokens_removed": 0.8408987743985474,
+   "hist_kept": 0.0,
+   "hist_total": 22.75,
+   "fixed_dropped": 1.0,
+   "by_scn": {
+    "dup": {
+     "n": 1,
+     "dis": 0.0
+    },
+    "first": {
+     "n": 3,
+     "dis": 0.0
+    },
+    "noinv": {
+     "n": 3,
+     "dis": 0.0
+    },
+    "normal": {
+     "n": 5,
+     "dis": 0.0
+    }
+   },
+   "strict_raw": {
+    "n_rows": 12,
+    "n": 12,
+    "k": 3,
+    "rate": 0.25,
+    "ub": 0.5273266035603434,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "strict_cons": {
+    "n_rows": 12,
+    "n": 12,
+    "k": 3,
+    "rate": 0.25,
+    "ub": 0.5273266035603434,
+    "fail": 0,
+    "unknown": 0,
+    "policy": "core"
+   },
+   "vs_floor": {
+    "n": 12,
+    "floor_rate": 0.0,
+    "pruned_only": 0,
+    "floor_only": 0,
+    "p": 1.0
+   }
+  }
+ },
+ "cert": {
+  "learned m=0": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "cross-encoder m=0": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "oracle m=0": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "random m=0": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "learned m=2": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "rule (tx+inv+flag)": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  }
+ },
+ "cells_typed": {
+  "learned m=0": {
+   "name": "learned m=0",
+   "arm": "typed",
+   "n_rows": 12,
+   "n": 12,
+   "k": 1,
+   "rate": 0.08333333333333333,
+   "ub": 0.3386806684340324,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.0,
+    0.2727272727272727
+   ],
+   "tokens_removed": 0.6895463510848125,
+   "hist_kept": 0.0,
+   "hist_total": 22.75,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 1,
+     "dis": 0.0
+    },
+    "first": {
+     "n": 3,
+     "dis": 0.0
+    },
+    "noinv": {
+     "n": 3,
+     "dis": 0.3333333333333333
+    },
+    "normal": {
+     "n": 5,
+     "dis": 0.0
+    }
+   },
+   "vs_floor": {
+    "n": 12,
+    "floor_rate": 0.08333333333333333,
+    "pruned_only": 0,
+    "floor_only": 0,
+    "p": 1.0
+   }
+  },
+  "learned m=2": {
+   "name": "learned m=2",
+   "arm": "typed",
+   "n_rows": 12,
+   "n": 12,
+   "k": 2,
+   "rate": 0.16666666666666666,
+   "ub": 0.43810543511531136,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.0,
+    0.4166666666666667
+   ],
+   "tokens_removed": 0.6163708086785009,
+   "hist_kept": 2.0,
+   "hist_total": 22.75,
+   "fixed_dropped": 0.0,
+   "by_scn": {
+    "dup": {
+     "n": 1,
+     "dis": 0.0
+    },
+    "first": {
+     "n": 3,
+     "dis": 0.0
+    },
+    "noinv": {
+     "n": 3,
+     "dis": 0.3333333333333333
+    },
+    "normal": {
+     "n": 5,
+     "dis": 0.2
+    }
+   },
+   "vs_floor": {
+    "n": 12,
+    "floor_rate": 0.08333333333333333,
+    "pruned_only": 2,
+    "floor_only": 1,
+    "p": 1.0
+   }
+  },
+  "rule (tx+inv+flag)": {
+   "name": "rule (tx+inv+flag)",
+   "arm": "typed",
+   "n_rows": 12,
+   "n": 12,
+   "k": 1,
+   "rate": 0.08333333333333333,
+   "ub": 0.3386806684340324,
+   "fail": 0,
+   "unknown": 0,
+   "policy": "core",
+   "ci_vendor": [
+    0.0,
+    0.2727272727272727
+   ],
+   "tokens_removed": 0.7307692307692308,
+   "hist_kept": 0.0,
+   "hist_total": 22.75,
+   "fixed_dropped": 1.0,
+   "by_scn": {
+    "dup": {
+     "n": 1,
+     "dis": 0.0
+    },
+    "first": {
+     "n": 3,
+     "dis": 0.0
+    },
+    "noinv": {
+     "n": 3,
+     "dis": 0.3333333333333333
+    },
+    "normal": {
+     "n": 5,
+     "dis": 0.0
+    }
+   },
+   "vs_floor": {
+    "n": 12,
+    "floor_rate": 0.08333333333333333,
+    "pruned_only": 0,
+    "floor_only": 0,
+    "p": 1.0
+   }
+  }
+ },
+ "cert_typed": {
+  "learned m=0": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "learned m=2": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  },
+  "rule (tx+inv+flag)": {
+   "5%": {
+    "budget": 0.05,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "10%": {
+    "budget": 0.1,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "15%": {
+    "budget": 0.15,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@5%": {
+    "budget": 0.05,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@10%": {
+    "budget": 0.1,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   },
+   "excess@15%": {
+    "budget": 0.15,
+    "n_usable": 12,
+    "excluded_fail_or_unknown": 0,
+    "covered": 0,
+    "coverage": 0.0,
+    "errors": 0,
+    "sel_error": null,
+    "ub": null,
+    "tokens_saved": 0.0,
+    "folds_with_cutoff": 0,
+    "n_calibration_per_rotation": 4,
+    "pooled_in_sample": {
+     "coverage": 0.0,
+     "emp_error": null,
+     "bound": null,
+     "tokens_saved": 0.0
+    }
+   }
+  }
+ },
+ "plan": {},
+ "resid_share": {
+  "floor": 0.08333333333333333,
+  "abl": 0.15873015873015872
+ }
+}

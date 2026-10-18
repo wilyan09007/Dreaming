@@ -1,0 +1,37 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[probe] done calls=24 total_spent=$0.0200
+E1   i=0 gold=activate_my_card                   -> 'activate_my_card'                           parse_fail=False ms=2328 pt=434 ct=7 rt=0 usd=0.00119 rep=0.00119 fin=stop err=None
+E1   i=1 gold=age_limit                          -> 'age_limit'                                  parse_fail=False ms=2066 pt=437 ct=6 rt=0 usd=0.00118 rep=0.0011825 fin=stop err=None
+E1   i=2 gold=apple_pay_or_google_pay            -> 'top_up_failed'                              parse_fail=False ms=5053 pt=442 ct=110 rt=101 usd=0.00276 rep=0.002755 fin=stop err=None
+C1   i=0 gold=activate_my_card                   -> 'activate_my_card'                           parse_fail=False ms=2212 pt=434 ct=7 rt=0 usd=0.00010 rep=9.555e-05 fin=stop err=None
+C1   i=1 gold=age_limit                          -> 'age_limit'                                  parse_fail=False ms=1662 pt=437 ct=6 rt=0 usd=0.00009 rep=9.49e-05 fin=stop err=None
+C1   i=2 gold=apple_pay_or_google_pay            -> 'topping_up_by_card'                         parse_fail=False ms=2111 pt=442 ct=9 rt=0 usd=0.00010 rep=9.965e-05 fin=stop err=None
+C2   i=0 gold=activate_my_card                   -> 'activate_my_card'                           parse_fail=False ms=2415 pt=434 ct=7 rt=0 usd=0.00036 rep=0.000357 fin=stop err=None
+C2   i=1 gold=age_limit                          -> 'age_limit'                                  parse_fail=False ms=2372 pt=437 ct=6 rt=0 usd=0.00035 rep=0.00035475 fin=stop err=None
+C2   i=2 gold=apple_pay_or_google_pay            -> 'apple_pay_or_google_pay'                    parse_fail=False ms=789 pt=442 ct=9 rt=0 usd=0.00037 rep=0.000372 fin=stop err=None
+C2b  i=0 gold=activate_my_card                   -> 'activate_my_card'                           parse_fail=False ms=745 pt=434 ct=7 rt=0 usd=0.00036 rep=0.000357 fin=stop err=None
+C2b  i=1 gold=age_limit                          -> 'age_limit'                                  parse_fail=False ms=777 pt=437 ct=6 rt=0 usd=0.00035 rep=0.00035475 fin=stop err=None
+C2b  i=2 gold=apple_pay_or_google_pay            -> 'apple_pay_or_google_pay'                    parse_fail=False ms=789 pt=442 ct=9 rt=0 usd=0.00037 rep=0.000372 fin=stop err=None
+C3   i=0 gold=activate_my_card                   -> 'None'                                       parse_fail=True ms=1956 pt=425 ct=60 rt=67 usd=0.00005 rep=5.08e-05 fin=length err=None
+C3   i=1 gold=age_limit                          -> 'None'                                       parse_fail=True ms=2484 pt=428 ct=60 rt=73 usd=0.00005 rep=5.104e-05 fin=length err=None
+C3   i=2 gold=apple_pay_or_google_pay            -> 'None'                                       parse_fail=True ms=1908 pt=434 ct=60 rt=72 usd=0.00005 rep=5.152e-05 fin=length err=None
+Ton  i=0 gold=activate_my_card                   -> 'activate_my_card'                           parse_fail=False ms=1887 pt=434 ct=42 rt=33 usd=0.00051 rep=0.0005145 fin=stop err=None
+Ton  i=1 gold=age_limit                          -> 'age_limit'                                  parse_fail=False ms=1739 pt=437 ct=39 rt=31 usd=0.00050 rep=0.00050325 fin=stop err=None
+Ton  i=2 gold=apple_pay_or_google_pay            -> 'apple_pay_or_google_pay'                    parse_fail=False ms=7225 pt=442 ct=804 rt=793 usd=0.00395 rep=0.0039495 fin=stop err=None
+E2   i=0 gold=activate_my_card                   -> 'activate_my_card'                           parse_fail=False ms=780 pt=562 ct=8 rt=0 usd=0.00181 rep=0.001806 fin=stop err=None
+E2   i=1 gold=age_limit                          -> 'age_limit'                                  parse_fail=False ms=753 pt=565 ct=6 rt=0 usd=0.00178 rep=0.001785 fin=stop err=None
+E2   i=2 gold=apple_pay_or_google_pay            -> 'top_up_by_card_charge'                      parse_fail=False ms=834 pt=573 ct=12 rt=0 usd=0.00190 rep=0.001899 fin=stop err=None
+C4   i=0 gold=activate_my_card                   -> 'activate_my_card'                           parse_fail=False ms=1153 pt=561 ct=8 rt=0 usd=0.00060 rep=0.000601 fin=stop err=None
+C4   i=1 gold=age_limit                          -> 'age_limit'                                  parse_fail=False ms=829 pt=564 ct=6 rt=0 usd=0.00059 rep=0.000594 fin=stop err=None
+C4   i=2 gold=apple_pay_or_google_pay            -> 'top_up_failed'                              parse_fail=False ms=946 pt=572 ct=8 rt=0 usd=0.00061 rep=0.000612 fin=stop err=None
+          usd          ct          rt          pt  proj_200
+cfg                                                        
+C1   0.000097    7.333333    0.000000  437.666667  0.019340
+C2   0.000361    7.333333    0.000000  437.666667  0.072250
+C2b  0.000361    7.333333    0.000000  437.666667  0.072250
+C3   0.000051   60.000000   70.666667  429.000000  0.010224
+C4   0.000602    7.333333    0.000000  565.666667  0.120467
+E1   0.001709   41.000000   33.666667  437.666667  0.341833
+E2   0.001830    8.666667    0.000000  566.666667  0.366000
+Ton  0.001656  295.000000  285.666667  437.666667  0.331150
+projected total for 200 each: $1.33 (cap 7.0)
