@@ -22,10 +22,11 @@ from __future__ import annotations
 
 import importlib
 import io
+import os
 import threading
 import time
 from collections import defaultdict
-from collections.abc import Callable, Mapping, Sequence
+from collections.abc import Callable, Collection, Mapping, Sequence
 from concurrent.futures import ThreadPoolExecutor
 from itertools import product
 from typing import Any, Literal
@@ -217,12 +218,15 @@ def _latest(runs: Sequence[TrainRun]) -> dict[str, str]:
     return {site: c for site, (_, c) in newest.items()}
 
 
-def table(store: Store, scores: ScoresLoader, baselines: Baselines | None = quickbooks_baselines, campaign: str | None = None) -> Benchmark:
+def table(store: Store, scores: ScoresLoader, baselines: Baselines | None = quickbooks_baselines, campaign: str | None = None,
+          campaigns: Collection[str] | None = None) -> Benchmark:
     """`campaign` None: each site's latest campaign (QuickBooks trains in its own campaign, the bookkeeper sites in another); a name pins them all. `baselines(site)` -> [{"name", "coverage", "error"}]; if it raises, its rows are skipped with a note."""
     by_run: dict[str, list[Checkpoint]] = defaultdict(list)
     for ck in store.checkpoints(campaign):
         by_run[ck.run_id].append(ck)
     live = [r for r in store.train_runs(campaign) if by_run[r.id]]
+    if campaigns:  # the operator's allow-list (BENCHMARK_CAMPAIGNS): a rerun on a half-empty table must not displace the real one as 'latest'
+        live = [r for r in live if r.campaign in campaigns]
     pick = _latest(live)  # site -> campaign, when no campaign pins the table
 
     def camp(site: str) -> str:
@@ -344,7 +348,11 @@ def markdown(b: Benchmark) -> str:
     return "\n".join([*lines, "", *(f"- {n}" for n in b.notes)]) + "\n"
 
 
-def benchmark_router(store: Store, scores: ScoresLoader, baselines: Baselines | None = quickbooks_baselines) -> APIRouter:
+def benchmark_router(store: Store, scores: ScoresLoader, baselines: Baselines | None = quickbooks_baselines,
+                     campaigns: Collection[str] | None = None) -> APIRouter:
+    """`campaigns`: the campaigns the page may report (default: the BENCHMARK_CAMPAIGNS env, comma-separated; empty = every campaign)."""
+    if campaigns is None:
+        campaigns = [c for c in os.environ.get("BENCHMARK_CAMPAIGNS", "").split(",") if c] or None
     router = APIRouter()
     cache: dict[str | None, tuple[float, Benchmark]] = {}  # the table reads dozens of Volume files: recompute at most once a minute
     lock = threading.Lock()  # requests run on threads: one recompute, the rest wait and hit the cache
@@ -353,7 +361,7 @@ def benchmark_router(store: Store, scores: ScoresLoader, baselines: Baselines | 
         with lock:
             hit = cache.get(campaign)
             if hit is None or time.monotonic() - hit[0] > TTL_S:
-                hit = (time.monotonic(), table(store, scores, baselines, campaign))
+                hit = (time.monotonic(), table(store, scores, baselines, campaign, campaigns))
                 if hit[1].rows:  # an unknown ?campaign= is cheap to recompute and must not grow the cache
                     cache[campaign] = hit
             return hit[1]

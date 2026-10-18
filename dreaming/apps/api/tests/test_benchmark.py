@@ -406,3 +406,17 @@ def test_the_cached_table_expires_after_the_ttl(w: World, monkeypatch: pytest.Mo
     now[0] += 31
     c.get("/benchmark")
     assert len(w.loads) == 6  # past it: recomputed from the Volume
+
+
+def test_the_campaigns_allow_list_keeps_a_later_rerun_out_of_latest() -> None:
+    """BENCHMARK_CAMPAIGNS: a rerun on a half-empty table must not displace the real campaign as a site's latest."""
+    w = World()
+    later = T0 + timedelta(hours=1)
+    w.cell("head", 0, {200: half_certifiable()}, campaign="tier1-final")
+    w.cell("head", 0, {200: never_right()}, campaign="tier1-final2", at=later)  # newer, worse, not allowed
+    assert {r.campaign for r in table(w.store, w.load, no_baselines).rows} == {"tier1-final2"}
+    allowed = table(w.store, w.load, no_baselines, campaigns=["tier1-final"])
+    assert {r.campaign for r in allowed.rows} == {"tier1-final"} and allowed.campaign is None
+    app = FastAPI()
+    app.include_router(benchmark_router(w.store, w.load, no_baselines, campaigns=["tier1-final"]))
+    assert {r["campaign"] for r in TestClient(app).get("/benchmark").json()["rows"]} == {"tier1-final"}
