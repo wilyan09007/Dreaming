@@ -1,10 +1,12 @@
 # apps/web: the dashboard's contract
 
 The page is `demo/index.html` (looks, tabs and copy stay as in `demo/VISUAL_INTENT.md`) with its simulated model (`SITES`, `S`, `phase()`,
-`cover()`, `metrics()`, `sample()`) replaced by the API's data. It will be `apps/web/index.html`, served by the API's `StaticFiles` mount at `/`
-(same origin: no CORS, `apiBase = ''`). Not copied yet: rewire `demo/index.html` once, do not fork it. The page computes nothing; every number is a field below.
+`cover()`, `metrics()`, `sample()`) replaced by the API's data: `apps/web/index.html` (the demo's markup and CSS) and `app.js` (its script, rewired),
+served by the API's `StaticFiles` mount at `/` (same origin: no CORS, `apiBase = ''`). The page computes nothing; every number is a field below
+(the one ratio is a site's "−N% cost" note, `1 − cost_dream_usd / cost_awake_usd`). `demo/index.html` stays the simulation the design was drawn from.
 
-`apps/web/index.html` (with `app.js`) is today the developer view: a plain page that exercises this contract end to end (`/state`, live events or polling, the four commands) while `demo/index.html`, the designed page, is rewired.
+Under each dream-journal row, small Gaegu lines name the promoted candidate with its certified coverage and bound (`Policy.candidate`,
+`Certificate`), then each spare (`Policy.shadow`, its certificate from `spare_certificates` when it certified at the budget in force).
 
 ## (a) On load
 1. `GET /healthz` -> `Health {ok, checks{db, trainer, teacher, realtime}, version, env_sha}`. Show a strip only for a red check.
@@ -77,6 +79,7 @@ const stop = subscribe(supabaseUrl, publishableKey, '', (m) => apply(m)); // m.t
 `CallSite` is emitted as `CallSite3`). Both are generated, not committed by hand. `index.html` and `live.js` start with `// @ts-check` and use JSDoc
 (`/** @type {import('./schema').Policy} */`). Check, after `just schema`: `npx -p typescript tsc --noEmit --allowJs --checkJs --strict --target es2022 --module es2022 --moduleResolution bundler --lib es2022,dom apps/web/live.js`.
 `State`, `SiteView` and `RunView` are not in the recipe's union yet; declare them as `@typedef`s from (a) until they are.
+`app.js` passes the non-strict check `apps/api/tests/test_web.py` runs (`tsc --checkJs` on `app.js` and `live.js`); `live.js` also passes the strict one above.
 
 ## (g) The five stickers
 `awake` sun, `watching` dashed eye, `testing` half-blue circle, `dreaming` sleeping cloud = `Policy.phase`, one to one. `down` (rain cloud) = `Policy.outage`
@@ -85,7 +88,7 @@ the page holds each sticker for at least 0.9 s from the `site.phase` events, whi
 
 ## Open gaps (what the page still cannot show from the API)
 
-1. The page itself: `demo/index.html` is a simulation; rewiring it to `GET /state` + Realtime + the four commands is the build step (`DESIGN.md` §12, step 6).
-2. "circuit breaker: 100%" is comparison copy, not a measurement; the page must label it as the S4 smoke's number, not something this run measured.
+1. The spares' certificates come from `spare_certificates`, a field `main.py`'s `PageState` adds to `State`; move it into `contracts.State` with the next `just schema`.
+2. "circuit breaker: 100%" is comparison copy, not a measurement; the page prints it as "circuit breaker: 100% (S4)" with the S4 smoke named in its tooltip.
 3. The fault switch's own state (unplugged or not) is not in `State`; after a reload the rain cloud comes from `Policy.outage`, which is the detected state and clears after a successful probe.
 4. The replay footer ("cpu · batch size 1 · 1 thread") comes from `Health.profile`, not from the row; rows carry only the env hash.
