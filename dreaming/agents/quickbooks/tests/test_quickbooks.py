@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import importlib
 import json
+import shutil
 import tarfile
 from collections import Counter
 from pathlib import Path
@@ -56,17 +57,17 @@ def root(tmp_path: Path) -> Path:
 
 
 def test_download_is_idempotent_without_network(root: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    import huggingface_hub
+    import urllib.request
 
     def fail(*a: object, **k: object) -> None:
         pytest.fail("downloaded again")
 
-    monkeypatch.setattr(huggingface_hub, "hf_hub_download", fail)
+    monkeypatch.setattr(urllib.request, "urlretrieve", fail)
     assert data.download(root.parent) == root
 
 
 def test_download_unpacks_whole_or_not_at_all(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    import huggingface_hub
+    import urllib.request
 
     src = tmp_path / "src" / "hackathon-100"
     src.mkdir(parents=True)
@@ -78,7 +79,7 @@ def test_download_unpacks_whole_or_not_at_all(tmp_path: Path, monkeypatch: pytes
     root = tmp_path / "root"
 
     def serve(path: Path) -> None:
-        monkeypatch.setattr(huggingface_hub, "hf_hub_download", lambda *a, **k: str(path))  # pyright: ignore[reportUnknownLambdaType, reportUnknownArgumentType]
+        monkeypatch.setattr(urllib.request, "urlretrieve", lambda url, dst: shutil.copy(path, dst))  # pyright: ignore[reportUnknownLambdaType, reportUnknownArgumentType]
 
     serve(bad)
     with pytest.raises((tarfile.TarError, EOFError)):

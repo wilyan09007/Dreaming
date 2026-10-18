@@ -61,9 +61,8 @@ def download(root: Path) -> Path:
         # plain HTTPS, not huggingface_hub: the campaign image runs with HF_HUB_OFFLINE=1 (its encoder is baked in), which made
         # hf_hub_download raise OfflineModeIsEnabled on Modal (2026-10-18); the dataset is public, no login
         root.mkdir(parents=True, exist_ok=True)
-        tgz = root / TARBALL
-        if not tgz.is_file():
-            urllib.request.urlretrieve(f"https://huggingface.co/datasets/{REPO}/resolve/main/{TARBALL}", tgz)
+        tgz = root / TARBALL  # fetched again on every attempt: a truncated download must never be unpacked twice
+        urllib.request.urlretrieve(f"https://huggingface.co/datasets/{REPO}/resolve/main/{TARBALL}", tgz)
         partial = root / ".partial"
         shutil.rmtree(partial, ignore_errors=True)
         with tarfile.open(tgz) as t:
