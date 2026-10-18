@@ -34,6 +34,7 @@ class Registered:
     fn: Callable[..., Any]  # steps: renders the input text; tools: the real call
     fallback: Callable[..., Any] | None = None  # tools: answers when the real call fails or is down
     speculate_next: str | None = None  # tools: name of the read-only step to prefetch on the likely return (opt-in)
+    pure: bool = True  # False: never rendered on a guessed input (docs/speculation.md §3); still a source of guesses
 
 
 _SITES: dict[str, Registered] = {}
@@ -106,6 +107,7 @@ def tool(
     thresholds: Thresholds | None = None,
     price_call: float = 0.0,
     candidates: list[str] | None = None,
+    pure: bool = True,
 ) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """Declare a tool call site around the real function. Its returns are the labels; reality is the teacher."""
 
@@ -114,7 +116,7 @@ def tool(
             id=f"{workflow}.{name}", workflow=workflow, name=name, kind=Kind.tool, teacher=TeacherSpec(provider="tool", price_call=price_call),
             fallback=fallback.__name__ if fallback else None, thresholds=thresholds or Thresholds(), candidates=candidates or [],
         )
-        return _register(Registered(site, fn, fallback, speculate_next))
+        return _register(Registered(site, fn, fallback, speculate_next, pure))
 
     return deco
 

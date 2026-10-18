@@ -34,6 +34,8 @@ def replay(store: Store, run_id: str, predictors: Mapping[str, Predictor], load:
     """`load(site_id, weights_sha)` fetches the exact weights a row names when the site has since retrained (Runtime.predictor_for)."""
     steps: list[ReplayStep] = []
     for row in store.run_rows(run_id):
+        if row.kept is False:  # speculative work discarded on a mismatch: never served, nothing to re-execute
+            continue
         if row.decision != Decision.predicted or row.prediction is None or row.kind == Kind.router:
             # a router's "prediction" is a frontier call: replay reads it from the log like any other frontier answer
             steps.append(ReplayStep(i=row.i, call_site=row.call_site, decision=row.decision, re_executed=False))
