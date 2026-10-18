@@ -260,7 +260,7 @@ The demo agent is itself a uAgent wrapped this way and reachable from ASI:One th
 
 ---
 
-Tracks, sponsor prizes, and which missions earn them are in `tracks.md`.
+Tracks, sponsor prizes, and how we use each are in `tracks.md`.
 
 ---
 
