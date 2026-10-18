@@ -5,7 +5,10 @@ trainer will run there anyway. Also the first live Modal + Supabase check in one
 
     modal secret create dreaming-db DATABASE_URL=...     (once; the trainer app reads the same secret)
     modal run smokes/modal_db.py                         apply the schema (idempotent) and report
-    modal run smokes/modal_db.py --reset                 also empty every table first: a clean slate before a demo
+    modal run smokes/modal_db.py --reset                 also empty every table first (campaign results included)
+    modal run smokes/modal_db.py --demo-reset            empty only the demo's tables (runs, rows, policies, certificates, weights, events,
+                                                         memory rows); the campaign's train_runs / checkpoints / eval_sets stay. Then
+                                                         `fly machine restart` the api machine so it reloads from the empty state.
 """
 
 from __future__ import annotations
@@ -21,7 +24,7 @@ MIGRATIONS = sorted((Path(__file__).resolve().parents[1] / "db" / "migrations").
 
 
 @app.function(image=image, secrets=[modal.Secret.from_name("dreaming-db", required_keys=["DATABASE_URL"])], timeout=120)
-def migrate(sql: str, reset: bool = False) -> dict[str, Any]:
+def migrate(sql: str, reset: bool = False, demo_reset: bool = False) -> dict[str, Any]:
     import os
     import time
 
@@ -34,6 +37,8 @@ def migrate(sql: str, reset: bool = False) -> dict[str, Any]:
             c.execute(one)
         if reset:
             c.execute("truncate trace_rows, events, runs, certificates, weights, policies, call_sites, memory_rows, checkpoints, train_runs, eval_sets")
+        elif demo_reset:  # call_sites stay: the campaign tables reference them and the API re-registers its sites at startup
+            c.execute("truncate trace_rows, events, runs, certificates, weights, policies, memory_rows")
         tables = [r[0] for r in c.execute("select tablename from pg_tables where schemaname = 'public' order by 1")]
         realtime = [r[0] for r in c.execute("select tablename from pg_publication_tables where pubname = 'supabase_realtime' order by 1")]
         anon = [r[0] for r in c.execute("select table_name from information_schema.role_table_grants where grantee = 'anon' and privilege_type = 'SELECT' order by 1")]
@@ -42,6 +47,6 @@ def migrate(sql: str, reset: bool = False) -> dict[str, Any]:
 
 
 @app.local_entrypoint()
-def main(reset: bool = False) -> None:
+def main(reset: bool = False, demo_reset: bool = False) -> None:
     print([p.name for p in MIGRATIONS])
     print(migrate.remote("\n-- MIGRATION --\n".join(p.read_text(encoding="utf-8") for p in MIGRATIONS), reset))
