@@ -7,8 +7,8 @@
 One runtime owner: the API holds the policies and certificates and runs every workflow call. This process only relays:
 a chat message becomes `POST /run {"input": …}` on the API (a live run through the same library, same store), and the
 reply quotes the API's answer: what was posted and which steps a dream answered, under which certificate. The agent needs
-no database and no keys beyond its seed, and it can never hold a stale policy. Keep a turn under ~45 s or send an
-interim message (S11: the planner waits 60 s for the first reply). The chat protocol itself is dreaming.connectors.uagents;
+no database and no keys beyond its seed, and it can never hold a stale policy. Keep a turn under ~25 s and send one
+reply (S11: a slower reply is dropped, and the planner takes any first message as the whole answer). The chat protocol itself is dreaming.connectors.uagents;
 this module only knows the bookkeeper's words: a bank-feed line in, a plain-language receipt out.
 """
 
@@ -17,6 +17,7 @@ from __future__ import annotations
 import os
 import re
 from datetime import date
+from pathlib import Path
 from uuid import uuid4
 
 from dreaming.contracts import Decision, Json, Kind, RunView, TraceRow
@@ -24,6 +25,8 @@ from dreaming.hashing import short
 
 from . import workflow
 
+DESCRIPTION = ("Books a bank-feed line (descriptor + amount): categorize, vendor lookup, invoice match, ledger post; "
+               "the receipt names which steps a certified trained model answered.")
 USAGE = 'Send one bank-feed line, the descriptor then the amount, like "ADOBE *WEB 54.99".'
 LINE = re.compile(r"(?P<descriptor>.+?)\s+\$?(?P<amount>-?\d[\d,]*(?:\.\d+)?)")
 WHO = {Decision.predicted: "a dream answered", Decision.called: "the real call answered", Decision.audited: "the real call answered (audit)",
@@ -36,7 +39,8 @@ def _name(row: TraceRow) -> str:
 
 def to_input(text: str) -> Json:
     """The chat text as the transaction `run_transaction` expects. Only descriptor and amount are known: the vendor lookup finds the merchant."""
-    m = LINE.fullmatch(" ".join(text.split()))  # one space between words: the vendor lookup splits on " *"
+    line = text.rsplit(":", 1)[-1].strip().strip("\"'`")  # the planner rephrases: "Process this bank-feed line: NOTION *WEB 96.00"
+    m = LINE.fullmatch(" ".join(line.split()))  # one space between words: the vendor lookup splits on " *"
     if m is None:
         raise ValueError(USAGE)
     return {"id": f"chat-{uuid4().hex[:8]}", "date": date.today().isoformat(), "merchant": "", "descriptor": m["descriptor"],
@@ -66,7 +70,10 @@ def main() -> None:
 
     api = os.environ.get("DREAMING_API", "http://127.0.0.1:8080")
     # network="testnet" is what S11 proved; uagents defaults to mainnet. The address derives from the seed alone.
-    agent = Agent(name="dreaming-bookkeeper", seed=os.environ["AGENT_SEED"], mailbox=True, port=8000, network="testnet")
+    # readme_path/description ride on the /connect registration: without them each restart publishes an empty profile, and
+    # ASI:One's planner did not find the agent with an empty README ("no results for this specific identifier"), and did once one was set (2026-10-18)
+    agent = Agent(name="dreaming-bookkeeper", seed=os.environ["AGENT_SEED"], mailbox=True, port=8000, network="testnet",
+                  readme_path=str(Path(__file__).with_name("README.md")), description=DESCRIPTION)
     agent.include(chat_handler(api, workflow.W, to_input, to_reply), publish_manifest=True)
 
     @agent.on_event("startup")

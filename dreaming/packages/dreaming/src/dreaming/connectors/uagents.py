@@ -36,8 +36,9 @@ def chat_handler(api_base: str, workflow: str, to_input: Callable[[str], Json], 
 
     The agent only relays: the API holds the policies and runs the workflow, so this process needs no store and can never
     serve a stale certificate. `to_input` turns the user's text into the workflow input (a ValueError is the reply: the
-    usage hint); `to_reply` turns the run into the answer. Any failure after the interim message becomes a short reply
-    naming it, because ASI:One waits for one and a crashed handler leaves the user with silence. `workflow` only labels
+    usage hint); `to_reply` turns the run into the answer. Any failure becomes a short reply naming it, because ASI:One
+    waits for one and a crashed handler leaves the user with silence. One reply only: ASI:One's planner takes the first
+    ChatMessage as the whole answer (S11 row 10; seen again 2026-10-18), so a "working on it" message would hide the result. `workflow` only labels
     the messages: POST /run has no workflow selector.
     """
     import httpx
@@ -55,8 +56,8 @@ def chat_handler(api_base: str, workflow: str, to_input: Callable[[str], Json], 
     # uagents' decorator is untyped: say so once here instead of ignoring it at every handler
     on = cast("Callable[[type[Any]], Callable[[Callable[..., Awaitable[None]]], Any]]", proto.on_message)  # pyright: ignore[reportUnknownMemberType]
 
-    def say(text: str, *, end: bool = True) -> ChatMessage:
-        return ChatMessage(content=[TextContent(text=text), *([EndSessionContent()] if end else [])])
+    def say(text: str) -> ChatMessage:
+        return ChatMessage(content=[TextContent(text=text), EndSessionContent()])
 
     @on(ChatMessage)
     async def on_message(ctx: Context, sender: str, msg: ChatMessage) -> None:
@@ -70,7 +71,6 @@ def chat_handler(api_base: str, workflow: str, to_input: Callable[[str], Json], 
         except ValueError as e:
             await ctx.send(sender, say(str(e)))
             return
-        await ctx.send(sender, say(f"Working on it: running the {workflow} workflow, this can take up to half a minute.", end=False))
         try:
             r = await asyncio.to_thread(client.post, f"{api_base}/run", json=body, timeout=TIMEOUT_S)  # off the loop: the mailbox keeps polling
             r.raise_for_status()
