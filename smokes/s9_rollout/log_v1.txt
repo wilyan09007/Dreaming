@@ -1,0 +1,69 @@
+Real trajectories executed with real tools: train 3000, cal 1800, test 1200. Realized invoice rate: train 0.748, test 0.714; anomaly=yes rate: train 0.288, test 0.314; test transactions with a vendor absent from training: 0.195
+
+Step students kept: categorize = LR (cal acc LR 0.954 / NN 0.857), vendor_lookup = LR (cal acc LR 0.792 / NN 0.774).
+
+### Steps ahead matched (imagined trajectory equals the real one for the first k steps)
+
+| test slice | n | k=0 | k=1 | k=2 | k=3 | k=4 (whole trajectory) | mean k |
+|---|---|---|---|---|---|---|---|
+| all test | 1200 | 0.05667 | 0.1417 | 0.04 | 0.005 | 0.7567 | 3.263 |
+| known vendors | 966 | 0.00207 | 0.00207 | 0.04969 | 0.006211 | 0.94 | 3.88 |
+| novel vendors | 234 | 0.2821 | 0.7179 | 0 | 0 | 0 | 0.7179 |
+
+### Per-step accuracy: chained (consumes predicted upstream) vs teacher-forced (consumes real upstream)
+
+| step | chained acc | teacher-forced acc | chained acc, known vendors | chained acc, novel vendors |
+|---|---|---|---|---|
+| categorize | 0.9433 | 0.9433 | 0.9979 | 0.7179 |
+| vendor_lookup | 0.8033 | 0.8033 | 0.9979 | 0 |
+| match_invoice | 0.8958 | 0.875 | 0.9503 | 0.6709 |
+| flag_anomaly | 0.8975 | 0.9908 | 0.9431 | 0.7094 |
+
+Baselines: invoice found = majority class 0.714; anomaly majority class 0.686.
+
+### Early routing to review. Real anomaly=yes base rate in test: 0.314 (377 of 1200)
+
+| policy | share routed | precision | recall | true anomalies routed | false routes |
+|---|---|---|---|---|---|
+| send everything to review | 1 | 0.3142 | 1 | 377 | 823 |
+| imagined anomaly = yes (chained rollout) | 0.3367 | 0.8144 | 0.8727 | 329 | 75 |
+| imagined P(anomaly) > 0.8 | 0.3308 | 0.8186 | 0.8621 | 325 | 72 |
+| imagined P(anomaly) > 0.95 | 0.3225 | 0.8217 | 0.8435 | 318 | 69 |
+| teacher-forced step-4 predictor (upper bound: real upstream) | 0.3117 | 0.9893 | 0.9814 | 370 | 4 |
+| true rule applied to imagined upstream outputs | 0.335 | 0.8085 | 0.8621 | 325 | 77 |
+
+| slice | n | real anomaly rate | precision (chained) | recall (chained) |
+|---|---|---|---|---|
+| known vendors | 966 | 0.2557 | 0.8429 | 0.9555 |
+| novel vendors | 234 | 0.5556 | 0.75 | 0.7154 |
+
+### Confident trajectories (every step above its certified cutoff; per-step budget b, delta 0.05, steps gated sequentially on the calibration slice)
+
+| budget b | cut 1 | cut 2 | cut 3 | cut 4 | share of test with whole trajectory confident | n | trajectory error among them (any step wrong) | mean confident prefix (steps skippable) | share of total step latency avoided |
+|---|---|---|---|---|---|---|---|---|---|
+| 0.02 | 0.454 | 0.513 | inf | inf | 0 | 0 | None | 1.7 | 0 |
+| 0.03 | 0.231 | 0.49 | 0.942 | 0.998 | 0.4358 | 523 | 0.01912 | 2.762 | 0.4343 |
+| 0.05 | 0.028 | 0.376 | 0.863 | 0.997 | 0.5733 | 688 | 0.04506 | 3.1 | 0.573 |
+| 0.1 | 0.001 | 0.166 | 0.064 | 0.024 | 0.865 | 1038 | 0.1262 | 3.598 | 0.8657 |
+
+When the whole trajectory is confident, all 4 calls are skipped: 2 teacher calls (categorize, flag_anomaly) and 2 tool calls (vendor_lookup, match_invoice), so the share of teacher calls avoided and the share of tool calls avoided both equal the share in column 6.
+
+| budget b | err step 1 | err step 2 | err step 3 | err step 4 | mean k among confident | novel-vendor share among confident |
+|---|---|---|---|---|---|---|
+| 0.02 | None | None | None | None | None | None |
+| 0.03 | 0 | 0.007648 | 0.01147 | 0.01147 | 3.954 | 0.007648 |
+| 0.05 | 0.001453 | 0.01744 | 0.02762 | 0.02762 | 3.89 | 0.01744 |
+| 0.1 | 0.007707 | 0.07514 | 0.06647 | 0.07129 | 3.67 | 0.07322 |
+
+
+wall seconds: 18.8
+### Robustness: 5 other env seeds (new merchants, streams)
+
+| env seed | novel-vendor share | mean k | whole trajectory matched | anomaly base rate | routing precision | routing recall | b=3%: confident share | b=3%: trajectory error | b=5%: confident share | b=5%: trajectory error |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 21 | 0.2092 | 3.173 | 0.7208 | 0.3017 | 0.7434 | 0.8564 | 0 | None | 0 | None |
+| 22 | 0.1925 | 3.196 | 0.7475 | 0.26 | 0.6659 | 0.9327 | 0 | None | 0.6667 | 0.075 |
+| 23 | 0.2042 | 3.212 | 0.73 | 0.2917 | 0.719 | 0.8771 | 0 | None | 0.4333 | 0.08846 |
+| 24 | 0.2158 | 3.217 | 0.7483 | 0.3242 | 0.7726 | 0.8123 | 0.4792 | 0.05739 | 0.5767 | 0.09249 |
+| 25 | 0.2008 | 3.237 | 0.7492 | 0.2742 | 0.6914 | 0.8784 | 0.48 | 0.0191 | 0.5975 | 0.08368 |
+

@@ -1,0 +1,195 @@
+traces.jsonl: 18000 rows; per tool issue_refund 6000, lookup_order 6000, vendor_lookup 6000; vendor_lookup error rate 0.019
+
+## vendor_lookup
+
+vendor_lookup rows (successful calls): train 2936, cal 1771, test 1177; vendors in train 240; novel-merchant share: cal 0.195, test 0.181 (generation flag unseen share test 0.181)
+
+| model | cal acc | test acc (always answer) | certified cutoff @1% | cal coverage | cal CP bound | test calls skipped | test errors above cutoff | false-skip, novel merchants |
+|---|---|---|---|---|---|---|---|---|
+| LR (kept) | 0.8007 | 0.8105 | 0.8695 | 0.6505 | 0.005187 | 0.6729 | 1/792 = 0.13% | 1/213 = 0.47% |
+| NN | 0.7792 | 0.7842 | 0.4225 | 0.3518 | 0.009571 | 0.3704 | 0/436 = 0.00% | 0/213 = 0.00% |
+
+| calibration slice | cutoff | cal coverage | test skipped | test errors above cutoff | 95% upper (CP) | false-skip novel | novel share of skips |
+|---|---|---|---|---|---|---|---|
+| calibration includes novel merchants (deployment-like) | 0.8695 | 0.6505 | 0.6729 | 1/792 = 0.13% | 0.005976 | 1/213 = 0.47% | 0.001263 |
+| calibration on known merchants only (naive) | 0.6193 | 0.9502 | 0.7842 | 1/923 = 0.11% | 0.005129 | 1/213 = 0.47% | 0.001083 |
+
+| test slice (deployment-like cutoff, kept model) | n | share skipped | errors among skipped | accuracy if always answered |
+|---|---|---|---|---|
+| known merchants | 964 | 0.8205 | 0/791 = 0.00% | 0.9896 |
+| novel merchants | 213 | 0.004695 | 1/1 = 100.00% | 0 |
+
+| error budget | model | cutoff | cal coverage (grid certifier) | cal coverage (original common.certify) | test skipped | test errors above cutoff | false-skip novel |
+|---|---|---|---|---|---|---|---|
+| 0.005 | LR (kept) | inf | 0 | 0 | 0 | 0/0 | 0/213 = 0.00% |
+| 0.005 | NN | inf | 0 | 0 | 0 | 0/0 | 0/213 = 0.00% |
+| 0.01 | LR (kept) | 0.8695 | 0.6505 | 0.6838 | 0.6729 | 1/792 = 0.13% | 1/213 = 0.47% |
+| 0.01 | NN | 0.4225 | 0.3518 | 0 | 0.3704 | 0/436 = 0.00% | 0/213 = 0.00% |
+| 0.02 | LR (kept) | 0.6912 | 0.7516 | 0.7933 | 0.7681 | 1/904 = 0.11% | 1/213 = 0.47% |
+| 0.02 | NN | 0.2958 | 0.6002 | 0.6194 | 0.6143 | 0/723 = 0.00% | 0/213 = 0.00% |
+| 0.05 | LR (kept) | 0.4605 | 0.8012 | 0.8216 | 0.8105 | 12/954 = 1.26% | 10/213 = 4.69% |
+| 0.05 | NN | 0.2137 | 0.7002 | 0.7182 | 0.6916 | 1/814 = 0.12% | 1/213 = 0.47% |
+
+Latency (kept model, 1% budget): mean 201 ms/call, skipping saves 133 ms/call (66.0% of total vendor_lookup time); skipped calls include 24 of 37 tail (>1.5 s) calls.
+
+## lookup_order
+
+lookup_order: train 4800, test 1200; status mix test: delivered 0.50, refunded 0.20, pending 0.12, cancelled 0.11, shipped 0.08; majority 'delivered' accuracy 0.500; mean lookup latency 226 ms; next step 150 ms
+
+| status predictor | top-1 accuracy | mean log-loss |
+|---|---|---|
+| HGB | 0.5683 | 1.05 |
+| oracle (true P given visible features) | 0.58 | 1.02 |
+
+| predictor | tau | speculated (share of calls) | hit rate when speculated | wasted launches | mean ms saved / call | saved / mean (L+150) | ms saved per launch |
+|---|---|---|---|---|---|---|---|
+| HGB | 0 | 1 | 0.5683 | 518 | 79.64 | 0.2117 | 79.64 |
+| HGB | 0.5 | 0.7117 | 0.6311 | 315 | 63.03 | 0.1675 | 88.57 |
+| HGB | 0.7 | 0.1642 | 0.7614 | 47 | 17.3 | 0.04599 | 105.4 |
+| HGB | 0.9 | 0.02833 | 1 | 0 | 3.887 | 0.01033 | 137.2 |
+| oracle (true P given visible features) | 0 | 1 | 0.58 | 504 | 81.47 | 0.2166 | 81.47 |
+| oracle (true P given visible features) | 0.5 | 0.7292 | 0.6194 | 333 | 63.82 | 0.1696 | 87.52 |
+| oracle (true P given visible features) | 0.7 | 0.1858 | 0.7668 | 52 | 19.85 | 0.05277 | 106.8 |
+| oracle (true P given visible features) | 0.9 | 0.02833 | 1 | 0 | 3.887 | 0.01033 | 137.2 |
+| no model: always speculate 'delivered' | - | 1 | 0.5 | 600 | 70.16 | 0.1865 | 70.16 |
+
+Comparison with the no-model constant (a wasted read-only launch is free here, so tau has no latency value; it only removes wasted launches): always speculating 'delivered' saves 70.2 ms/call; HGB saves 79.6 at tau 0 (+9.5), 63.0 at tau 0.5 (-7.1), 17.3 at tau 0.7 (-52.9), 3.9 at tau 0.9 (-66.3). Only tau 0 beats the constant, by 9.5 ms = 2.5% of the 376 ms sequential time. The tau 0.9 hit rate of 1.0 rests on n=34 calls.
+
+HGB calibration of the top probability:
+
+| top prob bin | n | actual hit rate | mean top prob |
+|---|---|---|---|
+| 0.0-0.5 | 346 | 0.4133 | 0.4476 |
+| 0.5-0.7 | 657 | 0.5921 | 0.5827 |
+| 0.7-0.9 | 163 | 0.7117 | 0.7519 |
+| 0.9-1.0 | 34 | 1 | 0.9889 |
+
+## issue_refund
+
+issue_refund: train 4800, test 1200; error rate train 0.209, test 0.204; outcomes test: ok 0.796, vendor_error 0.081, insufficient_funds 0.077, timeout 0.046
+
+| P(error) predictor | AUC-ROC | Brier |
+|---|---|---|
+| HGB (amount, category, hour, recent error rate, last outcomes) | 0.706 | 0.1487 |
+| base rate only | 0.5 | 0.1625 |
+| recent_error_rate alone (raw feature) | 0.5941 | - |
+| oracle: env's true P(error), incl. hidden regime | 0.7623 | 0.1381 |
+
+| predicted P(error) > | calls flagged (of 1200) | share flagged | precision | precision 95% CI | recall (any error) | base error rate | recall (timeouts) |
+|---|---|---|---|---|---|---|---|
+| 0.5 | 38 | 0.03167 | 0.4211 | [0.26, 0.59] | 0.06531 | 0.2042 | 0.01818 |
+| 0.35 | 204 | 0.17 | 0.4118 | [0.34, 0.48] | 0.3429 | 0.2042 | 0.2545 |
+| 0.2 | 488 | 0.4067 | 0.3361 | [0.29, 0.38] | 0.6694 | 0.2042 | 0.6182 |
+
+Most likely error type, given an error occurred: accuracy 0.633 (always-'vendor_error': 0.396)
+
+| latency predictor | MAE ms (all test calls) | MAE ms (excluding timeouts) |
+|---|---|---|
+| HGB regressor (abs. error loss) | 750 | 239.7 |
+| constant train median (583 ms) | 791.4 | 275.7 |
+
+## outage
+
+Outage: 1000 transactions, vendor_lookup 100% errors; breaker made 5 real calls before opening; cutoff 0.870; 0.211 of the transactions are from merchants novel to the predictor (2 of them were confidently predicted, all wrong). The idealised-resolution rows are upper bounds; the outage stream shares its 30 unseen merchants with the test stream.
+
+| strategy | snapshot resolves descriptors by | completed | error rate among completed | n completed |
+|---|---|---|---|---|
+| circuit breaker (baseline) | - | 0 | - | 0 |
+| certified predictor only (rest incomplete) | - | 0.656 | 0.003049 | 656 |
+| registered fallback only (stale snapshot) | idealised resolution | 0.683 | 0.02782 | 683 |
+| **Dreaming: certified predictor, else fallback** | idealised resolution | 0.878 | 0.01936 | 878 |
+|    answered by fallback (rows tagged for downstream gates) | idealised resolution | 0.222 | 0.06757 | 222 |
+| registered fallback only (stale snapshot) | normalised-descriptor match | 0.35 | 0.01429 | 350 |
+| **Dreaming: certified predictor, else fallback** | normalised-descriptor match | 0.673 | 0.004458 | 673 |
+|    answered by fallback (rows tagged for downstream gates) | normalised-descriptor match | 0.017 | 0.05882 | 17 |
+
+## certificate robustness: main run (seed 4) plus 5 other env seeds (new merchants, templates, streams)
+
+### Per world, error budget 1%
+
+| env seed | model | test acc (always answer) | cutoff | cal coverage (grid) | cal coverage (original certify) | test skipped | test errors above cutoff | false-skip novel | distinct merchants behind the errors (max from one) |
+|---|---|---|---|---|---|---|---|---|---|
+| 4 | LR (kept) | 0.8105 | 0.8695 | 0.6505 | 0.6838 | 0.6729 | 1/792 = 0.13% | 1/213 = 0.47% | 1 (max 1) |
+| 4 | NN | 0.7842 | 0.4225 | 0.3518 | 0 | 0.3704 | 0/436 = 0.00% | 0/213 = 0.00% | 0 (max 0) |
+| 4 | LR naive (cal rows from known merchants only) | 0.8105 | 0.6193 | 0.9502 | 0.9818 | 0.7842 | 1/923 = 0.11% | 1/213 = 0.47% | 1 (max 1) |
+| 11 | LR (kept) | 0.7884 | 0.71 | 0.7504 | 0.7651 | 0.7553 | 13/889 = 1.46% | 13/247 = 5.26% | 6 (max 4) |
+| 11 | NN | 0.7706 | 0.3446 | 0.5505 | 0.5839 | 0.5421 | 3/638 = 0.47% | 3/247 = 1.21% | 2 (max 2) |
+| 11 | LR naive (cal rows from known merchants only) | 0.7884 | 0.02882 | 1 | 1 | 0.9813 | 227/1155 = 19.65% | 225/247 = 91.09% | 31 (max 30) |
+| 12 | LR (kept) | 0.7951 | 0.8867 | 0.6504 | 0.6822 | 0.6494 | 0/767 = 0.00% | 0/236 = 0.00% | 0 (max 0) |
+| 12 | NN | 0.7731 | 0.4627 | 0.4034 | 0 | 0.3683 | 0/435 = 0.00% | 0/236 = 0.00% | 0 (max 0) |
+| 12 | LR naive (cal rows from known merchants only) | 0.7951 | 0.733 | 0.9502 | 0.9972 | 0.7604 | 4/898 = 0.45% | 4/236 = 1.69% | 1 (max 4) |
+| 13 | LR (kept) | 0.7766 | 0.8756 | 0.6501 | 0.6867 | 0.6449 | 5/759 = 0.66% | 5/258 = 1.94% | 1 (max 5) |
+| 13 | NN | 0.7621 | 0.2632 | 0.6501 | 0.6667 | 0.6729 | 27/792 = 3.41% | 27/258 = 10.47% | 4 (max 16) |
+| 13 | LR naive (cal rows from known merchants only) | 0.7766 | 0.7435 | 0.9505 | 0.997 | 0.7375 | 8/868 = 0.92% | 8/258 = 3.10% | 2 (max 5) |
+| 14 | LR (kept) | 0.8058 | 0.8251 | 0.7003 | 0.7021 | 0.7243 | 0/854 = 0.00% | 0/222 = 0.00% | 0 (max 0) |
+| 14 | NN | 0.7761 | 0.3408 | 0.5502 | 0.589 | 0.564 | 0/665 = 0.00% | 0/222 = 0.00% | 0 (max 0) |
+| 14 | LR naive (cal rows from known merchants only) | 0.8058 | 0.6753 | 0.9505 | 0.9818 | 0.771 | 2/909 = 0.22% | 2/222 = 0.90% | 1 (max 2) |
+| 15 | LR (kept) | 0.7843 | 0.7363 | 0.7504 | 0.7748 | 0.7462 | 2/882 = 0.23% | 2/249 = 0.80% | 1 (max 2) |
+| 15 | NN | 0.7648 | 0.344 | 0.6005 | 0.6367 | 0.6007 | 0/710 = 0.00% | 0/249 = 0.00% | 0 (max 0) |
+| 15 | LR naive (cal rows from known merchants only) | 0.7843 | 0.6426 | 0.9514 | 0.9792 | 0.7614 | 2/900 = 0.22% | 2/249 = 0.80% | 1 (max 2) |
+
+Pooled over the 6 worlds, budget 1%:
+
+| certifier / selection | errors above cutoff (pooled) | false-skip novel (pooled) | share of test skipped (pooled) | env seeds whose test error exceeds 1% | env seeds with nothing certifiable |
+|---|---|---|---|---|---|
+| shipped: original certify, kept by coverage | 28/5107 = 0.55% | 28/1425 = 1.96% | 0.722 | 11 | none |
+| grid, LR | 21/4943 = 0.42% | 21/1425 = 1.47% | 0.6989 | 11 | none |
+| grid, NN | 30/3676 = 0.82% | 30/1425 = 2.11% | 0.5197 | 13 | none |
+| grid, kept by coverage | 21/4943 = 0.42% | 21/1425 = 1.47% | 0.6989 | 11 | none |
+| grid, kept, calibrated on known merchants only (naive) | 244/5653 = 4.32% | 242/1425 = 16.98% | 0.7992 | 11 | none |
+
+### Per world, error budget 2%
+
+| env seed | model | test acc (always answer) | cutoff | cal coverage (grid) | cal coverage (original certify) | test skipped | test errors above cutoff | false-skip novel | distinct merchants behind the errors (max from one) |
+|---|---|---|---|---|---|---|---|---|---|
+| 4 | LR (kept) | 0.8105 | 0.6912 | 0.7516 | 0.7933 | 0.7681 | 1/904 = 0.11% | 1/213 = 0.47% | 1 (max 1) |
+| 4 | NN | 0.7842 | 0.2958 | 0.6002 | 0.6194 | 0.6143 | 0/723 = 0.00% | 0/213 = 0.00% | 0 (max 0) |
+| 4 | LR naive (cal rows from known merchants only) | 0.8105 | 0.005229 | 1 | 1 | 0.9966 | 219/1173 = 18.67% | 209/213 = 98.12% | 34 (max 30) |
+| 11 | LR (kept) | 0.7884 | 0.71 | 0.7504 | 0.773 | 0.7553 | 13/889 = 1.46% | 13/247 = 5.26% | 6 (max 4) |
+| 11 | NN | 0.7706 | 0.3446 | 0.5505 | 0.5878 | 0.5421 | 3/638 = 0.47% | 3/247 = 1.21% | 2 (max 2) |
+| 11 | LR naive (cal rows from known merchants only) | 0.7884 | 0.02882 | 1 | 1 | 0.9813 | 227/1155 = 19.65% | 225/247 = 91.09% | 31 (max 30) |
+| 12 | LR (kept) | 0.7951 | 0.8867 | 0.6504 | 0.6867 | 0.6494 | 0/767 = 0.00% | 0/236 = 0.00% | 0 (max 0) |
+| 12 | NN | 0.7731 | 0.4068 | 0.5008 | 0.5105 | 0.4716 | 1/557 = 0.18% | 1/236 = 0.42% | 1 (max 1) |
+| 12 | LR naive (cal rows from known merchants only) | 0.7951 | 0.01274 | 1 | 1 | 0.9771 | 215/1154 = 18.63% | 209/236 = 88.56% | 33 (max 36) |
+| 13 | LR (kept) | 0.7766 | 0.8198 | 0.7004 | 0.7473 | 0.6975 | 5/821 = 0.61% | 5/258 = 1.94% | 1 (max 5) |
+| 13 | NN | 0.7621 | 0.2632 | 0.6501 | 0.6832 | 0.6729 | 27/792 = 3.41% | 27/258 = 10.47% | 4 (max 16) |
+| 13 | LR naive (cal rows from known merchants only) | 0.7766 | 0.002359 | 1 | 1 | 1 | 263/1177 = 22.34% | 258/258 = 100.00% | 32 (max 50) |
+| 14 | LR (kept) | 0.8058 | 0.8251 | 0.7003 | 0.7175 | 0.7243 | 0/854 = 0.00% | 0/222 = 0.00% | 0 (max 0) |
+| 14 | NN | 0.7761 | 0.3408 | 0.5502 | 0.593 | 0.564 | 0/665 = 0.00% | 0/222 = 0.00% | 0 (max 0) |
+| 14 | LR naive (cal rows from known merchants only) | 0.8058 | 0.6753 | 0.9505 | 0.9935 | 0.771 | 2/909 = 0.22% | 2/222 = 0.90% | 1 (max 2) |
+| 15 | LR (kept) | 0.7843 | 0.7363 | 0.7504 | 0.7957 | 0.7462 | 2/882 = 0.23% | 2/249 = 0.80% | 1 (max 2) |
+| 15 | NN | 0.7648 | 0.344 | 0.6005 | 0.6491 | 0.6007 | 0/710 = 0.00% | 0/249 = 0.00% | 0 (max 0) |
+| 15 | LR naive (cal rows from known merchants only) | 0.7843 | 0.004126 | 1 | 1 | 0.989 | 242/1169 = 20.70% | 236/249 = 94.78% | 35 (max 26) |
+
+Pooled over the 6 worlds, budget 2%:
+
+| certifier / selection | errors above cutoff (pooled) | false-skip novel (pooled) | share of test skipped (pooled) | env seeds whose test error exceeds 2% | env seeds with nothing certifiable |
+|---|---|---|---|---|---|
+| shipped: original certify, kept by coverage | 51/5335 = 0.96% | 51/1425 = 3.58% | 0.7543 | 11, 13 | none |
+| grid, LR | 21/5117 = 0.41% | 21/1425 = 1.47% | 0.7235 | none | none |
+| grid, NN | 31/4085 = 0.76% | 31/1425 = 2.18% | 0.5775 | 13 | none |
+| grid, kept by coverage | 21/5117 = 0.41% | 21/1425 = 1.47% | 0.7235 | none | none |
+| grid, kept, calibrated on known merchants only (naive) | 1168/6737 = 17.34% | 1139/1425 = 79.93% | 0.9525 | 4, 11, 12, 13, 15 | none |
+
+### Novelty shift, kept model, budget 1%: certificate from the ~20%-novel calibration slice, test stream re-weighted to novel share p (pooled over 6 worlds)
+
+| novel share of test | pooled error above cutoff | pooled share skipped | env seeds exceeding 1% |
+|---|---|---|---|
+| 10% | 0.001797 | 0.7859 | none |
+| 20% | 0.004034 | 0.7002 | 11 |
+| 30% | 0.006896 | 0.6144 | 11, 13 |
+| 40% | 0.01069 | 0.5287 | 11, 13 |
+| 50% | 0.01594 | 0.4429 | 11, 13 |
+
+### Novelty shift, kept model, budget 2%: certificate from the ~20%-novel calibration slice, test stream re-weighted to novel share p (pooled over 6 worlds)
+
+| novel share of test | pooled error above cutoff | pooled share skipped | env seeds exceeding 2% |
+|---|---|---|---|
+| 10% | 0.001736 | 0.8135 | none |
+| 20% | 0.003898 | 0.7247 | none |
+| 30% | 0.006663 | 0.6358 | 11 |
+| 40% | 0.01033 | 0.547 | 11 |
+| 50% | 0.01541 | 0.4582 | 11, 13 |
+
+
+wall seconds: 83.3

@@ -1,0 +1,23 @@
+[evidence] 238 calls, spend $0.1736
+  temp_repeat input 17 (gpt-5.4-mini, effort none, temperature=0): ['wrong_exchange_rate_for_cash_withdrawal', 'wrong_exchange_rate_for_cash_withdrawal', 'wrong_exchange_rate_for_cash_withdrawal', 'wrong_exchange_rate_for_cash_withdrawal', 'wrong_exchange_rate_for_cash_withdrawal', 'exchange_rate']
+  temp_repeat input 18 (gpt-5.4-mini, effort none, temperature=0): ['card_swallowed', 'card_swallowed', 'card_swallowed', 'cash_withdrawal_charge', 'cash_withdrawal_not_recognised', 'cash_withdrawal_not_recognised']
+  require_parameters: ["NotFoundError: Error code: 404 - {'error': {'message': 'No endpoints found that can handle the requested parameters. To learn more about provider routing, visit: https://openrouter.ai/docs/guides/routing/provider-selection', 'code': 404, 'metadata': {'routing_funnel': [{'step': 'Initial Endpoints', 'endpoint_count"]
+  qwen_chat_template_kwargs: reasoning tok [67, 74, 70] compl tok [60, 60, 60] finish ['length', 'length', 'length'] err []
+  qwen_effort_none: reasoning tok [65, 74, 72] compl tok [60, 60, 60] finish ['length', 'length', 'length'] err []
+  qwen_enabled_false: reasoning tok [69, 77, 70] compl tok [60, 60, 60] finish ['length', 'length', 'length'] err []
+  qwen_enabled_false+no_think: reasoning tok [1, 1, 1] compl tok [7, 6, 9] finish ['stop', 'stop', 'stop'] err []
+  qwen_exclude: reasoning tok [66, 73, 70] compl tok [60, 60, 60] finish ['length', 'length', 'length'] err []
+  latency_C1: n=30 mean 846 ms, median 822 ms, p90 976 ms
+  latency_C2: n=30 mean 849 ms, median 824 ms, p90 981 ms
+  latency_C3: n=30 mean 1128 ms, median 732 ms, p90 1767 ms
+  latency_C4: n=30 mean 895 ms, median 835 ms, p90 1041 ms
+  latency_E1: n=30 mean 1797 ms, median 1756 ms, p90 2407 ms
+  latency_E2: n=30 mean 956 ms, median 904 ms, p90 1173 ms
+  latency_Ton: n=30 mean 3080 ms, median 2011 ms, p90 4787 ms
+  latency ratio vs C1 (mean): C1 1.00x, C2 1.00x, C3 1.33x, C4 1.06x, E1 2.12x, E2 1.13x, Ton 3.64x
+  models list: anthropic/claude-haiku-4.5: 'temperature' in supported_parameters = True
+  models list: anthropic/claude-sonnet-4.6: 'temperature' in supported_parameters = True
+  models list: openai/gpt-5.4: 'temperature' in supported_parameters = False
+  models list: openai/gpt-5.4-mini: 'temperature' in supported_parameters = False
+  models list: openai/gpt-5.4-nano: 'temperature' in supported_parameters = False
+  models list: qwen/qwen3-32b: 'temperature' in supported_parameters = True

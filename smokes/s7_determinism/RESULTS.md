@@ -1,0 +1,9 @@
+# S7 — determinism / replayability (CPU)
+
+1000 batch-1 calls from 8 threads: distinct embeddings = **1** (904s)
+200 random batches (size 1-8, dynamic padding): distinct embeddings of the probe = **8**
+torch.set_num_threads 1/2/4/8 vs reference: identical = {1: False, 2: False, 4: False, 8: True}
+max abs diff of probe embedding across batch sizes 1..8: 8.94e-08
+LR argmax identical across batch variants: True; top-2 gap spread: 5.66e-07; distinct proba byte-strings: 6
+
+Wall 1895s. Interpretation: with batch size 1 and a fixed thread count the CPU path is byte-identical; dynamic padding (batch composition) and thread count are the two things that change bytes, so the runtime must pin both (fixed input shape, fixed intra-op threads) or hash the environment including them.

@@ -1,0 +1,110 @@
+traces.jsonl: 18000 rows; per tool issue_refund 6000, lookup_order 6000, vendor_lookup 6000; vendor_lookup error rate 0.019
+
+## vendor_lookup
+
+vendor_lookup rows (successful calls): train 2936, cal 1771, test 1177; vendors in train 240; novel-merchant share: cal 0.195, test 0.181 (generation flag unseen share test 0.181)
+
+| model | cal acc | test acc | certified cutoff | cal coverage | cal CP bound | test calls skipped | test error above cutoff | false-skip, novel merchants |
+|---|---|---|---|---|---|---|---|---|
+| LR (kept) | 0.8007 | 0.8105 | 0.8386 | 0.6838 | 0.009233 | 0.6992 | 0.001215 | 0.004695 |
+| NN | 0.7792 | 0.7842 | inf | 0 | None | 0 | None | 0 |
+
+| calibration | cutoff | cal coverage | test skipped | test error above cutoff | 95% upper (CP) | false-skip novel | novel calls skipped | novel share of skips |
+|---|---|---|---|---|---|---|---|---|
+| calibration includes novel merchants (deployment-like) | 0.8386 | 0.6838 | 0.6992 | 0.001215 | 0.005751 | 0.004695 | 1 | 0.001215 |
+| calibration on known merchants only (naive) | 0.4849 | 0.9818 | 0.8054 | 0.009494 | 0.01651 | 0.04225 | 9 | 0.009494 |
+
+| test slice (deployment-like cutoff) | n | share skipped | error among skipped | accuracy if always answered |
+|---|---|---|---|---|
+| known merchants | 964 | 0.8527 | 0 | 0.9896 |
+| novel merchants | 213 | 0.004695 | 1 | 0 |
+
+| error budget | cutoff | cal coverage | test skipped | test error above | false-skip novel |
+|---|---|---|---|---|---|
+| 0.005 | inf | 0 | 0 | None | 0 |
+| 0.01 | 0.8386 | 0.6838 | 0.6992 | 0.001215 | 0.004695 |
+| 0.02 | 0.5137 | 0.7933 | 0.8003 | 0.004246 | 0.01878 |
+| 0.05 | 0.3997 | 0.8216 | 0.8182 | 0.01558 | 0.06103 |
+
+Latency: mean 201 ms/call, skipping saves 141 ms/call (70.0% of total vendor_lookup time); skipped calls include 27 of 37 tail (>1.5 s) calls.
+
+## lookup_order
+
+lookup_order: train 4800, test 1200; status mix test: delivered 0.50, refunded 0.20, pending 0.12, cancelled 0.11, shipped 0.08; majority 'delivered' accuracy 0.500; mean lookup latency 226 ms; next step 150 ms
+
+| status predictor | top-1 accuracy | mean log-loss |
+|---|---|---|
+| HGB | 0.5683 | 1.05 |
+| oracle (true P given visible features) | 0.58 | 1.02 |
+
+| predictor | tau | speculated (share of calls) | hit rate when speculated | wasted launches | mean ms saved / call | saved / mean (L+150) | ms saved per launch |
+|---|---|---|---|---|---|---|---|
+| HGB | 0 | 1 | 0.5683 | 518 | 79.64 | 0.2117 | 79.64 |
+| HGB | 0.5 | 0.7117 | 0.6311 | 315 | 63.03 | 0.1675 | 88.57 |
+| HGB | 0.7 | 0.1642 | 0.7614 | 47 | 17.3 | 0.04599 | 105.4 |
+| HGB | 0.9 | 0.02833 | 1 | 0 | 3.887 | 0.01033 | 137.2 |
+| oracle (true P given visible features) | 0 | 1 | 0.58 | 504 | 81.47 | 0.2166 | 81.47 |
+| oracle (true P given visible features) | 0.5 | 0.7292 | 0.6194 | 333 | 63.82 | 0.1696 | 87.52 |
+| oracle (true P given visible features) | 0.7 | 0.1858 | 0.7668 | 52 | 19.85 | 0.05277 | 106.8 |
+| oracle (true P given visible features) | 0.9 | 0.02833 | 1 | 0 | 3.887 | 0.01033 | 137.2 |
+| no model: always speculate 'delivered' | - | 1 | 0.5 | 600 | 70.16 | 0.1865 | 70.16 |
+
+HGB calibration of the top probability:
+
+| top prob bin | n | actual hit rate | mean top prob |
+|---|---|---|---|
+| 0.0-0.5 | 346 | 0.4133 | 0.4476 |
+| 0.5-0.7 | 657 | 0.5921 | 0.5827 |
+| 0.7-0.9 | 163 | 0.7117 | 0.7519 |
+| 0.9-1.0 | 34 | 1 | 0.9889 |
+
+## issue_refund
+
+issue_refund: train 4800, test 1200; error rate train 0.209, test 0.204; outcomes test: ok 0.796, vendor_error 0.081, insufficient_funds 0.077, timeout 0.046
+
+| P(error) predictor | AUC-ROC | Brier |
+|---|---|---|
+| HGB (amount, category, hour, recent error rate, last outcomes) | 0.706 | 0.1487 |
+| base rate only | 0.5 | 0.1625 |
+| recent_error_rate alone (raw feature) | 0.5941 | None |
+| oracle: env's true P(error), incl. hidden regime | 0.7623 | 0.1381 |
+
+| predicted P(error) > | calls flagged | precision | recall (any error) | base error rate | recall (timeouts) |
+|---|---|---|---|---|---|
+| 0.5 | 0.03167 | 0.4211 | 0.06531 | 0.2042 | 0.01818 |
+| 0.35 | 0.17 | 0.4118 | 0.3429 | 0.2042 | 0.2545 |
+| 0.2 | 0.4067 | 0.3361 | 0.6694 | 0.2042 | 0.6182 |
+
+Most likely error type, given an error occurred: accuracy 0.633 (always-'vendor_error': 0.396)
+
+| latency predictor | MAE ms (all test calls) | MAE ms (excluding timeouts) |
+|---|---|---|
+| HGB regressor (abs. error loss) | 750 | 239.7 |
+| constant train median (583 ms) | 791.4 | 275.7 |
+
+## outage
+
+Outage: 1000 transactions, vendor_lookup 100% errors; breaker made 5 real calls before opening; cutoff 0.839; 0.211 of the transactions are from merchants novel to the predictor (2 of them were confidently predicted, all wrong).
+
+| strategy | completed | error rate among completed | n completed |
+|---|---|---|---|
+| circuit breaker (baseline) | 0 | None | 0 |
+| registered fallback only (stale snapshot) | 0.683 | 0.02782 | 683 |
+| certified predictor only (rest incomplete) | 0.687 | 0.002911 | 687 |
+| Dreaming: certified predictor, else fallback | 0.893 | 0.0168 | 893 |
+|    answered by predictor | 0.687 | 0.002911 | 687 |
+|    answered by fallback (rows tagged for downstream gates) | 0.206 | 0.06311 | 206 |
+
+## certificate robustness: main run (seed 4) plus 5 other env seeds (new merchants, templates, streams)
+
+| env seed | test acc (always answer) | cutoff @1% | cal coverage | test skipped | errors above cutoff | n above cutoff | test error above cutoff | false-skip novel | n novel |
+|---|---|---|---|---|---|---|---|---|---|
+| 4 | 0.8105 | 0.8386 | 0.6838 | 0.6992 | 1 | 823 | 0.001215 | 0.004695 | 213 |
+| 11 | 0.7884 | 0.6341 | 0.7651 | 0.7723 | 20 | 909 | 0.022 | 0.08097 | 247 |
+| 12 | 0.7951 | 0.8686 | 0.6822 | 0.6909 | 0 | 816 | 0 | 0 | 236 |
+| 13 | 0.7766 | 0.835 | 0.6867 | 0.6822 | 5 | 803 | 0.006227 | 0.01938 | 258 |
+| 14 | 0.8058 | 0.8211 | 0.7021 | 0.7269 | 0 | 857 | 0 | 0 | 222 |
+| 15 | 0.7843 | 0.649 | 0.7748 | 0.7606 | 2 | 899 | 0.002225 | 0.008032 | 249 |
+
+
+wall seconds: 156.0

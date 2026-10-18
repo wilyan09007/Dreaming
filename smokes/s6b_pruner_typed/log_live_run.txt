@@ -1,0 +1,61 @@
+[data] 458 comparison yes/no questions in validation
+[data] sampled 200 questions; yes share 0.525
+[probe] 3 unpinned calls, provider field: ['Claude Platform on AWS', 'Claude Platform on AWS', 'Claude Platform on AWS']
+[pin] order=['Claude Platform on AWS'] allow_fallbacks=false -> served by 'Claude Platform on AWS'
+[pilot] 165 calls, $0.2376 per 1k calls -> projected total $2.47 for NQ=200
+[split] NQ=200 train=120 heldout=80
+[labels] done, spent $1.330, 723s
+[verify] pinned-phase provider counts {'Claude Platform on AWS': 7200}; reasoning tokens max 0 sum 0; finish reasons {'stop': 7195, 'length': 5}
+[parse] failures 5/7200; maj label 'fail': full 0, ablation 2
+[noise] full prompt, 3 calls: all-identical 0.975, pairwise disagreement 0.0167; 6 calls: all-identical 0.965, pairwise 0.0157; maj3 vs independent maj3 disagree 0.0050 (n=200)
+[labels] A_full accuracy vs gold 0.880; A_full yes share 0.505; matters: all 0.076, gold 0.228, non-gold 0.038, mean/question 0.76, none-matter questions 0.590
+[labels] single-call (rep 0) matters: all 0.075, gold 0.233, non-gold 0.036
+[learned] standardized coefs cos +1.013, pos -0.172, ntok -0.067, qover -0.221, titleinq +0.459, cosrank +0.218, cosminusmax -0.148
+[scorers] done 888s
+[auc] learned                ablation pooled 0.714 within 0.749 (n_q=26) | gold pooled 0.991 within 0.992
+[auc] learned_gold (extra)   ablation pooled 0.668 within 0.737 (n_q=26) | gold pooled 0.998 within 0.996
+[auc] cross-encoder          ablation pooled 0.659 within 0.712 (n_q=26) | gold pooled 0.939 within 0.977
+[auc] oracle                 ablation pooled 0.648 within 0.737 (n_q=26) | gold pooled 1.000 within 1.000
+[auc] random                 ablation pooled 0.578 within 0.628 (n_q=26) | gold pooled 0.515 within 0.505
+[auc] heldout matters rate 0.070, gold 0.169, non-gold 0.045
+[eval] pruned re-asks done, spent $1.484, 1136s
+
+| scorer | k | agree (maj3) | disagree n/80 | UB95 | per-call agree | acc gold | tokens removed | both gold kept | parse fails |
+|---|---|---|---|---|---|---|---|---|---|
+| full context, 2nd independent majority | 10 | 1.000 | 0/80 | 0.037 | 0.988 | 0.863 | 0.0% | 0.00 | 0 |
+| learned | 2 | 0.925 | 6/80 | 0.143 | 0.921 | 0.912 | 82.0% | 0.96 | 0 |
+| learned | 3 | 0.912 | 7/80 | 0.158 | 0.917 | 0.875 | 73.9% | 0.00 | 0 |
+| learned | 4 | 0.887 | 9/80 | 0.188 | 0.892 | 0.900 | 64.7% | 0.00 | 0 |
+| learned_gold (extra) | 2 | 0.925 | 6/80 | 0.143 | 0.921 | 0.912 | 82.0% | 0.99 | 0 |
+| learned_gold (extra) | 3 | 0.912 | 7/80 | 0.158 | 0.925 | 0.900 | 73.1% | 0.00 | 0 |
+| learned_gold (extra) | 4 | 0.925 | 6/80 | 0.143 | 0.929 | 0.887 | 64.4% | 0.00 | 0 |
+| cross-encoder | 2 | 0.838 | 13/80 | 0.246 | 0.833 | 0.825 | 82.0% | 0.75 | 0 |
+| cross-encoder | 3 | 0.887 | 9/80 | 0.188 | 0.900 | 0.850 | 72.9% | 0.00 | 0 |
+| cross-encoder | 4 | 0.912 | 7/80 | 0.158 | 0.912 | 0.875 | 63.9% | 0.00 | 0 |
+| oracle | 2 | 0.925 | 6/80 | 0.143 | 0.921 | 0.912 | 81.8% | 1.00 | 0 |
+| oracle | 3 | 0.925 | 6/80 | 0.143 | 0.929 | 0.912 | 71.7% | 0.00 | 0 |
+| oracle | 4 | 0.950 | 4/80 | 0.111 | 0.938 | 0.875 | 60.6% | 0.00 | 1 |
+| random | 2 | 0.625 | 30/80 | 0.473 | 0.621 | 0.613 | 78.7% | 0.03 | 0 |
+| random | 3 | 0.688 | 25/80 | 0.408 | 0.692 | 0.675 | 69.2% | 0.00 | 0 |
+| random | 4 | 0.738 | 21/80 | 0.356 | 0.729 | 0.700 | 58.9% | 0.00 | 0 |
+
+| scorer | k | whole-set certifiable 5/10/15% | n needed at observed rate 5/10/15% | SGR coverage 5/10/15% |
+|---|---|---|---|---|
+| full context, 2nd independent majority | 10 | Y/Y/Y | 59/29/19 | - |
+| learned | 2 | N/N/Y | never/379/59 | 0.000/0.000/0.613 |
+| learned | 3 | N/N/N | never/1537/85 | 0.000/0.000/0.000 |
+| learned | 4 | N/N/N | never/never/243 | 0.000/0.000/0.000 |
+| learned_gold (extra) | 2 | N/N/Y | never/379/59 | 0.000/0.000/0.000 |
+| learned_gold (extra) | 3 | N/N/N | never/1537/85 | 0.000/0.000/0.000 |
+| learned_gold (extra) | 4 | N/N/Y | never/379/59 | 0.000/0.000/0.000 |
+| cross-encoder | 2 | N/N/N | never/never/never | 0.000/0.000/0.000 |
+| cross-encoder | 3 | N/N/N | never/never/243 | 0.000/0.000/0.000 |
+| cross-encoder | 4 | N/N/N | never/1537/85 | 0.000/0.000/0.000 |
+| oracle | 2 | N/N/Y | never/379/59 | - |
+| oracle | 3 | N/N/Y | never/379/59 | - |
+| oracle | 4 | N/N/Y | never/89/40 | - |
+| random | 2 | N/N/N | never/never/never | - |
+| random | 3 | N/N/N | never/never/never | - |
+| random | 4 | N/N/N | never/never/never | - |
+
+[done] spent $1.4842, 1136s

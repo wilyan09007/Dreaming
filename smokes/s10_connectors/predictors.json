@@ -1,0 +1,72 @@
+{
+ "categorize": {
+  "answers": {
+   "d5390415f4a81372cae3fc51c5a278d75bb8bfde9f1531cad61743deb5fc146d": "Software"
+  }
+ },
+ "summarize": {
+  "answers": {
+   "0b8f976d9c6194523842feeb5c11946e82ee4e77643dae6e470684499a8e9fb0": "ADOBE Creative Cloud charge: $54.99 (Software)"
+  }
+ },
+ "triage-chat": {
+  "answers": {
+   "40bc12141b3e4dc8dac200772c129326e8531533589130ed12873856f25225c6": "Billing"
+  }
+ },
+ "triage-global": {
+  "answers": {
+   "40bc12141b3e4dc8dac200772c129326e8531533589130ed12873856f25225c6": "Billing"
+  }
+ },
+ "triage-responses": {
+  "answers": {
+   "9ea17aed570f8d9804d8065ba0c6ca1f62fdca1babb451aa7396fe4dabdbb4b2": "Billing"
+  }
+ },
+ "sentiment": {
+  "answers": {
+   "702ac579c22f2ec0dd908f03c6fff1223f6d3805cb814fa0a9a5b2b94899013b": "Positive"
+  }
+ },
+ "triage-chat-stream": {
+  "answers": {
+   "40bc12141b3e4dc8dac200772c129326e8531533589130ed12873856f25225c6": "Billing"
+  }
+ },
+ "sentiment-stream": {
+  "answers": {
+   "702ac579c22f2ec0dd908f03c6fff1223f6d3805cb814fa0a9a5b2b94899013b": "Positive"
+  }
+ },
+ "probe-chat": {
+  "answers": {
+   "7ea79d757e35c16f63d0274923cd4eeb3b1d7678cb9d75cedc4f88ac15e43e09": "Paris"
+  }
+ },
+ "probe-stream": {
+  "answers": {
+   "7ea79d757e35c16f63d0274923cd4eeb3b1d7678cb9d75cedc4f88ac15e43e09": "Paris"
+  }
+ },
+ "probe-lc-stream": {
+  "answers": {
+   "a8a0bae97ac4697a85b15e65fb7654ca7cf9fac517bbc7118ec8979244e2deb3": "Hello"
+  }
+ },
+ "probe-responses": {
+  "answers": {
+   "d3d808cb06befb17518fa1e9e5fd896d56d81202e3d0a55d84d70ce507fd1cd3": "Rome"
+  }
+ },
+ "probe-lc-responses": {
+  "answers": {
+   "cb46efc31803407883cc21de6fdef827743467deb6114425da95698f428d8c63": "Hello"
+  }
+ },
+ "probe-pai-responses": {
+  "answers": {
+   "4857b2d4be150effe0e9a3fd3b8766542e33fe8532d4eb486e42cb8de01299b1": "Hello"
+  }
+ }
+}

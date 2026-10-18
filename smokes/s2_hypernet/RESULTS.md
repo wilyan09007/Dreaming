@@ -1,0 +1,71 @@
+# S2 — weight generator (hypernetwork) over frozen embeddings
+
+Generator: set-transformer, 1.35M params, 4000 episodes on CPU in 758s. Train domains: ['auto_and_commute', 'banking', 'credit_cards', 'home', 'kitchen_and_dining', 'travel', 'utility']. Held-out domains: [np.str_('meta'), np.str_('work'), np.str_('small_talk')]. k = examples per label; accuracies on the test split, mean over 5 support draws.
+
+### Seen CLINC domains (sanity; generator trained here)
+
+| method | k=0 | k=1 | k=2 | k=5 | k=10 |
+|---|---|---|---|---|---|
+| desc-cos | 0.740 | 0.740 | 0.740 | 0.740 | 0.740 |
+| name-cos | 0.777 | 0.777 | 0.777 | 0.777 | 0.777 |
+| proto | - | 0.738 | 0.834 | 0.892 | 0.917 |
+| desc+proto | - | 0.824 | 0.855 | 0.875 | 0.881 |
+| LR k-shot | - | 0.759 | 0.871 | 0.933 | 0.954 |
+| GENERATOR | 0.963 | 0.965 | 0.964 | 0.964 | 0.964 |
+
+### Held-out CLINC domains (15-way, never seen)
+
+| method | k=0 | k=1 | k=2 | k=5 | k=10 |
+|---|---|---|---|---|---|
+| desc-cos | 0.713 | 0.713 | 0.713 | 0.713 | 0.713 |
+| name-cos | 0.765 | 0.765 | 0.765 | 0.765 | 0.765 |
+| proto | - | 0.733 | 0.824 | 0.887 | 0.903 |
+| desc+proto | - | 0.823 | 0.864 | 0.872 | 0.874 |
+| LR k-shot | - | 0.745 | 0.853 | 0.920 | 0.941 |
+| GENERATOR | 0.489 | 0.618 | 0.643 | 0.645 | 0.648 |
+
+### Banking77 (77-way, never seen, different dataset)
+
+| method | k=0 | k=1 | k=2 | k=5 | k=10 |
+|---|---|---|---|---|---|
+| desc-cos | 0.664 | 0.664 | 0.664 | 0.664 | 0.664 |
+| name-cos | 0.680 | 0.680 | 0.680 | 0.680 | 0.680 |
+| proto | - | 0.604 | 0.680 | 0.773 | 0.812 |
+| desc+proto | - | 0.706 | 0.743 | 0.763 | 0.779 |
+| LR k-shot | - | 0.611 | 0.718 | 0.828 | 0.872 |
+| GENERATOR | 0.275 | 0.373 | 0.372 | 0.374 | 0.376 |
+
+### Banking77 12-label sub-tasks (x5, never seen)
+
+| method | k=0 | k=1 | k=2 | k=5 | k=10 |
+|---|---|---|---|---|---|
+| desc-cos | 0.885 | 0.885 | 0.885 | 0.885 | 0.885 |
+| name-cos | 0.876 | 0.876 | 0.876 | 0.876 | 0.876 |
+| proto | - | 0.811 | 0.884 | 0.922 | 0.937 |
+| desc+proto | - | 0.896 | 0.918 | 0.931 | 0.931 |
+| LR k-shot | - | 0.822 | 0.894 | 0.939 | 0.954 |
+| GENERATOR | 0.589 | 0.660 | 0.685 | 0.672 | 0.668 |
+
+### Part 2 — Banking77 student trained on n rows with an L2 prior toward W0 (lambda picked on a 20% validation slice)
+
+W0 = zero (plain LR) vs W0 = label-description embeddings vs W0 = GENERATOR(desc, prototypes from the same n rows). cert = SGR certificate at 5% budget, calibration = half of test, realized error on the other half.
+
+| rows | prior | acc | cert coverage | holdout err |
+|---|---|---|---|---|
+| 77 | zero (lam=1.0) | 0.594 | 0.00 | - |
+| 77 | desc (lam=1.0) | 0.704 | 0.00 | - |
+| 77 | GENERATOR (lam=1.0) | 0.013 | 0.00 | - |
+| 154 | zero (lam=0.01) | 0.566 | 0.00 | - |
+| 154 | desc (lam=0.01) | 0.657 | 0.19 | 0.025 |
+| 154 | GENERATOR (lam=1.0) | 0.013 | 0.00 | - |
+| 385 | zero (lam=0.001) | 0.756 | 0.31 | 0.017 |
+| 385 | desc (lam=0.001) | 0.780 | 0.41 | 0.025 |
+| 385 | GENERATOR (lam=1.0) | 0.013 | 0.00 | - |
+| 770 | zero (lam=0.001) | 0.833 | 0.62 | 0.025 |
+| 770 | desc (lam=0.001) | 0.844 | 0.65 | 0.024 |
+| 770 | GENERATOR (lam=1.0) | 0.013 | 0.00 | - |
+| 1540 | zero (lam=0.001) | 0.893 | 0.80 | 0.032 |
+| 1540 | desc (lam=0.001) | 0.893 | 0.80 | 0.030 |
+| 1540 | GENERATOR (lam=0.001) | 0.891 | 0.78 | 0.026 |
+
+Wall time 940s on CPU.

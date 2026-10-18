@@ -1,0 +1,64 @@
+== A. framework clients: pass 1 real, pass 2 from predictors.json
+LangGraph: sites=['categorize', 'summarize'] apis=['chat'] real_ms=[727, 647] predicted_ms=[0, 0] out={"txn": "ADOBE *CREATIVE CLD $54.99", "category": "Software", "summary": "ADOBE Creative C
+  [PASS] header arrived (no sha1: fallback site) 
+  [PASS] pass 1 hit upstream, pass 2 predicted, same hashes 
+  [PASS] pass 2 returned the same final output with zero upstream tokens 
+Agents SDK (chat model): sites=['triage-chat'] apis=['chat'] real_ms=[752] predicted_ms=[1] out={"output": "Billing"}
+  [PASS] header arrived (no sha1: fallback site) 
+  [PASS] pass 1 hit upstream, pass 2 predicted, same hashes 
+  [PASS] pass 2 returned the same final output with zero upstream tokens 
+Agents SDK (global default): sites=['triage-global'] apis=['chat'] real_ms=[688] predicted_ms=[0] out={"output": "Billing"}
+  [PASS] header arrived (no sha1: fallback site) 
+  [PASS] pass 1 hit upstream, pass 2 predicted, same hashes 
+  [PASS] pass 2 returned the same final output with zero upstream tokens 
+Agents SDK (responses): sites=['triage-responses'] apis=['responses'] real_ms=[875] predicted_ms=[2] out={"output": "Billing"}
+  [PASS] header arrived (no sha1: fallback site) 
+  [PASS] pass 1 hit upstream, pass 2 predicted, same hashes 
+  [PASS] pass 2 returned the same final output with zero upstream tokens 
+pydantic-ai: sites=['sentiment'] apis=['chat'] real_ms=[731] predicted_ms=[1] out={"output": "Positive"}
+  [PASS] header arrived (no sha1: fallback site) 
+  [PASS] pass 1 hit upstream, pass 2 predicted, same hashes 
+  [PASS] pass 2 returned the same final output with zero upstream tokens 
+Agents SDK (chat, streamed): sites=['triage-chat-stream'] apis=['chat'] real_ms=[599] predicted_ms=[2] out={"output": "Billing"}
+  [PASS] header arrived (no sha1: fallback site) 
+  [PASS] pass 1 hit upstream, pass 2 predicted, same hashes 
+  [PASS] pass 2 returned the same final output with zero upstream tokens 
+pydantic-ai (streamed): sites=['sentiment-stream'] apis=['chat'] real_ms=[1140] predicted_ms=[0] out={"output": "Positive"}
+  [PASS] header arrived (no sha1: fallback site) 
+  [PASS] pass 1 hit upstream, pass 2 predicted, same hashes 
+  [PASS] pass 2 returned the same final output with zero upstream tokens 
+== B. protocol probes (OpenAI SDK direct)
+  [PASS] chat: client sees dreaming.predicted on 2nd call Paris
+  [PASS] stream (openai sdk): logged text+usage, 2nd call predicted Paris
+  [PASS] stream (langchain): 2nd call predicted Hello
+  [PASS] /v1/responses: logged, 2nd call predicted, client sees flag Rome
+  [PASS] langchain use_responses_api=True via /v1/responses: 2nd call predicted Hello
+                 pydantic-ai v2.57.0 • Python 3.12.12
+      / \
+     /   \       model: openai:openai/gpt-5.4-nano • tools: 0 • capabilities: 0
+   /___.___\
+  /    |    \    observability: off — see every model and tool call live, with cost
+/      |      \    set it up free with Logfire and a GitHub login: https://pydantic.dev/ai-setup.md
+`---.._|_..---'    or use any OpenTelemetry backend: https://pydantic.dev/docs/ai/logfire/#otel
+
+                 goes away once observability is on — or PYDANTIC_AI_NO_BANNER=1
+  [PASS] pydantic-ai OpenAIResponsesModel via /v1/responses: 2nd call predicted Hello
+  [PASS] tool call passes through; logged as tool_calls, never learned {"descriptor":"ADOBE *CREATIVE CLD"}
+  [PASS] tool result turn (role=tool) passes through **Vendor:** Adobe Inc  
+**Descriptor:** ADOBE *CREATIVE CLD
+  [PASS] untagged calls (OPENAI_BASE_URL only) group by sha1(system prompt) ['sha1:8e955670d92b', 'sha1:8e955670d92b', 'sha1:3bc623a0e3ec']
+  [PASS] upstream error relayed with its status and logged status=400
+== C. overhead: 8 paired calls, direct OpenRouter vs through proxy (unique prompts, never predicted)
+  median ms direct=706 proxied=639 (delta -66); predicted-hit round trip median=10 min=9
+== D. MCP (fastmcp) proxy
+  tools via proxy: ['vendor_lookup']
+    {"pid": 34152, "tool": "vendor_lookup", "args": {"descriptor": "ADOBE *CREATIVE CLD"}, "ret": "Adobe Inc", "error": null, "predicted": false, "latency_ms": 215.5}
+    {"pid": 34152, "tool": "vendor_lookup", "args": {"descriptor": "ADOBE *CREATIVE CLD"}, "ret": "Adobe Inc", "error": null, "predicted": true, "latency_ms": 1.0}
+    {"pid": 34152, "tool": "vendor_lookup", "args": {"descriptor": "ADOBE *CREATIVE CLD"}, "ret": "Adobe Inc", "error": null, "predicted": true, "latency_ms": 0.8}
+    {"pid": 34152, "tool": "vendor_lookup", "args": {"descriptor": "NEW MERCHANT"}, "ret": "Error calling tool 'vendor_lookup': vendor API unavailable", "error": "Error calling tool 'vendor_lookup': vendor API unavailable", "predicted": false, "latency_ms": 419.0}
+    {"pid": 23304, "tool": "vendor_lookup", "args": {"descriptor": "ADOBE *CREATIVE CLD"}, "ret": "Adobe Inc", "error": null, "predicted": true, "latency_ms": 1.4}
+    {"pid": 23304, "tool": "vendor_lookup", "args": {"descriptor": "STARBUCKS #12"}, "ret": "unknown vendor", "error": null, "predicted": false, "latency_ms": 300.6}
+  mcp ok
+  [PASS] mcp demo asserts passed 
+== trace rows=53 real=28 predicted=24  calls_by_site={"categorize": 2, "overhead": 8, "probe-chat": 12, "probe-error": 1, "probe-lc-responses": 2, "probe-lc-stream": 2, "probe-pai-responses": 2, "probe-responses": 2, "probe-stream": 2, "probe-tools": 3, "sentiment": 2, "sentiment-stream": 2, "sha1:3bc623a0e3ec": 1, "sha1:8e955670d92b": 2, "summarize": 2, "triage-chat": 2, "triage-chat-stream": 2, "triage-global": 2, "triage-responses": 2}
+== spend (this run, tokens x gpt-5.4-nano price) = $0.00042; OpenRouter-reported cost field = $0.00042; wall = 160s

@@ -1,0 +1,6 @@
+{"pid": 34152, "tool": "vendor_lookup", "args": {"descriptor": "ADOBE *CREATIVE CLD"}, "ret": "Adobe Inc", "error": null, "predicted": false, "latency_ms": 215.5}
+{"pid": 34152, "tool": "vendor_lookup", "args": {"descriptor": "ADOBE *CREATIVE CLD"}, "ret": "Adobe Inc", "error": null, "predicted": true, "latency_ms": 1.0}
+{"pid": 34152, "tool": "vendor_lookup", "args": {"descriptor": "ADOBE *CREATIVE CLD"}, "ret": "Adobe Inc", "error": null, "predicted": true, "latency_ms": 0.8}
+{"pid": 34152, "tool": "vendor_lookup", "args": {"descriptor": "NEW MERCHANT"}, "ret": "Error calling tool 'vendor_lookup': vendor API unavailable", "error": "Error calling tool 'vendor_lookup': vendor API unavailable", "predicted": false, "latency_ms": 419.0}
+{"pid": 23304, "tool": "vendor_lookup", "args": {"descriptor": "ADOBE *CREATIVE CLD"}, "ret": "Adobe Inc", "error": null, "predicted": true, "latency_ms": 1.4}
+{"pid": 23304, "tool": "vendor_lookup", "args": {"descriptor": "STARBUCKS #12"}, "ret": "unknown vendor", "error": null, "predicted": false, "latency_ms": 300.6}

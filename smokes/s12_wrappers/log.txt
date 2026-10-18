@@ -1,0 +1,178 @@
+######## t0_unit.py
+sites: ['sys:9e65cc63c527', 'ctx', 'hdr']
+tool-call replay: vendor_lookup | extra HTTP: 0
+error run: InternalServerError("Error code: 500 - {'error': {'message': | row error: InternalServerError("Error code: 500 - {'error': {'message':
+nested+parallel: run calls = 21 | distinct indices = 21
+stream in replay: streaming / async raw responses are not supported in replay
+async: hello async -> hello async | extra HTTP: 0
+with_options/copy: calls logged = 3 | HTTP = 3
+  replay: True | extra HTTP: 0
+leak (raised): replay mode: live HTTP request POST http://mock/v1/embeddings (not a wrapped call)
+leak (swallowed): replay made 2 live HTTP request(s): ['POST http://mock/v1/embeddings', 'POST http://mock/v1/embeddin
+rich returns: ['Mod', 'Pair', 'UUID', 'bytes', 'date', 'datetime', 'dict', 'dict', 'frozenset', 'set', 'tuple'] | caught: ('TimeoutError', ('vendor db down', 7))
+not reproducible -> replay diverged at row 1: expected a reproducible response, got builtins:object return value is not JSON-repro
+openai error replay: InternalServerError 500 | extra HTTP: 0
+T0 OK
+exit=0
+######## t1_langgraph.py
+== 1. record (live)
+  run=88a328db i=1 openai site=categorize predicted=False sha=9157618e 718ms text='travel'
+  run=88a328db i=2 openai site=draft_note predicted=False sha=645f6f02 781ms text='Delta Air Lines flight SFO–JFK for $412.80 recorded under the **Travel** category.'
+  run=88a328db RUN-ROW fn=invoke calls=2 error=None
+  out: {'text': 'Delta Air Lines $412.80 flight SFO-JFK', 'category': 'travel', 'note': 'Delta Air Lines flight SFO–JFK for $412.80 recorded under the **Travel** category.'}
+  node threads/run ids seen: [('categorize', 'MainThread', '88a328db'), ('draft_note', 'MainThread', '88a328db')] | main thread: MainThread
+== 2. predictor for categorize
+  run=87d348fa i=1 openai site=categorize predicted=True sha=9157618e 0ms text='travel'
+  run=87d348fa i=2 openai site=draft_note predicted=False sha=645f6f02 1007ms text='Booked Delta Air Lines flight SFO–JFK for $412.80 under the **travel** category.'
+  run=87d348fa RUN-ROW fn=invoke calls=2 error=None
+  out: {'text': 'Delta Air Lines $412.80 flight SFO-JFK', 'category': 'travel', 'note': 'Booked Delta Air Lines flight SFO–JFK for $412.80 under the **travel** category.'} | network calls this run: 1
+== 3. replay
+  replay 88a328db: network calls=0 identical=True divergence=None
+  replay 87d348fa: network calls=0 identical=True divergence=None
+== 4. divergence (node B prompt changed)
+  raised: replay diverged at row 2: expected ['draft_note', '645f6f02700cfd71bf084c0c14ea73490a967411dff7a2ad4d60dc32f3c3a083'], got ['draft_note', '7a4cc8831f4c611e07865
+  report: {"row": 2, "expected": ["draft_note", "645f6f02700cfd71bf084c0c14ea73490a967411dff7a2ad4d60dc32f3c3a083"], "actual": ["draft_note", "7a4cc8831f4c611e078652a7317178aa9954cd768bd72156d2ed5571b9ef494e"]}
+  early stop: replay diverged at row 2: expected ['draft_note', '645f6f02700cfd71bf084c0c14ea73490a967411dff7a2ad4d60dc32f3c3a083'], g
+== 5. recertify run2's predicted row
+   [{'row': 1, 'kind': 'openai', 'call_site': 'categorize', 'logged': 'travel', 'got': 'travel', 'same': True}] | network calls: 1
+== 6. AsyncOpenAI + ainvoke
+  create is coroutine fn: True
+  run=e7b3409b i=1 openai site=categorize predicted=False sha=9157618e 758ms text='travel'
+  run=e7b3409b i=2 openai site=draft_note predicted=False sha=645f6f02 945ms text='Delta Air Lines flight SFO–JFK for $412.80 recorded under the **Travel** category.'
+  run=e7b3409b RUN-ROW fn=ainvoke calls=2 error=None
+  run=e0ecad5c i=1 openai site=categorize predicted=True sha=9157618e 0ms text='travel'
+  run=e0ecad5c i=2 openai site=draft_note predicted=False sha=645f6f02 899ms text='Delta Air Lines $412.80 (flight SFO–JFK) recorded under **travel**.'
+  run=e0ecad5c RUN-ROW fn=ainvoke calls=2 error=None
+  async replay: network calls=0 identical=True
+  async divergence: replay diverged at row 2: expected ['draft_note', '645f6f02700cfd71bf0
+  async recertify: [{'row': 1, 'kind': 'openai', 'call_site': 'categorize', 'logged': 'travel', 'got': 'travel', 'same': True}] | network calls: 1
+  sync nodes under ainvoke: [('categorize', 'asyncio_0', '6116d522'), ('draft_note', 'asyncio_0', '6116d522')]
+== tokens in=430 out=156 usd=0.000281 (live rows + recertify re-executions)
+T1 OK
+exit=0
+######## t1b_context.py
+== sync invoke: 1 node (LangGraph runs a lone task inline) / 3 parallel nodes (thread pool)
+== sync invoke: user-spawned threads
+== ainvoke: sync parallel nodes (executor), async nodes, executors, tasks
+  one_node                     thread=MainThread     run_id=b316e24b
+  par_a                        thread=ThreadPoolExecutor-2_0 run_id=96bea99d
+  par_b                        thread=ThreadPoolExecutor-2_1 run_id=96bea99d
+  par_c                        thread=ThreadPoolExecutor-2_2 run_id=96bea99d
+  copied_thread                thread=Thread-1 (run) run_id=6e6e7d9d
+  raw_thread                   thread=Thread-2 (probe) run_id=None
+  sync_in_ainvoke_a            thread=asyncio_0      run_id=31dcab3c
+  run_in_executor              thread=asyncio_2      run_id=None
+  sync_in_ainvoke_b            thread=asyncio_1      run_id=31dcab3c
+  run_in_executor+copy_context thread=asyncio_0      run_id=31dcab3c
+  async_node                   thread=MainThread     run_id=31dcab3c
+  asyncio.to_thread            thread=asyncio_3      run_id=31dcab3c
+  create_task                  thread=asyncio_2      run_id=31dcab3c
+run id LOST for: ['raw_thread', 'run_in_executor']
+== openai wrapper under parallel LangGraph nodes (worker threads)
+  threads: {'llm_a': 'ThreadPoolExecutor-4_0', 'llm_b': 'ThreadPoolExecutor-4_1', 'llm_c': 'ThreadPoolExecutor-4_2'} | run id on every row: True | indices: [1, 2, 3]
+== run_boundary on generator entry points: the run stays open until the stream is consumed
+  sync stream: run row only after the last chunk: True | calls: 2 | call rows under the run id: 2 | fn: stream
+  astream (sync nodes in executor): calls: 3 | call rows under the run id: 3 | context left clean: True
+  replay of the stream: chunks 2 | extra HTTP: 0 | divergence: None
+== parallel-branch replay ordering (informational: calls are numbered by START order, so a different start order on replay is reported as a divergence)
+  0 divergences in 40 replays of a 3-way fan-out (mock transport, instant calls)
+  35 spurious divergences in 40 replays when branch start order varies (strict start-order replay: parallel branches need a deterministic order)
+T1b OK
+exit=0
+######## t1c_chatopenai.py
+live: 'travel' | row: categorize [{'content': 'Classify the transaction as one of: travel, software, meals, other. Reply with one word.', 'role': 'system'}, {'content': 'Delta Air Lines $412.80 flight SFO-JFK', 'role': 'user'}] 48 | net: 1
+predicted: 'travel' | net delta: 0
+replay: 'travel' | net delta: 0
+T1c OK
+exit=0
+######## t2_uagents.py
+uagents 0.26.1
+ctx.send_and_receive: (self, destination: str, message: uagents_core.models.Model, response_type: type[uagents_core.models.Model] | set[type[uagents_core.models.Model]], sync: bool = False, timeout: int = 30) -> tuple[uagents_core.models.Model | None, uagents_core.types.MsgStatus]
+== live, then the same request again (learned predictor), then a different vendor
+  ask('globex'  ) -> 'globex: net60'  [live send] 0.13s | responder hits so far: 1
+  ask('globex'  ) -> 'globex: net60'  [predicted: send skipped] 0.03s | responder hits so far: 1
+  ask('acme'    ) -> 'acme: net30'  [live send] 0.06s | responder hits so far: 2
+== recertify the predicted row (run 2) against the live responder, sent from the driver's ctx
+   [{'row': 1, 'kind': 'a2a', 'call_site': 'agent1qg70zwqcne570fz36zjgdnhssryt5lttxaa4tgzpaqezy88jf0q6ucwtswg|VendorLookup', 'logged': {'type': 'VendorInfo', 'body': {'vendor': 'globex', 'terms': 'net60'}}, 'got': {'type': 'VendorInfo', 'body': {'vendor': 'globex', 'terms': 'net60'}}, 'same': True}]
+== kill the responder (outage)
+  ask('acme'    ) -> 'acme: net30'  [predicted: works in outage] 0.02s | responder hits so far: 3
+  ask('initech' ) -> 'initech: unknown (fallback)'  [live send fails -> registered fallback] 2.07s | responder hits so far: 3
+== trace rows (requester process)
+  run=b6b2e8b9 i=1 a2a    site=zpaqezy88jf0q6ucwtswg|VendorLookup predicted=False fallback=False error=None 27ms resp={'type': 'VendorInfo', 'body': {'vendor': 'globex', 'terms': 'net60'}}
+  run=b6b2e8b9 i=2 effect site=92qykyfy9t6474ws5xj2wx4a43m|Answer predicted=False fallback=False error=None 14ms resp=delivered
+  run=b6b2e8b9 i=None run    site=chat predicted=None fallback=None error=None 44ms resp=
+  run=3f616eb5 i=1 a2a    site=zpaqezy88jf0q6ucwtswg|VendorLookup predicted=True fallback=False error=None 0ms resp={'type': 'VendorInfo', 'body': {'vendor': 'globex', 'terms': 'net60'}}
+  run=3f616eb5 i=2 effect site=92qykyfy9t6474ws5xj2wx4a43m|Answer predicted=False fallback=False error=None 12ms resp=delivered
+  run=3f616eb5 i=None run    site=chat predicted=None fallback=None error=None 15ms resp=
+  run=caa0cda1 i=1 a2a    site=zpaqezy88jf0q6ucwtswg|VendorLookup predicted=False fallback=False error=None 38ms resp={'type': 'VendorInfo', 'body': {'vendor': 'acme', 'terms': 'net30'}}
+  run=caa0cda1 i=2 effect site=92qykyfy9t6474ws5xj2wx4a43m|Answer predicted=False fallback=False error=None 13ms resp=delivered
+  run=caa0cda1 i=None run    site=chat predicted=None fallback=None error=None 54ms resp=
+  run=a5f35ba6 i=1 a2a    site=zpaqezy88jf0q6ucwtswg|VendorLookup predicted=True fallback=False error=None 0ms resp={'type': 'VendorInfo', 'body': {'vendor': 'acme', 'terms': 'net30'}}
+  run=a5f35ba6 i=2 effect site=92qykyfy9t6474ws5xj2wx4a43m|Answer predicted=False fallback=False error=None 12ms resp=delivered
+  run=a5f35ba6 i=None run    site=chat predicted=None fallback=None error=None 15ms resp=
+  run=41bcea8e i=1 a2a    site=zpaqezy88jf0q6ucwtswg|VendorLookup predicted=False fallback=True error=RuntimeError('Message delivery failed') 2045ms resp={'type': 'VendorInfo', 'body': {'vendor': 'initech', 'terms': 'unknown (fallback)'}}
+  run=41bcea8e i=2 effect site=92qykyfy9t6474ws5xj2wx4a43m|Answer predicted=False fallback=False error=None 12ms resp=delivered
+  run=41bcea8e i=None run    site=chat predicted=None fallback=None error=None 2060ms resp=
+== replay each run with a fake ctx in a fresh process (no sockets, no agents)
+  replay run=b6b2e8b9 ask='globex'  -> 'globex: net60' logged='globex: net60' same=True divergence=None
+  replay run=3f616eb5 ask='globex'  -> 'globex: net60' logged='globex: net60' same=True divergence=None
+  replay run=caa0cda1 ask='acme'    -> 'acme: net30' logged='acme: net30' same=True divergence=None
+  replay run=a5f35ba6 ask='acme'    -> 'acme: net30' logged='acme: net30' same=True divergence=None
+  replay run=41bcea8e ask='initech' -> 'initech: unknown (fallback)' logged='initech: unknown (fallback)' same=True divergence=None
+  divergence: replay diverged at row 1: expected ['agent1qg70zwqcne570fz36zjgdnhssryt5lttxaa4tgzpaqezy88jf0q6ucwtswg|VendorLookup', '44da1fddc062271ada8439a0d88d693
+  no fallback -> None failed | logged error: connection refused | site: agent1qdest|VendorLookup
+  soft failure replay -> None failed 'connection refused' | divergence: None
+  branch on `info is None`: lookup failed: connection refused -> lookup failed: connection refused
+  keyword sends: ['delivered', 'delivered', 'delivered', 'net30'] | effect rows: ['t1qd|Ask', 't1qd|Ask', 't1qd|Ask']
+T2b OK
+ 
+T2 OK
+exit=0
+######## t2c_chat.py
+== live (a2a + model), then the same chat again (both predicted)
+  say('acme'   ) -> 'Payment terms for acme: net30.'  [live a2a + live model] 1.44s | responder hits: 1, model HTTP: 1
+  say('acme'   ) -> 'Payment terms for acme: net30.'  [predicted a2a + predicted model] 0.03s | responder hits: 1, model HTTP: 1
+  run 195b03a6 [(1, 'effect', 'cknowledgement', 'live'), (2, 'a2a', 'g|VendorLookup', 'live'), (3, 'openai', 'reply', 'live'), (4, 'effect', '3m|ChatMessage', 'live')]
+  run 1768be17 [(1, 'effect', 'cknowledgement', 'live'), (2, 'a2a', 'g|VendorLookup', 'predicted'), (3, 'openai', 'reply', 'predicted'), (4, 'effect', '3m|ChatMessage', 'live')]
+== recertify run 2's predicted rows live (driver ctx -> responder; plain async client -> model)
+   {'row': 2, 'kind': 'a2a', 'call_site': 'agent1qg70zwqcne570fz36zjgdnhssryt5lttxaa4tgzpaqezy88jf0q6ucwtswg|VendorLookup', 'logged': {'type': 'VendorInfo', 'body': {'vendor': 'acme', 'terms': 'net30'}}, 'got': {'type': 'VendorInfo', 'body': {'vendor': 'acme', 'terms': 'net30'}}, 'same': True}
+   {'row': 3, 'kind': 'openai', 'call_site': 'reply', 'logged': 'Payment terms for acme: net30.', 'got': 'Payment terms for acme: net30.', 'same': True}
+== kill the responder (outage)
+  say('acme'   ) -> 'Payment terms for acme: net30.'  [predicted: works in outage] 0.04s | responder hits: 2, model HTTP: 1
+  say('initech') -> 'Payment terms for initech: unknown (fallback).'  [live send fails -> fallback, model live] 3.76s | responder hits: 2, model HTTP: 2
+== replay each run through the real chat handler with a fake ctx and the REAL wrapped model client (guard: any request raises ReplayLeak)
+  replay run=195b03a6 chat='acme'    -> 'Payment terms for acme: net30.' same=True divergence=None leaks=[]
+  replay run=1768be17 chat='acme'    -> 'Payment terms for acme: net30.' same=True divergence=None leaks=[]
+  replay run=38a5d5d7 chat='acme'    -> 'Payment terms for acme: net30.' same=True divergence=None leaks=[]
+  replay run=59446c80 chat='initech' -> 'Payment terms for initech: unknown (fallback).' same=True divergence=None leaks=[]
+  negative control: replay mode: live HTTP request POST https://openrouter.ai/api/v1/embeddings (not a wrapped call)
+T2c replay OK
+ 
+== tokens in=98 out=73 usd=0.000111
+T2c OK
+exit=0
+######## t3_tool.py
+== sync tool in a run
+  i=1 site=vendor_lookup args=['acme'] predicted=True fallback=False error=None pred=0.99 spec_next=match_invoice resp={'id': 'V1', 'terms': 'net30'}
+  i=2 site=vendor_lookup args=['globex'] predicted=True fallback=False error=None pred=0.97 spec_next=match_invoice resp={'id': 'V2', 'terms': 'net60'}
+  i=3 site=vendor_lookup args=['initech'] predicted=False fallback=False error=None pred=0.5 spec_next=match_invoice resp={'id': 'V3', 'terms': 'net15'}
+  i=4 site=vendor_lookup args=['boom'] predicted=False fallback=True error=TimeoutError('vendor db down') pred=0.0 spec_next=match_invoice resp={'id': None, 'terms': 'unknown'}
+  real executions: ['initech', 'boom']
+== no fallback: exception propagates, still logged
+  i=0 site=vendor_lookup_nofb args=['x'] predicted=False fallback=False error=TimeoutError('vendor db down') pred=None spec_next=None resp=None
+== broken predictor is a miss, not an outage
+== async tool
+  i=1 site=vendor_lookup_async args=['acme'] predicted=True fallback=False error=None pred=0.99 spec_next=None resp={'id': 'V1', 'terms': 'net30'}
+  i=2 site=vendor_lookup_async args=['initech'] predicted=False fallback=False error=None pred=0.5 spec_next=None resp={'id': 'V3', 'terms': 'net15'}
+  i=3 site=vendor_lookup_async args=['boom'] predicted=False fallback=True error=TimeoutError('vendor db down') pred=0.0 spec_next=None resp={'id': None, 'terms': 'unknown', 'vendor': 'boom'}
+  real executions: ['initech', 'boom']
+== recertify: predicted tool rows re-executed live on their logged args (sync run, async run); a wrong predictor is caught
+  sync run : [('vendor_lookup', True), ('vendor_lookup', True)] | re-executed: ['acme', 'globex']
+  async run: [('vendor_lookup_async', True)]
+  wrong predictor: {'id': 'V1', 'terms': 'net99'} vs real {'id': 'V1', 'terms': 'net30'} -> same = False
+== replay the first run: no tool body executes, same results incl. the fallback
+  replay results equal: True | real executions: []
+== replay with a different arg -> divergence at row 2
+   replay diverged at row 2: expected ['vendor_lookup', 'fbc1ed1583e459a958a3246e6f4feb12d2444f52aabea3 | 2
+T3 OK
+exit=0

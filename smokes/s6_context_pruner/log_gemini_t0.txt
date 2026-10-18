@@ -1,0 +1,290 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[teacher] gemini_t0: google/gemini-3.5-flash-lite, require_parameters=True
+[data] 250 questions, skipped 3 non-10-paragraph items while sampling
+[split] N=250 train=150 heldout=100
+[judge] 0 new pair calls, 630 cached total, unparsed 1
+[determinism] {'n': 40, 'mean_distinct_of5': 1.3, 'all5_identical': 0.8, 'all5_equivalent_judge': 0.85, 'seed0_pair_identical': 1.0, 'seed0_pair_equivalent_judge': 1.0}
+[legacy relaxed audit] {'n_pairs': 384, 'judge_yes': 74, 'containment_only': 61, 'containment_judge_yes': 33, 'f1_only': 35, 'f1_only_judge_yes': 24, 'neither': 288, 'neither_judge_yes': 17}
+[spend after labels] $1.467, reasoning tokens total 0 (missing in 0), finish!=stop 92, empty answers 0, providers {'Google AI Studio': 4428}
+[judge] 0 new pair calls, 630 cached total, unparsed 1
+{
+ "tag": "gemini_t0",
+ "model": "google/gemini-3.5-flash-lite",
+ "require_parameters": true,
+ "N": 250,
+ "ntrain": 150,
+ "nheld": 100,
+ "labels": {
+  "strict": {
+   "all": {
+    "n": 250,
+    "frac_matter": 0.2184,
+    "frac_matter_gold": 0.564,
+    "frac_matter_nongold": 0.132,
+    "q_zero_matter": 0.16,
+    "precision": 0.5164835164835165,
+    "recall": 0.564,
+    "mean_matter_per_q": 2.184
+   },
+   "train": {
+    "n": 150,
+    "frac_matter": 0.22466666666666665,
+    "frac_matter_gold": 0.5833333333333334,
+    "frac_matter_nongold": 0.135,
+    "q_zero_matter": 0.14,
+    "precision": 0.5192878338278932,
+    "recall": 0.5833333333333334,
+    "mean_matter_per_q": 2.2466666666666666
+   },
+   "heldout": {
+    "n": 100,
+    "frac_matter": 0.209,
+    "frac_matter_gold": 0.535,
+    "frac_matter_nongold": 0.1275,
+    "q_zero_matter": 0.19,
+    "precision": 0.5119617224880383,
+    "recall": 0.535,
+    "mean_matter_per_q": 2.09
+   }
+  },
+  "judge": {
+   "all": {
+    "n": 250,
+    "frac_matter": 0.1624,
+    "frac_matter_gold": 0.51,
+    "frac_matter_nongold": 0.0755,
+    "q_zero_matter": 0.2,
+    "precision": 0.6280788177339901,
+    "recall": 0.51,
+    "mean_matter_per_q": 1.624
+   },
+   "train": {
+    "n": 150,
+    "frac_matter": 0.17866666666666667,
+    "frac_matter_gold": 0.5366666666666666,
+    "frac_matter_nongold": 0.08916666666666667,
+    "q_zero_matter": 0.16666666666666666,
+    "precision": 0.6007462686567164,
+    "recall": 0.5366666666666666,
+    "mean_matter_per_q": 1.7866666666666666
+   },
+   "heldout": {
+    "n": 100,
+    "frac_matter": 0.138,
+    "frac_matter_gold": 0.47,
+    "frac_matter_nongold": 0.055,
+    "q_zero_matter": 0.25,
+    "precision": 0.6811594202898551,
+    "recall": 0.47,
+    "mean_matter_per_q": 1.38
+   }
+  }
+ },
+ "gold_acc_full": {
+  "all": {
+   "em": 0.616,
+   "contains": 0.716
+  },
+  "train": {
+   "em": 0.6533333333333333,
+   "contains": 0.7466666666666667
+  },
+  "heldout": {
+   "em": 0.56,
+   "contains": 0.67
+  }
+ },
+ "em_full_by_type": {
+  "bridge": 0.6030150753768844,
+  "comparison": 0.6666666666666666
+ },
+ "f1_full": 0.7656526885249091,
+ "replicate_disagree_strict": 0.072,
+ "replicate_disagree_judge": 0.048,
+ "determinism": {
+  "n": 40,
+  "mean_distinct_of5": 1.3,
+  "all5_identical": 0.8,
+  "all5_equivalent_judge": 0.85,
+  "seed0_pair_identical": 1.0,
+  "seed0_pair_equivalent_judge": 1.0
+ },
+ "legacy_check": {
+  "n_pairs": 384,
+  "judge_yes": 74,
+  "containment_only": 61,
+  "containment_judge_yes": 33,
+  "f1_only": 35,
+  "f1_only_judge_yes": 24,
+  "neither": 288,
+  "neither_judge_yes": 17
+ },
+ "coef": {
+  "ablation": {
+   "cos": 0.697,
+   "position": -0.049,
+   "n_words": -0.059,
+   "q_overlap": -0.052,
+   "title_in_q": 0.388,
+   "title_tok_overlap": -0.4
+  },
+  "gold": {
+   "cos": 1.889,
+   "position": 0.023,
+   "n_words": -0.766,
+   "q_overlap": -0.038,
+   "title_in_q": 1.147,
+   "title_tok_overlap": -0.809
+  }
+ },
+ "closed_book": {
+  "contains_gold": 0.32,
+  "em_gold": 0.31,
+  "contains_gold_by_type": {
+   "bridge": [
+    0.25316455696202533,
+    79
+   ],
+   "comparison": [
+    0.5714285714285714,
+    21
+   ]
+  }
+ },
+ "full_te": {
+  "contains_gold": 0.67,
+  "contains_gold_by_type": {
+   "bridge": [
+    0.6962025316455697,
+    79
+   ],
+   "comparison": [
+    0.5714285714285714,
+    21
+   ]
+  },
+  "stable_frac": 0.93
+ },
+ "spend_usd": 1.4670028000000002,
+ "teacher_usd": 1.443696,
+ "judge_usd": 0.0233068,
+ "wall_s": 91.88331389427185,
+ "n_calls": 4428,
+ "n_judge": 630,
+ "providers": {
+  "Google AI Studio": 4428
+ },
+ "mean_full_prompt_tokens": 1383.752,
+ "mean_full_answer_tokens": 4.36,
+ "reasoning_tokens": 0,
+ "reasoning_missing": 0,
+ "nonstop_finish": 92,
+ "empty_answers": 0,
+ "judge_unparsed": 1,
+ "judge_nonstop": 0,
+ "mean_reasoning_tokens_per_call": 0.0,
+ "n_closed_nonstop": 3
+}
+
+| scorer | AUC pooled (strict label) | within-q (strict) | pooled (judge) | within-q (judge) | AUC pooled (gold) | within-q (gold) | train within-q (strict) |
+|---|---|---|---|---|---|---|---|
+| learned | 0.681 | 0.770 | 0.710 | 0.800 | 0.894 | 0.897 | 0.795 |
+| learned (gold-trained) | 0.678 | 0.774 | 0.709 | 0.800 | 0.899 | 0.908 | 0.796 |
+| learned+rel (extra) | 0.677 | 0.764 | 0.716 | 0.796 | 0.900 | 0.896 | 0.801 |
+| cross-encoder | 0.641 | 0.738 | 0.662 | 0.759 | 0.828 | 0.851 | 0.759 |
+| oracle (gold paras) | 0.695 | 0.824 | 0.773 | 0.866 | 1.000 | 1.000 | 0.856 |
+| random | 0.499 | 0.518 | 0.497 | 0.499 | 0.513 | 0.509 | 0.507 |
+
+| scorer | k | agree strict | agree judge | EM gold | contains gold | tokens removed | both gold kept | strict agree if both kept | if not | strict agree stable / unstable q | 95% UB disagree strict | 95% UB disagree judge |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| learned | 2 | 0.62 | 0.71 | 0.44 | 0.52 | 80.6% | 0.58 | 0.84 | 0.31 | 0.67 / 0.00 | 0.47 | 0.37 |
+| learned | 3 | 0.72 | 0.78 | 0.49 | 0.58 | 71.7% | 0.74 | 0.85 | 0.35 | 0.76 / 0.14 | 0.36 | 0.30 |
+| learned | 4 | 0.70 | 0.79 | 0.49 | 0.60 | 62.4% | 0.77 | 0.82 | 0.30 | 0.74 / 0.14 | 0.38 | 0.29 |
+| learned (gold-trained) | 2 | 0.63 | 0.69 | 0.43 | 0.52 | 81.2% | 0.60 | 0.83 | 0.33 | 0.68 / 0.00 | 0.46 | 0.39 |
+| learned (gold-trained) | 3 | 0.74 | 0.81 | 0.49 | 0.58 | 73.5% | 0.73 | 0.88 | 0.37 | 0.78 / 0.14 | 0.34 | 0.27 |
+| learned (gold-trained) | 4 | 0.74 | 0.82 | 0.50 | 0.61 | 65.6% | 0.82 | 0.82 | 0.39 | 0.80 / 0.00 | 0.34 | 0.26 |
+| learned+rel (extra) | 2 | 0.62 | 0.72 | 0.44 | 0.52 | 80.6% | 0.59 | 0.81 | 0.34 | 0.67 / 0.00 | 0.47 | 0.36 |
+| learned+rel (extra) | 3 | 0.71 | 0.77 | 0.46 | 0.55 | 71.9% | 0.70 | 0.86 | 0.37 | 0.75 / 0.14 | 0.37 | 0.31 |
+| learned+rel (extra) | 4 | 0.67 | 0.78 | 0.46 | 0.57 | 62.8% | 0.77 | 0.79 | 0.26 | 0.71 / 0.14 | 0.42 | 0.30 |
+| cross-encoder | 2 | 0.58 | 0.69 | 0.40 | 0.47 | 79.9% | 0.48 | 0.77 | 0.40 | 0.61 / 0.14 | 0.51 | 0.39 |
+| cross-encoder | 3 | 0.65 | 0.75 | 0.46 | 0.53 | 71.5% | 0.64 | 0.81 | 0.36 | 0.69 / 0.14 | 0.44 | 0.33 |
+| cross-encoder | 4 | 0.73 | 0.82 | 0.50 | 0.58 | 62.3% | 0.73 | 0.85 | 0.41 | 0.76 / 0.29 | 0.35 | 0.26 |
+| oracle (gold paras) | 2 | 0.81 | 0.88 | 0.60 | 0.74 | 80.4% | 1.00 | 0.81 | - | 0.87 / 0.00 | 0.27 | 0.19 |
+| oracle (gold paras) | 3 | 0.84 | 0.89 | 0.58 | 0.73 | 70.7% | 1.00 | 0.84 | - | 0.89 / 0.14 | 0.23 | 0.18 |
+| oracle (gold paras) | 4 | 0.85 | 0.90 | 0.58 | 0.72 | 60.3% | 1.00 | 0.85 | - | 0.90 / 0.14 | 0.22 | 0.16 |
+| random | 2 | 0.21 | 0.22 | 0.16 | 0.22 | 78.4% | 0.01 | 1.00 | 0.20 | 0.22 / 0.14 | 0.85 | 0.85 |
+| random | 3 | 0.25 | 0.27 | 0.18 | 0.24 | 68.8% | 0.04 | 1.00 | 0.22 | 0.26 / 0.14 | 0.82 | 0.80 |
+| random | 4 | 0.35 | 0.38 | 0.26 | 0.32 | 59.1% | 0.10 | 0.80 | 0.30 | 0.35 / 0.29 | 0.73 | 0.70 |
+| full-context re-ask (noise floor) | 10 | 0.93 | 0.98 | 0.58 | 0.68 | 0.0% | 1.00 | 0.93 | - | 1.00 / - | 0.13 | 0.06 |
+
+McNemar exact (a-only, b-only, p):
+  cross-encoder vs learned|2|strict [8, 12, 0.5034446716308594]
+  cross-encoder vs learned|2|judge [10, 12, 0.8318119049072266]
+  cross-encoder vs learned|3|strict [9, 16, 0.2295229434967041]
+  cross-encoder vs learned|3|judge [11, 14, 0.6900379657745361]
+  cross-encoder vs learned|4|strict [10, 7, 0.629058837890625]
+  cross-encoder vs learned|4|judge [9, 6, 0.6072387695312499]
+  cross-encoder vs learned (gold-trained)|2|strict [6, 11, 0.332305908203125]
+  cross-encoder vs learned (gold-trained)|2|judge [9, 9, 1.0]
+  cross-encoder vs learned (gold-trained)|3|strict [6, 15, 0.0783538818359375]
+  cross-encoder vs learned (gold-trained)|3|judge [7, 13, 0.26317596435546875]
+  cross-encoder vs learned (gold-trained)|4|strict [8, 9, 1.0]
+  cross-encoder vs learned (gold-trained)|4|judge [8, 8, 1.0]
+  learned (gold-trained) vs learned|2|strict [3, 2, 1.0]
+  learned (gold-trained) vs learned|2|judge [2, 4, 0.6875]
+  learned (gold-trained) vs learned|3|strict [3, 1, 0.625]
+  learned (gold-trained) vs learned|3|judge [5, 2, 0.453125]
+  learned (gold-trained) vs learned|4|strict [7, 3, 0.34375]
+  learned (gold-trained) vs learned|4|judge [6, 3, 0.5078125]
+  cross-encoder vs learned+rel (extra)|2|strict [7, 11, 0.480682373046875]
+  cross-encoder vs learned+rel (extra)|2|judge [9, 12, 0.6636238098144531]
+  cross-encoder vs learned+rel (extra)|3|strict [8, 14, 0.28627872467041016]
+  cross-encoder vs learned+rel (extra)|3|judge [10, 12, 0.8318119049072266]
+  cross-encoder vs learned+rel (extra)|4|strict [12, 6, 0.237884521484375]
+  cross-encoder vs learned+rel (extra)|4|judge [9, 5, 0.4239501953125]
+  learned+rel (extra) vs learned|2|strict [2, 2, 1.0]
+  learned+rel (extra) vs learned|2|judge [4, 3, 1.0]
+  learned+rel (extra) vs learned|3|strict [2, 3, 1.0]
+  learned+rel (extra) vs learned|3|judge [3, 4, 1.0]
+  learned+rel (extra) vs learned|4|strict [1, 4, 0.375]
+  learned+rel (extra) vs learned|4|judge [2, 3, 1.0]
+  oracle (gold paras) vs cross-encoder|2|strict [26, 3, 1.5236437320709229e-05]
+  oracle (gold paras) vs cross-encoder|2|judge [22, 3, 0.00015652179718017578]
+  oracle (gold paras) vs cross-encoder|3|strict [21, 2, 6.604194641113281e-05]
+  oracle (gold paras) vs cross-encoder|3|judge [16, 2, 0.001312255859375]
+  oracle (gold paras) vs cross-encoder|4|strict [15, 3, 0.007537841796875]
+  oracle (gold paras) vs cross-encoder|4|judge [11, 3, 0.057373046875]
+  oracle (gold paras) vs noise floor|2|strict [0, 12, 0.00048828125]
+  oracle (gold paras) vs noise floor|2|judge [0, 10, 0.001953125]
+  oracle (gold paras) vs noise floor|3|strict [1, 10, 0.01171875]
+  oracle (gold paras) vs noise floor|3|judge [0, 9, 0.00390625]
+  oracle (gold paras) vs noise floor|4|strict [1, 9, 0.021484375]
+  oracle (gold paras) vs noise floor|4|judge [1, 9, 0.021484375]
+  learned vs noise floor|2|strict [0, 31, 9.313225746154785e-10]
+  learned vs noise floor|2|judge [0, 27, 1.4901161193847656e-08]
+  learned vs noise floor|3|strict [1, 22, 5.7220458984375e-06]
+  learned vs noise floor|3|judge [0, 20, 1.9073486328125e-06]
+  learned vs noise floor|4|strict [1, 24, 1.5497207641601562e-06]
+  learned vs noise floor|4|judge [1, 20, 2.09808349609375e-05]
+  learned (gold-trained) vs noise floor|2|strict [0, 30, 1.862645149230957e-09]
+  learned (gold-trained) vs noise floor|2|judge [0, 29, 3.725290298461914e-09]
+  learned (gold-trained) vs noise floor|3|strict [1, 20, 2.09808349609375e-05]
+  learned (gold-trained) vs noise floor|3|judge [0, 17, 1.52587890625e-05]
+  learned (gold-trained) vs noise floor|4|strict [0, 19, 3.814697265625e-06]
+  learned (gold-trained) vs noise floor|4|judge [0, 16, 3.0517578125e-05]
+  cross-encoder vs noise floor|2|strict [1, 36, 5.529727786779404e-10]
+  cross-encoder vs noise floor|2|judge [0, 29, 3.725290298461914e-09]
+  cross-encoder vs noise floor|3|strict [1, 29, 5.774199962615967e-08]
+  cross-encoder vs noise floor|3|judge [0, 23, 2.384185791015625e-07]
+  cross-encoder vs noise floor|4|strict [2, 22, 3.5881996154785156e-05]
+  cross-encoder vs noise floor|4|judge [1, 17, 0.00014495849609375]
+  oracle vs full, EM gold|2 [7, 3, 0.34375]
+  oracle vs full, contains gold|2 [8, 1, 0.0390625]
+  oracle vs full, EM gold|3 [6, 4, 0.75390625]
+  oracle vs full, contains gold|3 [8, 2, 0.109375]
+  oracle vs full, EM gold|4 [5, 3, 0.7265625]
+  oracle vs full, contains gold|4 [7, 2, 0.1796875]
+closed book: {'contains_gold': 0.32, 'em_gold': 0.31, 'contains_gold_by_type': {np.str_('bridge'): (0.25316455696202533, 79), np.str_('comparison'): (0.5714285714285714, 21)}} 
+full context (held-out): {'contains_gold': 0.67, 'contains_gold_by_type': {np.str_('bridge'): (0.6962025316455697, 79), np.str_('comparison'): (0.5714285714285714, 21)}, 'stable_frac': 0.93}
+
+wall 92s; spend $1.467 (teacher $1.444, judge $0.023)

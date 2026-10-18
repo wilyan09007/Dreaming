@@ -1,0 +1,30 @@
+[   0.8s] seed 9: simulated
+[   2.1s] seed 9: cat student
+[   9.9s] seed 9: ven student
+[  10.7s] seed 9: tabular steps
+[  11.4s] seed 9: analysis
+[  12.0s] seed 21: simulated
+[  12.9s] seed 21: cat student
+[  21.8s] seed 21: ven student
+[  22.7s] seed 21: tabular steps
+[  23.2s] seed 21: analysis
+[  23.7s] seed 22: simulated
+[  24.8s] seed 22: cat student
+[  31.0s] seed 22: ven student
+[  31.8s] seed 22: tabular steps
+[  32.3s] seed 22: analysis
+[  32.8s] seed 23: simulated
+[  33.8s] seed 23: cat student
+[  40.8s] seed 23: ven student
+[  41.6s] seed 23: tabular steps
+[  42.1s] seed 23: analysis
+[  42.7s] seed 24: simulated
+[  43.8s] seed 24: cat student
+[  51.4s] seed 24: ven student
+[  52.5s] seed 24: tabular steps
+[  53.1s] seed 24: analysis
+[  53.9s] seed 25: simulated
+[  55.1s] seed 25: cat student
+[  64.1s] seed 25: ven student
+[  64.8s] seed 25: tabular steps
+[  65.3s] seed 25: analysis

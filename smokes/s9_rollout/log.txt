@@ -1,0 +1,204 @@
+## Main world (seed 9)
+
+Real trajectories executed with real tools: train 3000, cal 1800, test 1200. Realized invoice rate: train 0.748, test 0.714; anomaly=yes rate: train 0.288, test 0.314; test transactions with a vendor absent from training: 0.195
+
+Step students kept (grid certifier, 2% budget): categorize = LR (cal acc LR 0.954 / NN 0.857), vendor_lookup = LR (cal acc LR 0.792 / NN 0.774). With the original certify the kept students would have been: categorize = LR, vendor_lookup = LR.
+
+### Steps ahead matched (imagined trajectory equals the real one for the first k steps)
+
+| test slice | n | k=0 | k=1 | k=2 | k=3 | k=4 (whole trajectory) | mean k |
+|---|---|---|---|---|---|---|---|
+| all test | 1200 | 0.05667 | 0.1417 | 0.04 | 0.005 | 0.7567 | 3.263 |
+| known vendors | 966 | 0.00207 | 0.00207 | 0.04969 | 0.006211 | 0.94 | 3.88 |
+| novel vendors | 234 | 0.2821 | 0.7179 | 0 | 0 | 0 | 0.7179 |
+
+### Per-step accuracy: chained (consumes predicted upstream) vs teacher-forced (consumes real upstream)
+
+| step | chained acc | teacher-forced acc | chained acc, known vendors | chained acc, novel vendors |
+|---|---|---|---|---|
+| categorize | 0.9433 | 0.9433 | 0.9979 | 0.7179 |
+| vendor_lookup | 0.8033 | 0.8033 | 0.9979 | 0 |
+| match_invoice | 0.8958 | 0.875 | 0.9503 | 0.6709 |
+| flag_anomaly | 0.8975 | 0.9908 | 0.9431 | 0.7094 |
+
+Baselines: invoice found = majority class 0.714; anomaly majority class 0.686. Teacher-forced is an upper bound only for step 4. For step 3 it can be lower than chained because real vendors absent from training reach the HGB as arbitrary vendor numbers, whereas a predicted vendor is always a training vendor.
+
+### Early routing to review. Real anomaly=yes base rate in test: 0.314 (377 of 1200)
+
+| policy | share routed | precision | recall | true anomalies routed | false routes |
+|---|---|---|---|---|---|
+| send everything to review | 1 | 0.3142 | 1 | 377 | 823 |
+| imagined anomaly = yes (chained rollout) | 0.3367 | 0.8144 | 0.8727 | 329 | 75 |
+| imagined P(anomaly) > 0.8 | 0.3308 | 0.8186 | 0.8621 | 325 | 72 |
+| imagined P(anomaly) > 0.95 | 0.3225 | 0.8217 | 0.8435 | 318 | 69 |
+| step-4 predictor on the REAL upstream outputs (reference) | 0.3117 | 0.9893 | 0.9814 | 370 | 4 |
+| approximate rule (no invoice OR amount > 3x TRAIN-estimated vendor mean) on imagined upstream outputs | 0.335 | 0.8085 | 0.8621 | 325 | 77 |
+
+| slice | n | real anomaly rate | precision (chained) | recall (chained) |
+|---|---|---|---|---|
+| known vendors | 966 | 0.2557 | 0.8429 | 0.9555 |
+| novel vendors | 234 | 0.5556 | 0.75 | 0.7154 |
+
+### Confident trajectories, grid certifier (every step above its certified cutoff; per-step budget b, delta 0.05 per step, steps gated sequentially on the calibration slice)
+
+| budget b | cut 1 | cut 2 | cut 3 | cut 4 | share of test with whole trajectory confident | n | trajectory error among them (any step wrong) | mean confident prefix (steps skippable) |
+|---|---|---|---|---|---|---|---|---|
+| 0.02 | 0.726 | 0.695 | 0.971 | 0.998 | 0.3417 | 410 | 5/410 = 1.22% | 2.447 |
+| 0.03 | 0.454 | 0.682 | 0.933 | 0.998 | 0.4358 | 523 | 8/523 = 1.53% | 2.703 |
+| 0.05 | 0.185 | 0.383 | 0.891 | 0.971 | 0.655 | 786 | 35/786 = 4.45% | 3.115 |
+| 0.1 | 0.001 | 0.233 | 0.064 | 0.024 | 0.8408 | 1009 | 103/1009 = 10.21% | 3.525 |
+
+Same, with the original `common.certify` (as shipped; `inf` = it found nothing certifiable):
+
+| budget b | cut 1 | cut 2 | cut 3 | cut 4 | share confident | n | trajectory error |
+|---|---|---|---|---|---|---|---|
+| 0.02 | 0.454 | 0.513 | inf | inf | 0 | 0 | 0/0 |
+| 0.03 | 0.231 | 0.49 | 0.942 | 0.998 | 0.4358 | 523 | 10/523 = 1.91% |
+| 0.05 | 0.028 | 0.376 | 0.863 | 0.997 | 0.5733 | 688 | 31/688 = 4.51% |
+| 0.1 | 0.001 | 0.166 | 0.064 | 0.024 | 0.865 | 1038 | 131/1038 = 12.62% |
+
+### Calls avoided when the whole imagined trajectory is confident
+
+categorize and flag_anomaly (teacher calls) and vendor_lookup have fully specified outputs (a category, a vendor id, yes/no), so all three are avoided whenever the trajectory is confident. match_invoice returns an invoice id, which the rollout cannot supply: it can be skipped only when the imagined output is NONE. Each test transaction has 2 teacher calls and 2 tool calls; 'old accounting' counted match_invoice as skipped for every confident trajectory.
+
+| budget b | confident share = teacher calls avoided = vendor_lookup avoided | share of confident trajectories whose imagined invoice is `found` (id unavailable) | match_invoice avoided (confident and imagined NONE, share of test) | tool calls avoided, fully specified outputs | tool calls avoided, old accounting | step latency avoided, fully specified | step latency avoided, old accounting |
+|---|---|---|---|---|---|---|---|
+| 0.02 | 0.3417 | 1 | 0 | 0.1708 | 0.3417 | 0.3204 | 0.3354 |
+| 0.03 | 0.4358 | 0.9331 | 0.02917 | 0.2325 | 0.4358 | 0.4115 | 0.4295 |
+| 0.05 | 0.655 | 0.8372 | 0.1067 | 0.3808 | 0.655 | 0.6289 | 0.6533 |
+| 0.1 | 0.8408 | 0.7403 | 0.2183 | 0.5296 | 0.8408 | 0.8094 | 0.8369 |
+
+### State divergence from skipping match_invoice (replayed on the invoice table; an executed match consumes its invoice)
+
+| budget b | policy | match_invoice calls still executed | executed results that differ from the all-real run (invoice id) | ... of which found/NONE flips | confident trajectories with an error |
+|---|---|---|---|---|---|
+| 0.02 | skip match_invoice only when imagined NONE; executed matches use the predicted vendor | 1200 | 2/1200 = 0.17% | 2/1200 = 0.17% | 5 |
+| 0.02 | old accounting: skip match_invoice for every confident trajectory | 790 | 0/790 = 0.00% | 0/790 = 0.00% | 5 |
+| 0.03 | skip match_invoice only when imagined NONE; executed matches use the predicted vendor | 1165 | 2/1165 = 0.17% | 2/1165 = 0.17% | 8 |
+| 0.03 | old accounting: skip match_invoice for every confident trajectory | 677 | 0/677 = 0.00% | 0/677 = 0.00% | 8 |
+| 0.05 | skip match_invoice only when imagined NONE; executed matches use the predicted vendor | 1072 | 16/1072 = 1.49% | 15/1072 = 1.40% | 35 |
+| 0.05 | old accounting: skip match_invoice for every confident trajectory | 414 | 0/414 = 0.00% | 0/414 = 0.00% | 35 |
+| 0.1 | skip match_invoice only when imagined NONE; executed matches use the predicted vendor | 938 | 33/938 = 3.52% | 31/938 = 3.30% | 103 |
+| 0.1 | old accounting: skip match_invoice for every confident trajectory | 191 | 0/191 = 0.00% | 0/191 = 0.00% | 103 |
+
+### Error structure among confident trajectories (grid certifier)
+
+| b | n confident | err step 1 | err step 2 (vendor) | err step 3 (invoice) | err step 4 | step 4 wrong while step 3 right | trajectory error (any step) | vendor + invoice error | trajectory error / b | P(step 3 wrong | vendor wrong) | P(vendor and invoice both wrong) | mean k among confident | novel-vendor share among confident |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 0.02 | 410 | 0 | 0.004878 | 0.007317 | 0.007317 | 0 | 0.0122 | 0.0122 | 0.6098 | 0 | 0 | 3.971 | 0.004878 |
+| 0.03 | 523 | 0 | 0.003824 | 0.01147 | 0.01147 | 0 | 0.0153 | 0.0153 | 0.5099 | 0 | 0 | 3.966 | 0.003824 |
+| 0.05 | 786 | 0.001272 | 0.02036 | 0.0229 | 0.0229 | 0 | 0.04453 | 0.04326 | 0.8906 | 0 | 0 | 3.888 | 0.02036 |
+| 0.1 | 1009 | 0.005946 | 0.04955 | 0.05253 | 0.05946 | 0.006938 | 0.1021 | 0.1021 | 1.021 | 0.14 | 0.006938 | 3.745 | 0.04757 |
+
+### Direct trajectory certificate (confidence = min of the 4 step gaps, correct = whole trajectory matched, budget applies to the trajectory) vs per-step budgets of the same size
+
+| budget | direct: cutoff | direct: cal coverage | direct: share of test confident | direct: trajectory error | per-step b: share confident | per-step b: trajectory error |
+|---|---|---|---|---|---|---|
+| 0.02 | inf | 0 | 0 | 0/0 | 0.3417 | 5/410 = 1.22% |
+| 0.03 | 0.942 | 0.35 | 0.3842 | 8/461 = 1.74% | 0.4358 | 8/523 = 1.53% |
+| 0.05 | 0.901 | 0.5011 | 0.5258 | 16/631 = 2.54% | 0.655 | 35/786 = 4.45% |
+
+## Six worlds (seed 9 plus robustness seeds 21-25)
+
+### Six worlds: rollout quality (main world = seed 9)
+
+| env seed | novel-vendor share | mean k | whole trajectory matched | anomaly base rate | routing precision | routing recall | students (categorize/vendor) |
+|---|---|---|---|---|---|---|---|
+| 9 | 0.195 | 3.263 | 0.7567 | 0.3142 | 0.8144 | 0.8727 | LR/LR |
+| 21 | 0.2092 | 3.173 | 0.7208 | 0.3017 | 0.7434 | 0.8564 | LR/LR |
+| 22 | 0.1925 | 3.196 | 0.7475 | 0.26 | 0.6659 | 0.9327 | LR/LR |
+| 23 | 0.2042 | 3.212 | 0.73 | 0.2917 | 0.719 | 0.8771 | LR/LR |
+| 24 | 0.2158 | 3.217 | 0.7483 | 0.3242 | 0.7726 | 0.8123 | LR/LR |
+| 25 | 0.2008 | 3.237 | 0.7492 | 0.2742 | 0.6914 | 0.8784 | LR/LR |
+| mean over 6 worlds | 0.2029 | 3.216 | 0.7421 | 0.2943 | 0.7344 | 0.8716 |  |
+| min - max | 0.193 - 0.216 | 3.173 - 3.263 | 0.721 - 0.757 | 0.260 - 0.324 | 0.666 - 0.814 | 0.812 - 0.933 |  |
+
+### Six worlds: per-step gating with the grid certifier (this revision): share of test with a confident trajectory, trajectory error
+
+| env seed | b=2%: share | b=2%: trajectory error | b=3%: share | b=3%: trajectory error | b=5%: share | b=5%: trajectory error |
+|---|---|---|---|---|---|---|
+| 9 | 0.3417 | 5/410 = 1.22% | 0.4358 | 8/523 = 1.53% | 0.655 | 35/786 = 4.45% |
+| 21 | 0 | nothing certifiable | 0.3908 | 9/469 = 1.92% | 0.5067 | 26/608 = 4.28% |
+| 22 | 0 | nothing certifiable | 0.4883 | 3/586 = 0.51% | 0.5983 | 33/718 = 4.60% |
+| 23 | 0 | nothing certifiable | 0.2842 | 11/341 = 3.23% | 0.6 | 57/720 = 7.92% |
+| 24 | 0.4342 | 6/521 = 1.15% | 0.5392 | 11/647 = 1.70% | 0.6925 | 26/831 = 3.13% |
+| 25 | 0.3908 | 3/469 = 0.64% | 0.4467 | 7/536 = 1.31% | 0.5925 | 23/711 = 3.23% |
+
+### Six worlds: per-step gating with the original common.certify (as shipped): share of test with a confident trajectory, trajectory error
+
+| env seed | b=2%: share | b=2%: trajectory error | b=3%: share | b=3%: trajectory error | b=5%: share | b=5%: trajectory error |
+|---|---|---|---|---|---|---|
+| 9 | 0 | nothing certifiable | 0.4358 | 10/523 = 1.91% | 0.5733 | 31/688 = 4.51% |
+| 21 | 0 | nothing certifiable | 0 | nothing certifiable | 0 | nothing certifiable |
+| 22 | 0 | nothing certifiable | 0 | nothing certifiable | 0.6667 | 60/800 = 7.50% |
+| 23 | 0 | nothing certifiable | 0 | nothing certifiable | 0.4333 | 46/520 = 8.85% |
+| 24 | 0 | nothing certifiable | 0.4792 | 33/575 = 5.74% | 0.5767 | 64/692 = 9.25% |
+| 25 | 0 | nothing certifiable | 0.48 | 11/576 = 1.91% | 0.5975 | 60/717 = 8.37% |
+
+### Six worlds: which step produces the errors among confident trajectories (grid certifier, and the shipped original certify for comparison)
+
+| certifier | env seed | b (%) | n confident | err step 1 | err step 2 (vendor) | err step 3 (invoice) | err step 4 | trajectory error | vendor + invoice | trajectory error / b |
+|---|---|---|---|---|---|---|---|---|---|---|
+| grid | 9 | 3 | 523 | 0 | 0.003824 | 0.01147 | 0.01147 | 0.0153 | 0.0153 | 0.5099 |
+| grid | 21 | 3 | 469 | 0.002132 | 0.006397 | 0.01279 | 0.01279 | 0.01919 | 0.01919 | 0.6397 |
+| grid | 22 | 3 | 586 | 0 | 0 | 0.001706 | 0.005119 | 0.005119 | 0.001706 | 0.1706 |
+| grid | 23 | 3 | 341 | 0 | 0.02639 | 0.008798 | 0.008798 | 0.03226 | 0.03519 | 1.075 |
+| grid | 24 | 3 | 647 | 0 | 0 | 0.017 | 0.017 | 0.017 | 0.017 | 0.5667 |
+| grid | 25 | 3 | 536 | 0 | 0 | 0.01306 | 0.01306 | 0.01306 | 0.01306 | 0.4353 |
+| grid | 9 | 5 | 786 | 0.001272 | 0.02036 | 0.0229 | 0.0229 | 0.04453 | 0.04326 | 0.8906 |
+| grid | 21 | 5 | 608 | 0.001645 | 0.004934 | 0.03783 | 0.03783 | 0.04276 | 0.04276 | 0.8553 |
+| grid | 22 | 5 | 718 | 0 | 0 | 0.04596 | 0.04596 | 0.04596 | 0.04596 | 0.9192 |
+| grid | 23 | 5 | 720 | 0.002778 | 0.05278 | 0.03194 | 0.03333 | 0.07917 | 0.08472 | 1.583 |
+| grid | 24 | 5 | 831 | 0 | 0 | 0.03129 | 0.03008 | 0.03129 | 0.03129 | 0.6258 |
+| grid | 25 | 5 | 711 | 0 | 0.001406 | 0.03094 | 0.03094 | 0.03235 | 0.03235 | 0.647 |
+| orig | 9 | 3 | 523 | 0 | 0.007648 | 0.01147 | 0.01147 | 0.01912 | 0.01912 | 0.6373 |
+| orig | 24 | 3 | 575 | 0 | 0.04 | 0.02087 | 0.02087 | 0.05739 | 0.06087 | 1.913 |
+| orig | 25 | 3 | 576 | 0 | 0.001736 | 0.01736 | 0.01736 | 0.0191 | 0.0191 | 0.6366 |
+| orig | 9 | 5 | 688 | 0.001453 | 0.01744 | 0.02762 | 0.02762 | 0.04506 | 0.04506 | 0.9012 |
+| orig | 22 | 5 | 800 | 0.0225 | 0.03 | 0.0475 | 0.04875 | 0.075 | 0.0775 | 1.5 |
+| orig | 23 | 5 | 520 | 0.01346 | 0.06346 | 0.03077 | 0.03077 | 0.08846 | 0.09423 | 1.769 |
+| orig | 24 | 5 | 692 | 0.001445 | 0.06358 | 0.03902 | 0.03902 | 0.09249 | 0.1026 | 1.85 |
+| orig | 25 | 5 | 717 | 0 | 0.05579 | 0.02789 | 0.02789 | 0.08368 | 0.08368 | 1.674 |
+
+### Six worlds: calls avoided, fully specified outputs only, and state divergence (grid certifier)
+
+| env seed | b (%) | confident share (teacher calls and vendor_lookup avoided) | confident trajectories with imagined `found` | match_invoice avoided (share of test) | tool calls avoided (fully specified) | tool calls avoided (old accounting) | latency avoided (fully specified) | latency avoided (old accounting) | policy A: executed matches changed | policy B: executed matches changed |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 9 | 3 | 0.4358 | 0.9331 | 0.02917 | 0.2325 | 0.4358 | 0.4115 | 0.4295 | 2/1165 = 0.17% | 0/677 = 0.00% |
+| 21 | 3 | 0.3908 | 1 | 0 | 0.1954 | 0.3908 | 0.3803 | 0.3979 | 4/1200 = 0.33% | 0/731 = 0.00% |
+| 22 | 3 | 0.4883 | 0.9932 | 0.003333 | 0.2458 | 0.4883 | 0.4625 | 0.484 | 0/1196 = 0.00% | 0/614 = 0.00% |
+| 23 | 3 | 0.2842 | 0.9971 | 0.0008333 | 0.1425 | 0.2842 | 0.2691 | 0.2814 | 8/1199 = 0.67% | 0/859 = 0.00% |
+| 24 | 3 | 0.5392 | 0.9212 | 0.0425 | 0.2908 | 0.5392 | 0.5167 | 0.5385 | 0/1149 = 0.00% | 0/553 = 0.00% |
+| 25 | 3 | 0.4467 | 0.9347 | 0.02917 | 0.2379 | 0.4467 | 0.4153 | 0.4331 | 0/1165 = 0.00% | 0/664 = 0.00% |
+| 9 | 5 | 0.655 | 0.8372 | 0.1067 | 0.3808 | 0.655 | 0.6289 | 0.6533 | 16/1072 = 1.49% | 0/414 = 0.00% |
+| 21 | 5 | 0.5067 | 0.824 | 0.08917 | 0.2979 | 0.5067 | 0.4903 | 0.5092 | 4/1093 = 0.37% | 0/592 = 0.00% |
+| 22 | 5 | 0.5983 | 0.7981 | 0.1208 | 0.3596 | 0.5983 | 0.5763 | 0.5974 | 0/1055 = 0.00% | 0/482 = 0.00% |
+| 23 | 5 | 0.6 | 0.8528 | 0.08833 | 0.3442 | 0.6 | 0.5824 | 0.6045 | 33/1094 = 3.02% | 0/480 = 0.00% |
+| 24 | 5 | 0.6925 | 0.7581 | 0.1675 | 0.43 | 0.6925 | 0.6704 | 0.6935 | 0/999 = 0.00% | 0/369 = 0.00% |
+| 25 | 5 | 0.5925 | 0.8143 | 0.11 | 0.3513 | 0.5925 | 0.5617 | 0.5823 | 1/1068 = 0.09% | 0/489 = 0.00% |
+
+### Six worlds: direct trajectory certificate vs per-step budgets of the same size
+
+| env seed | budget | direct: share confident | direct: trajectory error | per-step: share confident | per-step: trajectory error |
+|---|---|---|---|---|---|
+| 9 | 0.02 | 0 | 0/0 | 0.3417 | 5/410 = 1.22% |
+| 21 | 0.02 | 0 | 0/0 | 0 | 0/0 |
+| 22 | 0.02 | 0 | 0/0 | 0 | 0/0 |
+| 23 | 0.02 | 0 | 0/0 | 0 | 0/0 |
+| 24 | 0.02 | 0.2583 | 3/310 = 0.97% | 0.4342 | 6/521 = 1.15% |
+| 25 | 0.02 | 0.2283 | 1/274 = 0.36% | 0.3908 | 3/469 = 0.64% |
+| 9 | 0.03 | 0.3842 | 8/461 = 1.74% | 0.4358 | 8/523 = 1.53% |
+| 21 | 0.03 | 0.4467 | 12/536 = 2.24% | 0.3908 | 9/469 = 1.92% |
+| 22 | 0.03 | 0.3892 | 2/467 = 0.43% | 0.4883 | 3/586 = 0.51% |
+| 23 | 0.03 | 0 | 0/0 | 0.2842 | 11/341 = 3.23% |
+| 24 | 0.03 | 0.3683 | 6/442 = 1.36% | 0.5392 | 11/647 = 1.70% |
+| 25 | 0.03 | 0.2875 | 2/345 = 0.58% | 0.4467 | 7/536 = 1.31% |
+| 9 | 0.05 | 0.5258 | 16/631 = 2.54% | 0.655 | 35/786 = 4.45% |
+| 21 | 0.05 | 0.6033 | 29/724 = 4.01% | 0.5067 | 26/608 = 4.28% |
+| 22 | 0.05 | 0.5858 | 29/703 = 4.13% | 0.5983 | 33/718 = 4.60% |
+| 23 | 0.05 | 0.2042 | 4/245 = 1.63% | 0.6 | 57/720 = 7.92% |
+| 24 | 0.05 | 0.6967 | 28/836 = 3.35% | 0.6925 | 26/831 = 3.13% |
+| 25 | 0.05 | 0.4875 | 12/585 = 2.05% | 0.5925 | 23/711 = 3.23% |
+
+
+wall seconds: 65.3

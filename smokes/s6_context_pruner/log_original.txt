@@ -1,0 +1,151 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[data] 250 questions, skipped 3 non-10-paragraph items while sampling
+[probe] $0.00305/question (11 calls), mean full prompt tokens 1448, projected total $0.98
+[split] N=250 train=150 heldout=100
+[determinism] {'n': 40, 'mean_distinct_of5': 2.325, 'all5_identical': 0.45, 'all5_equivalent_relaxed': 0.65, 'seed0_pair_identical': 0.675, 'seed0_pair_equivalent_relaxed': 0.85}
+[spend after labels] $0.939, reasoning tokens total 0, finish!=stop 8
+Loading weights:   0%|          | 0/105 [00:00<?, ?it/s]Loading weights: 100%|██████████| 105/105 [00:00<00:00, 1104.47it/s]
+{
+ "N": 250,
+ "ntrain": 150,
+ "nheld": 100,
+ "labels": {
+  "strict": {
+   "all": {
+    "n": 250,
+    "frac_matter": 0.3888,
+    "frac_matter_gold": 0.554,
+    "frac_matter_nongold": 0.3475,
+    "q_zero_matter": 0.116,
+    "precision": 0.28497942386831276,
+    "recall": 0.554,
+    "mean_matter_per_q": 3.888
+   },
+   "train": {
+    "n": 150,
+    "frac_matter": 0.3993333333333333,
+    "frac_matter_gold": 0.58,
+    "frac_matter_nongold": 0.3541666666666667,
+    "q_zero_matter": 0.1,
+    "precision": 0.2904841402337229,
+    "recall": 0.58,
+    "mean_matter_per_q": 3.993333333333333
+   },
+   "heldout": {
+    "n": 100,
+    "frac_matter": 0.373,
+    "frac_matter_gold": 0.515,
+    "frac_matter_nongold": 0.3375,
+    "q_zero_matter": 0.14,
+    "precision": 0.2761394101876676,
+    "recall": 0.515,
+    "mean_matter_per_q": 3.73
+   }
+  },
+  "relaxed": {
+   "all": {
+    "n": 250,
+    "frac_matter": 0.1916,
+    "frac_matter_gold": 0.424,
+    "frac_matter_nongold": 0.1335,
+    "q_zero_matter": 0.252,
+    "precision": 0.44258872651356995,
+    "recall": 0.424,
+    "mean_matter_per_q": 1.916
+   },
+   "train": {
+    "n": 150,
+    "frac_matter": 0.194,
+    "frac_matter_gold": 0.43,
+    "frac_matter_nongold": 0.135,
+    "q_zero_matter": 0.22666666666666666,
+    "precision": 0.44329896907216493,
+    "recall": 0.43,
+    "mean_matter_per_q": 1.94
+   },
+   "heldout": {
+    "n": 100,
+    "frac_matter": 0.188,
+    "frac_matter_gold": 0.415,
+    "frac_matter_nongold": 0.13125,
+    "q_zero_matter": 0.29,
+    "precision": 0.44148936170212766,
+    "recall": 0.415,
+    "mean_matter_per_q": 1.88
+   }
+  }
+ },
+ "gold_acc_full": {
+  "all": {
+   "em": 0.484,
+   "contains": 0.668
+  },
+  "train": {
+   "em": 0.4866666666666667,
+   "contains": 0.7
+  },
+  "heldout": {
+   "em": 0.48,
+   "contains": 0.62
+  }
+ },
+ "em_full_by_type": {
+  "bridge": 0.49748743718592964,
+  "comparison": 0.43137254901960786
+ },
+ "f1_full": 0.6799256420998356,
+ "replicate_disagree_strict": 0.36,
+ "replicate_disagree_relaxed": 0.136,
+ "determinism": {
+  "n": 40,
+  "mean_distinct_of5": 2.325,
+  "all5_identical": 0.45,
+  "all5_equivalent_relaxed": 0.65,
+  "seed0_pair_identical": 0.675,
+  "seed0_pair_equivalent_relaxed": 0.85
+ },
+ "coef": {
+  "cos": 0.062,
+  "position": 0.062,
+  "n_words": -0.021,
+  "q_overlap": 0.02,
+  "title_in_q": 0.218,
+  "title_tok_overlap": -0.121
+ },
+ "spend_usd": 0.9386312000000001,
+ "wall_s": 36.135931730270386,
+ "n_calls": 4416,
+ "mean_full_prompt_tokens": 1327.172,
+ "mean_full_answer_tokens": 9.476,
+ "reasoning_tokens": 0,
+ "nonstop_finish": 8
+}
+
+| scorer | AUC pooled (strict label) | within-q (strict) | pooled (relaxed) | within-q (relaxed) | AUC pooled (gold) | within-q (gold) | train within-q (strict) |
+|---|---|---|---|---|---|---|---|
+| learned | 0.522 | 0.533 | 0.558 | 0.564 | 0.819 | 0.807 | 0.603 |
+| learned+rel (extra) | 0.511 | 0.593 | 0.596 | 0.627 | 0.819 | 0.849 | 0.604 |
+| cross-encoder | 0.530 | 0.568 | 0.558 | 0.642 | 0.828 | 0.851 | 0.627 |
+| oracle (gold paras) | 0.567 | 0.659 | 0.645 | 0.798 | 1.000 | 1.000 | 0.682 |
+| random | 0.517 | 0.526 | 0.522 | 0.507 | 0.513 | 0.509 | 0.532 |
+
+| scorer | k | agree strict | agree relaxed | EM gold | contains gold | tokens removed | both gold kept | strict agree if both kept | if not | 95% UB disagree strict | 95% UB disagree relaxed |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| learned | 2 | 0.39 | 0.51 | 0.27 | 0.37 | 79.8% | 0.36 | 0.67 | 0.23 | 0.69 | 0.58 |
+| learned | 3 | 0.43 | 0.61 | 0.33 | 0.41 | 70.5% | 0.47 | 0.64 | 0.25 | 0.65 | 0.48 |
+| learned | 4 | 0.48 | 0.65 | 0.37 | 0.47 | 61.1% | 0.55 | 0.65 | 0.27 | 0.61 | 0.44 |
+| learned+rel (extra) | 2 | 0.41 | 0.53 | 0.28 | 0.35 | 80.1% | 0.40 | 0.65 | 0.25 | 0.67 | 0.56 |
+| learned+rel (extra) | 3 | 0.50 | 0.68 | 0.37 | 0.47 | 71.2% | 0.56 | 0.64 | 0.32 | 0.59 | 0.41 |
+| learned+rel (extra) | 4 | 0.53 | 0.69 | 0.37 | 0.50 | 61.6% | 0.68 | 0.66 | 0.25 | 0.56 | 0.39 |
+| cross-encoder | 2 | 0.47 | 0.61 | 0.34 | 0.46 | 79.8% | 0.48 | 0.65 | 0.31 | 0.62 | 0.48 |
+| cross-encoder | 3 | 0.49 | 0.70 | 0.41 | 0.50 | 71.3% | 0.64 | 0.61 | 0.28 | 0.60 | 0.38 |
+| cross-encoder | 4 | 0.60 | 0.76 | 0.41 | 0.55 | 62.2% | 0.73 | 0.74 | 0.22 | 0.49 | 0.32 |
+| oracle (gold paras) | 2 | 0.64 | 0.83 | 0.51 | 0.68 | 80.3% | 1.00 | 0.64 | - | 0.45 | 0.24 |
+| oracle (gold paras) | 3 | 0.65 | 0.84 | 0.53 | 0.69 | 70.6% | 1.00 | 0.65 | - | 0.44 | 0.23 |
+| oracle (gold paras) | 4 | 0.65 | 0.88 | 0.52 | 0.66 | 60.1% | 1.00 | 0.65 | - | 0.44 | 0.19 |
+| random | 2 | 0.31 | 0.43 | 0.20 | 0.27 | 78.1% | 0.01 | 1.00 | 0.30 | 0.77 | 0.65 |
+| random | 3 | 0.34 | 0.44 | 0.23 | 0.29 | 68.6% | 0.04 | 0.75 | 0.32 | 0.74 | 0.64 |
+| random | 4 | 0.42 | 0.53 | 0.32 | 0.38 | 58.9% | 0.10 | 0.70 | 0.39 | 0.66 | 0.56 |
+| full-context re-ask (noise floor) | 10 | 0.72 | 0.86 | 0.47 | 0.58 | 0.0% | 1.00 | 0.72 | - | 0.36 | 0.21 |
+
+wall 36s; spend $0.939
