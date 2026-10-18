@@ -15,6 +15,6 @@ Status: IN_PROGRESS (started 03:00 PDT). Goal text: the `/goal` of the 03:10 ses
 ## Side quests (parallel, scrap if they run long)
 - [ ] Devin on `hdc` (needs the GitHub app connected by the repo owner)
 - [ ] CREAO benchmark-runner agent (after `/campaign/*` deploys)
-- [ ] Paper frames (needs Paper Desktop installed by a human)
+- [x] Paper: dreams tab + 3 variants built in Paper by a sibling session (Desktop\paper-variants, file 'Unique yonder'); user closed it 03:40 — claim 'designed in Paper', no more MCP calls
 - [ ] Speculation / DAG parallelism behind `speculate=False`
 - [ ] veri.studio fine-tune cell
