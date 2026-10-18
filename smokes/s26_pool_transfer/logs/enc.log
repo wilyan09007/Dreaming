@@ -1,0 +1,7 @@
+[7s] [enc] labels 201 rows 13210; step 0 (base encoder) val 3-shot 0.938
+/workspace/job/proj/smokes/s26_pool_transfer/run.py:331: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:835.)
+  loss = F.cross_entropy(head(F.dropout(h, 0.1, training=True)), torch.tensor(yl[bi], device=d)); opt.zero_grad(); loss.backward(); torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0); opt.step(); sched.step(); losses.append(float(loss))
+[14s] [enc] step 200 loss 2.423 val 3-shot 0.938
+[22s] [enc] step 400 loss 1.291 val 3-shot 0.936
+[31s] [enc] step 600 loss 1.122 val 3-shot 0.936

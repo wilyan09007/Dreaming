@@ -1,0 +1,7 @@
+{"method": "Baseline: bge-small + LR", "group": "fast", "params": 5775, "fit_secs": 0.008958101272583008, "pred_ms_per_1000": 0.0009971194797092015, "prep_secs": 9.775161743164062e-06, "device": "cpu 1 thread"}
+{"method": "HDC bundle (one-shot)", "group": "fast", "params": 150000, "fit_secs": 0.0003197193145751953, "pred_ms_per_1000": 0.17057630750868055, "prep_secs": 0.39090919494628906, "device": "cpu 1 thread"}
+{"method": "HDC bundle, pool-centered", "group": "fast", "params": 150000, "fit_secs": 0.00034236907958984375, "pred_ms_per_1000": 0.17052226596408418, "prep_secs": 0.3424248695373535, "device": "cpu 1 thread"}
+{"method": "HDC online (OnlineHD, 1 pass)", "group": "fast", "params": 150000, "fit_secs": 0.004115581512451172, "pred_ms_per_1000": 0.16714466942681205, "prep_secs": 0.33858275413513184, "device": "cpu 1 thread"}
+{"method": "NTK kernel ridge", "group": "fast", "params": 675, "fit_secs": 0.0002677440643310547, "pred_ms_per_1000": 0.0036822424994574655, "prep_secs": 3.075599670410156e-05, "device": "cpu 1 thread"}
+{"method": "NTK kernel SVM (OvR)", "group": "fast", "params": 675, "fit_secs": 0.014216184616088867, "pred_ms_per_1000": 0.012764930725097656, "prep_secs": 1.6689300537109375e-06, "device": "cpu 1 thread"}
+{"method": "gzip NCD + 3-NN", "group": "ncd", "params": 0, "fit_secs": 7.62939453125e-06, "pred_ms_per_1000": 0.4549921883477105, "prep_secs": 0.01312112808227539, "device": "cpu 1 thread"}

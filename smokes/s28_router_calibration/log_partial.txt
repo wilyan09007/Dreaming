@@ -1,0 +1,71 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2341.18it/s]
+[embed] 1104 texts in 24.4s (BAAI/bge-small-en-v1.5)
+# S28 run: 1104 rows (200 reused from S5/S15, 904 new). Parse fallbacks: E1 1, cheap 2. Cheap rows with logprob gap: 1104/1104.
+match rate (cheap == E1): 0.815 [Wilson 95% 0.791, 0.837]; old-200 0.800, new-1000 0.819
+gold accuracy: E1 0.859 (old 0.870, new 0.856); cheap 0.764; student 0.931; student==E1 0.851; student==cheap 0.767
+cost per 1k calls (observed usage.cost): E1 $1.731 (new rows $1.734), cheap $0.098 (new rows $0.098); ratio 17.7x. Self-disagreement floor of E1 (S15): 6% -> achievable mismatch cannot go reliably below ~6%.
+
+## AUROC for 'cheap == E1' on all rows (95% bootstrap CI, 1000 resamples)
+| signal | AUROC [CI] | old 200 | new 1000 |
+|---|---|---|---|
+| f1 student==cheap | 0.874 [0.848, 0.901] | 0.900 | 0.868 |
+| b2 cheap logprob gap | 0.896 [0.876, 0.915] | 0.892 | 0.897 |
+| f3 f1 then b2 | 0.947 [0.932, 0.959] | 0.958 | 0.944 |
+| e student top-2 gap | 0.688 [0.650, 0.727] | 0.665 | 0.695 |
+paired f3 f1 then b2 minus b2 cheap logprob gap: +0.051 [+0.036, +0.068]
+paired f3 f1 then b2 minus f1 student==cheap: +0.072 [+0.055, +0.091]
+paired f1 student==cheap minus b2 cheap logprob gap: -0.021 [-0.051, +0.008]
+
+## Calibration-size sweep (200 random splits per size; calibration = n rows, holdout = the other rows; certificate = common.certify, 40-level grid, delta 5%)
+cert% = share of splits where anything certified; cov = certified share of the holdout routed to the cheap model (0 when nothing certified; mean [5th pct]); err = realized holdout mismatch among routed rows (mean over certifying splits, max); viol% = share of certifying splits whose realized holdout error exceeded the budget; saving = 1 - blended $/1k / E1 $/1k at mean cov (f1/b2/f3 need the cheap call first, so blended = cheap + (1-cov) x E1; student gap decides first, blended = cov x cheap + (1-cov) x E1).
+
+### f1 student==cheap
+| cal n (holdout) | 5%: cert% / cov [p5] / err (max) / viol% / saving | 10%: cert% / cov [p5] / err (max) / viol% / saving | 15%: cert% / cov [p5] / err (max) / viol% / saving | 20%: cert% / cov [p5] / err (max) / viol% / saving |
+|---|---|---|---|---|
+| 100 (1004) | 0 / 0.00 [0.00] / - / - / -6% | 6 / 0.04 [0.00] / 0.041 (0.042) / 0 / -1% | 42 / 0.33 [0.00] / 0.040 (0.042) / 0 / 27% | 92 / 0.70 [0.00] / 0.039 (0.195) / 0 / 65% |
+| 200 (904) | 0 / 0.00 [0.00] / 0.046 (0.046) / 0 / -5% | 35 / 0.27 [0.00] / 0.041 (0.046) / 0 / 21% | 98 / 0.76 [0.76] / 0.038 (0.046) / 0 / 70% | 100 / 0.77 [0.76] / 0.038 (0.046) / 0 / 71% |
+| 300 (804) | 0 / 0.00 [0.00] / 0.050 (0.050) / 100 / -5% | 66 / 0.51 [0.00] / 0.040 (0.050) / 0 / 45% | 100 / 0.77 [0.75] / 0.038 (0.050) / 0 / 71% | 100 / 0.77 [0.75] / 0.038 (0.050) / 0 / 71% |
+| 500 (604) | 0 / 0.00 [0.00] / - / - / -6% | 98 / 0.75 [0.74] / 0.038 (0.053) / 0 / 69% | 100 / 0.77 [0.75] / 0.038 (0.053) / 0 / 71% | 100 / 0.77 [0.75] / 0.038 (0.053) / 0 / 71% |
+| 1000 (104) | 0 / 0.00 [0.00] / - / - / -6% | 100 / 0.77 [0.70] / 0.035 (0.089) / 0 / 71% | 100 / 0.77 [0.70] / 0.035 (0.089) / 0 / 71% | 100 / 0.77 [0.70] / 0.035 (0.089) / 0 / 71% |
+
+### b2 cheap logprob gap
+| cal n (holdout) | 5%: cert% / cov [p5] / err (max) / viol% / saving | 10%: cert% / cov [p5] / err (max) / viol% / saving | 15%: cert% / cov [p5] / err (max) / viol% / saving | 20%: cert% / cov [p5] / err (max) / viol% / saving |
+|---|---|---|---|---|
+| 100 (1004) | 0 / 0.00 [0.00] / - / - / -6% | 10 / 0.06 [0.00] / 0.043 (0.068) / 0 / 1% | 86 / 0.54 [0.00] / 0.037 (0.114) / 0 / 48% | 100 / 0.75 [0.59] / 0.069 (0.183) / 0 / 69% |
+| 200 (904) | 0 / 0.00 [0.00] / - / - / -6% | 93 / 0.55 [0.00] / 0.029 (0.101) / 1 / 49% | 100 / 0.74 [0.62] / 0.062 (0.124) / 0 / 68% | 100 / 0.84 [0.77] / 0.104 (0.178) / 0 / 78% |
+| 300 (804) | 38 / 0.18 [0.00] / 0.015 (0.049) / 0 / 13% | 100 / 0.65 [0.56] / 0.039 (0.111) / 0 / 60% | 100 / 0.78 [0.74] / 0.075 (0.138) / 0 / 72% | 100 / 0.88 [0.81] / 0.121 (0.180) / 0 / 82% |
+| 500 (604) | 98 / 0.49 [0.42] / 0.014 (0.060) / 1 / 43% | 100 / 0.71 [0.64] / 0.050 (0.115) / 0 / 65% | 100 / 0.82 [0.78] / 0.093 (0.155) / 0 / 76% | 100 / 0.91 [0.87] / 0.138 (0.193) / 0 / 86% |
+| 1000 (104) | 100 / 0.58 [0.50] / 0.022 (0.082) / 10 / 52% | 100 / 0.76 [0.69] / 0.060 (0.127) / 8 / 70% | 100 / 0.85 [0.80] / 0.108 (0.207) / 14 / 79% | 100 / 0.95 [0.90] / 0.157 (0.284) / 10 / 89% |
+
+### f3 f1 then b2
+| cal n (holdout) | 5%: cert% / cov [p5] / err (max) / viol% / saving | 10%: cert% / cov [p5] / err (max) / viol% / saving | 15%: cert% / cov [p5] / err (max) / viol% / saving | 20%: cert% / cov [p5] / err (max) / viol% / saving |
+|---|---|---|---|---|
+| 100 (1004) | 0 / 0.00 [0.00] / - / - / -6% | 36 / 0.25 [0.00] / 0.026 (0.052) / 0 / 19% | 97 / 0.71 [0.44] / 0.036 (0.100) / 0 / 65% | 100 / 0.83 [0.75] / 0.066 (0.177) / 0 / 77% |
+| 200 (904) | 6 / 0.04 [0.00] / 0.022 (0.047) / 0 / -1% | 99 / 0.71 [0.58] / 0.031 (0.071) / 0 / 66% | 100 / 0.82 [0.77] / 0.062 (0.127) / 0 / 77% | 100 / 0.88 [0.83] / 0.101 (0.173) / 0 / 83% |
+| 300 (804) | 52 / 0.30 [0.00] / 0.015 (0.051) / 1 / 24% | 100 / 0.77 [0.70] / 0.040 (0.086) / 0 / 72% | 100 / 0.85 [0.81] / 0.077 (0.136) / 0 / 79% | 100 / 0.91 [0.86] / 0.117 (0.176) / 0 / 85% |
+| 500 (604) | 100 / 0.63 [0.47] / 0.017 (0.042) / 0 / 57% | 100 / 0.80 [0.77] / 0.051 (0.130) / 0 / 75% | 100 / 0.87 [0.84] / 0.089 (0.149) / 0 / 81% | 100 / 0.93 [0.90] / 0.135 (0.190) / 0 / 88% |
+| 1000 (104) | 100 / 0.71 [0.63] / 0.024 (0.083) / 12 / 65% | 100 / 0.83 [0.76] / 0.060 (0.140) / 14 / 77% | 100 / 0.89 [0.84] / 0.105 (0.185) / 11 / 83% | 100 / 0.95 [0.92] / 0.151 (0.267) / 12 / 90% |
+
+### e student top-2 gap
+| cal n (holdout) | 5%: cert% / cov [p5] / err (max) / viol% / saving | 10%: cert% / cov [p5] / err (max) / viol% / saving | 15%: cert% / cov [p5] / err (max) / viol% / saving | 20%: cert% / cov [p5] / err (max) / viol% / saving |
+|---|---|---|---|---|
+| 100 (1004) | 0 / 0.00 [0.00] / - / - / 0% | 0 / 0.00 [0.00] / - / - / 0% | 2 / 0.01 [0.00] / 0.110 (0.161) / 20 / 1% | 14 / 0.09 [0.00] / 0.119 (0.194) / 0 / 8% |
+| 200 (904) | 0 / 0.00 [0.00] / - / - / 0% | 0 / 0.00 [0.00] / - / - / 0% | 8 / 0.04 [0.00] / 0.112 (0.148) / 0 / 4% | 53 / 0.32 [0.00] / 0.118 (0.194) / 0 / 30% |
+| 300 (804) | 0 / 0.00 [0.00] / - / - / 0% | 0 / 0.00 [0.00] / 0.095 (0.095) / 0 / 0% | 16 / 0.07 [0.00] / 0.104 (0.139) / 0 / 6% | 84 / 0.54 [0.00] / 0.120 (0.193) / 0 / 51% |
+| 500 (604) | 0 / 0.00 [0.00] / - / - / 0% | 2 / 0.00 [0.00] / 0.119 (0.130) / 67 / 0% | 40 / 0.18 [0.00] / 0.104 (0.140) / 0 / 17% | 100 / 0.74 [0.64] / 0.134 (0.202) / 1 / 70% |
+| 1000 (104) | 0 / 0.00 [0.00] / - / - / 0% | 0 / 0.00 [0.00] / - / - / 0% | 100 / 0.60 [0.42] / 0.106 (0.242) / 16 / 56% | 100 / 0.84 [0.75] / 0.155 (0.253) / 16 / 79% |
+
+## Recommended calibration size per budget (signal f3): smallest n where >=95% of splits certify and mean coverage >= 90% of the n=1000 coverage
+budget 5%: n = 1000  (coverage at n=1000: 0.71; at pick: 0.71)
+budget 10%: n = 300  (coverage at n=1000: 0.83; at pick: 0.77)
+budget 15%: n = 200  (coverage at n=1000: 0.89; at pick: 0.82)
+budget 20%: n = 200  (coverage at n=1000: 0.95; at pick: 0.88)
+
+## In-sample descriptive ceiling (all rows, no guarantee): largest routed share (ties closed) with mismatch <= budget, f3
+budget 5%: 0.80
+budget 10%: 0.88
+budget 15%: 0.95
+budget 20%: 1.00
+
+wall time 137s

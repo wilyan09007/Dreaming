@@ -1,0 +1,6 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[calls] items=1000 jobs=2000 cached=2000 to_run=0 spent_so_far=$0.9593 cap=$3.0
+[calls] done 0 calls, 0 errors, skipped_by_cap=0, spent=$0.9593
+nano_A  n=1000 $/1k=0.0979 cost_field=1000/1000 served_by={'OpenAI': 1000} mean_ms=797 no_lp=0 empty=0
+E1      n=1000 $/1k=0.8614 cost_field=495/1000 served_by={'OpenAI': 495, None: 505} mean_ms=2140 no_lp=0 empty=505
+[summary] total spent=$0.9593

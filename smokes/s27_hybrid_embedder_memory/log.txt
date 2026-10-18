@@ -1,0 +1,12 @@
+[22:22:33] 5 tasks, 10203 texts
+[22:23:31] [embed] bge_small: 10203 texts in 49s (4.8 ms/text), 33M params, dim 384
+[22:26:41] [embed] bge_base: 10203 texts in 176s (17.3 ms/text), 109M params, dim 768
+[22:52:27] [embed] lfm25_350m: 10203 texts in 1545s (151.4 ms/text), 354M params, dim 1024
+[22:53:59] [cache] bge_small emb_996e4d6cbbed0edf.npy
+[22:53:59] [cache] lfm25_350m emb_6be5c16fdd072bf3.npy
+[22:54:00] [cache] bge_base emb_c9ca084cedd43097.npy
+[22:54:11] task clinc/travel done (54 cells)
+[22:54:25] task clinc/work done (108 cells)
+[22:54:34] task banking/sub0 done (162 cells)
+[22:54:42] task banking/sub1 done (216 cells)
+[22:54:51] task banking/sub2 done (270 cells)
