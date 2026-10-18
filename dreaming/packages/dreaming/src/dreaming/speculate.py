@@ -26,8 +26,10 @@ from .contracts import CallSite, Decision, Kind, Prediction, TraceRow
 from .predictors import Predictor
 from .registry import Registered
 
-# the runtime's sync path for one call: (reg, args, kwargs, the Pending to tell its guess, where its rows go) -> value
-CallFn = Callable[[Registered, tuple[Any, ...], dict[str, Any], "Pending", Callable[[TraceRow], None]], Any]
+CallFn = Callable[[Registered, tuple[Any, ...], dict[str, Any]], Any]  # the runtime's sync path for one call: (reg, args, kwargs) -> value
+# set by the speculator around one call, in that call's own context: the Pending to tell its guess, where the call's rows go.
+# A contextvar, not parameters, so Runtime._call/_route keep their signatures (telemetry.instrument wraps _route).
+HOOK: contextvars.ContextVar[tuple[Pending, Callable[[TraceRow], None]] | None] = contextvars.ContextVar("dreaming_spec", default=None)
 
 
 class Pending:
@@ -93,8 +95,12 @@ class _Tap:
         return g
 
 
-def tap(predictor: Predictor | None, p: Pending | None) -> Predictor | None:
-    return _Tap(predictor, p) if predictor is not None and p is not None else predictor
+def hooks(predictor: Predictor | None, record: Callable[[TraceRow], None]) -> tuple[Predictor | None, Callable[[TraceRow], None]]:
+    """What Runtime._route hands the router: unchanged, or inside a speculated call the predictor tapped and the call's row buffer."""
+    if (h := HOOK.get()) is None:
+        return predictor, record
+    HOOK.set(None)  # this call's own route only: a connector call made inside it (Runtime.external) records as usual
+    return (_Tap(predictor, h[0]) if predictor is not None else None), h[1]
 
 
 class Speculator:
@@ -104,6 +110,7 @@ class Speculator:
         self.call, self.record = call, record
         self.pool = ThreadPoolExecutor(workers, thread_name_prefix="dreaming-call")  # FIFO: an input always starts before its dependents
         self.inflight: dict[str, list[Pending]] = {}  # run id -> the Pendings it submitted
+        self.lock = threading.Lock()  # ponytail: one lock for every speculated row; Runtime._record's counters assume one writer at a time
 
     def submit(self, reg: Registered, args: tuple[Any, ...], kwargs: dict[str, Any]) -> Pending:
         p, parent, child = Pending(reg.site), current(), None
@@ -128,10 +135,16 @@ class Speculator:
              ctx: RunCtx | None) -> tuple[Any, BaseException | None, list[TraceRow]]:
         rows: list[TraceRow] = []
         p.start = ctx.virtual_ms if ctx else 0
+        HOOK.set((p, rows.append))  # this worker's copied context only
         try:
-            return self.call(reg, args, kwargs, p, rows.append), None, rows
+            return self.call(reg, args, kwargs), None, rows
         except Exception as e:  # noqa: BLE001 - published through .result(), where the default path would have raised
             return None, e, rows
+
+    def _record(self, rows: list[TraceRow]) -> None:
+        with self.lock:
+            for row in rows:
+                self.record(row)
 
     def _guesses(self, reg: Registered, inputs: list[Pending], ctx: RunCtx | None) -> dict[int, Any]:
         """The inputs to render on their guess (by id): confident enough for their own site's speculate_at, and not verified by
@@ -177,20 +190,20 @@ class Speculator:
 
             value, error, rows = self._run(reg, tuple(map(take, args)), {k: take(v) for k, v in kwargs.items()}, p, ctx)
             if guessed:  # publish only once every guess is verified equal
-                ok = all(x.verified.wait() and x.error is None and x.value == guesses[id(x)] for x in guessed)
-                speculated = any(not x.predicted for x in guessed)  # a certified input was the answer, not a guess
+                for x in guessed:
+                    x.verified.wait()  # every one: .predicted is read below
+                ok = all(x.error is None and x.value == guesses[id(x)] for x in guessed)
+                speculated = not ok or any(not x.predicted for x in guessed)  # a certified input was the answer, not a guess
                 for row in rows:
                     row.speculated, row.kept = speculated, ok if speculated else None
                 if ok and ctx is not None:
                     ctx.virtual_ms = max(ctx.virtual_ms, *(x.done_at for x in guessed))
                 elif not ok:  # redo on the real inputs at the same i; the discarded row stays, kept=false (replay skips it)
-                    for row in rows:
-                        self.record(row)
+                    self._record(rows)
                     if ctx is not None:
                         ctx.calls = i0
                     value, error, rows = self._run(reg, tuple(map(result, args)), {k: result(v) for k, v in kwargs.items()}, p, ctx)
-            for row in rows:
-                self.record(row)
+            self._record(rows)
             p.value, p.error, p.predicted = value, error, any(r.decision == Decision.predicted for r in rows)
         except BaseException as e:  # noqa: BLE001 - an input's error is this call's error, surfaced by .result()
             p.error = e

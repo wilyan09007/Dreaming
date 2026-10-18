@@ -41,7 +41,7 @@ from .learning import Learner
 from .predictors import Loader, Predictor
 from .predictors.train import Trainer
 from .router import Answer, Call, Stuck, route
-from .speculate import Pending, Speculator, result, tap
+from .speculate import Speculator, hooks, result
 from .store import Store
 from .teachers import Teacher
 from .telemetry import boundary, emit
@@ -121,9 +121,8 @@ class Runtime:
             args, kwargs = tuple(map(result, args)), {k: result(v) for k, v in kwargs.items()}  # effects wait for verified inputs
         return self._call(reg, args, kwargs)
 
-    def _call(self, reg: registry.Registered, args: tuple[Any, ...], kwargs: dict[str, Any], p: Pending | None = None,
-              record: Callable[[TraceRow], None] | None = None) -> Any:
-        """One call, synchronously. `p` and `record` come from the speculator: tell `p` its guess, hold the rows."""
+    def _call(self, reg: registry.Registered, args: tuple[Any, ...], kwargs: dict[str, Any]) -> Any:
+        """One call, synchronously: the whole path when speculate=False, one worker's job when it is on."""
         site = reg.site
         if site.kind == Kind.effect:
             return self._route(reg, Call(reg, to_jsonable_python({"args": args, "kwargs": kwargs}, fallback=str), "",
@@ -135,18 +134,18 @@ class Runtime:
                 real=lambda: _timed(lambda: reg.fn(*args, **kwargs), site, label=lambda v: canonical(to_jsonable_python(v, fallback=str)).decode()),
                 fallback=(lambda: reg.fallback(*args, **kwargs)) if reg.fallback else None,  # type: ignore[misc]
                 decode=json.loads,
-            ), p, record)
+            ))
         rendered: str = reg.fn(*args, **kwargs)  # a step renders its input; the library makes the call
-        return self._route(reg, Call(reg, rendered, rendered, real=lambda: self._ask(site, rendered)), p, record)
+        return self._route(reg, Call(reg, rendered, rendered, real=lambda: self._ask(site, rendered)))
 
     def _ask(self, site: CallSite, rendered: str) -> Answer:
         ans = self.teacher.ask(site, rendered)
         return Answer(value=ans.label or ans.text, label=ans.label or "", latency_ms=ans.latency_ms, cost_usd=ans.cost_usd, teacher=ans)
 
-    def _route(self, reg: registry.Registered, call: Call, p: Pending | None = None, record: Callable[[TraceRow], None] | None = None) -> Any:
+    def _route(self, reg: registry.Registered, call: Call) -> Any:
         policy = self.policies[reg.site.id]
-        return route(call, policy, tap(self.predictors.get(reg.site.id), p), current(), record or (lambda row: self._record(row, policy)),
-                     lambda e: self._predictor_failed(reg.site, e), self.spares.get(reg.site.id))
+        predictor, record = hooks(self.predictors.get(reg.site.id), lambda row: self._record(row, policy))  # speculated: tapped, rows held
+        return route(call, policy, predictor, current(), record, lambda e: self._predictor_failed(reg.site, e), self.spares.get(reg.site.id))
 
     def _predictor_failed(self, site: CallSite, e: Exception) -> None:
         """A predictor that raises is a miss (the real call answers) but never a silent one: one event per weights."""
@@ -172,7 +171,7 @@ class Runtime:
             self._baseline[row.call_site] = (s + row.teacher.cost_usd, n + 1)
             if self.batch.running and not row.teacher.recorded and row.kind in (Kind.model, Kind.router):
                 self.batch.live_calls += 1  # a frontier answer that was not pre-recorded; tool calls are real by nature
-        if row.decision == Decision.predicted:
+        if row.decision == Decision.predicted and row.kept is not False:  # a discarded speculative answer saved nothing
             self.saved_usd += self.baseline_cost(row.call_site) - row.cost_usd
         ctx = current()
         if ctx is not None:

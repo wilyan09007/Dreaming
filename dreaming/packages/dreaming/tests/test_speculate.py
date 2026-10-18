@@ -6,6 +6,7 @@ both. Latencies are virtual (context.charge): the numbers below are exact.
 
 from __future__ import annotations
 
+import dataclasses
 from typing import Any
 
 import pytest
@@ -129,3 +130,24 @@ def test_a_pending_in_plain_python_is_a_type_error():
             with pytest.raises(TypeError):
                 plain()
         assert result(p) == p.result() == "Adobe Inc." and result("plain") == "plain"
+
+
+def test_an_impure_dependent_waits_for_verified_inputs():
+    rt, store = build(True, '"Wrong Inc."')  # a pure dependent would start on this wrong guess and be redone
+    assert rt.spec
+    with rt.run("t", TXN, "fast_forward") as run:
+        category = rt.spec.submit(registry.get("t.categorize"), (TXN,), {})
+        vendor = rt.spec.submit(registry.get("t.vendor_lookup"), ("ADOBE",), {})
+        assert result(rt.spec.submit(dataclasses.replace(registry.get("t.check"), pure=False), (category, vendor), {})) == "ok"
+    rt.flush()
+    rows = store.run_rows(run.id)
+    assert len(rows) == 3 and not any(r.speculated for r in rows) and run.critical_ms == 1200 + 5
+
+
+@pytest.mark.parametrize("speculate", [False, True])
+def test_a_two_argument_route_wrapper_still_routes(speculate: bool):
+    rt, store = build(speculate, '"Adobe Inc."')
+    inner = rt._route  # pyright: ignore[reportPrivateUsage]
+    rt._route = lambda reg, call: inner(reg, call)  # telemetry.instrument wraps it exactly so  # pyright: ignore
+    _, rows = one_run(rt, store)
+    assert len(rows) == 4
