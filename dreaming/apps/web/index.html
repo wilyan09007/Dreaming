@@ -203,7 +203,7 @@ button.node:hover{box-shadow:5px 7px 0 rgba(43,43,51,.2)}
 .pill:disabled{cursor:default;opacity:.65}
 #rbtn{min-width:230px;justify-content:center}
 .trows{list-style:none;margin:16px 0 0;padding:0}
-.trow{display:grid;grid-template-columns:140px minmax(0,1fr) 140px minmax(0,1.3fr);align-items:center;gap:12px;min-height:58px;margin:0 -10px;padding:0 10px;border-top:2px dashed #E3E0EA}
+.trow{display:grid;grid-template-columns:140px minmax(0,1fr) 140px minmax(0,1.3fr);align-items:center;align-content:center;gap:2px 12px;min-height:58px;margin:0 -10px;padding:0 10px;border-top:2px dashed #E3E0EA}
 .trow:first-child{border-top:0}
 .trow>b{font-size:22px;line-height:1}
 .tans{font-size:15px;font-weight:600}
@@ -223,6 +223,8 @@ button.node:hover{box-shadow:5px 7px 0 rgba(43,43,51,.2)}
 .jcand{display:flex;flex-direction:column;margin-top:3px;font-family:var(--hand);font-weight:700;font-size:16px;line-height:1.1;color:var(--muted)}
 .tans small{display:block;font-size:13px;font-weight:400;color:var(--muted)}
 .tres .bad{color:var(--red);white-space:nowrap}
+/* the memory's voting rows under a dream's answer: a second line inside the row's 58px, so the card keeps its height */
+.tev{grid-column:2/-1;font-size:13px;line-height:17px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* scores: GET /benchmark, one notebook card per call site; every line of a card is 48px, so the table rows sit on the paper's rules */
 .scores h1{font-size:46px;line-height:1}
@@ -256,6 +258,7 @@ button.node:hover{box-shadow:5px 7px 0 rgba(43,43,51,.2)}
   .cell:nth-child(3){border-left:0;padding-left:0}
   .cell .lbl{min-height:36px}
   .trow{grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding:8px 0}
+  .tev{grid-column:1/-1}
 }
 @media (max-width:600px){
   .app{padding:14px 16px 20px}

@@ -15,7 +15,7 @@
 /** @typedef {import('./live.js').Live} Live */
 /** @typedef {State & {spare_certificates?: Record<string, Certificate>}} PageState  main.py's PageState: State plus the spares' certificates */
 /** @typedef {{p: string, raw: string, cant: boolean, counted: number, cov: number, b: number, c: Certificate | null}} Look  what one site shows */
-/** @typedef {{name: string, ans: string, by: string, rec?: boolean, i?: number}} Step  one row of the trace card */
+/** @typedef {{name: string, ans: string, by: string, rec?: boolean, i?: number, ev?: string}} Step  one row of the trace card */
 
 const apiBase = ''; // the API serves this page: same origin
 const BATCH = 2000; // what the run button sends: POST /batch {n: 2000}
@@ -612,22 +612,36 @@ function currentRun() {
   if (S.selRun != null && !list.some((x) => x.id === S.selRun)) { S.selRun = null; S.rp = null; }
   return list.find((x) => x.id === S.selRun) || list[0] || null;
 }
-/** README (d): who answered = decision + kind. @param {TraceRow} r @returns {Step} */
-function stepOf(r) {
+/** The memory's top voting rows under a dream's answer (README (d)): the row's first line minus its "Field: " prefix, a seed row
+ * reads "seed example", a row the API could not find shows its label only. Rows that read the same are one "2× ..." with their
+ * weights summed. @param {TraceRow} r @param {Record<string, string>} texts */
+function votedOf(r, texts) {
+  const ev = r.decision === 'predicted' ? r.prediction?.evidence?.filter((e) => e.weight >= 0.005) : null; // a "0.00" voter says nothing
+  if (!ev?.length) return '';
+  const by = /** @type {Map<string, {n: number, w: number}>} */ (new Map());
+  for (const e of ev) {
+    const t = e.row_id.startsWith('seed:') ? 'seed example' : texts[e.row_id]?.split('\n')[0].replace(/^\w+: /, '');
+    const k = t ? `${t} (${e.label})` : e.label, g = by.get(k) ?? { n: 0, w: 0 };
+    by.set(k, { n: g.n + 1, w: g.w + e.weight });
+  }
+  return 'voted: ' + [...by].map(([k, g]) => `${g.n > 1 ? `${g.n}× ` : ''}${k} ${g.w.toFixed(2)}`).join(' · ');
+}
+/** README (d): who answered = decision + kind. @param {TraceRow} r @param {Record<string, string>} [texts] @returns {Step} */
+function stepOf(r, texts = {}) {
   const by = r.error?.startsWith('Stuck') ? 'stuck'
     : r.kind === 'effect' ? (short(r.call_site) === 'wake_a_human' ? 'bookkeeper' : 'ledger')
       : r.decision === 'predicted' ? (r.kind === 'router' ? 'thinking off' : 'dream')
         : r.decision === 'fallback' ? 'snapshot'
           : r.kind === 'tool' ? 'vendor API' : r.teacher?.provider === 'rule' ? 'rule teacher' : 'big model';
   const ans = by === 'stuck' ? 'no answer' : typeof r.response === 'string' ? r.response : JSON.stringify(r.response);
-  return { name: nameOf(r.call_site), ans, by, rec: !!r.teacher?.recorded, i: r.i };
+  return { name: nameOf(r.call_site), ans, by, rec: !!r.teacher?.recorded, i: r.i, ev: votedOf(r, texts) };
 }
 /** Five rows: the four decisions, then the effect; rows after a stuck site do not exist and read "never ran". @param {RunView} rv @returns {Step[]} */
 function stepsOf(rv) {
   const rows = rv.rows, out = /** @type {Step[]} */ ([]);
   for (const v of sites()) {
     const r = rows.find((x) => x.call_site === v.site.id);
-    out.push(r ? stepOf(r) : rv.run.stuck_at === v.site.id ? { name: nameOf(v.site.id), ans: 'no answer', by: 'stuck' } : { name: nameOf(v.site.id), ans: 'never ran', by: '' });
+    out.push(r ? stepOf(r, rv.evidence_texts) : rv.run.stuck_at === v.site.id ? { name: nameOf(v.site.id), ans: 'no answer', by: 'stuck' } : { name: nameOf(v.site.id), ans: 'never ran', by: '' });
   }
   const eff = rows.find((x) => x.kind === 'effect');
   out.push(eff ? stepOf(eff) : { name: 'post to books', ans: 'never ran', by: '' });
@@ -668,7 +682,7 @@ function renderReplay() {
       out = re ? (r?.same_bytes ? `<span class="ok">${ico('check', 20)}</span><span class="ok">same bytes</span><code>${esc((r.output_sha ?? '').slice(0, 6))}</code>` : '<span class="bad">different bytes</span>')
         : x.by === 'stuck' ? '<span class="log">API was down</span>' : `<span class="log">from the log${x.by === 'ledger' ? ', not re-posted' : ''}</span>`;
     } else if (busy) out = `<span class="busy">${re ? 're-running…' : 'reading the log…'}</span>`;
-    return `<li class="trow${busy ? ' busy' : ''}"><b>${x.name}</b><span class="tans">${esc(x.ans)}${x.rec ? '<small>recorded answer</small>' : ''}</span><span class="tby">${ran ? ico(BYICON[x.by] ?? 'moon', 22) + x.by : ''}</span><span class="tres">${out}</span></li>`;
+    return `<li class="trow${busy ? ' busy' : ''}"><b>${x.name}</b><span class="tans">${esc(x.ans)}${x.rec ? '<small>recorded answer</small>' : ''}</span><span class="tby">${ran ? ico(BYICON[x.by] ?? 'moon', 22) + x.by : ''}</span><span class="tres">${out}</span>${x.ev ? `<small class="tev">${esc(x.ev)}</small>` : ''}</li>`;
   }).join(''));
   // no "·" or "—" here: Gaegu lacks them and the fallback glyphs shift this line between states
   const k0 = run.replayable, before = !!rv && rv.rows.every((/** @type {TraceRow} */ r) => r.phase === 'awake');

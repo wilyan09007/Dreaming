@@ -168,8 +168,12 @@ export type CertId2 = string | null;
 export type CostUsd1 = number;
 export type LatencyMs1 = number;
 export type Candidate2 = string;
+export type Evidence = Evidence1[] | null;
+export type RowId = string;
+export type Label1 = string;
+export type Weight = number;
 export type Text = string;
-export type Label1 = string | null;
+export type Label2 = string | null;
 export type Provider1 = string;
 export type Model1 = string;
 export type CostUsd2 = number;
@@ -415,6 +419,7 @@ export interface SpareCertificates {
 export interface RunView {
   run: Run;
   rows: Rows1;
+  evidence_texts?: EvidenceTexts;
 }
 /**
  * The record of one call. Replay serves a run's rows in `i` order.
@@ -450,6 +455,7 @@ export interface Prediction {
   cost_usd?: CostUsd1;
   latency_ms?: LatencyMs1;
   candidate?: Candidate2;
+  evidence?: Evidence;
 }
 export interface Scores {
   [k: string]: number;
@@ -462,12 +468,20 @@ export interface Hashes {
   weights?: Weights;
   env?: Env;
 }
+/**
+ * One stored row's share of a memory read's vote (predictors/memory.py). Derived at read time: not in the hashes or the certified output.
+ */
+export interface Evidence1 {
+  row_id: RowId;
+  label: Label1;
+  weight: Weight;
+}
 export interface Shadow1 {
   [k: string]: Prediction;
 }
 export interface TeacherAnswer {
   text: Text;
-  label?: Label1;
+  label?: Label2;
   provider: Provider1;
   model: Model1;
   cost_usd?: CostUsd2;
@@ -477,6 +491,9 @@ export interface TeacherAnswer {
 }
 export interface Usage {
   [k: string]: number;
+}
+export interface EvidenceTexts {
+  [k: string]: string;
 }
 export interface Event {
   id: Id4;

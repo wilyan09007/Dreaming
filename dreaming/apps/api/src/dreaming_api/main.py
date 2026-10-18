@@ -11,7 +11,7 @@ Routes (bodies and replies are contracts.py models, so the OpenAPI schema is the
     POST /tools/{site}/outage {down}   unplug / plug the mock tool (fault injection; the runtime detects it, the page sees tool.outage)
     POST /run {input}                  one live run of the workflow (the uAgent relays ASI:One chats here); returns RunView
     POST /replay/{run_id}              ReplayReport
-    GET  /runs/{run_id}                RunView: the run and its TraceRows (the replay tab's receipt)
+    GET  /runs/{run_id}                RunView: the run, its TraceRows and the rendered inputs of the rows that voted (the replay tab's receipt)
     GET  /events?after=&limit=         polling fallback for Supabase Realtime
     POST /v1/systemone                 TypeSafe System One wire format over the trained students (systemone.py)
     POST /campaign/run · GET /campaign/{name}   the Modal campaign's launch and progress table (campaign_routes.py)
@@ -45,7 +45,7 @@ from dreaming.contracts import (
     State,
 )
 from dreaming.predictors import env_profile
-from dreaming.replay import replay
+from dreaming.replay import rendered_of, replay
 from dreaming.runtime import Runtime
 from dreaming.telemetry import TRACE, emit
 from fastapi import FastAPI, HTTPException, Query, Request, Response
@@ -184,7 +184,8 @@ def create_app(runtime: Runtime | None = None, inputs: Iterable[Json] | None = N
         match = [r for r in rt.store.runs(limit=10_000) if r.id == run_id]
         if not rows or not match:
             raise HTTPException(404, run_id)
-        return RunView(run=match[0], rows=rows)
+        voters = sorted({e.row_id for r in rows if r.prediction for e in r.prediction.evidence or []})
+        return RunView(run=match[0], rows=rows, evidence_texts={v.id: rendered_of(v) for v in rt.store.rows_by_id(voters)} if voters else {})
 
     @app.get("/events")
     def events(after: str | None = None, limit: int = Query(200, ge=1, le=1000)) -> list[Event]:

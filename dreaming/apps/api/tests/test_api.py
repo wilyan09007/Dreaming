@@ -22,6 +22,7 @@ from dreaming.contracts import (
     EventKind,
     Health,
     Json,
+    Kind,
     Phase,
     Policy,
     ReplayReport,
@@ -29,6 +30,7 @@ from dreaming.contracts import (
     SiteView,
     State,
 )
+from dreaming.predictors.candidates import DEFAULT
 from dreaming.runtime import Runtime
 from dreaming_api import main
 from fastapi.testclient import TestClient
@@ -432,6 +434,16 @@ def test_run_detail_is_the_run_and_its_rows_in_call_order(client: TestClient) ->
     assert rv.run == run and run.n == 600
     assert run.calls == 2 and [row.i for row in rv.rows] == [1, 2]  # 1-based, in order
     assert {row.run_id for row in rv.rows} == {run.id} and [row.call_site for row in rv.rows] == [CAT, VEN]
+
+
+def test_run_detail_names_the_rows_that_voted_for_a_memory_answer(client: TestClient, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setitem(DEFAULT, Kind.model, ["memory"])  # the fakes promote the head; make the memory the one that answers
+    run = next(r for r in reversed(train(client).runs) if r.replayable)
+    rv = RunView.model_validate(client.get(f"/runs/{run.id}").json())
+    p = next(row.prediction for row in rv.rows if row.call_site == CAT and row.decision == Decision.predicted)
+    assert p is not None and p.candidate == "memory" and p.evidence and len(p.evidence) == 3
+    assert {e.row_id for e in p.evidence} == set(rv.evidence_texts)  # every voter is a logged call here (no seed rows in the fakes)
+    assert all(t.startswith("Transaction: ") for t in rv.evidence_texts.values())
 
 
 def test_replay_reexecutes_predicted_rows_byte_for_byte(client: TestClient) -> None:

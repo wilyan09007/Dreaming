@@ -39,6 +39,7 @@ class Store(Protocol):
     # shadow_only: calibration rows only (a prediction, a teacher answer, phase watching/testing), so a long dreaming
     # stream can never page the frozen calibration set out of the window
     def run_rows(self, run_id: str) -> list[TraceRow]: ...
+    def rows_by_id(self, ids: Sequence[str]) -> list[TraceRow]: ...  # any order; unknown ids are skipped
 
     # runs
     def put_run(self, run: Run) -> None: ...
@@ -110,6 +111,10 @@ class MemoryStore:
 
     def run_rows(self, run_id: str) -> list[TraceRow]:
         return sorted(self._by_run[run_id], key=lambda r: r.i)
+
+    def rows_by_id(self, ids: Sequence[str]) -> list[TraceRow]:
+        want = set(ids)  # ponytail: a scan, fine offline; PgStore uses the primary key
+        return [r for rs in list(self._rows.values()) for r in rs if r.id in want]
 
     def put_run(self, run: Run) -> None:
         self._runs[run.id] = run
@@ -248,6 +253,10 @@ class PostgresStore:
 
     def run_rows(self, run_id: str) -> list[TraceRow]:
         cur = self._conn.execute("select * from trace_rows where run_id = %s order by i, id", (run_id,))
+        return [TraceRow.model_validate(r) for r in cur]
+
+    def rows_by_id(self, ids: Sequence[str]) -> list[TraceRow]:
+        cur = self._conn.execute("select * from trace_rows where id = any(%s)", (list(ids),))
         return [TraceRow.model_validate(r) for r in cur]
 
     def put_run(self, run: Run) -> None:

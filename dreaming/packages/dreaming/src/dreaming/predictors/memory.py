@@ -2,7 +2,8 @@
 
     fit(site, rows, encoder) -> Fitted          embed every labelled row, pick beta, serialize rows sorted by row id
     load(site, data, encoder) -> Memory         the same bytes back; refuses a foreign encoder
-    Memory.predict(rendered) -> Prediction      p_c = sum_{i in c} softmax(beta * cos(q, x_i)) / n_c, renormalized; confidence = top-2 gap
+    Memory.predict(rendered) -> Prediction      p_c = sum_{i in c} softmax(beta * cos(q, x_i)) / n_c, renormalized; confidence = top-2 gap;
+                                                evidence = the 3 rows with the largest share of that vote (training-plan §4.1)
 
 Port of S27 `hopfield_head` / S24 `hopfield` to docs/training-plan.md §4.1 (root training-plan.md §4.1):
 - beta from {5..640} by NLL. fit has no calibration rows (those arrive after it, while the site shadows), so the NLL is
@@ -31,7 +32,7 @@ from typing import Any
 import numpy as np
 from numpy.typing import NDArray
 
-from ..contracts import CallSite, Hashes, Prediction, TraceRow
+from ..contracts import CallSite, Evidence, Hashes, Prediction, TraceRow
 from ..gate import confidence
 from ..hashing import prompt_sha, sha_bytes
 from . import profile_sha
@@ -41,6 +42,7 @@ from .student import Encoder
 F64 = NDArray[np.float64]
 BETAS = (5, 10, 20, 40, 80, 160, 320, 640)  # S24's grid
 LOO_QUERIES = 2000
+EVIDENCE = 3  # rows shown per answer
 
 
 def _read(S: F64, Y: F64, beta: float) -> F64:
@@ -93,20 +95,30 @@ class Memory:
             raise ValueError(f"memory stored with encoder {h['encoder_sha']}, got {encoder.model_sha}: certificate void")
         self.encoder, self.labels, self.beta, self.ids = encoder, [str(x) for x in h["labels"]], float(h["beta"]), [str(i) for i in h["ids"]]
         self.X = np.frombuffer(vecs, dtype="<f4").reshape(len(self.ids), int(h["dim"])).astype(np.float64)
-        self.Y = np.eye(len(self.labels))[np.array(h["y"], dtype=np.int64)]
+        self.y = np.array(h["y"], dtype=np.int64)
+        self.Y = np.eye(len(self.labels))[self.y]
         self.weights_sha = sha_bytes(data)
         self.env_sha = profile_sha(encoder=encoder.env_sha, candidate="memory", beta=self.beta)
 
     def predict(self, rendered: str, *, fresh: bool = False) -> Prediction:
         q = np.asarray(self.encoder.embed(rendered, fresh=fresh), dtype=np.float64)
         q = q / max(float(np.linalg.norm(q)), 1e-12)  # not `/=`: asarray hands back the encoder's own cached array if it is already float64
-        p = _read((self.X @ q)[None, :], self.Y, self.beta)[0]
+        cos = self.X @ q
+        p = _read(cos[None, :], self.Y, self.beta)[0]
         return Prediction(
             label=self.labels[int(np.argmax(p))],
             confidence=float(confidence(p[None, :])[0]) if len(p) > 1 else 1.0,
             scores={lab: round(float(s), 4) for lab, s in zip(self.labels, p, strict=True)},
             hashes=Hashes(prompt=prompt_sha(rendered), weights=self.weights_sha, env=self.env_sha),
+            evidence=self._evidence(cos),
         )
+
+    def _evidence(self, cos: F64) -> list[Evidence]:
+        """Each row's term of _read's sum over the same total, so a label's rows add up to its score. Weight desc, then row id."""
+        e = np.exp(self.beta * (cos - cos.max())) / self.Y.sum(axis=0)[self.y]
+        w = np.round(e / e.sum(), 3)
+        top = np.argsort(-w, kind="stable")[:EVIDENCE]  # stable over rows already in id order: ties go to the smaller id
+        return [Evidence(row_id=self.ids[i], label=self.labels[int(self.y[i])], weight=float(w[i])) for i in map(int, top)]
 
 
 def load(site: CallSite, data: bytes, encoder: Any) -> Memory:
