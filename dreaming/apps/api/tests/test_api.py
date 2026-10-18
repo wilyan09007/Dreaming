@@ -385,10 +385,11 @@ def test_a_probe_clears_an_outage_the_switch_did_not_cause(client: TestClient, d
     client.post(f"/tools/{VEN}/outage", json={"down": True})
     assert site(batch(client, 10), VEN).policy.outage is True
     down["vendor"] = False  # the tool comes back by itself: nobody plugs the switch
-    for _ in range(6):  # while out, 1 call in 20 probes the real call; a success clears the outage
-        s = batch(client, 50)
+    s = batch(client, 50)
+    for _ in range(5):  # while out, 1 call in 20 probes the real call; a success clears the outage
         if not site(s, VEN).policy.outage:
             break
+        s = batch(client, 50)
     assert site(s, VEN).policy.outage is False and EventKind.tool_recovered in kinds(client)
 
 
