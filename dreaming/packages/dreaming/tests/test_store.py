@@ -1,6 +1,6 @@
 """MemoryStore is the reference behaviour: every test below runs against it and against PostgresStore, so the two cannot drift.
 
-The Postgres half needs the scratch server below (schema re-applied from db/migrations/0001_init.sql, tables truncated before
+The Postgres half needs the scratch server below (schema re-applied from db/migrations/0001 and 0002, tables truncated before
 each test) and skips itself when there is none, so CI without a Postgres still passes.
 """
 
@@ -9,6 +9,7 @@ from __future__ import annotations
 from collections.abc import Iterator
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
+from typing import Literal
 
 import psycopg
 import pytest
@@ -16,8 +17,10 @@ from conftest import transactions
 from dreaming.contracts import (
     CallSite,
     Certificate,
+    Checkpoint,
     Component,
     Decision,
+    EvalSet,
     Event,
     EventKind,
     Hashes,
@@ -30,13 +33,14 @@ from dreaming.contracts import (
     TeacherSpec,
     Thresholds,
     TraceRow,
+    TrainRun,
 )
 from dreaming.replay import replay
 from dreaming.store import MemoryStore, PostgresStore, Store
 from test_runtime import build
 
 PG = "postgresql://dreaming@127.0.0.1:54329/dreaming"
-MIGRATION = Path(__file__).parents[3] / "db" / "migrations" / "0001_init.sql"
+MIGRATIONS = [Path(__file__).parents[3] / "db" / "migrations" / f for f in ("0001_init.sql", "0002_campaign.sql")]
 T0 = datetime(2026, 3, 1, 12, 0, 0, 123_456, tzinfo=UTC)  # with microseconds on purpose: timestamptz must keep every one
 
 
@@ -51,13 +55,14 @@ def pg_ready() -> None:
     except psycopg.OperationalError as e:
         pytest.skip(f"no scratch Postgres at {PG}: {e}")
     with conn:
-        conn.execute(MIGRATION.read_bytes())
+        for m in MIGRATIONS:
+            conn.execute(m.read_bytes())
 
 
 @pytest.fixture
 def pg_store(pg_ready: None) -> Iterator[PostgresStore]:
     with psycopg.connect(PG, autocommit=True) as conn:
-        conn.execute("truncate call_sites, policies, runs, trace_rows, certificates, weights, events")
+        conn.execute("truncate call_sites, policies, runs, trace_rows, certificates, weights, events, memory_rows, train_runs, checkpoints, eval_sets")
     store = PostgresStore(PG)
     yield store
     store.close()
@@ -98,6 +103,20 @@ def mk_run(n: int, input: object) -> Run:
 def mk_cert(n: int, call_site: str = "w.a") -> Certificate:
     return Certificate(id=f"cert{n}", call_site=call_site, teacher_sha="t" * 64, n_above=0, weights_sha="w" * 64, env_sha="e" * 64, budget=0.05, delta=0.05, cutoff=0.8125, coverage=0.6,
                        emp_error=0.0123, bound=0.0419, n_calib=500, n_errors=6, calib_sha="c" * 64, created_at=T0 + timedelta(minutes=n, microseconds=n))
+
+
+def mk_train_run(n: int, campaign: str = "c1") -> TrainRun:
+    return TrainRun(id=f"{campaign}:w.a:head:seed+real:s{n}", campaign=campaign, call_site="w.a", candidate="head", variant="seed+real", seed=n, config={"rungs": [60, 200], "fc_id": "fc-1"},
+                    where="modal:cpu", status="done", started_at=T0 + timedelta(seconds=n, microseconds=n), finished_at=T0 + timedelta(seconds=n + 9), seconds=9.5, cost_usd=0.0004, note=None)
+
+
+def mk_checkpoint(run: TrainRun, rung: int) -> Checkpoint:
+    return Checkpoint(run_id=run.id, rung=rung, weights_sha="w" * 64, eval_sha="e" * 64, scores_uri=f"modal://dreaming-weights/campaign/{run.id}/{rung}.npz", seconds=1.25, embed_ms=0.0,
+                      head_ms=0.31, bytes=4096, stable=True, summary={"acc_test": 0.9, "coverage_05": 0.625, "n_eval": 500.0}, ts=T0 + timedelta(minutes=rung, microseconds=rung))
+
+
+def mk_eval_set(split: Literal["calib", "test", "forward"] = "calib") -> EvalSet:
+    return EvalSet(sha=f"{split:_<64}", call_site="w.a", split=split, row_ids=["3", "7", "9"], labels=["x", "y", "x"], groups=["g1", "g1", "g2"])
 
 
 def mk_event(n: int, seconds: int) -> Event:
@@ -205,6 +224,33 @@ def test_weights_bytes_round_trip(store: Store):
     assert store.weights("sha1") == data
     with pytest.raises(KeyError):
         store.weights("none")
+
+
+def test_campaign_round_trip(store: Store):
+    r1, r2, r3 = mk_train_run(1), mk_train_run(2), mk_train_run(1, "c2")
+    for r in (r3, r2, r1):  # a cell's row exists before its checkpoints (foreign key)
+        store.put_train_run(r)
+    assert store.train_runs() == [r1, r2, r3] and store.train_runs("c1") == [r1, r2] and store.train_runs("none") == []
+    pruned = r1.model_copy(update={"status": "pruned", "note": "coverage flat"})
+    store.put_train_run(pruned)  # same id: replaced
+    assert store.train_runs("c1") == [pruned, r2]
+
+    c200, c60 = mk_checkpoint(r1, 200), mk_checkpoint(r1, 60)
+    store.put_checkpoint(c200)
+    store.put_checkpoint(c60)
+    c2 = mk_checkpoint(r3, 60)
+    store.put_checkpoint(c2)
+    assert store.checkpoints("c1") == [c60, c200] and store.checkpoints("c2") == [c2] and store.checkpoints("none") == []  # by run, then rung
+    assert store.checkpoints() == [c60, c200, c2]
+    again = c60.model_copy(update={"stable": False, "summary": {"acc_test": 0.5}})
+    store.put_checkpoint(again)  # same (run, rung): replaced
+    assert store.checkpoints("c1") == [again, c200]
+
+    calib, test = mk_eval_set("calib"), mk_eval_set("test")
+    store.put_eval_set(test)
+    store.put_eval_set(calib)
+    store.put_eval_set(calib.model_copy(update={"labels": ["y", "y", "y"]}))  # frozen by sha: the first write stays
+    assert store.eval_sets("w.a") == [calib, test] and store.eval_sets("w.none") == []
 
 
 def test_events_page_by_cursor(store: Store):
