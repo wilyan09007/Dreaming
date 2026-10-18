@@ -59,6 +59,7 @@ All under `dreaming/`, a uv workspace (layout in `dreaming/TREE.md`).
 The candidates, in plain words (`training-plan.md` section 1). The certificate picks the serving one per site; the others stay as spares.
 
 - `memory`: a softmax-weighted vote over stored (embedding, label) rows, seeded with LLM-written examples. Learning is appending a row, forgetting is deleting one, and every answer can show the rows that voted. `predictors/memory.py`
+- [`Psi`](https://github.com/aidenhongg/psi): our open-source workflow language model that reads this memory. A 204M-parameter transformer weighs the 64 nearest rows instead of one fixed softmax, with each row's relative distance to the call as its positional encoding. Pretrained on 20 public datasets plus our workflows, so it works on a new workflow without training; weights on GitHub via Git LFS.
 - `head`: a frozen bge-small encoder (33M parameters, 384-d) with a linear head fit per site in seconds. `predictors/student.py`
 - `finetune`: the same encoder unfrozen on the site's rows; needs a GPU. `predictors/finetune.py`
 - `hdc`: one integer bundle per class over 10,000-bit codes; after the encoder it is integer arithmetic, so the same embedding gives the same bytes anywhere. `predictors/hdc.py`
