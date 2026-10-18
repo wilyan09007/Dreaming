@@ -1,0 +1,54 @@
+# One Fly app, two process groups, one machine each. Deploy: fly deploy -c infra/fly.toml --ha=false -y
+# Secrets (fly secrets set --stage): DATABASE_URL OPENROUTERKEY ASI1KEY STEPFUNKEY GEMINIKEY SENTRY_DSN AGENTVERSEKEY AGENT_SEED MODAL_TOKEN_ID MODAL_TOKEN_SECRET LOGFIRE_TOKEN
+app = "dreaming-demo"
+primary_region = "iad"
+kill_timeout = "30s"        # keep the default SIGINT: uAgents shuts down cleanly on it, not on SIGTERM
+
+[build]
+  dockerfile = "serve.Dockerfile"
+
+[env]
+  PYTHONUNBUFFERED = "1"
+  OMP_NUM_THREADS = "1"     # part of env_sha: the API serves student heads at batch 1 with one thread
+  TRAINER = "modal"
+  TEACHER = "rule"          # 2026-10-17: OpenRouter is out of credit (402) and the ASI:One key hit its request quota (429, window "eon"), so the
+                            # deployed demo runs the rule teacher (every row says provider="rule", the page shows it). With credit: "openrouter" or "asi1"
+  ENCODER_REV = "5c38ec7c405ec4b44b94cc5a9bb96e735b38267a"   # the same commit for `modal deploy`; model.safetensors sha256 3c9f3166… (133 MB: Modal Volume, not Supabase Storage)
+  RECORDED_ANSWERS = "/app/data/recorded.jsonl"
+  EMBEDDING_CACHE = "/app/data/embeddings.npz"
+  DREAMING_API = "http://dreaming-demo.internal:8080"   # the agent machine relays chats here over Fly's private network
+
+[processes]
+  api = "uvicorn dreaming_api.wiring:app --factory --host 0.0.0.0 --port 8080 --proxy-headers --forwarded-allow-ips=*"
+  agent = "python -m bookkeeper.agent"
+
+[http_service]
+  processes = ["api"]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "off"
+  auto_start_machines = true
+  min_machines_running = 1
+  [http_service.concurrency]
+    type = "requests"
+    soft_limit = 100
+    hard_limit = 200
+  [[http_service.checks]]
+    grace_period = "30s"
+    interval = "15s"
+    timeout = "5s"
+    method = "GET"
+    path = "/healthz"
+
+[[vm]]
+  processes = ["api"]
+  size = "shared-cpu-1x"
+  memory = "1gb"            # the student encoder (33M params, torch CPU) lives here for replay and shadowing
+[[vm]]
+  processes = ["agent"]
+  size = "shared-cpu-1x"
+  memory = "512mb"
+
+[[restart]]
+  policy = "always"
+  processes = ["api", "agent"]
