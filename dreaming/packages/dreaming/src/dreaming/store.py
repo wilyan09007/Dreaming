@@ -10,10 +10,12 @@ weights up to a few MB live in Postgres as bytea, larger files go to object stor
 
 from __future__ import annotations
 
+import contextlib
+import threading
 from collections import defaultdict
 from collections.abc import Sequence
 from datetime import UTC, datetime
-from typing import TYPE_CHECKING, Protocol
+from typing import TYPE_CHECKING, Any, Protocol
 
 from pydantic import BaseModel
 
@@ -202,6 +204,35 @@ def _insert(table: str, model: type[BaseModel], key: str | tuple[str, ...], *, u
         sql.SQL(", ").join(map(sql.Identifier, keys)), sql.SQL("do update set {}").format(sets) if update else sql.SQL("do nothing"))
 
 
+
+class _Locked:
+    """One psycopg connection shared by every thread of the API (the fast-forward loop, FastAPI's workers, the trainer pool).
+    psycopg3 connections are not thread-safe: on 2026-10-18 two threads interleaved a transaction() block with other statements and
+    the connection sat 'idle in transaction' for 20 minutes, so 2,900 runs were written but never committed. Every statement, and
+    every transaction() block as a whole, now holds one re-entrant lock. execute() fetches its result set before returning, so
+    iterating the cursor afterwards touches no socket."""
+
+    def __init__(self, conn: Any) -> None:
+        self._c, self._lock = conn, threading.RLock()
+
+    def execute(self, *args: Any, **kwargs: Any) -> Any:
+        with self._lock:
+            return self._c.execute(*args, **kwargs)
+
+    def transaction(self) -> contextlib.ExitStack:
+        stack = contextlib.ExitStack()  # lock first, then BEGIN; unwound in reverse on exit
+        stack.enter_context(self._lock)
+        stack.enter_context(self._c.transaction())
+        return stack
+
+    def cursor(self) -> Any:  # only used inside transaction() blocks, where the lock is already held
+        return self._c.cursor()
+
+    def close(self) -> None:
+        with self._lock:
+            self._c.close()
+
+
 class PostgresStore:
     """psycopg 3 against db/migrations/0001_init.sql. Construct with the pooler URL; one autocommit connection per store is
     enough for the demo, and there is no reconnect: a store error is the caller's to log (fail open, see the module docstring).
@@ -215,7 +246,7 @@ class PostgresStore:
         import psycopg
         from psycopg.rows import DictRow, dict_row
 
-        self._conn = psycopg.Connection[DictRow].connect(dsn, autocommit=True, row_factory=dict_row)
+        self._conn: Any = _Locked(psycopg.Connection[DictRow].connect(dsn, autocommit=True, row_factory=dict_row))
         self._conn.execute("set timezone = 'UTC'")  # every datetime we write is UTC; read them back the same way
 
     def close(self) -> None:

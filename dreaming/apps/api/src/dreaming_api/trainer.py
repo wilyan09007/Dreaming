@@ -12,6 +12,7 @@ from typing import Any
 
 from dreaming.contracts import CallSite, TraceRow, TrainRequest, TrainResult
 from dreaming.predictors import Loader
+from dreaming.predictors.train import LocalTrainer
 from dreaming.store import Store
 
 APP, FUNCTION = "dreaming-trainer", "train"
@@ -25,5 +26,7 @@ class ModalTrainer:
         self.fn: Any = modal.Function.from_name(APP, FUNCTION)  # pyright: ignore[reportUnknownMemberType]  # lazy: resolved on first call
 
     def train(self, req: TrainRequest, site: CallSite, rows: Sequence[TraceRow]) -> TrainResult:
+        if req.candidate == "config":  # a router site's weights are its cheap TeacherSpec: fit in-process, the job refuses it (2026-10-18)
+            return LocalTrainer(self.store, self.loader).train(req, site, rows)
         call = self.fn.spawn(req.model_dump(), site.model_dump())  # plain dicts: Modal pickles arguments
         return TrainResult.model_validate(call.get(timeout=self.timeout_s))
