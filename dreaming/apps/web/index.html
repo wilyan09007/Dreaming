@@ -193,7 +193,7 @@ button.node:hover{box-shadow:5px 7px 0 rgba(43,43,51,.2)}
 .receipt .m{font-family:var(--mono);font-size:13px;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .receipt .a{font-family:var(--hand);font-weight:700;font-size:24px;line-height:1}
 .receipt .meta{grid-column:1/-1;font-size:13px;color:var(--muted)}
-.trace{padding:22px 26px 18px;border-radius:12px 20px 14px 22px/20px 12px 22px 14px;box-shadow:6px 7px 0 rgba(43,43,51,.1)}
+.trace{padding:22px 26px 18px;border-radius:12px 20px 14px 22px/20px 12px 22px 14px;box-shadow:6px 7px 0 rgba(43,43,51,.1);container-type:inline-size}
 .trace::before{content:"";position:absolute;left:42%;top:-12px;width:70px;height:22px;background:rgba(127,183,255,.5);transform:rotate(2deg)}
 .trace-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
 .trace h2{font-size:36px;line-height:1}
@@ -207,9 +207,10 @@ button.node:hover{box-shadow:5px 7px 0 rgba(43,43,51,.2)}
 .trow:first-child{border-top:0}
 .trow>b{font-size:22px;line-height:1}
 .tans{font-size:15px;font-weight:600}
-.tby{display:flex;align-items:center;gap:7px;font-family:var(--hand);font-weight:700;font-size:19px}
-.tres{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-family:var(--hand);font-weight:700;font-size:19px}
+.tby{display:flex;align-items:center;gap:7px;min-height:24px;font-family:var(--hand);font-weight:700;font-size:19px}
+.tres{display:flex;flex-wrap:wrap;align-items:center;gap:6px;min-height:24px;font-family:var(--hand);font-weight:700;font-size:19px;line-height:24px}
 .tres .ok{color:var(--green);white-space:nowrap}
+.tres svg{display:block}
 .tres .log{color:var(--muted);white-space:nowrap}
 .tres .busy{color:var(--purple)}
 .trow.busy{background:rgba(226,217,255,.25)}
@@ -225,6 +226,10 @@ button.node:hover{box-shadow:5px 7px 0 rgba(43,43,51,.2)}
 .tres .bad{color:var(--red);white-space:nowrap}
 /* the memory's voting rows under a dream's answer: a second line inside the row's 58px, so the card keeps its height */
 .tev{grid-column:2/-1;font-size:13px;line-height:17px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* the four columns need about 720px inside the card ("from the log, not re-posted" alone is 223px): a narrower card, 1024 wide and below,
+   stacks each row as name + answer over who + result; on a phone the result gets a line of its own and the summary three */
+@container (max-width:720px){.trow{grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding:8px 0}.tev{grid-column:1/-1}}
+@container (max-width:480px){.tres{grid-column:1/-1}.tsum{min-height:78px}}
 
 /* scores: GET /benchmark, one notebook card per call site; every line of a card is 48px, so the table rows sit on the paper's rules */
 .scores h1{font-size:46px;line-height:1}
@@ -257,8 +262,6 @@ button.node:hover{box-shadow:5px 7px 0 rgba(43,43,51,.2)}
   .cells{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:14px}
   .cell:nth-child(3){border-left:0;padding-left:0}
   .cell .lbl{min-height:36px}
-  .trow{grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding:8px 0}
-  .tev{grid-column:1/-1}
 }
 @media (max-width:600px){
   .app{padding:14px 16px 20px}
