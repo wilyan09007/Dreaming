@@ -9,7 +9,7 @@ COPY apps/api apps/api
 COPY apps/web apps/web
 COPY agents agents
 COPY data data
-RUN uv sync --frozen --no-dev --package dreaming-api --package bookkeeper \
+RUN uv sync --frozen --no-dev --package dreaming-api --package bookkeeper --package quickbooks \
  && uv pip install --python .venv --index https://download.pytorch.org/whl/cpu --index-strategy unsafe-best-match "dreaming[student]"  # CPU torch, no CUDA wheels
 ENV PATH=/app/.venv/bin:$PATH
 # DREAMING_IMAGE_DIGEST is set by the deploy recipe to the image digest Fly reports, so env_sha names this exact image
