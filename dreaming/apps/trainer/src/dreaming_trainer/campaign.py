@@ -31,7 +31,8 @@ Volume layout, per site, written by prepare_site and only read by cells:
 Variants (training-plan §3): "real" trains on the rung's real rows; "seed+real" prepends every seed row; "seed" is day zero, one checkpoint at
 rung 0 of seed rows only. Eval rows are always real rows. A site without seeds on the Volume runs "real" only (launch_cells says so).
 
-Rules: a cell never writes a Policy; the same request gives the same weights_sha; eval rows are never training rows (EvalSet by group, and
+Rules: a cell never writes a Policy; the same request gives the same weights_sha on one CPU type (not across Modal's: measured below); eval
+rows are never training rows (EvalSet by group, and
 forward in time); cells never call a teacher; a cell opens Postgres only to write and closes it (the session pooler's pool is small).
 """
 
@@ -84,7 +85,8 @@ from dreaming_trainer.modal_app import image as base_image
 # modal_app.image already holds torch, the encoder and `dreaming` (copied); the two workflows and this package come after.
 image = (
     base_image.uv_pip_install("huggingface_hub==1.33.0", "pyyaml==6.0.2")  # the hub version sentence-transformers 6.1.0 resolves to; quickbooks.data reads the dataset with it
-    # same weights_sha on any Modal CPU: one BLAS thread and one kernel family (numpy's OpenBLAS picks per CPU otherwise; measured: 4 of 9 shas matched).
+    # one BLAS thread and one kernel family (numpy's OpenBLAS picks per CPU otherwise). Not enough for the same weights_sha on every Modal CPU:
+    # head x 3 seeds x 3 rungs on the same rows matched 4 of 9 before the pin and 6 of 9 after it (smoke-1018e vs 1018c/d); predictions stay stable.
     # TEACHER=stepfun: the workflows declare the StepFun TeacherSpec, so RecordedTeacher.key matches the record file's keys (its model and params)
     .env({"OPENBLAS_NUM_THREADS": "1", "OPENBLAS_CORETYPE": "Haswell", "TEACHER": "stepfun"})
     .add_local_python_source("bookkeeper", "quickbooks", "dreaming_trainer", copy=True)
@@ -349,7 +351,8 @@ def seed_rows(cs: CallSite, root: Path) -> list[dict[str, str]]:
 def _export(cs: CallSite) -> list[dict[str, str]]:
     if cs.id.startswith("quickbooks."):
         data = _import("quickbooks.data", cs.id)
-        raw: list[dict[str, Any]] = data.rows(cs.name, data.download(ROOT / "_quickbooks"))
+        # container disk, not the Volume: the raw dataset is not a campaign artifact, and the three sites prepare in parallel
+        raw: list[dict[str, Any]] = data.rows(cs.name, data.download(Path("/tmp/quickbooks")))
     else:
         raw = _trace_rows(cs)
     rows = [{k: str(r[k]) for k in ("rendered", "label", "group", "ts")} for r in raw]
@@ -371,7 +374,11 @@ def prepare_site(site: str) -> dict[str, Any]:
     if site not in TOOL_SITES:  # `exact` needs no vectors, and a tool site can have tens of thousands of rows
         enc = SentenceEncoder("/opt/encoder", revision=ENCODER_REV)
         encoder_sha, env_sha = enc.model_sha, enc.env_sha
-        np.save(d / "embeddings.npy", np.stack([enc.embed(r["rendered"]) for r in rows + seeds]).astype(np.float32))
+        vecs = [enc.embed(r["rendered"]) for r in rows + seeds]
+        # the encoder's half of Checkpoint.stable: CPU cells look these vectors up, so its second forward pass happens here, on a sample
+        if not all(np.array_equal(enc.embed(r["rendered"], fresh=True), v) for r, v in zip(rows[:64], vecs[:64], strict=True)):
+            raise RuntimeError(f"{site}: the encoder is not byte-stable at batch 1 (a thread setting leaked?); nothing written")
+        np.save(d / "embeddings.npy", np.stack(vecs).astype(np.float32))
     labels = cs.labels if cs.labels is not None else sorted({r["label"] for r in rows})
     (d / "rows.jsonl").write_text("".join(json.dumps(r) + "\n" for r in rows))
     (d / "seeds.jsonl").unlink(missing_ok=True)  # a re-prepare without seeds leaves none behind

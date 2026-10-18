@@ -7,7 +7,8 @@ Called by campaign.monitor (a Modal cron every 10 minutes, so it runs whether or
                                                realized error, accuracy, seconds, bytes, stable, status, note
     render(table) -> str                       the same table as text, one block per site
     prune(campaign) -> list[dict]              decide() on every checkpoint, then status -> pruned with the reason in `note`; a pruned
-                                               GPU cell is cancelled (FunctionCall.from_id(config.fc_id).cancel())
+                                               GPU cell is cancelled (FunctionCall.from_id(config.fc_id).cancel()); a cell still `running`
+                                               40 minutes after its start was killed by Modal (timeout, memory) -> failed
     decide(rows) -> list[(run_id, note)]       the four rules of §4 as a pure function over flat (run x checkpoint) rows
 
 Rules (§4): 1 at any rung: not byte-stable, realized error over 5% on the test slice, or the cell raised. 2 at rungs 500 and 2000: within
@@ -120,6 +121,9 @@ def decide(rows: list[dict[str, Any]]) -> list[tuple[str, str]]:
 
 def prune(campaign: str) -> list[dict[str, Any]]:
     """Apply decide(): status -> pruned, reason in note; cancel the pruned cells that run on a GPU. Returns what it pruned."""
+    with _connect() as conn:  # rule 1's "cell that raised" where no except could see it: killed at its timeout (30 min at most) or out of memory
+        conn.execute("update train_runs set status = 'failed', note = 'killed: no finish within 40 minutes of its start (timeout or memory)', finished_at = now() "
+                     "where campaign = %s and status = 'running' and started_at < now() - interval '40 minutes'", (campaign,))
     rows = fetch(campaign)
     meta = {r["run_id"]: r for r in rows}
     out: list[dict[str, Any]] = []
