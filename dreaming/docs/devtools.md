@@ -120,7 +120,7 @@ name needs `set_data("gen_ai.provider.name", …)`. Crons does not count toward 
 
 | when | what Sentry showed | what we changed |
 |---|---|---|
-| (starts when the DSN is live) | | |
+| 2026-10-18 03:50 PDT, cluster G, local offline API with `SENTRY_ENV=g-sentry-test` | No error issue: the build's own runs raised none (the project's only issue is the 05:27Z DSN smoke). The first traffic (6 `POST /run`, two batches of 40 and 10 runs, over 3 API starts) arrived as 56 `gen_ai.invoke_agent`, 168 `gen_ai.chat` and 112 `gen_ai.execute_tool` spans plus the JSON lines as Logs with `component` and `kind` attributes, and the AI Agents Overview filled from the hand-made spans (LLM calls by model, tool calls by name; tokens and cost stay empty until a recorded or live teacher reports usage). `GET /healthz` transactions were sent by the SDK but never arrive: the project's health-check inbound filter is on, so the uptime monitor is the `/healthz` evidence. | `telemetry.py`: runs started by the `/batch` thread no longer hang off the already-sent request transaction (their spans were dropped); errors group by component, kind and site instead of by message (run ids made every failure a new issue); log attributes are flat; a malformed `SENTRY_DSN` is a warning, not a dead process; `SENTRY_TRACES` defaults to 1.0 (the batch override is 0.05). Commit: cluster G, `telemetry: Sentry gen_ai spans, flat Logs, grouped issues`. |
 
 Caught before Sentry existed (stdout and the `events` table, 2026-10-17, for honesty's sake): the 402 from OpenRouter when
 `max_tokens` was unset; the model step marked as an outage after three 429s; `/state` timing out while the batch thread embedded
