@@ -5,15 +5,19 @@ The page is `demo/index.html` (looks, tabs and copy stay as in `demo/VISUAL_INTE
 served by the API's `StaticFiles` mount at `/` (same origin: no CORS, `apiBase = ''`). The page computes nothing; every number is a field below
 (the one ratio is a site's "−N% cost" note, `1 − cost_dream_usd / cost_awake_usd`). `demo/index.html` stays the simulation the design was drawn from.
 
-Under each dream-journal row, small Gaegu lines name the promoted candidate with its certified coverage and bound (`Policy.candidate`,
-`Certificate`), then each spare (`Policy.shadow`, its certificate from `spare_certificates` when it certified at the budget in force).
+Under each dream-journal row, small Gaegu lines name the promoted candidate in plain words (the scores tab's names: "Hopfield memory",
+"exact cache", "thinking off") with its certified coverage and bound, "wrong at most" (`Policy.candidate`, `Certificate`), then each spare
+(`Policy.shadow`, its certificate from `spare_certificates` when it certified at the budget in force). They follow the held sticker:
+a row still showing "testing" prints no certified numbers. The promise card states the same promise's three numbers in one line:
+allowed (`budget`, the headline), seen on the share it answers (`emp_error`, `coverage`) and the bound (`bound`); a "no promise" card
+says its disagreement is over every call (`Attempt.emp_error`), which is why a cutoff can still certify at `Attempt.min_budget`.
 
 ## (a) On load
 1. `GET /healthz` -> `Health {ok, checks{db, trainer, teacher, realtime}, version, env_sha}`. Show a strip only for a red check.
 2. `GET /state` -> `State` (defined in `apps/api/.../main.py`, not in `contracts.py`):
    `sites: SiteView[]` (`{site: CallSite, policy: Policy, certificate: Certificate | null}`), `budget` (fraction 0.01..0.10; slider = budget x 100),
    `metrics: Metrics` (now), `series: Metrics[]` (`batch.progress` snapshots, oldest first), `runs: Run[]` (last 50, newest last), `recorded: boolean`,
-   `unplugged: string[]` (tool sites whose fault switch is off: the plug pill, after a reload and in every tab).
+   `unplugged: string[]` (tool sites whose fault switch is off: the plug pill, after a reload and in every tab; with `Policy.outage`, the rain cloud).
 3. `subscribe(...)` from `live.js`. Site ids: `bookkeeper.categorize | vendor_lookup | match_invoice | anything_odd` (kinds `model | tool | model | router`)
    and the effects `post_to_books`, `wake_a_human` (`kind: effect`: the two non-clickable nodes). "bank feed" is a static node.
 
@@ -49,7 +53,8 @@ const stop = subscribe(supabaseUrl, publishableKey, '', (m) => apply(m)); // m.t
 | `SITES[i]`: `id`, `name`, `tool`, `router`, `watchAt`, `teacher` | `State.sites[i].site`: `id`, `kind` (`model`, `tool`, `router`, `effect`), `thresholds.watch_after`, `teacher.provider`. Display names ("vendor lookup", "anything odd?") are a page map keyed by `site.name` |
 | `S.seen[id]` | `Policy.rows` |
 | `phase(s).p` | `Policy.phase`; `down` comes from `Policy.outage` (g) |
-| `ph.counted`, `CHECK` = 500, the sheep | `min(Policy.shadow_rows, thresholds.calibrate_after)`; 1 sheep = `calibrate_after / 10` |
+| `ph.counted`, `CHECK` = 500, the sheep | while counting `min(Policy.shadow_rows, thresholds.calibrate_after)`, 1 sheep = `calibrate_after / 10`; with a promise (or a failed attempt) all ten, 1 sheep = `Certificate.n_calib / 10` (`Attempt.n / 10`), so they match "checked against N" |
+| "~~1.0¢~~ → 0.69¢" (journal, card) | `SiteView.cost_awake_usd` → `cost_dream_usd`: the blend the certificate's coverage implies (covered share at the prediction's cost, 1 in N of it audited, the rest at the real call), so it moves with the budget. No real call in the window (an outage): "–", and no cost line on the card |
 | `ph.cant` ("no promise at 5%") | `phase === 'testing' && !cert_id && shadow_rows >= calibrate_after` (the runtime leaves a site in testing when nothing certifies) |
 | `cover(s, b)`, `ph.cov` ("dream answers 89%") | `Certificate.coverage` x 100 of `Policy.cert_id`. No cover tables, no interpolation |
 | `measured(s, b)`, `s.bound` | `Certificate.emp_error`, `Certificate.bound` (fractions, x 100). `bound <= budget` is what "certified" means |
@@ -58,7 +63,7 @@ const stop = subscribe(supabaseUrl, publishableKey, '', (m) => apply(m)); // m.t
 | `s.weights` ("weights 9f3a1c") | `Policy.weights_sha.slice(0, 6)` (= `Certificate.weights_sha`, = `Prediction.hashes.weights` on a row) |
 | `AUDIT` ("1 in 20"); `s.replay` | `1 / thresholds.audit_rate`; `site.replayable` (false for the router: "not replayable") |
 | `S.down`, the plug pill | the pill: `State.unplugged`; the rain cloud: `State.unplugged` or `Policy.outage` (detected) on `bookkeeper.vendor_lookup`. "circuit breaker: 100%" is page copy, not a measurement: every run calls vendor lookup, so a plain breaker fails them all |
-| `metrics()` `.cost .sec .fail .rep` | `State.metrics`: `cost_per_run` (USD, x 100 for cents), `sec_per_run`, `failed_pct`, `replayable_pct` |
+| `metrics()` `.cost .sec .fail .rep` | `State.metrics`: `cost_per_run` (USD, x 100 for cents), `sec_per_run`, `failed_pct`, `replayable_pct`. `POST /budget` re-prices the window under the new promises (each call the new cutoff flips is charged the other path) and adds one `batch.progress` point at the same x: the chart's step |
 | `S.series`, `record()` | `State.series`, then `data.metrics` of each live `batch.progress`. x = point index x 20 runs (`Metrics` has no x) |
 | `S.saved` ("saved so far") | `Metrics.saved_usd` |
 | `S.runs`, `S.target`, `S.running` | no cumulative counter (`Metrics.runs` is the total number of runs so far (the x of every series point); the other fields average the last 100 finished runs. `POST /batch/pause` and `/batch/resume` drive the run button.
@@ -68,7 +73,7 @@ const stop = subscribe(supabaseUrl, publishableKey, '', (m) => apply(m)); // m.t
 | `steps[].ans`, `.hash`, "same bytes" | `TraceRow.response`; `ReplayStep.output_sha.slice(0, 6)`, `same_bytes`, `re_executed`. The 0.5 s row stepping animates a reply already in hand |
 | stuck run | `Run.stuck_at` (a site id); rows after it do not exist: "never ran" |
 | narration, `S.note`, `S.pop` | event `message`s: `site.phase` (`data.to`), `cert.issued` / `cert.revoked` (verdict, hold 2 s), `train.*`, `tool.outage`, `budget.changed`. Pacing stays in the page |
-| "re-checking..." ripple | `budget.changed`, then one `cert.issued` or `cert.revoked` per site; the stagger only spaces out results already returned |
+| "re-checking..." ripple | `budget.changed`, then one `cert.issued` or `cert.revoked` per site; the stagger only spaces out results already returned. The summary ends "cost per run now" (`State.metrics` after the reply). A release while a `POST /budget` is in flight is sent when it returns (the latest wins). The `site.phase` events of a budget change are the ripple's: they never replay as held stickers |
 
 ## (e) Honesty labels
 - `State.batch.recorded === true`: the batch narration says **"pre-recorded teacher answers"** ("fast-forwarding 2,000 transactions · pre-recorded teacher answers ·
