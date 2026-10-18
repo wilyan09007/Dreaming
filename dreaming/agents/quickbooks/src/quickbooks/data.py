@@ -31,6 +31,7 @@ from __future__ import annotations
 import random
 import shutil
 import tarfile
+import urllib.request
 from collections import Counter, defaultdict
 from collections.abc import Callable, Iterator, Sequence
 from pathlib import Path
@@ -57,10 +58,12 @@ _LOADER = yaml.CSafeLoader  # libyaml: 401 MB of YAML is minutes with it, far sl
 def download(root: Path) -> Path:
     out = root / "hackathon-100"
     if not (out / "index.json").is_file():
-        import huggingface_hub
-
-        hub: Any = huggingface_hub  # its overloads carry Unknowns that strict pyright rejects
-        tgz = hub.hf_hub_download(REPO, TARBALL, repo_type="dataset", local_dir=root)
+        # plain HTTPS, not huggingface_hub: the campaign image runs with HF_HUB_OFFLINE=1 (its encoder is baked in), which made
+        # hf_hub_download raise OfflineModeIsEnabled on Modal (2026-10-18); the dataset is public, no login
+        root.mkdir(parents=True, exist_ok=True)
+        tgz = root / TARBALL
+        if not tgz.is_file():
+            urllib.request.urlretrieve(f"https://huggingface.co/datasets/{REPO}/resolve/main/{TARBALL}", tgz)
         partial = root / ".partial"
         shutil.rmtree(partial, ignore_errors=True)
         with tarfile.open(tgz) as t:
